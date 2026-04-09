@@ -649,7 +649,7 @@ function parseCount(data) {
 }
 
 function loadCounter() {
-  fetch('https://api.counterapi.dev/v1/stunning-twilight-266e8a/downloads/get')
+  fetch('https://api.counterapi.dev/v1/stunning-twilight-266e8a/downloads')
     .then(r => r.json())
     .then(data => {
       console.log('counter GET:', data);
