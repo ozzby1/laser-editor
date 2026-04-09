@@ -408,13 +408,13 @@ setViewMode('split');
 
 function applyMaterialPreset() {
   const presets = {
-    wood:       { brightness: 10,  contrast: 30, gamma: 1.2, sharpness: 1,   invert: false, dithering: 'floyd',     threshold: 128 },
-    wood_dark:  { brightness: 30,  contrast: 50, gamma: 1.5, sharpness: 1,   invert: false, dithering: 'floyd',     threshold: 100 },
-    slate:      { brightness: 20,  contrast: 60, gamma: 0.9, sharpness: 2,   invert: true,  dithering: 'floyd',     threshold: 128 },
-    acrylic:    { brightness: 0,   contrast: 80, gamma: 1.0, sharpness: 0,   invert: false, dithering: 'threshold', threshold: 100 },
-    leather:    { brightness: 15,  contrast: 40, gamma: 1.3, sharpness: 1,   invert: false, dithering: 'atkinson',  threshold: 128 },
-    anodized:   { brightness: -10, contrast: 70, gamma: 0.8, sharpness: 2,   invert: true,  dithering: 'ordered4',  threshold: 128 },
-    paper:      { brightness: 5,   contrast: 50, gamma: 1.1, sharpness: 1,   invert: false, dithering: 'ordered4',  threshold: 128 },
+    wood:       { brightness: 10,  contrast: 30, gamma: 1.2, sharpness: 1 },
+    wood_dark:  { brightness: 30,  contrast: 50, gamma: 1.5, sharpness: 1 },
+    slate:      { brightness: 20,  contrast: 60, gamma: 0.9, sharpness: 2 },
+    acrylic:    { brightness: 0,   contrast: 80, gamma: 1.0, sharpness: 0 },
+    leather:    { brightness: 15,  contrast: 40, gamma: 1.3, sharpness: 1 },
+    anodized:   { brightness: -10, contrast: 70, gamma: 0.8, sharpness: 2 },
+    paper:      { brightness: 5,   contrast: 50, gamma: 1.1, sharpness: 1 },
   };
   const m = document.getElementById('materialSelect').value;
   if (!presets[m]) return;
@@ -424,9 +424,6 @@ function applyMaterialPreset() {
   set('contrast',   p.contrast);   document.getElementById('contrastVal').textContent   = p.contrast;
   set('gamma',      p.gamma);      document.getElementById('gammaVal').textContent      = p.gamma.toFixed(1);
   set('sharpness',  p.sharpness);  document.getElementById('sharpnessVal').textContent  = p.sharpness;
-  document.getElementById('invert').checked          = p.invert;
-  document.getElementById('ditheringMode').value     = p.dithering;
-  set('threshold',  p.threshold);  document.getElementById('thresholdVal').textContent  = p.threshold;
   processImage();
 }
 
@@ -444,10 +441,7 @@ function processImage() {
   applyGamma(imageData);
   const sharp = parseFloat(document.getElementById('sharpness').value);
   if (sharp > 0) imageData = applySharpen(imageData, w, h, sharp);
-  const mode   = document.getElementById('ditheringMode').value;
-  const thresh = parseInt(document.getElementById('threshold').value);
-  if (mode !== 'none') applyDithering(imageData, w, h, mode, thresh);
-  if (document.getElementById('invert').checked) applyInvert(imageData);
+  applyDithering(imageData, w, h, 'floyd', 128);
   const resultCanvas = document.getElementById('canvasResult');
   resultCanvas.width = w; resultCanvas.height = h;
   resultCanvas.getContext('2d').putImageData(imageData, 0, 0);
