@@ -7,7 +7,7 @@
 
 <!-- SEO -->
 <meta name="description" content="Free online photo editor for laser engraving. Adjust brightness, contrast, sharpness and download an optimized PNG ready for your laser engraver. No registration needed.">
-<meta name="keywords" content="laser engraving photo editor, free laser photo converter, dithering image, black and white laser, photo to laser, laser engraver image, free online editor, laser PNG">
+<meta name="keywords" content="laser engraving photo editor, free laser photo converter, black and white laser, photo to laser, laser engraver image, free online editor, laser PNG">
 <meta name="author" content="FREE PHOTO LASER EDITOR">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://photoengraving.online/">
@@ -15,7 +15,7 @@
 
 <!-- Open Graph -->
 <meta property="og:title" content="FREE PHOTO LASER EDITOR – Photo Editor for Laser Engraving">
-<meta property="og:description" content="Convert your photo into a laser-ready image for free. Dithering, brightness, contrast and more tools. 100% free, no registration needed.">
+<meta property="og:description" content="Convert your photo into a laser-ready image for free. Brightness, contrast, sharpness and more tools. 100% free, no registration needed.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://photoengraving.online/">
 <meta property="og:locale" content="cs_CZ">
@@ -182,19 +182,6 @@
     font-weight: 700;
   }
 
-  .divider {
-    height: 1px;
-    background: rgba(255,255,255,0.05);
-    margin: 10px 0;
-  }
-
-  input[type=checkbox] {
-    accent-color: #f97316;
-    width: 14px;
-    height: 14px;
-    cursor: pointer;
-  }
-
   .canvas-label {
     font-size: 0.7rem;
     font-weight: 500;
@@ -203,6 +190,12 @@
     text-align: center;
     margin-bottom: 6px;
     text-transform: uppercase;
+  }
+
+  .helper-text {
+    font-size: 0.7rem;
+    color: #475569;
+    margin-top: 6px;
   }
 </style>
 </head>
@@ -281,28 +274,13 @@
             </div>
           </div>
 
-          <div class="divider"></div>
-
           <div>
-            <label for="ditherMode">Metoda ditheringu</label>
+            <label for="ditherMode">Styl gravírování</label>
             <select id="ditherMode" class="w-full mt-1">
-              <option value="floyd">Floyd-Steinberg (výchozí)</option>
-              <option value="atkinson">Atkinson</option>
-              <option value="stucki">Stucki</option>
-              <option value="ordered2">Bayer 2×2</option>
-              <option value="ordered4">Bayer 4×4</option>
-              <option value="ordered8">Bayer 8×8</option>
-              <option value="threshold">Threshold (čistý B/W)</option>
-              <option value="random">Náhodný</option>
+              <option value="floyd">Detailní (fotografie)</option>
+              <option value="atkinson">Kontrastní (grafika)</option>
             </select>
-          </div>
-
-          <div id="thresholdRow">
-            <label for="threshold">Práh (threshold)</label>
-            <div class="slider-row mt-1">
-              <input type="range" id="threshold" min="0" max="255" value="128">
-              <span class="slider-val" id="thresholdVal">128</span>
-            </div>
+            <div class="helper-text">Fotky → Detailní | Logo a text → Kontrastní</div>
           </div>
         </div>
       </div>
@@ -378,8 +356,8 @@
             <div style="display:flex;align-items:flex-start;gap:10px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:10px;padding:12px 14px;flex:1;min-width:130px;max-width:200px">
               <div style="width:28px;height:28px;border-radius:50%;background:rgba(249,115,22,0.15);border:1px solid rgba(249,115,22,0.3);display:flex;align-items:center;justify-content:center;font-size:0.85rem;font-weight:700;color:#f97316;flex-shrink:0">2</div>
               <div>
-                <div style="font-size:0.8rem;font-weight:600;color:#cbd5e1;margin-bottom:2px">Zvol materiál</div>
-                <div style="font-size:0.7rem;color:#475569">Dřevo, kámen, kůže…</div>
+                <div style="font-size:0.8rem;font-weight:600;color:#cbd5e1;margin-bottom:2px">Uprav nastavení</div>
+                <div style="font-size:0.7rem;color:#475569">Jas, kontrast, styl gravírování…</div>
               </div>
             </div>
 
@@ -423,6 +401,8 @@ let originalImage = null;
 let viewMode = 'split';
 let renderQueued = false;
 
+const FIXED_THRESHOLD = 128;
+
 const fileInput = document.getElementById('fileInput');
 const dropZone = document.getElementById('dropZone');
 const materialSelect = document.getElementById('materialSelect');
@@ -435,7 +415,6 @@ const sliderIds = [
   ['contrast', 'contrastVal'],
   ['gamma', 'gammaVal'],
   ['sharpness', 'sharpnessVal'],
-  ['threshold', 'thresholdVal'],
   ['outputWidth', 'outputWidthVal']
 ];
 
@@ -469,12 +448,8 @@ dropZone.addEventListener('drop', e => {
 });
 
 materialSelect.addEventListener('change', applyMaterialPreset);
-ditherMode.addEventListener('change', () => {
-  updateThresholdVisibility();
-  scheduleProcessImage();
-});
-
-document.getElementById('downloadBtn').addEventListener('click', downloadResult);
+ditherMode.addEventListener('change', scheduleProcessImage);
+downloadBtn.addEventListener('click', downloadResult);
 
 document.getElementById('btnSplit').addEventListener('click', () => setViewMode('split'));
 document.getElementById('btnOriginal').addEventListener('click', () => setViewMode('original'));
@@ -486,10 +461,6 @@ sliderIds.forEach(([inputId, valueId]) => {
     updateSlider(el, valueId);
     scheduleProcessImage();
   });
-});
-
-document.getElementById('dpi').addEventListener('change', () => {
-  // není potřeba překreslit, DPI se projeví při exportu
 });
 
 function scheduleProcessImage() {
@@ -543,8 +514,8 @@ function drawOriginal() {
 }
 
 function updateSlider(el, valId) {
-  const stepAttr = el.step;
-  const step = stepAttr ? parseFloat(stepAttr) : 1;
+  const stepAttr = el.step || '1';
+  const step = parseFloat(stepAttr);
 
   let decimals = 0;
   if (!Number.isInteger(step)) {
@@ -575,12 +546,6 @@ function setViewMode(mode) {
   }
 }
 
-function updateThresholdVisibility() {
-  const mode = document.getElementById('ditherMode').value;
-  const visibleModes = ['threshold', 'floyd', 'stucki', 'atkinson'];
-  document.getElementById('thresholdRow').style.display = visibleModes.includes(mode) ? 'block' : 'none';
-}
-
 function applyMaterialPreset() {
   const presets = {
     wood:       { brightness: 10,  contrast: 30, gamma: 1.2, sharpness: 1 },
@@ -593,7 +558,7 @@ function applyMaterialPreset() {
     stainless:  { brightness: -20, contrast: 90, gamma: 0.75, sharpness: 3 }
   };
 
-  const m = document.getElementById('materialSelect').value;
+  const m = materialSelect.value;
   if (!presets[m]) return;
 
   const p = presets[m];
@@ -637,9 +602,7 @@ function processImage() {
     imageData = applySharpen(imageData, w, h, sharp);
   }
 
-  const mode = document.getElementById('ditherMode').value;
-  const thresh = parseInt(document.getElementById('threshold').value, 10);
-  applyDithering(imageData, w, h, mode, thresh);
+  applyDithering(imageData, w, h, ditherMode.value, FIXED_THRESHOLD);
 
   const resultCanvas = document.getElementById('canvasResult');
   const resultCtx = resultCanvas.getContext('2d');
@@ -746,72 +709,33 @@ function applySharpen(imageData, w, h, amount) {
   return out;
 }
 
-const BAYER2 = [[0, 2], [3, 1]];
-const BAYER4 = [
-  [0, 8, 2, 10],
-  [12, 4, 14, 6],
-  [3, 11, 1, 9],
-  [15, 7, 13, 5]
-];
-const BAYER8 = [
-  [0,32,8,40,2,34,10,42],
-  [48,16,56,24,50,18,58,26],
-  [12,44,4,36,14,46,6,38],
-  [60,28,52,20,62,30,54,22],
-  [3,35,11,43,1,33,9,41],
-  [51,19,59,27,49,17,57,25],
-  [15,47,7,39,13,45,5,37],
-  [63,31,55,23,61,29,53,21]
-];
-
 function applyDithering(imageData, w, h, mode, thresh) {
   const d = imageData.data;
-
-  if (mode === 'threshold') {
-    for (let i = 0; i < d.length; i += 4) {
-      const v = d[i] >= thresh ? 255 : 0;
-      d[i] = d[i + 1] = d[i + 2] = v;
-    }
-    return;
-  }
-
-  if (mode === 'random') {
-    for (let i = 0; i < d.length; i += 4) {
-      const v = d[i] > Math.random() * 255 ? 255 : 0;
-      d[i] = d[i + 1] = d[i + 2] = v;
-    }
-    return;
-  }
-
-  if (mode === 'ordered2') {
-    bayerDither(d, w, h, BAYER2, 2, 4);
-    return;
-  }
-
-  if (mode === 'ordered4') {
-    bayerDither(d, w, h, BAYER4, 4, 16);
-    return;
-  }
-
-  if (mode === 'ordered8') {
-    bayerDither(d, w, h, BAYER8, 8, 64);
-    return;
-  }
-
   let weights;
 
   if (mode === 'floyd') {
-    weights = [[1,0,7/16],[-1,1,3/16],[0,1,5/16],[1,1,1/16]];
-  } else if (mode === 'stucki') {
     weights = [
-      [1,0,8/42],[2,0,4/42],
-      [-2,1,2/42],[-1,1,4/42],[0,1,8/42],[1,1,4/42],[2,1,2/42],
-      [-2,2,1/42],[-1,2,2/42],[0,2,4/42],[1,2,2/42],[2,2,1/42]
+      [1, 0, 7 / 16],
+      [-1, 1, 3 / 16],
+      [0, 1, 5 / 16],
+      [1, 1, 1 / 16]
     ];
   } else if (mode === 'atkinson') {
-    weights = [[1,0,1/8],[2,0,1/8],[-1,1,1/8],[0,1,1/8],[1,1,1/8],[0,2,1/8]];
+    weights = [
+      [1, 0, 1 / 8],
+      [2, 0, 1 / 8],
+      [-1, 1, 1 / 8],
+      [0, 1, 1 / 8],
+      [1, 1, 1 / 8],
+      [0, 2, 1 / 8]
+    ];
   } else {
-    return;
+    weights = [
+      [1, 0, 7 / 16],
+      [-1, 1, 3 / 16],
+      [0, 1, 5 / 16],
+      [1, 1, 1 / 16]
+    ];
   }
 
   const pixels = new Float32Array(w * h);
@@ -845,21 +769,10 @@ function applyDithering(imageData, w, h, mode, thresh) {
   for (let i = 0; i < w * h; i++) {
     const v = Math.max(0, Math.min(255, pixels[i]));
     d[i * 4] = d[i * 4 + 1] = d[i * 4 + 2] = v;
+    d[i * 4 + 3] = 255;
   }
 }
 
-function bayerDither(d, w, h, matrix, size, maxVal) {
-  for (let y = 0; y < h; y++) {
-    for (let x = 0; x < w; x++) {
-      const i = (y * w + x) * 4;
-      const threshold = (matrix[y % size][x % size] / maxVal) * 255;
-      const v = d[i] > threshold ? 255 : 0;
-      d[i] = d[i + 1] = d[i + 2] = v;
-    }
-  }
-}
-
-// Counter - Abacus API
 const ABACUS_GET = 'https://abacus.jasoncameron.dev/get/stunning-twilight-266e8a/downloads';
 const ABACUS_HIT = 'https://abacus.jasoncameron.dev/hit/stunning-twilight-266e8a/downloads';
 
@@ -917,11 +830,8 @@ function crc32(bytes) {
   for (let i = 0; i < bytes.length; i++) {
     crc ^= bytes[i];
     for (let j = 0; j < 8; j++) {
-      if (crc & 1) {
-        crc = (crc >>> 1) ^ 0xedb88320;
-      } else {
-        crc = crc >>> 1;
-      }
+      if (crc & 1) crc = (crc >>> 1) ^ 0xedb88320;
+      else crc = crc >>> 1;
     }
   }
 
@@ -952,7 +862,6 @@ function uint32ToBytes(num) {
 
 function createPhysChunk(dpi) {
   const ppm = Math.round(dpi / 0.0254);
-
   const type = new TextEncoder().encode('pHYs');
   const data = new Uint8Array(9);
 
@@ -966,7 +875,7 @@ function createPhysChunk(dpi) {
   data[6] = (ppm >>> 8) & 255;
   data[7] = ppm & 255;
 
-  data[8] = 1; // unit = meter
+  data[8] = 1;
 
   const crcInput = concatUint8Arrays(type, data);
   const crc = crc32(crcInput);
@@ -1017,9 +926,7 @@ async function canvasToPngBlobWithDPI(canvas, dpi) {
 
     const chunkTotalLength = 12 + length;
 
-    if (type === 'IHDR') {
-      ihdrEnd = offset + chunkTotalLength;
-    }
+    if (type === 'IHDR') ihdrEnd = offset + chunkTotalLength;
 
     if (type === 'pHYs') {
       existingPhysStart = offset;
@@ -1031,7 +938,6 @@ async function canvasToPngBlobWithDPI(canvas, dpi) {
   }
 
   const physChunk = createPhysChunk(dpi);
-
   let finalBytes;
 
   if (existingPhysStart !== -1) {
@@ -1085,7 +991,6 @@ async function downloadResult() {
 }
 
 loadCounter();
-updateThresholdVisibility();
 setViewMode('split');
 
 sliderIds.forEach(([inputId, valueId]) => {
