@@ -3,237 +3,1391 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PHOTOENGRAVING</title>
+<title>PHOTOENGRAVING – Laser Engraving Photo Editor</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+<meta name="description" content="Free online photo editor for laser engraving. Adjust brightness, contrast, sharpness and export an optimized PNG ready for your laser engraver.">
+<meta name="keywords" content="laser engraving photo editor, laser photo converter, photo to laser, grayscale to engraving, laser PNG">
+<meta name="author" content="PHOTOENGRAVING">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://photoengraving.online/">
+<link rel="icon" type="image/png" href="https://raw.githubusercontent.com/ozzby1/laser-editor/main/favi.png">
+
+<meta property="og:title" content="PHOTOENGRAVING – Laser Engraving Photo Editor">
+<meta property="og:description" content="Convert your photo into a laser-ready image for free. Brightness, contrast, sharpness, engraving style and export with correct DPI.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://photoengraving.online/">
+<meta property="og:locale" content="cs_CZ">
+<meta property="og:image" content="https://photoengraving.online/preview.png">
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://cdn.tailwindcss.com"></script>
 
 <style>
-body {
-  background:#0a0a0f;
-  color:#e2e8f0;
-  font-family:'Inter',sans-serif;
-}
+  * { box-sizing: border-box; }
 
-/* PANELY */
-.panel{
-  background:#0f1117;
-  border:1px solid rgba(255,255,255,0.06);
-  border-radius:16px;
-  backdrop-filter:blur(10px);
-}
+  :root {
+    --bg: #0a0a0f;
+    --panel: rgba(15,17,26,0.85);
+    --border: rgba(255,255,255,0.06);
+    --muted: #64748b;
+    --soft: #475569;
+    --text: #e2e8f0;
+    --accent: #f97316;
+    --accent2: #ea580c;
+  }
 
-/* CANVAS */
-canvas{
-  max-width:100%;
-  background:#000;
-}
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', 'Segoe UI', sans-serif;
+    min-height: 100%;
+  }
 
-/* WRAP */
-.canvas-wrap{
-  border-radius:14px;
-  overflow:hidden;
-  border:1px solid rgba(255,255,255,0.08);
-  background:#000;
-  min-height:260px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-}
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 50% at 20% -10%, rgba(249,115,22,0.07) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 40% at 80% 110%, rgba(99,102,241,0.05) 0%, transparent 60%);
+    pointer-events: none;
+    z-index: 0;
+  }
 
-/* ZOOM */
-.zoom-hover canvas{
-  transition:transform .35s ease;
-}
-.zoom-hover:hover canvas{
-  transform:scale(1.06);
-}
+  .content {
+    position: relative;
+    z-index: 1;
+  }
 
-/* POROVNÁNÍ */
-.compare-result-wrap{
-  border:1px solid rgba(249,115,22,0.35);
-  box-shadow:0 0 0 1px rgba(249,115,22,0.15),
-             0 8px 24px rgba(249,115,22,0.15);
-}
+  canvas {
+    display: block;
+    max-width: 100%;
+  }
 
-.compare-title{
-  font-size:.72rem;
-  text-align:center;
-  margin-bottom:8px;
-  font-weight:600;
-}
-.compare-title.orig{color:#94a3b8;}
-.compare-title.result{color:#f97316;}
+  #canvasResult,
+  #canvasSingle,
+  #compareProcessed {
+    image-rendering: pixelated;
+  }
 
-/* BUTTON */
-.view-btn{
-  background:#111;
-  border:1px solid rgba(255,255,255,0.1);
-  padding:6px 14px;
-  border-radius:8px;
-}
-.view-btn.active{
-  background:#f97316;
-  color:white;
-}
+  input[type=range] {
+    accent-color: var(--accent);
+  }
+
+  .panel {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 10px 28px rgba(0,0,0,0.18);
+  }
+
+  .section-title {
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--soft);
+    margin-bottom: 12px;
+  }
+
+  label {
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--muted);
+  }
+
+  select,
+  input[type=number] {
+    background: #0f1117;
+    border: 1px solid rgba(255,255,255,0.08);
+    color: #cbd5e1;
+    border-radius: 10px;
+    padding: 8px 10px;
+    font-size: 0.84rem;
+    font-family: inherit;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    width: 100%;
+  }
+
+  select:hover,
+  select:focus,
+  input[type=number]:hover,
+  input[type=number]:focus {
+    border-color: rgba(249,115,22,0.45);
+    box-shadow: 0 0 0 3px rgba(249,115,22,0.08);
+  }
+
+  .helper-text {
+    font-size: 0.7rem;
+    color: var(--soft);
+    margin-top: 6px;
+    line-height: 1.45;
+  }
+
+  .drop-zone {
+    border: 1.5px dashed rgba(255,255,255,0.1);
+    border-radius: 12px;
+    transition: all 0.2s;
+    background: rgba(255,255,255,0.01);
+  }
+
+  .drop-zone:hover {
+    border-color: rgba(249,115,22,0.4);
+    background: rgba(249,115,22,0.03);
+  }
+
+  .drop-zone.drag-over {
+    border-color: var(--accent);
+    background: rgba(249,115,22,0.07);
+  }
+
+  .slider-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .slider-row input[type=range] {
+    flex: 1;
+  }
+
+  .slider-val {
+    width: 44px;
+    text-align: right;
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--accent);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .btn {
+    cursor: pointer;
+    transition: all 0.16s ease;
+    font-family: inherit;
+    font-weight: 600;
+    border: none;
+    outline: none;
+  }
+
+  .btn:hover {
+    filter: brightness(1.08);
+  }
+
+  .btn:active {
+    transform: scale(0.98);
+  }
+
+  .btn-primary {
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 100%);
+    color: #fff;
+    border-radius: 10px;
+    padding: 10px 16px;
+    font-size: 0.86rem;
+    box-shadow: 0 4px 16px rgba(249,115,22,0.25);
+  }
+
+  .btn-secondary {
+    background: rgba(255,255,255,0.04);
+    color: #cbd5e1;
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 10px;
+    padding: 10px 14px;
+    font-size: 0.82rem;
+  }
+
+  .view-btn {
+    background: transparent;
+    color: var(--muted);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 9px;
+    padding: 6px 14px;
+    font-size: 0.78rem;
+  }
+
+  .view-btn.active {
+    background: rgba(249,115,22,0.15);
+    color: var(--accent);
+    border-color: rgba(249,115,22,0.28);
+  }
+
+  .counter-badge,
+  .info-badge {
+    background: rgba(249,115,22,0.08);
+    border: 1px solid rgba(249,115,22,0.18);
+    border-radius: 999px;
+    padding: 4px 12px;
+    font-size: 0.72rem;
+    color: #94a3b8;
+    white-space: nowrap;
+  }
+
+  .counter-badge span,
+  .info-badge span {
+    color: var(--accent);
+    font-weight: 700;
+  }
+
+  .info-card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 12px;
+    padding: 10px 12px;
+  }
+
+  .mini-grid {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 8px 10px;
+    align-items: center;
+  }
+
+  .canvas-label {
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    color: #475569;
+    text-align: center;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+  }
+
+  .compare-wrap {
+    position: relative;
+    width: 100%;
+    background: #000;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.06);
+    user-select: none;
+    line-height: 0;
+  }
+
+  .compare-base {
+    position: relative;
+    width: 100%;
+  }
+
+  .compare-base canvas {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .compare-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    overflow: hidden;
+    border-right: 2px solid rgba(249,115,22,0.9);
+    z-index: 1;
+  }
+
+  .compare-overlay canvas {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .compare-handle {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 28px;
+    margin-left: -14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    z-index: 2;
+  }
+
+  .compare-handle::before {
+    content: '↔';
+    width: 28px;
+    height: 28px;
+    border-radius: 999px;
+    background: rgba(249,115,22,0.92);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    box-shadow: 0 6px 18px rgba(249,115,22,0.35);
+  }
+
+  .compare-range {
+    width: 100%;
+    margin-top: 12px;
+  }
+
+  .empty-steps {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .empty-step {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 10px;
+    padding: 12px 14px;
+    flex: 1;
+    min-width: 130px;
+    max-width: 210px;
+  }
+
+  .empty-step.primary {
+    background: rgba(249,115,22,0.07);
+    border-color: rgba(249,115,22,0.35);
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .empty-step.primary:hover {
+    background: rgba(249,115,22,0.12);
+  }
+
+  .empty-step-num {
+    width: 28px;
+    height: 28px;
+    border-radius: 999px;
+    background: rgba(249,115,22,0.18);
+    border: 1px solid rgba(249,115,22,0.36);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--accent);
+    flex-shrink: 0;
+  }
+
+  .hint-line {
+    text-align: center;
+    margin-top: 18px;
+    font-size: 0.78rem;
+    color: #334155;
+  }
+
+  .footer-note {
+    font-size: 0.7rem;
+    color: #475569;
+    line-height: 1.5;
+  }
 </style>
 </head>
+<body>
+<div class="content max-w-7xl mx-auto px-4 py-6">
 
-<body class="p-4">
+  <header class="flex items-center gap-3 mb-7 flex-wrap">
+    <a href="https://photoengraving.online/">
+      <img src="logo.png" alt="Photoengraving Logo" style="height:72px;width:auto;">
+    </a>
+    <div class="ml-auto flex flex-wrap gap-2">
+      <div class="counter-badge">📸 Zpracováno: <span id="photoCounter">…</span></div>
+      <div class="info-badge">DPI export: <span>aktivní</span></div>
+    </div>
+  </header>
 
-<div class="max-w-6xl mx-auto grid lg:grid-cols-3 gap-4">
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
 
-<!-- PREVIEW -->
-<div class="lg:col-span-2 flex flex-col gap-3">
+    <!-- PREVIEW -->
+    <div class="lg:col-span-2 flex flex-col gap-3 order-1 lg:order-1">
+      <div class="panel px-4 py-3 flex gap-2 items-center flex-wrap">
+        <span style="font-size:0.75rem;color:#475569;font-weight:600">Náhled:</span>
+        <button class="btn view-btn active" id="btnResult">Výsledek</button>
+        <button class="btn view-btn" id="btnCompare">Porovnání</button>
+        <div class="ml-auto" style="font-size:0.72rem;color:#334155" id="imageDims"></div>
+      </div>
 
-<div class="panel p-3 flex gap-2">
-<button id="btnResult" class="view-btn active">Výsledek</button>
-<button id="btnCompare" class="view-btn">Porovnání</button>
-</div>
+      <div class="panel p-5 flex-1">
+        <div id="emptyState" style="min-height:320px">
 
-<div class="panel p-4">
+          <div style="display:flex;gap:12px;margin-bottom:24px;align-items:flex-end">
+            <div style="flex:1">
+              <div style="font-size:0.65rem;font-weight:700;letter-spacing:0.08em;color:#94a3b8;margin-bottom:6px;text-align:center">ORIGINÁL</div>
+              <div style="border-radius:10px;overflow:hidden;border:1px solid rgba(255,255,255,0.07);background:#000">
+                <img src="preview.png" alt="Ukázka originálu" style="width:100%;display:block;object-fit:contain;">
+              </div>
+            </div>
+            <div style="display:flex;align-items:center;color:#f97316;font-size:1.4rem;padding-bottom:4px">→</div>
+            <div style="flex:1">
+              <div style="font-size:0.65rem;font-weight:700;letter-spacing:0.08em;color:#f97316;margin-bottom:6px;text-align:center">VÝSLEDEK</div>
+              <div style="border-radius:10px;overflow:hidden;border:1px solid rgba(249,115,22,0.2);background:#000">
+                <img src="laser.png" alt="Ukázka výsledku" style="width:100%;display:block;object-fit:contain;">
+              </div>
+            </div>
+          </div>
 
-<div id="canvasArea" style="display:none">
+          <div class="empty-steps">
+            <div id="uploadCtaCard" class="empty-step primary">
+              <div class="empty-step-num">1</div>
+              <div>
+                <div style="font-size:0.8rem;font-weight:700;color:#f97316;margin-bottom:2px">Nahraj fotku ↑</div>
+                <div style="font-size:0.7rem;color:#94a3b8">Klikni sem nebo přetáhni</div>
+              </div>
+            </div>
 
-<div id="resultView">
-<div class="zoom-hover canvas-wrap">
-<canvas id="canvasSingle"></canvas>
-</div>
-</div>
+            <div class="empty-step">
+              <div class="empty-step-num">2</div>
+              <div>
+                <div style="font-size:0.8rem;font-weight:600;color:#cbd5e1;margin-bottom:2px">Uprav nastavení</div>
+                <div style="font-size:0.7rem;color:#475569">Materiál, kontrast, styl…</div>
+              </div>
+            </div>
 
-<div id="compareView" style="display:none">
-<div class="grid md:grid-cols-2 gap-4">
+            <div class="empty-step">
+              <div class="empty-step-num">3</div>
+              <div>
+                <div style="font-size:0.8rem;font-weight:600;color:#cbd5e1;margin-bottom:2px">Stáhni PNG</div>
+                <div style="font-size:0.7rem;color:#475569">Hotovo pro gravírování</div>
+              </div>
+            </div>
+          </div>
 
-<div>
-<div class="compare-title orig">Originál</div>
-<div class="zoom-hover canvas-wrap">
-<canvas id="canvasCompareOrig"></canvas>
-</div>
-</div>
+          <div class="hint-line">↑ Začni nahráním fotky</div>
+        </div>
 
-<div>
-<div class="compare-title result">Výsledek</div>
-<div class="zoom-hover canvas-wrap compare-result-wrap">
-<canvas id="canvasCompareResult"></canvas>
-</div>
-</div>
+        <div id="canvasArea" style="display:none">
+          <div id="resultView">
+            <div class="canvas-label">Výsledek</div>
+            <canvas id="canvasSingle" class="w-full rounded-lg" style="border:1px solid rgba(255,255,255,0.05)"></canvas>
+          </div>
 
-</div>
-</div>
+          <div id="compareView" style="display:none">
+            <div class="canvas-label">Porovnání</div>
+            <div class="compare-wrap">
+              <div class="compare-base">
+                <canvas id="compareOriginal"></canvas>
+              </div>
+              <div class="compare-overlay" id="compareOverlay" style="width:50%">
+                <canvas id="compareProcessed"></canvas>
+              </div>
+              <div class="compare-handle" id="compareHandle" style="left:50%"></div>
+            </div>
+            <input type="range" id="compareRange" class="compare-range" min="0" max="100" value="50">
+          </div>
+        </div>
+      </div>
+    </div>
 
-</div>
+    <!-- TOOLS -->
+    <div class="flex flex-col gap-3 order-2 lg:order-2">
 
-<div id="emptyState" class="text-center py-20 text-gray-500">
-Nahraj obrázek
-</div>
+      <div class="panel p-4">
+        <div class="section-title">Nahrát fotku</div>
+        <div class="drop-zone p-5 text-center cursor-pointer" id="dropZone">
+          <div style="font-size:2rem;margin-bottom:6px">📷</div>
+          <div style="font-size:0.84rem;color:#64748b">Přetáhni nebo klikni pro výběr</div>
+          <div style="font-size:0.7rem;color:#334155;margin-top:3px">JPG, PNG, BMP, WebP</div>
+          <input type="file" id="fileInput" accept="image/*" style="display:none">
+        </div>
+      </div>
 
-</div>
-</div>
+      <div class="panel p-4">
+        <div class="section-title">Materiál / Preset</div>
+        <label for="materialSelect">Na co gravíruješ?</label>
+        <select id="materialSelect" class="mt-1">
+          <option value="custom">— Zvolte materiál —</option>
+          <option value="wood">🪵 Dřevo (světlé)</option>
+          <option value="wood_dark">🌳 Dřevo (tmavé)</option>
+          <option value="slate">🪨 Břidlice / Kámen</option>
+          <option value="acrylic">🔷 Akrylát</option>
+          <option value="leather">🟤 Kůže</option>
+          <option value="anodized">⬛ Anodizovaný hliník</option>
+          <option value="paper">📄 Papír / Karton</option>
+          <option value="stainless">🔩 Nerez ocel</option>
+        </select>
+      </div>
 
-<!-- TOOLY -->
-<div class="flex flex-col gap-3">
+      <div class="panel p-4">
+        <div class="section-title">Úprava fotky</div>
+        <div class="flex flex-col gap-4">
+          <div>
+            <label for="brightness">Jas</label>
+            <div class="slider-row mt-1">
+              <input type="range" id="brightness" min="-150" max="150" value="0">
+              <span class="slider-val" id="brightnessVal">0</span>
+            </div>
+          </div>
 
-<div class="panel p-4">
-<input type="file" id="fileInput">
-</div>
+          <div>
+            <label for="contrast">Kontrast</label>
+            <div class="slider-row mt-1">
+              <input type="range" id="contrast" min="-150" max="150" value="0">
+              <span class="slider-val" id="contrastVal">0</span>
+            </div>
+          </div>
 
-<div class="panel p-4">
-<label>Styl gravírování</label>
-<select id="ditherMode" class="w-full mt-2">
-<option value="floyd">Detailní</option>
-<option value="atkinson">Kontrastní</option>
-</select>
-</div>
+          <div>
+            <label for="gamma">Gama</label>
+            <div class="slider-row mt-1">
+              <input type="range" id="gamma" min="0.1" max="3.0" step="0.05" value="1.0">
+              <span class="slider-val" id="gammaVal">1.00</span>
+            </div>
+          </div>
 
-<div class="panel p-4">
-<label>DPI</label>
-<select id="dpi" class="w-full mt-2">
-<option>254</option>
-<option>300</option>
-</select>
-</div>
+          <div>
+            <label for="sharpness">Ostrost</label>
+            <div class="slider-row mt-1">
+              <input type="range" id="sharpness" min="0" max="5" step="0.5" value="0">
+              <span class="slider-val" id="sharpnessVal">0.0</span>
+            </div>
+          </div>
 
-<button id="downloadBtn" class="bg-orange-500 p-3 rounded-lg">
-Stáhnout
-</button>
+          <div>
+            <label for="ditherMode">Styl gravírování</label>
+            <select id="ditherMode" class="mt-1">
+              <option value="floyd">Detailní (fotografie)</option>
+              <option value="atkinson">Kontrastní (grafika)</option>
+            </select>
+            <div class="helper-text">Fotky → Detailní | Logo a text → Kontrastní</div>
+          </div>
 
-</div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1">
+            <button class="btn btn-secondary" id="autoAdjustBtn">✨ Automaticky upravit</button>
+            <button class="btn btn-secondary" id="resetBtn">↺ Reset nastavení</button>
+          </div>
+        </div>
+      </div>
 
+      <div class="panel p-4">
+        <div class="section-title">Výstup</div>
+        <div class="flex flex-col gap-3">
+
+          <div>
+            <label for="dpi">Požadované DPI</label>
+            <select id="dpi" class="mt-1">
+              <option value="72">72 DPI</option>
+              <option value="150">150 DPI</option>
+              <option value="254" selected>254 DPI</option>
+              <option value="300">300 DPI</option>
+              <option value="500">500 DPI</option>
+              <option value="750">750 DPI</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="outputWidthMm">Šířka výstupu (mm)</label>
+            <input type="number" id="outputWidthMm" min="10" step="1" value="100" class="mt-1">
+            <div class="helper-text">Pixely se dopočítají automaticky podle zvoleného DPI.</div>
+          </div>
+
+          <div>
+            <label for="outputWidthSlider">Jemné doladění šířky</label>
+            <div class="slider-row mt-1">
+              <input type="range" id="outputWidthSlider" min="100" max="3000" step="10" value="1000">
+              <span class="slider-val" id="outputWidthSliderVal" style="width:56px">1000</span>
+            </div>
+            <div class="helper-text">Posuvník pracuje v pixelech a synchronizuje se se šířkou v mm.</div>
+          </div>
+
+          <div class="info-card">
+            <div class="mini-grid">
+              <div style="font-size:0.76rem;color:#94a3b8">Výstupní velikost</div>
+              <div style="font-size:0.76rem;color:#e2e8f0;font-weight:600" id="sizeInfo">—</div>
+
+              <div style="font-size:0.76rem;color:#94a3b8">Přepočet</div>
+              <div style="font-size:0.76rem;color:#e2e8f0;font-weight:600" id="pixelInfo">—</div>
+            </div>
+          </div>
+
+          <button class="btn btn-primary w-full mt-1" id="downloadBtn">
+            ⬇ Stáhnout pro laser
+          </button>
+        </div>
+      </div>
+
+      <div class="panel p-4">
+        <div class="section-title">Poznámka</div>
+        <div class="footer-note">
+          DPI se ukládá přímo do PNG metadat. Některé jednoduché náhledy DPI ignorují, ale software pro grafiku a většina pracovních postupů s ním pracuje správně.
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
 <script>
-let originalImage=null;
-let viewMode='result';
+let originalImage = null;
+let renderQueued = false;
+let lastImageStats = null;
+let viewMode = 'result';
 
-const canvasSingle=document.getElementById('canvasSingle');
-const canvasCompareOrig=document.getElementById('canvasCompareOrig');
-const canvasCompareResult=document.getElementById('canvasCompareResult');
-
-document.getElementById('btnResult').onclick=()=>setView('result');
-document.getElementById('btnCompare').onclick=()=>setView('compare');
-
-function setView(m){
-viewMode=m;
-document.getElementById('resultView').style.display=m==='result'?'block':'none';
-document.getElementById('compareView').style.display=m==='compare'?'block':'none';
-}
-
-document.getElementById('fileInput').onchange=e=>{
-const file=e.target.files[0];
-const img=new Image();
-img.onload=()=>{
-originalImage=img;
-document.getElementById('emptyState').style.display='none';
-document.getElementById('canvasArea').style.display='block';
-process();
-};
-img.src=URL.createObjectURL(file);
+const FIXED_THRESHOLD = 128;
+const DEFAULTS = {
+  brightness: 0,
+  contrast: 0,
+  gamma: 1.0,
+  sharpness: 0,
+  ditherMode: 'floyd',
+  dpi: 254,
+  outputWidthMm: 100,
+  materialSelect: 'custom',
+  compareRange: 50
 };
 
-function process(){
-const w=800;
-const h=originalImage.height*w/originalImage.width;
+const STORAGE_KEY = 'laserEditorSimpleV2';
 
-draw(canvasCompareOrig,originalImage,w,h);
+const fileInput = document.getElementById('fileInput');
+const dropZone = document.getElementById('dropZone');
+const uploadCtaCard = document.getElementById('uploadCtaCard');
 
-const c=document.createElement('canvas');
-c.width=w;c.height=h;
-const ctx=c.getContext('2d');
-ctx.drawImage(originalImage,0,0,w,h);
+const materialSelect = document.getElementById('materialSelect');
+const brightness = document.getElementById('brightness');
+const contrast = document.getElementById('contrast');
+const gamma = document.getElementById('gamma');
+const sharpness = document.getElementById('sharpness');
+const ditherMode = document.getElementById('ditherMode');
+const dpi = document.getElementById('dpi');
+const outputWidthMm = document.getElementById('outputWidthMm');
+const outputWidthSlider = document.getElementById('outputWidthSlider');
 
-let img=ctx.getImageData(0,0,w,h);
-dither(img);
+const downloadBtn = document.getElementById('downloadBtn');
+const autoAdjustBtn = document.getElementById('autoAdjustBtn');
+const resetBtn = document.getElementById('resetBtn');
 
-put(canvasCompareResult,img,w,h);
-put(canvasSingle,img,w,h);
+const canvasSingle = document.getElementById('canvasSingle');
+const compareOriginal = document.getElementById('compareOriginal');
+const compareProcessed = document.getElementById('compareProcessed');
+const compareRange = document.getElementById('compareRange');
+const compareOverlay = document.getElementById('compareOverlay');
+const compareHandle = document.getElementById('compareHandle');
+
+document.getElementById('btnResult').addEventListener('click', () => setViewMode('result'));
+document.getElementById('btnCompare').addEventListener('click', () => setViewMode('compare'));
+
+const sliderPairs = [
+  ['brightness', 'brightnessVal'],
+  ['contrast', 'contrastVal'],
+  ['gamma', 'gammaVal'],
+  ['sharpness', 'sharpnessVal'],
+  ['outputWidthSlider', 'outputWidthSliderVal']
+];
+
+dropZone.addEventListener('click', () => fileInput.click());
+uploadCtaCard.addEventListener('click', () => fileInput.click());
+
+fileInput.addEventListener('change', e => {
+  if (e.target.files && e.target.files[0]) loadFile(e.target.files[0]);
+});
+
+dropZone.addEventListener('dragover', e => {
+  e.preventDefault();
+  dropZone.classList.add('drag-over');
+});
+dropZone.addEventListener('dragleave', () => {
+  dropZone.classList.remove('drag-over');
+});
+dropZone.addEventListener('drop', e => {
+  e.preventDefault();
+  dropZone.classList.remove('drag-over');
+  if (e.dataTransfer.files && e.dataTransfer.files[0]) loadFile(e.dataTransfer.files[0]);
+});
+
+materialSelect.addEventListener('change', () => {
+  applyMaterialPreset();
+  saveSettings();
+});
+ditherMode.addEventListener('change', () => {
+  saveSettings();
+  scheduleProcessImage();
+});
+dpi.addEventListener('change', () => {
+  syncWidthFromMm();
+  updateSizeInfo();
+  saveSettings();
+  if (originalImage) scheduleProcessImage();
+});
+
+outputWidthMm.addEventListener('input', () => {
+  syncWidthFromMm();
+  updateSizeInfo();
+  saveSettings();
+  scheduleProcessImage();
+});
+
+outputWidthSlider.addEventListener('input', () => {
+  syncMmFromSlider();
+  updateSizeInfo();
+  saveSettings();
+  scheduleProcessImage();
+});
+
+compareRange.addEventListener('input', () => {
+  updateCompareSlider();
+  saveSettings();
+});
+
+downloadBtn.addEventListener('click', downloadResult);
+autoAdjustBtn.addEventListener('click', autoAdjustFromImage);
+resetBtn.addEventListener('click', resetSettings);
+
+[brightness, contrast, gamma, sharpness].forEach((el) => {
+  el.addEventListener('input', () => {
+    updateSlider(el);
+    saveSettings();
+    scheduleProcessImage();
+  });
+});
+
+function setViewMode(mode) {
+  viewMode = mode;
+  document.getElementById('btnResult').classList.toggle('active', mode === 'result');
+  document.getElementById('btnCompare').classList.toggle('active', mode === 'compare');
+  document.getElementById('resultView').style.display = mode === 'result' ? 'block' : 'none';
+  document.getElementById('compareView').style.display = mode === 'compare' ? 'block' : 'none';
 }
 
-function draw(c,img,w,h){
-c.width=w;c.height=h;
-c.getContext('2d').drawImage(img,0,0,w,h);
+function scheduleProcessImage() {
+  if (renderQueued) return;
+  renderQueued = true;
+  requestAnimationFrame(() => {
+    renderQueued = false;
+    processImage();
+  });
 }
 
-function put(c,data,w,h){
-c.width=w;c.height=h;
-c.getContext('2d').putImageData(data,0,0);
+function updateSlider(el) {
+  const target = document.getElementById(el.id + 'Val') || document.getElementById(el.id.replace('Slider', 'SliderVal'));
+  if (!target) return;
+  const step = el.step ? String(el.step) : '1';
+  const decimals = step.includes('.') ? step.split('.')[1].length : 0;
+  target.textContent = Number(el.value).toFixed(decimals);
 }
 
-function dither(imageData){
-const d=imageData.data;
-for(let i=0;i<d.length;i+=4){
-const g=0.3*d[i]+0.59*d[i+1]+0.11*d[i+2];
-const v=g>128?255:0;
-d[i]=d[i+1]=d[i+2]=v;
-}
+function loadStoredSettings() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) return;
+    const s = JSON.parse(raw);
+
+    if (s.brightness !== undefined) brightness.value = s.brightness;
+    if (s.contrast !== undefined) contrast.value = s.contrast;
+    if (s.gamma !== undefined) gamma.value = s.gamma;
+    if (s.sharpness !== undefined) sharpness.value = s.sharpness;
+    if (s.ditherMode) ditherMode.value = s.ditherMode;
+    if (s.dpi) dpi.value = s.dpi;
+    if (s.outputWidthMm !== undefined) outputWidthMm.value = s.outputWidthMm;
+    if (s.materialSelect) materialSelect.value = s.materialSelect;
+    if (s.compareRange !== undefined) compareRange.value = s.compareRange;
+  } catch (e) {}
 }
 
-document.getElementById('downloadBtn').onclick=()=>{
-const a=document.createElement('a');
-a.download='laser.png';
-a.href=canvasSingle.toDataURL();
-a.click();
-};
+function saveSettings() {
+  const data = {
+    brightness: Number(brightness.value),
+    contrast: Number(contrast.value),
+    gamma: Number(gamma.value),
+    sharpness: Number(sharpness.value),
+    ditherMode: ditherMode.value,
+    dpi: Number(dpi.value),
+    outputWidthMm: Number(outputWidthMm.value),
+    materialSelect: materialSelect.value,
+    compareRange: Number(compareRange.value)
+  };
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+  } catch (e) {}
+}
+
+function resetSettings() {
+  brightness.value = DEFAULTS.brightness;
+  contrast.value = DEFAULTS.contrast;
+  gamma.value = DEFAULTS.gamma;
+  sharpness.value = DEFAULTS.sharpness;
+  ditherMode.value = DEFAULTS.ditherMode;
+  dpi.value = DEFAULTS.dpi;
+  outputWidthMm.value = DEFAULTS.outputWidthMm;
+  materialSelect.value = DEFAULTS.materialSelect;
+  compareRange.value = DEFAULTS.compareRange;
+
+  syncWidthFromMm();
+  sliderPairs.forEach(([id]) => updateSlider(document.getElementById(id)));
+  updateCompareSlider();
+  updateSizeInfo();
+  saveSettings();
+  scheduleProcessImage();
+}
+
+function loadFile(file) {
+  if (!file || !file.type.startsWith('image/')) return;
+
+  const reader = new FileReader();
+  reader.onload = ev => {
+    const img = new Image();
+    img.onload = () => {
+      originalImage = img;
+      document.getElementById('emptyState').style.display = 'none';
+      document.getElementById('canvasArea').style.display = 'block';
+
+      analyzeImageForAutoAdjust();
+      syncWidthFromMm();
+      updateSizeInfo();
+      setViewMode('result');
+      processImage();
+    };
+    img.onerror = () => alert('Nepodařilo se načíst obrázek.');
+    img.src = ev.target.result;
+  };
+  reader.onerror = () => alert('Chyba při čtení souboru.');
+  reader.readAsDataURL(file);
+}
+
+function applyMaterialPreset() {
+  const presets = {
+    wood:       { brightness: 10,  contrast: 30, gamma: 1.2,  sharpness: 1 },
+    wood_dark:  { brightness: 30,  contrast: 50, gamma: 1.5,  sharpness: 1 },
+    slate:      { brightness: 20,  contrast: 60, gamma: 0.9,  sharpness: 2 },
+    acrylic:    { brightness: 0,   contrast: 80, gamma: 1.0,  sharpness: 0 },
+    leather:    { brightness: 15,  contrast: 40, gamma: 1.3,  sharpness: 1 },
+    anodized:   { brightness: -10, contrast: 70, gamma: 0.8,  sharpness: 2 },
+    paper:      { brightness: 5,   contrast: 50, gamma: 1.1,  sharpness: 1 },
+    stainless:  { brightness: -20, contrast: 90, gamma: 0.75, sharpness: 3 }
+  };
+
+  const p = presets[materialSelect.value];
+  if (!p) return;
+
+  brightness.value = p.brightness;
+  contrast.value = p.contrast;
+  gamma.value = p.gamma;
+  sharpness.value = p.sharpness;
+
+  sliderPairs.forEach(([id]) => updateSlider(document.getElementById(id)));
+  scheduleProcessImage();
+}
+
+function analyzeImageForAutoAdjust() {
+  if (!originalImage) return;
+
+  const sampleW = 180;
+  const sampleH = Math.max(1, Math.round(originalImage.height * sampleW / originalImage.width));
+  const c = document.createElement('canvas');
+  c.width = sampleW;
+  c.height = sampleH;
+  const ctx = c.getContext('2d');
+  ctx.drawImage(originalImage, 0, 0, sampleW, sampleH);
+
+  const data = ctx.getImageData(0, 0, sampleW, sampleH).data;
+  let sum = 0;
+  let sumSq = 0;
+  let edgeScore = 0;
+  let count = 0;
+  let prev = null;
+
+  for (let i = 0; i < data.length; i += 4) {
+    const g = 0.299 * data[i] + 0.587 * data[i + 1] + 0.114 * data[i + 2];
+    sum += g;
+    sumSq += g * g;
+    count++;
+    if (prev !== null) edgeScore += Math.abs(g - prev);
+    prev = g;
+  }
+
+  const mean = sum / count;
+  const variance = Math.max(0, sumSq / count - mean * mean);
+  const stdDev = Math.sqrt(variance);
+
+  let recommended = 'floyd';
+  if (stdDev > 70 || edgeScore / Math.max(1, count) > 32) {
+    recommended = 'atkinson';
+  }
+
+  lastImageStats = { mean, stdDev, recommended };
+}
+
+function autoAdjustFromImage() {
+  if (!originalImage) {
+    alert('Nejprve nahraj obrázek.');
+    return;
+  }
+
+  if (!lastImageStats) analyzeImageForAutoAdjust();
+
+  const { mean, stdDev, recommended } = lastImageStats;
+  let newBrightness = 0;
+  let newContrast = 0;
+  let newGamma = 1.0;
+  let newSharpness = 1.0;
+
+  if (mean < 105) newBrightness = 18;
+  else if (mean > 180) newBrightness = -8;
+  else newBrightness = 4;
+
+  if (stdDev < 35) newContrast = 42;
+  else if (stdDev < 50) newContrast = 28;
+  else if (stdDev > 72) newContrast = 12;
+  else newContrast = 20;
+
+  if (mean < 110) newGamma = 1.18;
+  else if (mean > 180) newGamma = 0.92;
+  else newGamma = 1.02;
+
+  if (recommended === 'atkinson') {
+    newContrast += 8;
+    newSharpness = 1.6;
+  } else {
+    newSharpness = 1.0;
+  }
+
+  brightness.value = clamp(newBrightness, -150, 150);
+  contrast.value = clamp(newContrast, -150, 150);
+  gamma.value = clamp(roundTo(newGamma, 0.05), 0.1, 3.0);
+  sharpness.value = clamp(roundTo(newSharpness, 0.5), 0, 5);
+  ditherMode.value = recommended;
+
+  sliderPairs.forEach(([id]) => updateSlider(document.getElementById(id)));
+  saveSettings();
+  processImage();
+}
+
+function clamp(n, min, max) {
+  return Math.max(min, Math.min(max, n));
+}
+
+function roundTo(value, step) {
+  return Math.round(value / step) * step;
+}
+
+function getOutputWidthPx() {
+  const mm = Math.max(1, Number(outputWidthMm.value || 0));
+  const dpiValue = Number(dpi.value);
+  return Math.max(100, Math.round((mm / 25.4) * dpiValue));
+}
+
+function syncWidthFromMm() {
+  const px = clamp(getOutputWidthPx(), 100, 3000);
+  outputWidthSlider.value = px;
+  updateSlider(outputWidthSlider);
+}
+
+function syncMmFromSlider() {
+  const px = Math.max(100, Number(outputWidthSlider.value));
+  const dpiValue = Number(dpi.value);
+  outputWidthMm.value = Math.round((px / dpiValue) * 25.4);
+}
+
+function updateSizeInfo() {
+  const px = getOutputWidthPx();
+  const mm = Math.max(1, Number(outputWidthMm.value || 0));
+  const dpiValue = Number(dpi.value);
+
+  document.getElementById('sizeInfo').textContent = `${mm.toFixed(0)} mm`;
+  document.getElementById('pixelInfo').textContent = `${px} px @ ${dpiValue} DPI`;
+}
+
+function processImage() {
+  if (!originalImage) return;
+
+  const w = getOutputWidthPx();
+  const h = Math.max(1, Math.round(originalImage.height * w / originalImage.width));
+
+  const srcCanvas = document.createElement('canvas');
+  srcCanvas.width = w;
+  srcCanvas.height = h;
+  const srcCtx = srcCanvas.getContext('2d');
+  srcCtx.drawImage(originalImage, 0, 0, w, h);
+
+  let imageData = srcCtx.getImageData(0, 0, w, h);
+  toGrayscale(imageData);
+  applyBrightnessContrast(imageData);
+  applyGamma(imageData);
+
+  const sharp = parseFloat(sharpness.value);
+  if (sharp > 0) imageData = applySharpen(imageData, w, h, sharp);
+
+  applyDithering(imageData, w, h, ditherMode.value, FIXED_THRESHOLD);
+
+  drawOriginalIntoCanvas(compareOriginal, w, h);
+  putImageDataToCanvas(compareProcessed, imageData, w, h);
+  putImageDataToCanvas(canvasSingle, imageData, w, h);
+
+  document.getElementById('imageDims').textContent = `${w} × ${h} px`;
+  updateSizeInfo();
+  updateCompareSlider();
+}
+
+function drawOriginalIntoCanvas(canvas, w, h) {
+  canvas.width = w;
+  canvas.height = h;
+  const ctx = canvas.getContext('2d');
+  ctx.clearRect(0, 0, w, h);
+  ctx.drawImage(originalImage, 0, 0, w, h);
+}
+
+function putImageDataToCanvas(canvas, imageData, w, h) {
+  canvas.width = w;
+  canvas.height = h;
+  const ctx = canvas.getContext('2d');
+  ctx.putImageData(imageData, 0, 0);
+}
+
+function updateCompareSlider() {
+  const value = Number(compareRange.value);
+  compareOverlay.style.width = value + '%';
+  compareHandle.style.left = value + '%';
+}
+
+function toGrayscale(imageData) {
+  const d = imageData.data;
+  for (let i = 0; i < d.length; i += 4) {
+    const g = 0.299 * d[i] + 0.587 * d[i + 1] + 0.114 * d[i + 2];
+    d[i] = d[i + 1] = d[i + 2] = g;
+  }
+}
+
+function applyBrightnessContrast(imageData) {
+  const d = imageData.data;
+  const b = parseInt(brightness.value, 10);
+  const c = parseInt(contrast.value, 10);
+  const factor = (259 * (c + 255)) / (255 * (259 - c));
+
+  for (let i = 0; i < d.length; i += 4) {
+    let v = d[i] + b;
+    v = factor * (v - 128) + 128;
+    v = Math.max(0, Math.min(255, v));
+    d[i] = d[i + 1] = d[i + 2] = v;
+  }
+}
+
+function applyGamma(imageData) {
+  const d = imageData.data;
+  const g = parseFloat(gamma.value);
+  if (g === 1.0) return;
+
+  const lut = new Uint8Array(256);
+  for (let i = 0; i < 256; i++) {
+    lut[i] = Math.min(255, Math.round(255 * Math.pow(i / 255, 1 / g)));
+  }
+
+  for (let i = 0; i < d.length; i += 4) {
+    d[i] = d[i + 1] = d[i + 2] = lut[d[i]];
+  }
+}
+
+function applySharpen(imageData, w, h, amount) {
+  const src = imageData.data;
+  const out = new ImageData(w, h);
+  const d = out.data;
+
+  const k = amount * 0.3;
+  const kernel = [-k, -k, -k, -k, 1 + 8 * k, -k, -k, -k, -k];
+
+  for (let y = 1; y < h - 1; y++) {
+    for (let x = 1; x < w - 1; x++) {
+      let v = 0;
+      for (let ky = -1; ky <= 1; ky++) {
+        for (let kx = -1; kx <= 1; kx++) {
+          const idx = ((y + ky) * w + (x + kx)) * 4;
+          v += src[idx] * kernel[(ky + 1) * 3 + (kx + 1)];
+        }
+      }
+      const i = (y * w + x) * 4;
+      const clamped = Math.max(0, Math.min(255, v));
+      d[i] = d[i + 1] = d[i + 2] = clamped;
+      d[i + 3] = 255;
+    }
+  }
+
+  for (let x = 0; x < w; x++) {
+    const top = x * 4;
+    const bottom = ((h - 1) * w + x) * 4;
+    for (let c = 0; c < 4; c++) {
+      d[top + c] = src[top + c];
+      d[bottom + c] = src[bottom + c];
+    }
+  }
+
+  for (let y = 0; y < h; y++) {
+    const left = y * w * 4;
+    const right = (y * w + (w - 1)) * 4;
+    for (let c = 0; c < 4; c++) {
+      d[left + c] = src[left + c];
+      d[right + c] = src[right + c];
+    }
+  }
+
+  return out;
+}
+
+function applyDithering(imageData, w, h, mode, thresh) {
+  const d = imageData.data;
+  let weights;
+
+  if (mode === 'atkinson') {
+    weights = [
+      [1, 0, 1 / 8],
+      [2, 0, 1 / 8],
+      [-1, 1, 1 / 8],
+      [0, 1, 1 / 8],
+      [1, 1, 1 / 8],
+      [0, 2, 1 / 8]
+    ];
+  } else {
+    weights = [
+      [1, 0, 7 / 16],
+      [-1, 1, 3 / 16],
+      [0, 1, 5 / 16],
+      [1, 1, 1 / 16]
+    ];
+  }
+
+  const pixels = new Float32Array(w * h);
+  for (let i = 0; i < w * h; i++) pixels[i] = d[i * 4];
+
+  for (let y = 0; y < h; y++) {
+    for (let x = 0; x < w; x++) {
+      const idx = y * w + x;
+      const oldVal = pixels[idx];
+      const newVal = oldVal >= thresh ? 255 : 0;
+      pixels[idx] = newVal;
+
+      const err = oldVal - newVal;
+      for (let wi = 0; wi < weights.length; wi++) {
+        const dx = weights[wi][0];
+        const dy = weights[wi][1];
+        const factor = weights[wi][2];
+        const nx = x + dx;
+        const ny = y + dy;
+        if (nx >= 0 && nx < w && ny >= 0 && ny < h) {
+          pixels[ny * w + nx] += err * factor;
+        }
+      }
+    }
+  }
+
+  for (let i = 0; i < w * h; i++) {
+    const v = Math.max(0, Math.min(255, pixels[i]));
+    d[i * 4] = d[i * 4 + 1] = d[i * 4 + 2] = v;
+    d[i * 4 + 3] = 255;
+  }
+}
+
+function buildExportFilename() {
+  const dpiValue = Number(dpi.value);
+  const mm = Math.max(1, Number(outputWidthMm.value || 0));
+  const style = ditherMode.value === 'atkinson' ? 'kontrastni' : 'detailni';
+  return `laser-${mm}mm-${dpiValue}dpi-${style}.png`;
+}
+
+const ABACUS_GET = 'https://abacus.jasoncameron.dev/get/stunning-twilight-266e8a/downloads';
+const ABACUS_HIT = 'https://abacus.jasoncameron.dev/hit/stunning-twilight-266e8a/downloads';
+
+function loadCounter() {
+  fetch(ABACUS_GET)
+    .then(r => r.ok ? r.json() : null)
+    .then(data => {
+      const n = data && data.value ? data.value : 0;
+      document.getElementById('photoCounter').textContent = n > 0 ? n.toLocaleString('cs-CZ') : '—';
+    })
+    .catch(() => {
+      document.getElementById('photoCounter').textContent = '—';
+    });
+}
+
+function incrementCounter() {
+  fetch(ABACUS_HIT)
+    .then(r => r.ok ? r.json() : null)
+    .then(data => {
+      const n = data && data.value ? data.value : 0;
+      if (n > 0) document.getElementById('photoCounter').textContent = n.toLocaleString('cs-CZ');
+    })
+    .catch(() => {});
+}
+
+function showIOSModal(blob) {
+  const url = URL.createObjectURL(blob);
+  const overlay = document.createElement('div');
+  overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.9);z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px;';
+  overlay.innerHTML = `
+    <div style="width:min(360px,100%);background:#0f1117;border:1px solid rgba(255,255,255,0.08);border-radius:18px;padding:16px;">
+      <div style="font-size:0.9rem;font-weight:700;color:#f97316;margin-bottom:4px">Uložení na iOS</div>
+      <div style="font-size:0.74rem;color:#64748b;margin-bottom:14px">Podrž prst na obrázku a vyber <strong style="color:#e2e8f0">Přidat do Fotek</strong> nebo <strong style="color:#e2e8f0">Uložit obrázek</strong>.</div>
+      <div style="background:#000;border-radius:12px;overflow:hidden;border:1px solid rgba(255,255,255,0.08);margin-bottom:14px;">
+        <img src="${url}" style="width:100%;display:block;" alt="Export PNG">
+      </div>
+      <button class="btn btn-secondary" id="iosCloseBtn" style="width:100%">Zavřít</button>
+    </div>
+  `;
+  document.body.appendChild(overlay);
+
+  overlay.querySelector('#iosCloseBtn').addEventListener('click', () => {
+    URL.revokeObjectURL(url);
+    overlay.remove();
+  });
+  overlay.addEventListener('click', e => {
+    if (e.target === overlay) {
+      URL.revokeObjectURL(url);
+      overlay.remove();
+    }
+  });
+}
+
+function crc32(bytes) {
+  let crc = 0xffffffff;
+  for (let i = 0; i < bytes.length; i++) {
+    crc ^= bytes[i];
+    for (let j = 0; j < 8; j++) {
+      if (crc & 1) crc = (crc >>> 1) ^ 0xedb88320;
+      else crc = crc >>> 1;
+    }
+  }
+  return (crc ^ 0xffffffff) >>> 0;
+}
+
+function concatUint8Arrays(...arrays) {
+  const total = arrays.reduce((sum, arr) => sum + arr.length, 0);
+  const result = new Uint8Array(total);
+  let offset = 0;
+  for (const arr of arrays) {
+    result.set(arr, offset);
+    offset += arr.length;
+  }
+  return result;
+}
+
+function uint32ToBytes(num) {
+  return new Uint8Array([
+    (num >>> 24) & 255,
+    (num >>> 16) & 255,
+    (num >>> 8) & 255,
+    num & 255
+  ]);
+}
+
+function createPhysChunk(dpiValue) {
+  const ppm = Math.round(dpiValue / 0.0254);
+  const type = new TextEncoder().encode('pHYs');
+  const data = new Uint8Array(9);
+
+  data[0] = (ppm >>> 24) & 255;
+  data[1] = (ppm >>> 16) & 255;
+  data[2] = (ppm >>> 8) & 255;
+  data[3] = ppm & 255;
+
+  data[4] = (ppm >>> 24) & 255;
+  data[5] = (ppm >>> 16) & 255;
+  data[6] = (ppm >>> 8) & 255;
+  data[7] = ppm & 255;
+
+  data[8] = 1;
+
+  const crc = crc32(concatUint8Arrays(type, data));
+
+  return concatUint8Arrays(
+    uint32ToBytes(data.length),
+    type,
+    data,
+    uint32ToBytes(crc)
+  );
+}
+
+async function canvasToPngBlobWithDPI(canvas, dpiValue) {
+  const baseBlob = await new Promise((resolve, reject) => {
+    canvas.toBlob(blob => blob ? resolve(blob) : reject(new Error('Nepodařilo se vytvořit PNG blob.')), 'image/png');
+  });
+
+  const buffer = await baseBlob.arrayBuffer();
+  const bytes = new Uint8Array(buffer);
+
+  let offset = 8;
+  let ihdrEnd = -1;
+  let existingPhysStart = -1;
+  let existingPhysEnd = -1;
+
+  while (offset < bytes.length) {
+    const length =
+      (bytes[offset] << 24) |
+      (bytes[offset + 1] << 16) |
+      (bytes[offset + 2] << 8) |
+      bytes[offset + 3];
+
+    const typeStart = offset + 4;
+    const type = String.fromCharCode(
+      bytes[typeStart],
+      bytes[typeStart + 1],
+      bytes[typeStart + 2],
+      bytes[typeStart + 3]
+    );
+
+    const chunkTotalLength = 12 + length;
+    if (type === 'IHDR') ihdrEnd = offset + chunkTotalLength;
+    if (type === 'pHYs') {
+      existingPhysStart = offset;
+      existingPhysEnd = offset + chunkTotalLength;
+      break;
+    }
+    offset += chunkTotalLength;
+  }
+
+  const physChunk = createPhysChunk(dpiValue);
+  let finalBytes;
+
+  if (existingPhysStart !== -1) {
+    finalBytes = concatUint8Arrays(
+      bytes.slice(0, existingPhysStart),
+      physChunk,
+      bytes.slice(existingPhysEnd)
+    );
+  } else {
+    finalBytes = concatUint8Arrays(
+      bytes.slice(0, ihdrEnd),
+      physChunk,
+      bytes.slice(ihdrEnd)
+    );
+  }
+
+  return new Blob([finalBytes], { type: 'image/png' });
+}
+
+async function downloadResult() {
+  if (!canvasSingle.width) {
+    alert('Nejprve nahraj obrázek.');
+    return;
+  }
+
+  try {
+    const dpiValue = Number(dpi.value);
+    const blob = await canvasToPngBlobWithDPI(canvasSingle, dpiValue);
+    incrementCounter();
+
+    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+    if (isIOS) {
+      showIOSModal(blob);
+      return;
+    }
+
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.download = buildExportFilename();
+    a.href = url;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    setTimeout(() => URL.revokeObjectURL(url), 1500);
+  } catch (err) {
+    console.error(err);
+    alert('Nepodařilo se vytvořit PNG soubor s nastaveným DPI.');
+  }
+}
+
+loadStoredSettings();
+sliderPairs.forEach(([id]) => updateSlider(document.getElementById(id)));
+syncWidthFromMm();
+updateSizeInfo();
+updateCompareSlider();
+setViewMode('result');
+loadCounter();
 </script>
-
 </body>
 </html>
