@@ -644,16 +644,16 @@ function drawHistogram(imageData) {
 }
 
 function loadCounter() {
-  fetch('https://api.countapi.xyz/get/stunning-twilight-266e8a.netlify.app/photos')
+  fetch('https://api.counterapi.dev/v1/laser-editor-266e8a/downloads')
     .then(r => r.json())
-    .then(data => { document.getElementById('photoCounter').textContent = (data.value || 0).toLocaleString('cs-CZ'); })
+    .then(data => { document.getElementById('photoCounter').textContent = (data.count || 0).toLocaleString('cs-CZ'); })
     .catch(() => { document.getElementById('photoCounter').textContent = '—'; });
 }
 
 function incrementCounter() {
-  fetch('https://api.countapi.xyz/hit/stunning-twilight-266e8a.netlify.app/photos')
+  fetch('https://api.counterapi.dev/v1/laser-editor-266e8a/downloads/up')
     .then(r => r.json())
-    .then(data => { document.getElementById('photoCounter').textContent = (data.value || 0).toLocaleString('cs-CZ'); })
+    .then(data => { document.getElementById('photoCounter').textContent = (data.count || 0).toLocaleString('cs-CZ'); })
     .catch(() => {});
 }
 
