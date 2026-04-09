@@ -66,7 +66,6 @@
     max-width: 100%;
   }
 
-  #canvasResult,
   #canvasSingle,
   #compareProcessed {
     image-rendering: pixelated;
@@ -200,18 +199,27 @@
   }
 
   .view-btn {
-    background: transparent;
-    color: var(--muted);
-    border: 1px solid rgba(255,255,255,0.07);
-    border-radius: 9px;
-    padding: 6px 14px;
-    font-size: 0.78rem;
+    background: rgba(255,255,255,0.04);
+    color: #cbd5e1;
+    border: 1px solid rgba(255,255,255,0.10);
+    border-radius: 10px;
+    padding: 8px 16px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    transition: all 0.18s ease;
+  }
+
+  .view-btn:hover {
+    background: rgba(255,255,255,0.08);
+    border-color: rgba(249,115,22,0.22);
+    color: #ffffff;
   }
 
   .view-btn.active {
-    background: rgba(249,115,22,0.15);
-    color: var(--accent);
-    border-color: rgba(249,115,22,0.28);
+    background: linear-gradient(135deg, rgba(249,115,22,0.22) 0%, rgba(234,88,12,0.18) 100%);
+    color: #f97316;
+    border-color: rgba(249,115,22,0.45);
+    box-shadow: 0 0 0 1px rgba(249,115,22,0.18), 0 6px 18px rgba(249,115,22,0.14);
   }
 
   .counter-badge,
@@ -243,16 +251,6 @@
     grid-template-columns: 1fr auto;
     gap: 8px 10px;
     align-items: center;
-  }
-
-  .canvas-label {
-    font-size: 0.7rem;
-    font-weight: 600;
-    letter-spacing: 0.05em;
-    color: #475569;
-    text-align: center;
-    margin-bottom: 8px;
-    text-transform: uppercase;
   }
 
   .compare-wrap {
@@ -394,7 +392,6 @@
     </a>
     <div class="ml-auto flex flex-wrap gap-2">
       <div class="counter-badge">📸 Zpracováno: <span id="photoCounter">…</span></div>
-      <div class="info-badge">DPI export: <span>aktivní</span></div>
     </div>
   </header>
 
@@ -403,10 +400,10 @@
     <!-- PREVIEW -->
     <div class="lg:col-span-2 flex flex-col gap-3 order-1 lg:order-1">
       <div class="panel px-4 py-3 flex gap-2 items-center flex-wrap">
-        <span style="font-size:0.75rem;color:#475569;font-weight:600">Náhled:</span>
+        <div style="font-size:0.75rem;color:#94a3b8;font-weight:600;margin-right:4px">Zobrazení:</div>
         <button class="btn view-btn active" id="btnResult">Výsledek</button>
         <button class="btn view-btn" id="btnCompare">Porovnání</button>
-        <div class="ml-auto" style="font-size:0.72rem;color:#334155" id="imageDims"></div>
+        <div class="ml-auto" style="font-size:0.75rem;color:#475569;font-weight:600" id="imageDims"></div>
       </div>
 
       <div class="panel p-5 flex-1">
@@ -459,12 +456,10 @@
 
         <div id="canvasArea" style="display:none">
           <div id="resultView">
-            <div class="canvas-label">Výsledek</div>
             <canvas id="canvasSingle" class="w-full rounded-lg" style="border:1px solid rgba(255,255,255,0.05)"></canvas>
           </div>
 
           <div id="compareView" style="display:none">
-            <div class="canvas-label">Porovnání</div>
             <div class="compare-wrap">
               <div class="compare-base">
                 <canvas id="compareOriginal"></canvas>
@@ -610,7 +605,7 @@
       <div class="panel p-4">
         <div class="section-title">Poznámka</div>
         <div class="footer-note">
-          DPI se ukládá přímo do PNG metadat. Některé jednoduché náhledy DPI ignorují, ale software pro grafiku a většina pracovních postupů s ním pracuje správně.
+          PNG obsahuje DPI metadata pro správnou velikost v laser softwaru.
         </div>
       </div>
     </div>
