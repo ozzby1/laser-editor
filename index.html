@@ -3,16 +3,16 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>FREE PHOTO LASER EDITOR – Free Online Photo Editor for Laser Engraving</title>
+<title>PHOTOENGRAVING – Laser Engraving Photo Editor</title>
 
 <meta name="description" content="Free online photo editor for laser engraving. Adjust brightness, contrast, sharpness and export an optimized PNG ready for your laser engraver.">
 <meta name="keywords" content="laser engraving photo editor, laser photo converter, photo to laser, grayscale to engraving, laser PNG">
-<meta name="author" content="FREE PHOTO LASER EDITOR">
+<meta name="author" content="PHOTOENGRAVING">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://photoengraving.online/">
 <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/ozzby1/laser-editor/main/favi.png">
 
-<meta property="og:title" content="FREE PHOTO LASER EDITOR – Photo Editor for Laser Engraving">
+<meta property="og:title" content="PHOTOENGRAVING – Laser Engraving Photo Editor">
 <meta property="og:description" content="Convert your photo into a laser-ready image for free. Brightness, contrast, sharpness, engraving style and export with correct DPI.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://photoengraving.online/">
@@ -63,9 +63,7 @@
     max-width: 100%;
   }
 
-  #canvasResult,
-  #canvasSingle,
-  #compareProcessed {
+  #canvasResult {
     image-rendering: pixelated;
   }
 
@@ -196,21 +194,6 @@
     font-size: 0.82rem;
   }
 
-  .view-btn {
-    background: transparent;
-    color: var(--muted);
-    border: 1px solid rgba(255,255,255,0.07);
-    border-radius: 9px;
-    padding: 6px 14px;
-    font-size: 0.78rem;
-  }
-
-  .view-btn.active {
-    background: rgba(249,115,22,0.15);
-    color: var(--accent);
-    border-color: rgba(249,115,22,0.28);
-  }
-
   .counter-badge,
   .info-badge {
     background: rgba(249,115,22,0.08);
@@ -250,86 +233,6 @@
     text-align: center;
     margin-bottom: 8px;
     text-transform: uppercase;
-  }
-
-  /* FIXED compare view */
-  .compare-wrap {
-    position: relative;
-    width: 100%;
-    background: #000;
-    border-radius: 12px;
-    overflow: hidden;
-    border: 1px solid rgba(255,255,255,0.06);
-    user-select: none;
-    line-height: 0;
-  }
-
-  .compare-base {
-    position: relative;
-    width: 100%;
-  }
-
-  .compare-base canvas {
-    display: block;
-    width: 100%;
-    height: auto;
-  }
-
-  .compare-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    overflow: hidden;
-    border-right: 2px solid rgba(249,115,22,0.9);
-    z-index: 1;
-  }
-
-  .compare-overlay canvas {
-    display: block;
-    width: 100%;
-    height: auto;
-  }
-
-  .compare-handle {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    width: 28px;
-    margin-left: -14px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    pointer-events: none;
-    z-index: 2;
-  }
-
-  .compare-handle::before {
-    content: '↔';
-    width: 28px;
-    height: 28px;
-    border-radius: 999px;
-    background: rgba(249,115,22,0.92);
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.8rem;
-    box-shadow: 0 6px 18px rgba(249,115,22,0.35);
-  }
-
-  .compare-range {
-    width: 100%;
-    margin-top: 12px;
-  }
-
-  .recommendation-good {
-    color: #cbd5e1;
-  }
-
-  .recommendation-good span {
-    color: var(--accent);
-    font-weight: 700;
   }
 
   .empty-steps {
@@ -385,80 +288,10 @@
     color: #334155;
   }
 
-  .sticky-mobile-bar {
-    position: sticky;
-    bottom: 0;
-    z-index: 20;
-    padding: 10px 0 0;
-    display: none;
-  }
-
-  .sticky-mobile-inner {
-    display: flex;
-    gap: 10px;
-    background: rgba(10,10,15,0.92);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255,255,255,0.06);
-    border-radius: 14px;
-    padding: 10px;
-    box-shadow: 0 -8px 24px rgba(0,0,0,0.2);
-  }
-
-  .sticky-mobile-inner .btn {
-    flex: 1;
-  }
-
-  .zoom-overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.9);
-    z-index: 9999;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-  }
-
-  .zoom-panel {
-    width: min(1200px, 100%);
-    max-height: 100%;
-    background: #0f1117;
-    border: 1px solid rgba(255,255,255,0.08);
-    border-radius: 18px;
-    padding: 16px;
-    overflow: auto;
-  }
-
-  .zoom-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 10px;
-    margin-bottom: 12px;
-  }
-
-  .zoom-canvas-wrap {
-    background: #000;
-    border-radius: 12px;
-    overflow: auto;
-    border: 1px solid rgba(255,255,255,0.08);
-  }
-
-  .zoom-note {
-    font-size: 0.74rem;
-    color: #64748b;
-  }
-
   .footer-note {
     font-size: 0.7rem;
     color: #475569;
     line-height: 1.5;
-  }
-
-  @media (max-width: 1023px) {
-    .sticky-mobile-bar {
-      display: block;
-    }
   }
 </style>
 </head>
@@ -477,7 +310,7 @@
 
   <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
 
-    <div class="flex flex-col gap-3" style="order:2">
+    <div class="flex flex-col gap-3">
 
       <div class="panel p-4">
         <div class="section-title">Nahrát fotku</div>
@@ -487,19 +320,6 @@
           <div style="font-size:0.7rem;color:#334155;margin-top:3px">JPG, PNG, BMP, WebP</div>
           <input type="file" id="fileInput" accept="image/*" style="display:none">
         </div>
-      </div>
-
-      <div class="panel p-4">
-        <div class="section-title">Použití</div>
-        <label for="usagePreset">Co gravíruješ?</label>
-        <select id="usagePreset" class="mt-1">
-          <option value="none">— Vyber použití —</option>
-          <option value="portrait">👤 Portrét</option>
-          <option value="animal">🐶 Zvíře</option>
-          <option value="logo">🔤 Logo / text</option>
-          <option value="landscape">🏞️ Krajina</option>
-        </select>
-        <div class="helper-text">Přednastaví doporučené hodnoty pro typ motivu.</div>
       </div>
 
       <div class="panel p-4">
@@ -573,36 +393,22 @@
         <div class="section-title">Výstup</div>
         <div class="flex flex-col gap-3">
 
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            <div>
-              <label for="dpi">Požadované DPI</label>
-              <select id="dpi" class="mt-1">
-                <option value="72">72 DPI</option>
-                <option value="150">150 DPI</option>
-                <option value="254" selected>254 DPI</option>
-                <option value="300">300 DPI</option>
-                <option value="500">500 DPI</option>
-                <option value="750">750 DPI</option>
-              </select>
-            </div>
-
-            <div>
-              <label for="widthUnit">Jednotka šířky</label>
-              <select id="widthUnit" class="mt-1">
-                <option value="mm" selected>Milimetry</option>
-                <option value="cm">Centimetry</option>
-                <option value="px">Pixely</option>
-              </select>
-            </div>
+          <div>
+            <label for="dpi">Požadované DPI</label>
+            <select id="dpi" class="mt-1">
+              <option value="72">72 DPI</option>
+              <option value="150">150 DPI</option>
+              <option value="254" selected>254 DPI</option>
+              <option value="300">300 DPI</option>
+              <option value="500">500 DPI</option>
+              <option value="750">750 DPI</option>
+            </select>
           </div>
 
           <div>
-            <label for="outputWidthInput">Šířka výstupu</label>
-            <div class="grid grid-cols-[1fr_auto] gap-2 mt-1">
-              <input type="number" id="outputWidthInput" min="10" step="1" value="100">
-              <div id="widthUnitLabel" class="btn btn-secondary" style="display:flex;align-items:center;justify-content:center;min-width:68px;cursor:default;">mm</div>
-            </div>
-            <div class="helper-text" id="widthHelper">Výsledná šířka gravírování. Pixely se dopočítají automaticky podle DPI.</div>
+            <label for="outputWidthMm">Šířka výstupu (mm)</label>
+            <input type="number" id="outputWidthMm" min="10" step="1" value="100" class="mt-1">
+            <div class="helper-text">Pixely se dopočítají automaticky podle zvoleného DPI.</div>
           </div>
 
           <div>
@@ -611,7 +417,7 @@
               <input type="range" id="outputWidthSlider" min="100" max="3000" step="10" value="1000">
               <span class="slider-val" id="outputWidthSliderVal" style="width:56px">1000</span>
             </div>
-            <div class="helper-text">Tento posuvník pracuje v pixelech, ale synchronizuje se s fyzickou šířkou.</div>
+            <div class="helper-text">Posuvník pracuje v pixelech a synchronizuje se se šířkou v mm.</div>
           </div>
 
           <div class="info-card">
@@ -621,9 +427,6 @@
 
               <div style="font-size:0.76rem;color:#94a3b8">Přepočet</div>
               <div style="font-size:0.76rem;color:#e2e8f0;font-weight:600" id="pixelInfo">—</div>
-
-              <div style="font-size:0.76rem;color:#94a3b8">Doporučení stylu</div>
-              <div class="recommendation-good" id="styleRecommendation">Nahraj fotku</div>
             </div>
           </div>
 
@@ -641,14 +444,10 @@
       </div>
     </div>
 
-    <div class="lg:col-span-2 flex flex-col gap-3" style="order:1">
+    <div class="lg:col-span-2 flex flex-col gap-3">
 
       <div class="panel px-4 py-3 flex gap-2 items-center flex-wrap">
         <span style="font-size:0.75rem;color:#475569;font-weight:600">Náhled:</span>
-        <button class="btn view-btn active" id="btnCompare">Before / After</button>
-        <button class="btn view-btn" id="btnSplit">Porovnání</button>
-        <button class="btn view-btn" id="btnOriginal">Originál</button>
-        <button class="btn view-btn" id="btnResult">Výsledek</button>
         <div class="ml-auto" style="font-size:0.72rem;color:#334155" id="imageDims"></div>
       </div>
 
@@ -683,8 +482,8 @@
             <div class="empty-step">
               <div class="empty-step-num">2</div>
               <div>
-                <div style="font-size:0.8rem;font-weight:600;color:#cbd5e1;margin-bottom:2px">Vyber styl</div>
-                <div style="font-size:0.7rem;color:#475569">Detailní nebo kontrastní</div>
+                <div style="font-size:0.8rem;font-weight:600;color:#cbd5e1;margin-bottom:2px">Uprav nastavení</div>
+                <div style="font-size:0.7rem;color:#475569">Materiál, kontrast, styl…</div>
               </div>
             </div>
 
@@ -701,51 +500,25 @@
         </div>
 
         <div id="canvasArea" style="display:none">
-          <div id="compareView">
-            <div class="canvas-label">Before / After • klikni na náhled pro zvětšení</div>
-            <div class="compare-wrap" id="compareWrap">
-              <div class="compare-base">
-                <canvas id="compareOriginal"></canvas>
-              </div>
-              <div class="compare-overlay" id="compareOverlay" style="width:50%">
-                <canvas id="compareProcessed"></canvas>
-              </div>
-              <div class="compare-handle" id="compareHandle" style="left:50%"></div>
-            </div>
-            <input type="range" id="compareRange" class="compare-range" min="0" max="100" value="50">
-          </div>
-
-          <div id="splitView" class="grid grid-cols-1 md:grid-cols-2 gap-4" style="display:none">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <div class="canvas-label">Originál • klikni pro zvětšení</div>
-              <canvas id="canvasOrig" class="w-full rounded-lg cursor-zoom-in" style="border:1px solid rgba(255,255,255,0.05)"></canvas>
+              <div class="canvas-label">Originál</div>
+              <canvas id="canvasOrig" class="w-full rounded-lg" style="border:1px solid rgba(255,255,255,0.05)"></canvas>
             </div>
             <div>
-              <div class="canvas-label">Výsledek • klikni pro zvětšení</div>
-              <canvas id="canvasResult" class="w-full rounded-lg cursor-zoom-in" style="border:1px solid rgba(255,255,255,0.05)"></canvas>
+              <div class="canvas-label">Výsledek</div>
+              <canvas id="canvasResult" class="w-full rounded-lg" style="border:1px solid rgba(255,255,255,0.05)"></canvas>
             </div>
-          </div>
-
-          <div id="singleView" style="display:none">
-            <div class="canvas-label" id="singleCanvasLabel">Výsledek • klikni pro zvětšení</div>
-            <canvas id="canvasSingle" class="w-full rounded-lg cursor-zoom-in" style="border:1px solid rgba(255,255,255,0.05)"></canvas>
           </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <div class="sticky-mobile-bar">
-    <div class="sticky-mobile-inner">
-      <button class="btn btn-secondary" id="mobileAutoBtn">✨ Auto</button>
-      <button class="btn btn-primary" id="mobileDownloadBtn">⬇ Pro laser</button>
-    </div>
   </div>
 </div>
 
 <script>
 let originalImage = null;
-let viewMode = 'compare';
 let renderQueued = false;
 let lastImageStats = null;
 
@@ -757,48 +530,32 @@ const DEFAULTS = {
   sharpness: 0,
   ditherMode: 'floyd',
   dpi: 254,
-  widthUnit: 'mm',
-  outputWidthInput: 100,
-  usagePreset: 'none',
-  materialSelect: 'custom',
-  compareRange: 50
+  outputWidthMm: 100,
+  materialSelect: 'custom'
 };
 
-const STORAGE_KEY = 'laserEditorSettingsV2';
+const STORAGE_KEY = 'laserEditorSimpleV1';
 
 const fileInput = document.getElementById('fileInput');
 const dropZone = document.getElementById('dropZone');
 const uploadCtaCard = document.getElementById('uploadCtaCard');
 
-const usagePreset = document.getElementById('usagePreset');
 const materialSelect = document.getElementById('materialSelect');
-
 const brightness = document.getElementById('brightness');
 const contrast = document.getElementById('contrast');
 const gamma = document.getElementById('gamma');
 const sharpness = document.getElementById('sharpness');
 const ditherMode = document.getElementById('ditherMode');
-
 const dpi = document.getElementById('dpi');
-const widthUnit = document.getElementById('widthUnit');
-const outputWidthInput = document.getElementById('outputWidthInput');
+const outputWidthMm = document.getElementById('outputWidthMm');
 const outputWidthSlider = document.getElementById('outputWidthSlider');
-
-const compareRange = document.getElementById('compareRange');
-const compareOverlay = document.getElementById('compareOverlay');
-const compareHandle = document.getElementById('compareHandle');
 
 const downloadBtn = document.getElementById('downloadBtn');
 const autoAdjustBtn = document.getElementById('autoAdjustBtn');
 const resetBtn = document.getElementById('resetBtn');
-const mobileAutoBtn = document.getElementById('mobileAutoBtn');
-const mobileDownloadBtn = document.getElementById('mobileDownloadBtn');
 
-const compareOriginal = document.getElementById('compareOriginal');
-const compareProcessed = document.getElementById('compareProcessed');
 const canvasOrig = document.getElementById('canvasOrig');
 const canvasResult = document.getElementById('canvasResult');
-const canvasSingle = document.getElementById('canvasSingle');
 
 const sliderPairs = [
   ['brightness', 'brightnessVal'],
@@ -810,6 +567,7 @@ const sliderPairs = [
 
 dropZone.addEventListener('click', () => fileInput.click());
 uploadCtaCard.addEventListener('click', () => fileInput.click());
+
 fileInput.addEventListener('change', e => {
   if (e.target.files && e.target.files[0]) loadFile(e.target.files[0]);
 });
@@ -827,10 +585,6 @@ dropZone.addEventListener('drop', e => {
   if (e.dataTransfer.files && e.dataTransfer.files[0]) loadFile(e.dataTransfer.files[0]);
 });
 
-usagePreset.addEventListener('change', () => {
-  applyUsagePreset();
-  saveSettings();
-});
 materialSelect.addEventListener('change', () => {
   applyMaterialPreset();
   saveSettings();
@@ -839,48 +593,30 @@ ditherMode.addEventListener('change', () => {
   saveSettings();
   scheduleProcessImage();
 });
-
 dpi.addEventListener('change', () => {
-  syncPhysicalAndPixelWidths('input');
+  syncWidthFromMm();
   updateSizeInfo();
   saveSettings();
   if (originalImage) scheduleProcessImage();
 });
 
-widthUnit.addEventListener('change', () => {
-  handleUnitChange();
-  saveSettings();
-});
-
-outputWidthInput.addEventListener('input', () => {
-  syncPhysicalAndPixelWidths('input');
+outputWidthMm.addEventListener('input', () => {
+  syncWidthFromMm();
   updateSizeInfo();
   saveSettings();
   scheduleProcessImage();
 });
 
 outputWidthSlider.addEventListener('input', () => {
-  syncPhysicalAndPixelWidths('slider');
+  syncMmFromSlider();
   updateSizeInfo();
   saveSettings();
   scheduleProcessImage();
 });
 
-compareRange.addEventListener('input', () => {
-  updateCompareSlider();
-  saveSettings();
-});
-
 downloadBtn.addEventListener('click', downloadResult);
-mobileDownloadBtn.addEventListener('click', downloadResult);
 autoAdjustBtn.addEventListener('click', autoAdjustFromImage);
-mobileAutoBtn.addEventListener('click', autoAdjustFromImage);
 resetBtn.addEventListener('click', resetSettings);
-
-document.getElementById('btnCompare').addEventListener('click', () => setViewMode('compare'));
-document.getElementById('btnSplit').addEventListener('click', () => setViewMode('split'));
-document.getElementById('btnOriginal').addEventListener('click', () => setViewMode('original'));
-document.getElementById('btnResult').addEventListener('click', () => setViewMode('result'));
 
 [brightness, contrast, gamma, sharpness].forEach((el) => {
   el.addEventListener('input', () => {
@@ -888,10 +624,6 @@ document.getElementById('btnResult').addEventListener('click', () => setViewMode
     saveSettings();
     scheduleProcessImage();
   });
-});
-
-[compareOriginal, compareProcessed, canvasOrig, canvasResult, canvasSingle].forEach(c => {
-  c.addEventListener('click', () => openZoom(c));
 });
 
 function scheduleProcessImage() {
@@ -923,11 +655,8 @@ function loadStoredSettings() {
     if (s.sharpness !== undefined) sharpness.value = s.sharpness;
     if (s.ditherMode) ditherMode.value = s.ditherMode;
     if (s.dpi) dpi.value = s.dpi;
-    if (s.widthUnit) widthUnit.value = s.widthUnit;
-    if (s.outputWidthInput !== undefined) outputWidthInput.value = s.outputWidthInput;
-    if (s.usagePreset) usagePreset.value = s.usagePreset;
+    if (s.outputWidthMm !== undefined) outputWidthMm.value = s.outputWidthMm;
     if (s.materialSelect) materialSelect.value = s.materialSelect;
-    if (s.compareRange !== undefined) compareRange.value = s.compareRange;
   } catch (e) {}
 }
 
@@ -939,11 +668,8 @@ function saveSettings() {
     sharpness: Number(sharpness.value),
     ditherMode: ditherMode.value,
     dpi: Number(dpi.value),
-    widthUnit: widthUnit.value,
-    outputWidthInput: Number(outputWidthInput.value),
-    usagePreset: usagePreset.value,
-    materialSelect: materialSelect.value,
-    compareRange: Number(compareRange.value)
+    outputWidthMm: Number(outputWidthMm.value),
+    materialSelect: materialSelect.value
   };
   try {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
@@ -957,15 +683,11 @@ function resetSettings() {
   sharpness.value = DEFAULTS.sharpness;
   ditherMode.value = DEFAULTS.ditherMode;
   dpi.value = DEFAULTS.dpi;
-  widthUnit.value = DEFAULTS.widthUnit;
-  outputWidthInput.value = DEFAULTS.outputWidthInput;
-  usagePreset.value = DEFAULTS.usagePreset;
+  outputWidthMm.value = DEFAULTS.outputWidthMm;
   materialSelect.value = DEFAULTS.materialSelect;
-  compareRange.value = DEFAULTS.compareRange;
 
-  handleUnitChange();
+  syncWidthFromMm();
   sliderPairs.forEach(([id]) => updateSlider(document.getElementById(id)));
-  updateCompareSlider();
   updateSizeInfo();
   saveSettings();
   scheduleProcessImage();
@@ -982,8 +704,8 @@ function loadFile(file) {
       document.getElementById('emptyState').style.display = 'none';
       document.getElementById('canvasArea').style.display = 'block';
 
-      analyzeImageForRecommendation();
-      syncPhysicalAndPixelWidths('input');
+      analyzeImageForAutoAdjust();
+      syncWidthFromMm();
       updateSizeInfo();
       processImage();
     };
@@ -992,27 +714,6 @@ function loadFile(file) {
   };
   reader.onerror = () => alert('Chyba při čtení souboru.');
   reader.readAsDataURL(file);
-}
-
-function applyUsagePreset() {
-  const presets = {
-    portrait:  { brightness: 8, contrast: 22, gamma: 1.1, sharpness: 1, ditherMode: 'floyd' },
-    animal:    { brightness: 6, contrast: 28, gamma: 1.08, sharpness: 1.5, ditherMode: 'floyd' },
-    logo:      { brightness: 0, contrast: 60, gamma: 1.0, sharpness: 2, ditherMode: 'atkinson' },
-    landscape: { brightness: 5, contrast: 35, gamma: 1.0, sharpness: 1, ditherMode: 'floyd' }
-  };
-
-  const p = presets[usagePreset.value];
-  if (!p) return;
-
-  brightness.value = p.brightness;
-  contrast.value = p.contrast;
-  gamma.value = p.gamma;
-  sharpness.value = p.sharpness;
-  ditherMode.value = p.ditherMode;
-
-  sliderPairs.forEach(([id]) => updateSlider(document.getElementById(id)));
-  scheduleProcessImage();
 }
 
 function applyMaterialPreset() {
@@ -1039,7 +740,7 @@ function applyMaterialPreset() {
   scheduleProcessImage();
 }
 
-function analyzeImageForRecommendation() {
+function analyzeImageForAutoAdjust() {
   if (!originalImage) return;
 
   const sampleW = 180;
@@ -1069,34 +770,13 @@ function analyzeImageForRecommendation() {
   const mean = sum / count;
   const variance = Math.max(0, sumSq / count - mean * mean);
   const stdDev = Math.sqrt(variance);
-  const normalizedEdge = edgeScore / Math.max(1, count);
 
   let recommended = 'floyd';
-  if (stdDev > 70 || normalizedEdge > 32) {
+  if (stdDev > 70 || edgeScore / Math.max(1, count) > 32) {
     recommended = 'atkinson';
   }
 
-  lastImageStats = { mean, stdDev, normalizedEdge, recommended };
-  updateRecommendationText();
-
-  if (usagePreset.value === 'none') {
-    ditherMode.value = recommended;
-    saveSettings();
-  }
-}
-
-function updateRecommendationText() {
-  const el = document.getElementById('styleRecommendation');
-  if (!lastImageStats) {
-    el.textContent = 'Nahraj fotku';
-    return;
-  }
-
-  const label = lastImageStats.recommended === 'floyd'
-    ? 'Detailní (fotografie)'
-    : 'Kontrastní (grafika)';
-
-  el.innerHTML = `Doporučeno: <span>${label}</span>`;
+  lastImageStats = { mean, stdDev, recommended };
 }
 
 function autoAdjustFromImage() {
@@ -1105,7 +785,7 @@ function autoAdjustFromImage() {
     return;
   }
 
-  if (!lastImageStats) analyzeImageForRecommendation();
+  if (!lastImageStats) analyzeImageForAutoAdjust();
 
   const { mean, stdDev, recommended } = lastImageStats;
   let newBrightness = 0;
@@ -1152,98 +832,31 @@ function roundTo(value, step) {
   return Math.round(value / step) * step;
 }
 
-function handleUnitChange() {
-  const previousPx = getOutputWidthPx();
-  document.getElementById('widthUnitLabel').textContent = widthUnit.value;
-  document.getElementById('widthHelper').textContent =
-    widthUnit.value === 'px'
-      ? 'Zadáváš přímo počet pixelů výsledného obrázku.'
-      : 'Výsledná šířka gravírování. Pixely se dopočítají automaticky podle DPI.';
-
-  if (widthUnit.value === 'px') {
-    outputWidthInput.value = previousPx;
-  } else if (widthUnit.value === 'cm') {
-    outputWidthInput.value = roundTo(previousPx / Number(dpi.value) * 2.54, 0.1);
-  } else {
-    outputWidthInput.value = Math.round(previousPx / Number(dpi.value) * 25.4);
-  }
-
-  syncPhysicalAndPixelWidths('input');
-  updateSizeInfo();
-  scheduleProcessImage();
-}
-
 function getOutputWidthPx() {
-  const unit = widthUnit.value;
-  const value = Math.max(1, Number(outputWidthInput.value || 0));
+  const mm = Math.max(1, Number(outputWidthMm.value || 0));
   const dpiValue = Number(dpi.value);
-
-  if (unit === 'px') return Math.round(value);
-  if (unit === 'cm') return Math.max(100, Math.round((value / 2.54) * dpiValue));
-  return Math.max(100, Math.round((value / 25.4) * dpiValue));
+  return Math.max(100, Math.round((mm / 25.4) * dpiValue));
 }
 
-function syncPhysicalAndPixelWidths(source) {
-  let px = source === 'slider'
-    ? Math.max(100, Number(outputWidthSlider.value))
-    : getOutputWidthPx();
-
-  px = clamp(Math.round(px), 100, 3000);
+function syncWidthFromMm() {
+  const px = clamp(getOutputWidthPx(), 100, 3000);
   outputWidthSlider.value = px;
   updateSlider(outputWidthSlider);
+}
 
+function syncMmFromSlider() {
+  const px = Math.max(100, Number(outputWidthSlider.value));
   const dpiValue = Number(dpi.value);
-  if (source === 'slider') {
-    if (widthUnit.value === 'px') {
-      outputWidthInput.value = px;
-    } else if (widthUnit.value === 'cm') {
-      outputWidthInput.value = roundTo(px / dpiValue * 2.54, 0.1);
-    } else {
-      outputWidthInput.value = Math.round(px / dpiValue * 25.4);
-    }
-  }
+  outputWidthMm.value = Math.round((px / dpiValue) * 25.4);
 }
 
 function updateSizeInfo() {
   const px = getOutputWidthPx();
+  const mm = Math.max(1, Number(outputWidthMm.value || 0));
   const dpiValue = Number(dpi.value);
 
-  let physicalText = '—';
-  if (widthUnit.value === 'px') {
-    const mm = px / dpiValue * 25.4;
-    physicalText = `${mm.toFixed(1)} mm`;
-  } else if (widthUnit.value === 'cm') {
-    physicalText = `${Number(outputWidthInput.value || 0).toFixed(1)} cm`;
-  } else {
-    physicalText = `${Number(outputWidthInput.value || 0).toFixed(0)} mm`;
-  }
-
-  document.getElementById('sizeInfo').textContent = physicalText;
+  document.getElementById('sizeInfo').textContent = `${mm.toFixed(0)} mm`;
   document.getElementById('pixelInfo').textContent = `${px} px @ ${dpiValue} DPI`;
-}
-
-function setViewMode(mode) {
-  viewMode = mode;
-
-  ['btnCompare', 'btnSplit', 'btnOriginal', 'btnResult'].forEach(id => {
-    document.getElementById(id).classList.remove('active');
-  });
-
-  if (mode === 'compare') document.getElementById('btnCompare').classList.add('active');
-  if (mode === 'split') document.getElementById('btnSplit').classList.add('active');
-  if (mode === 'original') document.getElementById('btnOriginal').classList.add('active');
-  if (mode === 'result') document.getElementById('btnResult').classList.add('active');
-
-  document.getElementById('compareView').style.display = mode === 'compare' ? 'block' : 'none';
-  document.getElementById('splitView').style.display = mode === 'split' ? 'grid' : 'none';
-  document.getElementById('singleView').style.display = (mode === 'original' || mode === 'result') ? 'block' : 'none';
-
-  document.getElementById('singleCanvasLabel').textContent =
-    mode === 'original'
-      ? 'Originál • klikni pro zvětšení'
-      : 'Výsledek • klikni pro zvětšení';
-
-  if (originalImage) processImage();
 }
 
 function processImage() {
@@ -1253,7 +866,6 @@ function processImage() {
   const h = Math.max(1, Math.round(originalImage.height * w / originalImage.width));
 
   drawOriginalIntoCanvas(canvasOrig, w, h);
-  drawOriginalIntoCanvas(compareOriginal, w, h);
 
   const srcCanvas = document.createElement('canvas');
   srcCanvas.width = w;
@@ -1272,16 +884,8 @@ function processImage() {
   applyDithering(imageData, w, h, ditherMode.value, FIXED_THRESHOLD);
 
   putImageDataToCanvas(canvasResult, imageData, w, h);
-  putImageDataToCanvas(compareProcessed, imageData, w, h);
-
-  if (viewMode === 'original') {
-    drawOriginalIntoCanvas(canvasSingle, w, h);
-  } else if (viewMode === 'result') {
-    putImageDataToCanvas(canvasSingle, imageData, w, h);
-  }
 
   document.getElementById('imageDims').textContent = `${w} × ${h} px`;
-  updateCompareSlider();
   updateSizeInfo();
 }
 
@@ -1298,12 +902,6 @@ function putImageDataToCanvas(canvas, imageData, w, h) {
   canvas.height = h;
   const ctx = canvas.getContext('2d');
   ctx.putImageData(imageData, 0, 0);
-}
-
-function updateCompareSlider() {
-  const value = Number(compareRange.value);
-  compareOverlay.style.width = value + '%';
-  compareHandle.style.left = value + '%';
 }
 
 function toGrayscale(imageData) {
@@ -1443,56 +1041,9 @@ function applyDithering(imageData, w, h, mode, thresh) {
 
 function buildExportFilename() {
   const dpiValue = Number(dpi.value);
-  const px = getOutputWidthPx();
+  const mm = Math.max(1, Number(outputWidthMm.value || 0));
   const style = ditherMode.value === 'atkinson' ? 'kontrastni' : 'detailni';
-
-  let sizeLabel = '';
-  if (widthUnit.value === 'px') {
-    sizeLabel = `${px}px`;
-  } else if (widthUnit.value === 'cm') {
-    sizeLabel = `${String(outputWidthInput.value).replace('.', '-') }cm`;
-  } else {
-    sizeLabel = `${String(outputWidthInput.value).replace('.', '-') }mm`;
-  }
-
-  return `laser-${sizeLabel}-${dpiValue}dpi-${style}.png`;
-}
-
-function openZoom(sourceCanvas) {
-  if (!sourceCanvas.width) return;
-
-  const overlay = document.createElement('div');
-  overlay.className = 'zoom-overlay';
-  overlay.innerHTML = `
-    <div class="zoom-panel">
-      <div class="zoom-header">
-        <div>
-          <div style="font-size:0.9rem;font-weight:700;color:#e2e8f0">Zvětšený náhled</div>
-          <div class="zoom-note">Pro detailní kontrolu kresby a bodování.</div>
-        </div>
-        <button class="btn btn-secondary" id="zoomCloseBtn">Zavřít</button>
-      </div>
-      <div class="zoom-canvas-wrap">
-        <canvas id="zoomCanvas"></canvas>
-      </div>
-    </div>
-  `;
-
-  document.body.appendChild(overlay);
-
-  const zoomCanvas = overlay.querySelector('#zoomCanvas');
-  zoomCanvas.width = sourceCanvas.width;
-  zoomCanvas.height = sourceCanvas.height;
-  zoomCanvas.style.width = Math.min(sourceCanvas.width * 1.5, 2200) + 'px';
-  zoomCanvas.style.height = 'auto';
-
-  const ctx = zoomCanvas.getContext('2d');
-  ctx.drawImage(sourceCanvas, 0, 0);
-
-  overlay.querySelector('#zoomCloseBtn').addEventListener('click', () => overlay.remove());
-  overlay.addEventListener('click', e => {
-    if (e.target === overlay) overlay.remove();
-  });
+  return `laser-${mm}mm-${dpiValue}dpi-${style}.png`;
 }
 
 const ABACUS_GET = 'https://abacus.jasoncameron.dev/get/stunning-twilight-266e8a/downloads';
@@ -1523,11 +1074,11 @@ function incrementCounter() {
 function showIOSModal(blob) {
   const url = URL.createObjectURL(blob);
   const overlay = document.createElement('div');
-  overlay.className = 'zoom-overlay';
+  overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.9);z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px;';
   overlay.innerHTML = `
-    <div class="zoom-panel" style="max-width:360px">
+    <div style="width:min(360px,100%);background:#0f1117;border:1px solid rgba(255,255,255,0.08);border-radius:18px;padding:16px;">
       <div style="font-size:0.9rem;font-weight:700;color:#f97316;margin-bottom:4px">Uložení na iOS</div>
-      <div class="zoom-note" style="margin-bottom:14px">Podrž prst na obrázku a vyber <strong style="color:#e2e8f0">Přidat do Fotek</strong> nebo <strong style="color:#e2e8f0">Uložit obrázek</strong>.</div>
+      <div style="font-size:0.74rem;color:#64748b;margin-bottom:14px">Podrž prst na obrázku a vyber <strong style="color:#e2e8f0">Přidat do Fotek</strong> nebo <strong style="color:#e2e8f0">Uložit obrázek</strong>.</div>
       <div style="background:#000;border-radius:12px;overflow:hidden;border:1px solid rgba(255,255,255,0.08);margin-bottom:14px;">
         <img src="${url}" style="width:100%;display:block;" alt="Export PNG">
       </div>
@@ -1698,10 +1249,8 @@ async function downloadResult() {
 
 loadStoredSettings();
 sliderPairs.forEach(([id]) => updateSlider(document.getElementById(id)));
-handleUnitChange();
-updateCompareSlider();
+syncWidthFromMm();
 updateSizeInfo();
-setViewMode('compare');
 loadCounter();
 </script>
 </body>
