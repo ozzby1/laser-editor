@@ -264,22 +264,26 @@
   }
 
   .zoom-hover {
-    overflow: auto;
+    overflow: hidden;
     border-radius: 12px;
     cursor: zoom-in;
-    max-height: 75vh;
     user-select: none;
     -webkit-user-select: none;
-    scrollbar-width: thin;
+    position: relative;
   }
 
   .zoom-hover canvas {
+    display: block;
+    width: 100%;
+    height: auto;
     transform-origin: top left;
     transition: transform 0.08s ease;
   }
 
   .zoom-hover.zoomed {
     cursor: grab;
+    overflow: auto;
+    max-height: 75vh;
   }
 
   .zoom-hover.dragging {
@@ -745,11 +749,16 @@ function getCanvasScale(canvas) {
 function setCanvasScale(canvas, scale) {
   const clamped = clamp(scale, ZOOM_MIN, ZOOM_MAX);
   zoomState[getCanvasZoomKey(canvas)] = clamped;
-  canvas.style.transform = `scale(${clamped})`;
 
   const wrapper = canvas.parentElement;
-  if (wrapper) {
-    wrapper.classList.toggle('zoomed', clamped > 1);
+  if (!wrapper) return;
+
+  canvas.style.transform = `scale(${clamped})`;
+  wrapper.classList.toggle('zoomed', clamped > 1);
+
+  if (clamped <= 1) {
+    wrapper.scrollLeft = 0;
+    wrapper.scrollTop = 0;
   }
 }
 
@@ -1102,17 +1111,25 @@ function processImage() {
 function drawOriginalIntoCanvas(canvas, w, h) {
   canvas.width = w;
   canvas.height = h;
+  canvas.style.width = '100%';
+  canvas.style.height = 'auto';
+
   const ctx = canvas.getContext('2d');
   ctx.clearRect(0, 0, w, h);
   ctx.drawImage(originalImage, 0, 0, w, h);
+
   setCanvasScale(canvas, getCanvasScale(canvas));
 }
 
 function putImageDataToCanvas(canvas, imageData, w, h) {
   canvas.width = w;
   canvas.height = h;
+  canvas.style.width = '100%';
+  canvas.style.height = 'auto';
+
   const ctx = canvas.getContext('2d');
   ctx.putImageData(imageData, 0, 0);
+
   setCanvasScale(canvas, getCanvasScale(canvas));
 }
 
