@@ -264,17 +264,19 @@
   }
 
   .zoom-hover {
-    overflow: hidden;
+    overflow: auto;
     border-radius: 12px;
+    cursor: zoom-in;
+    max-height: 75vh;
   }
 
   .zoom-hover canvas {
-    transition: transform 0.25s ease;
-    transform-origin: center center;
+    transform-origin: top left;
+    transition: transform 0.08s ease;
   }
 
-  .zoom-hover:hover canvas {
-    transform: scale(1.08);
+  .zoom-hover.zoomed {
+    cursor: zoom-out;
   }
 
   .empty-steps {
@@ -413,6 +415,9 @@
             <div class="zoom-hover canvas-wrap">
               <canvas id="canvasSingle" class="w-full"></canvas>
             </div>
+            <div class="helper-text" style="text-align:center;margin-top:10px;">
+              Kolečkem myši přiblížíš nebo oddálíš náhled. Dvojklik vrátí 100 %.
+            </div>
           </div>
 
           <div id="compareView" style="display:none">
@@ -428,7 +433,9 @@
                 </div>
               </div>
             </div>
-            <div class="helper-text" style="text-align:center;margin-top:10px;">Najetím myší náhled lehce přiblížíš.</div>
+            <div class="helper-text" style="text-align:center;margin-top:10px;">
+              Kolečkem myši přiblížíš nebo oddálíš náhled. Dvojklik vrátí 100 %.
+            </div>
           </div>
         </div>
       </div>
@@ -577,6 +584,16 @@ let renderQueued = false;
 let lastImageStats = null;
 let viewMode = 'result';
 
+const ZOOM_STEP = 0.1;
+const ZOOM_MIN = 0.2;
+const ZOOM_MAX = 6;
+
+const zoomState = {
+  canvasSingle: 1,
+  canvasCompareOrig: 1,
+  canvasCompareResult: 1
+};
+
 const FIXED_THRESHOLD = 128;
 const DEFAULTS = {
   brightness: 0,
@@ -695,6 +712,63 @@ function setViewMode(mode) {
   document.getElementById('btnCompare').classList.toggle('active', mode === 'compare');
   document.getElementById('resultView').style.display = mode === 'result' ? 'block' : 'none';
   document.getElementById('compareView').style.display = mode === 'compare' ? 'block' : 'none';
+}
+
+function getCanvasZoomKey(canvas) {
+  return canvas.id;
+}
+
+function getCanvasScale(canvas) {
+  return zoomState[getCanvasZoomKey(canvas)] || 1;
+}
+
+function setCanvasScale(canvas, scale) {
+  const clamped = clamp(scale, ZOOM_MIN, ZOOM_MAX);
+  zoomState[getCanvasZoomKey(canvas)] = clamped;
+  canvas.style.transform = `scale(${clamped})`;
+
+  const wrapper = canvas.parentElement;
+  if (wrapper) {
+    wrapper.classList.toggle('zoomed', clamped !== 1);
+  }
+}
+
+function attachWheelZoom(wrapper, canvas) {
+  wrapper.addEventListener('wheel', (e) => {
+    if (!canvas.width || !canvas.height) return;
+
+    e.preventDefault();
+
+    const oldScale = getCanvasScale(canvas);
+    const delta = e.deltaY < 0 ? ZOOM_STEP : -ZOOM_STEP;
+    const newScale = clamp(roundTo(oldScale + delta, 0.05), ZOOM_MIN, ZOOM_MAX);
+
+    if (newScale === oldScale) return;
+
+    const rect = wrapper.getBoundingClientRect();
+    const offsetX = e.clientX - rect.left + wrapper.scrollLeft;
+    const offsetY = e.clientY - rect.top + wrapper.scrollTop;
+
+    const pointX = offsetX / oldScale;
+    const pointY = offsetY / oldScale;
+
+    setCanvasScale(canvas, newScale);
+
+    wrapper.scrollLeft = pointX * newScale - (e.clientX - rect.left);
+    wrapper.scrollTop = pointY * newScale - (e.clientY - rect.top);
+  }, { passive: false });
+
+  wrapper.addEventListener('dblclick', () => {
+    setCanvasScale(canvas, 1);
+    wrapper.scrollLeft = 0;
+    wrapper.scrollTop = 0;
+  });
+}
+
+function initializeCanvasZoom() {
+  attachWheelZoom(canvasSingle.parentElement, canvasSingle);
+  attachWheelZoom(canvasCompareOrig.parentElement, canvasCompareOrig);
+  attachWheelZoom(canvasCompareResult.parentElement, canvasCompareResult);
 }
 
 function scheduleProcessImage() {
@@ -967,6 +1041,7 @@ function drawOriginalIntoCanvas(canvas, w, h) {
   const ctx = canvas.getContext('2d');
   ctx.clearRect(0, 0, w, h);
   ctx.drawImage(originalImage, 0, 0, w, h);
+  setCanvasScale(canvas, getCanvasScale(canvas));
 }
 
 function putImageDataToCanvas(canvas, imageData, w, h) {
@@ -974,6 +1049,7 @@ function putImageDataToCanvas(canvas, imageData, w, h) {
   canvas.height = h;
   const ctx = canvas.getContext('2d');
   ctx.putImageData(imageData, 0, 0);
+  setCanvasScale(canvas, getCanvasScale(canvas));
 }
 
 function toGrayscale(imageData) {
@@ -1326,6 +1402,7 @@ syncWidthFromMm();
 updateSizeInfo();
 setViewMode('result');
 loadCounter();
+initializeCanvasZoom();
 </script>
 </body>
 </html>
