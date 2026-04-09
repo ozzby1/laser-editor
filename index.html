@@ -648,10 +648,14 @@ function parseCount(data) {
   return data.count ?? data.value ?? data.hits ?? 0;
 }
 
+const PROXY = 'https://api.allorigins.win/get?url=';
+const API_BASE = 'https://api.counterapi.dev/v1/stunning-twilight-266e8a/downloads';
+
 function loadCounter() {
-  fetch('https://api.counterapi.dev/v1/stunning-twilight-266e8a/downloads')
+  fetch(PROXY + encodeURIComponent(API_BASE))
     .then(r => r.json())
-    .then(data => {
+    .then(wrapper => {
+      const data = JSON.parse(wrapper.contents);
       console.log('counter GET:', data);
       const n = parseCount(data);
       document.getElementById('photoCounter').textContent = n > 0 ? n.toLocaleString('cs-CZ') : '—';
@@ -660,9 +664,10 @@ function loadCounter() {
 }
 
 function incrementCounter() {
-  fetch('https://api.counterapi.dev/v1/stunning-twilight-266e8a/downloads/up')
+  fetch(PROXY + encodeURIComponent(API_BASE + '/up'))
     .then(r => r.json())
-    .then(data => {
+    .then(wrapper => {
+      const data = JSON.parse(wrapper.contents);
       console.log('counter UP:', data);
       document.getElementById('photoCounter').textContent = parseCount(data).toLocaleString('cs-CZ');
     })
