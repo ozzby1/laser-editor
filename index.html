@@ -649,17 +649,18 @@ function parseCount(data) {
 }
 
 function loadCounter() {
-  fetch('https://api.counterapi.dev/v1/laser-editor-266e8a/downloads/get')
+  fetch('https://api.counterapi.dev/v1/stunning-twilight-266e8a/downloads/get')
     .then(r => r.json())
     .then(data => {
       console.log('counter GET:', data);
-      document.getElementById('photoCounter').textContent = parseCount(data).toLocaleString('cs-CZ');
+      const n = parseCount(data);
+      document.getElementById('photoCounter').textContent = n > 0 ? n.toLocaleString('cs-CZ') : '—';
     })
     .catch(() => { document.getElementById('photoCounter').textContent = '—'; });
 }
 
 function incrementCounter() {
-  fetch('https://api.counterapi.dev/v1/laser-editor-266e8a/downloads/up')
+  fetch('https://api.counterapi.dev/v1/stunning-twilight-266e8a/downloads/up')
     .then(r => r.json())
     .then(data => {
       console.log('counter UP:', data);
