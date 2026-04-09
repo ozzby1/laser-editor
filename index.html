@@ -17,7 +17,7 @@
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://photoengraving.online/">
 <meta property="og:locale" content="cs_CZ">
-<meta property="og:image" content="https://photoengraving.online/preview-2.png">
+<meta property="og:image" content="https://photoengraving.online/preview.png">
 
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://cdn.tailwindcss.com"></script>
@@ -396,7 +396,7 @@
     <div class="lg:col-span-2 flex flex-col gap-3 order-1 lg:order-1">
       <div class="panel px-4 py-3 flex gap-3 items-center flex-wrap">
         <button class="btn view-btn active" id="btnResult">Náhled</button>
-        <button class="btn view-btn" id="btnCompare">Porovnání vstup / výstup</button>
+        <button class="btn view-btn" id="btnCompare">Porovnání</button>
         <div class="ml-auto" style="font-size:0.75rem;color:#475569;font-weight:600" id="imageDims"></div>
       </div>
 
@@ -407,7 +407,7 @@
             <div style="flex:1">
               <div style="font-size:0.65rem;font-weight:700;letter-spacing:0.08em;color:#94a3b8;margin-bottom:6px;text-align:center">ORIGINÁL</div>
               <div style="border-radius:10px;overflow:hidden;border:1px solid rgba(255,255,255,0.07);background:#000">
-                <img src="preview-2.png" alt="Ukázka originálu" style="width:100%;display:block;object-fit:contain;">
+                <img src="preview.png" alt="Ukázka originálu" style="width:100%;display:block;object-fit:contain;">
               </div>
             </div>
             <div style="display:flex;align-items:center;color:#f97316;font-size:1.4rem;padding-bottom:4px">→</div>
@@ -492,7 +492,7 @@
       </div>
 
       <div class="panel p-4">
-        <div class="section-title">Typ fotky</div>
+        <div class="section-title">Typ obrázku</div>
 
         <div class="grid grid-cols-2 gap-2" id="presetCards">
           <div class="preset-card" data-preset="custom">⚙️ Vlastní nastavení</div>
@@ -504,7 +504,7 @@
         </div>
 
         <div class="helper-text mt-2">
-          Výchozí je Běžná fotka. Smart Auto preset po nahrání fotky sám zkusí vybrat vhodnější režim.
+          Výchozí je Běžná fotka. Slidery níže můžeš kdykoliv jemně doladit.
         </div>
       </div>
 
@@ -544,7 +544,7 @@
           </div>
 
           <div>
-            <label for="ditherMode">STYL GRAVÍROVÁNÍ</label>
+            <label for="ditherMode">Styl gravírování</label>
             <select id="ditherMode" class="mt-1">
               <option value="floyd">Detailní</option>
               <option value="atkinson">Kontrastní</option>
@@ -552,9 +552,8 @@
             <div class="helper-text">Fotky → Detailní | výraznější hrany → Kontrastní</div>
           </div>
 
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1">
-            <button class="btn btn-secondary" id="autoAdjustBtn">✨ Automatické vyladění</button>
-            <button class="btn btn-secondary" id="resetBtn">↺ Reset vyladění</button>
+          <div class="grid grid-cols-1 sm:grid-cols-1 gap-2 pt-1">
+            <button class="btn btn-secondary" id="resetBtn">↺ Výchozí nastavení</button>
           </div>
         </div>
       </div>
@@ -619,7 +618,6 @@
 <script>
 let originalImage = null;
 let renderQueued = false;
-let lastImageStats = null;
 let viewMode = 'result';
 let currentPreset = 'normal';
 
@@ -663,7 +661,7 @@ const DEFAULTS = {
   outputWidthMm: 100
 };
 
-const STORAGE_KEY = 'laserEditorSimpleV6';
+const STORAGE_KEY = 'laserEditorSimpleV7';
 
 const fileInput = document.getElementById('fileInput');
 const dropZone = document.getElementById('dropZone');
@@ -679,7 +677,6 @@ const outputWidthMm = document.getElementById('outputWidthMm');
 const outputWidthSlider = document.getElementById('outputWidthSlider');
 
 const downloadBtn = document.getElementById('downloadBtn');
-const autoAdjustBtn = document.getElementById('autoAdjustBtn');
 const resetBtn = document.getElementById('resetBtn');
 
 const canvasSingle = document.getElementById('canvasSingle');
@@ -730,7 +727,7 @@ presetCards.forEach(card => {
 ditherMode.addEventListener('change', () => {
   markAsCustom();
   saveSettings();
-  scheduleProcessImage();
+  if (originalImage) scheduleProcessImage();
 });
 
 dpi.addEventListener('change', () => {
@@ -755,7 +752,6 @@ outputWidthSlider.addEventListener('input', () => {
 });
 
 downloadBtn.addEventListener('click', downloadResult);
-autoAdjustBtn.addEventListener('click', smartAutoPreset);
 resetBtn.addEventListener('click', resetSettings);
 
 [brightness, contrast, gamma, sharpness].forEach((el) => {
@@ -988,16 +984,10 @@ function showEditor() {
   document.getElementById('canvasArea').style.display = 'block';
 }
 
-function loadImageIntoEditor(img, useSmartPreset = true) {
+function loadImageIntoEditor(img) {
   originalImage = img;
   showEditor();
-
-  if (useSmartPreset) {
-    smartAutoPreset();
-  } else {
-    applyPreset('normal');
-  }
-
+  applyPreset('normal');
   syncWidthFromMm();
   updateSizeInfo();
   setViewMode('result');
@@ -1011,7 +1001,7 @@ function loadFile(file) {
   reader.onload = ev => {
     const img = new Image();
     img.onload = () => {
-      loadImageIntoEditor(img, true);
+      loadImageIntoEditor(img);
     };
     img.onerror = () => alert('Nepodařilo se načíst obrázek.');
     img.src = ev.target.result;
@@ -1023,85 +1013,12 @@ function loadFile(file) {
 function loadDemoImage() {
   const img = new Image();
   img.onload = () => {
-    loadImageIntoEditor(img, false);
+    loadImageIntoEditor(img);
   };
   img.onerror = () => {
     console.warn('Demo obrázek se nepodařilo načíst.');
   };
-  img.src = 'preview-2.png';
-}
-
-function analyzeImageStats() {
-  if (!originalImage) return null;
-
-  const sampleW = 160;
-  const sampleH = Math.max(1, Math.round(originalImage.height * sampleW / originalImage.width));
-  const c = document.createElement('canvas');
-  c.width = sampleW;
-  c.height = sampleH;
-  const ctx = c.getContext('2d', { willReadFrequently: true });
-  ctx.drawImage(originalImage, 0, 0, sampleW, sampleH);
-
-  const data = ctx.getImageData(0, 0, sampleW, sampleH).data;
-
-  let sum = 0;
-  let sumSq = 0;
-  let edgeScore = 0;
-  let prev = null;
-  let darkCount = 0;
-  let lightCount = 0;
-
-  for (let i = 0; i < data.length; i += 4) {
-    const g = 0.299 * data[i] + 0.587 * data[i + 1] + 0.114 * data[i + 2];
-    sum += g;
-    sumSq += g * g;
-
-    if (g < 70) darkCount++;
-    if (g > 190) lightCount++;
-
-    if (prev !== null) edgeScore += Math.abs(g - prev);
-    prev = g;
-  }
-
-  const count = data.length / 4;
-  const mean = sum / count;
-  const variance = Math.max(0, sumSq / count - mean * mean);
-  const stdDev = Math.sqrt(variance);
-  const edgeAvg = edgeScore / Math.max(1, count - 1);
-
-  return {
-    mean,
-    stdDev,
-    edgeAvg,
-    darkRatio: darkCount / count,
-    lightRatio: lightCount / count
-  };
-}
-
-function smartAutoPreset() {
-  if (!originalImage) {
-    alert('Nejprve nahraj obrázek.');
-    return;
-  }
-
-  const stats = analyzeImageStats();
-  if (!stats) return;
-
-  lastImageStats = stats;
-
-  let preset = 'normal';
-
-  if (stats.mean < 95 || stats.darkRatio > 0.45) {
-    preset = 'dark';
-  } else if (stats.mean > 185 || stats.lightRatio > 0.45) {
-    preset = 'light';
-  } else if (stats.stdDev > 68 || stats.edgeAvg > 32) {
-    preset = 'detail';
-  } else {
-    preset = 'normal';
-  }
-
-  applyPreset(preset);
+  img.src = 'preview.png';
 }
 
 function clamp(n, min, max) {
@@ -1171,6 +1088,7 @@ function processImage() {
 
 function drawOriginalIntoCanvas(canvas, w, h) {
   if (!canvas) return;
+
   canvas.width = w;
   canvas.height = h;
   canvas.style.width = '100%';
