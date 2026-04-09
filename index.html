@@ -10,14 +10,14 @@
 <meta name="keywords" content="laser engraving photo editor, free laser photo converter, dithering image, black and white laser, photo to laser, laser engraver image, free online editor, laser PNG">
 <meta name="author" content="FREE PHOTO LASER EDITOR">
 <meta name="robots" content="index, follow">
-<link rel="canonical" href="https://stunning-twilight-266e8a.netlify.app/">
+<link rel="canonical" href="https://photoengraving.online/">
 <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/ozzby1/laser-editor/main/favi.png">
 
 <!-- Open Graph (social sharing) -->
 <meta property="og:title" content="FREE PHOTO LASER EDITOR – Photo Editor for Laser Engraving">
 <meta property="og:description" content="Convert your photo into a laser-ready image for free. Dithering, brightness, contrast and more tools. 100% free, no registration needed.">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://stunning-twilight-266e8a.netlify.app/">
+<meta property="og:url" content="https://photoengraving.online/">
 <meta property="og:locale" content="en_US">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://cdn.tailwindcss.com"></script>
@@ -260,7 +260,26 @@
             </div>
           </div>
           <div class="divider"></div>
-
+          <div>
+            <label>Metoda ditheringu</label>
+            <select id="ditherMode" class="w-full mt-1" onchange="processImage()">
+              <option value="floyd">Floyd-Steinberg (výchozí)</option>
+              <option value="atkinson">Atkinson</option>
+              <option value="stucki">Stucki</option>
+              <option value="ordered2">Bayer 2×2</option>
+              <option value="ordered4">Bayer 4×4</option>
+              <option value="ordered8">Bayer 8×8</option>
+              <option value="threshold">Threshold (čistý B/W)</option>
+              <option value="random">Náhodný</option>
+            </select>
+          </div>
+          <div id="thresholdRow">
+            <label>Práh (threshold)</label>
+            <div class="slider-row mt-1">
+              <input type="range" id="threshold" min="0" max="255" value="128" oninput="updateSlider(this,'thresholdVal');processImage()">
+              <span class="slider-val" id="thresholdVal">128</span>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -490,7 +509,9 @@ function processImage() {
   applyGamma(imageData);
   const sharp = parseFloat(document.getElementById('sharpness').value);
   if (sharp > 0) imageData = applySharpen(imageData, w, h, sharp);
-  applyDithering(imageData, w, h, 'floyd', 128);
+  const ditherMode = document.getElementById('ditherMode').value;
+  const thresh = parseInt(document.getElementById('threshold').value);
+  applyDithering(imageData, w, h, ditherMode, thresh);
   const resultCanvas = document.getElementById('canvasResult');
   resultCanvas.width = w; resultCanvas.height = h;
   resultCanvas.getContext('2d').putImageData(imageData, 0, 0);
@@ -555,8 +576,16 @@ function applySharpen(imageData, w, h, amount) {
       d[i+3] = 255;
     }
   }
-  for (let i = 0; i < src.length; i += 4) {
-    if (d[i+3] === 0) { d[i] = src[i]; d[i+1] = src[i+1]; d[i+2] = src[i+2]; d[i+3] = 255; }
+  // Zkopíruj okrajové pixely (první/poslední řádek a sloupec) přímo ze zdroje
+  for (let x = 0; x < w; x++) {
+    const top = x * 4;
+    const bot = ((h - 1) * w + x) * 4;
+    for (let c = 0; c < 4; c++) { d[top + c] = src[top + c]; d[bot + c] = src[bot + c]; }
+  }
+  for (let y = 0; y < h; y++) {
+    const left  = y * w * 4;
+    const right = (y * w + (w - 1)) * 4;
+    for (let c = 0; c < 4; c++) { d[left + c] = src[left + c]; d[right + c] = src[right + c]; }
   }
   return out;
 }
