@@ -625,6 +625,20 @@ function bayerDither(d, w, h, matrix, size, maxVal) {
   }
 }
 
+function drawHistogramEmpty() {
+  const canvas = document.getElementById('histogramCanvas');
+  const ctx = canvas.getContext('2d');
+  const cw = canvas.width, ch = canvas.height;
+  ctx.clearRect(0, 0, cw, ch);
+  ctx.fillStyle = '#080810';
+  ctx.fillRect(0, 0, cw, ch);
+  ctx.fillStyle = '#1e293b';
+  ctx.font = '11px Inter, sans-serif';
+  ctx.textAlign = 'center';
+  ctx.fillText('Histogram se zobrazí po nahrání fotky', cw / 2, ch / 2 + 4);
+}
+drawHistogramEmpty();
+
 function drawHistogram(imageData) {
   const hist = new Array(256).fill(0);
   const d = imageData.data;
