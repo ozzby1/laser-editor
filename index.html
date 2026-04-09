@@ -268,6 +268,9 @@
     border-radius: 12px;
     cursor: zoom-in;
     max-height: 75vh;
+    user-select: none;
+    -webkit-user-select: none;
+    scrollbar-width: thin;
   }
 
   .zoom-hover canvas {
@@ -276,7 +279,15 @@
   }
 
   .zoom-hover.zoomed {
-    cursor: zoom-out;
+    cursor: grab;
+  }
+
+  .zoom-hover.dragging {
+    cursor: grabbing !important;
+  }
+
+  .zoom-hover.dragging canvas {
+    transition: none;
   }
 
   .empty-steps {
@@ -416,7 +427,7 @@
               <canvas id="canvasSingle" class="w-full"></canvas>
             </div>
             <div class="helper-text" style="text-align:center;margin-top:10px;">
-              Kolečkem myši přiblížíš nebo oddálíš náhled. Dvojklik vrátí 100 %.
+              Kolečkem myši přiblížíš nebo oddálíš náhled. Přiblížený obrázek můžeš posouvat tažením myší. Dvojklik vrátí zoom na 100 %.
             </div>
           </div>
 
@@ -434,7 +445,7 @@
               </div>
             </div>
             <div class="helper-text" style="text-align:center;margin-top:10px;">
-              Kolečkem myši přiblížíš nebo oddálíš náhled. Dvojklik vrátí 100 %.
+              Kolečkem myši přiblížíš nebo oddálíš náhled. Přiblížený obrázek můžeš posouvat tažením myší. Dvojklik vrátí zoom na 100 %.
             </div>
           </div>
         </div>
@@ -594,6 +605,15 @@ const zoomState = {
   canvasCompareResult: 1
 };
 
+const dragState = {
+  isDragging: false,
+  wrapper: null,
+  startX: 0,
+  startY: 0,
+  scrollLeft: 0,
+  scrollTop: 0
+};
+
 const FIXED_THRESHOLD = 128;
 const DEFAULTS = {
   brightness: 0,
@@ -729,8 +749,46 @@ function setCanvasScale(canvas, scale) {
 
   const wrapper = canvas.parentElement;
   if (wrapper) {
-    wrapper.classList.toggle('zoomed', clamped !== 1);
+    wrapper.classList.toggle('zoomed', clamped > 1);
   }
+}
+
+function startDrag(wrapper, e) {
+  if (e.button !== 0) return;
+  const canvas = wrapper.querySelector('canvas');
+  if (!canvas) return;
+  if (getCanvasScale(canvas) <= 1) return;
+
+  dragState.isDragging = true;
+  dragState.wrapper = wrapper;
+  dragState.startX = e.clientX;
+  dragState.startY = e.clientY;
+  dragState.scrollLeft = wrapper.scrollLeft;
+  dragState.scrollTop = wrapper.scrollTop;
+
+  wrapper.classList.add('dragging');
+  e.preventDefault();
+}
+
+function onDragMove(e) {
+  if (!dragState.isDragging || !dragState.wrapper) return;
+
+  const dx = e.clientX - dragState.startX;
+  const dy = e.clientY - dragState.startY;
+
+  dragState.wrapper.scrollLeft = dragState.scrollLeft - dx;
+  dragState.wrapper.scrollTop = dragState.scrollTop - dy;
+}
+
+function stopDrag() {
+  if (!dragState.wrapper) {
+    dragState.isDragging = false;
+    return;
+  }
+
+  dragState.wrapper.classList.remove('dragging');
+  dragState.isDragging = false;
+  dragState.wrapper = null;
 }
 
 function attachWheelZoom(wrapper, canvas) {
@@ -763,12 +821,18 @@ function attachWheelZoom(wrapper, canvas) {
     wrapper.scrollLeft = 0;
     wrapper.scrollTop = 0;
   });
+
+  wrapper.addEventListener('mousedown', (e) => startDrag(wrapper, e));
+  wrapper.addEventListener('mouseleave', stopDrag);
 }
 
 function initializeCanvasZoom() {
   attachWheelZoom(canvasSingle.parentElement, canvasSingle);
   attachWheelZoom(canvasCompareOrig.parentElement, canvasCompareOrig);
   attachWheelZoom(canvasCompareResult.parentElement, canvasCompareResult);
+
+  window.addEventListener('mousemove', onDragMove);
+  window.addEventListener('mouseup', stopDrag);
 }
 
 function scheduleProcessImage() {
