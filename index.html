@@ -643,50 +643,25 @@ function drawHistogram(imageData) {
   }
 }
 
-function parseCount(data) {
-  // counterapi.dev může vracet { count }, { value }, nebo { hits }
-  return data.count ?? data.value ?? data.hits ?? 0;
-}
-
-const API_BASE = 'https://api.counterapi.dev/v1/stunning-twilight-266e8a/downloads';
-const PROXIES = [
-  url => `https://corsproxy.io/?${encodeURIComponent(url)}`,
-  url => `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`,
-];
-
-async function fetchWithProxy(url) {
-  // Nejdřív zkus přímé volání (counterapi možná CORS podporuje)
-  try {
-    const r = await fetch(url);
-    if (r.ok) { const d = await r.json(); console.log('direct OK:', d); return d; }
-  } catch(e) {}
-  // Pak zkoušej proxy
-  for (const proxy of PROXIES) {
-    try {
-      const r = await fetch(proxy(url));
-      if (!r.ok) continue;
-      const text = await r.text();
-      const d = JSON.parse(text);
-      console.log('proxy OK:', d);
-      return d;
-    } catch(e) {}
-  }
-  throw new Error('all failed');
-}
+// Counter - Abacus API (native CORS support)
+const ABACUS_GET = 'https://abacus.jasoncameron.dev/get/stunning-twilight-266e8a/downloads';
+const ABACUS_HIT = 'https://abacus.jasoncameron.dev/hit/stunning-twilight-266e8a/downloads';
 
 function loadCounter() {
-  fetchWithProxy(API_BASE)
+  fetch(ABACUS_GET)
+    .then(r => r.ok ? r.json() : null)
     .then(data => {
-      const n = parseCount(data);
+      const n = data && data.value ? data.value : 0;
       document.getElementById('photoCounter').textContent = n > 0 ? n.toLocaleString('cs-CZ') : '—';
     })
     .catch(() => { document.getElementById('photoCounter').textContent = '—'; });
 }
 
 function incrementCounter() {
-  fetchWithProxy(API_BASE + '/up')
+  fetch(ABACUS_HIT)
+    .then(r => r.ok ? r.json() : null)
     .then(data => {
-      const n = parseCount(data);
+      const n = data && data.value ? data.value : 0;
       if (n > 0) document.getElementById('photoCounter').textContent = n.toLocaleString('cs-CZ');
     })
     .catch(() => {});
