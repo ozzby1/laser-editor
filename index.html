@@ -363,11 +363,7 @@
         </div>
       </div>
 
-      <!-- Histogram -->
-      <div class="panel p-4">
-        <div class="section-title">Histogram výsledku</div>
-        <canvas id="histogramCanvas" width="600" height="56" class="w-full rounded-lg"></canvas>
-      </div>
+
     </div>
   </div>
 </div>
@@ -625,37 +621,7 @@ function bayerDither(d, w, h, matrix, size, maxVal) {
   }
 }
 
-function drawHistogramEmpty() {
-  const canvas = document.getElementById('histogramCanvas');
-  const ctx = canvas.getContext('2d');
-  const cw = canvas.width, ch = canvas.height;
-  ctx.clearRect(0, 0, cw, ch);
-  ctx.fillStyle = '#080810';
-  ctx.fillRect(0, 0, cw, ch);
-  ctx.fillStyle = '#1e293b';
-  ctx.font = '11px Inter, sans-serif';
-  ctx.textAlign = 'center';
-  ctx.fillText('Histogram se zobrazí po nahrání fotky', cw / 2, ch / 2 + 4);
-}
-drawHistogramEmpty();
-
-function drawHistogram(imageData) {
-  const hist = new Array(256).fill(0);
-  const d = imageData.data;
-  for (let i = 0; i < d.length; i += 4) hist[d[i]]++;
-  const max = Math.max.apply(null, hist);
-  const canvas = document.getElementById('histogramCanvas');
-  const ctx = canvas.getContext('2d');
-  const cw = canvas.width, ch = canvas.height;
-  ctx.clearRect(0, 0, cw, ch);
-  ctx.fillStyle = '#080810';
-  ctx.fillRect(0, 0, cw, ch);
-  for (let i = 0; i < 256; i++) {
-    const bh = Math.round((hist[i] / max) * ch);
-    ctx.fillStyle = 'rgba(249,115,22,0.75)';
-    ctx.fillRect(Math.round(i * cw / 256), ch - bh, Math.max(1, Math.ceil(cw / 256)), bh);
-  }
-}
+function drawHistogram(imageData) { /* histogram removed */ }
 
 // Counter - Abacus API (native CORS support)
 const ABACUS_GET = 'https://abacus.jasoncameron.dev/get/stunning-twilight-266e8a/downloads';
