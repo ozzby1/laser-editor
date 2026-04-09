@@ -64,10 +64,11 @@
   canvas {
     display: block;
     max-width: 100%;
+    background: #000;
   }
 
   #canvasSingle,
-  #compareProcessed {
+  #canvasCompareResult {
     image-rendering: pixelated;
   }
 
@@ -222,8 +223,7 @@
     box-shadow: 0 0 0 1px rgba(249,115,22,0.18), 0 6px 18px rgba(249,115,22,0.14);
   }
 
-  .counter-badge,
-  .info-badge {
+  .counter-badge {
     background: rgba(249,115,22,0.08);
     border: 1px solid rgba(249,115,22,0.18);
     border-radius: 999px;
@@ -233,8 +233,7 @@
     white-space: nowrap;
   }
 
-  .counter-badge span,
-  .info-badge span {
+  .counter-badge span {
     color: var(--accent);
     font-weight: 700;
   }
@@ -253,74 +252,41 @@
     align-items: center;
   }
 
-  .compare-wrap {
-    position: relative;
-    width: 100%;
-    background: #000;
+  .canvas-wrap {
     border-radius: 12px;
     overflow: hidden;
-    border: 1px solid rgba(255,255,255,0.06);
-    user-select: none;
-    line-height: 0;
+    border: 1px solid rgba(255,255,255,0.05);
+    background: #000;
   }
 
-  .compare-base {
-    position: relative;
-    width: 100%;
-  }
-
-  .compare-base canvas {
-    display: block;
-    width: 100%;
-    height: auto;
-  }
-
-  .compare-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    bottom: 0;
+  .zoom-hover {
     overflow: hidden;
-    border-right: 2px solid rgba(249,115,22,0.9);
-    z-index: 1;
+    border-radius: 12px;
   }
 
-  .compare-overlay canvas {
-    display: block;
-    width: 100%;
-    height: auto;
+  .zoom-hover canvas {
+    transition: transform 0.25s ease;
+    transform-origin: center center;
   }
 
-  .compare-handle {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    width: 28px;
-    margin-left: -14px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    pointer-events: none;
-    z-index: 2;
+  .zoom-hover:hover canvas {
+    transform: scale(1.08);
   }
 
-  .compare-handle::before {
-    content: '↔';
-    width: 28px;
-    height: 28px;
-    border-radius: 999px;
-    background: rgba(249,115,22,0.92);
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.8rem;
-    box-shadow: 0 6px 18px rgba(249,115,22,0.35);
+  .compare-title {
+    font-size: 0.7rem;
+    text-align: center;
+    margin-bottom: 6px;
+    font-weight: 600;
+    letter-spacing: 0.03em;
   }
 
-  .compare-range {
-    width: 100%;
-    margin-top: 12px;
+  .compare-title.orig {
+    color: #94a3b8;
+  }
+
+  .compare-title.result {
+    color: #f97316;
   }
 
   .empty-steps {
@@ -456,20 +422,27 @@
 
         <div id="canvasArea" style="display:none">
           <div id="resultView">
-            <canvas id="canvasSingle" class="w-full rounded-lg" style="border:1px solid rgba(255,255,255,0.05)"></canvas>
+            <div class="zoom-hover canvas-wrap">
+              <canvas id="canvasSingle" class="w-full"></canvas>
+            </div>
           </div>
 
           <div id="compareView" style="display:none">
-            <div class="compare-wrap">
-              <div class="compare-base">
-                <canvas id="compareOriginal"></canvas>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <div class="compare-title orig">Originál</div>
+                <div class="zoom-hover canvas-wrap">
+                  <canvas id="canvasCompareOrig" class="w-full"></canvas>
+                </div>
               </div>
-              <div class="compare-overlay" id="compareOverlay" style="width:50%">
-                <canvas id="compareProcessed"></canvas>
+              <div>
+                <div class="compare-title result">Výsledek</div>
+                <div class="zoom-hover canvas-wrap">
+                  <canvas id="canvasCompareResult" class="w-full"></canvas>
+                </div>
               </div>
-              <div class="compare-handle" id="compareHandle" style="left:50%"></div>
             </div>
-            <input type="range" id="compareRange" class="compare-range" min="0" max="100" value="50">
+            <div class="helper-text" style="text-align:center;margin-top:10px;">Najetím myší náhled lehce přiblížíš.</div>
           </div>
         </div>
       </div>
@@ -627,11 +600,10 @@ const DEFAULTS = {
   ditherMode: 'floyd',
   dpi: 254,
   outputWidthMm: 100,
-  materialSelect: 'custom',
-  compareRange: 50
+  materialSelect: 'custom'
 };
 
-const STORAGE_KEY = 'laserEditorSimpleV2';
+const STORAGE_KEY = 'laserEditorSimpleV3';
 
 const fileInput = document.getElementById('fileInput');
 const dropZone = document.getElementById('dropZone');
@@ -652,11 +624,8 @@ const autoAdjustBtn = document.getElementById('autoAdjustBtn');
 const resetBtn = document.getElementById('resetBtn');
 
 const canvasSingle = document.getElementById('canvasSingle');
-const compareOriginal = document.getElementById('compareOriginal');
-const compareProcessed = document.getElementById('compareProcessed');
-const compareRange = document.getElementById('compareRange');
-const compareOverlay = document.getElementById('compareOverlay');
-const compareHandle = document.getElementById('compareHandle');
+const canvasCompareOrig = document.getElementById('canvasCompareOrig');
+const canvasCompareResult = document.getElementById('canvasCompareResult');
 
 document.getElementById('btnResult').addEventListener('click', () => setViewMode('result'));
 document.getElementById('btnCompare').addEventListener('click', () => setViewMode('compare'));
@@ -680,9 +649,11 @@ dropZone.addEventListener('dragover', e => {
   e.preventDefault();
   dropZone.classList.add('drag-over');
 });
+
 dropZone.addEventListener('dragleave', () => {
   dropZone.classList.remove('drag-over');
 });
+
 dropZone.addEventListener('drop', e => {
   e.preventDefault();
   dropZone.classList.remove('drag-over');
@@ -693,10 +664,12 @@ materialSelect.addEventListener('change', () => {
   applyMaterialPreset();
   saveSettings();
 });
+
 ditherMode.addEventListener('change', () => {
   saveSettings();
   scheduleProcessImage();
 });
+
 dpi.addEventListener('change', () => {
   syncWidthFromMm();
   updateSizeInfo();
@@ -716,11 +689,6 @@ outputWidthSlider.addEventListener('input', () => {
   updateSizeInfo();
   saveSettings();
   scheduleProcessImage();
-});
-
-compareRange.addEventListener('input', () => {
-  updateCompareSlider();
-  saveSettings();
 });
 
 downloadBtn.addEventListener('click', downloadResult);
@@ -774,7 +742,6 @@ function loadStoredSettings() {
     if (s.dpi) dpi.value = s.dpi;
     if (s.outputWidthMm !== undefined) outputWidthMm.value = s.outputWidthMm;
     if (s.materialSelect) materialSelect.value = s.materialSelect;
-    if (s.compareRange !== undefined) compareRange.value = s.compareRange;
   } catch (e) {}
 }
 
@@ -787,8 +754,7 @@ function saveSettings() {
     ditherMode: ditherMode.value,
     dpi: Number(dpi.value),
     outputWidthMm: Number(outputWidthMm.value),
-    materialSelect: materialSelect.value,
-    compareRange: Number(compareRange.value)
+    materialSelect: materialSelect.value
   };
   try {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
@@ -804,11 +770,9 @@ function resetSettings() {
   dpi.value = DEFAULTS.dpi;
   outputWidthMm.value = DEFAULTS.outputWidthMm;
   materialSelect.value = DEFAULTS.materialSelect;
-  compareRange.value = DEFAULTS.compareRange;
 
   syncWidthFromMm();
   sliderPairs.forEach(([id]) => updateSlider(document.getElementById(id)));
-  updateCompareSlider();
   updateSizeInfo();
   saveSettings();
   scheduleProcessImage();
@@ -1003,13 +967,12 @@ function processImage() {
 
   applyDithering(imageData, w, h, ditherMode.value, FIXED_THRESHOLD);
 
-  drawOriginalIntoCanvas(compareOriginal, w, h);
-  putImageDataToCanvas(compareProcessed, imageData, w, h);
+  drawOriginalIntoCanvas(canvasCompareOrig, w, h);
+  putImageDataToCanvas(canvasCompareResult, imageData, w, h);
   putImageDataToCanvas(canvasSingle, imageData, w, h);
 
   document.getElementById('imageDims').textContent = `${w} × ${h} px`;
   updateSizeInfo();
-  updateCompareSlider();
 }
 
 function drawOriginalIntoCanvas(canvas, w, h) {
@@ -1025,12 +988,6 @@ function putImageDataToCanvas(canvas, imageData, w, h) {
   canvas.height = h;
   const ctx = canvas.getContext('2d');
   ctx.putImageData(imageData, 0, 0);
-}
-
-function updateCompareSlider() {
-  const value = Number(compareRange.value);
-  compareOverlay.style.width = value + '%';
-  compareHandle.style.left = value + '%';
 }
 
 function toGrayscale(imageData) {
@@ -1220,6 +1177,7 @@ function showIOSModal(blob) {
     URL.revokeObjectURL(url);
     overlay.remove();
   });
+
   overlay.addEventListener('click', e => {
     if (e.target === overlay) {
       URL.revokeObjectURL(url);
@@ -1380,7 +1338,6 @@ loadStoredSettings();
 sliderPairs.forEach(([id]) => updateSlider(document.getElementById(id)));
 syncWidthFromMm();
 updateSizeInfo();
-updateCompareSlider();
 setViewMode('result');
 loadCounter();
 </script>
