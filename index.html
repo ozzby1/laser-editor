@@ -264,59 +264,19 @@
   }
 
   .zoom-hover {
-    overflow: hidden;
+    overflow: auto;
     border-radius: 12px;
     cursor: zoom-in;
-    user-select: none;
-    -webkit-user-select: none;
-    position: relative;
+    max-height: 75vh;
   }
 
   .zoom-hover canvas {
-    display: block;
-    width: 100%;
-    height: auto;
     transform-origin: top left;
     transition: transform 0.08s ease;
   }
 
   .zoom-hover.zoomed {
-    cursor: grab;
-    overflow: auto;
-    max-height: 75vh;
-  }
-
-  .zoom-hover.dragging {
-    cursor: grabbing !important;
-  }
-
-  .zoom-hover.dragging canvas {
-    transition: none;
-  }
-
-  .preset-card {
-    background: rgba(255,255,255,0.04);
-    border: 1px solid rgba(255,255,255,0.08);
-    border-radius: 10px;
-    padding: 12px;
-    text-align: center;
-    font-size: 0.8rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.2s;
-    color: #dbe3ee;
-  }
-
-  .preset-card:hover {
-    border-color: rgba(249,115,22,0.4);
-    background: rgba(255,255,255,0.06);
-  }
-
-  .preset-card.active {
-    background: rgba(249,115,22,0.12);
-    border-color: rgba(249,115,22,0.6);
-    color: #f97316;
-    box-shadow: 0 0 0 1px rgba(249,115,22,0.18);
+    cursor: zoom-out;
   }
 
   .empty-steps {
@@ -393,6 +353,7 @@
 
   <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
 
+    <!-- PREVIEW -->
     <div class="lg:col-span-2 flex flex-col gap-3 order-1 lg:order-1">
       <div class="panel px-4 py-3 flex gap-3 items-center flex-wrap">
         <div style="font-size:0.75rem;color:#94a3b8;font-weight:600;margin-right:2px">Zobrazení:</div>
@@ -403,6 +364,7 @@
 
       <div class="panel p-5 flex-1">
         <div id="emptyState" style="min-height:320px">
+
           <div style="display:flex;gap:12px;margin-bottom:24px;align-items:flex-end">
             <div style="flex:1">
               <div style="font-size:0.65rem;font-weight:700;letter-spacing:0.08em;color:#94a3b8;margin-bottom:6px;text-align:center">ORIGINÁL</div>
@@ -431,8 +393,8 @@
             <div class="empty-step">
               <div class="empty-step-num">2</div>
               <div>
-                <div style="font-size:0.8rem;font-weight:600;color:#cbd5e1;margin-bottom:2px">Vyber typ obrázku</div>
-                <div style="font-size:0.7rem;color:#475569">Běžná fotka, lidé, tmavý obrázek…</div>
+                <div style="font-size:0.8rem;font-weight:600;color:#cbd5e1;margin-bottom:2px">Uprav nastavení</div>
+                <div style="font-size:0.7rem;color:#475569">Materiál, kontrast, styl…</div>
               </div>
             </div>
 
@@ -454,7 +416,7 @@
               <canvas id="canvasSingle" class="w-full"></canvas>
             </div>
             <div class="helper-text" style="text-align:center;margin-top:10px;">
-              Kolečkem myši přiblížíš nebo oddálíš náhled. Přiblížený obrázek můžeš posouvat tažením myší. Dvojklik vrátí zoom na 100 %.
+              Kolečkem myši přiblížíš nebo oddálíš náhled. Dvojklik vrátí 100 %.
             </div>
           </div>
 
@@ -472,13 +434,14 @@
               </div>
             </div>
             <div class="helper-text" style="text-align:center;margin-top:10px;">
-              Kolečkem myši přiblížíš nebo oddálíš náhled. Přiblížený obrázek můžeš posouvat tažením myší. Dvojklik vrátí zoom na 100 %.
+              Kolečkem myši přiblížíš nebo oddálíš náhled. Dvojklik vrátí 100 %.
             </div>
           </div>
         </div>
       </div>
     </div>
 
+    <!-- TOOLS -->
     <div class="flex flex-col gap-3 order-2 lg:order-2">
 
       <div class="panel p-4">
@@ -492,20 +455,19 @@
       </div>
 
       <div class="panel p-4">
-        <div class="section-title">Typ obrázku</div>
-
-        <div class="grid grid-cols-2 gap-2" id="presetCards">
-          <div class="preset-card" data-preset="custom">⚙️ Vlastní nastavení</div>
-          <div class="preset-card active" data-preset="normal">📷 Běžná fotka</div>
-          <div class="preset-card" data-preset="portrait">👤 Lidé</div>
-          <div class="preset-card" data-preset="dark">🌙 Tmavý obrázek</div>
-          <div class="preset-card" data-preset="light">☀️ Světlý obrázek</div>
-          <div class="preset-card" data-preset="detail">🔍 Hodně detailů</div>
-        </div>
-
-        <div class="helper-text mt-2">
-          Výchozí je Běžná fotka. Tlačítko Automaticky upravit zkusí samo odhadnout nejvhodnější režim.
-        </div>
+        <div class="section-title">Materiál / Preset</div>
+        <label for="materialSelect">Na co gravíruješ?</label>
+        <select id="materialSelect" class="mt-1">
+          <option value="custom">— Zvolte materiál —</option>
+          <option value="wood">🪵 Dřevo (světlé)</option>
+          <option value="wood_dark">🌳 Dřevo (tmavé)</option>
+          <option value="slate">🪨 Břidlice / Kámen</option>
+          <option value="acrylic">🔷 Akrylát</option>
+          <option value="leather">🟤 Kůže</option>
+          <option value="anodized">⬛ Anodizovaný hliník</option>
+          <option value="paper">📄 Papír / Karton</option>
+          <option value="stainless">🔩 Nerez ocel</option>
+        </select>
       </div>
 
       <div class="panel p-4">
@@ -549,7 +511,7 @@
               <option value="floyd">Detailní</option>
               <option value="atkinson">Kontrastní</option>
             </select>
-            <div class="helper-text">Fotky → Detailní | výraznější hrany → Kontrastní</div>
+            <div class="helper-text">Fotky → Detailní | Logo a text → Kontrastní</div>
           </div>
 
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1">
@@ -621,7 +583,6 @@ let originalImage = null;
 let renderQueued = false;
 let lastImageStats = null;
 let viewMode = 'result';
-let currentPreset = 'normal';
 
 const ZOOM_STEP = 0.1;
 const ZOOM_MIN = 0.2;
@@ -633,43 +594,25 @@ const zoomState = {
   canvasCompareResult: 1
 };
 
-const dragState = {
-  isDragging: false,
-  wrapper: null,
-  startX: 0,
-  startY: 0,
-  scrollLeft: 0,
-  scrollTop: 0
-};
-
 const FIXED_THRESHOLD = 128;
-
-const PRESETS = {
-  custom:   { brightness: 0,   contrast: 0,  gamma: 1.00, sharpness: 0.0, ditherMode: 'floyd' },
-  normal:   { brightness: 5,   contrast: 30, gamma: 1.08, sharpness: 1.0, ditherMode: 'floyd' },
-  portrait: { brightness: 10,  contrast: 22, gamma: 1.20, sharpness: 0.5, ditherMode: 'floyd' },
-  dark:     { brightness: 25,  contrast: 35, gamma: 1.25, sharpness: 1.0, ditherMode: 'floyd' },
-  light:    { brightness: -10, contrast: 45, gamma: 0.95, sharpness: 1.0, ditherMode: 'floyd' },
-  detail:   { brightness: 0,   contrast: 55, gamma: 1.00, sharpness: 2.0, ditherMode: 'atkinson' }
-};
-
 const DEFAULTS = {
-  preset: 'normal',
-  brightness: PRESETS.normal.brightness,
-  contrast: PRESETS.normal.contrast,
-  gamma: PRESETS.normal.gamma,
-  sharpness: PRESETS.normal.sharpness,
-  ditherMode: PRESETS.normal.ditherMode,
+  brightness: 0,
+  contrast: 0,
+  gamma: 1.0,
+  sharpness: 0,
+  ditherMode: 'floyd',
   dpi: 254,
-  outputWidthMm: 100
+  outputWidthMm: 100,
+  materialSelect: 'custom'
 };
 
-const STORAGE_KEY = 'laserEditorSimpleV6';
+const STORAGE_KEY = 'laserEditorSimpleV3';
 
 const fileInput = document.getElementById('fileInput');
 const dropZone = document.getElementById('dropZone');
 const uploadCtaCard = document.getElementById('uploadCtaCard');
 
+const materialSelect = document.getElementById('materialSelect');
 const brightness = document.getElementById('brightness');
 const contrast = document.getElementById('contrast');
 const gamma = document.getElementById('gamma');
@@ -686,8 +629,6 @@ const resetBtn = document.getElementById('resetBtn');
 const canvasSingle = document.getElementById('canvasSingle');
 const canvasCompareOrig = document.getElementById('canvasCompareOrig');
 const canvasCompareResult = document.getElementById('canvasCompareResult');
-
-const presetCards = document.querySelectorAll('.preset-card');
 
 document.getElementById('btnResult').addEventListener('click', () => setViewMode('result'));
 document.getElementById('btnCompare').addEventListener('click', () => setViewMode('compare'));
@@ -722,15 +663,12 @@ dropZone.addEventListener('drop', e => {
   if (e.dataTransfer.files && e.dataTransfer.files[0]) loadFile(e.dataTransfer.files[0]);
 });
 
-presetCards.forEach(card => {
-  card.addEventListener('click', () => {
-    const key = card.dataset.preset;
-    applyPreset(key);
-  });
+materialSelect.addEventListener('change', () => {
+  applyMaterialPreset();
+  saveSettings();
 });
 
 ditherMode.addEventListener('change', () => {
-  markAsCustom();
   saveSettings();
   scheduleProcessImage();
 });
@@ -763,7 +701,6 @@ resetBtn.addEventListener('click', resetSettings);
 [brightness, contrast, gamma, sharpness].forEach((el) => {
   el.addEventListener('input', () => {
     updateSlider(el);
-    markAsCustom();
     saveSettings();
     scheduleProcessImage();
   });
@@ -777,5 +714,695 @@ function setViewMode(mode) {
   document.getElementById('compareView').style.display = mode === 'compare' ? 'block' : 'none';
 }
 
-function setActivePresetCard(key) {
-  presetCards.forEach(card =>
+function getCanvasZoomKey(canvas) {
+  return canvas.id;
+}
+
+function getCanvasScale(canvas) {
+  return zoomState[getCanvasZoomKey(canvas)] || 1;
+}
+
+function setCanvasScale(canvas, scale) {
+  const clamped = clamp(scale, ZOOM_MIN, ZOOM_MAX);
+  zoomState[getCanvasZoomKey(canvas)] = clamped;
+  canvas.style.transform = `scale(${clamped})`;
+
+  const wrapper = canvas.parentElement;
+  if (wrapper) {
+    wrapper.classList.toggle('zoomed', clamped !== 1);
+  }
+}
+
+function attachWheelZoom(wrapper, canvas) {
+  wrapper.addEventListener('wheel', (e) => {
+    if (!canvas.width || !canvas.height) return;
+
+    e.preventDefault();
+
+    const oldScale = getCanvasScale(canvas);
+    const delta = e.deltaY < 0 ? ZOOM_STEP : -ZOOM_STEP;
+    const newScale = clamp(roundTo(oldScale + delta, 0.05), ZOOM_MIN, ZOOM_MAX);
+
+    if (newScale === oldScale) return;
+
+    const rect = wrapper.getBoundingClientRect();
+    const offsetX = e.clientX - rect.left + wrapper.scrollLeft;
+    const offsetY = e.clientY - rect.top + wrapper.scrollTop;
+
+    const pointX = offsetX / oldScale;
+    const pointY = offsetY / oldScale;
+
+    setCanvasScale(canvas, newScale);
+
+    wrapper.scrollLeft = pointX * newScale - (e.clientX - rect.left);
+    wrapper.scrollTop = pointY * newScale - (e.clientY - rect.top);
+  }, { passive: false });
+
+  wrapper.addEventListener('dblclick', () => {
+    setCanvasScale(canvas, 1);
+    wrapper.scrollLeft = 0;
+    wrapper.scrollTop = 0;
+  });
+}
+
+function initializeCanvasZoom() {
+  attachWheelZoom(canvasSingle.parentElement, canvasSingle);
+  attachWheelZoom(canvasCompareOrig.parentElement, canvasCompareOrig);
+  attachWheelZoom(canvasCompareResult.parentElement, canvasCompareResult);
+}
+
+function scheduleProcessImage() {
+  if (renderQueued) return;
+  renderQueued = true;
+  requestAnimationFrame(() => {
+    renderQueued = false;
+    processImage();
+  });
+}
+
+function updateSlider(el) {
+  const target = document.getElementById(el.id + 'Val') || document.getElementById(el.id.replace('Slider', 'SliderVal'));
+  if (!target) return;
+  const step = el.step ? String(el.step) : '1';
+  const decimals = step.includes('.') ? step.split('.')[1].length : 0;
+  target.textContent = Number(el.value).toFixed(decimals);
+}
+
+function loadStoredSettings() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) return;
+    const s = JSON.parse(raw);
+
+    if (s.brightness !== undefined) brightness.value = s.brightness;
+    if (s.contrast !== undefined) contrast.value = s.contrast;
+    if (s.gamma !== undefined) gamma.value = s.gamma;
+    if (s.sharpness !== undefined) sharpness.value = s.sharpness;
+    if (s.ditherMode) ditherMode.value = s.ditherMode;
+    if (s.dpi) dpi.value = s.dpi;
+    if (s.outputWidthMm !== undefined) outputWidthMm.value = s.outputWidthMm;
+    if (s.materialSelect) materialSelect.value = s.materialSelect;
+  } catch (e) {}
+}
+
+function saveSettings() {
+  const data = {
+    brightness: Number(brightness.value),
+    contrast: Number(contrast.value),
+    gamma: Number(gamma.value),
+    sharpness: Number(sharpness.value),
+    ditherMode: ditherMode.value,
+    dpi: Number(dpi.value),
+    outputWidthMm: Number(outputWidthMm.value),
+    materialSelect: materialSelect.value
+  };
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+  } catch (e) {}
+}
+
+function resetSettings() {
+  brightness.value = DEFAULTS.brightness;
+  contrast.value = DEFAULTS.contrast;
+  gamma.value = DEFAULTS.gamma;
+  sharpness.value = DEFAULTS.sharpness;
+  ditherMode.value = DEFAULTS.ditherMode;
+  dpi.value = DEFAULTS.dpi;
+  outputWidthMm.value = DEFAULTS.outputWidthMm;
+  materialSelect.value = DEFAULTS.materialSelect;
+
+  syncWidthFromMm();
+  sliderPairs.forEach(([id]) => updateSlider(document.getElementById(id)));
+  updateSizeInfo();
+  saveSettings();
+  scheduleProcessImage();
+}
+
+function loadFile(file) {
+  if (!file || !file.type.startsWith('image/')) return;
+
+  const reader = new FileReader();
+  reader.onload = ev => {
+    const img = new Image();
+    img.onload = () => {
+      originalImage = img;
+      document.getElementById('emptyState').style.display = 'none';
+      document.getElementById('canvasArea').style.display = 'block';
+
+      analyzeImageForAutoAdjust();
+      syncWidthFromMm();
+      updateSizeInfo();
+      setViewMode('result');
+      processImage();
+    };
+    img.onerror = () => alert('Nepodařilo se načíst obrázek.');
+    img.src = ev.target.result;
+  };
+  reader.onerror = () => alert('Chyba při čtení souboru.');
+  reader.readAsDataURL(file);
+}
+
+function applyMaterialPreset() {
+  const presets = {
+    wood:       { brightness: 10,  contrast: 30, gamma: 1.2,  sharpness: 1 },
+    wood_dark:  { brightness: 30,  contrast: 50, gamma: 1.5,  sharpness: 1 },
+    slate:      { brightness: 20,  contrast: 60, gamma: 0.9,  sharpness: 2 },
+    acrylic:    { brightness: 0,   contrast: 80, gamma: 1.0,  sharpness: 0 },
+    leather:    { brightness: 15,  contrast: 40, gamma: 1.3,  sharpness: 1 },
+    anodized:   { brightness: -10, contrast: 70, gamma: 0.8,  sharpness: 2 },
+    paper:      { brightness: 5,   contrast: 50, gamma: 1.1,  sharpness: 1 },
+    stainless:  { brightness: -20, contrast: 90, gamma: 0.75, sharpness: 3 }
+  };
+
+  const p = presets[materialSelect.value];
+  if (!p) return;
+
+  brightness.value = p.brightness;
+  contrast.value = p.contrast;
+  gamma.value = p.gamma;
+  sharpness.value = p.sharpness;
+
+  sliderPairs.forEach(([id]) => updateSlider(document.getElementById(id)));
+  scheduleProcessImage();
+}
+
+function analyzeImageForAutoAdjust() {
+  if (!originalImage) return;
+
+  const sampleW = 180;
+  const sampleH = Math.max(1, Math.round(originalImage.height * sampleW / originalImage.width));
+  const c = document.createElement('canvas');
+  c.width = sampleW;
+  c.height = sampleH;
+  const ctx = c.getContext('2d');
+  ctx.drawImage(originalImage, 0, 0, sampleW, sampleH);
+
+  const data = ctx.getImageData(0, 0, sampleW, sampleH).data;
+  let sum = 0;
+  let sumSq = 0;
+  let edgeScore = 0;
+  let count = 0;
+  let prev = null;
+
+  for (let i = 0; i < data.length; i += 4) {
+    const g = 0.299 * data[i] + 0.587 * data[i + 1] + 0.114 * data[i + 2];
+    sum += g;
+    sumSq += g * g;
+    count++;
+    if (prev !== null) edgeScore += Math.abs(g - prev);
+    prev = g;
+  }
+
+  const mean = sum / count;
+  const variance = Math.max(0, sumSq / count - mean * mean);
+  const stdDev = Math.sqrt(variance);
+
+  let recommended = 'floyd';
+  if (stdDev > 70 || edgeScore / Math.max(1, count) > 32) {
+    recommended = 'atkinson';
+  }
+
+  lastImageStats = { mean, stdDev, recommended };
+}
+
+function autoAdjustFromImage() {
+  if (!originalImage) {
+    alert('Nejprve nahraj obrázek.');
+    return;
+  }
+
+  if (!lastImageStats) analyzeImageForAutoAdjust();
+
+  const { mean, stdDev, recommended } = lastImageStats;
+  let newBrightness = 0;
+  let newContrast = 0;
+  let newGamma = 1.0;
+  let newSharpness = 1.0;
+
+  if (mean < 105) newBrightness = 18;
+  else if (mean > 180) newBrightness = -8;
+  else newBrightness = 4;
+
+  if (stdDev < 35) newContrast = 42;
+  else if (stdDev < 50) newContrast = 28;
+  else if (stdDev > 72) newContrast = 12;
+  else newContrast = 20;
+
+  if (mean < 110) newGamma = 1.18;
+  else if (mean > 180) newGamma = 0.92;
+  else newGamma = 1.02;
+
+  if (recommended === 'atkinson') {
+    newContrast += 8;
+    newSharpness = 1.6;
+  } else {
+    newSharpness = 1.0;
+  }
+
+  brightness.value = clamp(newBrightness, -150, 150);
+  contrast.value = clamp(newContrast, -150, 150);
+  gamma.value = clamp(roundTo(newGamma, 0.05), 0.1, 3.0);
+  sharpness.value = clamp(roundTo(newSharpness, 0.5), 0, 5);
+  ditherMode.value = recommended;
+
+  sliderPairs.forEach(([id]) => updateSlider(document.getElementById(id)));
+  saveSettings();
+  processImage();
+}
+
+function clamp(n, min, max) {
+  return Math.max(min, Math.min(max, n));
+}
+
+function roundTo(value, step) {
+  return Math.round(value / step) * step;
+}
+
+function getOutputWidthPx() {
+  const mm = Math.max(1, Number(outputWidthMm.value || 0));
+  const dpiValue = Number(dpi.value);
+  return Math.max(100, Math.round((mm / 25.4) * dpiValue));
+}
+
+function syncWidthFromMm() {
+  const px = clamp(getOutputWidthPx(), 100, 3000);
+  outputWidthSlider.value = px;
+  updateSlider(outputWidthSlider);
+}
+
+function syncMmFromSlider() {
+  const px = Math.max(100, Number(outputWidthSlider.value));
+  const dpiValue = Number(dpi.value);
+  outputWidthMm.value = Math.round((px / dpiValue) * 25.4);
+}
+
+function updateSizeInfo() {
+  const px = getOutputWidthPx();
+  const mm = Math.max(1, Number(outputWidthMm.value || 0));
+  const dpiValue = Number(dpi.value);
+
+  document.getElementById('sizeInfo').textContent = `${mm.toFixed(0)} mm`;
+  document.getElementById('pixelInfo').textContent = `${px} px @ ${dpiValue} DPI`;
+}
+
+function processImage() {
+  if (!originalImage) return;
+
+  const w = getOutputWidthPx();
+  const h = Math.max(1, Math.round(originalImage.height * w / originalImage.width));
+
+  const srcCanvas = document.createElement('canvas');
+  srcCanvas.width = w;
+  srcCanvas.height = h;
+  const srcCtx = srcCanvas.getContext('2d');
+  srcCtx.drawImage(originalImage, 0, 0, w, h);
+
+  let imageData = srcCtx.getImageData(0, 0, w, h);
+  toGrayscale(imageData);
+  applyBrightnessContrast(imageData);
+  applyGamma(imageData);
+
+  const sharp = parseFloat(sharpness.value);
+  if (sharp > 0) imageData = applySharpen(imageData, w, h, sharp);
+
+  applyDithering(imageData, w, h, ditherMode.value, FIXED_THRESHOLD);
+
+  drawOriginalIntoCanvas(canvasCompareOrig, w, h);
+  putImageDataToCanvas(canvasCompareResult, imageData, w, h);
+  putImageDataToCanvas(canvasSingle, imageData, w, h);
+
+  document.getElementById('imageDims').textContent = `${w} × ${h} px`;
+  updateSizeInfo();
+}
+
+function drawOriginalIntoCanvas(canvas, w, h) {
+  canvas.width = w;
+  canvas.height = h;
+  const ctx = canvas.getContext('2d');
+  ctx.clearRect(0, 0, w, h);
+  ctx.drawImage(originalImage, 0, 0, w, h);
+  setCanvasScale(canvas, getCanvasScale(canvas));
+}
+
+function putImageDataToCanvas(canvas, imageData, w, h) {
+  canvas.width = w;
+  canvas.height = h;
+  const ctx = canvas.getContext('2d');
+  ctx.putImageData(imageData, 0, 0);
+  setCanvasScale(canvas, getCanvasScale(canvas));
+}
+
+function toGrayscale(imageData) {
+  const d = imageData.data;
+  for (let i = 0; i < d.length; i += 4) {
+    const g = 0.299 * d[i] + 0.587 * d[i + 1] + 0.114 * d[i + 2];
+    d[i] = d[i + 1] = d[i + 2] = g;
+  }
+}
+
+function applyBrightnessContrast(imageData) {
+  const d = imageData.data;
+  const b = parseInt(brightness.value, 10);
+  const c = parseInt(contrast.value, 10);
+  const factor = (259 * (c + 255)) / (255 * (259 - c));
+
+  for (let i = 0; i < d.length; i += 4) {
+    let v = d[i] + b;
+    v = factor * (v - 128) + 128;
+    v = Math.max(0, Math.min(255, v));
+    d[i] = d[i + 1] = d[i + 2] = v;
+  }
+}
+
+function applyGamma(imageData) {
+  const d = imageData.data;
+  const g = parseFloat(gamma.value);
+  if (g === 1.0) return;
+
+  const lut = new Uint8Array(256);
+  for (let i = 0; i < 256; i++) {
+    lut[i] = Math.min(255, Math.round(255 * Math.pow(i / 255, 1 / g)));
+  }
+
+  for (let i = 0; i < d.length; i += 4) {
+    d[i] = d[i + 1] = d[i + 2] = lut[d[i]];
+  }
+}
+
+function applySharpen(imageData, w, h, amount) {
+  const src = imageData.data;
+  const out = new ImageData(w, h);
+  const d = out.data;
+
+  const k = amount * 0.3;
+  const kernel = [-k, -k, -k, -k, 1 + 8 * k, -k, -k, -k, -k];
+
+  for (let y = 1; y < h - 1; y++) {
+    for (let x = 1; x < w - 1; x++) {
+      let v = 0;
+      for (let ky = -1; ky <= 1; ky++) {
+        for (let kx = -1; kx <= 1; kx++) {
+          const idx = ((y + ky) * w + (x + kx)) * 4;
+          v += src[idx] * kernel[(ky + 1) * 3 + (kx + 1)];
+        }
+      }
+      const i = (y * w + x) * 4;
+      const clamped = Math.max(0, Math.min(255, v));
+      d[i] = d[i + 1] = d[i + 2] = clamped;
+      d[i + 3] = 255;
+    }
+  }
+
+  for (let x = 0; x < w; x++) {
+    const top = x * 4;
+    const bottom = ((h - 1) * w + x) * 4;
+    for (let c = 0; c < 4; c++) {
+      d[top + c] = src[top + c];
+      d[bottom + c] = src[bottom + c];
+    }
+  }
+
+  for (let y = 0; y < h; y++) {
+    const left = y * w * 4;
+    const right = (y * w + (w - 1)) * 4;
+    for (let c = 0; c < 4; c++) {
+      d[left + c] = src[left + c];
+      d[right + c] = src[right + c];
+    }
+  }
+
+  return out;
+}
+
+function applyDithering(imageData, w, h, mode, thresh) {
+  const d = imageData.data;
+  let weights;
+
+  if (mode === 'atkinson') {
+    weights = [
+      [1, 0, 1 / 8],
+      [2, 0, 1 / 8],
+      [-1, 1, 1 / 8],
+      [0, 1, 1 / 8],
+      [1, 1, 1 / 8],
+      [0, 2, 1 / 8]
+    ];
+  } else {
+    weights = [
+      [1, 0, 7 / 16],
+      [-1, 1, 3 / 16],
+      [0, 1, 5 / 16],
+      [1, 1, 1 / 16]
+    ];
+  }
+
+  const pixels = new Float32Array(w * h);
+  for (let i = 0; i < w * h; i++) pixels[i] = d[i * 4];
+
+  for (let y = 0; y < h; y++) {
+    for (let x = 0; x < w; x++) {
+      const idx = y * w + x;
+      const oldVal = pixels[idx];
+      const newVal = oldVal >= thresh ? 255 : 0;
+      pixels[idx] = newVal;
+
+      const err = oldVal - newVal;
+      for (let wi = 0; wi < weights.length; wi++) {
+        const dx = weights[wi][0];
+        const dy = weights[wi][1];
+        const factor = weights[wi][2];
+        const nx = x + dx;
+        const ny = y + dy;
+        if (nx >= 0 && nx < w && ny >= 0 && ny < h) {
+          pixels[ny * w + nx] += err * factor;
+        }
+      }
+    }
+  }
+
+  for (let i = 0; i < w * h; i++) {
+    const v = Math.max(0, Math.min(255, pixels[i]));
+    d[i * 4] = d[i * 4 + 1] = d[i * 4 + 2] = v;
+    d[i * 4 + 3] = 255;
+  }
+}
+
+function buildExportFilename() {
+  const dpiValue = Number(dpi.value);
+  const mm = Math.max(1, Number(outputWidthMm.value || 0));
+  const style = ditherMode.value === 'atkinson' ? 'kontrastni' : 'detailni';
+  return `laser-${mm}mm-${dpiValue}dpi-${style}.png`;
+}
+
+const ABACUS_GET = 'https://abacus.jasoncameron.dev/get/stunning-twilight-266e8a/downloads';
+const ABACUS_HIT = 'https://abacus.jasoncameron.dev/hit/stunning-twilight-266e8a/downloads';
+
+function loadCounter() {
+  fetch(ABACUS_GET)
+    .then(r => r.ok ? r.json() : null)
+    .then(data => {
+      const n = data && data.value ? data.value : 0;
+      document.getElementById('photoCounter').textContent = n > 0 ? n.toLocaleString('cs-CZ') : '—';
+    })
+    .catch(() => {
+      document.getElementById('photoCounter').textContent = '—';
+    });
+}
+
+function incrementCounter() {
+  fetch(ABACUS_HIT)
+    .then(r => r.ok ? r.json() : null)
+    .then(data => {
+      const n = data && data.value ? data.value : 0;
+      if (n > 0) document.getElementById('photoCounter').textContent = n.toLocaleString('cs-CZ');
+    })
+    .catch(() => {});
+}
+
+function showIOSModal(blob) {
+  const url = URL.createObjectURL(blob);
+  const overlay = document.createElement('div');
+  overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.9);z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px;';
+  overlay.innerHTML = `
+    <div style="width:min(360px,100%);background:#0f1117;border:1px solid rgba(255,255,255,0.08);border-radius:18px;padding:16px;">
+      <div style="font-size:0.9rem;font-weight:700;color:#f97316;margin-bottom:4px">Uložení na iOS</div>
+      <div style="font-size:0.74rem;color:#64748b;margin-bottom:14px">Podrž prst na obrázku a vyber <strong style="color:#e2e8f0">Přidat do Fotek</strong> nebo <strong style="color:#e2e8f0">Uložit obrázek</strong>.</div>
+      <div style="background:#000;border-radius:12px;overflow:hidden;border:1px solid rgba(255,255,255,0.08);margin-bottom:14px;">
+        <img src="${url}" style="width:100%;display:block;" alt="Export PNG">
+      </div>
+      <button class="btn btn-secondary" id="iosCloseBtn" style="width:100%">Zavřít</button>
+    </div>
+  `;
+  document.body.appendChild(overlay);
+
+  overlay.querySelector('#iosCloseBtn').addEventListener('click', () => {
+    URL.revokeObjectURL(url);
+    overlay.remove();
+  });
+
+  overlay.addEventListener('click', e => {
+    if (e.target === overlay) {
+      URL.revokeObjectURL(url);
+      overlay.remove();
+    }
+  });
+}
+
+function crc32(bytes) {
+  let crc = 0xffffffff;
+  for (let i = 0; i < bytes.length; i++) {
+    crc ^= bytes[i];
+    for (let j = 0; j < 8; j++) {
+      if (crc & 1) crc = (crc >>> 1) ^ 0xedb88320;
+      else crc = crc >>> 1;
+    }
+  }
+  return (crc ^ 0xffffffff) >>> 0;
+}
+
+function concatUint8Arrays(...arrays) {
+  const total = arrays.reduce((sum, arr) => sum + arr.length, 0);
+  const result = new Uint8Array(total);
+  let offset = 0;
+  for (const arr of arrays) {
+    result.set(arr, offset);
+    offset += arr.length;
+  }
+  return result;
+}
+
+function uint32ToBytes(num) {
+  return new Uint8Array([
+    (num >>> 24) & 255,
+    (num >>> 16) & 255,
+    (num >>> 8) & 255,
+    num & 255
+  ]);
+}
+
+function createPhysChunk(dpiValue) {
+  const ppm = Math.round(dpiValue / 0.0254);
+  const type = new TextEncoder().encode('pHYs');
+  const data = new Uint8Array(9);
+
+  data[0] = (ppm >>> 24) & 255;
+  data[1] = (ppm >>> 16) & 255;
+  data[2] = (ppm >>> 8) & 255;
+  data[3] = ppm & 255;
+
+  data[4] = (ppm >>> 24) & 255;
+  data[5] = (ppm >>> 16) & 255;
+  data[6] = (ppm >>> 8) & 255;
+  data[7] = ppm & 255;
+
+  data[8] = 1;
+
+  const crc = crc32(concatUint8Arrays(type, data));
+
+  return concatUint8Arrays(
+    uint32ToBytes(data.length),
+    type,
+    data,
+    uint32ToBytes(crc)
+  );
+}
+
+async function canvasToPngBlobWithDPI(canvas, dpiValue) {
+  const baseBlob = await new Promise((resolve, reject) => {
+    canvas.toBlob(blob => blob ? resolve(blob) : reject(new Error('Nepodařilo se vytvořit PNG blob.')), 'image/png');
+  });
+
+  const buffer = await baseBlob.arrayBuffer();
+  const bytes = new Uint8Array(buffer);
+
+  let offset = 8;
+  let ihdrEnd = -1;
+  let existingPhysStart = -1;
+  let existingPhysEnd = -1;
+
+  while (offset < bytes.length) {
+    const length =
+      (bytes[offset] << 24) |
+      (bytes[offset + 1] << 16) |
+      (bytes[offset + 2] << 8) |
+      bytes[offset + 3];
+
+    const typeStart = offset + 4;
+    const type = String.fromCharCode(
+      bytes[typeStart],
+      bytes[typeStart + 1],
+      bytes[typeStart + 2],
+      bytes[typeStart + 3]
+    );
+
+    const chunkTotalLength = 12 + length;
+    if (type === 'IHDR') ihdrEnd = offset + chunkTotalLength;
+    if (type === 'pHYs') {
+      existingPhysStart = offset;
+      existingPhysEnd = offset + chunkTotalLength;
+      break;
+    }
+    offset += chunkTotalLength;
+  }
+
+  const physChunk = createPhysChunk(dpiValue);
+  let finalBytes;
+
+  if (existingPhysStart !== -1) {
+    finalBytes = concatUint8Arrays(
+      bytes.slice(0, existingPhysStart),
+      physChunk,
+      bytes.slice(existingPhysEnd)
+    );
+  } else {
+    finalBytes = concatUint8Arrays(
+      bytes.slice(0, ihdrEnd),
+      physChunk,
+      bytes.slice(ihdrEnd)
+    );
+  }
+
+  return new Blob([finalBytes], { type: 'image/png' });
+}
+
+async function downloadResult() {
+  if (!canvasSingle.width) {
+    alert('Nejprve nahraj obrázek.');
+    return;
+  }
+
+  try {
+    const dpiValue = Number(dpi.value);
+    const blob = await canvasToPngBlobWithDPI(canvasSingle, dpiValue);
+    incrementCounter();
+
+    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+    if (isIOS) {
+      showIOSModal(blob);
+      return;
+    }
+
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.download = buildExportFilename();
+    a.href = url;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    setTimeout(() => URL.revokeObjectURL(url), 1500);
+  } catch (err) {
+    console.error(err);
+    alert('Nepodařilo se vytvořit PNG soubor s nastaveným DPI.');
+  }
+}
+
+loadStoredSettings();
+sliderPairs.forEach(([id]) => updateSlider(document.getElementById(id)));
+syncWidthFromMm();
+updateSizeInfo();
+setViewMode('result');
+loadCounter();
+initializeCanvasZoom();
+</script>
+</body>
+</html>
