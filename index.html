@@ -294,6 +294,31 @@
     transition: none;
   }
 
+  .preset-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 10px;
+    padding: 12px;
+    text-align: center;
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    color: #dbe3ee;
+  }
+
+  .preset-card:hover {
+    border-color: rgba(249,115,22,0.4);
+    background: rgba(255,255,255,0.06);
+  }
+
+  .preset-card.active {
+    background: rgba(249,115,22,0.12);
+    border-color: rgba(249,115,22,0.6);
+    color: #f97316;
+    box-shadow: 0 0 0 1px rgba(249,115,22,0.18);
+  }
+
   .empty-steps {
     display: flex;
     gap: 8px;
@@ -408,8 +433,8 @@
             <div class="empty-step">
               <div class="empty-step-num">2</div>
               <div>
-                <div style="font-size:0.8rem;font-weight:600;color:#cbd5e1;margin-bottom:2px">Uprav nastavení</div>
-                <div style="font-size:0.7rem;color:#475569">Materiál, kontrast, styl…</div>
+                <div style="font-size:0.8rem;font-weight:600;color:#cbd5e1;margin-bottom:2px">Vyber typ obrázku</div>
+                <div style="font-size:0.7rem;color:#475569">Lidé, tmavý obrázek, detaily…</div>
               </div>
             </div>
 
@@ -470,19 +495,20 @@
       </div>
 
       <div class="panel p-4">
-        <div class="section-title">Materiál / Preset</div>
-        <label for="materialSelect">Na co gravíruješ?</label>
-        <select id="materialSelect" class="mt-1">
-          <option value="custom">— Zvolte materiál —</option>
-          <option value="wood">🪵 Dřevo (světlé)</option>
-          <option value="wood_dark">🌳 Dřevo (tmavé)</option>
-          <option value="slate">🪨 Břidlice / Kámen</option>
-          <option value="acrylic">🔷 Akrylát</option>
-          <option value="leather">🟤 Kůže</option>
-          <option value="anodized">⬛ Anodizovaný hliník</option>
-          <option value="paper">📄 Papír / Karton</option>
-          <option value="stainless">🔩 Nerez ocel</option>
-        </select>
+        <div class="section-title">Typ obrázku</div>
+
+        <div class="grid grid-cols-2 gap-2" id="presetCards">
+          <div class="preset-card active" data-preset="portrait">👤 Lidé</div>
+          <div class="preset-card" data-preset="normal">📷 Běžná fotka</div>
+          <div class="preset-card" data-preset="dark">🌙 Tmavý obrázek</div>
+          <div class="preset-card" data-preset="light">☀️ Světlý obrázek</div>
+          <div class="preset-card" data-preset="detail">🔍 Hodně detailů</div>
+          <div class="preset-card" data-preset="custom">⚙️ Vlastní nastavení</div>
+        </div>
+
+        <div class="helper-text mt-2">
+          Vyber typ obrázku – pak můžeš výsledek doladit pomocí sliderů níže.
+        </div>
       </div>
 
       <div class="panel p-4">
@@ -526,7 +552,7 @@
               <option value="floyd">Detailní</option>
               <option value="atkinson">Kontrastní</option>
             </select>
-            <div class="helper-text">Fotky → Detailní | Logo a text → Kontrastní</div>
+            <div class="helper-text">Fotky → Detailní | výraznější hrany → Kontrastní</div>
           </div>
 
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1">
@@ -598,6 +624,7 @@ let originalImage = null;
 let renderQueued = false;
 let lastImageStats = null;
 let viewMode = 'result';
+let currentPreset = 'portrait';
 
 const ZOOM_STEP = 0.1;
 const ZOOM_MIN = 0.2;
@@ -619,24 +646,32 @@ const dragState = {
 };
 
 const FIXED_THRESHOLD = 128;
-const DEFAULTS = {
-  brightness: 0,
-  contrast: 0,
-  gamma: 1.0,
-  sharpness: 0,
-  ditherMode: 'floyd',
-  dpi: 254,
-  outputWidthMm: 100,
-  materialSelect: 'custom'
+
+const PRESETS = {
+  portrait: { brightness: 10, contrast: 22, gamma: 1.20, sharpness: 0.5, ditherMode: 'floyd' },
+  normal:   { brightness: 5,  contrast: 30, gamma: 1.08, sharpness: 1.0, ditherMode: 'floyd' },
+  dark:     { brightness: 25, contrast: 35, gamma: 1.25, sharpness: 1.0, ditherMode: 'floyd' },
+  light:    { brightness: -10, contrast: 45, gamma: 0.95, sharpness: 1.0, ditherMode: 'floyd' },
+  detail:   { brightness: 0,  contrast: 55, gamma: 1.00, sharpness: 2.0, ditherMode: 'atkinson' }
 };
 
-const STORAGE_KEY = 'laserEditorSimpleV3';
+const DEFAULTS = {
+  preset: 'portrait',
+  brightness: PRESETS.portrait.brightness,
+  contrast: PRESETS.portrait.contrast,
+  gamma: PRESETS.portrait.gamma,
+  sharpness: PRESETS.portrait.sharpness,
+  ditherMode: PRESETS.portrait.ditherMode,
+  dpi: 254,
+  outputWidthMm: 100
+};
+
+const STORAGE_KEY = 'laserEditorSimpleV4';
 
 const fileInput = document.getElementById('fileInput');
 const dropZone = document.getElementById('dropZone');
 const uploadCtaCard = document.getElementById('uploadCtaCard');
 
-const materialSelect = document.getElementById('materialSelect');
 const brightness = document.getElementById('brightness');
 const contrast = document.getElementById('contrast');
 const gamma = document.getElementById('gamma');
@@ -653,6 +688,8 @@ const resetBtn = document.getElementById('resetBtn');
 const canvasSingle = document.getElementById('canvasSingle');
 const canvasCompareOrig = document.getElementById('canvasCompareOrig');
 const canvasCompareResult = document.getElementById('canvasCompareResult');
+
+const presetCards = document.querySelectorAll('.preset-card');
 
 document.getElementById('btnResult').addEventListener('click', () => setViewMode('result'));
 document.getElementById('btnCompare').addEventListener('click', () => setViewMode('compare'));
@@ -687,12 +724,23 @@ dropZone.addEventListener('drop', e => {
   if (e.dataTransfer.files && e.dataTransfer.files[0]) loadFile(e.dataTransfer.files[0]);
 });
 
-materialSelect.addEventListener('change', () => {
-  applyMaterialPreset();
-  saveSettings();
+presetCards.forEach(card => {
+  card.addEventListener('click', () => {
+    const key = card.dataset.preset;
+    setActivePresetCard(key);
+
+    if (key === 'custom') {
+      currentPreset = 'custom';
+      saveSettings();
+      return;
+    }
+
+    applyPreset(key);
+  });
 });
 
 ditherMode.addEventListener('change', () => {
+  markAsCustom();
   saveSettings();
   scheduleProcessImage();
 });
@@ -725,6 +773,7 @@ resetBtn.addEventListener('click', resetSettings);
 [brightness, contrast, gamma, sharpness].forEach((el) => {
   el.addEventListener('input', () => {
     updateSlider(el);
+    markAsCustom();
     saveSettings();
     scheduleProcessImage();
   });
@@ -736,6 +785,36 @@ function setViewMode(mode) {
   document.getElementById('btnCompare').classList.toggle('active', mode === 'compare');
   document.getElementById('resultView').style.display = mode === 'result' ? 'block' : 'none';
   document.getElementById('compareView').style.display = mode === 'compare' ? 'block' : 'none';
+}
+
+function setActivePresetCard(key) {
+  presetCards.forEach(card => {
+    card.classList.toggle('active', card.dataset.preset === key);
+  });
+}
+
+function markAsCustom() {
+  if (currentPreset !== 'custom') {
+    currentPreset = 'custom';
+    setActivePresetCard('custom');
+  }
+}
+
+function applyPreset(key) {
+  const p = PRESETS[key];
+  if (!p) return;
+
+  currentPreset = key;
+  brightness.value = p.brightness;
+  contrast.value = p.contrast;
+  gamma.value = p.gamma;
+  sharpness.value = p.sharpness;
+  ditherMode.value = p.ditherMode;
+
+  sliderPairs.forEach(([id]) => updateSlider(document.getElementById(id)));
+  setActivePresetCard(key);
+  saveSettings();
+  scheduleProcessImage();
 }
 
 function getCanvasZoomKey(canvas) {
@@ -867,6 +946,7 @@ function loadStoredSettings() {
     if (!raw) return;
     const s = JSON.parse(raw);
 
+    if (s.preset) currentPreset = s.preset;
     if (s.brightness !== undefined) brightness.value = s.brightness;
     if (s.contrast !== undefined) contrast.value = s.contrast;
     if (s.gamma !== undefined) gamma.value = s.gamma;
@@ -874,20 +954,19 @@ function loadStoredSettings() {
     if (s.ditherMode) ditherMode.value = s.ditherMode;
     if (s.dpi) dpi.value = s.dpi;
     if (s.outputWidthMm !== undefined) outputWidthMm.value = s.outputWidthMm;
-    if (s.materialSelect) materialSelect.value = s.materialSelect;
   } catch (e) {}
 }
 
 function saveSettings() {
   const data = {
+    preset: currentPreset,
     brightness: Number(brightness.value),
     contrast: Number(contrast.value),
     gamma: Number(gamma.value),
     sharpness: Number(sharpness.value),
     ditherMode: ditherMode.value,
     dpi: Number(dpi.value),
-    outputWidthMm: Number(outputWidthMm.value),
-    materialSelect: materialSelect.value
+    outputWidthMm: Number(outputWidthMm.value)
   };
   try {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
@@ -895,6 +974,7 @@ function saveSettings() {
 }
 
 function resetSettings() {
+  currentPreset = DEFAULTS.preset;
   brightness.value = DEFAULTS.brightness;
   contrast.value = DEFAULTS.contrast;
   gamma.value = DEFAULTS.gamma;
@@ -902,11 +982,11 @@ function resetSettings() {
   ditherMode.value = DEFAULTS.ditherMode;
   dpi.value = DEFAULTS.dpi;
   outputWidthMm.value = DEFAULTS.outputWidthMm;
-  materialSelect.value = DEFAULTS.materialSelect;
 
   syncWidthFromMm();
   sliderPairs.forEach(([id]) => updateSlider(document.getElementById(id)));
   updateSizeInfo();
+  setActivePresetCard(currentPreset);
   saveSettings();
   scheduleProcessImage();
 }
@@ -933,30 +1013,6 @@ function loadFile(file) {
   };
   reader.onerror = () => alert('Chyba při čtení souboru.');
   reader.readAsDataURL(file);
-}
-
-function applyMaterialPreset() {
-  const presets = {
-    wood:       { brightness: 10,  contrast: 30, gamma: 1.2,  sharpness: 1 },
-    wood_dark:  { brightness: 30,  contrast: 50, gamma: 1.5,  sharpness: 1 },
-    slate:      { brightness: 20,  contrast: 60, gamma: 0.9,  sharpness: 2 },
-    acrylic:    { brightness: 0,   contrast: 80, gamma: 1.0,  sharpness: 0 },
-    leather:    { brightness: 15,  contrast: 40, gamma: 1.3,  sharpness: 1 },
-    anodized:   { brightness: -10, contrast: 70, gamma: 0.8,  sharpness: 2 },
-    paper:      { brightness: 5,   contrast: 50, gamma: 1.1,  sharpness: 1 },
-    stainless:  { brightness: -20, contrast: 90, gamma: 0.75, sharpness: 3 }
-  };
-
-  const p = presets[materialSelect.value];
-  if (!p) return;
-
-  brightness.value = p.brightness;
-  contrast.value = p.contrast;
-  gamma.value = p.gamma;
-  sharpness.value = p.sharpness;
-
-  sliderPairs.forEach(([id]) => updateSlider(document.getElementById(id)));
-  scheduleProcessImage();
 }
 
 function analyzeImageForAutoAdjust() {
@@ -990,10 +1046,11 @@ function analyzeImageForAutoAdjust() {
   const variance = Math.max(0, sumSq / count - mean * mean);
   const stdDev = Math.sqrt(variance);
 
-  let recommended = 'floyd';
-  if (stdDev > 70 || edgeScore / Math.max(1, count) > 32) {
-    recommended = 'atkinson';
-  }
+  let recommended = 'normal';
+
+  if (mean < 105) recommended = 'dark';
+  else if (mean > 185) recommended = 'light';
+  else if (stdDev > 65 || edgeScore / Math.max(1, count) > 30) recommended = 'detail';
 
   lastImageStats = { mean, stdDev, recommended };
 }
@@ -1007,10 +1064,17 @@ function autoAdjustFromImage() {
   if (!lastImageStats) analyzeImageForAutoAdjust();
 
   const { mean, stdDev, recommended } = lastImageStats;
+
+  if (recommended && PRESETS[recommended]) {
+    applyPreset(recommended);
+    return;
+  }
+
   let newBrightness = 0;
   let newContrast = 0;
   let newGamma = 1.0;
   let newSharpness = 1.0;
+  let newDither = 'floyd';
 
   if (mean < 105) newBrightness = 18;
   else if (mean > 180) newBrightness = -8;
@@ -1025,20 +1089,21 @@ function autoAdjustFromImage() {
   else if (mean > 180) newGamma = 0.92;
   else newGamma = 1.02;
 
-  if (recommended === 'atkinson') {
+  if (stdDev > 70) {
     newContrast += 8;
     newSharpness = 1.6;
-  } else {
-    newSharpness = 1.0;
+    newDither = 'atkinson';
   }
 
+  currentPreset = 'custom';
   brightness.value = clamp(newBrightness, -150, 150);
   contrast.value = clamp(newContrast, -150, 150);
   gamma.value = clamp(roundTo(newGamma, 0.05), 0.1, 3.0);
   sharpness.value = clamp(roundTo(newSharpness, 0.5), 0, 5);
-  ditherMode.value = recommended;
+  ditherMode.value = newDither;
 
   sliderPairs.forEach(([id]) => updateSlider(document.getElementById(id)));
+  setActivePresetCard('custom');
   saveSettings();
   processImage();
 }
@@ -1482,6 +1547,7 @@ sliderPairs.forEach(([id]) => updateSlider(document.getElementById(id)));
 syncWidthFromMm();
 updateSizeInfo();
 setViewMode('result');
+setActivePresetCard(currentPreset);
 loadCounter();
 initializeCanvasZoom();
 </script>
