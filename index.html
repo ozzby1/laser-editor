@@ -197,7 +197,7 @@
   <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
 
     <!-- LEFT: Controls -->
-    <div class="flex flex-col gap-3">
+    <div class="flex flex-col gap-3" style="order:2">
 
       <!-- Upload -->
       <div class="panel p-4">
@@ -294,7 +294,7 @@
     </div>
 
     <!-- RIGHT: Preview -->
-    <div class="lg:col-span-2 flex flex-col gap-3">
+    <div class="lg:col-span-2 flex flex-col gap-3" style="order:1">
 
       <!-- View toggle -->
       <div class="panel px-4 py-3 flex gap-2 items-center flex-wrap">
@@ -318,7 +318,7 @@
               <canvas id="canvasOrig" class="w-full rounded-lg" style="border:1px solid rgba(255,255,255,0.05)"></canvas>
             </div>
             <div>
-              <div class="canvas-label">Výsledek pro gravírování</div>
+              <div class="canvas-label">Výsledek</div>
               <canvas id="canvasResult" class="w-full rounded-lg" style="border:1px solid rgba(255,255,255,0.05)"></canvas>
             </div>
           </div>
@@ -611,11 +611,20 @@ loadCounter();
 function downloadResult() {
   const canvas = document.getElementById('canvasResult');
   if (!canvas.width) { alert('Nejprve nahraj obrázek.'); return; }
-  const a = document.createElement('a');
-  a.download = 'gravyrovani.png';
-  a.href = canvas.toDataURL('image/png');
-  a.click();
   incrementCounter();
+  const dataURL = canvas.toDataURL('image/png');
+  // iOS Safari: a.click() nefunguje, použijeme window.open
+  const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+  if (isIOS) {
+    window.open(dataURL, '_blank');
+  } else {
+    const a = document.createElement('a');
+    a.download = 'gravyrovani.png';
+    a.href = dataURL;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+  }
 }
 </script>
 </body>
