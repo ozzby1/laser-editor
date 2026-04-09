@@ -393,7 +393,6 @@
 
   <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
 
-    <!-- PREVIEW -->
     <div class="lg:col-span-2 flex flex-col gap-3 order-1 lg:order-1">
       <div class="panel px-4 py-3 flex gap-3 items-center flex-wrap">
         <div style="font-size:0.75rem;color:#94a3b8;font-weight:600;margin-right:2px">Zobrazení:</div>
@@ -434,7 +433,7 @@
               <div class="empty-step-num">2</div>
               <div>
                 <div style="font-size:0.8rem;font-weight:600;color:#cbd5e1;margin-bottom:2px">Vyber typ obrázku</div>
-                <div style="font-size:0.7rem;color:#475569">Lidé, tmavý obrázek, detaily…</div>
+                <div style="font-size:0.7rem;color:#475569">Běžná fotka, lidé, tmavý obrázek…</div>
               </div>
             </div>
 
@@ -481,7 +480,6 @@
       </div>
     </div>
 
-    <!-- TOOLS -->
     <div class="flex flex-col gap-3 order-2 lg:order-2">
 
       <div class="panel p-4">
@@ -498,12 +496,12 @@
         <div class="section-title">Typ obrázku</div>
 
         <div class="grid grid-cols-2 gap-2" id="presetCards">
-          <div class="preset-card active" data-preset="portrait">👤 Lidé</div>
+          <div class="preset-card active" data-preset="custom">⚙️ Vlastní nastavení</div>
           <div class="preset-card" data-preset="normal">📷 Běžná fotka</div>
+          <div class="preset-card" data-preset="portrait">👤 Lidé</div>
           <div class="preset-card" data-preset="dark">🌙 Tmavý obrázek</div>
           <div class="preset-card" data-preset="light">☀️ Světlý obrázek</div>
           <div class="preset-card" data-preset="detail">🔍 Hodně detailů</div>
-          <div class="preset-card" data-preset="custom">⚙️ Vlastní nastavení</div>
         </div>
 
         <div class="helper-text mt-2">
@@ -624,7 +622,7 @@ let originalImage = null;
 let renderQueued = false;
 let lastImageStats = null;
 let viewMode = 'result';
-let currentPreset = 'portrait';
+let currentPreset = 'custom';
 
 const ZOOM_STEP = 0.1;
 const ZOOM_MIN = 0.2;
@@ -648,25 +646,26 @@ const dragState = {
 const FIXED_THRESHOLD = 128;
 
 const PRESETS = {
-  portrait: { brightness: 10, contrast: 22, gamma: 1.20, sharpness: 0.5, ditherMode: 'floyd' },
+  custom:   { brightness: 0,  contrast: 0,  gamma: 1.00, sharpness: 0.0, ditherMode: 'floyd' },
   normal:   { brightness: 5,  contrast: 30, gamma: 1.08, sharpness: 1.0, ditherMode: 'floyd' },
+  portrait: { brightness: 10, contrast: 22, gamma: 1.20, sharpness: 0.5, ditherMode: 'floyd' },
   dark:     { brightness: 25, contrast: 35, gamma: 1.25, sharpness: 1.0, ditherMode: 'floyd' },
   light:    { brightness: -10, contrast: 45, gamma: 0.95, sharpness: 1.0, ditherMode: 'floyd' },
   detail:   { brightness: 0,  contrast: 55, gamma: 1.00, sharpness: 2.0, ditherMode: 'atkinson' }
 };
 
 const DEFAULTS = {
-  preset: 'portrait',
-  brightness: PRESETS.portrait.brightness,
-  contrast: PRESETS.portrait.contrast,
-  gamma: PRESETS.portrait.gamma,
-  sharpness: PRESETS.portrait.sharpness,
-  ditherMode: PRESETS.portrait.ditherMode,
+  preset: 'custom',
+  brightness: PRESETS.custom.brightness,
+  contrast: PRESETS.custom.contrast,
+  gamma: PRESETS.custom.gamma,
+  sharpness: PRESETS.custom.sharpness,
+  ditherMode: PRESETS.custom.ditherMode,
   dpi: 254,
   outputWidthMm: 100
 };
 
-const STORAGE_KEY = 'laserEditorSimpleV4';
+const STORAGE_KEY = 'laserEditorSimpleV5';
 
 const fileInput = document.getElementById('fileInput');
 const dropZone = document.getElementById('dropZone');
@@ -727,14 +726,6 @@ dropZone.addEventListener('drop', e => {
 presetCards.forEach(card => {
   card.addEventListener('click', () => {
     const key = card.dataset.preset;
-    setActivePresetCard(key);
-
-    if (key === 'custom') {
-      currentPreset = 'custom';
-      saveSettings();
-      return;
-    }
-
     applyPreset(key);
   });
 });
@@ -1063,49 +1054,11 @@ function autoAdjustFromImage() {
 
   if (!lastImageStats) analyzeImageForAutoAdjust();
 
-  const { mean, stdDev, recommended } = lastImageStats;
+  const { recommended } = lastImageStats;
 
   if (recommended && PRESETS[recommended]) {
     applyPreset(recommended);
-    return;
   }
-
-  let newBrightness = 0;
-  let newContrast = 0;
-  let newGamma = 1.0;
-  let newSharpness = 1.0;
-  let newDither = 'floyd';
-
-  if (mean < 105) newBrightness = 18;
-  else if (mean > 180) newBrightness = -8;
-  else newBrightness = 4;
-
-  if (stdDev < 35) newContrast = 42;
-  else if (stdDev < 50) newContrast = 28;
-  else if (stdDev > 72) newContrast = 12;
-  else newContrast = 20;
-
-  if (mean < 110) newGamma = 1.18;
-  else if (mean > 180) newGamma = 0.92;
-  else newGamma = 1.02;
-
-  if (stdDev > 70) {
-    newContrast += 8;
-    newSharpness = 1.6;
-    newDither = 'atkinson';
-  }
-
-  currentPreset = 'custom';
-  brightness.value = clamp(newBrightness, -150, 150);
-  contrast.value = clamp(newContrast, -150, 150);
-  gamma.value = clamp(roundTo(newGamma, 0.05), 0.1, 3.0);
-  sharpness.value = clamp(roundTo(newSharpness, 0.5), 0, 5);
-  ditherMode.value = newDither;
-
-  sliderPairs.forEach(([id]) => updateSlider(document.getElementById(id)));
-  setActivePresetCard('custom');
-  saveSettings();
-  processImage();
 }
 
 function clamp(n, min, max) {
