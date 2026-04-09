@@ -224,7 +224,7 @@
       <div class="panel p-4">
         <div class="section-title">Materiál / Preset</div>
         <select id="materialSelect" class="w-full" onchange="applyMaterialPreset()">
-          <option value="custom">— Vlastní nastavení —</option>
+          <option value="custom">— Zvolte materiál —</option>
           <option value="wood">🪵 Dřevo (světlé)</option>
           <option value="wood_dark">🌳 Dřevo (tmavé)</option>
           <option value="slate">🪨 Břidlice / Kámen</option>
@@ -278,26 +278,7 @@
         </div>
       </div>
 
-      <!-- Dithering -->
-      <div class="panel p-4">
-        <div class="section-title">Dithering</div>
-        <select id="ditheringMode" class="w-full mb-3" onchange="processImage()">
-          <option value="none">Žádný (grayscale)</option>
-          <option value="threshold">Threshold (tvrdý černobílý)</option>
-          <option value="floyd">Floyd-Steinberg</option>
-          <option value="atkinson">Atkinson</option>
-          <option value="stucki">Stucki</option>
-          <option value="ordered2">Ordered 2×2</option>
-          <option value="ordered4">Ordered 4×4 (Bayer)</option>
-          <option value="ordered8">Ordered 8×8 (Bayer)</option>
-          <option value="random">Náhodný šum</option>
-        </select>
-        <label>Práh (threshold)</label>
-        <div class="slider-row mt-1">
-          <input type="range" id="threshold" min="0" max="255" value="128" oninput="updateSlider(this,'thresholdVal');processImage()">
-          <span class="slider-val" id="thresholdVal">128</span>
-        </div>
-      </div>
+
 
       <!-- Output -->
       <div class="panel p-4">
