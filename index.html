@@ -17,7 +17,7 @@
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://photoengraving.online/">
 <meta property="og:locale" content="cs_CZ">
-<meta property="og:image" content="https://photoengraving.online/preview-2.png">
+<meta property="og:image" content="https://photoengraving.online/preview-v3.png">
 
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://cdn.tailwindcss.com"></script>
@@ -395,8 +395,8 @@
 
     <div class="lg:col-span-2 flex flex-col gap-3 order-1 lg:order-1">
       <div class="panel px-4 py-3 flex gap-3 items-center flex-wrap">
-        <button class="btn view-btn active" id="btnResult">Náhled</button>
-        <button class="btn view-btn" id="btnCompare">Originál / náhled</button>
+        <button class="btn view-btn" id="btnResult">Náhled</button>
+        <button class="btn view-btn active" id="btnCompare">Originál / náhled</button>
         <div class="ml-auto" style="font-size:0.75rem;color:#475569;font-weight:600" id="imageDims"></div>
       </div>
 
@@ -407,7 +407,7 @@
             <div style="flex:1">
               <div style="font-size:0.65rem;font-weight:700;letter-spacing:0.08em;color:#94a3b8;margin-bottom:6px;text-align:center">ORIGINÁL</div>
               <div style="border-radius:10px;overflow:hidden;border:1px solid rgba(255,255,255,0.07);background:#000">
-                <img src="preview-2.png" alt="Ukázka originálu" style="width:100%;display:block;object-fit:contain;">
+                <img src="preview-v3.png" alt="Ukázka originálu" style="width:100%;display:block;object-fit:contain;">
               </div>
             </div>
             <div style="display:flex;align-items:center;color:#f97316;font-size:1.4rem;padding-bottom:4px">→</div>
@@ -449,7 +449,7 @@
         </div>
 
         <div id="canvasArea" style="display:none">
-          <div id="resultView">
+          <div id="resultView" style="display:none">
             <div class="zoom-hover canvas-wrap">
               <canvas id="canvasSingle" class="w-full"></canvas>
             </div>
@@ -458,7 +458,7 @@
             </div>
           </div>
 
-          <div id="compareView" style="display:none">
+          <div id="compareView">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
                 <div class="zoom-hover canvas-wrap">
@@ -618,7 +618,7 @@
 <script>
 let originalImage = null;
 let renderQueued = false;
-let viewMode = 'result';
+let viewMode = 'compare';
 let currentPreset = 'normal';
 
 const ZOOM_STEP = 0.1;
@@ -990,7 +990,7 @@ function loadImageIntoEditor(img) {
   applyPreset('normal');
   syncWidthFromMm();
   updateSizeInfo();
-  setViewMode('result');
+  setViewMode('compare');
   processImage();
 }
 
@@ -1018,7 +1018,7 @@ function loadDemoImage() {
   img.onerror = () => {
     console.warn('Demo obrázek se nepodařilo načíst.');
   };
-  img.src = 'preview-2.png';
+  img.src = 'preview-v3.png';
 }
 
 function clamp(n, min, max) {
@@ -1218,254 +1218,4 @@ function applyDithering(imageData, w, h, mode, thresh) {
   }
 
   const pixels = new Float32Array(w * h);
-  for (let i = 0; i < w * h; i++) pixels[i] = d[i * 4];
-
-  for (let y = 0; y < h; y++) {
-    for (let x = 0; x < w; x++) {
-      const idx = y * w + x;
-      const oldVal = pixels[idx];
-      const newVal = oldVal >= thresh ? 255 : 0;
-      pixels[idx] = newVal;
-
-      const err = oldVal - newVal;
-      for (let wi = 0; wi < weights.length; wi++) {
-        const dx = weights[wi][0];
-        const dy = weights[wi][1];
-        const factor = weights[wi][2];
-        const nx = x + dx;
-        const ny = y + dy;
-        if (nx >= 0 && nx < w && ny >= 0 && ny < h) {
-          pixels[ny * w + nx] += err * factor;
-        }
-      }
-    }
-  }
-
-  for (let i = 0; i < w * h; i++) {
-    const v = Math.max(0, Math.min(255, pixels[i]));
-    d[i * 4] = d[i * 4 + 1] = d[i * 4 + 2] = v;
-    d[i * 4 + 3] = 255;
-  }
-}
-
-function buildExportFilename() {
-  const dpiValue = Number(dpi.value);
-  const mm = Math.max(1, Number(outputWidthMm.value || 0));
-  const style = ditherMode.value === 'atkinson' ? 'kontrastni' : 'detailni';
-  return `laser-${mm}mm-${dpiValue}dpi-${style}.png`;
-}
-
-const ABACUS_GET = 'https://abacus.jasoncameron.dev/get/stunning-twilight-266e8a/downloads';
-const ABACUS_HIT = 'https://abacus.jasoncameron.dev/hit/stunning-twilight-266e8a/downloads';
-
-function loadCounter() {
-  fetch(ABACUS_GET)
-    .then(r => r.ok ? r.json() : null)
-    .then(data => {
-      const n = data && data.value ? data.value : 0;
-      document.getElementById('photoCounter').textContent = n > 0 ? n.toLocaleString('cs-CZ') : '—';
-    })
-    .catch(() => {
-      document.getElementById('photoCounter').textContent = '—';
-    });
-}
-
-function incrementCounter() {
-  fetch(ABACUS_HIT)
-    .then(r => r.ok ? r.json() : null)
-    .then(data => {
-      const n = data && data.value ? data.value : 0;
-      if (n > 0) document.getElementById('photoCounter').textContent = n.toLocaleString('cs-CZ');
-    })
-    .catch(() => {});
-}
-
-function showIOSModal(blob) {
-  const url = URL.createObjectURL(blob);
-  const overlay = document.createElement('div');
-  overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.9);z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px;';
-  overlay.innerHTML = `
-    <div style="width:min(360px,100%);background:#0f1117;border:1px solid rgba(255,255,255,0.08);border-radius:18px;padding:16px;">
-      <div style="font-size:0.9rem;font-weight:700;color:#f97316;margin-bottom:4px">Uložení na iOS</div>
-      <div style="font-size:0.74rem;color:#64748b;margin-bottom:14px">Podrž prst na obrázku a vyber <strong style="color:#e2e8f0">Přidat do Fotek</strong> nebo <strong style="color:#e2e8f0">Uložit obrázek</strong>.</div>
-      <div style="background:#000;border-radius:12px;overflow:hidden;border:1px solid rgba(255,255,255,0.08);margin-bottom:14px;">
-        <img src="${url}" style="width:100%;display:block;" alt="Export PNG">
-      </div>
-      <button class="btn btn-secondary" id="iosCloseBtn" style="width:100%">Zavřít</button>
-    </div>
-  `;
-  document.body.appendChild(overlay);
-
-  overlay.querySelector('#iosCloseBtn').addEventListener('click', () => {
-    URL.revokeObjectURL(url);
-    overlay.remove();
-  });
-
-  overlay.addEventListener('click', e => {
-    if (e.target === overlay) {
-      URL.revokeObjectURL(url);
-      overlay.remove();
-    }
-  });
-}
-
-function crc32(bytes) {
-  let crc = 0xffffffff;
-  for (let i = 0; i < bytes.length; i++) {
-    crc ^= bytes[i];
-    for (let j = 0; j < 8; j++) {
-      if (crc & 1) crc = (crc >>> 1) ^ 0xedb88320;
-      else crc = crc >>> 1;
-    }
-  }
-  return (crc ^ 0xffffffff) >>> 0;
-}
-
-function concatUint8Arrays(...arrays) {
-  const total = arrays.reduce((sum, arr) => sum + arr.length, 0);
-  const result = new Uint8Array(total);
-  let offset = 0;
-  for (const arr of arrays) {
-    result.set(arr, offset);
-    offset += arr.length;
-  }
-  return result;
-}
-
-function uint32ToBytes(num) {
-  return new Uint8Array([
-    (num >>> 24) & 255,
-    (num >>> 16) & 255,
-    (num >>> 8) & 255,
-    num & 255
-  ]);
-}
-
-function createPhysChunk(dpiValue) {
-  const ppm = Math.round(dpiValue / 0.0254);
-  const type = new TextEncoder().encode('pHYs');
-  const data = new Uint8Array(9);
-
-  data[0] = (ppm >>> 24) & 255;
-  data[1] = (ppm >>> 16) & 255;
-  data[2] = (ppm >>> 8) & 255;
-  data[3] = ppm & 255;
-
-  data[4] = (ppm >>> 24) & 255;
-  data[5] = (ppm >>> 16) & 255;
-  data[6] = (ppm >>> 8) & 255;
-  data[7] = ppm & 255;
-
-  data[8] = 1;
-
-  const crc = crc32(concatUint8Arrays(type, data));
-
-  return concatUint8Arrays(
-    uint32ToBytes(data.length),
-    type,
-    data,
-    uint32ToBytes(crc)
-  );
-}
-
-async function canvasToPngBlobWithDPI(canvas, dpiValue) {
-  const baseBlob = await new Promise((resolve, reject) => {
-    canvas.toBlob(blob => blob ? resolve(blob) : reject(new Error('Nepodařilo se vytvořit PNG blob.')), 'image/png');
-  });
-
-  const buffer = await baseBlob.arrayBuffer();
-  const bytes = new Uint8Array(buffer);
-
-  let offset = 8;
-  let ihdrEnd = -1;
-  let existingPhysStart = -1;
-  let existingPhysEnd = -1;
-
-  while (offset < bytes.length) {
-    const length =
-      (bytes[offset] << 24) |
-      (bytes[offset + 1] << 16) |
-      (bytes[offset + 2] << 8) |
-      bytes[offset + 3];
-
-    const typeStart = offset + 4;
-    const type = String.fromCharCode(
-      bytes[typeStart],
-      bytes[typeStart + 1],
-      bytes[typeStart + 2],
-      bytes[typeStart + 3]
-    );
-
-    const chunkTotalLength = 12 + length;
-    if (type === 'IHDR') ihdrEnd = offset + chunkTotalLength;
-    if (type === 'pHYs') {
-      existingPhysStart = offset;
-      existingPhysEnd = offset + chunkTotalLength;
-      break;
-    }
-    offset += chunkTotalLength;
-  }
-
-  const physChunk = createPhysChunk(dpiValue);
-  let finalBytes;
-
-  if (existingPhysStart !== -1) {
-    finalBytes = concatUint8Arrays(
-      bytes.slice(0, existingPhysStart),
-      physChunk,
-      bytes.slice(existingPhysEnd)
-    );
-  } else {
-    finalBytes = concatUint8Arrays(
-      bytes.slice(0, ihdrEnd),
-      physChunk,
-      bytes.slice(ihdrEnd)
-    );
-  }
-
-  return new Blob([finalBytes], { type: 'image/png' });
-}
-
-async function downloadResult() {
-  if (!canvasSingle.width) {
-    alert('Nejprve nahraj obrázek.');
-    return;
-  }
-
-  try {
-    const dpiValue = Number(dpi.value);
-    const blob = await canvasToPngBlobWithDPI(canvasSingle, dpiValue);
-    incrementCounter();
-
-    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-    if (isIOS) {
-      showIOSModal(blob);
-      return;
-    }
-
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.download = buildExportFilename();
-    a.href = url;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    setTimeout(() => URL.revokeObjectURL(url), 1500);
-  } catch (err) {
-    console.error(err);
-    alert('Nepodařilo se vytvořit PNG soubor s nastaveným DPI.');
-  }
-}
-
-loadStoredSettings();
-sliderPairs.forEach(([id]) => updateSlider(document.getElementById(id)));
-syncWidthFromMm();
-updateSizeInfo();
-setViewMode('result');
-setActivePresetCard(currentPreset);
-loadCounter();
-initializeCanvasZoom();
-loadDemoImage();
-</script>
-</body>
-</html>
+  for (let i = 0; i < w * h; i
