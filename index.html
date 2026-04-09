@@ -648,15 +648,35 @@ function parseCount(data) {
   return data.count ?? data.value ?? data.hits ?? 0;
 }
 
-const PROXY = 'https://api.allorigins.win/get?url=';
 const API_BASE = 'https://api.counterapi.dev/v1/stunning-twilight-266e8a/downloads';
+const PROXIES = [
+  url => `https://corsproxy.io/?${encodeURIComponent(url)}`,
+  url => `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`,
+];
+
+async function fetchWithProxy(url) {
+  // Nejdřív zkus přímé volání (counterapi možná CORS podporuje)
+  try {
+    const r = await fetch(url);
+    if (r.ok) { const d = await r.json(); console.log('direct OK:', d); return d; }
+  } catch(e) {}
+  // Pak zkoušej proxy
+  for (const proxy of PROXIES) {
+    try {
+      const r = await fetch(proxy(url));
+      if (!r.ok) continue;
+      const text = await r.text();
+      const d = JSON.parse(text);
+      console.log('proxy OK:', d);
+      return d;
+    } catch(e) {}
+  }
+  throw new Error('all failed');
+}
 
 function loadCounter() {
-  fetch(PROXY + encodeURIComponent(API_BASE))
-    .then(r => r.json())
-    .then(wrapper => {
-      const data = JSON.parse(wrapper.contents);
-      console.log('counter GET:', data);
+  fetchWithProxy(API_BASE)
+    .then(data => {
       const n = parseCount(data);
       document.getElementById('photoCounter').textContent = n > 0 ? n.toLocaleString('cs-CZ') : '—';
     })
@@ -664,12 +684,10 @@ function loadCounter() {
 }
 
 function incrementCounter() {
-  fetch(PROXY + encodeURIComponent(API_BASE + '/up'))
-    .then(r => r.json())
-    .then(wrapper => {
-      const data = JSON.parse(wrapper.contents);
-      console.log('counter UP:', data);
-      document.getElementById('photoCounter').textContent = parseCount(data).toLocaleString('cs-CZ');
+  fetchWithProxy(API_BASE + '/up')
+    .then(data => {
+      const n = parseCount(data);
+      if (n > 0) document.getElementById('photoCounter').textContent = n.toLocaleString('cs-CZ');
     })
     .catch(() => {});
 }
