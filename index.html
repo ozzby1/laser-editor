@@ -1,58 +1,229 @@
 <!DOCTYPE html>
-<html lang="cs">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>FREE PHOTO LASER EDITOR</title>
+<title>FREE PHOTO LASER EDITOR – Free Online Photo Editor for Laser Engraving</title>
+
+<!-- SEO -->
+<meta name="description" content="Free online photo editor for laser engraving. Adjust brightness, contrast, sharpness and download an optimized PNG ready for your laser engraver. No registration needed.">
+<meta name="keywords" content="laser engraving photo editor, free laser photo converter, dithering image, black and white laser, photo to laser, laser engraver image, free online editor, laser PNG">
+<meta name="author" content="FREE PHOTO LASER EDITOR">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://stunning-twilight-266e8a.netlify.app/">
+
+<!-- Open Graph (social sharing) -->
+<meta property="og:title" content="FREE PHOTO LASER EDITOR – Photo Editor for Laser Engraving">
+<meta property="og:description" content="Convert your photo into a laser-ready image for free. Dithering, brightness, contrast and more tools. 100% free, no registration needed.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://stunning-twilight-266e8a.netlify.app/">
+<meta property="og:locale" content="en_US">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://cdn.tailwindcss.com"></script>
 <style>
-  body { background: #0f0f0f; color: #e0e0e0; font-family: 'Segoe UI', sans-serif; }
+  * { box-sizing: border-box; }
+  body {
+    background: #0a0a0f;
+    color: #e2e8f0;
+    font-family: 'Inter', 'Segoe UI', sans-serif;
+    min-height: 100vh;
+  }
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background:
+      radial-gradient(ellipse 80% 50% at 20% -10%, rgba(249,115,22,0.07) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 40% at 80% 110%, rgba(99,102,241,0.05) 0%, transparent 60%);
+    pointer-events: none;
+    z-index: 0;
+  }
+  .content { position: relative; z-index: 1; }
+
   canvas { image-rendering: pixelated; }
+
   input[type=range] { accent-color: #f97316; }
-  .panel { background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 10px; }
-  .btn { transition: all 0.15s; cursor: pointer; }
-  .btn:hover { filter: brightness(1.15); }
-  .btn:active { transform: scale(0.97); }
-  label { font-size: 0.75rem; color: #aaa; }
-  select { background: #222; border: 1px solid #333; color: #e0e0e0; border-radius: 6px; padding: 4px 8px; }
-  .drop-zone { border: 2px dashed #444; border-radius: 12px; transition: border-color 0.2s; }
-  .drop-zone.drag-over { border-color: #f97316; background: #1c1000; }
-  .slider-row { display: flex; align-items: center; gap: 8px; }
+
+  .panel {
+    background: rgba(15,17,26,0.85);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 14px;
+    backdrop-filter: blur(10px);
+  }
+
+  .section-title {
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #475569;
+    margin-bottom: 12px;
+  }
+
+  label {
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: #64748b;
+  }
+
+  select {
+    background: #0f1117;
+    border: 1px solid rgba(255,255,255,0.08);
+    color: #cbd5e1;
+    border-radius: 8px;
+    padding: 7px 10px;
+    font-size: 0.82rem;
+    font-family: inherit;
+    outline: none;
+    cursor: pointer;
+    transition: border-color 0.2s;
+  }
+  select:hover, select:focus { border-color: rgba(249,115,22,0.4); }
+
+  .drop-zone {
+    border: 1.5px dashed rgba(255,255,255,0.1);
+    border-radius: 10px;
+    transition: all 0.2s;
+    background: rgba(255,255,255,0.01);
+  }
+  .drop-zone:hover {
+    border-color: rgba(249,115,22,0.4);
+    background: rgba(249,115,22,0.03);
+  }
+  .drop-zone.drag-over {
+    border-color: #f97316;
+    background: rgba(249,115,22,0.06);
+  }
+
+  .slider-row { display: flex; align-items: center; gap: 10px; }
   .slider-row input[type=range] { flex: 1; }
-  .slider-val { width: 36px; text-align: right; font-size: 0.8rem; color: #f97316; }
+  .slider-val {
+    width: 38px;
+    text-align: right;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: #f97316;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .btn {
+    cursor: pointer;
+    transition: all 0.15s;
+    font-family: inherit;
+    font-weight: 500;
+    border: none;
+    outline: none;
+  }
+  .btn:hover { filter: brightness(1.12); }
+  .btn:active { transform: scale(0.97); }
+
+  .btn-primary {
+    background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+    color: #fff;
+    border-radius: 10px;
+    padding: 10px 16px;
+    font-size: 0.85rem;
+    box-shadow: 0 4px 16px rgba(249,115,22,0.25);
+  }
+  .btn-primary:hover { box-shadow: 0 6px 20px rgba(249,115,22,0.35); }
+
+  .view-btn {
+    background: transparent;
+    color: #64748b;
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 8px;
+    padding: 5px 14px;
+    font-size: 0.78rem;
+  }
+  .view-btn.active {
+    background: rgba(249,115,22,0.15);
+    color: #f97316;
+    border-color: rgba(249,115,22,0.3);
+  }
+
+  .logo-icon {
+    width: 34px; height: 34px;
+    border-radius: 9px;
+    background: linear-gradient(135deg, #f97316, #ea580c);
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 4px 12px rgba(249,115,22,0.3);
+    flex-shrink: 0;
+  }
+
+  .counter-badge {
+    background: rgba(249,115,22,0.1);
+    border: 1px solid rgba(249,115,22,0.2);
+    border-radius: 20px;
+    padding: 3px 12px;
+    font-size: 0.72rem;
+    color: #94a3b8;
+    white-space: nowrap;
+  }
+  .counter-badge span { color: #f97316; font-weight: 700; }
+
+  .divider {
+    height: 1px;
+    background: rgba(255,255,255,0.05);
+    margin: 10px 0;
+  }
+
+  /* Checkbox */
+  input[type=checkbox] {
+    accent-color: #f97316;
+    width: 14px; height: 14px;
+    cursor: pointer;
+  }
+
+  .canvas-label {
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    color: #334155;
+    text-align: center;
+    margin-bottom: 6px;
+    text-transform: uppercase;
+  }
 </style>
 </head>
-<body class="min-h-screen p-4">
+<body>
+<div class="content max-w-7xl mx-auto px-4 py-6">
 
-<div class="max-w-7xl mx-auto">
-  <div class="flex items-center gap-3 mb-6">
-    <div class="w-8 h-8 rounded-lg flex items-center justify-center" style="background:#f97316">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+  <!-- Header -->
+  <header class="flex items-center gap-3 mb-7">
+    <div class="logo-icon">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.2">
+        <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+        <path d="M2 17l10 5 10-5"/>
+        <path d="M2 12l10 5 10-5"/>
+      </svg>
     </div>
-    <h1 class="text-xl font-bold tracking-tight">FREE PHOTO LASER EDITOR</h1>
-    <span class="text-xs text-gray-500 ml-2">Příprava fotek pro gravírování</span>
-    <div class="ml-auto text-xs text-gray-500">📸 Zpracováno fotek celkem: <span id="photoCounter" style="color:#f97316;font-weight:bold">…</span></div>
-  </div>
+    <div>
+      <h1 style="font-size:1.05rem;font-weight:700;letter-spacing:0.04em;color:#f1f5f9;line-height:1.2">FREE PHOTO LASER EDITOR</h1>
+      <p style="font-size:0.68rem;color:#475569;margin-top:1px">Příprava fotek pro laserové gravírování</p>
+    </div>
+    <div class="ml-auto counter-badge">📸 Zpracováno: <span id="photoCounter">…</span></div>
+  </header>
 
   <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
 
     <!-- LEFT: Controls -->
-    <div class="flex flex-col gap-4">
+    <div class="flex flex-col gap-3">
 
       <!-- Upload -->
       <div class="panel p-4">
-        <div class="drop-zone p-6 text-center cursor-pointer" id="dropZone">
-          <div class="text-3xl mb-2">📷</div>
-          <div class="text-sm text-gray-400">Přetáhni nebo klikni pro nahrání fotky</div>
-          <div class="text-xs text-gray-600 mt-1">JPG, PNG, BMP, WebP</div>
+        <div class="section-title">Nahrát fotku</div>
+        <div class="drop-zone p-5 text-center cursor-pointer" id="dropZone">
+          <div style="font-size:2rem;margin-bottom:6px">📷</div>
+          <div style="font-size:0.82rem;color:#64748b">Přetáhni nebo klikni pro výběr</div>
+          <div style="font-size:0.7rem;color:#334155;margin-top:3px">JPG, PNG, BMP, WebP</div>
           <input type="file" id="fileInput" accept="image/*" style="display:none">
         </div>
       </div>
 
       <!-- Material preset -->
       <div class="panel p-4">
-        <div class="text-xs font-semibold uppercase tracking-widest text-gray-500 mb-3">Materiál / Preset</div>
-        <select id="materialSelect" class="w-full mb-2" onchange="applyMaterialPreset()">
+        <div class="section-title">Materiál / Preset</div>
+        <select id="materialSelect" class="w-full" onchange="applyMaterialPreset()">
           <option value="custom">— Vlastní nastavení —</option>
           <option value="wood">🪵 Dřevo (světlé)</option>
           <option value="wood_dark">🌳 Dřevo (tmavé)</option>
@@ -66,41 +237,42 @@
 
       <!-- Adjustments -->
       <div class="panel p-4">
-        <div class="text-xs font-semibold uppercase tracking-widest text-gray-500 mb-3">Úpravy obrazu</div>
-        <div class="flex flex-col gap-3">
+        <div class="section-title">Úpravy obrazu</div>
+        <div class="flex flex-col gap-4">
           <div>
             <label>Jas</label>
-            <div class="slider-row">
+            <div class="slider-row mt-1">
               <input type="range" id="brightness" min="-150" max="150" value="0" oninput="updateSlider(this,'brightnessVal');processImage()">
               <span class="slider-val" id="brightnessVal">0</span>
             </div>
           </div>
           <div>
             <label>Kontrast</label>
-            <div class="slider-row">
+            <div class="slider-row mt-1">
               <input type="range" id="contrast" min="-150" max="150" value="0" oninput="updateSlider(this,'contrastVal');processImage()">
               <span class="slider-val" id="contrastVal">0</span>
             </div>
           </div>
           <div>
             <label>Gama</label>
-            <div class="slider-row">
+            <div class="slider-row mt-1">
               <input type="range" id="gamma" min="0.1" max="3.0" step="0.05" value="1.0" oninput="updateSlider(this,'gammaVal');processImage()">
               <span class="slider-val" id="gammaVal">1.0</span>
             </div>
           </div>
           <div>
             <label>Ostrost</label>
-            <div class="slider-row">
+            <div class="slider-row mt-1">
               <input type="range" id="sharpness" min="0" max="5" step="0.5" value="0" oninput="updateSlider(this,'sharpnessVal');processImage()">
               <span class="slider-val" id="sharpnessVal">0</span>
             </div>
           </div>
-          <div>
-            <label>Invertovat barvy</label>
-            <div class="flex items-center gap-2 mt-1">
-              <input type="checkbox" id="invert" onchange="processImage()" class="accent-orange-500">
-              <span class="text-xs text-gray-400">Vhodné pro světlé materiály</span>
+          <div class="divider"></div>
+          <div class="flex items-center gap-3">
+            <input type="checkbox" id="invert" onchange="processImage()">
+            <div>
+              <div style="font-size:0.8rem;color:#cbd5e1;font-weight:500">Invertovat barvy</div>
+              <div style="font-size:0.68rem;color:#475569">Vhodné pro světlé materiály</div>
             </div>
           </div>
         </div>
@@ -108,7 +280,7 @@
 
       <!-- Dithering -->
       <div class="panel p-4">
-        <div class="text-xs font-semibold uppercase tracking-widest text-gray-500 mb-3">Dithering</div>
+        <div class="section-title">Dithering</div>
         <select id="ditheringMode" class="w-full mb-3" onchange="processImage()">
           <option value="none">Žádný (grayscale)</option>
           <option value="threshold">Threshold (tvrdý černobílý)</option>
@@ -120,22 +292,20 @@
           <option value="ordered8">Ordered 8×8 (Bayer)</option>
           <option value="random">Náhodný šum</option>
         </select>
-        <div>
-          <label>Práh (threshold)</label>
-          <div class="slider-row">
-            <input type="range" id="threshold" min="0" max="255" value="128" oninput="updateSlider(this,'thresholdVal');processImage()">
-            <span class="slider-val" id="thresholdVal">128</span>
-          </div>
+        <label>Práh (threshold)</label>
+        <div class="slider-row mt-1">
+          <input type="range" id="threshold" min="0" max="255" value="128" oninput="updateSlider(this,'thresholdVal');processImage()">
+          <span class="slider-val" id="thresholdVal">128</span>
         </div>
       </div>
 
       <!-- Output -->
       <div class="panel p-4">
-        <div class="text-xs font-semibold uppercase tracking-widest text-gray-500 mb-3">Výstup</div>
+        <div class="section-title">Výstup</div>
         <div class="flex flex-col gap-3">
           <div>
             <label>DPI</label>
-            <select id="dpi" class="w-full">
+            <select id="dpi" class="w-full mt-1">
               <option value="72">72 DPI</option>
               <option value="150">150 DPI</option>
               <option value="254" selected>254 DPI</option>
@@ -146,57 +316,57 @@
           </div>
           <div>
             <label>Šířka výstupu (px)</label>
-            <div class="slider-row">
+            <div class="slider-row mt-1">
               <input type="range" id="outputWidth" min="100" max="3000" step="50" value="800" oninput="updateSlider(this,'outputWidthVal');processImage()">
               <span class="slider-val" id="outputWidthVal" style="width:48px">800</span>
             </div>
           </div>
-          <button class="btn w-full py-2 rounded-lg font-semibold text-sm mt-2" style="background:#f97316;color:#000" onclick="downloadResult()">
-            ⬇ Stáhnout PNG
+          <button class="btn btn-primary w-full mt-1" onclick="downloadResult()">
+            ⬇&nbsp; Stáhnout PNG
           </button>
         </div>
       </div>
     </div>
 
     <!-- RIGHT: Preview -->
-    <div class="lg:col-span-2 flex flex-col gap-4">
+    <div class="lg:col-span-2 flex flex-col gap-3">
 
-      <!-- Toggle -->
-      <div class="panel p-3 flex gap-2 items-center flex-wrap">
-        <span class="text-sm text-gray-400">Náhled:</span>
-        <button class="btn px-3 py-1 rounded text-sm" id="btnSplit" onclick="setViewMode('split')">Porovnání</button>
-        <button class="btn px-3 py-1 rounded text-sm" id="btnOriginal" onclick="setViewMode('original')">Originál</button>
-        <button class="btn px-3 py-1 rounded text-sm" id="btnResult" onclick="setViewMode('result')">Výsledek</button>
-        <div class="ml-auto text-xs text-gray-600" id="imageDims"></div>
+      <!-- View toggle -->
+      <div class="panel px-4 py-3 flex gap-2 items-center flex-wrap">
+        <span style="font-size:0.75rem;color:#475569;font-weight:500">Náhled:</span>
+        <button class="btn view-btn" id="btnSplit" onclick="setViewMode('split')">Porovnání</button>
+        <button class="btn view-btn" id="btnOriginal" onclick="setViewMode('original')">Originál</button>
+        <button class="btn view-btn" id="btnResult" onclick="setViewMode('result')">Výsledek</button>
+        <div class="ml-auto" style="font-size:0.72rem;color:#334155" id="imageDims"></div>
       </div>
 
       <!-- Canvas area -->
-      <div class="panel p-4 flex-1">
-        <div id="emptyState" class="flex flex-col items-center justify-center h-64 text-gray-600">
-          <div class="text-5xl mb-3">🖼️</div>
-          <div class="text-sm">Nahraj fotku pro zobrazení náhledu</div>
+      <div class="panel p-5 flex-1">
+        <div id="emptyState" class="flex flex-col items-center justify-center" style="min-height:280px">
+          <div style="font-size:3.5rem;margin-bottom:12px;opacity:0.3">🖼️</div>
+          <div style="font-size:0.85rem;color:#334155">Nahraj fotku pro zobrazení náhledu</div>
         </div>
         <div id="canvasArea" style="display:none">
-          <div id="splitView" class="grid grid-cols-2 gap-3">
+          <div id="splitView" class="grid grid-cols-2 gap-4">
             <div>
-              <div class="text-xs text-gray-500 mb-1 text-center">Originál</div>
-              <canvas id="canvasOrig" class="w-full rounded border border-gray-800"></canvas>
+              <div class="canvas-label">Originál</div>
+              <canvas id="canvasOrig" class="w-full rounded-lg" style="border:1px solid rgba(255,255,255,0.05)"></canvas>
             </div>
             <div>
-              <div class="text-xs text-gray-500 mb-1 text-center">Výsledek pro gravírování</div>
-              <canvas id="canvasResult" class="w-full rounded border border-gray-800"></canvas>
+              <div class="canvas-label">Výsledek pro gravírování</div>
+              <canvas id="canvasResult" class="w-full rounded-lg" style="border:1px solid rgba(255,255,255,0.05)"></canvas>
             </div>
           </div>
           <div id="singleView" style="display:none">
-            <canvas id="canvasSingle" class="w-full rounded border border-gray-800"></canvas>
+            <canvas id="canvasSingle" class="w-full rounded-lg" style="border:1px solid rgba(255,255,255,0.05)"></canvas>
           </div>
         </div>
       </div>
 
       <!-- Histogram -->
       <div class="panel p-4">
-        <div class="text-xs font-semibold uppercase tracking-widest text-gray-500 mb-2">Histogram výsledku</div>
-        <canvas id="histogramCanvas" width="600" height="60" class="w-full rounded"></canvas>
+        <div class="section-title">Histogram výsledku</div>
+        <canvas id="histogramCanvas" width="600" height="56" class="w-full rounded-lg"></canvas>
       </div>
     </div>
   </div>
@@ -206,19 +376,13 @@
 let originalImage = null;
 let viewMode = 'split';
 
-// ---- Upload ----
 const fileInput = document.getElementById('fileInput');
 const dropZone  = document.getElementById('dropZone');
 
-// Click on drop zone opens file picker
 dropZone.addEventListener('click', () => fileInput.click());
-
-// File selected via dialog
 fileInput.addEventListener('change', function() {
   if (this.files && this.files[0]) loadFile(this.files[0]);
 });
-
-// Drag & drop
 dropZone.addEventListener('dragover',  e => { e.preventDefault(); dropZone.classList.add('drag-over'); });
 dropZone.addEventListener('dragleave', () => dropZone.classList.remove('drag-over'));
 dropZone.addEventListener('drop', e => {
@@ -256,21 +420,17 @@ function drawOriginal() {
   document.getElementById('imageDims').textContent = w + ' × ' + h + ' px';
 }
 
-// ---- Slider helper ----
 function updateSlider(el, valId) {
   const step = parseFloat(el.step);
   const decimals = step > 0 && step < 1 ? 1 : 0;
   document.getElementById(valId).textContent = parseFloat(el.value).toFixed(decimals);
 }
 
-// ---- View mode ----
 function setViewMode(mode) {
   viewMode = mode;
-  const buttons = { split: 'btnSplit', original: 'btnOriginal', result: 'btnResult' };
-  Object.keys(buttons).forEach(k => {
-    const btn = document.getElementById(buttons[k]);
-    btn.style.background = k === mode ? '#f97316' : '#222';
-    btn.style.color = k === mode ? '#000' : '#aaa';
+  ['split','original','result'].forEach(k => {
+    const btn = document.getElementById('btn' + k.charAt(0).toUpperCase() + k.slice(1));
+    btn.classList.toggle('active', k === mode);
   });
   const splitEl  = document.getElementById('splitView');
   const singleEl = document.getElementById('singleView');
@@ -283,10 +443,8 @@ function setViewMode(mode) {
     if (originalImage) processImage();
   }
 }
-// Set initial active button
 setViewMode('split');
 
-// ---- Material Presets ----
 function applyMaterialPreset() {
   const presets = {
     wood:       { brightness: 10,  contrast: 30, gamma: 1.2, sharpness: 1,   invert: false, dithering: 'floyd',     threshold: 128 },
@@ -311,18 +469,15 @@ function applyMaterialPreset() {
   processImage();
 }
 
-// ---- Main Processing ----
 function processImage() {
   if (!originalImage) return;
   drawOriginal();
   const w = parseInt(document.getElementById('outputWidth').value);
   const h = Math.round(originalImage.height * w / originalImage.width);
-
   const src = document.createElement('canvas');
   src.width = w; src.height = h;
   src.getContext('2d').drawImage(originalImage, 0, 0, w, h);
   let imageData = src.getContext('2d').getImageData(0, 0, w, h);
-
   toGrayscale(imageData);
   applyBrightnessContrast(imageData);
   applyGamma(imageData);
@@ -332,28 +487,19 @@ function processImage() {
   const thresh = parseInt(document.getElementById('threshold').value);
   if (mode !== 'none') applyDithering(imageData, w, h, mode, thresh);
   if (document.getElementById('invert').checked) applyInvert(imageData);
-
-  // Render to result canvas
   const resultCanvas = document.getElementById('canvasResult');
   resultCanvas.width = w; resultCanvas.height = h;
   resultCanvas.getContext('2d').putImageData(imageData, 0, 0);
-
-  // Render to single canvas if needed
   if (viewMode !== 'split') {
     const single = document.getElementById('canvasSingle');
     single.width = w; single.height = h;
     const ctx = single.getContext('2d');
-    if (viewMode === 'result') {
-      ctx.putImageData(imageData, 0, 0);
-    } else {
-      ctx.drawImage(originalImage, 0, 0, w, h);
-    }
+    if (viewMode === 'result') ctx.putImageData(imageData, 0, 0);
+    else ctx.drawImage(originalImage, 0, 0, w, h);
   }
-
   drawHistogram(imageData);
 }
 
-// ---- Image operations ----
 function toGrayscale(imageData) {
   const d = imageData.data;
   for (let i = 0; i < d.length; i += 4) {
@@ -405,7 +551,6 @@ function applySharpen(imageData, w, h, amount) {
       d[i+3] = 255;
     }
   }
-  // copy edges
   for (let i = 0; i < src.length; i += 4) {
     if (d[i+3] === 0) { d[i] = src[i]; d[i+1] = src[i+1]; d[i+2] = src[i+2]; d[i+3] = 255; }
   }
@@ -417,7 +562,6 @@ function applyInvert(imageData) {
   for (let i = 0; i < d.length; i += 4) d[i] = d[i+1] = d[i+2] = 255 - d[i];
 }
 
-// ---- Dithering ----
 const BAYER2 = [[0,2],[3,1]];
 const BAYER4 = [[0,8,2,10],[12,4,14,6],[3,11,1,9],[15,7,13,5]];
 const BAYER8 = [
@@ -429,7 +573,6 @@ const BAYER8 = [
 
 function applyDithering(imageData, w, h, mode, thresh) {
   const d = imageData.data;
-
   if (mode === 'threshold') {
     for (let i = 0; i < d.length; i += 4) { const v = d[i] >= thresh ? 255 : 0; d[i] = d[i+1] = d[i+2] = v; }
     return;
@@ -441,8 +584,6 @@ function applyDithering(imageData, w, h, mode, thresh) {
   if (mode === 'ordered2') { bayerDither(d, w, h, BAYER2, 2, 4);  return; }
   if (mode === 'ordered4') { bayerDither(d, w, h, BAYER4, 4, 16); return; }
   if (mode === 'ordered8') { bayerDither(d, w, h, BAYER8, 8, 64); return; }
-
-  // Error diffusion kernels (all using plain ASCII minus)
   let weights;
   if (mode === 'floyd') {
     weights = [[1,0,7/16],[-1,1,3/16],[0,1,5/16],[1,1,1/16]];
@@ -450,13 +591,9 @@ function applyDithering(imageData, w, h, mode, thresh) {
     weights = [[1,0,8/42],[2,0,4/42],[-2,1,2/42],[-1,1,4/42],[0,1,8/42],[1,1,4/42],[2,1,2/42],[-2,2,1/42],[-1,2,2/42],[0,2,4/42],[1,2,2/42],[2,2,1/42]];
   } else if (mode === 'atkinson') {
     weights = [[1,0,1/8],[2,0,1/8],[-1,1,1/8],[0,1,1/8],[1,1,1/8],[0,2,1/8]];
-  } else {
-    return;
-  }
-
+  } else { return; }
   const pixels = new Float32Array(w * h);
   for (let i = 0; i < w * h; i++) pixels[i] = d[i * 4];
-
   for (let y = 0; y < h; y++) {
     for (let x = 0; x < w; x++) {
       const idx = y * w + x;
@@ -467,9 +604,7 @@ function applyDithering(imageData, w, h, mode, thresh) {
       for (let wi = 0; wi < weights.length; wi++) {
         const dx = weights[wi][0], dy = weights[wi][1], f = weights[wi][2];
         const nx = x + dx, ny = y + dy;
-        if (nx >= 0 && nx < w && ny >= 0 && ny < h) {
-          pixels[ny * w + nx] += err * f;
-        }
+        if (nx >= 0 && nx < w && ny >= 0 && ny < h) pixels[ny * w + nx] += err * f;
       }
     }
   }
@@ -490,7 +625,6 @@ function bayerDither(d, w, h, matrix, size, maxVal) {
   }
 }
 
-// ---- Histogram ----
 function drawHistogram(imageData) {
   const hist = new Array(256).fill(0);
   const d = imageData.data;
@@ -500,40 +634,31 @@ function drawHistogram(imageData) {
   const ctx = canvas.getContext('2d');
   const cw = canvas.width, ch = canvas.height;
   ctx.clearRect(0, 0, cw, ch);
-  ctx.fillStyle = '#111';
+  ctx.fillStyle = '#080810';
   ctx.fillRect(0, 0, cw, ch);
   for (let i = 0; i < 256; i++) {
     const bh = Math.round((hist[i] / max) * ch);
-    ctx.fillStyle = 'rgba(249,115,22,0.85)';
+    ctx.fillStyle = 'rgba(249,115,22,0.75)';
     ctx.fillRect(Math.round(i * cw / 256), ch - bh, Math.max(1, Math.ceil(cw / 256)), bh);
   }
 }
 
-// ---- Counter ----
 function loadCounter() {
-  fetch('https://api.countapi.xyz/get/stunning-twilight-200e8a.netlify.app/photos')
+  fetch('https://api.countapi.xyz/get/stunning-twilight-266e8a.netlify.app/photos')
     .then(r => r.json())
-    .then(data => {
-      document.getElementById('photoCounter').textContent = (data.value || 0).toLocaleString('cs-CZ');
-    })
-    .catch(() => {
-      document.getElementById('photoCounter').textContent = '—';
-    });
+    .then(data => { document.getElementById('photoCounter').textContent = (data.value || 0).toLocaleString('cs-CZ'); })
+    .catch(() => { document.getElementById('photoCounter').textContent = '—'; });
 }
 
 function incrementCounter() {
-  fetch('https://api.countapi.xyz/hit/stunning-twilight-200e8a.netlify.app/photos')
+  fetch('https://api.countapi.xyz/hit/stunning-twilight-266e8a.netlify.app/photos')
     .then(r => r.json())
-    .then(data => {
-      document.getElementById('photoCounter').textContent = (data.value || 0).toLocaleString('cs-CZ');
-    })
+    .then(data => { document.getElementById('photoCounter').textContent = (data.value || 0).toLocaleString('cs-CZ'); })
     .catch(() => {});
 }
 
-// Načti počítadlo při startu
 loadCounter();
 
-// ---- Download ----
 function downloadResult() {
   const canvas = document.getElementById('canvasResult');
   if (!canvas.width) { alert('Nejprve nahraj obrázek.'); return; }
