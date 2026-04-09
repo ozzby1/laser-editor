@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FOTO LASER EDITOR</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  body { background: #0f0f0f; color: #e0e0e0; font-family: 'Segoe UI', sans-serif; }
+  canvas { image-rendering: pixelated; }
+  input[type=range] { accent-color: #f97316; }
+  .panel { background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 10px; }
+  .btn { transition: all 0.15s; cursor: pointer; }
+  .btn:hover { filter: brightness(1.15); }
+  .btn:active { transform: scale(0.97); }
+  label { font-size: 0.75rem; color: #aaa; }
+  select { background: #222; border: 1px solid #333; color: #e0e0e0; border-radius: 6px; padding: 4px 8px; }
+  .drop-zone { border: 2px dashed #444; border-radius: 12px; transition: border-color 0.2s; }
+  .drop-zone.drag-over { border-color: #f97316; background: #1c1000; }
+  .slider-row { display: flex; align-items: center; gap: 8px; }
+  .slider-row input[type=range] { flex: 1; }
+  .slider-val { width: 36px; text-align: right; font-size: 0.8rem; color: #f97316; }
+</style>
+</head>
+<body class="min-h-screen p-4">
+
+<div class="max-w-7xl mx-auto">
+  <div class="flex items-center gap-3 mb-6">
+    <div class="w-8 h-8 rounded-lg flex items-center justify-center" style="background:#f97316">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+    </div>
+    <h1 class="text-xl font-bold tracking-tight">FOTO LASER EDITOR</h1>
+    <span class="text-xs text-gray-500 ml-2">Příprava fotek pro gravírování</span>
+  </div>
+
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+
+    <!-- LEFT: Controls -->
+    <div class="flex flex-col gap-4">
+
+      <!-- Upload -->
+      <div class="panel p-4">
+        <div class="drop-zone p-6 text-center cursor-pointer" id="dropZone">
+          <div class="text-3xl mb-2">📷</div>
+          <div class="text-sm text-gray-400">Přetáhni nebo klikni pro nahrání fotky</div>
+          <div class="text-xs text-gray-600 mt-1">JPG, PNG, BMP, WebP</div>
+          <input type="file" id="fileInput" accept="image/*" style="display:none">
+        </div>
+      </div>
+
+      <!-- Material preset -->
+      <div class="panel p-4">
+        <div class="text-xs font-semibold uppercase tracking-widest text-gray-500 mb-3">Materiál / Preset</div>
+        <select id="materialSelect" class="w-full mb-2" onchange="applyMaterialPreset()">
+          <option value="custom">— Vlastní nastavení —</option>
+          <option value="wood">🪵 Dřevo (světlé)</option>
+          <option value="wood_dark">🌳 Dřevo (tmavé)</option>
+          <option value="slate">🪨 Břidlice / Kámen</option>
+          <option value="acrylic">🔷 Akrylát</option>
+          <option value="leather">🟤 Kůže</option>
+          <option value="anodized">⬛ Anodizovaný hliník</option>
+          <option value="paper">📄 Papír / Karton</option>
+        </select>
+      </div>
+
+      <!-- Adjustments -->
+      <div class="panel p-4">
+        <div class="text-xs font-semibold uppercase tracking-widest text-gray-500 mb-3">Úpravy obrazu</div>
+        <div class="flex flex-col gap-3">
+          <div>
+            <label>Jas</label>
+            <div class="slider-row">
+              <input type="range" id="brightness" min="-150" max="150" value="0" oninput="updateSlider(this,'brightnessVal');processImage()">
+              <span class="slider-val" id="brightnessVal">0</span>
+            </div>
+          </div>
+          <div>
+            <label>Kontrast</label>
+            <div class="slider-row">
+              <input type="range" id="contrast" min="-150" max="150" value="0" oninput="updateSlider(this,'contrastVal');processImage()">
+              <span class="slider-val" id="contrastVal">0</span>
+            </div>
+          </div>
+          <div>
+            <label>Gama</label>
+            <div class="slider-row">
+              <input type="range" id="gamma" min="0.1" max="3.0" step="0.05" value="1.0" oninput="updateSlider(this,'gammaVal');processImage()">
+              <span class="slider-val" id="gammaVal">1.0</span>
+            </div>
+          </div>
+          <div>
+            <label>Ostrost</label>
+            <div class="slider-row">
+              <input type="range" id="sharpness" min="0" max="5" step="0.5" value="0" oninput="updateSlider(this,'sharpnessVal');processImage()">
+              <span class="slider-val" id="sharpnessVal">0</span>
+            </div>
+          </div>
+          <div>
+            <label>Invertovat barvy</label>
+            <div class="flex items-center gap-2 mt-1">
+              <input type="checkbox" id="invert" onchange="processImage()" class="accent-orange-500">
+              <span class="text-xs text-gray-400">Vhodné pro světlé materiály</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dithering -->
+      <div class="panel p-4">
+        <div class="text-xs font-semibold uppercase tracking-widest text-gray-500 mb-3">Dithering</div>
+        <select id="ditheringMode" class="w-full mb-3" onchange="processImage()">
+          <option value="none">Žádný (grayscale)</option>
+          <option value="threshold">Threshold (tvrdý černobílý)</option>
+          <option value="floyd">Floyd-Steinberg</option>
+          <option value="atkinson">Atkinson</option>
+          <option value="stucki">Stucki</option>
+          <option value="ordered2">Ordered 2×2</option>
+          <option value="ordered4">Ordered 4×4 (Bayer)</option>
+          <option value="ordered8">Ordered 8×8 (Bayer)</option>
+          <option value="random">Náhodný šum</option>
+        </select>
+        <div>
+          <label>Práh (threshold)</label>
+          <div class="slider-row">
+            <input type="range" id="threshold" min="0" max="255" value="128" oninput="updateSlider(this,'thresholdVal');processImage()">
+            <span class="slider-val" id="thresholdVal">128</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Output -->
+      <div class="panel p-4">
+        <div class="text-xs font-semibold uppercase tracking-widest text-gray-500 mb-3">Výstup</div>
+        <div class="flex flex-col gap-3">
+          <div>
+            <label>DPI</label>
+            <select id="dpi" class="w-full">
+              <option value="72">72 DPI</option>
+              <option value="150">150 DPI</option>
+              <option value="254" selected>254 DPI</option>
+              <option value="300">300 DPI</option>
+              <option value="500">500 DPI</option>
+              <option value="750">750 DPI</option>
+            </select>
+          </div>
+          <div>
+            <label>Šířka výstupu (px)</label>
+            <div class="slider-row">
+              <input type="range" id="outputWidth" min="100" max="3000" step="50" value="800" oninput="updateSlider(this,'outputWidthVal');processImage()">
+              <span class="slider-val" id="outputWidthVal" style="width:48px">800</span>
+            </div>
+          </div>
+          <button class="btn w-full py-2 rounded-lg font-semibold text-sm mt-2" style="background:#f97316;color:#000" onclick="downloadResult()">
+            ⬇ Stáhnout PNG
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT: Preview -->
+    <div class="lg:col-span-2 flex flex-col gap-4">
+
+      <!-- Toggle -->
+      <div class="panel p-3 flex gap-2 items-center flex-wrap">
+        <span class="text-sm text-gray-400">Náhled:</span>
+        <button class="btn px-3 py-1 rounded text-sm" id="btnSplit" onclick="setViewMode('split')">Porovnání</button>
+        <button class="btn px-3 py-1 rounded text-sm" id="btnOriginal" onclick="setViewMode('original')">Originál</button>
+        <button class="btn px-3 py-1 rounded text-sm" id="btnResult" onclick="setViewMode('result')">Výsledek</button>
+        <div class="ml-auto text-xs text-gray-600" id="imageDims"></div>
+      </div>
+
+      <!-- Canvas area -->
+      <div class="panel p-4 flex-1">
+        <div id="emptyState" class="flex flex-col items-center justify-center h-64 text-gray-600">
+          <div class="text-5xl mb-3">🖼️</div>
+          <div class="text-sm">Nahraj fotku pro zobrazení náhledu</div>
+        </div>
+        <div id="canvasArea" style="display:none">
+          <div id="splitView" class="grid grid-cols-2 gap-3">
+            <div>
+              <div class="text-xs text-gray-500 mb-1 text-center">Originál</div>
+              <canvas id="canvasOrig" class="w-full rounded border border-gray-800"></canvas>
+            </div>
+            <div>
+              <div class="text-xs text-gray-500 mb-1 text-center">Výsledek pro gravírování</div>
+              <canvas id="canvasResult" class="w-full rounded border border-gray-800"></canvas>
+            </div>
+          </div>
+          <div id="singleView" style="display:none">
+            <canvas id="canvasSingle" class="w-full rounded border border-gray-800"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <!-- Histogram -->
+      <div class="panel p-4">
+        <div class="text-xs font-semibold uppercase tracking-widest text-gray-500 mb-2">Histogram výsledku</div>
+        <canvas id="histogramCanvas" width="600" height="60" class="w-full rounded"></canvas>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+let originalImage = null;
+let viewMode = 'split';
+
+// ---- Upload ----
+const fileInput = document.getElementById('fileInput');
+const dropZone  = document.getElementById('dropZone');
+
+// Click on drop zone opens file picker
+dropZone.addEventListener('click', () => fileInput.click());
+
+// File selected via dialog
+fileInput.addEventListener('change', function() {
+  if (this.files && this.files[0]) loadFile(this.files[0]);
+});
+
+// Drag & drop
+dropZone.addEventListener('dragover',  e => { e.preventDefault(); dropZone.classList.add('drag-over'); });
+dropZone.addEventListener('dragleave', () => dropZone.classList.remove('drag-over'));
+dropZone.addEventListener('drop', e => {
+  e.preventDefault();
+  dropZone.classList.remove('drag-over');
+  if (e.dataTransfer.files && e.dataTransfer.files[0]) loadFile(e.dataTransfer.files[0]);
+});
+
+function loadFile(file) {
+  if (!file || !file.type.startsWith('image/')) return;
+  const reader = new FileReader();
+  reader.onload = function(ev) {
+    const img = new Image();
+    img.onload = function() {
+      originalImage = img;
+      document.getElementById('emptyState').style.display = 'none';
+      document.getElementById('canvasArea').style.display = 'block';
+      drawOriginal();
+      processImage();
+    };
+    img.onerror = function() { alert('Nepodařilo se načíst obrázek.'); };
+    img.src = ev.target.result;
+  };
+  reader.onerror = function() { alert('Chyba při čtení souboru.'); };
+  reader.readAsDataURL(file);
+}
+
+function drawOriginal() {
+  const img = originalImage;
+  const w = parseInt(document.getElementById('outputWidth').value);
+  const h = Math.round(img.height * w / img.width);
+  const canvas = document.getElementById('canvasOrig');
+  canvas.width = w; canvas.height = h;
+  canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+  document.getElementById('imageDims').textContent = w + ' × ' + h + ' px';
+}
+
+// ---- Slider helper ----
+function updateSlider(el, valId) {
+  const step = parseFloat(el.step);
+  const decimals = step > 0 && step < 1 ? 1 : 0;
+  document.getElementById(valId).textContent = parseFloat(el.value).toFixed(decimals);
+}
+
+// ---- View mode ----
+function setViewMode(mode) {
+  viewMode = mode;
+  const buttons = { split: 'btnSplit', original: 'btnOriginal', result: 'btnResult' };
+  Object.keys(buttons).forEach(k => {
+    const btn = document.getElementById(buttons[k]);
+    btn.style.background = k === mode ? '#f97316' : '#222';
+    btn.style.color = k === mode ? '#000' : '#aaa';
+  });
+  const splitEl  = document.getElementById('splitView');
+  const singleEl = document.getElementById('singleView');
+  if (mode === 'split') {
+    splitEl.style.display  = 'grid';
+    singleEl.style.display = 'none';
+  } else {
+    splitEl.style.display  = 'none';
+    singleEl.style.display = 'block';
+    if (originalImage) processImage();
+  }
+}
+// Set initial active button
+setViewMode('split');
+
+// ---- Material Presets ----
+function applyMaterialPreset() {
+  const presets = {
+    wood:       { brightness: 10,  contrast: 30, gamma: 1.2, sharpness: 1,   invert: false, dithering: 'floyd',     threshold: 128 },
+    wood_dark:  { brightness: 30,  contrast: 50, gamma: 1.5, sharpness: 1,   invert: false, dithering: 'floyd',     threshold: 100 },
+    slate:      { brightness: 20,  contrast: 60, gamma: 0.9, sharpness: 2,   invert: true,  dithering: 'floyd',     threshold: 128 },
+    acrylic:    { brightness: 0,   contrast: 80, gamma: 1.0, sharpness: 0,   invert: false, dithering: 'threshold', threshold: 100 },
+    leather:    { brightness: 15,  contrast: 40, gamma: 1.3, sharpness: 1,   invert: false, dithering: 'atkinson',  threshold: 128 },
+    anodized:   { brightness: -10, contrast: 70, gamma: 0.8, sharpness: 2,   invert: true,  dithering: 'ordered4',  threshold: 128 },
+    paper:      { brightness: 5,   contrast: 50, gamma: 1.1, sharpness: 1,   invert: false, dithering: 'ordered4',  threshold: 128 },
+  };
+  const m = document.getElementById('materialSelect').value;
+  if (!presets[m]) return;
+  const p = presets[m];
+  const set = (id, val) => { document.getElementById(id).value = val; };
+  set('brightness', p.brightness); document.getElementById('brightnessVal').textContent = p.brightness;
+  set('contrast',   p.contrast);   document.getElementById('contrastVal').textContent   = p.contrast;
+  set('gamma',      p.gamma);      document.getElementById('gammaVal').textContent      = p.gamma.toFixed(1);
+  set('sharpness',  p.sharpness);  document.getElementById('sharpnessVal').textContent  = p.sharpness;
+  document.getElementById('invert').checked          = p.invert;
+  document.getElementById('ditheringMode').value     = p.dithering;
+  set('threshold',  p.threshold);  document.getElementById('thresholdVal').textContent  = p.threshold;
+  processImage();
+}
+
+// ---- Main Processing ----
+function processImage() {
+  if (!originalImage) return;
+  drawOriginal();
+  const w = parseInt(document.getElementById('outputWidth').value);
+  const h = Math.round(originalImage.height * w / originalImage.width);
+
+  const src = document.createElement('canvas');
+  src.width = w; src.height = h;
+  src.getContext('2d').drawImage(originalImage, 0, 0, w, h);
+  let imageData = src.getContext('2d').getImageData(0, 0, w, h);
+
+  toGrayscale(imageData);
+  applyBrightnessContrast(imageData);
+  applyGamma(imageData);
+  const sharp = parseFloat(document.getElementById('sharpness').value);
+  if (sharp > 0) imageData = applySharpen(imageData, w, h, sharp);
+  const mode   = document.getElementById('ditheringMode').value;
+  const thresh = parseInt(document.getElementById('threshold').value);
+  if (mode !== 'none') applyDithering(imageData, w, h, mode, thresh);
+  if (document.getElementById('invert').checked) applyInvert(imageData);
+
+  // Render to result canvas
+  const resultCanvas = document.getElementById('canvasResult');
+  resultCanvas.width = w; resultCanvas.height = h;
+  resultCanvas.getContext('2d').putImageData(imageData, 0, 0);
+
+  // Render to single canvas if needed
+  if (viewMode !== 'split') {
+    const single = document.getElementById('canvasSingle');
+    single.width = w; single.height = h;
+    const ctx = single.getContext('2d');
+    if (viewMode === 'result') {
+      ctx.putImageData(imageData, 0, 0);
+    } else {
+      ctx.drawImage(originalImage, 0, 0, w, h);
+    }
+  }
+
+  drawHistogram(imageData);
+}
+
+// ---- Image operations ----
+function toGrayscale(imageData) {
+  const d = imageData.data;
+  for (let i = 0; i < d.length; i += 4) {
+    const g = 0.299 * d[i] + 0.587 * d[i+1] + 0.114 * d[i+2];
+    d[i] = d[i+1] = d[i+2] = g;
+  }
+}
+
+function applyBrightnessContrast(imageData) {
+  const d = imageData.data;
+  const b = parseInt(document.getElementById('brightness').value);
+  const c = parseInt(document.getElementById('contrast').value);
+  const factor = (259 * (c + 255)) / (255 * (259 - c));
+  for (let i = 0; i < d.length; i += 4) {
+    let v = d[i] + b;
+    v = factor * (v - 128) + 128;
+    v = Math.max(0, Math.min(255, v));
+    d[i] = d[i+1] = d[i+2] = v;
+  }
+}
+
+function applyGamma(imageData) {
+  const d = imageData.data;
+  const g = parseFloat(document.getElementById('gamma').value);
+  if (g === 1.0) return;
+  const lut = new Uint8Array(256);
+  for (let i = 0; i < 256; i++) lut[i] = Math.min(255, Math.round(255 * Math.pow(i / 255, 1 / g)));
+  for (let i = 0; i < d.length; i += 4) d[i] = d[i+1] = d[i+2] = lut[d[i]];
+}
+
+function applySharpen(imageData, w, h, amount) {
+  const src = imageData.data;
+  const out = new ImageData(w, h);
+  const d = out.data;
+  const k = amount * 0.3;
+  const kernel = [-k, -k, -k, -k, 1 + 8*k, -k, -k, -k, -k];
+  for (let y = 1; y < h - 1; y++) {
+    for (let x = 1; x < w - 1; x++) {
+      let v = 0;
+      for (let ky = -1; ky <= 1; ky++) {
+        for (let kx = -1; kx <= 1; kx++) {
+          const idx = ((y + ky) * w + (x + kx)) * 4;
+          v += src[idx] * kernel[(ky + 1) * 3 + (kx + 1)];
+        }
+      }
+      const i = (y * w + x) * 4;
+      const clamped = Math.max(0, Math.min(255, v));
+      d[i] = d[i+1] = d[i+2] = clamped;
+      d[i+3] = 255;
+    }
+  }
+  // copy edges
+  for (let i = 0; i < src.length; i += 4) {
+    if (d[i+3] === 0) { d[i] = src[i]; d[i+1] = src[i+1]; d[i+2] = src[i+2]; d[i+3] = 255; }
+  }
+  return out;
+}
+
+function applyInvert(imageData) {
+  const d = imageData.data;
+  for (let i = 0; i < d.length; i += 4) d[i] = d[i+1] = d[i+2] = 255 - d[i];
+}
+
+// ---- Dithering ----
+const BAYER2 = [[0,2],[3,1]];
+const BAYER4 = [[0,8,2,10],[12,4,14,6],[3,11,1,9],[15,7,13,5]];
+const BAYER8 = [
+  [0,32,8,40,2,34,10,42],[48,16,56,24,50,18,58,26],
+  [12,44,4,36,14,46,6,38],[60,28,52,20,62,30,54,22],
+  [3,35,11,43,1,33,9,41],[51,19,59,27,49,17,57,25],
+  [15,47,7,39,13,45,5,37],[63,31,55,23,61,29,53,21]
+];
+
+function applyDithering(imageData, w, h, mode, thresh) {
+  const d = imageData.data;
+
+  if (mode === 'threshold') {
+    for (let i = 0; i < d.length; i += 4) { const v = d[i] >= thresh ? 255 : 0; d[i] = d[i+1] = d[i+2] = v; }
+    return;
+  }
+  if (mode === 'random') {
+    for (let i = 0; i < d.length; i += 4) { const v = d[i] > Math.random() * 255 ? 255 : 0; d[i] = d[i+1] = d[i+2] = v; }
+    return;
+  }
+  if (mode === 'ordered2') { bayerDither(d, w, h, BAYER2, 2, 4);  return; }
+  if (mode === 'ordered4') { bayerDither(d, w, h, BAYER4, 4, 16); return; }
+  if (mode === 'ordered8') { bayerDither(d, w, h, BAYER8, 8, 64); return; }
+
+  // Error diffusion kernels (all using plain ASCII minus)
+  let weights;
+  if (mode === 'floyd') {
+    weights = [[1,0,7/16],[-1,1,3/16],[0,1,5/16],[1,1,1/16]];
+  } else if (mode === 'stucki') {
+    weights = [[1,0,8/42],[2,0,4/42],[-2,1,2/42],[-1,1,4/42],[0,1,8/42],[1,1,4/42],[2,1,2/42],[-2,2,1/42],[-1,2,2/42],[0,2,4/42],[1,2,2/42],[2,2,1/42]];
+  } else if (mode === 'atkinson') {
+    weights = [[1,0,1/8],[2,0,1/8],[-1,1,1/8],[0,1,1/8],[1,1,1/8],[0,2,1/8]];
+  } else {
+    return;
+  }
+
+  const pixels = new Float32Array(w * h);
+  for (let i = 0; i < w * h; i++) pixels[i] = d[i * 4];
+
+  for (let y = 0; y < h; y++) {
+    for (let x = 0; x < w; x++) {
+      const idx = y * w + x;
+      const old = pixels[idx];
+      const nv  = old >= thresh ? 255 : 0;
+      pixels[idx] = nv;
+      const err = old - nv;
+      for (let wi = 0; wi < weights.length; wi++) {
+        const dx = weights[wi][0], dy = weights[wi][1], f = weights[wi][2];
+        const nx = x + dx, ny = y + dy;
+        if (nx >= 0 && nx < w && ny >= 0 && ny < h) {
+          pixels[ny * w + nx] += err * f;
+        }
+      }
+    }
+  }
+  for (let i = 0; i < w * h; i++) {
+    const v = Math.max(0, Math.min(255, pixels[i]));
+    d[i*4] = d[i*4+1] = d[i*4+2] = v;
+  }
+}
+
+function bayerDither(d, w, h, matrix, size, maxVal) {
+  for (let y = 0; y < h; y++) {
+    for (let x = 0; x < w; x++) {
+      const i = (y * w + x) * 4;
+      const threshold = (matrix[y % size][x % size] / maxVal) * 255;
+      const v = d[i] > threshold ? 255 : 0;
+      d[i] = d[i+1] = d[i+2] = v;
+    }
+  }
+}
+
+// ---- Histogram ----
+function drawHistogram(imageData) {
+  const hist = new Array(256).fill(0);
+  const d = imageData.data;
+  for (let i = 0; i < d.length; i += 4) hist[d[i]]++;
+  const max = Math.max.apply(null, hist);
+  const canvas = document.getElementById('histogramCanvas');
+  const ctx = canvas.getContext('2d');
+  const cw = canvas.width, ch = canvas.height;
+  ctx.clearRect(0, 0, cw, ch);
+  ctx.fillStyle = '#111';
+  ctx.fillRect(0, 0, cw, ch);
+  for (let i = 0; i < 256; i++) {
+    const bh = Math.round((hist[i] / max) * ch);
+    ctx.fillStyle = 'rgba(249,115,22,0.85)';
+    ctx.fillRect(Math.round(i * cw / 256), ch - bh, Math.max(1, Math.ceil(cw / 256)), bh);
+  }
+}
+
+// ---- Download ----
+function downloadResult() {
+  const canvas = document.getElementById('canvasResult');
+  if (!canvas.width) { alert('Nejprve nahraj obrázek.'); return; }
+  const a = document.createElement('a');
+  a.download = 'gravyrovani.png';
+  a.href = canvas.toDataURL('image/png');
+  a.click();
+}
+</script>
+<script>window.parent.postMessage({ action: "ready" }, "*"); 
+ 
+window.console = new Proxy(console, {
+  get(target, prop) {
+    if (['log', 'warn', 'error'].includes(prop)) {
+      return new Proxy(target[prop], {
+        apply(fn, thisArg, args) {
+          fn.apply(thisArg, args);
+          window.parent.postMessage({ action: 'console', 
+            type: prop, 
+            args: args.map((arg) => {
+              try {
+                return JSON.stringify(arg).replace(/^["']|["']$/g, '');
+              } catch (e) {
+                return arg;
+              }
+            }) 
+          }, '*');
+        }
+      });
+    }
+    return target[prop];
+  }
+});
+</script></body>
+</html>
