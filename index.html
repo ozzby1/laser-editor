@@ -1786,7 +1786,7 @@ function loadFile(file) {
 function loadDemoImage() {
   const img = new Image();
   img.onload = () => {
-    loadImageIntoEditor(img, false, 72);
+    loadImageIntoEditor(img, false, 150);
   };
   img.onerror = () => {
     console.warn(t('demoLoadFail'));
