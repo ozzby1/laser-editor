@@ -848,8 +848,8 @@
             <select id="dpi" class="mt-1">
               <option value="72">72 DPI</option>
               <option value="150">150 DPI</option>
-              <option value="254" selected>254 DPI</option>
-              <option value="300">300 DPI</option>
+              <option value="254">254 DPI</option>
+              <option value="300" selected>300 DPI</option>
               <option value="500">500 DPI</option>
               <option value="750">750 DPI</option>
             </select>
@@ -967,7 +967,6 @@ const translations = {
     demoLoadFail: 'Demo image could not be loaded.',
     emptyOriginalAlt: 'Preview original image',
     emptyResultAlt: 'Preview output image',
-
     helpIntroTitle: 'What does this tool do?',
     helpIntroText: '<strong class="text-white">Photo Engraving Online</strong> converts a regular photo into a rasterized black-and-white image optimized for CO2 or diode laser engraving. You can then import the resulting PNG directly into your laser software (LightBurn, LaserGRBL, XCS, etc.) and engrave it.',
     helpStepsTitle: 'Step-by-step guide',
@@ -1068,7 +1067,6 @@ const translations = {
     demoLoadFail: 'No se pudo cargar la imagen de ejemplo.',
     emptyOriginalAlt: 'Vista previa de imagen original',
     emptyResultAlt: 'Vista previa de imagen de salida',
-
     helpIntroTitle: '¿Qué hace esta herramienta?',
     helpIntroText: '<strong class="text-white">Photo Engraving Online</strong> convierte una fotografía normal en una imagen en blanco y negro rasterizada, optimizada para grabado láser CO2 o de diodo. Después puedes importar el PNG resultante directamente en tu software láser (LightBurn, LaserGRBL, XCS, etc.) y grabarlo.',
     helpStepsTitle: 'Guía paso a paso',
@@ -1169,7 +1167,6 @@ const translations = {
     demoLoadFail: 'Das Demo-Bild konnte nicht geladen werden.',
     emptyOriginalAlt: 'Vorschau des Originalbilds',
     emptyResultAlt: 'Vorschau des Ausgabebilds',
-
     helpIntroTitle: 'Was macht dieses Tool?',
     helpIntroText: '<strong class="text-white">Photo Engraving Online</strong> wandelt ein normales Foto in ein gerastertes Schwarz-Weiß-Bild um, das für CO2- oder Diodenlasergravuren optimiert ist. Die resultierende PNG-Datei kannst du direkt in deine Lasersoftware (LightBurn, LaserGRBL, XCS usw.) importieren und gravieren.',
     helpStepsTitle: 'Schritt-für-Schritt-Anleitung',
@@ -1270,7 +1267,6 @@ const translations = {
     demoLoadFail: 'Demo obrázek se nepodařilo načíst.',
     emptyOriginalAlt: 'Ukázka originálního obrázku',
     emptyResultAlt: 'Ukázka výstupního obrázku',
-
     helpIntroTitle: 'Co tento nástroj dělá?',
     helpIntroText: '<strong class="text-white">Photo Engraving Online</strong> převede běžnou fotografii na rastrovaný (ditherovaný) černobílý obraz, který je optimalizovaný pro gravírování CO2 nebo diodovým laserem. Výsledný soubor PNG pak importuješ přímo do svého laserového softwaru (LightBurn, LaserGRBL, XCS apod.) a gravíruješ.',
     helpStepsTitle: 'Postup krok za krokem',
@@ -1339,12 +1335,12 @@ const dragState = {
 };
 
 const PRESETS = {
-  custom:   { brightness: 0, contrast: 0, gamma: 1.00, sharpness: 0.0, ditherMode: 'floyd' },
-  normal:   { brightness: 5, contrast: 30, gamma: 1.08, sharpness: 1.0, ditherMode: 'floyd' },
+  custom:   { brightness: 0,  contrast: 0,  gamma: 1.00, sharpness: 0.0, ditherMode: 'floyd' },
+  normal:   { brightness: 5,  contrast: 30, gamma: 1.08, sharpness: 1.0, ditherMode: 'floyd' },
   portrait: { brightness: 10, contrast: 22, gamma: 1.20, sharpness: 0.5, ditherMode: 'floyd' },
   dark:     { brightness: 25, contrast: 35, gamma: 1.25, sharpness: 1.0, ditherMode: 'floyd' },
   light:    { brightness: -10, contrast: 45, gamma: 0.95, sharpness: 1.0, ditherMode: 'floyd' },
-  detail:   { brightness: 0, contrast: 55, gamma: 1.00, sharpness: 2.0, ditherMode: 'atkinson' }
+  detail:   { brightness: 0,  contrast: 55, gamma: 1.00, sharpness: 2.0, ditherMode: 'atkinson' }
 };
 
 const DEFAULTS = {
@@ -1354,7 +1350,7 @@ const DEFAULTS = {
   gamma: PRESETS.normal.gamma,
   sharpness: PRESETS.normal.sharpness,
   ditherMode: PRESETS.normal.ditherMode,
-  dpi: 254,
+  dpi: 300,
   outputWidthMm: 100
 };
 
@@ -1755,12 +1751,17 @@ function showEditor() {
   document.getElementById('canvasArea').style.display = 'block';
 }
 
-function loadImageIntoEditor(img, switchToResult = false) {
+function loadImageIntoEditor(img, switchToResult = false, targetDpi = 300) {
   originalImage = img;
   showEditor();
   applyPreset('normal');
+
+  dpi.value = String(targetDpi);
+
   syncWidthFromMm();
   updateSizeInfo();
+  saveSettings();
+
   setViewMode(switchToResult ? 'result' : 'compare');
   resetAllCanvasZoom();
   processImage();
@@ -1773,7 +1774,7 @@ function loadFile(file) {
   reader.onload = ev => {
     const img = new Image();
     img.onload = () => {
-      loadImageIntoEditor(img, true);
+      loadImageIntoEditor(img, true, 300);
     };
     img.onerror = () => alert(t('alertLoadFail'));
     img.src = ev.target.result;
@@ -1785,7 +1786,7 @@ function loadFile(file) {
 function loadDemoImage() {
   const img = new Image();
   img.onload = () => {
-    loadImageIntoEditor(img, false);
+    loadImageIntoEditor(img, false, 150);
   };
   img.onerror = () => {
     console.warn(t('demoLoadFail'));
