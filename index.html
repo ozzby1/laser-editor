@@ -431,8 +431,8 @@
 
     <div class="lg:col-span-2 flex flex-col gap-3 order-1 lg:order-1">
       <div class="panel px-4 py-3 flex gap-3 items-center flex-wrap">
-        <button class="btn view-btn" id="btnResult" data-i18n="btnPreview">Preview</button>
         <button class="btn view-btn active" id="btnCompare" data-i18n="btnCompare">Original / Preview</button>
+        <button class="btn view-btn" id="btnResult" data-i18n="btnPreview">Preview</button>
         <div class="ml-auto" style="font-size:0.75rem;color:#475569;font-weight:600" id="imageDims"></div>
       </div>
 
@@ -485,7 +485,7 @@
         </div>
 
         <div id="canvasArea" style="display:none">
-          <div id="resultView">
+          <div id="resultView" style="display:none">
             <div class="zoom-hover canvas-wrap">
               <canvas id="canvasSingle" class="w-full"></canvas>
             </div>
@@ -494,7 +494,7 @@
             </div>
           </div>
 
-          <div id="compareView" style="display:none">
+          <div id="compareView">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
                 <div class="zoom-hover canvas-wrap">
@@ -839,8 +839,8 @@ const translations = {
   },
   cs: {
     counterLabel: '📸 Zpracováno:',
-    btnPreview: 'Náhled',
-    btnCompare: 'Originál / náhled',
+    btnPreview: 'Pouze náhled',
+    btnCompare: 'Originál + náhled',
     emptyOriginal: 'ORIGINÁL',
     emptyResult: 'VÝSLEDEK',
     stepUploadTitle: 'Nahraj fotku ↑',
@@ -851,18 +851,18 @@ const translations = {
     stepDownloadText: 'Hotovo pro gravírování',
     hintLine: '↑ Můžeš začít hned na ukázkové fotce nebo nahrát vlastní',
     zoomHelp: 'Kolečkem myši přiblížíš nebo oddálíš náhled. Přiblížený obrázek můžeš posouvat tažením myší. Dvojklik vrátí zoom na 100 %.',
-    sectionUpload: 'Nahrát Fotku',
+    sectionUpload: 'Nahrát fotku',
     dropZoneMain: 'Přetáhni nebo klikni pro výběr',
     dropZoneSub: 'JPG, PNG, BMP, WebP',
-    sectionPhotoType: 'Typ Fotky',
+    sectionPhotoType: 'Typ fotky',
     presetCustom: 'Vlastní nastavení',
     presetNormal: 'Běžná fotka',
     presetPortrait: 'Lidé',
     presetDark: 'Tmavá fotka',
     presetLight: 'Světlá fotka',
-    presetDetail: '🔍 Více detailů',
-    presetHelp: 'Výchozí je Běžná fotka. Slidery níže můžeš kdykoliv jemně doladit.',
-    sectionAdjustments: 'Úprava Fotky',
+    presetDetail: 'Více detailů',
+    presetHelp: 'Pomocí sliderů níže můžeš fotku jemně doladit.',
+    sectionAdjustments: 'Úprava fotky',
     labelBrightness: 'Jas',
     labelContrast: 'Kontrast',
     labelGamma: 'Gama',
@@ -997,6 +997,7 @@ function setLanguage(lang) {
   } catch (e) {}
 
   applyTranslations();
+  loadCounter();
 }
 
 function loadStoredLanguage() {
@@ -1153,6 +1154,22 @@ function setCanvasScale(canvas, scale) {
     wrapper.scrollLeft = 0;
     wrapper.scrollTop = 0;
   }
+}
+
+function resetAllCanvasZoom() {
+  [canvasSingle, canvasCompareOrig, canvasCompareResult].forEach(canvas => {
+    zoomState[canvas.id] = 1;
+    const wrapper = canvas.parentElement;
+    if (!wrapper) return;
+
+    canvas.style.transform = 'scale(1)';
+    wrapper.classList.remove('zoomed', 'dragging');
+    wrapper.scrollLeft = 0;
+    wrapper.scrollTop = 0;
+  });
+
+  dragState.isDragging = false;
+  dragState.wrapper = null;
 }
 
 function startDrag(wrapper, e) {
@@ -1320,6 +1337,7 @@ function loadImageIntoEditor(img) {
   syncWidthFromMm();
   updateSizeInfo();
   setViewMode('compare');
+  resetAllCanvasZoom();
   processImage();
 }
 
@@ -1428,6 +1446,15 @@ function drawOriginalIntoCanvas(canvas, w, h) {
   ctx.drawImage(originalImage, 0, 0, w, h);
 
   setCanvasScale(canvas, getCanvasScale(canvas));
+
+  if (getCanvasScale(canvas) <= 1) {
+    const wrapper = canvas.parentElement;
+    if (wrapper) {
+      wrapper.classList.remove('zoomed');
+      wrapper.scrollLeft = 0;
+      wrapper.scrollTop = 0;
+    }
+  }
 }
 
 function putImageDataToCanvas(canvas, imageData, w, h) {
@@ -1440,6 +1467,15 @@ function putImageDataToCanvas(canvas, imageData, w, h) {
   ctx.putImageData(imageData, 0, 0);
 
   setCanvasScale(canvas, getCanvasScale(canvas));
+
+  if (getCanvasScale(canvas) <= 1) {
+    const wrapper = canvas.parentElement;
+    if (wrapper) {
+      wrapper.classList.remove('zoomed');
+      wrapper.scrollLeft = 0;
+      wrapper.scrollTop = 0;
+    }
+  }
 }
 
 function toGrayscale(imageData) {
@@ -1794,7 +1830,6 @@ updateSizeInfo();
 setViewMode('compare');
 setActivePresetCard(currentPreset);
 setLanguage(currentLang);
-loadCounter();
 initializeCanvasZoom();
 loadDemoImage();
 </script>
