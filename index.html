@@ -406,6 +406,119 @@
     color: #475569;
     line-height: 1.5;
   }
+
+  .help-section-title {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #fb923c;
+    margin-bottom: 12px;
+  }
+
+  .help-text {
+    color: #cbd5e1;
+    font-size: 0.92rem;
+    line-height: 1.75;
+  }
+
+  .help-step {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 14px;
+    padding: 16px;
+  }
+
+  .help-step-num {
+    min-width: 2rem;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 9999px;
+    font-weight: 700;
+    font-size: 0.9rem;
+    background: var(--accent);
+    color: white;
+    flex-shrink: 0;
+    box-shadow: 0 4px 16px rgba(249,115,22,0.2);
+  }
+
+  .help-card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 14px;
+    padding: 16px;
+  }
+
+  .help-card-title {
+    color: #fdba74;
+    font-weight: 700;
+    margin-bottom: 6px;
+    font-size: 0.92rem;
+  }
+
+  .help-card-text {
+    color: #94a3b8;
+    font-size: 0.84rem;
+    line-height: 1.65;
+  }
+
+  .help-table-wrap {
+    overflow-x: auto;
+    border-radius: 14px;
+    border: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .help-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.84rem;
+  }
+
+  .help-table thead tr {
+    background: rgba(255,255,255,0.05);
+    color: #cbd5e1;
+    text-align: left;
+  }
+
+  .help-table th,
+  .help-table td {
+    padding: 12px 14px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    vertical-align: top;
+  }
+
+  .help-table tbody tr {
+    background: rgba(255,255,255,0.02);
+  }
+
+  .help-table tbody tr:hover {
+    background: rgba(255,255,255,0.04);
+  }
+
+  .help-table td:first-child {
+    color: #fdba74;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+
+  .help-note-box {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 14px;
+    padding: 16px;
+    color: #cbd5e1;
+    font-size: 0.88rem;
+    line-height: 1.7;
+  }
+
+  .help-note-box .formula {
+    color: #94a3b8;
+    font-size: 0.82rem;
+    margin-top: 8px;
+  }
 </style>
 </head>
 <body>
@@ -511,6 +624,143 @@
               Use the mouse wheel to zoom in or out. When zoomed in, drag the image with the mouse. Double-click resets zoom to 100%.
             </div>
           </div>
+        </div>
+      </div>
+
+      <div class="panel p-5">
+        <div class="help-section-title" data-i18n="helpIntroTitle">What does this tool do?</div>
+        <p class="help-text" data-i18n="helpIntroText">
+          <strong class="text-white">Photo Engraving Online</strong> converts a regular photo into a rasterized black-and-white image optimized for CO2 or diode laser engraving. You can then import the resulting PNG directly into your laser software and engrave it.
+        </p>
+      </div>
+
+      <div class="panel p-5">
+        <div class="help-section-title" data-i18n="helpStepsTitle">Step-by-step guide</div>
+        <div class="space-y-4">
+
+          <div class="help-step">
+            <div class="help-step-num">1</div>
+            <div>
+              <p class="font-semibold text-white" data-i18n="helpStep1Title">Upload a photo</p>
+              <p class="text-sm mt-1 text-slate-400" data-i18n="helpStep1Text">Drag the file into the upload area or click to choose it from your device. Supported formats are JPG, PNG, BMP and WebP. For best results, use a sharp photo with good contrast.</p>
+            </div>
+          </div>
+
+          <div class="help-step">
+            <div class="help-step-num">2</div>
+            <div>
+              <p class="font-semibold text-white" data-i18n="helpStep2Title">Set DPI</p>
+              <p class="text-sm mt-1 text-slate-400" data-i18n="helpStep2Text">Choose a resolution that matches your material and your laser’s capabilities. See the recommendation table below.</p>
+            </div>
+          </div>
+
+          <div class="help-step">
+            <div class="help-step-num">3</div>
+            <div>
+              <p class="font-semibold text-white" data-i18n="helpStep3Title">Set the output size in mm</p>
+              <p class="text-sm mt-1 text-slate-400" data-i18n="helpStep3Text">Enter the final engraving width in millimeters. The tool automatically calculates the height, keeps the aspect ratio and shows the resulting pixel count.</p>
+            </div>
+          </div>
+
+          <div class="help-step">
+            <div class="help-step-num">4</div>
+            <div>
+              <p class="font-semibold text-white" data-i18n="helpStep4Title">Fine-tune the width</p>
+              <p class="text-sm mt-1 text-slate-400" data-i18n="helpStep4Text">The slider lets you fine-tune the output width in pixels. It stays synced with the width field in mm, so changing one automatically updates the other.</p>
+            </div>
+          </div>
+
+          <div class="help-step">
+            <div class="help-step-num">5</div>
+            <div>
+              <p class="font-semibold text-white" data-i18n="helpStep5Title">Check the preview and download the PNG</p>
+              <p class="text-sm mt-1 text-slate-400" data-i18n="helpStep5Text">The preview shows the final rasterized image. If it looks good, click Download PNG for Laser and import the file into your laser software.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="panel p-5">
+        <div class="help-section-title" data-i18n="helpDpiTitle">Recommended DPI by material</div>
+        <div class="help-table-wrap">
+          <table class="help-table">
+            <thead>
+              <tr>
+                <th data-i18n="helpTableHeadDpi">DPI</th>
+                <th data-i18n="helpTableHeadMaterial">Best for</th>
+                <th data-i18n="helpTableHeadNote">Note</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>72 DPI</td>
+                <td data-i18n="helpDpi72Material">Leather, fabrics, very rough wood</td>
+                <td data-i18n="helpDpi72Note">Low detail, fast engraving</td>
+              </tr>
+              <tr>
+                <td>150 DPI</td>
+                <td data-i18n="helpDpi150Material">Soft wood (pine, linden), OSB</td>
+                <td data-i18n="helpDpi150Note">Good result for larger formats</td>
+              </tr>
+              <tr>
+                <td>254 DPI</td>
+                <td data-i18n="helpDpi254Material">Hard wood (oak, beech), plywood</td>
+                <td data-i18n="helpDpi254Note">Good balance between detail and speed</td>
+              </tr>
+              <tr>
+                <td>300 DPI ✓</td>
+                <td data-i18n="helpDpi300Material">Glass, stone, slate, MDF</td>
+                <td data-i18n="helpDpi300Note">Default value – suitable for most projects</td>
+              </tr>
+              <tr>
+                <td>500 DPI</td>
+                <td data-i18n="helpDpi500Material">Acrylic, coated metals, ceramics</td>
+                <td data-i18n="helpDpi500Note">High detail, great for portraits</td>
+              </tr>
+              <tr>
+                <td>750 DPI</td>
+                <td data-i18n="helpDpi750Material">Anodized aluminum, cast acrylic</td>
+                <td data-i18n="helpDpi750Note">Maximum detail, slower engraving</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="panel p-5">
+        <div class="help-section-title" data-i18n="helpOutputSizeTitle">How to choose the correct output size?</div>
+        <div class="help-note-box">
+          <p data-i18n="helpOutputSizeText1">The output size in <strong class="text-white">mm</strong> should exactly match the real physical size of the engraving area on your material.</p>
+          <p class="mt-3" data-i18n="helpOutputSizeText2">Example: If you want to engrave a portrait on a wooden plate with a width of <strong class="text-white">80 mm</strong>, set the width to <strong class="text-white">80 mm</strong> and choose <strong class="text-white">300 DPI</strong>. The tool will create an image about <strong class="text-orange-300">945 px</strong> wide, which matches the required physical size.</p>
+          <p class="formula" data-i18n="helpOutputSizeFormula">ℹ️ Formula: width in px = (width in mm ÷ 25.4) × DPI</p>
+        </div>
+      </div>
+
+      <div class="panel p-5">
+        <div class="help-section-title" data-i18n="helpTipsTitle">Tips for better results</div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+
+          <div class="help-card">
+            <div class="help-card-title" data-i18n="helpTip1Title">📷 Input photo quality</div>
+            <div class="help-card-text" data-i18n="helpTip1Text">Use sharp photos with good contrast. Dark or blurry images will produce worse engraving results even at high DPI.</div>
+          </div>
+
+          <div class="help-card">
+            <div class="help-card-title" data-i18n="helpTip2Title">🔲 Contrast and brightness</div>
+            <div class="help-card-text" data-i18n="helpTip2Text">Before uploading, try adjusting the photo in any editor. Higher contrast often improves the final rasterized result a lot.</div>
+          </div>
+
+          <div class="help-card">
+            <div class="help-card-title" data-i18n="helpTip3Title">🧪 Test engraving</div>
+            <div class="help-card-text" data-i18n="helpTip3Text">Always test the result first on an offcut of the same material before running the final engraving.</div>
+          </div>
+
+          <div class="help-card">
+            <div class="help-card-title" data-i18n="helpTip4Title">⚙️ LightBurn settings</div>
+            <div class="help-card-text" data-i18n="helpTip4Text">Import the PNG as <strong class="text-gray-200">Passthrough</strong> or <strong class="text-gray-200">Threshold</strong>. The dithering is already included in the file, so additional image processing may make it worse.</div>
+          </div>
+
         </div>
       </div>
     </div>
@@ -721,8 +971,52 @@ const translations = {
     iosClose: 'Close',
     demoLoadFail: 'Demo image could not be loaded.',
     emptyOriginalAlt: 'Preview original image',
-    emptyResultAlt: 'Preview result image'
+    emptyResultAlt: 'Preview result image',
+
+    helpIntroTitle: 'What does this tool do?',
+    helpIntroText: 'Photo Engraving Online converts a regular photo into a rasterized black-and-white image optimized for CO2 or diode laser engraving. You can then import the resulting PNG directly into your laser software (LightBurn, LaserGRBL, XCS, etc.) and engrave it.',
+    helpStepsTitle: 'Step-by-step guide',
+    helpStep1Title: 'Upload a photo',
+    helpStep1Text: 'Drag the file into the upload area or click to choose it from your device. Supported formats are JPG, PNG, BMP and WebP. For best results, use a sharp photo with good contrast.',
+    helpStep2Title: 'Set DPI',
+    helpStep2Text: 'Choose a resolution that matches your material and your laser’s capabilities. See the recommendation table below.',
+    helpStep3Title: 'Set the output size in mm',
+    helpStep3Text: 'Enter the final engraving width in millimeters. The tool automatically calculates the height, keeps the aspect ratio and shows the resulting pixel count.',
+    helpStep4Title: 'Fine-tune the width',
+    helpStep4Text: 'The slider lets you fine-tune the output width in pixels. It stays synced with the width field in mm, so changing one automatically updates the other.',
+    helpStep5Title: 'Check the preview and download the PNG',
+    helpStep5Text: 'The preview shows the final rasterized image. If it looks good, click Download PNG for Laser and import the file into your laser software.',
+    helpDpiTitle: 'Recommended DPI by material',
+    helpTableHeadDpi: 'DPI',
+    helpTableHeadMaterial: 'Best for',
+    helpTableHeadNote: 'Note',
+    helpDpi72Material: 'Leather, fabrics, very rough wood',
+    helpDpi72Note: 'Low detail, fast engraving',
+    helpDpi150Material: 'Soft wood (pine, linden), OSB',
+    helpDpi150Note: 'Good result for larger formats',
+    helpDpi254Material: 'Hard wood (oak, beech), plywood',
+    helpDpi254Note: 'Good balance between detail and speed',
+    helpDpi300Material: 'Glass, stone, slate, MDF',
+    helpDpi300Note: 'Default value – suitable for most projects',
+    helpDpi500Material: 'Acrylic, coated metals, ceramics',
+    helpDpi500Note: 'High detail, great for portraits',
+    helpDpi750Material: 'Anodized aluminum, cast acrylic',
+    helpDpi750Note: 'Maximum detail, slower engraving',
+    helpOutputSizeTitle: 'How to choose the correct output size?',
+    helpOutputSizeText1: 'The output size in <strong class="text-white">mm</strong> should exactly match the real physical size of the engraving area on your material.',
+    helpOutputSizeText2: 'Example: If you want to engrave a portrait on a wooden plate with a width of <strong class="text-white">80 mm</strong>, set the width to <strong class="text-white">80 mm</strong> and choose <strong class="text-white">300 DPI</strong>. The tool will create an image about <strong class="text-orange-300">945 px</strong> wide, which matches the required physical size.',
+    helpOutputSizeFormula: 'ℹ️ Formula: width in px = (width in mm ÷ 25.4) × DPI',
+    helpTipsTitle: 'Tips for better results',
+    helpTip1Title: '📷 Input photo quality',
+    helpTip1Text: 'Use sharp photos with good contrast. Dark or blurry images will produce worse engraving results even at high DPI.',
+    helpTip2Title: '🔲 Contrast and brightness',
+    helpTip2Text: 'Before uploading, try adjusting the photo in any editor. Higher contrast often improves the final rasterized result a lot.',
+    helpTip3Title: '🧪 Test engraving',
+    helpTip3Text: 'Always test the result first on an offcut of the same material before running the final engraving.',
+    helpTip4Title: '⚙️ LightBurn settings',
+    helpTip4Text: 'Import the PNG as <strong class="text-gray-200">Passthrough</strong> or <strong class="text-gray-200">Threshold</strong>. The dithering is already included in the file, so additional image processing may make it worse.'
   },
+
   es: {
     counterLabel: '📸 Procesadas:',
     btnPreview: 'Vista previa',
@@ -778,8 +1072,52 @@ const translations = {
     iosClose: 'Cerrar',
     demoLoadFail: 'No se pudo cargar la imagen de ejemplo.',
     emptyOriginalAlt: 'Vista previa de imagen original',
-    emptyResultAlt: 'Vista previa de imagen resultante'
+    emptyResultAlt: 'Vista previa de imagen resultante',
+
+    helpIntroTitle: '¿Qué hace esta herramienta?',
+    helpIntroText: 'Photo Engraving Online convierte una fotografía normal en una imagen en blanco y negro rasterizada, optimizada para grabado láser CO2 o de diodo. Después puedes importar el PNG resultante directamente en tu software láser (LightBurn, LaserGRBL, XCS, etc.) y grabarlo.',
+    helpStepsTitle: 'Guía paso a paso',
+    helpStep1Title: 'Sube una foto',
+    helpStep1Text: 'Arrastra el archivo al área de carga o haz clic para elegirlo desde tu dispositivo. Los formatos compatibles son JPG, PNG, BMP y WebP. Para obtener mejores resultados, usa una foto nítida y con buen contraste.',
+    helpStep2Title: 'Configura el DPI',
+    helpStep2Text: 'Elige una resolución que se adapte al material y a las capacidades de tu láser. Consulta la tabla de recomendaciones más abajo.',
+    helpStep3Title: 'Configura el tamaño de salida en mm',
+    helpStep3Text: 'Introduce el ancho final del grabado en milímetros. La herramienta calcula automáticamente la altura, mantiene la proporción y muestra el número final de píxeles.',
+    helpStep4Title: 'Ajusta el ancho con precisión',
+    helpStep4Text: 'El control deslizante permite ajustar con precisión el ancho de salida en píxeles. Se mantiene sincronizado con el campo de ancho en mm, así que al cambiar uno se actualiza automáticamente el otro.',
+    helpStep5Title: 'Revisa la vista previa y descarga el PNG',
+    helpStep5Text: 'La vista previa muestra la imagen rasterizada final. Si se ve bien, haz clic en Descargar PNG para Láser e importa el archivo en tu software láser.',
+    helpDpiTitle: 'DPI recomendado según el material',
+    helpTableHeadDpi: 'DPI',
+    helpTableHeadMaterial: 'Ideal para',
+    helpTableHeadNote: 'Nota',
+    helpDpi72Material: 'Cuero, telas, madera muy rugosa',
+    helpDpi72Note: 'Poco detalle, grabado rápido',
+    helpDpi150Material: 'Madera blanda (pino, tilo), OSB',
+    helpDpi150Note: 'Buen resultado para formatos grandes',
+    helpDpi254Material: 'Madera dura (roble, haya), contrachapado',
+    helpDpi254Note: 'Buen equilibrio entre detalle y velocidad',
+    helpDpi300Material: 'Vidrio, piedra, pizarra, MDF',
+    helpDpi300Note: 'Valor predeterminado: adecuado para la mayoría de proyectos',
+    helpDpi500Material: 'Acrílico, metales lacados, cerámica',
+    helpDpi500Note: 'Alto detalle, ideal para retratos',
+    helpDpi750Material: 'Aluminio anodizado, acrílico fundido',
+    helpDpi750Note: 'Máximo detalle, grabado más lento',
+    helpOutputSizeTitle: '¿Cómo elegir el tamaño de salida correcto?',
+    helpOutputSizeText1: 'El tamaño de salida en <strong class="text-white">mm</strong> debe coincidir exactamente con el tamaño físico real del área de grabado en tu material.',
+    helpOutputSizeText2: 'Ejemplo: si quieres grabar un retrato en una placa de madera con un ancho de <strong class="text-white">80 mm</strong>, configura el ancho en <strong class="text-white">80 mm</strong> y elige <strong class="text-white">300 DPI</strong>. La herramienta generará una imagen de aproximadamente <strong class="text-orange-300">945 px</strong> de ancho, que coincide con el tamaño físico requerido.',
+    helpOutputSizeFormula: 'ℹ️ Fórmula: ancho en px = (ancho en mm ÷ 25,4) × DPI',
+    helpTipsTitle: 'Consejos para mejores resultados',
+    helpTip1Title: '📷 Calidad de la foto de entrada',
+    helpTip1Text: 'Usa fotos nítidas y con buen contraste. Las imágenes oscuras o borrosas producirán peores resultados incluso con un DPI alto.',
+    helpTip2Title: '🔲 Contraste y brillo',
+    helpTip2Text: 'Antes de subirla, intenta ajustar la foto en cualquier editor. Un mayor contraste suele mejorar mucho el resultado rasterizado final.',
+    helpTip3Title: '🧪 Grabado de prueba',
+    helpTip3Text: 'Haz siempre primero una prueba en un recorte del mismo material antes de lanzar el grabado final.',
+    helpTip4Title: '⚙️ Ajustes en LightBurn',
+    helpTip4Text: 'Importa el PNG como <strong class="text-gray-200">Passthrough</strong> o <strong class="text-gray-200">Threshold</strong>. El dithering ya está incluido en el archivo, así que un procesamiento adicional puede empeorarlo.'
   },
+
   de: {
     counterLabel: '📸 Verarbeitet:',
     btnPreview: 'Vorschau',
@@ -835,8 +1173,52 @@ const translations = {
     iosClose: 'Schließen',
     demoLoadFail: 'Das Demo-Bild konnte nicht geladen werden.',
     emptyOriginalAlt: 'Vorschau des Originalbilds',
-    emptyResultAlt: 'Vorschau des Ergebnisbilds'
+    emptyResultAlt: 'Vorschau des Ergebnisbilds',
+
+    helpIntroTitle: 'Was macht dieses Tool?',
+    helpIntroText: 'Photo Engraving Online wandelt ein normales Foto in ein gerastertes Schwarz-Weiß-Bild um, das für CO2- oder Diodenlasergravuren optimiert ist. Die resultierende PNG-Datei kannst du direkt in deine Lasersoftware (LightBurn, LaserGRBL, XCS usw.) importieren und gravieren.',
+    helpStepsTitle: 'Schritt-für-Schritt-Anleitung',
+    helpStep1Title: 'Foto hochladen',
+    helpStep1Text: 'Ziehe die Datei in den Upload-Bereich oder klicke, um sie von deinem Gerät auszuwählen. Unterstützte Formate sind JPG, PNG, BMP und WebP. Für beste Ergebnisse verwende ein scharfes Foto mit gutem Kontrast.',
+    helpStep2Title: 'DPI einstellen',
+    helpStep2Text: 'Wähle eine Auflösung, die zu deinem Material und den Möglichkeiten deines Lasers passt. Siehe die Empfehlungstabelle unten.',
+    helpStep3Title: 'Ausgabegröße in mm festlegen',
+    helpStep3Text: 'Gib die gewünschte Endbreite der Gravur in Millimetern ein. Das Tool berechnet automatisch die Höhe, behält das Seitenverhältnis bei und zeigt die resultierende Pixelzahl an.',
+    helpStep4Title: 'Breite fein abstimmen',
+    helpStep4Text: 'Mit dem Schieberegler kannst du die Ausgabebreite in Pixeln fein abstimmen. Er bleibt mit dem Breitenfeld in mm synchron – wenn du einen Wert änderst, wird der andere automatisch aktualisiert.',
+    helpStep5Title: 'Vorschau prüfen und PNG herunterladen',
+    helpStep5Text: 'Die Vorschau zeigt das endgültige gerasterte Bild. Wenn alles gut aussieht, klicke auf PNG für Laser herunterladen und importiere die Datei in deine Lasersoftware.',
+    helpDpiTitle: 'Empfohlene DPI je nach Material',
+    helpTableHeadDpi: 'DPI',
+    helpTableHeadMaterial: 'Geeignet für',
+    helpTableHeadNote: 'Hinweis',
+    helpDpi72Material: 'Leder, Stoffe, sehr grobes Holz',
+    helpDpi72Note: 'Wenig Detail, schnelles Gravieren',
+    helpDpi150Material: 'Weichholz (Kiefer, Linde), OSB',
+    helpDpi150Note: 'Gutes Ergebnis für größere Formate',
+    helpDpi254Material: 'Hartholz (Eiche, Buche), Sperrholz',
+    helpDpi254Note: 'Guter Kompromiss aus Detail und Geschwindigkeit',
+    helpDpi300Material: 'Glas, Stein, Schiefer, MDF',
+    helpDpi300Note: 'Standardwert – für die meisten Projekte geeignet',
+    helpDpi500Material: 'Acryl, lackierte Metalle, Keramik',
+    helpDpi500Note: 'Hoher Detailgrad, ideal für Porträts',
+    helpDpi750Material: 'Eloxiertes Aluminium, gegossenes Acryl',
+    helpDpi750Note: 'Maximale Details, langsameres Gravieren',
+    helpOutputSizeTitle: 'Wie wählt man die richtige Ausgabegröße?',
+    helpOutputSizeText1: 'Die Ausgabegröße in <strong class="text-white">mm</strong> sollte exakt der realen physischen Größe der Gravurfläche auf deinem Material entsprechen.',
+    helpOutputSizeText2: 'Beispiel: Wenn du ein Porträt auf eine Holzplatte mit einer Breite von <strong class="text-white">80 mm</strong> gravieren möchtest, stelle die Breite auf <strong class="text-white">80 mm</strong> und wähle <strong class="text-white">300 DPI</strong>. Das Tool erstellt dann ein Bild mit etwa <strong class="text-orange-300">945 px</strong> Breite, was genau der gewünschten physischen Größe entspricht.',
+    helpOutputSizeFormula: 'ℹ️ Formel: Breite in px = (Breite in mm ÷ 25,4) × DPI',
+    helpTipsTitle: 'Tipps für bessere Ergebnisse',
+    helpTip1Title: '📷 Qualität des Ausgangsfotos',
+    helpTip1Text: 'Verwende scharfe Fotos mit gutem Kontrast. Dunkle oder unscharfe Bilder liefern selbst bei hoher DPI schlechtere Gravurergebnisse.',
+    helpTip2Title: '🔲 Kontrast und Helligkeit',
+    helpTip2Text: 'Versuche vor dem Upload, das Foto in einem beliebigen Editor anzupassen. Ein höherer Kontrast verbessert das endgültige Rasterergebnis oft deutlich.',
+    helpTip3Title: '🧪 Testgravur',
+    helpTip3Text: 'Teste das Ergebnis immer zuerst an einem Reststück desselben Materials, bevor du die endgültige Gravur startest.',
+    helpTip4Title: '⚙️ LightBurn-Einstellungen',
+    helpTip4Text: 'Importiere die PNG als <strong class="text-gray-200">Passthrough</strong> oder <strong class="text-gray-200">Threshold</strong>. Das Dithering ist bereits in der Datei enthalten, daher kann zusätzliche Bildverarbeitung das Ergebnis verschlechtern.'
   },
+
   cs: {
     counterLabel: '📸 Zpracováno:',
     btnPreview: 'Pouze náhled',
@@ -892,7 +1274,50 @@ const translations = {
     iosClose: 'Zavřít',
     demoLoadFail: 'Demo obrázek se nepodařilo načíst.',
     emptyOriginalAlt: 'Ukázka originálního obrázku',
-    emptyResultAlt: 'Ukázka výsledného obrázku'
+    emptyResultAlt: 'Ukázka výsledného obrázku',
+
+    helpIntroTitle: 'Co tento nástroj dělá?',
+    helpIntroText: 'Photo Engraving Online převede běžnou fotografii na rastrovaný (ditherovaný) černobílý obraz, který je optimalizovaný pro gravírování CO2 nebo diodovým laserem. Výsledný soubor PNG pak importuješ přímo do svého laserového softwaru (LightBurn, LaserGRBL, XCS apod.) a gravíruješ.',
+    helpStepsTitle: 'Postup krok za krokem',
+    helpStep1Title: 'Nahraj fotografii',
+    helpStep1Text: 'Přetáhni soubor do oblasti na stránce nebo klikni pro výběr ze zařízení. Podporovány jsou formáty JPG, PNG, BMP a WebP. Pro nejlepší výsledky použij ostrou fotografii s dobrým kontrastem.',
+    helpStep2Title: 'Nastav DPI (rozlišení)',
+    helpStep2Text: 'Vyber rozlišení odpovídající materiálu a schopnostem tvého laseru. Viz tabulka níže.',
+    helpStep3Title: 'Nastav výstupní velikost v mm',
+    helpStep3Text: 'Zadej šířku výsledného gravírování v milimetrech. Nástroj automaticky přepočítá výšku, zachová poměr stran a zobrazí výsledný počet pixelů.',
+    helpStep4Title: 'Jemné doladění šířky',
+    helpStep4Text: 'Posuvník umožňuje jemně upravit výstupní šířku v pixelech. Hodnota se synchronizuje s polem pro šířku v mm, takže změna jednoho automaticky aktualizuje druhé.',
+    helpStep5Title: 'Zkontroluj náhled a stáhni PNG',
+    helpStep5Text: 'V náhledu uvidíš výsledný rastrovaný obraz. Pokud vypadá dobře, klikni na Stáhnout PNG pro laser a soubor importuj do laserového softwaru.',
+    helpDpiTitle: 'Doporučené DPI podle materiálu',
+    helpTableHeadDpi: 'DPI',
+    helpTableHeadMaterial: 'Vhodné pro',
+    helpTableHeadNote: 'Poznámka',
+    helpDpi72Material: 'Kůže, tkaniny, velmi hrubé dřevo',
+    helpDpi72Note: 'Nízký detail, rychlé gravírování',
+    helpDpi150Material: 'Měkké dřevo (borovice, lípa), OSB',
+    helpDpi150Note: 'Dobrý výsledek pro větší formáty',
+    helpDpi254Material: 'Tvrdé dřevo (dub, buk), překližka',
+    helpDpi254Note: 'Dobrý kompromis detail vs. rychlost',
+    helpDpi300Material: 'Sklo, kámen, břidlice, MDF',
+    helpDpi300Note: 'Výchozí hodnota – vhodná pro většinu projektů',
+    helpDpi500Material: 'Akrylát, lakované kovy, keramika',
+    helpDpi500Note: 'Vysoký detail, vhodné pro portréty',
+    helpDpi750Material: 'Anodizovaný hliník, litý akrylát',
+    helpDpi750Note: 'Maximální detail, pomalé gravírování',
+    helpOutputSizeTitle: 'Jak nastavit správnou výstupní velikost?',
+    helpOutputSizeText1: 'Výstupní velikost v <strong class="text-white">mm</strong> by měla přesně odpovídat fyzickým rozměrům gravírované plochy na materiálu.',
+    helpOutputSizeText2: 'Příklad: Chceš vygravírovat portrét na dřevěnou destičku o šířce <strong class="text-white">80 mm</strong>. Nastav šířku na <strong class="text-white">80 mm</strong> a zvol <strong class="text-white">300 DPI</strong> – nástroj ti vygeneruje obrázek o šířce <strong class="text-orange-300">~945 px</strong>, který přesně odpovídá požadované fyzické velikosti.',
+    helpOutputSizeFormula: 'ℹ️ Přepočet: šířka v px = (šířka v mm ÷ 25,4) × DPI',
+    helpTipsTitle: 'Tipy pro lepší výsledky',
+    helpTip1Title: '📷 Kvalita vstupní fotky',
+    helpTip1Text: 'Používej ostré fotografie s dobrým kontrastem. Tmavé nebo rozmazané fotky dají horší výsledky i při vysokém DPI.',
+    helpTip2Title: '🔲 Kontrast a jas',
+    helpTip2Text: 'Před nahráním fotku zkus upravit v libovolném editoru – zvýšený kontrast výrazně zlepší výsledný rastrovaný obraz.',
+    helpTip3Title: '🧪 Testovací gravírování',
+    helpTip3Text: 'Vždy nejprve vyzkoušej výsledek na odřezku stejného materiálu, než spustíš finální gravírování.',
+    helpTip4Title: '⚙️ Nastavení v LightBurn',
+    helpTip4Text: 'Importovaný PNG nastav jako <strong class="text-gray-200">Passthrough</strong> nebo <strong class="text-gray-200">Threshold</strong> – dithering je již obsažen v souboru, další zpracování by ho zhoršilo.'
   }
 };
 
@@ -973,7 +1398,12 @@ function applyTranslations() {
 
   document.querySelectorAll('[data-i18n]').forEach(el => {
     const key = el.dataset.i18n;
-    el.textContent = t(key);
+
+    if (el.closest('.help-note-box') || el.closest('.help-card-text') || el.closest('.help-text')) {
+      el.innerHTML = t(key);
+    } else {
+      el.textContent = t(key);
+    }
   });
 
   const originalImg = document.getElementById('emptyOriginalImg');
