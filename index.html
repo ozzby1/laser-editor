@@ -1702,11 +1702,17 @@ function scheduleProcessImage() {
 }
 
 function updateSlider(el) {
-  const target = document.getElementById(el.id + 'Val') || document.getElementById(el.id.replace('Slider', 'SliderVal'));
+  const target =
+    document.getElementById(el.id + 'Val') ||
+    document.getElementById(el.id.replace('Slider', 'SliderVal'));
+
   if (!target) return;
+
   const step = el.step ? String(el.step) : '1';
   const decimals = step.includes('.') ? step.split('.')[1].length : 0;
-  target.textContent = Number(el.value).toFixed(decimals);
+  const value = Number(el.value).toFixed(decimals);
+
+  target.textContent = el.id === 'outputWidthSlider' ? `${value} px` : value;
 }
 
 function loadStoredSettings() {
