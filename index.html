@@ -160,11 +160,12 @@
 }
   }
 
-  .slider-row {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
+ .slider-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 10px;
+}
 
   .slider-row input[type=range] {
     flex: 1;
