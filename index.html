@@ -912,6 +912,8 @@ const ZOOM_MAX = 6;
 const FIXED_THRESHOLD = 128;
 const STORAGE_KEY = 'laserEditorSimpleV7';
 const LANG_STORAGE_KEY = 'laserEditorLanguageV1';
+const OUTPUT_WIDTH_MIN_PX = 100;
+const OUTPUT_WIDTH_MAX_PX = 3000;
 
 const translations = {
   en: {
@@ -1291,9 +1293,9 @@ const translations = {
     helpDpi72Note: 'Nízký detail, rychlé gravírování',
     helpDpi150Material: 'Měkké dřevo (borovice, lípa), OSB',
     helpDpi150Note: 'Dobrý výsledek pro větší formáty',
-    helpDpi254Material: 'Tvrdé dřevo (dub, buk),',
+    helpDpi254Material: 'Tvrdé dřevo (dub, buk), překližka',
     helpDpi254Note: 'Dobrý kompromis detail vs. rychlost',
-    helpDpi300Material: 'Překližka, Sklo, kámen, břidlice, MDF',
+    helpDpi300Material: 'Sklo, kámen, břidlice, MDF',
     helpDpi300Note: 'Výchozí hodnota – vhodná pro většinu projektů',
     helpDpi500Material: 'Akrylát, lakované kovy, keramika',
     helpDpi500Note: 'Vysoký detail, vhodné pro portréty',
@@ -1556,6 +1558,18 @@ function applyPreset(key) {
   if (originalImage) scheduleProcessImage();
 }
 
+function applyCurrentPresetValues() {
+  const p = PRESETS[currentPreset] || PRESETS.normal;
+  if (currentPreset === 'custom') return;
+
+  brightness.value = p.brightness;
+  contrast.value = p.contrast;
+  gamma.value = p.gamma;
+  sharpness.value = p.sharpness;
+  ditherMode.value = p.ditherMode;
+  sliderPairs.forEach(([id]) => updateSlider(document.getElementById(id)));
+}
+
 function getCanvasZoomKey(canvas) {
   return canvas.id;
 }
@@ -1754,12 +1768,16 @@ function showEditor() {
   document.getElementById('canvasArea').style.display = 'block';
 }
 
-function loadImageIntoEditor(img, switchToResult = false, targetDpi = 300) {
+function loadImageIntoEditor(img, switchToResult = false, targetDpi = null) {
   originalImage = img;
   showEditor();
-  applyPreset('normal');
 
-  dpi.value = String(targetDpi);
+  applyCurrentPresetValues();
+  setActivePresetCard(currentPreset);
+
+  if (targetDpi !== null && targetDpi !== undefined) {
+    dpi.value = String(targetDpi);
+  }
 
   syncWidthFromMm();
   updateSizeInfo();
@@ -1777,7 +1795,7 @@ function loadFile(file) {
   reader.onload = ev => {
     const img = new Image();
     img.onload = () => {
-      loadImageIntoEditor(img, true, 300);
+      loadImageIntoEditor(img, true);
     };
     img.onerror = () => alert(t('alertLoadFail'));
     img.src = ev.target.result;
@@ -1789,7 +1807,7 @@ function loadFile(file) {
 function loadDemoImage() {
   const img = new Image();
   img.onload = () => {
-    loadImageIntoEditor(img, false, 300);
+    loadImageIntoEditor(img, false);
   };
   img.onerror = () => {
     console.warn(t('demoLoadFail'));
@@ -1805,30 +1823,41 @@ function roundTo(value, step) {
   return Math.round(value / step) * step;
 }
 
-function getOutputWidthPx() {
+function getRawOutputWidthPx() {
   const mm = Math.max(1, Number(outputWidthMm.value || 0));
   const dpiValue = Number(dpi.value);
-  return Math.max(100, Math.round((mm / 25.4) * dpiValue));
+  return Math.round((mm / 25.4) * dpiValue);
+}
+
+function getOutputWidthPx() {
+  return clamp(getRawOutputWidthPx(), OUTPUT_WIDTH_MIN_PX, OUTPUT_WIDTH_MAX_PX);
 }
 
 function syncWidthFromMm() {
-  const px = clamp(getOutputWidthPx(), 100, 3000);
+  const px = getOutputWidthPx();
   outputWidthSlider.value = px;
   updateSlider(outputWidthSlider);
+
+  const correctedMm = Math.round((px / Number(dpi.value)) * 25.4);
+  if (Number(outputWidthMm.value) !== correctedMm) {
+    outputWidthMm.value = correctedMm;
+  }
 }
 
 function syncMmFromSlider() {
-  const px = Math.max(100, Number(outputWidthSlider.value));
+  const px = clamp(Math.max(OUTPUT_WIDTH_MIN_PX, Number(outputWidthSlider.value)), OUTPUT_WIDTH_MIN_PX, OUTPUT_WIDTH_MAX_PX);
+  outputWidthSlider.value = px;
   const dpiValue = Number(dpi.value);
   outputWidthMm.value = Math.round((px / dpiValue) * 25.4);
+  updateSlider(outputWidthSlider);
 }
 
 function updateSizeInfo() {
   const px = getOutputWidthPx();
-  const mm = Math.max(1, Number(outputWidthMm.value || 0));
+  const mm = Math.round((px / Number(dpi.value)) * 25.4);
   const dpiValue = Number(dpi.value);
 
-  document.getElementById('sizeInfo').textContent = `${mm.toFixed(0)} mm`;
+  document.getElementById('sizeInfo').textContent = `${mm} mm`;
   document.getElementById('pixelInfo').textContent = `${px} px @ ${dpiValue} DPI`;
 }
 
@@ -2044,7 +2073,7 @@ function applyDithering(imageData, w, h, mode, thresh) {
 
 function buildExportFilename() {
   const dpiValue = Number(dpi.value);
-  const mm = Math.max(1, Number(outputWidthMm.value || 0));
+  const mm = Math.round((getOutputWidthPx() / dpiValue) * 25.4);
   const style = ditherMode.value === 'atkinson' ? 'contrast' : 'detailed';
   return `laser-${mm}mm-${dpiValue}dpi-${style}.png`;
 }
