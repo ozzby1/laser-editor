@@ -613,13 +613,18 @@
 
         <div id="canvasArea" style="display:none">
           <div id="resultView" style="display:none">
-            <div class="zoom-hover canvas-wrap">
-              <canvas id="canvasSingle" class="w-full"></canvas>
-            </div>
-            <div class="helper-text" style="text-align:center;margin-top:10px;" data-i18n="zoomHelp">
-              Use the mouse wheel to zoom in or out. When zoomed in, drag the image with the mouse. Double-click resets zoom to 100%.
-            </div>
-          </div>
+  <div class="zoom-hover canvas-wrap">
+    <canvas id="canvasSingle" class="w-full"></canvas>
+  </div>
+  <div class="helper-text" style="text-align:center;margin-top:10px;" data-i18n="zoomHelp">
+    Use the mouse wheel to zoom in or out. When zoomed in, drag the image with the mouse. Double-click resets zoom to 100%.
+  </div>
+  <div class="mobile-reupload-wrap">
+    <button class="btn btn-secondary mobile-reupload-btn" id="reuploadBtnResult" data-i18n="reuploadBtn">
+      ↺ Upload another photo
+    </button>
+  </div>
+</div>
 
           <div id="compareView">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
