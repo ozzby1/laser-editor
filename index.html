@@ -1798,6 +1798,20 @@ function showEditor() {
   document.getElementById('canvasArea').style.display = 'block';
 }
 
+ function scrollToPreviewOnMobile() {
+  if (window.innerWidth >= 1024) return;
+
+  const target = document.getElementById('canvasArea');
+  if (!target) return;
+
+  setTimeout(() => {
+    target.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start'
+    });
+  }, 120);
+}
+
 function loadImageIntoEditor(img, switchToResult = false, targetDpi = null) {
   originalImage = img;
   showEditor();
