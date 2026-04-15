@@ -132,53 +132,52 @@
   }
 
   .drop-zone {
-  border: 3px dashed rgba(249,115,22,0.85);
-  border-radius: 14px;
-  transition: all 0.2s ease;
-  background: rgba(249,115,22,0.06);
-  box-shadow:
-    0 0 0 1px rgba(249,115,22,0.10),
-    inset 0 0 0 1px rgba(249,115,22,0.08);
-}
-
-.drop-zone:hover {
-  border-color: rgba(249,115,22,1);
-  background: rgba(249,115,22,0.10);
-  box-shadow:
-    0 0 0 1px rgba(249,115,22,0.18),
-    0 10px 28px rgba(249,115,22,0.10),
-    inset 0 0 0 1px rgba(249,115,22,0.10);
-}
-
-.drop-zone.drag-over {
-  border-color: rgba(249,115,22,1);
-  background: rgba(249,115,22,0.14);
-  box-shadow:
-    0 0 0 2px rgba(249,115,22,0.22),
-    0 14px 34px rgba(249,115,22,0.14),
-    inset 0 0 0 1px rgba(249,115,22,0.12);
-}
+    border: 3px dashed rgba(249,115,22,0.85);
+    border-radius: 14px;
+    transition: all 0.2s ease;
+    background: rgba(249,115,22,0.06);
+    box-shadow:
+      0 0 0 1px rgba(249,115,22,0.10),
+      inset 0 0 0 1px rgba(249,115,22,0.08);
   }
 
- .slider-row {
-  display: grid;
-  grid-template-columns: 1fr auto;
-  align-items: center;
-  gap: 10px;
-}
+  .drop-zone:hover {
+    border-color: rgba(249,115,22,1);
+    background: rgba(249,115,22,0.10);
+    box-shadow:
+      0 0 0 1px rgba(249,115,22,0.18),
+      0 10px 28px rgba(249,115,22,0.10),
+      inset 0 0 0 1px rgba(249,115,22,0.10);
+  }
 
-.slider-row input[type=range] {
-  width: 100%;
-}
+  .drop-zone.drag-over {
+    border-color: rgba(249,115,22,1);
+    background: rgba(249,115,22,0.14);
+    box-shadow:
+      0 0 0 2px rgba(249,115,22,0.22),
+      0 14px 34px rgba(249,115,22,0.14),
+      inset 0 0 0 1px rgba(249,115,22,0.12);
+  }
 
-.slider-val {
-  min-width: 60px;
-  text-align: right;
-  font-size: 0.78rem;
-  font-weight: 700;
-  color: var(--accent);
-  font-variant-numeric: tabular-nums;
-}
+  .slider-row {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .slider-row input[type=range] {
+    width: 100%;
+  }
+
+  .slider-val {
+    min-width: 60px;
+    text-align: right;
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--accent);
+    font-variant-numeric: tabular-nums;
+  }
 
   .btn {
     cursor: pointer;
@@ -215,17 +214,17 @@
     font-size: 0.82rem;
   }
 
-.view-btn {
-  background: rgba(255,255,255,0.05);
-  color: #dbe3ee;
-  border: 2px solid var(--accent); /* 👈 plná barva */
-  border-radius: 12px;
-  padding: 10px 18px;
-  font-size: 0.84rem;
-  font-weight: 700;
-  transition: all 0.18s ease;
-  min-width: 140px;
-}
+  .view-btn {
+    background: rgba(255,255,255,0.05);
+    color: #dbe3ee;
+    border: 2px solid var(--accent);
+    border-radius: 12px;
+    padding: 10px 18px;
+    font-size: 0.84rem;
+    font-weight: 700;
+    transition: all 0.18s ease;
+    min-width: 140px;
+  }
 
   .view-btn:hover {
     background: rgba(255,255,255,0.09);
@@ -534,6 +533,24 @@
     font-size: 0.82rem;
     margin-top: 8px;
   }
+
+  .mobile-reupload-wrap {
+    display: flex;
+    justify-content: center;
+    margin-top: 14px;
+  }
+
+  .mobile-reupload-btn {
+    width: 100%;
+    max-width: 320px;
+    cursor: pointer;
+  }
+
+  @media (min-width: 1024px) {
+    .mobile-reupload-wrap {
+      display: none;
+    }
+  }
 </style>
 </head>
 <body>
@@ -613,18 +630,16 @@
 
         <div id="canvasArea" style="display:none">
           <div id="resultView" style="display:none">
-  <div class="zoom-hover canvas-wrap">
-    <canvas id="canvasSingle" class="w-full"></canvas>
-  </div>
-  <div class="helper-text" style="text-align:center;margin-top:10px;" data-i18n="zoomHelp">
-    Use the mouse wheel to zoom in or out. When zoomed in, drag the image with the mouse. Double-click resets zoom to 100%.
-  </div>
-  <div class="mobile-reupload-wrap">
-    <button class="btn btn-secondary mobile-reupload-btn" id="reuploadBtnResult" data-i18n="reuploadBtn">
-      ↺ Upload another photo
-    </button>
-  </div>
-</div>
+            <div class="zoom-hover canvas-wrap">
+              <canvas id="canvasSingle" class="w-full"></canvas>
+            </div>
+            <div class="helper-text" style="text-align:center;margin-top:10px;" data-i18n="zoomHelp">
+              Use the mouse wheel to zoom in or out. When zoomed in, drag the image with the mouse. Double-click resets zoom to 100%.
+            </div>
+            <div class="mobile-reupload-wrap">
+              <button class="btn btn-secondary mobile-reupload-btn" id="reuploadBtnResult" data-i18n="reuploadBtn">↺ Upload another photo</button>
+            </div>
+          </div>
 
           <div id="compareView">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -641,6 +656,9 @@
             </div>
             <div class="helper-text" style="text-align:center;margin-top:10px;" data-i18n="zoomHelp">
               Use the mouse wheel to zoom in or out. When zoomed in, drag the image with the mouse. Double-click resets zoom to 100%.
+            </div>
+            <div class="mobile-reupload-wrap">
+              <button class="btn btn-secondary mobile-reupload-btn" id="reuploadBtnCompare" data-i18n="reuploadBtn">↺ Upload another photo</button>
             </div>
           </div>
         </div>
@@ -788,13 +806,13 @@
         <div class="section-title" data-i18n="sectionUpload">Upload Photo</div>
         <div class="drop-zone p-5 text-center cursor-pointer" id="dropZone">
           <div style="font-size:2rem;margin-bottom:6px">📷</div>
-<div style="font-size:0.9rem;color:#ffffff;font-weight:700" data-i18n="dropZoneMain">
-  Přetáhni nebo klikni pro výběr
-</div>
+          <div style="font-size:0.9rem;color:#ffffff;font-weight:700" data-i18n="dropZoneMain">
+            Přetáhni nebo klikni pro výběr
+          </div>
 
-<div style="font-size:0.75rem;color:#e2e8f0;margin-top:5px" data-i18n="dropZoneSub">
-  JPG, PNG, BMP, WebP
-</div>
+          <div style="font-size:0.75rem;color:#e2e8f0;margin-top:5px" data-i18n="dropZoneSub">
+            JPG, PNG, BMP, WebP
+          </div>
           <input type="file" id="fileInput" accept="image/*" style="display:none">
         </div>
       </div>
@@ -875,14 +893,14 @@
               <option value="150">150 DPI</option>
               <option value="254">254 DPI</option>
               <option value="300" selected>300 DPI</option>
-             <option value="350">350 DPI</option>
-             <option value="400">400 DPI</option>
-             <option value="450">450 DPI</option>
-             <option value="500">500 DPI</option>
-             <option value="550">550 DPI</option>
-             <option value="600">600 DPI</option>
-             <option value="650">650 DPI</option>
-             <option value="700">700 DPI</option>
+              <option value="350">350 DPI</option>
+              <option value="400">400 DPI</option>
+              <option value="450">450 DPI</option>
+              <option value="500">500 DPI</option>
+              <option value="550">550 DPI</option>
+              <option value="600">600 DPI</option>
+              <option value="650">650 DPI</option>
+              <option value="700">700 DPI</option>
               <option value="750">750 DPI</option>
             </select>
           </div>
@@ -959,6 +977,7 @@ const translations = {
     stepDownloadText: 'Ready for engraving',
     hintLine: '↑ Start right away with the demo photo or upload your own',
     zoomHelp: 'Use the mouse wheel to zoom in or out. When zoomed in, drag the image with the mouse. Double-click resets zoom to 100%.',
+    reuploadBtn: '↺ Upload another photo',
     sectionUpload: 'Upload Photo',
     dropZoneMain: 'Drag & drop or click to choose',
     dropZoneSub: 'JPG, PNG, BMP, WebP',
@@ -1059,6 +1078,7 @@ const translations = {
     stepDownloadText: 'Listo para grabado',
     hintLine: '↑ Empieza ahora mismo con la foto de ejemplo o sube la tuya',
     zoomHelp: 'Usa la rueda del ratón para acercar o alejar. Cuando esté ampliado, arrastra la imagen con el ratón. Doble clic restablece el zoom al 100%.',
+    reuploadBtn: '↺ Subir otra foto',
     sectionUpload: 'Subir Foto',
     dropZoneMain: 'Arrastra y suelta o haz clic para elegir',
     dropZoneSub: 'JPG, PNG, BMP, WebP',
@@ -1159,6 +1179,7 @@ const translations = {
     stepDownloadText: 'Bereit zum Gravieren',
     hintLine: '↑ Starte sofort mit dem Beispielfoto oder lade dein eigenes hoch',
     zoomHelp: 'Mit dem Mausrad kannst du hinein- oder herauszoomen. Im vergrößerten Zustand kannst du das Bild mit der Maus verschieben. Doppelklick setzt den Zoom auf 100 % zurück.',
+    reuploadBtn: '↺ Anderes Foto hochladen',
     sectionUpload: 'Foto Hochladen',
     dropZoneMain: 'Per Drag & Drop oder klicken zum Auswählen',
     dropZoneSub: 'JPG, PNG, BMP, WebP',
@@ -1259,6 +1280,7 @@ const translations = {
     stepDownloadText: 'Hotovo pro gravírování',
     hintLine: '↑ Můžeš začít hned na ukázkové fotce nebo nahrát vlastní',
     zoomHelp: 'Kolečkem myši přiblížíš nebo oddálíš obrázek. Přiblížený obrázek můžeš posouvat tažením myší. Dvojklik vrátí zoom na 100 %.',
+    reuploadBtn: '↺ Nahrát jinou fotku',
     sectionUpload: 'Nahrát fotku',
     dropZoneMain: 'Přetáhni nebo klikni pro výběr',
     dropZoneSub: 'JPG, PNG, BMP, WebP',
@@ -1369,12 +1391,12 @@ const dragState = {
 };
 
 const PRESETS = {
-  custom:   { brightness: 0,  contrast: 0,  gamma: 1.00, sharpness: 0.0, ditherMode: 'floyd' },
-  normal:   { brightness: 5,  contrast: 30, gamma: 1.08, sharpness: 1.0, ditherMode: 'floyd' },
+  custom:   { brightness: 0, contrast: 0, gamma: 1.00, sharpness: 0.0, ditherMode: 'floyd' },
+  normal:   { brightness: 5, contrast: 30, gamma: 1.08, sharpness: 1.0, ditherMode: 'floyd' },
   portrait: { brightness: 10, contrast: 22, gamma: 1.20, sharpness: 0.5, ditherMode: 'floyd' },
   dark:     { brightness: 25, contrast: 35, gamma: 1.25, sharpness: 1.0, ditherMode: 'floyd' },
   light:    { brightness: -10, contrast: 45, gamma: 0.95, sharpness: 1.0, ditherMode: 'floyd' },
-  detail:   { brightness: 0,  contrast: 55, gamma: 1.00, sharpness: 2.0, ditherMode: 'atkinson' }
+  detail:   { brightness: 0, contrast: 55, gamma: 1.00, sharpness: 2.0, ditherMode: 'atkinson' }
 };
 
 const DEFAULTS = {
@@ -1483,6 +1505,11 @@ const sliderPairs = [
 
 dropZone.addEventListener('click', () => fileInput.click());
 uploadCtaCard.addEventListener('click', () => fileInput.click());
+
+document.addEventListener('click', function(e) {
+  const btn = e.target.closest('#reuploadBtnResult, #reuploadBtnCompare');
+  if (btn) fileInput.click();
+});
 
 fileInput.addEventListener('change', e => {
   if (e.target.files && e.target.files[0]) loadFile(e.target.files[0]);
@@ -1803,7 +1830,7 @@ function showEditor() {
   document.getElementById('canvasArea').style.display = 'block';
 }
 
- function scrollToPreviewOnMobile() {
+function scrollToPreviewOnMobile() {
   if (window.innerWidth >= 1024) return;
 
   const target = document.getElementById('canvasArea');
@@ -1833,18 +1860,16 @@ function loadImageIntoEditor(img, switchToResult = false, targetDpi = null) {
   saveSettings();
 
   const isMobile = window.innerWidth < 1024;
-
-  // 👇 Na mobilu vždy zobraz jen výstup (větší přehlednost)
   setViewMode(isMobile ? 'result' : (switchToResult ? 'result' : 'compare'));
 
   resetAllCanvasZoom();
   processImage();
 
-  // 👇 Auto scroll na preview
   if (isMobile) {
     scrollToPreviewOnMobile();
   }
 }
+
 function loadFile(file) {
   if (!file || !file.type.startsWith('image/')) return;
 
