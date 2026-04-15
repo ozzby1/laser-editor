@@ -1,2400 +1,2492 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PHOTOENGRAVING – Laser Engraving Photo Editor</title>
-
-<meta name="description" content="Free online photo editor for laser engraving. Adjust brightness, contrast, sharpness and export an optimized PNG ready for your laser engraver.">
-<meta name="keywords" content="laser engraving photo editor, laser photo converter, photo to laser, grayscale to engraving, laser PNG">
-<meta name="author" content="PHOTOENGRAVING">
-<meta name="robots" content="index, follow">
-<link rel="canonical" href="https://photoengraving.online/">
-<link rel="icon" type="image/png" href="https://raw.githubusercontent.com/ozzby1/laser-editor/main/favi.png">
-
-<meta property="og:title" content="PHOTOENGRAVING – Laser Engraving Photo Editor">
-<meta property="og:description" content="Convert your photo into a laser-ready image for free. Brightness, contrast, sharpness, engraving style and export with correct DPI.">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://photoengraving.online/">
-<meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://raw.githubusercontent.com/ozzby1/laser-editor/main/fb.png">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="PhotoEngraving.online – Laser photo editor">
-
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<script src="https://cdn.tailwindcss.com"></script>
-
-<style>
-  * { box-sizing: border-box; }
-
-  :root {
-    --bg: #0a0a0f;
-    --panel: rgba(15,17,26,0.85);
-    --border: rgba(255,255,255,0.06);
-    --muted: #64748b;
-    --soft: #475569;
-    --text: #e2e8f0;
-    --accent: #f97316;
-    --accent2: #ea580c;
-  }
-
-  html, body {
-    margin: 0;
-    padding: 0;
-    background: var(--bg);
-    color: var(--text);
-    font-family: 'Inter', 'Segoe UI', sans-serif;
-    min-height: 100%;
-  }
-
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background:
-      radial-gradient(ellipse 80% 50% at 20% -10%, rgba(249,115,22,0.07) 0%, transparent 60%),
-      radial-gradient(ellipse 60% 40% at 80% 110%, rgba(99,102,241,0.05) 0%, transparent 60%);
-    pointer-events: none;
-    z-index: 0;
-  }
-
-  .content {
-    position: relative;
-    z-index: 1;
-  }
-
-  canvas {
-    display: block;
-    max-width: 100%;
-    background: #000;
-  }
-
-  #canvasSingle,
-  #canvasCompareResult {
-    image-rendering: pixelated;
-  }
-
-  input[type=range] {
-    accent-color: var(--accent);
-  }
-
-  .panel {
-    background: var(--panel);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    backdrop-filter: blur(10px);
-    box-shadow: 0 10px 28px rgba(0,0,0,0.18);
-  }
-
-  .section-title {
-    font-size: 0.68rem;
-    font-weight: 700;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--soft);
-    margin-bottom: 12px;
-  }
-
-  label {
-    font-size: 0.75rem;
-    font-weight: 500;
-    color: var(--muted);
-  }
-
-  select,
-  input[type=number] {
-    background: #0f1117;
-    border: 1px solid rgba(255,255,255,0.08);
-    color: #cbd5e1;
-    border-radius: 10px;
-    padding: 8px 10px;
-    font-size: 0.84rem;
-    font-family: inherit;
-    outline: none;
-    transition: border-color 0.2s, box-shadow 0.2s;
-    width: 100%;
-  }
-
-  select:hover,
-  select:focus,
-  input[type=number]:hover,
-  input[type=number]:focus {
-    border-color: rgba(249,115,22,0.45);
-    box-shadow: 0 0 0 3px rgba(249,115,22,0.08);
-  }
-
-  .helper-text {
-    font-size: 0.7rem;
-    color: #94a3b8;
-    margin-top: 6px;
-    line-height: 1.45;
-  }
-
-  .drop-zone {
-    border: 3px dashed rgba(249,115,22,0.85);
-    border-radius: 14px;
-    transition: all 0.2s ease;
-    background: rgba(249,115,22,0.06);
-    box-shadow:
-      0 0 0 1px rgba(249,115,22,0.10),
-      inset 0 0 0 1px rgba(249,115,22,0.08);
-  }
-
-  .drop-zone:hover {
-    border-color: rgba(249,115,22,1);
-    background: rgba(249,115,22,0.10);
-    box-shadow:
-      0 0 0 1px rgba(249,115,22,0.18),
-      0 10px 28px rgba(249,115,22,0.10),
-      inset 0 0 0 1px rgba(249,115,22,0.10);
-  }
-
-  .drop-zone.drag-over {
-    border-color: rgba(249,115,22,1);
-    background: rgba(249,115,22,0.14);
-    box-shadow:
-      0 0 0 2px rgba(249,115,22,0.22),
-      0 14px 34px rgba(249,115,22,0.14),
-      inset 0 0 0 1px rgba(249,115,22,0.12);
-  }
-
-  .slider-row {
-    display: grid;
-    grid-template-columns: 1fr auto;
-    align-items: center;
-    gap: 10px;
-  }
-
-  .slider-row input[type=range] {
-    width: 100%;
-  }
-
-  .slider-val {
-    min-width: 60px;
-    text-align: right;
-    font-size: 0.78rem;
-    font-weight: 700;
-    color: var(--accent);
-    font-variant-numeric: tabular-nums;
-  }
-
-  .btn {
-    cursor: pointer;
-    transition: all 0.16s ease;
-    font-family: inherit;
-    font-weight: 600;
-    border: none;
-    outline: none;
-  }
-
-  .btn:hover {
-    filter: brightness(1.08);
-  }
-
-  .btn:active {
-    transform: scale(0.98);
-  }
-
-  .btn-primary {
-    background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 100%);
-    color: #fff;
-    border-radius: 10px;
-    padding: 10px 16px;
-    font-size: 0.86rem;
-    box-shadow: 0 4px 16px rgba(249,115,22,0.25);
-  }
-
-  .btn-secondary {
-    background: rgba(255,255,255,0.04);
-    color: #cbd5e1;
-    border: 1px solid rgba(255,255,255,0.08);
-    border-radius: 10px;
-    padding: 10px 14px;
-    font-size: 0.82rem;
-  }
-
-  .view-btn {
-    background: rgba(255,255,255,0.05);
-    color: #dbe3ee;
-    border: 2px solid var(--accent);
-    border-radius: 12px;
-    padding: 10px 18px;
-    font-size: 0.84rem;
-    font-weight: 700;
-    transition: all 0.18s ease;
-    min-width: 140px;
-  }
-
-  .view-btn:hover {
-    background: rgba(255,255,255,0.09);
-    border-color: rgba(249,115,22,0.28);
-    color: #ffffff;
-  }
-
-  .view-btn.active {
-    background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 100%);
-    color: #fff;
-    border-color: rgba(249,115,22,0.60);
-    box-shadow:
-      0 0 0 1px rgba(249,115,22,0.25),
-      0 10px 24px rgba(249,115,22,0.22);
-  }
-
-  .counter-badge {
-    background: rgba(249,115,22,0.08);
-    border: 1px solid rgba(249,115,22,0.18);
-    border-radius: 999px;
-    padding: 4px 12px;
-    font-size: 0.72rem;
-    color: #94a3b8;
-    white-space: nowrap;
-  }
-
-  .counter-badge span {
-    color: var(--accent);
-    font-weight: 700;
-  }
-
-  .lang-switcher {
-    display: flex;
-    gap: 6px;
-    align-items: center;
-  }
-
-  .lang-btn {
-    background: rgba(255,255,255,0.04);
-    color: #e2e8f0;
-    border: 1px solid rgba(255,255,255,0.08);
-    border-radius: 10px;
-    padding: 6px 9px;
-    font-size: 1rem;
-    line-height: 1;
-    cursor: pointer;
-    transition: all 0.18s ease;
-  }
-
-  .lang-btn:hover {
-    background: rgba(255,255,255,0.08);
-    border-color: rgba(249,115,22,0.28);
-  }
-
-  .lang-btn.active {
-    background: rgba(249,115,22,0.12);
-    border-color: rgba(249,115,22,0.55);
-    box-shadow: 0 0 0 1px rgba(249,115,22,0.14);
-  }
-
-  .info-card {
-    background: rgba(255,255,255,0.03);
-    border: 1px solid rgba(255,255,255,0.06);
-    border-radius: 12px;
-    padding: 10px 12px;
-  }
-
-  .mini-grid {
-    display: grid;
-    grid-template-columns: 1fr auto;
-    gap: 8px 10px;
-    align-items: center;
-  }
-
-  .canvas-wrap {
-    border-radius: 12px;
-    overflow: hidden;
-    border: 1px solid rgba(255,255,255,0.05);
-    background: #000;
-  }
-
-  .zoom-hover {
-    overflow: hidden;
-    border-radius: 12px;
-    cursor: zoom-in;
-    user-select: none;
-    -webkit-user-select: none;
-    position: relative;
-  }
-
-  .zoom-hover canvas {
-    display: block;
-    width: 100%;
-    height: auto;
-    transform-origin: top left;
-    transition: transform 0.08s ease;
-  }
-
-  .zoom-hover.zoomed {
-    cursor: grab;
-    overflow: auto;
-    max-height: 75vh;
-  }
-
-  .zoom-hover.dragging {
-    cursor: grabbing !important;
-  }
-
-  .zoom-hover.dragging canvas {
-    transition: none;
-  }
-
-  .preset-card {
-    background: rgba(255,255,255,0.04);
-    border: 1px solid rgba(255,255,255,0.08);
-    border-radius: 10px;
-    padding: 12px;
-    text-align: center;
-    font-size: 0.8rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.2s;
-    color: #dbe3ee;
-  }
-
-  .preset-card:hover {
-    border-color: rgba(249,115,22,0.4);
-    background: rgba(255,255,255,0.06);
-  }
-
-  .preset-card.active {
-    background: rgba(249,115,22,0.12);
-    border-color: rgba(249,115,22,0.6);
-    color: #f97316;
-    box-shadow: 0 0 0 1px rgba(249,115,22,0.18);
-  }
-
-  .empty-steps {
-    display: flex;
-    gap: 8px;
-    justify-content: center;
-    flex-wrap: wrap;
-  }
-
-  .empty-step {
-    display: flex;
-    align-items: flex-start;
-    gap: 10px;
-    background: rgba(255,255,255,0.03);
-    border: 1px solid rgba(255,255,255,0.06);
-    border-radius: 10px;
-    padding: 12px 14px;
-    flex: 1;
-    min-width: 130px;
-    max-width: 210px;
-  }
-
-  .empty-step.primary {
-    background: rgba(249,115,22,0.07);
-    border-color: rgba(249,115,22,0.35);
-    cursor: pointer;
-    transition: all 0.2s;
-  }
-
-  .empty-step.primary:hover {
-    background: rgba(249,115,22,0.12);
-  }
-
-  .empty-step-num {
-    width: 28px;
-    height: 28px;
-    border-radius: 999px;
-    background: rgba(249,115,22,0.18);
-    border: 1px solid rgba(249,115,22,0.36);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.85rem;
-    font-weight: 700;
-    color: var(--accent);
-    flex-shrink: 0;
-  }
-
-  .hint-line {
-    text-align: center;
-    margin-top: 18px;
-    font-size: 0.78rem;
-    color: #334155;
-  }
-
-  .footer-note {
-    font-size: 0.7rem;
-    color: #475569;
-    line-height: 1.5;
-  }
-
-  .help-section-title {
-    font-size: 1.05rem;
-    font-weight: 700;
-    color: #fb923c;
-    margin-bottom: 12px;
-  }
-
-  .help-text {
-    color: #cbd5e1;
-    font-size: 0.92rem;
-    line-height: 1.75;
-  }
-
-  .help-step {
-    display: flex;
-    gap: 14px;
-    align-items: flex-start;
-    background: rgba(255,255,255,0.03);
-    border: 1px solid rgba(255,255,255,0.06);
-    border-radius: 14px;
-    padding: 16px;
-  }
-
-  .help-step-num {
-    min-width: 2rem;
-    height: 2rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 9999px;
-    font-weight: 700;
-    font-size: 0.9rem;
-    background: var(--accent);
-    color: white;
-    flex-shrink: 0;
-    box-shadow: 0 4px 16px rgba(249,115,22,0.2);
-  }
-
-  .help-card {
-    background: rgba(255,255,255,0.03);
-    border: 1px solid rgba(255,255,255,0.06);
-    border-radius: 14px;
-    padding: 16px;
-  }
-
-  .help-card-title {
-    color: #fdba74;
-    font-weight: 700;
-    margin-bottom: 6px;
-    font-size: 0.92rem;
-  }
-
-  .help-card-text {
-    color: #94a3b8;
-    font-size: 0.84rem;
-    line-height: 1.65;
-  }
-
-  .help-table-wrap {
-    overflow-x: auto;
-    border-radius: 14px;
-    border: 1px solid rgba(255,255,255,0.06);
-  }
-
-  .help-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 0.84rem;
-  }
-
-  .help-table thead tr {
-    background: rgba(255,255,255,0.05);
-    color: #cbd5e1;
-    text-align: left;
-  }
-
-  .help-table th,
-  .help-table td {
-    padding: 12px 14px;
-    border-bottom: 1px solid rgba(255,255,255,0.06);
-    vertical-align: top;
-  }
-
-  .help-table tbody tr {
-    background: rgba(255,255,255,0.02);
-  }
-
-  .help-table tbody tr:hover {
-    background: rgba(255,255,255,0.04);
-  }
-
-  .help-table td:first-child {
-    color: #fdba74;
-    font-weight: 700;
-    white-space: nowrap;
-  }
-
-  .help-note-box {
-    background: rgba(255,255,255,0.03);
-    border: 1px solid rgba(255,255,255,0.06);
-    border-radius: 14px;
-    padding: 16px;
-    color: #cbd5e1;
-    font-size: 0.88rem;
-    line-height: 1.7;
-  }
-
-  .help-note-box .formula {
-    color: #94a3b8;
-    font-size: 0.82rem;
-    margin-top: 8px;
-  }
-
-  .mobile-action-stack {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    align-items: center;
-    margin-top: 14px;
-  }
-
-  .mobile-reupload-btn,
-  .mobile-download-btn {
-    width: 100%;
-    max-width: 320px;
-    cursor: pointer;
-    font-size: 0.92rem;
-    font-weight: 700;
-    padding: 12px 16px;
-    box-shadow: 0 8px 24px rgba(249,115,22,0.28);
-  }
-
-  @media (min-width: 1024px) {
-    .mobile-action-stack {
-      display: none;
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PhotoEngraving.online – Laser Photo Editor</title>
+
+  <meta name="description" content="Free online photo editor for laser engraving. Adjust brightness, contrast, sharpness and export an optimized PNG ready for your laser engraver.">
+  <meta name="keywords" content="laser engraving photo editor, laser photo converter, photo to laser, grayscale to engraving, laser PNG">
+  <meta name="author" content="PHOTOENGRAVING">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://photoengraving.online/">
+  <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/ozzby1/laser-editor/main/favi.png">
+
+  <meta property="og:title" content="PhotoEngraving.online – Laser Photo Editor">
+  <meta property="og:description" content="Convert your photo into a laser-ready image for free. Brightness, contrast, sharpness, engraving style and export with correct DPI.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://photoengraving.online/">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:image" content="https://raw.githubusercontent.com/ozzby1/laser-editor/main/fb.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="PhotoEngraving.online – Laser photo editor">
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    * { box-sizing: border-box; }
+
+    :root {
+      --bg: #09090d;
+      --bg2: #11131a;
+      --panel: rgba(17, 19, 28, 0.82);
+      --panel-strong: rgba(20, 23, 34, 0.96);
+      --border: rgba(255,255,255,0.07);
+      --border-strong: rgba(255,255,255,0.12);
+      --muted: #94a3b8;
+      --soft: #64748b;
+      --text: #e5edf6;
+      --heading: #f8fafc;
+      --accent: #f97316;
+      --accent2: #ea580c;
+      --accent-soft: rgba(249,115,22,0.14);
+      --shadow-lg: 0 18px 50px rgba(0,0,0,0.30);
+      --shadow-md: 0 10px 30px rgba(0,0,0,0.20);
+      --radius-xl: 20px;
+      --radius-lg: 16px;
+      --radius-md: 12px;
     }
-  }
-</style>
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', 'Segoe UI', sans-serif;
+      min-height: 100%;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 75% 45% at 15% -10%, rgba(249,115,22,0.10) 0%, transparent 60%),
+        radial-gradient(ellipse 55% 35% at 85% 110%, rgba(99,102,241,0.08) 0%, transparent 60%),
+        linear-gradient(180deg, rgba(255,255,255,0.015) 0%, transparent 100%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .content {
+      position: relative;
+      z-index: 1;
+    }
+
+    canvas {
+      display: block;
+      max-width: 100%;
+      background: #000;
+    }
+
+    #canvasSingle,
+    #canvasCompareResult {
+      image-rendering: pixelated;
+    }
+
+    input[type=range] {
+      accent-color: var(--accent);
+    }
+
+    .panel {
+      background: linear-gradient(180deg, rgba(255,255,255,0.025), rgba(255,255,255,0.01)), var(--panel);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      box-shadow: var(--shadow-md);
+      transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .panel:hover {
+      border-color: rgba(255,255,255,0.10);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .section-title {
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #8ea1b5;
+      margin-bottom: 14px;
+    }
+
+    label {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: #a8b7c8;
+    }
+
+    select,
+    input[type=number] {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.09);
+      color: #dbe7f3;
+      border-radius: 12px;
+      padding: 10px 12px;
+      font-size: 0.85rem;
+      font-family: inherit;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+      width: 100%;
+    }
+
+    select:hover,
+    select:focus,
+    input[type=number]:hover,
+    input[type=number]:focus {
+      border-color: rgba(249,115,22,0.45);
+      background: rgba(255,255,255,0.05);
+      box-shadow: 0 0 0 4px rgba(249,115,22,0.08);
+    }
+
+    .helper-text {
+      font-size: 0.72rem;
+      color: #8ea1b5;
+      margin-top: 6px;
+      line-height: 1.5;
+    }
+
+    .drop-zone {
+      border: 2px dashed rgba(249,115,22,0.78);
+      border-radius: 16px;
+      transition: all 0.2s ease;
+      background: rgba(249,115,22,0.06);
+      box-shadow:
+        0 0 0 1px rgba(249,115,22,0.10),
+        inset 0 0 0 1px rgba(249,115,22,0.06);
+      min-height: 150px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .drop-zone:hover {
+      border-color: rgba(249,115,22,1);
+      background: rgba(249,115,22,0.10);
+      box-shadow:
+        0 0 0 1px rgba(249,115,22,0.18),
+        0 10px 28px rgba(249,115,22,0.10),
+        inset 0 0 0 1px rgba(249,115,22,0.10);
+    }
+
+    .drop-zone.drag-over {
+      border-color: rgba(249,115,22,1);
+      background: rgba(249,115,22,0.14);
+      box-shadow:
+        0 0 0 2px rgba(249,115,22,0.22),
+        0 14px 34px rgba(249,115,22,0.14),
+        inset 0 0 0 1px rgba(249,115,22,0.12);
+    }
+
+    .slider-row {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .slider-row input[type=range] {
+      width: 100%;
+    }
+
+    .slider-val {
+      min-width: 72px;
+      text-align: right;
+      font-size: 0.79rem;
+      font-weight: 700;
+      color: #ff9a57;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .btn {
+      cursor: pointer;
+      transition: all 0.16s ease;
+      font-family: inherit;
+      font-weight: 600;
+      border: none;
+      outline: none;
+    }
+
+    .btn:hover {
+      filter: brightness(1.06);
+    }
+
+    .btn:active {
+      transform: scale(0.985);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 100%);
+      color: #fff;
+      border-radius: 12px;
+      padding: 11px 16px;
+      font-size: 0.88rem;
+      box-shadow: 0 8px 22px rgba(249,115,22,0.24);
+    }
+
+    .btn-secondary {
+      background: rgba(255,255,255,0.045);
+      color: #d8e1ea;
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 12px;
+      padding: 10px 14px;
+      font-size: 0.84rem;
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255,255,255,0.07);
+    }
+
+    .view-btn {
+      background: rgba(255,255,255,0.04);
+      color: #dbe3ee;
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 12px;
+      padding: 10px 16px;
+      font-size: 0.84rem;
+      font-weight: 700;
+      transition: all 0.18s ease;
+      min-width: 146px;
+    }
+
+    .view-btn:hover {
+      background: rgba(255,255,255,0.08);
+      border-color: rgba(249,115,22,0.28);
+      color: #ffffff;
+    }
+
+    .view-btn.active {
+      background: linear-gradient(135deg, rgba(249,115,22,0.18) 0%, rgba(234,88,12,0.18) 100%);
+      color: #fff;
+      border-color: rgba(249,115,22,0.50);
+      box-shadow: 0 0 0 1px rgba(249,115,22,0.18), 0 10px 24px rgba(249,115,22,0.16);
+    }
+
+    .counter-badge {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 999px;
+      padding: 6px 12px;
+      font-size: 0.74rem;
+      color: #aab8c8;
+      white-space: nowrap;
+    }
+
+    .counter-badge span {
+      color: #ff9a57;
+      font-weight: 700;
+    }
+
+    .lang-switcher {
+      display: flex;
+      gap: 6px;
+      align-items: center;
+    }
+
+    .lang-btn {
+      background: rgba(255,255,255,0.04);
+      color: #e2e8f0;
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 10px;
+      padding: 6px 9px;
+      font-size: 1rem;
+      line-height: 1;
+      cursor: pointer;
+      transition: all 0.18s ease;
+    }
+
+    .lang-btn:hover {
+      background: rgba(255,255,255,0.08);
+      border-color: rgba(249,115,22,0.28);
+    }
+
+    .lang-btn.active {
+      background: rgba(249,115,22,0.12);
+      border-color: rgba(249,115,22,0.55);
+      box-shadow: 0 0 0 1px rgba(249,115,22,0.14);
+    }
+
+    .info-card {
+      background: rgba(255,255,255,0.025);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 14px;
+      padding: 12px 14px;
+    }
+
+    .mini-grid {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 8px 10px;
+      align-items: center;
+    }
+
+    .canvas-wrap {
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.06);
+      background: #000;
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.02);
+    }
+
+    .zoom-hover {
+      overflow: hidden;
+      border-radius: 14px;
+      cursor: zoom-in;
+      user-select: none;
+      -webkit-user-select: none;
+      position: relative;
+    }
+
+    .zoom-hover canvas {
+      display: block;
+      width: 100%;
+      height: auto;
+      transform-origin: top left;
+      transition: transform 0.08s ease;
+    }
+
+    .zoom-hover.zoomed {
+      cursor: grab;
+      overflow: auto;
+      max-height: 75vh;
+    }
+
+    .zoom-hover.dragging {
+      cursor: grabbing !important;
+    }
+
+    .zoom-hover.dragging canvas {
+      transition: none;
+    }
+
+    .preset-card {
+      background: rgba(255,255,255,0.035);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 12px;
+      padding: 13px 12px;
+      text-align: center;
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      color: #dbe3ee;
+    }
+
+    .preset-card:hover {
+      transform: translateY(-1px);
+      border-color: rgba(249,115,22,0.35);
+      background: rgba(255,255,255,0.06);
+    }
+
+    .preset-card.active {
+      background: linear-gradient(180deg, rgba(249,115,22,0.14), rgba(249,115,22,0.07));
+      border-color: rgba(249,115,22,0.52);
+      color: #ff9a57;
+      box-shadow: 0 0 0 1px rgba(249,115,22,0.12);
+    }
+
+    .empty-steps {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .empty-step {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 12px;
+      padding: 13px 14px;
+      flex: 1;
+      min-width: 130px;
+      max-width: 210px;
+    }
+
+    .empty-step.primary {
+      background: rgba(249,115,22,0.07);
+      border-color: rgba(249,115,22,0.35);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .empty-step.primary:hover {
+      background: rgba(249,115,22,0.12);
+      transform: translateY(-1px);
+    }
+
+    .empty-step-num {
+      width: 28px;
+      height: 28px;
+      border-radius: 999px;
+      background: rgba(249,115,22,0.18);
+      border: 1px solid rgba(249,115,22,0.36);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--accent);
+      flex-shrink: 0;
+    }
+
+    .hint-line {
+      text-align: center;
+      margin-top: 18px;
+      font-size: 0.79rem;
+      color: #64748b;
+    }
+
+    .footer-note {
+      font-size: 0.76rem;
+      color: #7b8b9c;
+      line-height: 1.6;
+    }
+
+    .help-section-title {
+      font-size: 1.08rem;
+      font-weight: 800;
+      color: #ff9a57;
+      margin-bottom: 12px;
+    }
+
+    .help-text {
+      color: #d7e0ea;
+      font-size: 0.94rem;
+      line-height: 1.8;
+    }
+
+    .help-step,
+    .help-card,
+    .help-note-box {
+      background: rgba(255,255,255,0.025);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 16px;
+    }
+
+    .help-step {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+      padding: 18px;
+    }
+
+    .help-step-num {
+      min-width: 2rem;
+      height: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 9999px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      background: var(--accent);
+      color: white;
+      flex-shrink: 0;
+      box-shadow: 0 4px 16px rgba(249,115,22,0.2);
+    }
+
+    .help-card {
+      padding: 18px;
+    }
+
+    .help-card-title {
+      color: #fdba74;
+      font-weight: 700;
+      margin-bottom: 6px;
+      font-size: 0.92rem;
+    }
+
+    .help-card-text {
+      color: #94a3b8;
+      font-size: 0.84rem;
+      line-height: 1.65;
+    }
+
+    .help-table-wrap {
+      overflow-x: auto;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .help-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.84rem;
+    }
+
+    .help-table thead tr {
+      background: rgba(255,255,255,0.05);
+      color: #cbd5e1;
+      text-align: left;
+    }
+
+    .help-table th,
+    .help-table td {
+      padding: 12px 14px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      vertical-align: top;
+    }
+
+    .help-table tbody tr {
+      background: rgba(255,255,255,0.02);
+    }
+
+    .help-table tbody tr:hover {
+      background: rgba(255,255,255,0.04);
+    }
+
+    .help-table td:first-child {
+      color: #fdba74;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .help-note-box {
+      padding: 18px;
+      color: #cbd5e1;
+      font-size: 0.88rem;
+      line-height: 1.7;
+    }
+
+    .help-note-box .formula {
+      color: #94a3b8;
+      font-size: 0.82rem;
+      margin-top: 8px;
+    }
+
+    .mobile-action-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      align-items: center;
+      margin-top: 14px;
+    }
+
+    .mobile-reupload-btn,
+    .mobile-download-btn {
+      width: 100%;
+      max-width: 320px;
+      cursor: pointer;
+      font-size: 0.92rem;
+      font-weight: 700;
+      padding: 12px 16px;
+      box-shadow: 0 8px 24px rgba(249,115,22,0.28);
+    }
+
+    header.app-header {
+      position: sticky;
+      top: 10px;
+      z-index: 20;
+      padding: 14px 16px;
+      border-radius: 18px;
+      background: rgba(10, 12, 18, 0.72);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(255,255,255,0.06);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.18);
+      margin-bottom: 1.75rem;
+    }
+
+    .brand-logo {
+      height: 64px;
+      width: auto;
+      filter: drop-shadow(0 8px 22px rgba(0,0,0,0.22));
+    }
+
+    .coffee-logo {
+      height: 34px;
+      width: auto;
+      transition: 0.2s;
+      border-radius: 10px;
+    }
+
+    .coffee-logo:hover {
+      transform: translateY(-1px);
+      filter: brightness(1.05);
+    }
+
+    @media (min-width: 1024px) {
+      .mobile-action-stack {
+        display: none;
+      }
+    }
+
+    @media (max-width: 1023px) {
+      .content {
+        padding-top: 14px;
+      }
+
+      header.app-header {
+        top: 0;
+        border-radius: 14px;
+        padding: 12px 14px;
+        margin-bottom: 16px;
+      }
+
+      .panel {
+        border-radius: 16px;
+      }
+
+      .view-btn {
+        flex: 1;
+        min-width: 0;
+      }
+
+      .brand-logo {
+        height: 52px;
+      }
+    }
+  </style>
 </head>
 <body>
-<div class="content max-w-7xl mx-auto px-4 py-6">
+  <div class="content max-w-7xl mx-auto px-4 py-6">
 
-  <header class="flex items-center gap-3 mb-7 flex-wrap">
-    <a href="https://photoengraving.online/">
-      <img src="logo.png" alt="Photoengraving Logo" style="height:72px;width:auto;">
-    </a>
+    <header class="app-header flex items-center gap-3 flex-wrap">
+      <a href="https://photoengraving.online/">
+        <img src="logo.png" alt="Photoengraving Logo" class="brand-logo">
+      </a>
 
-    <div class="ml-auto flex flex-wrap gap-2 items-center">
+      <div class="ml-auto flex flex-wrap gap-2 items-center">
+        <a href="https://buymeacoffee.com/janosobav" target="_blank" rel="noopener noreferrer" style="display:flex;align-items:center;">
+          <img src="bac.png" alt="Buy me a coffee" class="coffee-logo">
+        </a>
 
-     <a href="https://buymeacoffee.com/janosobav" target="_blank" rel="noopener noreferrer"
-   style="display:flex;align-items:center;">
-  <img src="bac.png" alt="Buy me a coffee"
-       style="height:28px;width:auto;transition:0.2s;">
-</a>
-      <div class="lang-switcher" id="langSwitcher">
-        <button class="lang-btn active" data-lang="en" title="English" aria-label="English">🇬🇧</button>
-        <button class="lang-btn" data-lang="es" title="Español" aria-label="Español">🇪🇸</button>
-        <button class="lang-btn" data-lang="de" title="Deutsch" aria-label="Deutsch">🇩🇪</button>
-        <button class="lang-btn" data-lang="cs" title="Čeština" aria-label="Čeština">🇨🇿</button>
-      </div>
-      <div class="counter-badge"><span data-i18n="counterLabel">📸 Processed:</span> <span id="photoCounter">…</span></div>
-    </div>
-  </header>
-
-  <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
-
-    <div class="lg:col-span-2 flex flex-col gap-3 order-2 lg:order-1">
-      <div class="panel px-4 py-3 flex gap-3 items-center flex-wrap">
-        <button class="btn view-btn active" id="btnCompare" data-i18n="btnCompare">Original + Output</button>
-        <button class="btn view-btn" id="btnResult" data-i18n="btnOutput">Only Output</button>
-        <div class="ml-auto" style="font-size:0.75rem;color:#475569;font-weight:600" id="imageDims"></div>
-      </div>
-
-      <div class="panel p-5">
-        <div id="emptyState" style="min-height:320px">
-          <div style="display:flex;gap:12px;margin-bottom:24px;align-items:flex-end">
-            <div style="flex:1">
-              <div style="font-size:0.65rem;font-weight:700;letter-spacing:0.08em;color:#94a3b8;margin-bottom:6px;text-align:center" data-i18n="emptyOriginal">ORIGINAL</div>
-              <div style="border-radius:10px;overflow:hidden;border:1px solid rgba(255,255,255,0.07);background:#000">
-                <img src="preview-v3.png" alt="Preview original image" style="width:100%;display:block;object-fit:contain;" id="emptyOriginalImg">
-              </div>
-            </div>
-            <div style="display:flex;align-items:center;color:#f97316;font-size:1.4rem;padding-bottom:4px">→</div>
-            <div style="flex:1">
-              <div style="font-size:0.65rem;font-weight:700;letter-spacing:0.08em;color:#f97316;margin-bottom:6px;text-align:center" data-i18n="emptyOutput">OUTPUT</div>
-              <div style="border-radius:10px;overflow:hidden;border:1px solid rgba(249,115,22,0.2);background:#000">
-                <img src="preview-v3.png" alt="Preview output image" style="width:100%;display:block;object-fit:contain;" id="emptyResultImg">
-              </div>
-            </div>
-          </div>
-
-          <div class="empty-steps">
-            <div id="uploadCtaCard" class="empty-step primary">
-              <div class="empty-step-num">1</div>
-              <div>
-                <div style="font-size:0.8rem;font-weight:700;color:#f97316;margin-bottom:2px" data-i18n="stepUploadTitle">Upload a photo ↑</div>
-                <div style="font-size:0.7rem;color:#94a3b8" data-i18n="stepUploadText">Click here or drag & drop</div>
-              </div>
-            </div>
-
-            <div class="empty-step">
-              <div class="empty-step-num">2</div>
-              <div>
-                <div style="font-size:0.8rem;font-weight:600;color:#cbd5e1;margin-bottom:2px" data-i18n="stepTryTitle">Or try it right away</div>
-                <div style="font-size:0.7rem;color:#475569" data-i18n="stepTryText">A demo photo loads automatically</div>
-              </div>
-            </div>
-
-            <div class="empty-step">
-              <div class="empty-step-num">3</div>
-              <div>
-                <div style="font-size:0.8rem;font-weight:600;color:#cbd5e1;margin-bottom:2px" data-i18n="stepDownloadTitle">Download PNG</div>
-                <div style="font-size:0.7rem;color:#475569" data-i18n="stepDownloadText">Ready for engraving</div>
-              </div>
-            </div>
-          </div>
-
-          <div class="hint-line" data-i18n="hintLine">↑ Start right away with the demo photo or upload your own</div>
+        <div class="lang-switcher" id="langSwitcher">
+          <button class="lang-btn active" data-lang="en" title="English" aria-label="English">🇬🇧</button>
+          <button class="lang-btn" data-lang="es" title="Español" aria-label="Español">🇪🇸</button>
+          <button class="lang-btn" data-lang="de" title="Deutsch" aria-label="Deutsch">🇩🇪</button>
+          <button class="lang-btn" data-lang="cs" title="Čeština" aria-label="Čeština">🇨🇿</button>
         </div>
 
-        <div id="canvasArea" style="display:none">
-          <div id="resultView" style="display:none">
-            <div class="zoom-hover canvas-wrap">
-              <canvas id="canvasSingle" class="w-full"></canvas>
-            </div>
-            <div class="helper-text" style="text-align:center;margin-top:10px;" data-i18n="zoomHelp">
-              Use the mouse wheel to zoom in or out. When zoomed in, drag the image with the mouse. Double-click resets zoom to 100%.
-            </div>
-            <div class="mobile-action-stack">
-              <button class="btn btn-primary mobile-reupload-btn" id="reuploadBtnResult" data-i18n="reuploadBtn">↺ Upload another photo</button>
-              <button class="btn btn-primary mobile-download-btn" id="downloadBtnMobileResult" data-i18n="downloadBtn">Download PNG for Laser</button>
-            </div>
-          </div>
+        <div class="counter-badge">
+          <span data-i18n="counterLabel">📸 Processed:</span>
+          <span id="photoCounter">…</span>
+        </div>
+      </div>
+    </header>
 
-          <div id="compareView">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div>
-                <div class="zoom-hover canvas-wrap">
-                  <canvas id="canvasCompareOrig" class="w-full"></canvas>
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+
+      <div class="lg:col-span-2 flex flex-col gap-3 order-2 lg:order-1">
+        <div class="panel px-4 py-3 flex gap-3 items-center flex-wrap">
+          <button class="btn view-btn active" id="btnCompare" data-i18n="btnCompare">Original + Output</button>
+          <button class="btn view-btn" id="btnResult" data-i18n="btnOutput">Only Output</button>
+          <div class="ml-auto" style="font-size:0.76rem;color:#7b8b9c;font-weight:600" id="imageDims"></div>
+        </div>
+
+        <div class="panel p-5">
+          <div id="emptyState" style="min-height:320px">
+            <div style="display:flex;gap:12px;margin-bottom:24px;align-items:flex-end">
+              <div style="flex:1">
+                <div style="font-size:0.66rem;font-weight:700;letter-spacing:0.08em;color:#94a3b8;margin-bottom:6px;text-align:center" data-i18n="emptyOriginal">ORIGINAL</div>
+                <div style="border-radius:12px;overflow:hidden;border:1px solid rgba(255,255,255,0.07);background:#000">
+                  <img src="preview-v3.png" alt="Preview original image" style="width:100%;display:block;object-fit:contain;" id="emptyOriginalImg">
                 </div>
               </div>
-              <div>
-                <div class="zoom-hover canvas-wrap">
-                  <canvas id="canvasCompareResult" class="w-full"></canvas>
+
+              <div style="display:flex;align-items:center;color:#f97316;font-size:1.4rem;padding-bottom:4px">→</div>
+
+              <div style="flex:1">
+                <div style="font-size:0.66rem;font-weight:700;letter-spacing:0.08em;color:#f97316;margin-bottom:6px;text-align:center" data-i18n="emptyOutput">OUTPUT</div>
+                <div style="border-radius:12px;overflow:hidden;border:1px solid rgba(249,115,22,0.2);background:#000">
+                  <img src="preview-v3.png" alt="Preview output image" style="width:100%;display:block;object-fit:contain;" id="emptyResultImg">
                 </div>
               </div>
             </div>
-            <div class="helper-text" style="text-align:center;margin-top:10px;" data-i18n="zoomHelp">
-              Use the mouse wheel to zoom in or out. When zoomed in, drag the image with the mouse. Double-click resets zoom to 100%.
-            </div>
-            <div class="mobile-action-stack">
-              <button class="btn btn-primary mobile-reupload-btn" id="reuploadBtnCompare" data-i18n="reuploadBtn">↺ Upload another photo</button>
-              <button class="btn btn-primary mobile-download-btn" id="downloadBtnMobileCompare" data-i18n="downloadBtn">Download PNG for Laser</button>
-            </div>
-          </div>
-        </div>
-      </div>
 
-      <div id="helpArea" class="flex flex-col gap-3">
-        <div class="panel p-5">
-          <div class="help-section-title" data-i18n="helpIntroTitle">What does this tool do?</div>
-          <p class="help-text" data-i18n-html="helpIntroText">
-            <strong class="text-white">Photo Engraving Online</strong> converts a regular photo into a rasterized black-and-white image optimized for CO2 or diode laser engraving.
-          </p>
-        </div>
+            <div class="empty-steps">
+              <div id="uploadCtaCard" class="empty-step primary">
+                <div class="empty-step-num">1</div>
+                <div>
+                  <div style="font-size:0.82rem;font-weight:700;color:#f97316;margin-bottom:2px" data-i18n="stepUploadTitle">Upload a photo ↑</div>
+                  <div style="font-size:0.72rem;color:#94a3b8" data-i18n="stepUploadText">Click here or drag & drop</div>
+                </div>
+              </div>
 
-        <div class="panel p-5">
-          <div class="help-section-title" data-i18n="helpStepsTitle">Step-by-step guide</div>
-          <div class="space-y-4">
-            <div class="help-step">
-              <div class="help-step-num">1</div>
-              <div>
-                <p class="font-semibold text-white" data-i18n="helpStep1Title">Upload a photo</p>
-                <p class="text-sm mt-1 text-slate-400" data-i18n="helpStep1Text">Drag the file into the upload area or click to choose it from your device.</p>
+              <div class="empty-step">
+                <div class="empty-step-num">2</div>
+                <div>
+                  <div style="font-size:0.82rem;font-weight:600;color:#cbd5e1;margin-bottom:2px" data-i18n="stepTryTitle">Or try it right away</div>
+                  <div style="font-size:0.72rem;color:#64748b" data-i18n="stepTryText">A demo photo loads automatically</div>
+                </div>
+              </div>
+
+              <div class="empty-step">
+                <div class="empty-step-num">3</div>
+                <div>
+                  <div style="font-size:0.82rem;font-weight:600;color:#cbd5e1;margin-bottom:2px" data-i18n="stepDownloadTitle">Download PNG</div>
+                  <div style="font-size:0.72rem;color:#64748b" data-i18n="stepDownloadText">Ready for engraving</div>
+                </div>
               </div>
             </div>
 
-            <div class="help-step">
-              <div class="help-step-num">2</div>
-              <div>
-                <p class="font-semibold text-white" data-i18n="helpStep2Title">Set DPI</p>
-                <p class="text-sm mt-1 text-slate-400" data-i18n="helpStep2Text">Choose a resolution that matches your material and your laser’s capabilities.</p>
+            <div class="hint-line" data-i18n="hintLine">↑ Start right away with the demo photo or upload your own</div>
+          </div>
+
+          <div id="canvasArea" style="display:none">
+            <div id="resultView" style="display:none">
+              <div class="zoom-hover canvas-wrap">
+                <canvas id="canvasSingle" class="w-full"></canvas>
+              </div>
+
+              <div class="helper-text" style="text-align:center;margin-top:10px;" data-i18n="zoomHelp">
+                Use the mouse wheel to zoom in or out. When zoomed in, drag the image with the mouse. Double-click resets zoom to 100%.
+              </div>
+
+              <div class="mobile-action-stack">
+                <button class="btn btn-primary mobile-reupload-btn" id="reuploadBtnResult" data-i18n="reuploadBtn">↺ Upload another photo</button>
+                <button class="btn btn-primary mobile-download-btn" id="downloadBtnMobileResult" data-i18n="downloadBtn">Download PNG for Laser</button>
               </div>
             </div>
 
-            <div class="help-step">
-              <div class="help-step-num">3</div>
-              <div>
-                <p class="font-semibold text-white" data-i18n="helpStep3Title">Set the output size in mm</p>
-                <p class="text-sm mt-1 text-slate-400" data-i18n="helpStep3Text">Enter the final engraving width in millimeters.</p>
+            <div id="compareView">
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <div class="zoom-hover canvas-wrap">
+                    <canvas id="canvasCompareOrig" class="w-full"></canvas>
+                  </div>
+                </div>
+                <div>
+                  <div class="zoom-hover canvas-wrap">
+                    <canvas id="canvasCompareResult" class="w-full"></canvas>
+                  </div>
+                </div>
+              </div>
+
+              <div class="helper-text" style="text-align:center;margin-top:10px;" data-i18n="zoomHelp">
+                Use the mouse wheel to zoom in or out. When zoomed in, drag the image with the mouse. Double-click resets zoom to 100%.
+              </div>
+
+              <div class="mobile-action-stack">
+                <button class="btn btn-primary mobile-reupload-btn" id="reuploadBtnCompare" data-i18n="reuploadBtn">↺ Upload another photo</button>
+                <button class="btn btn-primary mobile-download-btn" id="downloadBtnMobileCompare" data-i18n="downloadBtn">Download PNG for Laser</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div id="helpArea" class="flex flex-col gap-3">
+          <div class="panel p-5">
+            <div class="help-section-title" data-i18n="helpIntroTitle">What does this tool do?</div>
+            <p class="help-text" data-i18n-html="helpIntroText">
+              <strong class="text-white">Photo Engraving Online</strong> converts a regular photo into a rasterized black-and-white image optimized for CO2 or diode laser engraving.
+            </p>
+          </div>
+
+          <div class="panel p-5">
+            <div class="help-section-title" data-i18n="helpStepsTitle">Step-by-step guide</div>
+            <div class="space-y-4">
+              <div class="help-step">
+                <div class="help-step-num">1</div>
+                <div>
+                  <p class="font-semibold text-white" data-i18n="helpStep1Title">Upload a photo</p>
+                  <p class="text-sm mt-1 text-slate-400" data-i18n="helpStep1Text">Drag the file into the upload area or click to choose it from your device.</p>
+                </div>
+              </div>
+
+              <div class="help-step">
+                <div class="help-step-num">2</div>
+                <div>
+                  <p class="font-semibold text-white" data-i18n="helpStep2Title">Set DPI</p>
+                  <p class="text-sm mt-1 text-slate-400" data-i18n="helpStep2Text">Choose a resolution that matches your material and your laser’s capabilities.</p>
+                </div>
+              </div>
+
+              <div class="help-step">
+                <div class="help-step-num">3</div>
+                <div>
+                  <p class="font-semibold text-white" data-i18n="helpStep3Title">Set the output size in mm</p>
+                  <p class="text-sm mt-1 text-slate-400" data-i18n="helpStep3Text">Enter the final engraving width in millimeters.</p>
+                </div>
+              </div>
+
+              <div class="help-step">
+                <div class="help-step-num">4</div>
+                <div>
+                  <p class="font-semibold text-white" data-i18n="helpStep4Title">Fine-tune the width</p>
+                  <p class="text-sm mt-1 text-slate-400" data-i18n="helpStep4Text">The slider lets you fine-tune the output width in pixels.</p>
+                </div>
+              </div>
+
+              <div class="help-step">
+                <div class="help-step-num">5</div>
+                <div>
+                  <p class="font-semibold text-white" data-i18n="helpStep5Title">Check the output and download the PNG</p>
+                  <p class="text-sm mt-1 text-slate-400" data-i18n="helpStep5Text">The output shows the final rasterized image.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="panel p-5">
+            <div class="help-section-title" data-i18n="helpDpiTitle">Recommended DPI by material</div>
+            <div class="help-table-wrap">
+              <table class="help-table">
+                <thead>
+                  <tr>
+                    <th data-i18n="helpTableHeadDpi">DPI</th>
+                    <th data-i18n="helpTableHeadMaterial">Best for</th>
+                    <th data-i18n="helpTableHeadNote">Note</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>72 DPI</td>
+                    <td data-i18n="helpDpi72Material">Leather, fabrics, very rough wood</td>
+                    <td data-i18n="helpDpi72Note">Low detail, fast engraving</td>
+                  </tr>
+                  <tr>
+                    <td>150 DPI</td>
+                    <td data-i18n="helpDpi150Material">Soft wood (pine, linden), OSB</td>
+                    <td data-i18n="helpDpi150Note">Good result for larger formats</td>
+                  </tr>
+                  <tr>
+                    <td>254 DPI</td>
+                    <td data-i18n="helpDpi254Material">Hard wood (oak, beech), plywood</td>
+                    <td data-i18n="helpDpi254Note">Good balance between detail and speed</td>
+                  </tr>
+                  <tr>
+                    <td>300 DPI ✓</td>
+                    <td data-i18n="helpDpi300Material">Glass, stone, slate, MDF</td>
+                    <td data-i18n="helpDpi300Note">Default value – suitable for most projects</td>
+                  </tr>
+                  <tr>
+                    <td>500 DPI</td>
+                    <td data-i18n="helpDpi500Material">Acrylic, coated metals, ceramics</td>
+                    <td data-i18n="helpDpi500Note">High detail, great for portraits</td>
+                  </tr>
+                  <tr>
+                    <td>750 DPI</td>
+                    <td data-i18n="helpDpi750Material">Anodized aluminum, cast acrylic</td>
+                    <td data-i18n="helpDpi750Note">Maximum detail, slower engraving</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="panel p-5">
+            <div class="help-section-title" data-i18n="helpOutputSizeTitle">How to choose the correct output size?</div>
+            <div class="help-note-box">
+              <p data-i18n-html="helpOutputSizeText1">The output size in <strong class="text-white">mm</strong> should exactly match the real physical size of the engraving area on your material.</p>
+              <p class="mt-3" data-i18n-html="helpOutputSizeText2">Example</p>
+              <p class="formula" data-i18n="helpOutputSizeFormula">ℹ️ Formula: width in px = (width in mm ÷ 25.4) × DPI</p>
+            </div>
+          </div>
+
+          <div class="panel p-5">
+            <div class="help-section-title" data-i18n="helpTipsTitle">Tips for better results</div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div class="help-card">
+                <div class="help-card-title" data-i18n="helpTip1Title">📷 Input photo quality</div>
+                <div class="help-card-text" data-i18n="helpTip1Text">Use sharp photos with good contrast.</div>
+              </div>
+
+              <div class="help-card">
+                <div class="help-card-title" data-i18n="helpTip2Title">🔲 Contrast and brightness</div>
+                <div class="help-card-text" data-i18n="helpTip2Text">Before uploading, try adjusting the photo.</div>
+              </div>
+
+              <div class="help-card">
+                <div class="help-card-title" data-i18n="helpTip3Title">🧪 Test engraving</div>
+                <div class="help-card-text" data-i18n="helpTip3Text">Always test the result first.</div>
+              </div>
+
+              <div class="help-card">
+                <div class="help-card-title" data-i18n="helpTip4Title">⚙️ LightBurn settings</div>
+                <div class="help-card-text" data-i18n-html="helpTip4Text">Import the PNG as Passthrough or Threshold.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex flex-col gap-3 order-1 lg:order-2">
+
+        <div class="panel p-4">
+          <div class="section-title" data-i18n="sectionUpload">Upload Photo</div>
+          <div class="drop-zone p-5 text-center cursor-pointer" id="dropZone">
+            <div style="font-size:2rem;margin-bottom:6px">📷</div>
+            <div style="font-size:0.92rem;color:#ffffff;font-weight:700" data-i18n="dropZoneMain">
+              Přetáhni nebo klikni pro výběr
+            </div>
+            <div style="font-size:0.76rem;color:#e2e8f0;margin-top:5px" data-i18n="dropZoneSub">
+              JPG, PNG, BMP, WebP
+            </div>
+            <input type="file" id="fileInput" accept="image/*" style="display:none">
+          </div>
+        </div>
+
+        <div class="panel p-4">
+          <div class="section-title" data-i18n="sectionPhotoType">Photo Type</div>
+          <div class="grid grid-cols-2 gap-2" id="presetCards">
+            <div class="preset-card" data-preset="custom" data-i18n="presetCustom">Custom</div>
+            <div class="preset-card active" data-preset="normal" data-i18n="presetNormal">Normal Photo</div>
+            <div class="preset-card" data-preset="portrait" data-i18n="presetPortrait">People</div>
+            <div class="preset-card" data-preset="dark" data-i18n="presetDark">Dark Photo</div>
+            <div class="preset-card" data-preset="light" data-i18n="presetLight">Light Photo</div>
+            <div class="preset-card" data-preset="detail" data-i18n="presetDetail">More Detail</div>
+          </div>
+
+          <div class="helper-text mt-2" data-i18n="presetHelp">
+            Default is Normal Photo. You can fine-tune everything with the sliders below.
+          </div>
+        </div>
+
+        <div class="panel p-4">
+          <div class="section-title" data-i18n="sectionAdjustments">Photo Adjustments</div>
+          <div class="flex flex-col gap-4">
+            <div>
+              <label for="brightness" data-i18n="labelBrightness">Brightness</label>
+              <div class="slider-row mt-1">
+                <input type="range" id="brightness" min="-150" max="150" value="0">
+                <span class="slider-val" id="brightnessVal">0</span>
               </div>
             </div>
 
-            <div class="help-step">
-              <div class="help-step-num">4</div>
-              <div>
-                <p class="font-semibold text-white" data-i18n="helpStep4Title">Fine-tune the width</p>
-                <p class="text-sm mt-1 text-slate-400" data-i18n="helpStep4Text">The slider lets you fine-tune the output width in pixels.</p>
+            <div>
+              <label for="contrast" data-i18n="labelContrast">Contrast</label>
+              <div class="slider-row mt-1">
+                <input type="range" id="contrast" min="-150" max="150" value="0">
+                <span class="slider-val" id="contrastVal">0</span>
               </div>
             </div>
 
-            <div class="help-step">
-              <div class="help-step-num">5</div>
-              <div>
-                <p class="font-semibold text-white" data-i18n="helpStep5Title">Check the output and download the PNG</p>
-                <p class="text-sm mt-1 text-slate-400" data-i18n="helpStep5Text">The output shows the final rasterized image.</p>
+            <div>
+              <label for="gamma" data-i18n="labelGamma">Gamma</label>
+              <div class="slider-row mt-1">
+                <input type="range" id="gamma" min="0.1" max="3.0" step="0.05" value="1.0">
+                <span class="slider-val" id="gammaVal">1.00</span>
               </div>
             </div>
-          </div>
-        </div>
 
-        <div class="panel p-5">
-          <div class="help-section-title" data-i18n="helpDpiTitle">Recommended DPI by material</div>
-          <div class="help-table-wrap">
-            <table class="help-table">
-              <thead>
-                <tr>
-                  <th data-i18n="helpTableHeadDpi">DPI</th>
-                  <th data-i18n="helpTableHeadMaterial">Best for</th>
-                  <th data-i18n="helpTableHeadNote">Note</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>72 DPI</td>
-                  <td data-i18n="helpDpi72Material">Leather, fabrics, very rough wood</td>
-                  <td data-i18n="helpDpi72Note">Low detail, fast engraving</td>
-                </tr>
-                <tr>
-                  <td>150 DPI</td>
-                  <td data-i18n="helpDpi150Material">Soft wood (pine, linden), OSB</td>
-                  <td data-i18n="helpDpi150Note">Good result for larger formats</td>
-                </tr>
-                <tr>
-                  <td>254 DPI</td>
-                  <td data-i18n="helpDpi254Material">Hard wood (oak, beech), plywood</td>
-                  <td data-i18n="helpDpi254Note">Good balance between detail and speed</td>
-                </tr>
-                <tr>
-                  <td>300 DPI ✓</td>
-                  <td data-i18n="helpDpi300Material">Glass, stone, slate, MDF</td>
-                  <td data-i18n="helpDpi300Note">Default value – suitable for most projects</td>
-                </tr>
-                <tr>
-                  <td>500 DPI</td>
-                  <td data-i18n="helpDpi500Material">Acrylic, coated metals, ceramics</td>
-                  <td data-i18n="helpDpi500Note">High detail, great for portraits</td>
-                </tr>
-                <tr>
-                  <td>750 DPI</td>
-                  <td data-i18n="helpDpi750Material">Anodized aluminum, cast acrylic</td>
-                  <td data-i18n="helpDpi750Note">Maximum detail, slower engraving</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-
-        <div class="panel p-5">
-          <div class="help-section-title" data-i18n="helpOutputSizeTitle">How to choose the correct output size?</div>
-          <div class="help-note-box">
-            <p data-i18n-html="helpOutputSizeText1">The output size in <strong class="text-white">mm</strong> should exactly match the real physical size of the engraving area on your material.</p>
-            <p class="mt-3" data-i18n-html="helpOutputSizeText2">Example</p>
-            <p class="formula" data-i18n="helpOutputSizeFormula">ℹ️ Formula: width in px = (width in mm ÷ 25.4) × DPI</p>
-          </div>
-        </div>
-
-        <div class="panel p-5">
-          <div class="help-section-title" data-i18n="helpTipsTitle">Tips for better results</div>
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div class="help-card">
-              <div class="help-card-title" data-i18n="helpTip1Title">📷 Input photo quality</div>
-              <div class="help-card-text" data-i18n="helpTip1Text">Use sharp photos with good contrast.</div>
+            <div>
+              <label for="sharpness" data-i18n="labelSharpness">Sharpness</label>
+              <div class="slider-row mt-1">
+                <input type="range" id="sharpness" min="0" max="5" step="0.5" value="0">
+                <span class="slider-val" id="sharpnessVal">0.0</span>
+              </div>
             </div>
 
-            <div class="help-card">
-              <div class="help-card-title" data-i18n="helpTip2Title">🔲 Contrast and brightness</div>
-              <div class="help-card-text" data-i18n="helpTip2Text">Before uploading, try adjusting the photo.</div>
+            <div>
+              <label for="ditherMode" data-i18n="labelEngravingStyle">Engraving Style</label>
+              <select id="ditherMode" class="mt-1">
+                <option value="floyd" data-i18n="ditherDetailed">Detailed</option>
+                <option value="atkinson" data-i18n="ditherContrast">Contrast</option>
+              </select>
+              <div class="helper-text" data-i18n="ditherHelp">Photos → Detailed | stronger edges → Contrast</div>
             </div>
 
-            <div class="help-card">
-              <div class="help-card-title" data-i18n="helpTip3Title">🧪 Test engraving</div>
-              <div class="help-card-text" data-i18n="helpTip3Text">Always test the result first.</div>
-            </div>
-
-            <div class="help-card">
-              <div class="help-card-title" data-i18n="helpTip4Title">⚙️ LightBurn settings</div>
-              <div class="help-card-text" data-i18n-html="helpTip4Text">Import the PNG as Passthrough or Threshold.</div>
+            <div class="grid grid-cols-1 sm:grid-cols-1 gap-2 pt-1">
+              <button class="btn btn-secondary" id="resetBtn" data-i18n="resetBtn">Default Settings</button>
             </div>
           </div>
         </div>
-      </div>
-    </div>
 
-    <div class="flex flex-col gap-3 order-1 lg:order-2">
-
-      <div class="panel p-4">
-        <div class="section-title" data-i18n="sectionUpload">Upload Photo</div>
-        <div class="drop-zone p-5 text-center cursor-pointer" id="dropZone">
-          <div style="font-size:2rem;margin-bottom:6px">📷</div>
-          <div style="font-size:0.9rem;color:#ffffff;font-weight:700" data-i18n="dropZoneMain">
-            Přetáhni nebo klikni pro výběr
-          </div>
-
-          <div style="font-size:0.75rem;color:#e2e8f0;margin-top:5px" data-i18n="dropZoneSub">
-            JPG, PNG, BMP, WebP
-          </div>
-          <input type="file" id="fileInput" accept="image/*" style="display:none">
-        </div>
-      </div>
-
-      <div class="panel p-4">
-        <div class="section-title" data-i18n="sectionPhotoType">Photo Type</div>
-        <div class="grid grid-cols-2 gap-2" id="presetCards">
-          <div class="preset-card" data-preset="custom" data-i18n="presetCustom">Custom</div>
-          <div class="preset-card active" data-preset="normal" data-i18n="presetNormal">Normal Photo</div>
-          <div class="preset-card" data-preset="portrait" data-i18n="presetPortrait">People</div>
-          <div class="preset-card" data-preset="dark" data-i18n="presetDark">Dark Photo</div>
-          <div class="preset-card" data-preset="light" data-i18n="presetLight">Light Photo</div>
-          <div class="preset-card" data-preset="detail" data-i18n="presetDetail">More Detail</div>
-        </div>
-
-        <div class="helper-text mt-2" data-i18n="presetHelp">
-          Default is Normal Photo. You can fine-tune everything with the sliders below.
-        </div>
-      </div>
-
-      <div class="panel p-4">
-        <div class="section-title" data-i18n="sectionAdjustments">Photo Adjustments</div>
-        <div class="flex flex-col gap-4">
-          <div>
-            <label for="brightness" data-i18n="labelBrightness">Brightness</label>
-            <div class="slider-row mt-1">
-              <input type="range" id="brightness" min="-150" max="150" value="0">
-              <span class="slider-val" id="brightnessVal">0</span>
+        <div class="panel p-4">
+          <div class="section-title" data-i18n="sectionOutput">Output</div>
+          <div class="flex flex-col gap-3">
+            <div>
+              <label for="dpi" data-i18n="labelDpi">Desired DPI</label>
+              <select id="dpi" class="mt-1">
+                <option value="72">72 DPI</option>
+                <option value="150">150 DPI</option>
+                <option value="254">254 DPI</option>
+                <option value="300" selected>300 DPI</option>
+                <option value="350">350 DPI</option>
+                <option value="400">400 DPI</option>
+                <option value="450">450 DPI</option>
+                <option value="500">500 DPI</option>
+                <option value="550">550 DPI</option>
+                <option value="600">600 DPI</option>
+                <option value="650">650 DPI</option>
+                <option value="700">700 DPI</option>
+                <option value="750">750 DPI</option>
+              </select>
             </div>
-          </div>
 
-          <div>
-            <label for="contrast" data-i18n="labelContrast">Contrast</label>
-            <div class="slider-row mt-1">
-              <input type="range" id="contrast" min="-150" max="150" value="0">
-              <span class="slider-val" id="contrastVal">0</span>
+            <div>
+              <label for="outputWidthMm" data-i18n="labelOutputWidthMm">Output Width (mm)</label>
+              <input type="number" id="outputWidthMm" min="10" step="1" value="100" class="mt-1">
+              <div class="helper-text" data-i18n="outputWidthHelp">Pixels are calculated automatically from the selected DPI.</div>
             </div>
-          </div>
 
-          <div>
-            <label for="gamma" data-i18n="labelGamma">Gamma</label>
-            <div class="slider-row mt-1">
-              <input type="range" id="gamma" min="0.1" max="3.0" step="0.05" value="1.0">
-              <span class="slider-val" id="gammaVal">1.00</span>
+            <div>
+              <label for="outputWidthSlider" data-i18n="labelFineTuneWidth">Fine-tune Width</label>
+              <div class="slider-row mt-1">
+                <input type="range" id="outputWidthSlider" min="100" max="3000" step="10" value="1000">
+                <span class="slider-val" id="outputWidthSliderVal" style="width:72px">1000</span>
+              </div>
+              <div class="helper-text" data-i18n="outputSliderHelp">The slider works in pixels and stays synced with width in mm.</div>
             </div>
-          </div>
 
-          <div>
-            <label for="sharpness" data-i18n="labelSharpness">Sharpness</label>
-            <div class="slider-row mt-1">
-              <input type="range" id="sharpness" min="0" max="5" step="0.5" value="0">
-              <span class="slider-val" id="sharpnessVal">0.0</span>
+            <div class="info-card">
+              <div class="mini-grid">
+                <div style="font-size:0.76rem;color:#94a3b8" data-i18n="sizeInfoLabel">Output Size</div>
+                <div style="font-size:0.76rem;color:#e2e8f0;font-weight:600" id="sizeInfo">—</div>
+
+                <div style="font-size:0.76rem;color:#94a3b8" data-i18n="pixelInfoLabel">Conversion</div>
+                <div style="font-size:0.76rem;color:#e2e8f0;font-weight:600" id="pixelInfo">—</div>
+              </div>
             </div>
-          </div>
 
-          <div>
-            <label for="ditherMode" data-i18n="labelEngravingStyle">ENGRAVING STYLE</label>
-            <select id="ditherMode" class="mt-1">
-              <option value="floyd" data-i18n="ditherDetailed">Detailed</option>
-              <option value="atkinson" data-i18n="ditherContrast">Contrast</option>
-            </select>
-            <div class="helper-text" data-i18n="ditherHelp">Photos → Detailed | stronger edges → Contrast</div>
-          </div>
-
-          <div class="grid grid-cols-1 sm:grid-cols-1 gap-2 pt-1">
-            <button class="btn btn-secondary" id="resetBtn" data-i18n="resetBtn">Default Settings</button>
+            <button class="btn btn-primary w-full mt-1" id="downloadBtn" data-i18n="downloadBtn">
+              Download PNG for Laser
+            </button>
           </div>
         </div>
-      </div>
 
-      <div class="panel p-4">
-        <div class="section-title" data-i18n="sectionOutput">Output</div>
-        <div class="flex flex-col gap-3">
-          <div>
-            <label for="dpi" data-i18n="labelDpi">Desired DPI</label>
-            <select id="dpi" class="mt-1">
-              <option value="72">72 DPI</option>
-              <option value="150">150 DPI</option>
-              <option value="254">254 DPI</option>
-              <option value="300" selected>300 DPI</option>
-              <option value="350">350 DPI</option>
-              <option value="400">400 DPI</option>
-              <option value="450">450 DPI</option>
-              <option value="500">500 DPI</option>
-              <option value="550">550 DPI</option>
-              <option value="600">600 DPI</option>
-              <option value="650">650 DPI</option>
-              <option value="700">700 DPI</option>
-              <option value="750">750 DPI</option>
-            </select>
+        <div class="panel p-4">
+          <div class="section-title" data-i18n="sectionNote">Note</div>
+          <div class="footer-note" data-i18n="footerNote">
+            The PNG includes DPI metadata for correct size in laser software.
           </div>
-
-          <div>
-            <label for="outputWidthMm" data-i18n="labelOutputWidthMm">Output Width (mm)</label>
-            <input type="number" id="outputWidthMm" min="10" step="1" value="100" class="mt-1">
-            <div class="helper-text" data-i18n="outputWidthHelp">Pixels are calculated automatically from the selected DPI.</div>
-          </div>
-
-          <div>
-            <label for="outputWidthSlider" data-i18n="labelFineTuneWidth">Fine-tune Width</label>
-            <div class="slider-row mt-1">
-              <input type="range" id="outputWidthSlider" min="100" max="3000" step="10" value="1000">
-              <span class="slider-val" id="outputWidthSliderVal" style="width:56px">1000</span>
-            </div>
-            <div class="helper-text" data-i18n="outputSliderHelp">The slider works in pixels and stays synced with width in mm.</div>
-          </div>
-
-          <div class="info-card">
-            <div class="mini-grid">
-              <div style="font-size:0.76rem;color:#94a3b8" data-i18n="sizeInfoLabel">Output Size</div>
-              <div style="font-size:0.76rem;color:#e2e8f0;font-weight:600" id="sizeInfo">—</div>
-
-              <div style="font-size:0.76rem;color:#94a3b8" data-i18n="pixelInfoLabel">Conversion</div>
-              <div style="font-size:0.76rem;color:#e2e8f0;font-weight:600" id="pixelInfo">—</div>
-            </div>
-          </div>
-
-          <button class="btn btn-primary w-full mt-1" id="downloadBtn" data-i18n="downloadBtn">
-            Download PNG for Laser
-          </button>
-        </div>
-      </div>
-
-      <div class="panel p-4">
-        <div class="section-title" data-i18n="sectionNote">Note</div>
-        <div class="footer-note" data-i18n="footerNote">
-          The PNG includes DPI metadata for correct size in laser software.
         </div>
       </div>
     </div>
   </div>
-</div>
 
-<script>
-let originalImage = null;
-let renderQueued = false;
-let viewMode = 'compare';
-let currentPreset = 'normal';
-let currentLang = 'en';
-
-const ZOOM_STEP = 0.1;
-const ZOOM_MIN = 0.2;
-const ZOOM_MAX = 6;
-const FIXED_THRESHOLD = 128;
-const STORAGE_KEY = 'laserEditorSimpleV7';
-const LANG_STORAGE_KEY = 'laserEditorLanguageV1';
-const OUTPUT_WIDTH_MIN_PX = 100;
-const OUTPUT_WIDTH_MAX_PX = 3000;
-
-const translations = {
-  en: {
-    counterLabel: '📸 Processed:',
-    btnOutput: 'Only Output',
-    btnCompare: 'Original + Output',
-    emptyOriginal: 'ORIGINAL',
-    emptyOutput: 'OUTPUT',
-    stepUploadTitle: 'Upload a photo ↑',
-    stepUploadText: 'Click here or drag & drop',
-    stepTryTitle: 'Or try it right away',
-    stepTryText: 'A demo photo loads automatically',
-    stepDownloadTitle: 'Download PNG',
-    stepDownloadText: 'Ready for engraving',
-    hintLine: '↑ Start right away with the demo photo or upload your own',
-    zoomHelp: 'Use the mouse wheel to zoom in or out. When zoomed in, drag the image with the mouse. Double-click resets zoom to 100%. For the best experience and more comfortable editing, we recommend using this tool on a desktop computer.',
-    reuploadBtn: '↺ Upload another photo',
-    sectionUpload: 'Upload Photo',
-    dropZoneMain: 'Drag & drop or click to choose',
-    dropZoneSub: 'JPG, PNG, BMP, WebP',
-    sectionPhotoType: 'Photo Type',
-    presetCustom: 'Custom',
-    presetNormal: 'Normal Photo',
-    presetPortrait: 'People',
-    presetDark: 'Dark Photo',
-    presetLight: 'Light Photo',
-    presetDetail: '🔍 More Detail',
-    presetHelp: 'Default is Normal Photo. You can fine-tune everything with the sliders below.',
-    sectionAdjustments: 'Photo Adjustments',
-    labelBrightness: 'Brightness',
-    labelContrast: 'Contrast',
-    labelGamma: 'Gamma',
-    labelSharpness: 'Sharpness',
-    labelEngravingStyle: 'ENGRAVING STYLE',
-    ditherDetailed: 'Detailed',
-    ditherContrast: 'Contrast',
-    ditherHelp: 'Photos → Detailed | stronger edges → Contrast',
-    resetBtn: '↺ Default Settings',
-    sectionOutput: 'Output',
-    labelDpi: 'Desired DPI',
-    labelOutputWidthMm: 'Output Width (mm)',
-    outputWidthHelp: 'Pixels are calculated automatically from the selected DPI.',
-    labelFineTuneWidth: 'Fine-tune Width',
-    outputSliderHelp: 'The slider works in pixels and stays synced with width in mm.',
-    sizeInfoLabel: 'Output Size',
-    pixelInfoLabel: 'Conversion',
-    downloadBtn: 'Download PNG for Laser',
-    sectionNote: 'Note',
-    footerNote: 'The PNG includes DPI metadata for correct size in laser software.',
-    alertLoadFail: 'The image could not be loaded.',
-    alertReadFail: 'Error reading the file.',
-    alertUploadFirst: 'Please upload an image first.',
-    alertPngFail: 'Failed to create a PNG file with the selected DPI.',
-    iosTitle: 'Save on iOS',
-    iosText: 'Press and hold the image and choose <strong style="color:#e2e8f0">Add to Photos</strong> or <strong style="color:#e2e8f0">Save Image</strong>.',
-    iosClose: 'Close',
-    demoLoadFail: 'Demo image could not be loaded.',
-    emptyOriginalAlt: 'Preview original image',
-    emptyResultAlt: 'Preview output image',
-    helpIntroTitle: 'What does this tool do?',
-    helpIntroText: '<strong class="text-white">Photo Engraving Online</strong> converts a regular photo into a rasterized black-and-white image optimized for CO2 or diode laser engraving. You can then import the resulting PNG directly into your laser software (LightBurn, LaserGRBL, XCS, etc.) and engrave it.',
-    helpStepsTitle: 'Step-by-step guide',
-    helpStep1Title: 'Upload a photo',
-    helpStep1Text: 'Drag the file into the upload area or click to choose it from your device. Supported formats are JPG, PNG, BMP and WebP. For best results, use a sharp photo with good contrast.',
-    helpStep2Title: 'Set DPI',
-    helpStep2Text: 'Choose a resolution that matches your material and your laser’s capabilities. See the recommendation table below.',
-    helpStep3Title: 'Set the output size in mm',
-    helpStep3Text: 'Enter the final engraving width in millimeters. The tool automatically calculates the height, keeps the aspect ratio and shows the resulting pixel count.',
-    helpStep4Title: 'Fine-tune the width',
-    helpStep4Text: 'The slider lets you fine-tune the output width in pixels. It stays synced with the width field in mm, so changing one automatically updates the other.',
-    helpStep5Title: 'Check the output and download the PNG',
-    helpStep5Text: 'The output shows the final rasterized image. If it looks good, click Download PNG for Laser and import the file into your laser software.',
-    helpDpiTitle: 'Recommended DPI by material',
-    helpTableHeadDpi: 'DPI',
-    helpTableHeadMaterial: 'Best for',
-    helpTableHeadNote: 'Note',
-    helpDpi72Material: 'Leather, fabrics, very rough wood',
-    helpDpi72Note: 'Low detail, fast engraving',
-    helpDpi150Material: 'Soft wood (pine, linden), OSB',
-    helpDpi150Note: 'Good result for larger formats',
-    helpDpi254Material: 'Hard wood (oak, beech), plywood',
-    helpDpi254Note: 'Good balance between detail and speed',
-    helpDpi300Material: 'Glass, stone, slate, MDF',
-    helpDpi300Note: 'Default value – suitable for most projects',
-    helpDpi500Material: 'Acrylic, coated metals, ceramics',
-    helpDpi500Note: 'High detail, great for portraits',
-    helpDpi750Material: 'Anodized aluminum, cast acrylic',
-    helpDpi750Note: 'Maximum detail, slower engraving',
-    helpOutputSizeTitle: 'How to choose the correct output size?',
-    helpOutputSizeText1: 'The output size in <strong class="text-white">mm</strong> should exactly match the real physical size of the engraving area on your material.',
-    helpOutputSizeText2: 'Example: If you want to engrave a portrait on a wooden plate with a width of <strong class="text-white">80 mm</strong>, set the width to <strong class="text-white">80 mm</strong> and choose <strong class="text-white">300 DPI</strong>. The tool will create an image about <strong class="text-orange-300">945 px</strong> wide, which matches the required physical size.',
-    helpOutputSizeFormula: 'ℹ️ Formula: width in px = (width in mm ÷ 25.4) × DPI',
-    helpTipsTitle: 'Tips for better results',
-    helpTip1Title: '📷 Input photo quality',
-    helpTip1Text: 'Use sharp photos with good contrast. Dark or blurry images will produce worse engraving results even at high DPI.',
-    helpTip2Title: '🔲 Contrast and brightness',
-    helpTip2Text: 'Before uploading, try adjusting the photo in any editor. Higher contrast often improves the final rasterized result a lot.',
-    helpTip3Title: '🧪 Test engraving',
-    helpTip3Text: 'Always test the result first on an offcut of the same material before running the final engraving.',
-    helpTip4Title: '⚙️ LightBurn settings',
-    helpTip4Text: 'Import the PNG as <strong class="text-gray-200">Passthrough</strong> or <strong class="text-gray-200">Threshold</strong>. The dithering is already included in the file, so additional image processing may make it worse.'
-  },
-
-  es: {
-    counterLabel: '📸 Procesadas:',
-    btnOutput: 'Solo salida',
-    btnCompare: 'Original + salida',
-    emptyOriginal: 'ORIGINAL',
-    emptyOutput: 'SALIDA',
-    stepUploadTitle: 'Sube una foto ↑',
-    stepUploadText: 'Haz clic aquí o arrastra y suelta',
-    stepTryTitle: 'O pruébalo ahora mismo',
-    stepTryText: 'La foto de ejemplo se carga automáticamente',
-    stepDownloadTitle: 'Descargar PNG',
-    stepDownloadText: 'Listo para grabado',
-    hintLine: '↑ Empieza ahora mismo con la foto de ejemplo o sube la tuya',
-    zoomHelp: 'Usa la rueda del ratón para acercar o alejar. Cuando esté ampliado, arrastra la imagen con el ratón. Doble clic restablece el zoom al 100%. Para disfrutar de la mejor experiencia y una edición más cómoda, recomendamos usar esta herramienta en un ordenador de escritorio.',
-    reuploadBtn: '↺ Subir otra foto',
-    sectionUpload: 'Subir Foto',
-    dropZoneMain: 'Arrastra y suelta o haz clic para elegir',
-    dropZoneSub: 'JPG, PNG, BMP, WebP',
-    sectionPhotoType: 'Tipo de Foto',
-    presetCustom: 'Personalizado',
-    presetNormal: 'Foto Normal',
-    presetPortrait: 'Personas',
-    presetDark: 'Foto Oscura',
-    presetLight: 'Foto Clara',
-    presetDetail: 'Más Detalle',
-    presetHelp: 'El valor predeterminado es Foto Normal. Puedes ajustar todo con los controles de abajo.',
-    sectionAdjustments: 'Ajustes de la Foto',
-    labelBrightness: 'Brillo',
-    labelContrast: 'Contraste',
-    labelGamma: 'Gamma',
-    labelSharpness: 'Nitidez',
-    labelEngravingStyle: 'ESTILO DE GRABADO',
-    ditherDetailed: 'Detallado',
-    ditherContrast: 'Contraste',
-    ditherHelp: 'Fotos → Detallado | bordes más marcados → Contraste',
-    resetBtn: 'Ajustes Predeterminados',
-    sectionOutput: 'Salida',
-    labelDpi: 'DPI Deseado',
-    labelOutputWidthMm: 'Ancho de Salida (mm)',
-    outputWidthHelp: 'Los píxeles se calculan automáticamente según el DPI seleccionado.',
-    labelFineTuneWidth: 'Ajuste Fino del Ancho',
-    outputSliderHelp: 'El control deslizante funciona en píxeles y se sincroniza con el ancho en mm.',
-    sizeInfoLabel: 'Tamaño de Salida',
-    pixelInfoLabel: 'Conversión',
-    downloadBtn: 'Descargar PNG para Láser',
-    sectionNote: 'Nota',
-    footerNote: 'El PNG incluye metadatos DPI para el tamaño correcto en el software láser.',
-    alertLoadFail: 'No se pudo cargar la imagen.',
-    alertReadFail: 'Error al leer el archivo.',
-    alertUploadFirst: 'Primero sube una imagen.',
-    alertPngFail: 'No se pudo crear el archivo PNG con el DPI seleccionado.',
-    iosTitle: 'Guardar en iOS',
-    iosText: 'Mantén pulsada la imagen y elige <strong style="color:#e2e8f0">Añadir a Fotos</strong> o <strong style="color:#e2e8f0">Guardar imagen</strong>.',
-    iosClose: 'Cerrar',
-    demoLoadFail: 'No se pudo cargar la imagen de ejemplo.',
-    emptyOriginalAlt: 'Vista previa de imagen original',
-    emptyResultAlt: 'Vista previa de imagen de salida',
-    helpIntroTitle: '¿Qué hace esta herramienta?',
-    helpIntroText: '<strong class="text-white">Photo Engraving Online</strong> convierte una fotografía normal en una imagen en blanco y negro rasterizada, optimizada para grabado láser CO2 o de diodo. Después puedes importar el PNG resultante directamente en tu software láser (LightBurn, LaserGRBL, XCS, etc.) y grabarlo.',
-    helpStepsTitle: 'Guía paso a paso',
-    helpStep1Title: 'Sube una foto',
-    helpStep1Text: 'Arrastra el archivo al área de carga o haz clic para elegirlo desde tu dispositivo. Los formatos compatibles son JPG, PNG, BMP y WebP. Para obtener mejores resultados, usa una foto nítida y con buen contraste.',
-    helpStep2Title: 'Configura el DPI',
-    helpStep2Text: 'Elige una resolución que se adapte al material y a las capacidades de tu láser. Consulta la tabla de recomendaciones más abajo.',
-    helpStep3Title: 'Configura el tamaño de salida en mm',
-    helpStep3Text: 'Introduce el ancho final del grabado en milímetros. La herramienta calcula automáticamente la altura, mantiene la proporción y muestra el número final de píxeles.',
-    helpStep4Title: 'Ajusta el ancho con precisión',
-    helpStep4Text: 'El control deslizante permite ajustar con precisión el ancho de salida en píxeles. Se mantiene sincronizado con el campo de ancho en mm, así que al cambiar uno se actualiza automáticamente el otro.',
-    helpStep5Title: 'Revisa la salida y descarga el PNG',
-    helpStep5Text: 'La salida muestra la imagen rasterizada final. Si se ve bien, haz clic en Descargar PNG para Láser e importa el archivo en tu software láser.',
-    helpDpiTitle: 'DPI recomendado según el material',
-    helpTableHeadDpi: 'DPI',
-    helpTableHeadMaterial: 'Ideal para',
-    helpTableHeadNote: 'Nota',
-    helpDpi72Material: 'Cuero, telas, madera muy rugosa',
-    helpDpi72Note: 'Poco detalle, grabado rápido',
-    helpDpi150Material: 'Madera blanda (pino, tilo), OSB',
-    helpDpi150Note: 'Buen resultado para formatos grandes',
-    helpDpi254Material: 'Madera dura (roble, haya), contrachapado',
-    helpDpi254Note: 'Buen equilibrio entre detalle y velocidad',
-    helpDpi300Material: 'Vidrio, piedra, pizarra, MDF',
-    helpDpi300Note: 'Valor predeterminado: adecuado para la mayoría de proyectos',
-    helpDpi500Material: 'Acrílico, metales lacados, cerámica',
-    helpDpi500Note: 'Alto detalle, ideal para retratos',
-    helpDpi750Material: 'Aluminio anodizado, acrílico fundido',
-    helpDpi750Note: 'Máximo detalle, grabado más lento',
-    helpOutputSizeTitle: '¿Cómo elegir el tamaño de salida correcto?',
-    helpOutputSizeText1: 'El tamaño de salida en <strong class="text-white">mm</strong> debe coincidir exactamente con el tamaño físico real del área de grabado en tu material.',
-    helpOutputSizeText2: 'Ejemplo: si quieres grabar un retrato en una placa de madera con un ancho de <strong class="text-white">80 mm</strong>, configura el ancho en <strong class="text-white">80 mm</strong> y elige <strong class="text-white">300 DPI</strong>. La herramienta generará una imagen de aproximadamente <strong class="text-orange-300">945 px</strong> de ancho, que coincide con el tamaño físico requerido.',
-    helpOutputSizeFormula: 'ℹ️ Fórmula: ancho en px = (ancho en mm ÷ 25,4) × DPI',
-    helpTipsTitle: 'Consejos para mejores resultados',
-    helpTip1Title: '📷 Calidad de la foto de entrada',
-    helpTip1Text: 'Usa fotos nítidas y con buen contraste. Las imágenes oscuras o borrosas producirán peores resultados incluso con un DPI alto.',
-    helpTip2Title: '🔲 Contraste y brillo',
-    helpTip2Text: 'Antes de subirla, intenta ajustar la foto en cualquier editor. Un mayor contraste suele mejorar mucho el resultado rasterizado final.',
-    helpTip3Title: '🧪 Grabado de prueba',
-    helpTip3Text: 'Haz siempre primero una prueba en un recorte del mismo material antes de lanzar el grabado final.',
-    helpTip4Title: '⚙️ Ajustes en LightBurn',
-    helpTip4Text: 'Importa el PNG como <strong class="text-gray-200">Passthrough</strong> o <strong class="text-gray-200">Threshold</strong>. El dithering ya está incluido en el archivo, así que un procesamiento adicional puede empeorarlo.'
-  },
-
-  de: {
-    counterLabel: '📸 Verarbeitet:',
-    btnOutput: 'Nur Ausgabe',
-    btnCompare: 'Original + Ausgabe',
-    emptyOriginal: 'ORIGINAL',
-    emptyOutput: 'AUSGABE',
-    stepUploadTitle: 'Foto hochladen ↑',
-    stepUploadText: 'Hier klicken oder per Drag & Drop',
-    stepTryTitle: 'Oder direkt ausprobieren',
-    stepTryText: 'Ein Beispielfoto wird automatisch geladen',
-    stepDownloadTitle: 'PNG herunterladen',
-    stepDownloadText: 'Bereit zum Gravieren',
-    hintLine: '↑ Starte sofort mit dem Beispielfoto oder lade dein eigenes hoch',
-    zoomHelp: 'Mit dem Mausrad kannst du hinein- oder herauszoomen. Im vergrößerten Zustand kannst du das Bild mit der Maus verschieben. Doppelklick setzt den Zoom auf 100 % zurück. Für das beste Erlebnis und eine bequemere Bearbeitung empfehlen wir, dieses Tool auf einem Desktop-Computer zu verwenden.',
-    reuploadBtn: '↺ Anderes Foto hochladen',
-    sectionUpload: 'Foto Hochladen',
-    dropZoneMain: 'Per Drag & Drop oder klicken zum Auswählen',
-    dropZoneSub: 'JPG, PNG, BMP, WebP',
-    sectionPhotoType: 'Fototyp',
-    presetCustom: 'Benutzerdefiniert',
-    presetNormal: 'Normales Foto',
-    presetPortrait: 'Menschen',
-    presetDark: 'Dunkles Foto',
-    presetLight: 'Helles Foto',
-    presetDetail: 'Mehr Details',
-    presetHelp: 'Standard ist Normales Foto. Mit den Reglern unten kannst du alles fein abstimmen.',
-    sectionAdjustments: 'Fotoanpassung',
-    labelBrightness: 'Helligkeit',
-    labelContrast: 'Kontrast',
-    labelGamma: 'Gamma',
-    labelSharpness: 'Schärfe',
-    labelEngravingStyle: 'GRAVIERSTIL',
-    ditherDetailed: 'Detailliert',
-    ditherContrast: 'Kontrast',
-    ditherHelp: 'Fotos → Detailliert | stärkere Kanten → Kontrast',
-    resetBtn: 'Standardeinstellungen',
-    sectionOutput: 'Ausgabe',
-    labelDpi: 'Gewünschte DPI',
-    labelOutputWidthMm: 'Ausgabebreite (mm)',
-    outputWidthHelp: 'Die Pixel werden automatisch anhand der gewählten DPI berechnet.',
-    labelFineTuneWidth: 'Breite Feinabstimmen',
-    outputSliderHelp: 'Der Schieberegler arbeitet in Pixeln und bleibt mit der Breite in mm synchron.',
-    sizeInfoLabel: 'Ausgabegröße',
-    pixelInfoLabel: 'Umrechnung',
-    downloadBtn: 'PNG für Laser Herunterladen',
-    sectionNote: 'Hinweis',
-    footerNote: 'Die PNG enthält DPI-Metadaten für die richtige Größe in Lasersoftware.',
-    alertLoadFail: 'Das Bild konnte nicht geladen werden.',
-    alertReadFail: 'Fehler beim Lesen der Datei.',
-    alertUploadFirst: 'Bitte lade zuerst ein Bild hoch.',
-    alertPngFail: 'Die PNG-Datei mit den gewählten DPI konnte nicht erstellt werden.',
-    iosTitle: 'Auf iOS speichern',
-    iosText: 'Halte das Bild gedrückt und wähle <strong style="color:#e2e8f0">Zu Fotos hinzufügen</strong> oder <strong style="color:#e2e8f0">Bild sichern</strong>.',
-    iosClose: 'Schließen',
-    demoLoadFail: 'Das Demo-Bild konnte nicht geladen werden.',
-    emptyOriginalAlt: 'Vorschau des Originalbilds',
-    emptyResultAlt: 'Vorschau des Ausgabebilds',
-    helpIntroTitle: 'Was macht dieses Tool?',
-    helpIntroText: '<strong class="text-white">Photo Engraving Online</strong> wandelt ein normales Foto in ein gerastertes Schwarz-Weiß-Bild um, das für CO2- oder Diodenlasergravuren optimiert ist. Die resultierende PNG-Datei kannst du direkt in deine Lasersoftware (LightBurn, LaserGRBL, XCS usw.) importieren und gravieren.',
-    helpStepsTitle: 'Schritt-für-Schritt-Anleitung',
-    helpStep1Title: 'Foto hochladen',
-    helpStep1Text: 'Ziehe die Datei in den Upload-Bereich oder klicke, um sie von deinem Gerät auszuwählen. Unterstützte Formate sind JPG, PNG, BMP und WebP. Für beste Ergebnisse verwende ein scharfes Foto mit gutem Kontrast.',
-    helpStep2Title: 'DPI einstellen',
-    helpStep2Text: 'Wähle eine Auflösung, die zu deinem Material und den Möglichkeiten deines Lasers passt. Siehe die Empfehlungstabelle unten.',
-    helpStep3Title: 'Ausgabegröße in mm festlegen',
-    helpStep3Text: 'Gib die gewünschte Endbreite der Gravur in Millimetern ein. Das Tool berechnet automatisch die Höhe, behält das Seitenverhältnis bei und zeigt die resultierende Pixelzahl an.',
-    helpStep4Title: 'Breite fein abstimmen',
-    helpStep4Text: 'Mit dem Schieberegler kannst du die Ausgabebreite in Pixeln fein abstimmen. Er bleibt mit dem Breitenfeld in mm synchron – wenn du einen Wert änderst, wird der andere automatisch aktualisiert.',
-    helpStep5Title: 'Ausgabe prüfen und PNG herunterladen',
-    helpStep5Text: 'Die Ausgabe zeigt das endgültige gerasterte Bild. Wenn alles gut aussieht, klicke auf PNG für Laser herunterladen und importiere die Datei in deine Lasersoftware.',
-    helpDpiTitle: 'Empfohlene DPI je nach Material',
-    helpTableHeadDpi: 'DPI',
-    helpTableHeadMaterial: 'Geeignet für',
-    helpTableHeadNote: 'Hinweis',
-    helpDpi72Material: 'Leder, Stoffe, sehr grobes Holz',
-    helpDpi72Note: 'Wenig Detail, schnelles Gravieren',
-    helpDpi150Material: 'Weichholz (Kiefer, Linde), OSB',
-    helpDpi150Note: 'Gutes Ergebnis für größere Formate',
-    helpDpi254Material: 'Hartholz (Eiche, Buche), Sperrholz',
-    helpDpi254Note: 'Guter Kompromiss aus Detail und Geschwindigkeit',
-    helpDpi300Material: 'Glas, Stein, Schiefer, MDF',
-    helpDpi300Note: 'Standardwert – für die meisten Projekte geeignet',
-    helpDpi500Material: 'Acryl, lackierte Metalle, Keramik',
-    helpDpi500Note: 'Hoher Detailgrad, ideal für Porträts',
-    helpDpi750Material: 'Eloxiertes Aluminium, gegossenes Acryl',
-    helpDpi750Note: 'Maximale Details, langsameres Gravieren',
-    helpOutputSizeTitle: 'Wie wählt man die richtige Ausgabegröße?',
-    helpOutputSizeText1: 'Die Ausgabegröße in <strong class="text-white">mm</strong> sollte exakt der realen physischen Größe der Gravurfläche auf deinem Material entsprechen.',
-    helpOutputSizeText2: 'Beispiel: Wenn du ein Porträt auf eine Holzplatte mit einer Breite von <strong class="text-white">80 mm</strong> gravieren möchtest, stelle die Breite auf <strong class="text-white">80 mm</strong> und wähle <strong class="text-white">300 DPI</strong>. Das Tool erstellt dann ein Bild mit etwa <strong class="text-orange-300">945 px</strong> Breite, was genau der gewünschten physischen Größe entspricht.',
-    helpOutputSizeFormula: 'ℹ️ Formel: Breite in px = (Breite in mm ÷ 25,4) × DPI',
-    helpTipsTitle: 'Tipps für bessere Ergebnisse',
-    helpTip1Title: '📷 Qualität des Ausgangsfotos',
-    helpTip1Text: 'Verwende scharfe Fotos mit gutem Kontrast. Dunkle oder unscharfe Bilder liefern selbst bei hoher DPI schlechtere Gravurergebnisse.',
-    helpTip2Title: '🔲 Kontrast und Helligkeit',
-    helpTip2Text: 'Versuche vor dem Upload, das Foto in einem beliebigen Editor anzupassen. Ein höherer Kontrast verbessert das endgültige Rasterergebnis oft deutlich.',
-    helpTip3Title: '🧪 Testgravur',
-    helpTip3Text: 'Teste das Ergebnis immer zuerst an einem Reststück desselben Materials, bevor du die endgültige Gravur startest.',
-    helpTip4Title: '⚙️ LightBurn-Einstellungen',
-    helpTip4Text: 'Importiere die PNG als <strong class="text-gray-200">Passthrough</strong> oder <strong class="text-gray-200">Threshold</strong>. Das Dithering ist bereits in der Datei enthalten, daher kann zusätzliche Bildverarbeitung das Ergebnis verschlechtern.'
-  },
-
-  cs: {
-    counterLabel: '📸 Zpracováno:',
-    btnOutput: 'Pouze výstup',
-    btnCompare: 'Originál + výstup',
-    emptyOriginal: 'ORIGINÁL',
-    emptyOutput: 'VÝSTUP',
-    stepUploadTitle: 'Nahraj fotku ↑',
-    stepUploadText: 'Klikni sem nebo přetáhni',
-    stepTryTitle: 'Nebo si to rovnou vyzkoušej',
-    stepTryText: 'Ukázková fotka se načte automaticky',
-    stepDownloadTitle: 'Stáhni PNG',
-    stepDownloadText: 'Hotovo pro gravírování',
-    hintLine: '↑ Můžeš začít hned na ukázkové fotce nebo nahrát vlastní',
-    zoomHelp: 'Kolečkem myši přiblížíš nebo oddálíš obrázek. Přiblížený obrázek můžeš posouvat tažením myší. Dvojklik vrátí zoom na 100 %. Pro nejlepší zážitek a pohodlnější úpravy doporučujeme používat tento nástroj na počítači.',
-    reuploadBtn: '↺ Nahrát jinou fotku',
-    sectionUpload: 'Nahrát fotku',
-    dropZoneMain: 'Přetáhni nebo klikni pro výběr',
-    dropZoneSub: 'JPG, PNG, BMP, WebP',
-    sectionPhotoType: 'Typ fotky',
-    presetCustom: 'Vlastní nastavení',
-    presetNormal: 'Běžná fotka',
-    presetPortrait: 'Lidé',
-    presetDark: 'Tmavá fotka',
-    presetLight: 'Světlá fotka',
-    presetDetail: 'Více detailů',
-    presetHelp: 'Pomocí sliderů níže můžeš fotku jemně doladit.',
-    sectionAdjustments: 'Úprava fotky',
-    labelBrightness: 'Jas',
-    labelContrast: 'Kontrast',
-    labelGamma: 'Gama',
-    labelSharpness: 'Ostrost',
-    labelEngravingStyle: 'STYL GRAVÍROVÁNÍ',
-    ditherDetailed: 'Detailní',
-    ditherContrast: 'Kontrastní',
-    ditherHelp: 'Fotky → Detailní | výraznější hrany → Kontrastní',
-    resetBtn: 'Výchozí nastavení',
-    sectionOutput: 'Výstup',
-    labelDpi: 'Požadované DPI',
-    labelOutputWidthMm: 'Šířka výstupu (mm)',
-    outputWidthHelp: 'Pixely se dopočítají automaticky podle zvoleného DPI.',
-    labelFineTuneWidth: 'Jemné doladění šířky',
-    outputSliderHelp: 'Posuvník pracuje v pixelech a synchronizuje se se šířkou v mm.',
-    sizeInfoLabel: 'Výstupní velikost',
-    pixelInfoLabel: 'Přepočet',
-    downloadBtn: 'Stáhnout PNG pro laser',
-    sectionNote: 'Poznámka',
-    footerNote: 'PNG obsahuje DPI metadata pro správnou velikost v laser softwaru.',
-    alertLoadFail: 'Nepodařilo se načíst obrázek.',
-    alertReadFail: 'Chyba při čtení souboru.',
-    alertUploadFirst: 'Nejprve nahraj obrázek.',
-    alertPngFail: 'Nepodařilo se vytvořit PNG soubor s nastaveným DPI.',
-    iosTitle: 'Uložení na iOS',
-    iosText: 'Podrž prst na obrázku a vyber <strong style="color:#e2e8f0">Přidat do Fotek</strong> nebo <strong style="color:#e2e8f0">Uložit obrázek</strong>.',
-    iosClose: 'Zavřít',
-    demoLoadFail: 'Demo obrázek se nepodařilo načíst.',
-    emptyOriginalAlt: 'Ukázka originálního obrázku',
-    emptyResultAlt: 'Ukázka výstupního obrázku',
-    helpIntroTitle: 'Co tento nástroj umí?',
-    helpIntroText: '<strong class="text-white">PhotoEngraving.online</strong> převede vaší fotografii na ditherovaný černobílý obraz, který je optimalizovaný pro gravírování CO2, Fiber, nebo diodovým laserem. Výsledný soubor PNG pak importuješ přímo do svého laserového softwaru (LightBurn, LaserGRBL, XCS apod.).',
-    helpStepsTitle: 'Postup krok za krokem',
-    helpStep1Title: 'Nahraj fotografii',
-    helpStep1Text: 'Přetáhni soubor do oblasti na stránce nebo klikni pro výběr ze zařízení. Podporovány jsou formáty JPG, PNG, BMP a WebP. Pro nejlepší výsledky použij ostrou fotografii s dobrým kontrastem.',
-    helpStep2Title: 'Nastav DPI (rozlišení)',
-    helpStep2Text: 'Vyber rozlišení odpovídající materiálu a schopnostem tvého laseru. Viz tabulka níže.',
-    helpStep3Title: 'Nastav výstupní velikost v mm',
-    helpStep3Text: 'Zadej šířku výsledného gravírování v milimetrech. Nástroj automaticky přepočítá výšku, zachová poměr stran a zobrazí výsledný počet pixelů.',
-    helpStep4Title: 'Jemné doladění šířky',
-    helpStep4Text: 'Posuvník umožňuje jemně upravit výstupní šířku v pixelech. Hodnota se synchronizuje s polem pro šířku v mm, takže změna jednoho automaticky aktualizuje druhé.',
-    helpStep5Title: 'Zkontroluj výstup a stáhni PNG',
-    helpStep5Text: 'Ve výstupu uvidíš výsledný rastrovaný obraz. Pokud vypadá dobře, klikni na Stáhnout PNG pro laser a soubor importuj do laserového softwaru.',
-    helpDpiTitle: 'Doporučené DPI podle materiálu',
-    helpTableHeadDpi: 'DPI',
-    helpTableHeadMaterial: 'Vhodné pro',
-    helpTableHeadNote: 'Poznámka',
-    helpDpi72Material: 'Kůže, tkaniny, velmi hrubé dřevo',
-    helpDpi72Note: 'Nízký detail, rychlé gravírování',
-    helpDpi150Material: 'Měkké dřevo (borovice, lípa), OSB',
-    helpDpi150Note: 'Dobrý výsledek pro větší formáty',
-    helpDpi254Material: 'Tvrdé dřevo (dub, buk), překližka',
-    helpDpi254Note: 'Dobrý kompromis detail vs. rychlost',
-    helpDpi300Material: 'Sklo, kámen, břidlice, MDF',
-    helpDpi300Note: 'Výchozí hodnota – vhodná pro většinu projektů',
-    helpDpi500Material: 'Akrylát, lakované kovy, keramika',
-    helpDpi500Note: 'Vysoký detail, vhodné pro portréty',
-    helpDpi750Material: 'Anodizovaný hliník, litý akrylát',
-    helpDpi750Note: 'Maximální detail, pomalé gravírování',
-    helpOutputSizeTitle: 'Jak nastavit správnou výstupní velikost?',
-    helpOutputSizeText1: 'Výstupní velikost v <strong class="text-white">mm</strong> by měla přesně odpovídat fyzickým rozměrům gravírované plochy na materiálu.',
-    helpOutputSizeText2: 'Příklad: Chceš vygravírovat portrét na dřevěnou destičku o šířce <strong class="text-white">80 mm</strong>. Nastav šířku na <strong class="text-white">80 mm</strong> a zvol <strong class="text-white">300 DPI</strong> – nástroj ti vygeneruje obrázek o šířce <strong class="text-orange-300">~945 px</strong>, který přesně odpovídá požadované fyzické velikosti.',
-    helpOutputSizeFormula: 'ℹ️ Přepočet: šířka v px = (šířka v mm ÷ 25,4) × DPI',
-    helpTipsTitle: 'Tipy pro lepší výsledky',
-    helpTip1Title: '📷 Kvalita vstupní fotky',
-    helpTip1Text: 'Používej ostré fotografie s dobrým kontrastem. Tmavé nebo rozmazané fotky dají horší výsledky i při vysokém DPI.',
-    helpTip2Title: '🔲 Kontrast a jas',
-    helpTip2Text: 'Před nahráním fotku zkus upravit v libovolném editoru – zvýšený kontrast výrazně zlepší výsledný rastrovaný obraz.',
-    helpTip3Title: '🧪 Testovací gravírování',
-    helpTip3Text: 'Vždy nejprve vyzkoušej výsledek na odřezku stejného materiálu, než spustíš finální gravírování.',
-    helpTip4Title: '⚙️ Nastavení v LightBurn',
-    helpTip4Text: 'Importovaný PNG nastav jako <strong class="text-gray-200">Passthrough</strong> nebo <strong class="text-gray-200">Threshold</strong> – dithering je již obsažen v souboru, další zpracování by ho zhoršilo.'
-  }
-};
-
-const localeMap = {
-  en: 'en_US',
-  es: 'es_ES',
-  de: 'de_DE',
-  cs: 'cs_CZ'
-};
-
-const zoomState = {
-  canvasSingle: 1,
-  canvasCompareOrig: 1,
-  canvasCompareResult: 1
-};
-
-const dragState = {
-  isDragging: false,
-  wrapper: null,
-  startX: 0,
-  startY: 0,
-  scrollLeft: 0,
-  scrollTop: 0
-};
-
-const PRESETS = {
-  custom:   { brightness: 0, contrast: 0, gamma: 1.00, sharpness: 0.0, ditherMode: 'floyd' },
-  normal:   { brightness: 5, contrast: 30, gamma: 1.08, sharpness: 1.0, ditherMode: 'floyd' },
-  portrait: { brightness: 10, contrast: 22, gamma: 1.20, sharpness: 0.5, ditherMode: 'floyd' },
-  dark:     { brightness: 25, contrast: 35, gamma: 1.25, sharpness: 1.0, ditherMode: 'floyd' },
-  light:    { brightness: -10, contrast: 45, gamma: 0.95, sharpness: 1.0, ditherMode: 'floyd' },
-  detail:   { brightness: 0, contrast: 55, gamma: 1.00, sharpness: 2.0, ditherMode: 'atkinson' }
-};
-
-const DEFAULTS = {
-  preset: 'normal',
-  brightness: PRESETS.normal.brightness,
-  contrast: PRESETS.normal.contrast,
-  gamma: PRESETS.normal.gamma,
-  sharpness: PRESETS.normal.sharpness,
-  ditherMode: PRESETS.normal.ditherMode,
-  dpi: 300,
-  outputWidthMm: 100
-};
-
-const fileInput = document.getElementById('fileInput');
-const dropZone = document.getElementById('dropZone');
-const uploadCtaCard = document.getElementById('uploadCtaCard');
-
-const brightness = document.getElementById('brightness');
-const contrast = document.getElementById('contrast');
-const gamma = document.getElementById('gamma');
-const sharpness = document.getElementById('sharpness');
-const ditherMode = document.getElementById('ditherMode');
-const dpi = document.getElementById('dpi');
-const outputWidthMm = document.getElementById('outputWidthMm');
-const outputWidthSlider = document.getElementById('outputWidthSlider');
-
-const downloadBtn = document.getElementById('downloadBtn');
-const resetBtn = document.getElementById('resetBtn');
-
-const canvasSingle = document.getElementById('canvasSingle');
-const canvasCompareOrig = document.getElementById('canvasCompareOrig');
-const canvasCompareResult = document.getElementById('canvasCompareResult');
-
-const presetCards = document.querySelectorAll('.preset-card');
-const langButtons = document.querySelectorAll('.lang-btn');
-
-function t(key) {
-  return (translations[currentLang] && translations[currentLang][key]) || translations.en[key] || key;
-}
-
-function applyTranslations() {
-  document.documentElement.lang = currentLang;
-
-  const ogLocale = document.querySelector('meta[property="og:locale"]');
-  if (ogLocale) ogLocale.setAttribute('content', localeMap[currentLang] || 'en_US');
-
-  document.querySelectorAll('[data-i18n]').forEach(el => {
-    const key = el.dataset.i18n;
-    el.textContent = t(key);
-  });
-
-  document.querySelectorAll('[data-i18n-html]').forEach(el => {
-    const key = el.dataset.i18nHtml;
-    el.innerHTML = t(key);
-  });
-
-  const originalImg = document.getElementById('emptyOriginalImg');
-  const resultImg = document.getElementById('emptyResultImg');
-  if (originalImg) originalImg.alt = t('emptyOriginalAlt');
-  if (resultImg) resultImg.alt = t('emptyResultAlt');
-
-  updateSizeInfo();
-}
-
-function setLanguage(lang) {
-  if (!translations[lang]) lang = 'en';
-  currentLang = lang;
-
-  langButtons.forEach(btn => {
-    btn.classList.toggle('active', btn.dataset.lang === lang);
-  });
-
-  try {
-    localStorage.setItem(LANG_STORAGE_KEY, lang);
-  } catch (e) {}
-
-  applyTranslations();
-  loadCounter();
-}
-
-function loadStoredLanguage() {
-  try {
-    const saved = localStorage.getItem(LANG_STORAGE_KEY);
-    if (saved && translations[saved]) {
-      currentLang = saved;
-      return;
-    }
-  } catch (e) {}
-  currentLang = 'en';
-}
-
-langButtons.forEach(btn => {
-  btn.addEventListener('click', () => setLanguage(btn.dataset.lang));
-});
-
-document.getElementById('btnResult').addEventListener('click', () => setViewMode('result'));
-document.getElementById('btnCompare').addEventListener('click', () => setViewMode('compare'));
-
-const sliderPairs = [
-  ['brightness', 'brightnessVal'],
-  ['contrast', 'contrastVal'],
-  ['gamma', 'gammaVal'],
-  ['sharpness', 'sharpnessVal'],
-  ['outputWidthSlider', 'outputWidthSliderVal']
-];
-
-dropZone.addEventListener('click', () => fileInput.click());
-uploadCtaCard.addEventListener('click', () => fileInput.click());
-
-document.addEventListener('click', function(e) {
-  const reuploadBtn = e.target.closest('#reuploadBtnResult, #reuploadBtnCompare');
-  if (reuploadBtn) {
-    fileInput.click();
-    return;
-  }
-
-  const mobileDownloadBtn = e.target.closest('#downloadBtnMobileResult, #downloadBtnMobileCompare');
-  if (mobileDownloadBtn) {
-    downloadResult();
-  }
-});
-
-fileInput.addEventListener('change', e => {
-  if (e.target.files && e.target.files[0]) loadFile(e.target.files[0]);
-});
-
-dropZone.addEventListener('dragover', e => {
-  e.preventDefault();
-  dropZone.classList.add('drag-over');
-});
-
-dropZone.addEventListener('dragleave', () => {
-  dropZone.classList.remove('drag-over');
-});
-
-dropZone.addEventListener('drop', e => {
-  e.preventDefault();
-  dropZone.classList.remove('drag-over');
-  if (e.dataTransfer.files && e.dataTransfer.files[0]) loadFile(e.dataTransfer.files[0]);
-});
-
-presetCards.forEach(card => {
-  card.addEventListener('click', () => {
-    applyPreset(card.dataset.preset);
-  });
-});
-
-ditherMode.addEventListener('change', () => {
-  markAsCustom();
-  saveSettings();
-  if (originalImage) scheduleProcessImage();
-});
-
-dpi.addEventListener('change', () => {
-  syncWidthFromMm();
-  updateSizeInfo();
-  saveSettings();
-  if (originalImage) scheduleProcessImage();
-});
-
-outputWidthMm.addEventListener('input', () => {
-  syncWidthFromMm();
-  updateSizeInfo();
-  saveSettings();
-  if (originalImage) scheduleProcessImage();
-});
-
-outputWidthSlider.addEventListener('input', () => {
-  syncMmFromSlider();
-  updateSizeInfo();
-  saveSettings();
-  if (originalImage) scheduleProcessImage();
-});
-
-downloadBtn.addEventListener('click', downloadResult);
-resetBtn.addEventListener('click', resetSettings);
-
-[brightness, contrast, gamma, sharpness].forEach((el) => {
-  el.addEventListener('input', () => {
-    updateSlider(el);
-    markAsCustom();
-    saveSettings();
-    if (originalImage) scheduleProcessImage();
-  });
-});
-
-function setViewMode(mode) {
-  viewMode = mode;
-  document.getElementById('btnResult').classList.toggle('active', mode === 'result');
-  document.getElementById('btnCompare').classList.toggle('active', mode === 'compare');
-  document.getElementById('resultView').style.display = mode === 'result' ? 'block' : 'none';
-  document.getElementById('compareView').style.display = mode === 'compare' ? 'block' : 'none';
-}
-
-function setActivePresetCard(key) {
-  presetCards.forEach(card => {
-    card.classList.toggle('active', card.dataset.preset === key);
-  });
-}
-
-function markAsCustom() {
-  if (currentPreset !== 'custom') {
-    currentPreset = 'custom';
-    setActivePresetCard('custom');
-  }
-}
-
-function applyPreset(key) {
-  const p = PRESETS[key];
-  if (!p) return;
-
-  currentPreset = key;
-  brightness.value = p.brightness;
-  contrast.value = p.contrast;
-  gamma.value = p.gamma;
-  sharpness.value = p.sharpness;
-  ditherMode.value = p.ditherMode;
-
-  sliderPairs.forEach(([id]) => updateSlider(document.getElementById(id)));
-  setActivePresetCard(key);
-  saveSettings();
-
-  if (originalImage) scheduleProcessImage();
-}
-
-function applyCurrentPresetValues() {
-  const p = PRESETS[currentPreset] || PRESETS.normal;
-  if (currentPreset === 'custom') return;
-
-  brightness.value = p.brightness;
-  contrast.value = p.contrast;
-  gamma.value = p.gamma;
-  sharpness.value = p.sharpness;
-  ditherMode.value = p.ditherMode;
-  sliderPairs.forEach(([id]) => updateSlider(document.getElementById(id)));
-}
-
-function getCanvasZoomKey(canvas) {
-  return canvas.id;
-}
-
-function getCanvasScale(canvas) {
-  return zoomState[getCanvasZoomKey(canvas)] || 1;
-}
-
-function setCanvasScale(canvas, scale) {
-  const clamped = clamp(scale, ZOOM_MIN, ZOOM_MAX);
-  zoomState[getCanvasZoomKey(canvas)] = clamped;
-
-  const wrapper = canvas.parentElement;
-  if (!wrapper) return;
-
-  canvas.style.transform = `scale(${clamped})`;
-  wrapper.classList.toggle('zoomed', clamped > 1);
-
-  if (clamped <= 1) {
-    wrapper.scrollLeft = 0;
-    wrapper.scrollTop = 0;
-  }
-}
-
-function resetAllCanvasZoom() {
-  [canvasSingle, canvasCompareOrig, canvasCompareResult].forEach(canvas => {
-    zoomState[canvas.id] = 1;
-    const wrapper = canvas.parentElement;
-    if (!wrapper) return;
-
-    canvas.style.transform = 'scale(1)';
-    wrapper.classList.remove('zoomed', 'dragging');
-    wrapper.scrollLeft = 0;
-    wrapper.scrollTop = 0;
-  });
-
-  dragState.isDragging = false;
-  dragState.wrapper = null;
-}
-
-function startDrag(wrapper, e) {
-  if (e.button !== 0) return;
-  const canvas = wrapper.querySelector('canvas');
-  if (!canvas) return;
-  if (getCanvasScale(canvas) <= 1) return;
-
-  dragState.isDragging = true;
-  dragState.wrapper = wrapper;
-  dragState.startX = e.clientX;
-  dragState.startY = e.clientY;
-  dragState.scrollLeft = wrapper.scrollLeft;
-  dragState.scrollTop = wrapper.scrollTop;
-
-  wrapper.classList.add('dragging');
-  e.preventDefault();
-}
-
-function onDragMove(e) {
-  if (!dragState.isDragging || !dragState.wrapper) return;
-
-  const dx = e.clientX - dragState.startX;
-  const dy = e.clientY - dragState.startY;
-
-  dragState.wrapper.scrollLeft = dragState.scrollLeft - dx;
-  dragState.wrapper.scrollTop = dragState.scrollTop - dy;
-}
-
-function stopDrag() {
-  if (!dragState.wrapper) {
-    dragState.isDragging = false;
-    return;
-  }
-
-  dragState.wrapper.classList.remove('dragging');
-  dragState.isDragging = false;
-  dragState.wrapper = null;
-}
-
-function attachWheelZoom(wrapper, canvas) {
-  wrapper.addEventListener('wheel', (e) => {
-    if (!canvas.width || !canvas.height) return;
-
-    e.preventDefault();
-
-    const oldScale = getCanvasScale(canvas);
-    const delta = e.deltaY < 0 ? ZOOM_STEP : -ZOOM_STEP;
-    const newScale = clamp(roundTo(oldScale + delta, 0.05), ZOOM_MIN, ZOOM_MAX);
-
-    if (newScale === oldScale) return;
-
-    const rect = wrapper.getBoundingClientRect();
-    const offsetX = e.clientX - rect.left + wrapper.scrollLeft;
-    const offsetY = e.clientY - rect.top + wrapper.scrollTop;
-
-    const pointX = offsetX / oldScale;
-    const pointY = offsetY / oldScale;
-
-    setCanvasScale(canvas, newScale);
-
-    wrapper.scrollLeft = pointX * newScale - (e.clientX - rect.left);
-    wrapper.scrollTop = pointY * newScale - (e.clientY - rect.top);
-  }, { passive: false });
-
-  wrapper.addEventListener('dblclick', () => {
-    setCanvasScale(canvas, 1);
-    wrapper.scrollLeft = 0;
-    wrapper.scrollTop = 0;
-  });
-
-  wrapper.addEventListener('mousedown', (e) => startDrag(wrapper, e));
-  wrapper.addEventListener('mouseleave', stopDrag);
-}
-
-function initializeCanvasZoom() {
-  attachWheelZoom(canvasSingle.parentElement, canvasSingle);
-  attachWheelZoom(canvasCompareOrig.parentElement, canvasCompareOrig);
-  attachWheelZoom(canvasCompareResult.parentElement, canvasCompareResult);
-
-  window.addEventListener('mousemove', onDragMove);
-  window.addEventListener('mouseup', stopDrag);
-}
-
-function scheduleProcessImage() {
-  if (renderQueued) return;
-  renderQueued = true;
-  requestAnimationFrame(() => {
-    renderQueued = false;
-    processImage();
-  });
-}
-
-function updateSlider(el) {
-  const target =
-    document.getElementById(el.id + 'Val') ||
-    document.getElementById(el.id.replace('Slider', 'SliderVal'));
-
-  if (!target) return;
-
-  const step = el.step ? String(el.step) : '1';
-  const decimals = step.includes('.') ? step.split('.')[1].length : 0;
-  const value = Number(el.value).toFixed(decimals);
-
-  target.textContent = el.id === 'outputWidthSlider' ? `${value} px` : value;
-}
-
-function loadStoredSettings() {
-  try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    if (!raw) return;
-
-    const s = JSON.parse(raw);
-
-    if (s.preset && PRESETS[s.preset]) currentPreset = s.preset;
-    if (s.brightness !== undefined) brightness.value = s.brightness;
-    if (s.contrast !== undefined) contrast.value = s.contrast;
-    if (s.gamma !== undefined) gamma.value = s.gamma;
-    if (s.sharpness !== undefined) sharpness.value = s.sharpness;
-    if (s.ditherMode) ditherMode.value = s.ditherMode;
-    if (s.dpi) dpi.value = s.dpi;
-    if (s.outputWidthMm !== undefined) outputWidthMm.value = s.outputWidthMm;
-  } catch (e) {}
-}
-
-function saveSettings() {
-  const data = {
-    preset: currentPreset,
-    brightness: Number(brightness.value),
-    contrast: Number(contrast.value),
-    gamma: Number(gamma.value),
-    sharpness: Number(sharpness.value),
-    ditherMode: ditherMode.value,
-    dpi: Number(dpi.value),
-    outputWidthMm: Number(outputWidthMm.value)
-  };
-
-  try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-  } catch (e) {}
-}
-
-function resetSettings() {
-  currentPreset = DEFAULTS.preset;
-  brightness.value = DEFAULTS.brightness;
-  contrast.value = DEFAULTS.contrast;
-  gamma.value = DEFAULTS.gamma;
-  sharpness.value = DEFAULTS.sharpness;
-  ditherMode.value = DEFAULTS.ditherMode;
-  dpi.value = DEFAULTS.dpi;
-  outputWidthMm.value = DEFAULTS.outputWidthMm;
-
-  syncWidthFromMm();
-  sliderPairs.forEach(([id]) => updateSlider(document.getElementById(id)));
-  updateSizeInfo();
-  setActivePresetCard(currentPreset);
-  saveSettings();
-
-  if (originalImage) scheduleProcessImage();
-}
-
-function showEditor() {
-  document.getElementById('emptyState').style.display = 'none';
-  document.getElementById('canvasArea').style.display = 'block';
-}
-
-function scrollToPreviewOnMobile() {
-  if (window.innerWidth >= 1024) return;
-
-  const target = document.getElementById('canvasArea');
-  if (!target) return;
-
-  setTimeout(() => {
-    target.scrollIntoView({
-      behavior: 'smooth',
-      block: 'start'
-    });
-  }, 120);
-}
-
-function loadImageIntoEditor(img, switchToResult = false, targetDpi = null) {
-  originalImage = img;
-  showEditor();
-
-  applyCurrentPresetValues();
-  setActivePresetCard(currentPreset);
-
-  if (targetDpi !== null && targetDpi !== undefined) {
-    dpi.value = String(targetDpi);
-  }
-
-  syncWidthFromMm();
-  updateSizeInfo();
-  saveSettings();
-
-  const isMobile = window.innerWidth < 1024;
-  setViewMode(isMobile ? 'result' : (switchToResult ? 'result' : 'compare'));
-
-  resetAllCanvasZoom();
-  processImage();
-
-  if (isMobile) {
-    scrollToPreviewOnMobile();
-  }
-}
-
-function loadFile(file) {
-  if (!file || !file.type.startsWith('image/')) return;
-
-  const reader = new FileReader();
-  reader.onload = ev => {
-    const img = new Image();
-    img.onload = () => {
-      loadImageIntoEditor(img, true);
+  <script>
+    let originalImage = null;
+    let renderQueued = false;
+    let viewMode = 'compare';
+    let currentPreset = 'normal';
+    let currentLang = 'en';
+
+    const ZOOM_STEP = 0.1;
+    const ZOOM_MIN = 0.2;
+    const ZOOM_MAX = 6;
+    const FIXED_THRESHOLD = 128;
+    const STORAGE_KEY = 'laserEditorSimpleV7';
+    const LANG_STORAGE_KEY = 'laserEditorLanguageV1';
+    const OUTPUT_WIDTH_MIN_PX = 100;
+    const OUTPUT_WIDTH_MAX_PX = 3000;
+
+    const translations = {
+      en: {
+        counterLabel: '📸 Processed:',
+        btnOutput: 'Only Output',
+        btnCompare: 'Original + Output',
+        emptyOriginal: 'ORIGINAL',
+        emptyOutput: 'OUTPUT',
+        stepUploadTitle: 'Upload a photo ↑',
+        stepUploadText: 'Click here or drag & drop',
+        stepTryTitle: 'Or try it right away',
+        stepTryText: 'A demo photo loads automatically',
+        stepDownloadTitle: 'Download PNG',
+        stepDownloadText: 'Ready for engraving',
+        hintLine: '↑ Start right away with the demo photo or upload your own',
+        zoomHelp: 'Use the mouse wheel to zoom in or out. When zoomed in, drag the image with the mouse. Double-click resets zoom to 100%. For the best experience and more comfortable editing, we recommend using this tool on a desktop computer.',
+        reuploadBtn: '↺ Upload another photo',
+        sectionUpload: 'Upload Photo',
+        dropZoneMain: 'Drag & drop or click to choose',
+        dropZoneSub: 'JPG, PNG, BMP, WebP',
+        sectionPhotoType: 'Photo Type',
+        presetCustom: 'Custom',
+        presetNormal: 'Normal Photo',
+        presetPortrait: 'People',
+        presetDark: 'Dark Photo',
+        presetLight: 'Light Photo',
+        presetDetail: '🔍 More Detail',
+        presetHelp: 'Default is Normal Photo. You can fine-tune everything with the sliders below.',
+        sectionAdjustments: 'Photo Adjustments',
+        labelBrightness: 'Brightness',
+        labelContrast: 'Contrast',
+        labelGamma: 'Gamma',
+        labelSharpness: 'Sharpness',
+        labelEngravingStyle: 'Engraving Style',
+        ditherDetailed: 'Detailed',
+        ditherContrast: 'Contrast',
+        ditherHelp: 'Photos → Detailed | stronger edges → Contrast',
+        resetBtn: '↺ Default Settings',
+        sectionOutput: 'Output',
+        labelDpi: 'Desired DPI',
+        labelOutputWidthMm: 'Output Width (mm)',
+        outputWidthHelp: 'Pixels are calculated automatically from the selected DPI.',
+        labelFineTuneWidth: 'Fine-tune Width',
+        outputSliderHelp: 'The slider works in pixels and stays synced with width in mm.',
+        sizeInfoLabel: 'Output Size',
+        pixelInfoLabel: 'Conversion',
+        downloadBtn: 'Download PNG for Laser',
+        sectionNote: 'Note',
+        footerNote: 'The PNG includes DPI metadata for the correct size in laser software.',
+        alertLoadFail: 'The image could not be loaded.',
+        alertReadFail: 'Error reading the file.',
+        alertUploadFirst: 'Please upload an image first.',
+        alertPngFail: 'Failed to create a PNG file with the selected DPI.',
+        iosTitle: 'Save on iOS',
+        iosText: 'Press and hold the image and choose <strong style="color:#e2e8f0">Add to Photos</strong> or <strong style="color:#e2e8f0">Save Image</strong>.',
+        iosClose: 'Close',
+        demoLoadFail: 'Demo image could not be loaded.',
+        emptyOriginalAlt: 'Preview original image',
+        emptyResultAlt: 'Preview output image',
+        helpIntroTitle: 'What does this tool do?',
+        helpIntroText: '<strong class="text-white">Photo Engraving Online</strong> converts a regular photo into a rasterized black-and-white image optimized for CO2 or diode laser engraving. You can then import the resulting PNG directly into your laser software (LightBurn, LaserGRBL, XCS, etc.) and engrave it.',
+        helpStepsTitle: 'Step-by-step guide',
+        helpStep1Title: 'Upload a photo',
+        helpStep1Text: 'Drag the file into the upload area or click to choose it from your device. Supported formats are JPG, PNG, BMP and WebP. For best results, use a sharp photo with good contrast.',
+        helpStep2Title: 'Set DPI',
+        helpStep2Text: 'Choose a resolution that matches your material and your laser’s capabilities. See the recommendation table below.',
+        helpStep3Title: 'Set the output size in mm',
+        helpStep3Text: 'Enter the final engraving width in millimeters. The tool automatically calculates the height, keeps the aspect ratio and shows the resulting pixel count.',
+        helpStep4Title: 'Fine-tune the width',
+        helpStep4Text: 'The slider lets you fine-tune the output width in pixels. It stays synced with the width field in mm, so changing one automatically updates the other.',
+        helpStep5Title: 'Check the output and download the PNG',
+        helpStep5Text: 'The output shows the final rasterized image. If it looks good, click Download PNG for Laser and import the file into your laser software.',
+        helpDpiTitle: 'Recommended DPI by material',
+        helpTableHeadDpi: 'DPI',
+        helpTableHeadMaterial: 'Best for',
+        helpTableHeadNote: 'Note',
+        helpDpi72Material: 'Leather, fabrics, very rough wood',
+        helpDpi72Note: 'Low detail, fast engraving',
+        helpDpi150Material: 'Soft wood (pine, linden), OSB',
+        helpDpi150Note: 'Good result for larger formats',
+        helpDpi254Material: 'Hard wood (oak, beech), plywood',
+        helpDpi254Note: 'Good balance between detail and speed',
+        helpDpi300Material: 'Glass, stone, slate, MDF',
+        helpDpi300Note: 'Default value – suitable for most projects',
+        helpDpi500Material: 'Acrylic, coated metals, ceramics',
+        helpDpi500Note: 'High detail, great for portraits',
+        helpDpi750Material: 'Anodized aluminum, cast acrylic',
+        helpDpi750Note: 'Maximum detail, slower engraving',
+        helpOutputSizeTitle: 'How to choose the correct output size?',
+        helpOutputSizeText1: 'The output size in <strong class="text-white">mm</strong> should exactly match the real physical size of the engraving area on your material.',
+        helpOutputSizeText2: 'Example: If you want to engrave a portrait on a wooden plate with a width of <strong class="text-white">80 mm</strong>, set the width to <strong class="text-white">80 mm</strong> and choose <strong class="text-white">300 DPI</strong>. The tool will create an image about <strong class="text-orange-300">945 px</strong> wide, which matches the required physical size.',
+        helpOutputSizeFormula: 'ℹ️ Formula: width in px = (width in mm ÷ 25.4) × DPI',
+        helpTipsTitle: 'Tips for better results',
+        helpTip1Title: '📷 Input photo quality',
+        helpTip1Text: 'Use sharp photos with good contrast. Dark or blurry images will produce worse engraving results even at high DPI.',
+        helpTip2Title: '🔲 Contrast and brightness',
+        helpTip2Text: 'Before uploading, try adjusting the photo in any editor. Higher contrast often improves the final rasterized result a lot.',
+        helpTip3Title: '🧪 Test engraving',
+        helpTip3Text: 'Always test the result first on an offcut of the same material before running the final engraving.',
+        helpTip4Title: '⚙️ LightBurn settings',
+        helpTip4Text: 'Import the PNG as <strong class="text-gray-200">Passthrough</strong> or <strong class="text-gray-200">Threshold</strong>. The dithering is already included in the file, so additional image processing may make it worse.'
+      },
+
+      es: {
+        counterLabel: '📸 Procesadas:',
+        btnOutput: 'Solo salida',
+        btnCompare: 'Original + salida',
+        emptyOriginal: 'ORIGINAL',
+        emptyOutput: 'SALIDA',
+        stepUploadTitle: 'Sube una foto ↑',
+        stepUploadText: 'Haz clic aquí o arrastra y suelta',
+        stepTryTitle: 'O pruébalo ahora mismo',
+        stepTryText: 'La foto de ejemplo se carga automáticamente',
+        stepDownloadTitle: 'Descargar PNG',
+        stepDownloadText: 'Listo para grabado',
+        hintLine: '↑ Empieza ahora mismo con la foto de ejemplo o sube la tuya',
+        zoomHelp: 'Usa la rueda del ratón para acercar o alejar. Cuando esté ampliado, arrastra la imagen con el ratón. Doble clic restablece el zoom al 100%. Para disfrutar de la mejor experiencia y una edición más cómoda, recomendamos usar esta herramienta en un ordenador de escritorio.',
+        reuploadBtn: '↺ Subir otra foto',
+        sectionUpload: 'Subir Foto',
+        dropZoneMain: 'Arrastra y suelta o haz clic para elegir',
+        dropZoneSub: 'JPG, PNG, BMP, WebP',
+        sectionPhotoType: 'Tipo de Foto',
+        presetCustom: 'Personalizado',
+        presetNormal: 'Foto Normal',
+        presetPortrait: 'Personas',
+        presetDark: 'Foto Oscura',
+        presetLight: 'Foto Clara',
+        presetDetail: 'Más Detalle',
+        presetHelp: 'El valor predeterminado es Foto Normal. Puedes ajustar todo con los controles de abajo.',
+        sectionAdjustments: 'Ajustes de la Foto',
+        labelBrightness: 'Brillo',
+        labelContrast: 'Contraste',
+        labelGamma: 'Gamma',
+        labelSharpness: 'Nitidez',
+        labelEngravingStyle: 'Estilo de grabado',
+        ditherDetailed: 'Detallado',
+        ditherContrast: 'Contraste',
+        ditherHelp: 'Fotos → Detallado | bordes más marcados → Contraste',
+        resetBtn: 'Ajustes Predeterminados',
+        sectionOutput: 'Salida',
+        labelDpi: 'DPI Deseado',
+        labelOutputWidthMm: 'Ancho de Salida (mm)',
+        outputWidthHelp: 'Los píxeles se calculan automáticamente según el DPI seleccionado.',
+        labelFineTuneWidth: 'Ajuste Fino del Ancho',
+        outputSliderHelp: 'El control deslizante funciona en píxeles y se sincroniza con el ancho en mm.',
+        sizeInfoLabel: 'Tamaño de Salida',
+        pixelInfoLabel: 'Conversión',
+        downloadBtn: 'Descargar PNG para Láser',
+        sectionNote: 'Nota',
+        footerNote: 'El PNG incluye metadatos DPI para el tamaño correcto en el software láser.',
+        alertLoadFail: 'No se pudo cargar la imagen.',
+        alertReadFail: 'Error al leer el archivo.',
+        alertUploadFirst: 'Primero sube una imagen.',
+        alertPngFail: 'No se pudo crear el archivo PNG con el DPI seleccionado.',
+        iosTitle: 'Guardar en iOS',
+        iosText: 'Mantén pulsada la imagen y elige <strong style="color:#e2e8f0">Añadir a Fotos</strong> o <strong style="color:#e2e8f0">Guardar imagen</strong>.',
+        iosClose: 'Cerrar',
+        demoLoadFail: 'No se pudo cargar la imagen de ejemplo.',
+        emptyOriginalAlt: 'Vista previa de imagen original',
+        emptyResultAlt: 'Vista previa de imagen de salida',
+        helpIntroTitle: '¿Qué hace esta herramienta?',
+        helpIntroText: '<strong class="text-white">Photo Engraving Online</strong> convierte una fotografía normal en una imagen en blanco y negro rasterizada, optimizada para grabado láser CO2 o de diodo. Después puedes importar el PNG resultante directamente en tu software láser (LightBurn, LaserGRBL, XCS, etc.) y grabarlo.',
+        helpStepsTitle: 'Guía paso a paso',
+        helpStep1Title: 'Sube una foto',
+        helpStep1Text: 'Arrastra el archivo al área de carga o haz clic para elegirlo desde tu dispositivo. Los formatos compatibles son JPG, PNG, BMP y WebP. Para obtener mejores resultados, usa una foto nítida y con buen contraste.',
+        helpStep2Title: 'Configura el DPI',
+        helpStep2Text: 'Elige una resolución que se adapte al material y a las capacidades de tu láser. Consulta la tabla de recomendaciones más abajo.',
+        helpStep3Title: 'Configura el tamaño de salida en mm',
+        helpStep3Text: 'Introduce el ancho final del grabado en milímetros. La herramienta calcula automáticamente la altura, mantiene la proporción y muestra el número final de píxeles.',
+        helpStep4Title: 'Ajusta el ancho con precisión',
+        helpStep4Text: 'El control deslizante permite ajustar con precisión el ancho de salida en píxeles. Se mantiene sincronizado con el campo de ancho en mm, así que al cambiar uno se actualiza automáticamente el otro.',
+        helpStep5Title: 'Revisa la salida y descarga el PNG',
+        helpStep5Text: 'La salida muestra la imagen rasterizada final. Si se ve bien, haz clic en Descargar PNG para Láser e importa el archivo en tu software láser.',
+        helpDpiTitle: 'DPI recomendado según el material',
+        helpTableHeadDpi: 'DPI',
+        helpTableHeadMaterial: 'Ideal para',
+        helpTableHeadNote: 'Nota',
+        helpDpi72Material: 'Cuero, telas, madera muy rugosa',
+        helpDpi72Note: 'Poco detalle, grabado rápido',
+        helpDpi150Material: 'Madera blanda (pino, tilo), OSB',
+        helpDpi150Note: 'Buen resultado para formatos grandes',
+        helpDpi254Material: 'Madera dura (roble, haya), contrachapado',
+        helpDpi254Note: 'Buen equilibrio entre detalle y velocidad',
+        helpDpi300Material: 'Vidrio, piedra, pizarra, MDF',
+        helpDpi300Note: 'Valor predeterminado: adecuado para la mayoría de proyectos',
+        helpDpi500Material: 'Acrílico, metales lacados, cerámica',
+        helpDpi500Note: 'Alto detalle, ideal para retratos',
+        helpDpi750Material: 'Aluminio anodizado, acrílico fundido',
+        helpDpi750Note: 'Máximo detalle, grabado más lento',
+        helpOutputSizeTitle: '¿Cómo elegir el tamaño de salida correcto?',
+        helpOutputSizeText1: 'El tamaño de salida en <strong class="text-white">mm</strong> debe coincidir exactamente con el tamaño físico real del área de grabado en tu material.',
+        helpOutputSizeText2: 'Ejemplo: si quieres grabar un retrato en una placa de madera con un ancho de <strong class="text-white">80 mm</strong>, configura el ancho en <strong class="text-white">80 mm</strong> y elige <strong class="text-white">300 DPI</strong>. La herramienta generará una imagen de aproximadamente <strong class="text-orange-300">945 px</strong> de ancho, que coincide con el tamaño físico requerido.',
+        helpOutputSizeFormula: 'ℹ️ Fórmula: ancho en px = (ancho en mm ÷ 25,4) × DPI',
+        helpTipsTitle: 'Consejos para mejores resultados',
+        helpTip1Title: '📷 Calidad de la foto de entrada',
+        helpTip1Text: 'Usa fotos nítidas y con buen contraste. Las imágenes oscuras o borrosas producirán peores resultados incluso con un DPI alto.',
+        helpTip2Title: '🔲 Contraste y brillo',
+        helpTip2Text: 'Antes de subirla, intenta ajustar la foto en cualquier editor. Un mayor contraste suele mejorar mucho el resultado rasterizado final.',
+        helpTip3Title: '🧪 Grabado de prueba',
+        helpTip3Text: 'Haz siempre primero una prueba en un recorte del mismo material antes de lanzar el grabado final.',
+        helpTip4Title: '⚙️ Ajustes en LightBurn',
+        helpTip4Text: 'Importa el PNG como <strong class="text-gray-200">Passthrough</strong> o <strong class="text-gray-200">Threshold</strong>. El dithering ya está incluido en el archivo, así que un procesamiento adicional puede empeorarlo.'
+      },
+
+      de: {
+        counterLabel: '📸 Verarbeitet:',
+        btnOutput: 'Nur Ausgabe',
+        btnCompare: 'Original + Ausgabe',
+        emptyOriginal: 'ORIGINAL',
+        emptyOutput: 'AUSGABE',
+        stepUploadTitle: 'Foto hochladen ↑',
+        stepUploadText: 'Hier klicken oder per Drag & Drop',
+        stepTryTitle: 'Oder direkt ausprobieren',
+        stepTryText: 'Ein Beispielfoto wird automatisch geladen',
+        stepDownloadTitle: 'PNG herunterladen',
+        stepDownloadText: 'Bereit zum Gravieren',
+        hintLine: '↑ Starte sofort mit dem Beispielfoto oder lade dein eigenes hoch',
+        zoomHelp: 'Mit dem Mausrad kannst du hinein- oder herauszoomen. Im vergrößerten Zustand kannst du das Bild mit der Maus verschieben. Doppelklick setzt den Zoom auf 100 % zurück. Für das beste Erlebnis und eine bequemere Bearbeitung empfehlen wir, dieses Tool auf einem Desktop-Computer zu verwenden.',
+        reuploadBtn: '↺ Anderes Foto hochladen',
+        sectionUpload: 'Foto Hochladen',
+        dropZoneMain: 'Per Drag & Drop oder klicken zum Auswählen',
+        dropZoneSub: 'JPG, PNG, BMP, WebP',
+        sectionPhotoType: 'Fototyp',
+        presetCustom: 'Benutzerdefiniert',
+        presetNormal: 'Normales Foto',
+        presetPortrait: 'Menschen',
+        presetDark: 'Dunkles Foto',
+        presetLight: 'Helles Foto',
+        presetDetail: 'Mehr Details',
+        presetHelp: 'Standard ist Normales Foto. Mit den Reglern unten kannst du alles fein abstimmen.',
+        sectionAdjustments: 'Fotoanpassung',
+        labelBrightness: 'Helligkeit',
+        labelContrast: 'Kontrast',
+        labelGamma: 'Gamma',
+        labelSharpness: 'Schärfe',
+        labelEngravingStyle: 'Gravierstil',
+        ditherDetailed: 'Detailliert',
+        ditherContrast: 'Kontrast',
+        ditherHelp: 'Fotos → Detailliert | stärkere Kanten → Kontrast',
+        resetBtn: 'Standardeinstellungen',
+        sectionOutput: 'Ausgabe',
+        labelDpi: 'Gewünschte DPI',
+        labelOutputWidthMm: 'Ausgabebreite (mm)',
+        outputWidthHelp: 'Die Pixel werden automatisch anhand der gewählten DPI berechnet.',
+        labelFineTuneWidth: 'Breite Feinabstimmen',
+        outputSliderHelp: 'Der Schieberegler arbeitet in Pixeln und bleibt mit der Breite in mm synchron.',
+        sizeInfoLabel: 'Ausgabegröße',
+        pixelInfoLabel: 'Umrechnung',
+        downloadBtn: 'PNG für Laser Herunterladen',
+        sectionNote: 'Hinweis',
+        footerNote: 'Die PNG enthält DPI-Metadaten für die richtige Größe in Lasersoftware.',
+        alertLoadFail: 'Das Bild konnte nicht geladen werden.',
+        alertReadFail: 'Fehler beim Lesen der Datei.',
+        alertUploadFirst: 'Bitte lade zuerst ein Bild hoch.',
+        alertPngFail: 'Die PNG-Datei mit den gewählten DPI konnte nicht erstellt werden.',
+        iosTitle: 'Auf iOS speichern',
+        iosText: 'Halte das Bild gedrückt und wähle <strong style="color:#e2e8f0">Zu Fotos hinzufügen</strong> oder <strong style="color:#e2e8f0">Bild sichern</strong>.',
+        iosClose: 'Schließen',
+        demoLoadFail: 'Das Demo-Bild konnte nicht geladen werden.',
+        emptyOriginalAlt: 'Vorschau des Originalbilds',
+        emptyResultAlt: 'Vorschau des Ausgabebilds',
+        helpIntroTitle: 'Was macht dieses Tool?',
+        helpIntroText: '<strong class="text-white">Photo Engraving Online</strong> wandelt ein normales Foto in ein gerastertes Schwarz-Weiß-Bild um, das für CO2- oder Diodenlasergravuren optimiert ist. Die resultierende PNG-Datei kannst du direkt in deine Lasersoftware (LightBurn, LaserGRBL, XCS usw.) importieren und gravieren.',
+        helpStepsTitle: 'Schritt-für-Schritt-Anleitung',
+        helpStep1Title: 'Foto hochladen',
+        helpStep1Text: 'Ziehe die Datei in den Upload-Bereich oder klicke, um sie von deinem Gerät auszuwählen. Unterstützte Formate sind JPG, PNG, BMP und WebP. Für beste Ergebnisse verwende ein scharfes Foto mit gutem Kontrast.',
+        helpStep2Title: 'DPI einstellen',
+        helpStep2Text: 'Wähle eine Auflösung, die zu deinem Material und den Möglichkeiten deines Lasers passt. Siehe die Empfehlungstabelle unten.',
+        helpStep3Title: 'Ausgabegröße in mm festlegen',
+        helpStep3Text: 'Gib die gewünschte Endbreite der Gravur in Millimetern ein. Das Tool berechnet automatisch die Höhe, behält das Seitenverhältnis bei und zeigt die resultierende Pixelzahl an.',
+        helpStep4Title: 'Breite fein abstimmen',
+        helpStep4Text: 'Mit dem Schieberegler kannst du die Ausgabebreite in Pixeln fein abstimmen. Er bleibt mit dem Breitenfeld in mm synchron – wenn du einen Wert änderst, wird der andere automatisch aktualisiert.',
+        helpStep5Title: 'Ausgabe prüfen und PNG herunterladen',
+        helpStep5Text: 'Die Ausgabe zeigt das endgültige gerasterte Bild. Wenn alles gut aussieht, klicke auf PNG für Laser herunterladen und importiere die Datei in deine Lasersoftware.',
+        helpDpiTitle: 'Empfohlene DPI je nach Material',
+        helpTableHeadDpi: 'DPI',
+        helpTableHeadMaterial: 'Geeignet für',
+        helpTableHeadNote: 'Hinweis',
+        helpDpi72Material: 'Leder, Stoffe, sehr grobes Holz',
+        helpDpi72Note: 'Wenig Detail, schnelles Gravieren',
+        helpDpi150Material: 'Weichholz (Kiefer, Linde), OSB',
+        helpDpi150Note: 'Gutes Ergebnis für größere Formate',
+        helpDpi254Material: 'Hartholz (Eiche, Buche), Sperrholz',
+        helpDpi254Note: 'Guter Kompromiss aus Detail und Geschwindigkeit',
+        helpDpi300Material: 'Glas, Stein, Schiefer, MDF',
+        helpDpi300Note: 'Standardwert – für die meisten Projekte geeignet',
+        helpDpi500Material: 'Acryl, lackierte Metalle, Keramik',
+        helpDpi500Note: 'Hoher Detailgrad, ideal für Porträts',
+        helpDpi750Material: 'Eloxiertes Aluminium, gegossenes Acryl',
+        helpDpi750Note: 'Maximale Details, langsameres Gravieren',
+        helpOutputSizeTitle: 'Wie wählt man die richtige Ausgabegröße?',
+        helpOutputSizeText1: 'Die Ausgabegröße in <strong class="text-white">mm</strong> sollte exakt der realen physischen Größe der Gravurfläche auf deinem Material entsprechen.',
+        helpOutputSizeText2: 'Beispiel: Wenn du ein Porträt auf eine Holzplatte mit einer Breite von <strong class="text-white">80 mm</strong> gravieren möchtest, stelle die Breite auf <strong class="text-white">80 mm</strong> und wähle <strong class="text-white">300 DPI</strong>. Das Tool erstellt dann ein Bild mit etwa <strong class="text-orange-300">945 px</strong> Breite, was genau der gewünschten physischen Größe entspricht.',
+        helpOutputSizeFormula: 'ℹ️ Formel: Breite in px = (Breite in mm ÷ 25,4) × DPI',
+        helpTipsTitle: 'Tipps für bessere Ergebnisse',
+        helpTip1Title: '📷 Qualität des Ausgangsfotos',
+        helpTip1Text: 'Verwende scharfe Fotos mit gutem Kontrast. Dunkle oder unscharfe Bilder liefern selbst bei hoher DPI schlechtere Gravurergebnisse.',
+        helpTip2Title: '🔲 Kontrast und Helligkeit',
+        helpTip2Text: 'Versuche vor dem Upload, das Foto in einem beliebigen Editor anzupassen. Ein höherer Kontrast verbessert das endgültige Rasterergebnis oft deutlich.',
+        helpTip3Title: '🧪 Testgravur',
+        helpTip3Text: 'Teste das Ergebnis immer zuerst an einem Reststück desselben Materials, bevor du die endgültige Gravur startest.',
+        helpTip4Title: '⚙️ LightBurn-Einstellungen',
+        helpTip4Text: 'Importiere die PNG als <strong class="text-gray-200">Passthrough</strong> oder <strong class="text-gray-200">Threshold</strong>. Das Dithering ist bereits in der Datei enthalten, daher kann zusätzliche Bildverarbeitung das Ergebnis verschlechtern.'
+      },
+
+      cs: {
+        counterLabel: '📸 Zpracováno:',
+        btnOutput: 'Pouze výstup',
+        btnCompare: 'Originál + výstup',
+        emptyOriginal: 'ORIGINÁL',
+        emptyOutput: 'VÝSTUP',
+        stepUploadTitle: 'Nahraj fotku ↑',
+        stepUploadText: 'Klikni sem nebo přetáhni',
+        stepTryTitle: 'Nebo si to rovnou vyzkoušej',
+        stepTryText: 'Ukázková fotka se načte automaticky',
+        stepDownloadTitle: 'Stáhni PNG',
+        stepDownloadText: 'Hotovo pro gravírování',
+        hintLine: '↑ Můžeš začít hned na ukázkové fotce nebo nahrát vlastní',
+        zoomHelp: 'Kolečkem myši přiblížíš nebo oddálíš obrázek. Přiblížený obrázek můžeš posouvat tažením myší. Dvojklik vrátí zoom na 100 %. Pro nejlepší zážitek a pohodlnější úpravy doporučujeme používat tento nástroj na počítači.',
+        reuploadBtn: '↺ Nahrát jinou fotku',
+        sectionUpload: 'Nahrát fotku',
+        dropZoneMain: 'Přetáhni nebo klikni pro výběr',
+        dropZoneSub: 'JPG, PNG, BMP, WebP',
+        sectionPhotoType: 'Typ fotky',
+        presetCustom: 'Vlastní nastavení',
+        presetNormal: 'Běžná fotka',
+        presetPortrait: 'Lidé',
+        presetDark: 'Tmavá fotka',
+        presetLight: 'Světlá fotka',
+        presetDetail: 'Více detailů',
+        presetHelp: 'Pomocí sliderů níže můžeš fotku jemně doladit.',
+        sectionAdjustments: 'Úprava fotky',
+        labelBrightness: 'Jas',
+        labelContrast: 'Kontrast',
+        labelGamma: 'Gama',
+        labelSharpness: 'Ostrost',
+        labelEngravingStyle: 'Styl gravírování',
+        ditherDetailed: 'Detailní',
+        ditherContrast: 'Kontrastní',
+        ditherHelp: 'Fotky → Detailní | výraznější hrany → Kontrastní',
+        resetBtn: 'Výchozí nastavení',
+        sectionOutput: 'Výstup',
+        labelDpi: 'Požadované DPI',
+        labelOutputWidthMm: 'Šířka výstupu (mm)',
+        outputWidthHelp: 'Pixely se dopočítají automaticky podle zvoleného DPI.',
+        labelFineTuneWidth: 'Jemné doladění šířky',
+        outputSliderHelp: 'Posuvník pracuje v pixelech a synchronizuje se se šířkou v mm.',
+        sizeInfoLabel: 'Výstupní velikost',
+        pixelInfoLabel: 'Přepočet',
+        downloadBtn: 'Stáhnout PNG pro laser',
+        sectionNote: 'Poznámka',
+        footerNote: 'PNG obsahuje DPI metadata pro správnou velikost v laserovém softwaru.',
+        alertLoadFail: 'Nepodařilo se načíst obrázek.',
+        alertReadFail: 'Chyba při čtení souboru.',
+        alertUploadFirst: 'Nejprve nahraj obrázek.',
+        alertPngFail: 'Nepodařilo se vytvořit PNG soubor s nastaveným DPI.',
+        iosTitle: 'Uložení na iOS',
+        iosText: 'Podrž prst na obrázku a vyber <strong style="color:#e2e8f0">Přidat do Fotek</strong> nebo <strong style="color:#e2e8f0">Uložit obrázek</strong>.',
+        iosClose: 'Zavřít',
+        demoLoadFail: 'Demo obrázek se nepodařilo načíst.',
+        emptyOriginalAlt: 'Ukázka originálního obrázku',
+        emptyResultAlt: 'Ukázka výstupního obrázku',
+        helpIntroTitle: 'Co tento nástroj umí?',
+        helpIntroText: '<strong class="text-white">PhotoEngraving.online</strong> převede vaši fotografii na ditherovaný černobílý obraz, který je optimalizovaný pro gravírování CO2, fiber nebo diodovým laserem. Výsledný soubor PNG pak importuješ přímo do svého laserového softwaru (LightBurn, LaserGRBL, XCS apod.).',
+        helpStepsTitle: 'Postup krok za krokem',
+        helpStep1Title: 'Nahraj fotografii',
+        helpStep1Text: 'Přetáhni soubor do oblasti na stránce nebo klikni pro výběr ze zařízení. Podporovány jsou formáty JPG, PNG, BMP a WebP. Pro nejlepší výsledky použij ostrou fotografii s dobrým kontrastem.',
+        helpStep2Title: 'Nastav DPI (rozlišení)',
+        helpStep2Text: 'Vyber rozlišení odpovídající materiálu a schopnostem tvého laseru. Viz tabulka níže.',
+        helpStep3Title: 'Nastav výstupní velikost v mm',
+        helpStep3Text: 'Zadej šířku výsledného gravírování v milimetrech. Nástroj automaticky přepočítá výšku, zachová poměr stran a zobrazí výsledný počet pixelů.',
+        helpStep4Title: 'Jemné doladění šířky',
+        helpStep4Text: 'Posuvník umožňuje jemně upravit výstupní šířku v pixelech. Hodnota se synchronizuje s polem pro šířku v mm, takže změna jednoho automaticky aktualizuje druhé.',
+        helpStep5Title: 'Zkontroluj výstup a stáhni PNG',
+        helpStep5Text: 'Ve výstupu uvidíš výsledný rastrovaný obraz. Pokud vypadá dobře, klikni na Stáhnout PNG pro laser a soubor importuj do laserového softwaru.',
+        helpDpiTitle: 'Doporučené DPI podle materiálu',
+        helpTableHeadDpi: 'DPI',
+        helpTableHeadMaterial: 'Vhodné pro',
+        helpTableHeadNote: 'Poznámka',
+        helpDpi72Material: 'Kůže, tkaniny, velmi hrubé dřevo',
+        helpDpi72Note: 'Nízký detail, rychlé gravírování',
+        helpDpi150Material: 'Měkké dřevo (borovice, lípa), OSB',
+        helpDpi150Note: 'Dobrý výsledek pro větší formáty',
+        helpDpi254Material: 'Tvrdé dřevo (dub, buk), překližka',
+        helpDpi254Note: 'Dobrý kompromis detail vs. rychlost',
+        helpDpi300Material: 'Sklo, kámen, břidlice, MDF',
+        helpDpi300Note: 'Výchozí hodnota – vhodná pro většinu projektů',
+        helpDpi500Material: 'Akrylát, lakované kovy, keramika',
+        helpDpi500Note: 'Vysoký detail, vhodné pro portréty',
+        helpDpi750Material: 'Anodizovaný hliník, litý akrylát',
+        helpDpi750Note: 'Maximální detail, pomalé gravírování',
+        helpOutputSizeTitle: 'Jak nastavit správnou výstupní velikost?',
+        helpOutputSizeText1: 'Výstupní velikost v <strong class="text-white">mm</strong> by měla přesně odpovídat fyzickým rozměrům gravírované plochy na materiálu.',
+        helpOutputSizeText2: 'Příklad: Chceš vygravírovat portrét na dřevěnou destičku o šířce <strong class="text-white">80 mm</strong>. Nastav šířku na <strong class="text-white">80 mm</strong> a zvol <strong class="text-white">300 DPI</strong> – nástroj ti vygeneruje obrázek o šířce <strong class="text-orange-300">~945 px</strong>, který přesně odpovídá požadované fyzické velikosti.',
+        helpOutputSizeFormula: 'ℹ️ Přepočet: šířka v px = (šířka v mm ÷ 25,4) × DPI',
+        helpTipsTitle: 'Tipy pro lepší výsledky',
+        helpTip1Title: '📷 Kvalita vstupní fotky',
+        helpTip1Text: 'Používej ostré fotografie s dobrým kontrastem. Tmavé nebo rozmazané fotky dají horší výsledky i při vysokém DPI.',
+        helpTip2Title: '🔲 Kontrast a jas',
+        helpTip2Text: 'Před nahráním fotku zkus upravit v libovolném editoru – zvýšený kontrast výrazně zlepší výsledný rastrovaný obraz.',
+        helpTip3Title: '🧪 Testovací gravírování',
+        helpTip3Text: 'Vždy nejprve vyzkoušej výsledek na odřezku stejného materiálu, než spustíš finální gravírování.',
+        helpTip4Title: '⚙️ Nastavení v LightBurn',
+        helpTip4Text: 'Importovaný PNG nastav jako <strong class="text-gray-200">Passthrough</strong> nebo <strong class="text-gray-200">Threshold</strong> – dithering je již obsažen v souboru, další zpracování by ho zhoršilo.'
+      }
     };
-    img.onerror = () => alert(t('alertLoadFail'));
-    img.src = ev.target.result;
-  };
-  reader.onerror = () => alert(t('alertReadFail'));
-  reader.readAsDataURL(file);
-}
 
-function loadDemoImage() {
-  const img = new Image();
-  img.onload = () => {
-    loadImageIntoEditor(img, false);
-  };
-  img.onerror = () => {
-    console.warn(t('demoLoadFail'));
-  };
-  img.src = 'preview-v3.png';
-}
+    const localeMap = {
+      en: 'en_US',
+      es: 'es_ES',
+      de: 'de_DE',
+      cs: 'cs_CZ'
+    };
 
-function clamp(n, min, max) {
-  return Math.max(min, Math.min(max, n));
-}
+    const zoomState = {
+      canvasSingle: 1,
+      canvasCompareOrig: 1,
+      canvasCompareResult: 1
+    };
 
-function roundTo(value, step) {
-  return Math.round(value / step) * step;
-}
+    const dragState = {
+      isDragging: false,
+      wrapper: null,
+      startX: 0,
+      startY: 0,
+      scrollLeft: 0,
+      scrollTop: 0
+    };
 
-function getRawOutputWidthPx() {
-  const mm = Math.max(1, Number(outputWidthMm.value || 0));
-  const dpiValue = Number(dpi.value);
-  return Math.round((mm / 25.4) * dpiValue);
-}
+    const PRESETS = {
+      custom:   { brightness: 0, contrast: 0, gamma: 1.00, sharpness: 0.0, ditherMode: 'floyd' },
+      normal:   { brightness: 5, contrast: 30, gamma: 1.08, sharpness: 1.0, ditherMode: 'floyd' },
+      portrait: { brightness: 10, contrast: 22, gamma: 1.20, sharpness: 0.5, ditherMode: 'floyd' },
+      dark:     { brightness: 25, contrast: 35, gamma: 1.25, sharpness: 1.0, ditherMode: 'floyd' },
+      light:    { brightness: -10, contrast: 45, gamma: 0.95, sharpness: 1.0, ditherMode: 'floyd' },
+      detail:   { brightness: 0, contrast: 55, gamma: 1.00, sharpness: 2.0, ditherMode: 'atkinson' }
+    };
 
-function getOutputWidthPx() {
-  return clamp(getRawOutputWidthPx(), OUTPUT_WIDTH_MIN_PX, OUTPUT_WIDTH_MAX_PX);
-}
+    const DEFAULTS = {
+      preset: 'normal',
+      brightness: PRESETS.normal.brightness,
+      contrast: PRESETS.normal.contrast,
+      gamma: PRESETS.normal.gamma,
+      sharpness: PRESETS.normal.sharpness,
+      ditherMode: PRESETS.normal.ditherMode,
+      dpi: 300,
+      outputWidthMm: 100
+    };
 
-function syncWidthFromMm() {
-  const px = getOutputWidthPx();
-  outputWidthSlider.value = px;
-  updateSlider(outputWidthSlider);
+    const fileInput = document.getElementById('fileInput');
+    const dropZone = document.getElementById('dropZone');
+    const uploadCtaCard = document.getElementById('uploadCtaCard');
 
-  const correctedMm = Math.round((px / Number(dpi.value)) * 25.4);
-  if (Number(outputWidthMm.value) !== correctedMm) {
-    outputWidthMm.value = correctedMm;
-  }
-}
+    const brightness = document.getElementById('brightness');
+    const contrast = document.getElementById('contrast');
+    const gamma = document.getElementById('gamma');
+    const sharpness = document.getElementById('sharpness');
+    const ditherMode = document.getElementById('ditherMode');
+    const dpi = document.getElementById('dpi');
+    const outputWidthMm = document.getElementById('outputWidthMm');
+    const outputWidthSlider = document.getElementById('outputWidthSlider');
 
-function syncMmFromSlider() {
-  const px = clamp(Math.max(OUTPUT_WIDTH_MIN_PX, Number(outputWidthSlider.value)), OUTPUT_WIDTH_MIN_PX, OUTPUT_WIDTH_MAX_PX);
-  outputWidthSlider.value = px;
-  const dpiValue = Number(dpi.value);
-  outputWidthMm.value = Math.round((px / dpiValue) * 25.4);
-  updateSlider(outputWidthSlider);
-}
+    const downloadBtn = document.getElementById('downloadBtn');
+    const resetBtn = document.getElementById('resetBtn');
 
-function updateSizeInfo() {
-  const px = getOutputWidthPx();
-  const mm = Math.round((px / Number(dpi.value)) * 25.4);
-  const dpiValue = Number(dpi.value);
+    const canvasSingle = document.getElementById('canvasSingle');
+    const canvasCompareOrig = document.getElementById('canvasCompareOrig');
+    const canvasCompareResult = document.getElementById('canvasCompareResult');
 
-  document.getElementById('sizeInfo').textContent = `${mm} mm`;
-  document.getElementById('pixelInfo').textContent = `${px} px @ ${dpiValue} DPI`;
-}
+    const presetCards = document.querySelectorAll('.preset-card');
+    const langButtons = document.querySelectorAll('.lang-btn');
 
-function processImage() {
-  if (!originalImage) return;
-
-  const w = getOutputWidthPx();
-  const h = Math.max(1, Math.round(originalImage.height * w / originalImage.width));
-
-  const srcCanvas = document.createElement('canvas');
-  srcCanvas.width = w;
-  srcCanvas.height = h;
-  const srcCtx = srcCanvas.getContext('2d', { willReadFrequently: true });
-  srcCtx.drawImage(originalImage, 0, 0, w, h);
-
-  let imageData = srcCtx.getImageData(0, 0, w, h);
-  toGrayscale(imageData);
-  applyBrightnessContrast(imageData);
-  applyGamma(imageData);
-
-  const sharp = parseFloat(sharpness.value);
-  if (sharp > 0) imageData = applySharpen(imageData, w, h, sharp);
-
-  applyDithering(imageData, w, h, ditherMode.value, FIXED_THRESHOLD);
-
-  drawOriginalIntoCanvas(canvasCompareOrig, w, h);
-  putImageDataToCanvas(canvasCompareResult, imageData, w, h);
-  putImageDataToCanvas(canvasSingle, imageData, w, h);
-
-  document.getElementById('imageDims').textContent = `${w} × ${h} px`;
-  updateSizeInfo();
-}
-
-function drawOriginalIntoCanvas(canvas, w, h) {
-  if (!canvas) return;
-
-  canvas.width = w;
-  canvas.height = h;
-  canvas.style.width = '100%';
-  canvas.style.height = 'auto';
-
-  const ctx = canvas.getContext('2d');
-  ctx.clearRect(0, 0, w, h);
-  ctx.drawImage(originalImage, 0, 0, w, h);
-
-  setCanvasScale(canvas, getCanvasScale(canvas));
-
-  if (getCanvasScale(canvas) <= 1) {
-    const wrapper = canvas.parentElement;
-    if (wrapper) {
-      wrapper.classList.remove('zoomed');
-      wrapper.scrollLeft = 0;
-      wrapper.scrollTop = 0;
+    function t(key) {
+      return (translations[currentLang] && translations[currentLang][key]) || translations.en[key] || key;
     }
-  }
-}
 
-function putImageDataToCanvas(canvas, imageData, w, h) {
-  canvas.width = w;
-  canvas.height = h;
-  canvas.style.width = '100%';
-  canvas.style.height = 'auto';
+    function applyTranslations() {
+      document.documentElement.lang = currentLang;
 
-  const ctx = canvas.getContext('2d');
-  ctx.putImageData(imageData, 0, 0);
+      const ogLocale = document.querySelector('meta[property="og:locale"]');
+      if (ogLocale) ogLocale.setAttribute('content', localeMap[currentLang] || 'en_US');
 
-  setCanvasScale(canvas, getCanvasScale(canvas));
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.dataset.i18n;
+        el.textContent = t(key);
+      });
 
-  if (getCanvasScale(canvas) <= 1) {
-    const wrapper = canvas.parentElement;
-    if (wrapper) {
-      wrapper.classList.remove('zoomed');
-      wrapper.scrollLeft = 0;
-      wrapper.scrollTop = 0;
+      document.querySelectorAll('[data-i18n-html]').forEach(el => {
+        const key = el.dataset.i18nHtml;
+        el.innerHTML = t(key);
+      });
+
+      const originalImg = document.getElementById('emptyOriginalImg');
+      const resultImg = document.getElementById('emptyResultImg');
+      if (originalImg) originalImg.alt = t('emptyOriginalAlt');
+      if (resultImg) resultImg.alt = t('emptyResultAlt');
+
+      updateSizeInfo();
     }
-  }
-}
 
-function toGrayscale(imageData) {
-  const d = imageData.data;
-  for (let i = 0; i < d.length; i += 4) {
-    const g = 0.299 * d[i] + 0.587 * d[i + 1] + 0.114 * d[i + 2];
-    d[i] = d[i + 1] = d[i + 2] = g;
-  }
-}
+    function setLanguage(lang) {
+      if (!translations[lang]) lang = 'en';
+      currentLang = lang;
 
-function applyBrightnessContrast(imageData) {
-  const d = imageData.data;
-  const b = parseInt(brightness.value, 10);
-  const c = parseInt(contrast.value, 10);
-  const factor = (259 * (c + 255)) / (255 * (259 - c));
+      langButtons.forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.lang === lang);
+      });
 
-  for (let i = 0; i < d.length; i += 4) {
-    let v = d[i] + b;
-    v = factor * (v - 128) + 128;
-    v = Math.max(0, Math.min(255, v));
-    d[i] = d[i + 1] = d[i + 2] = v;
-  }
-}
+      try {
+        localStorage.setItem(LANG_STORAGE_KEY, lang);
+      } catch (e) {}
 
-function applyGamma(imageData) {
-  const d = imageData.data;
-  const g = parseFloat(gamma.value);
-  if (g === 1.0) return;
+      applyTranslations();
+      loadCounter();
+    }
 
-  const lut = new Uint8Array(256);
-  for (let i = 0; i < 256; i++) {
-    lut[i] = Math.min(255, Math.round(255 * Math.pow(i / 255, 1 / g)));
-  }
-
-  for (let i = 0; i < d.length; i += 4) {
-    d[i] = d[i + 1] = d[i + 2] = lut[d[i]];
-  }
-}
-
-function applySharpen(imageData, w, h, amount) {
-  const src = imageData.data;
-  const out = new ImageData(w, h);
-  const d = out.data;
-
-  const k = amount * 0.3;
-  const kernel = [-k, -k, -k, -k, 1 + 8 * k, -k, -k, -k, -k];
-
-  for (let y = 1; y < h - 1; y++) {
-    for (let x = 1; x < w - 1; x++) {
-      let v = 0;
-      for (let ky = -1; ky <= 1; ky++) {
-        for (let kx = -1; kx <= 1; kx++) {
-          const idx = ((y + ky) * w + (x + kx)) * 4;
-          v += src[idx] * kernel[(ky + 1) * 3 + (kx + 1)];
+    function loadStoredLanguage() {
+      try {
+        const saved = localStorage.getItem(LANG_STORAGE_KEY);
+        if (saved && translations[saved]) {
+          currentLang = saved;
+          return;
         }
-      }
-      const i = (y * w + x) * 4;
-      const clamped = Math.max(0, Math.min(255, v));
-      d[i] = d[i + 1] = d[i + 2] = clamped;
-      d[i + 3] = 255;
+      } catch (e) {}
+      currentLang = 'en';
     }
-  }
 
-  for (let x = 0; x < w; x++) {
-    const top = x * 4;
-    const bottom = ((h - 1) * w + x) * 4;
-    for (let c = 0; c < 4; c++) {
-      d[top + c] = src[top + c];
-      d[bottom + c] = src[bottom + c];
-    }
-  }
-
-  for (let y = 0; y < h; y++) {
-    const left = y * w * 4;
-    const right = (y * w + (w - 1)) * 4;
-    for (let c = 0; c < 4; c++) {
-      d[left + c] = src[left + c];
-      d[right + c] = src[right + c];
-    }
-  }
-
-  return out;
-}
-
-function applyDithering(imageData, w, h, mode, thresh) {
-  const d = imageData.data;
-  let weights;
-
-  if (mode === 'atkinson') {
-    weights = [
-      [1, 0, 1 / 8],
-      [2, 0, 1 / 8],
-      [-1, 1, 1 / 8],
-      [0, 1, 1 / 8],
-      [1, 1, 1 / 8],
-      [0, 2, 1 / 8]
-    ];
-  } else {
-    weights = [
-      [1, 0, 7 / 16],
-      [-1, 1, 3 / 16],
-      [0, 1, 5 / 16],
-      [1, 1, 1 / 16]
-    ];
-  }
-
-  const pixels = new Float32Array(w * h);
-  for (let i = 0; i < w * h; i++) pixels[i] = d[i * 4];
-
-  for (let y = 0; y < h; y++) {
-    for (let x = 0; x < w; x++) {
-      const idx = y * w + x;
-      const oldVal = pixels[idx];
-      const newVal = oldVal >= thresh ? 255 : 0;
-      pixels[idx] = newVal;
-
-      const err = oldVal - newVal;
-      for (let wi = 0; wi < weights.length; wi++) {
-        const dx = weights[wi][0];
-        const dy = weights[wi][1];
-        const factor = weights[wi][2];
-        const nx = x + dx;
-        const ny = y + dy;
-        if (nx >= 0 && nx < w && ny >= 0 && ny < h) {
-          pixels[ny * w + nx] += err * factor;
-        }
-      }
-    }
-  }
-
-  for (let i = 0; i < w * h; i++) {
-    const v = Math.max(0, Math.min(255, pixels[i]));
-    d[i * 4] = d[i * 4 + 1] = d[i * 4 + 2] = v;
-    d[i * 4 + 3] = 255;
-  }
-}
-
-function buildExportFilename() {
-  const dpiValue = Number(dpi.value);
-  const mm = Math.round((getOutputWidthPx() / dpiValue) * 25.4);
-  const style = ditherMode.value === 'atkinson' ? 'contrast' : 'detailed';
-  return `laser-${mm}mm-${dpiValue}dpi-${style}.png`;
-}
-
-const ABACUS_GET = 'https://abacus.jasoncameron.dev/get/stunning-twilight-266e8a/downloads';
-const ABACUS_HIT = 'https://abacus.jasoncameron.dev/hit/stunning-twilight-266e8a/downloads';
-
-function loadCounter() {
-  fetch(ABACUS_GET)
-    .then(r => r.ok ? r.json() : null)
-    .then(data => {
-      const n = data && data.value ? data.value : 0;
-      document.getElementById('photoCounter').textContent = n > 0 ? n.toLocaleString(currentLang === 'cs' ? 'cs-CZ' : currentLang) : '—';
-    })
-    .catch(() => {
-      document.getElementById('photoCounter').textContent = '—';
+    langButtons.forEach(btn => {
+      btn.addEventListener('click', () => setLanguage(btn.dataset.lang));
     });
-}
 
-function incrementCounter() {
-  fetch(ABACUS_HIT)
-    .then(r => r.ok ? r.json() : null)
-    .then(data => {
-      const n = data && data.value ? data.value : 0;
-      if (n > 0) document.getElementById('photoCounter').textContent = n.toLocaleString(currentLang === 'cs' ? 'cs-CZ' : currentLang);
-    })
-    .catch(() => {});
-}
+    document.getElementById('btnResult').addEventListener('click', () => setViewMode('result'));
+    document.getElementById('btnCompare').addEventListener('click', () => setViewMode('compare'));
 
-function showIOSModal(blob) {
-  const url = URL.createObjectURL(blob);
-  const overlay = document.createElement('div');
-  overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.9);z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px;';
-  overlay.innerHTML = `
-    <div style="width:min(360px,100%);background:#0f1117;border:1px solid rgba(255,255,255,0.08);border-radius:18px;padding:16px;">
-      <div style="font-size:0.9rem;font-weight:700;color:#f97316;margin-bottom:4px">${t('iosTitle')}</div>
-      <div style="font-size:0.74rem;color:#64748b;margin-bottom:14px">${t('iosText')}</div>
-      <div style="background:#000;border-radius:12px;overflow:hidden;border:1px solid rgba(255,255,255,0.08);margin-bottom:14px;">
-        <img src="${url}" style="width:100%;display:block;" alt="Export PNG">
-      </div>
-      <button class="btn btn-secondary" id="iosCloseBtn" style="width:100%">${t('iosClose')}</button>
-    </div>
-  `;
-  document.body.appendChild(overlay);
+    const sliderPairs = [
+      ['brightness', 'brightnessVal'],
+      ['contrast', 'contrastVal'],
+      ['gamma', 'gammaVal'],
+      ['sharpness', 'sharpnessVal'],
+      ['outputWidthSlider', 'outputWidthSliderVal']
+    ];
 
-  overlay.querySelector('#iosCloseBtn').addEventListener('click', () => {
-    URL.revokeObjectURL(url);
-    overlay.remove();
-  });
+    dropZone.addEventListener('click', () => fileInput.click());
+    uploadCtaCard.addEventListener('click', () => fileInput.click());
 
-  overlay.addEventListener('click', e => {
-    if (e.target === overlay) {
-      URL.revokeObjectURL(url);
-      overlay.remove();
-    }
-  });
-}
+    document.addEventListener('click', function(e) {
+      const reuploadBtn = e.target.closest('#reuploadBtnResult, #reuploadBtnCompare');
+      if (reuploadBtn) {
+        fileInput.click();
+        return;
+      }
 
-function crc32(bytes) {
-  let crc = 0xffffffff;
-  for (let i = 0; i < bytes.length; i++) {
-    crc ^= bytes[i];
-    for (let j = 0; j < 8; j++) {
-      if (crc & 1) crc = (crc >>> 1) ^ 0xedb88320;
-      else crc = crc >>> 1;
-    }
-  }
-  return (crc ^ 0xffffffff) >>> 0;
-}
+      const mobileDownloadBtn = e.target.closest('#downloadBtnMobileResult, #downloadBtnMobileCompare');
+      if (mobileDownloadBtn) {
+        downloadResult();
+      }
+    });
 
-function concatUint8Arrays(...arrays) {
-  const total = arrays.reduce((sum, arr) => sum + arr.length, 0);
-  const result = new Uint8Array(total);
-  let offset = 0;
-  for (const arr of arrays) {
-    result.set(arr, offset);
-    offset += arr.length;
-  }
-  return result;
-}
+    fileInput.addEventListener('change', e => {
+      if (e.target.files && e.target.files[0]) loadFile(e.target.files[0]);
+    });
 
-function uint32ToBytes(num) {
-  return new Uint8Array([
-    (num >>> 24) & 255,
-    (num >>> 16) & 255,
-    (num >>> 8) & 255,
-    num & 255
-  ]);
-}
+    dropZone.addEventListener('dragover', e => {
+      e.preventDefault();
+      dropZone.classList.add('drag-over');
+    });
 
-function createPhysChunk(dpiValue) {
-  const ppm = Math.round(dpiValue / 0.0254);
-  const type = new TextEncoder().encode('pHYs');
-  const data = new Uint8Array(9);
+    dropZone.addEventListener('dragleave', () => {
+      dropZone.classList.remove('drag-over');
+    });
 
-  data[0] = (ppm >>> 24) & 255;
-  data[1] = (ppm >>> 16) & 255;
-  data[2] = (ppm >>> 8) & 255;
-  data[3] = ppm & 255;
+    dropZone.addEventListener('drop', e => {
+      e.preventDefault();
+      dropZone.classList.remove('drag-over');
+      if (e.dataTransfer.files && e.dataTransfer.files[0]) loadFile(e.dataTransfer.files[0]);
+    });
 
-  data[4] = (ppm >>> 24) & 255;
-  data[5] = (ppm >>> 16) & 255;
-  data[6] = (ppm >>> 8) & 255;
-  data[7] = ppm & 255;
+    presetCards.forEach(card => {
+      card.addEventListener('click', () => {
+        applyPreset(card.dataset.preset);
+      });
+    });
 
-  data[8] = 1;
+    ditherMode.addEventListener('change', () => {
+      markAsCustom();
+      saveSettings();
+      if (originalImage) scheduleProcessImage();
+    });
 
-  const crc = crc32(concatUint8Arrays(type, data));
+    dpi.addEventListener('change', () => {
+      syncWidthFromMm();
+      updateSizeInfo();
+      saveSettings();
+      if (originalImage) scheduleProcessImage();
+    });
 
-  return concatUint8Arrays(
-    uint32ToBytes(data.length),
-    type,
-    data,
-    uint32ToBytes(crc)
-  );
-}
+    outputWidthMm.addEventListener('input', () => {
+      syncWidthFromMm();
+      updateSizeInfo();
+      saveSettings();
+      if (originalImage) scheduleProcessImage();
+    });
 
-async function canvasToPngBlobWithDPI(canvas, dpiValue) {
-  const baseBlob = await new Promise((resolve, reject) => {
-    canvas.toBlob(blob => blob ? resolve(blob) : reject(new Error('Failed to create PNG blob.')), 'image/png');
-  });
+    outputWidthSlider.addEventListener('input', () => {
+      syncMmFromSlider();
+      updateSizeInfo();
+      saveSettings();
+      if (originalImage) scheduleProcessImage();
+    });
 
-  const buffer = await baseBlob.arrayBuffer();
-  const bytes = new Uint8Array(buffer);
+    downloadBtn.addEventListener('click', downloadResult);
+    resetBtn.addEventListener('click', resetSettings);
 
-  let offset = 8;
-  let ihdrEnd = -1;
-  let existingPhysStart = -1;
-  let existingPhysEnd = -1;
+    [brightness, contrast, gamma, sharpness].forEach((el) => {
+      el.addEventListener('input', () => {
+        updateSlider(el);
+        markAsCustom();
+        saveSettings();
+        if (originalImage) scheduleProcessImage();
+      });
+    });
 
-  while (offset < bytes.length) {
-    const length =
-      (bytes[offset] << 24) |
-      (bytes[offset + 1] << 16) |
-      (bytes[offset + 2] << 8) |
-      bytes[offset + 3];
-
-    const typeStart = offset + 4;
-    const type = String.fromCharCode(
-      bytes[typeStart],
-      bytes[typeStart + 1],
-      bytes[typeStart + 2],
-      bytes[typeStart + 3]
-    );
-
-    const chunkTotalLength = 12 + length;
-    if (type === 'IHDR') ihdrEnd = offset + chunkTotalLength;
-    if (type === 'pHYs') {
-      existingPhysStart = offset;
-      existingPhysEnd = offset + chunkTotalLength;
-      break;
-    }
-    offset += chunkTotalLength;
-  }
-
-  const physChunk = createPhysChunk(dpiValue);
-  let finalBytes;
-
-  if (existingPhysStart !== -1) {
-    finalBytes = concatUint8Arrays(
-      bytes.slice(0, existingPhysStart),
-      physChunk,
-      bytes.slice(existingPhysEnd)
-    );
-  } else {
-    finalBytes = concatUint8Arrays(
-      bytes.slice(0, ihdrEnd),
-      physChunk,
-      bytes.slice(ihdrEnd)
-    );
-  }
-
-  return new Blob([finalBytes], { type: 'image/png' });
-}
-
-async function downloadResult() {
-  if (!canvasSingle.width) {
-    alert(t('alertUploadFirst'));
-    return;
-  }
-
-  try {
-    const dpiValue = Number(dpi.value);
-    const blob = await canvasToPngBlobWithDPI(canvasSingle, dpiValue);
-    incrementCounter();
-
-    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-    if (isIOS) {
-      showIOSModal(blob);
-      return;
+    function setViewMode(mode) {
+      viewMode = mode;
+      document.getElementById('btnResult').classList.toggle('active', mode === 'result');
+      document.getElementById('btnCompare').classList.toggle('active', mode === 'compare');
+      document.getElementById('resultView').style.display = mode === 'result' ? 'block' : 'none';
+      document.getElementById('compareView').style.display = mode === 'compare' ? 'block' : 'none';
     }
 
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.download = buildExportFilename();
-    a.href = url;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    setTimeout(() => URL.revokeObjectURL(url), 1500);
-  } catch (err) {
-    console.error(err);
-    alert(t('alertPngFail'));
-  }
-}
+    function setActivePresetCard(key) {
+      presetCards.forEach(card => {
+        card.classList.toggle('active', card.dataset.preset === key);
+      });
+    }
 
-loadStoredLanguage();
-loadStoredSettings();
-sliderPairs.forEach(([id]) => updateSlider(document.getElementById(id)));
-syncWidthFromMm();
-updateSizeInfo();
-setViewMode('compare');
-setActivePresetCard(currentPreset);
-setLanguage(currentLang);
-initializeCanvasZoom();
-loadDemoImage();
-</script>
+    function markAsCustom() {
+      if (currentPreset !== 'custom') {
+        currentPreset = 'custom';
+        setActivePresetCard('custom');
+      }
+    }
+
+    function applyPreset(key) {
+      const p = PRESETS[key];
+      if (!p) return;
+
+      currentPreset = key;
+      brightness.value = p.brightness;
+      contrast.value = p.contrast;
+      gamma.value = p.gamma;
+      sharpness.value = p.sharpness;
+      ditherMode.value = p.ditherMode;
+
+      sliderPairs.forEach(([id]) => updateSlider(document.getElementById(id)));
+      setActivePresetCard(key);
+      saveSettings();
+
+      if (originalImage) scheduleProcessImage();
+    }
+
+    function applyCurrentPresetValues() {
+      const p = PRESETS[currentPreset] || PRESETS.normal;
+      if (currentPreset === 'custom') return;
+
+      brightness.value = p.brightness;
+      contrast.value = p.contrast;
+      gamma.value = p.gamma;
+      sharpness.value = p.sharpness;
+      ditherMode.value = p.ditherMode;
+      sliderPairs.forEach(([id]) => updateSlider(document.getElementById(id)));
+    }
+
+    function getCanvasZoomKey(canvas) {
+      return canvas.id;
+    }
+
+    function getCanvasScale(canvas) {
+      return zoomState[getCanvasZoomKey(canvas)] || 1;
+    }
+
+    function setCanvasScale(canvas, scale) {
+      const clamped = clamp(scale, ZOOM_MIN, ZOOM_MAX);
+      zoomState[getCanvasZoomKey(canvas)] = clamped;
+
+      const wrapper = canvas.parentElement;
+      if (!wrapper) return;
+
+      canvas.style.transform = `scale(${clamped})`;
+      wrapper.classList.toggle('zoomed', clamped > 1);
+
+      if (clamped <= 1) {
+        wrapper.scrollLeft = 0;
+        wrapper.scrollTop = 0;
+      }
+    }
+
+    function resetAllCanvasZoom() {
+      [canvasSingle, canvasCompareOrig, canvasCompareResult].forEach(canvas => {
+        zoomState[canvas.id] = 1;
+        const wrapper = canvas.parentElement;
+        if (!wrapper) return;
+
+        canvas.style.transform = 'scale(1)';
+        wrapper.classList.remove('zoomed', 'dragging');
+        wrapper.scrollLeft = 0;
+        wrapper.scrollTop = 0;
+      });
+
+      dragState.isDragging = false;
+      dragState.wrapper = null;
+    }
+
+    function startDrag(wrapper, e) {
+      if (e.button !== 0) return;
+      const canvas = wrapper.querySelector('canvas');
+      if (!canvas) return;
+      if (getCanvasScale(canvas) <= 1) return;
+
+      dragState.isDragging = true;
+      dragState.wrapper = wrapper;
+      dragState.startX = e.clientX;
+      dragState.startY = e.clientY;
+      dragState.scrollLeft = wrapper.scrollLeft;
+      dragState.scrollTop = wrapper.scrollTop;
+
+      wrapper.classList.add('dragging');
+      e.preventDefault();
+    }
+
+    function onDragMove(e) {
+      if (!dragState.isDragging || !dragState.wrapper) return;
+
+      const dx = e.clientX - dragState.startX;
+      const dy = e.clientY - dragState.startY;
+
+      dragState.wrapper.scrollLeft = dragState.scrollLeft - dx;
+      dragState.wrapper.scrollTop = dragState.scrollTop - dy;
+    }
+
+    function stopDrag() {
+      if (!dragState.wrapper) {
+        dragState.isDragging = false;
+        return;
+      }
+
+      dragState.wrapper.classList.remove('dragging');
+      dragState.isDragging = false;
+      dragState.wrapper = null;
+    }
+
+    function attachWheelZoom(wrapper, canvas) {
+      wrapper.addEventListener('wheel', (e) => {
+        if (!canvas.width || !canvas.height) return;
+
+        e.preventDefault();
+
+        const oldScale = getCanvasScale(canvas);
+        const delta = e.deltaY < 0 ? ZOOM_STEP : -ZOOM_STEP;
+        const newScale = clamp(roundTo(oldScale + delta, 0.05), ZOOM_MIN, ZOOM_MAX);
+
+        if (newScale === oldScale) return;
+
+        const rect = wrapper.getBoundingClientRect();
+        const offsetX = e.clientX - rect.left + wrapper.scrollLeft;
+        const offsetY = e.clientY - rect.top + wrapper.scrollTop;
+
+        const pointX = offsetX / oldScale;
+        const pointY = offsetY / oldScale;
+
+        setCanvasScale(canvas, newScale);
+
+        wrapper.scrollLeft = pointX * newScale - (e.clientX - rect.left);
+        wrapper.scrollTop = pointY * newScale - (e.clientY - rect.top);
+      }, { passive: false });
+
+      wrapper.addEventListener('dblclick', () => {
+        setCanvasScale(canvas, 1);
+        wrapper.scrollLeft = 0;
+        wrapper.scrollTop = 0;
+      });
+
+      wrapper.addEventListener('mousedown', (e) => startDrag(wrapper, e));
+      wrapper.addEventListener('mouseleave', stopDrag);
+    }
+
+    function initializeCanvasZoom() {
+      attachWheelZoom(canvasSingle.parentElement, canvasSingle);
+      attachWheelZoom(canvasCompareOrig.parentElement, canvasCompareOrig);
+      attachWheelZoom(canvasCompareResult.parentElement, canvasCompareResult);
+
+      window.addEventListener('mousemove', onDragMove);
+      window.addEventListener('mouseup', stopDrag);
+    }
+
+    function scheduleProcessImage() {
+      if (renderQueued) return;
+      renderQueued = true;
+      requestAnimationFrame(() => {
+        renderQueued = false;
+        processImage();
+      });
+    }
+
+    function updateSlider(el) {
+      const target =
+        document.getElementById(el.id + 'Val') ||
+        document.getElementById(el.id.replace('Slider', 'SliderVal'));
+
+      if (!target) return;
+
+      const step = el.step ? String(el.step) : '1';
+      const decimals = step.includes('.') ? step.split('.')[1].length : 0;
+      const value = Number(el.value).toFixed(decimals);
+
+      target.textContent = el.id === 'outputWidthSlider' ? `${value} px` : value;
+    }
+
+    function loadStoredSettings() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) return;
+
+        const s = JSON.parse(raw);
+
+        if (s.preset && PRESETS[s.preset]) currentPreset = s.preset;
+        if (s.brightness !== undefined) brightness.value = s.brightness;
+        if (s.contrast !== undefined) contrast.value = s.contrast;
+        if (s.gamma !== undefined) gamma.value = s.gamma;
+        if (s.sharpness !== undefined) sharpness.value = s.sharpness;
+        if (s.ditherMode) ditherMode.value = s.ditherMode;
+        if (s.dpi) dpi.value = s.dpi;
+        if (s.outputWidthMm !== undefined) outputWidthMm.value = s.outputWidthMm;
+      } catch (e) {}
+    }
+
+    function saveSettings() {
+      const data = {
+        preset: currentPreset,
+        brightness: Number(brightness.value),
+        contrast: Number(contrast.value),
+        gamma: Number(gamma.value),
+        sharpness: Number(sharpness.value),
+        ditherMode: ditherMode.value,
+        dpi: Number(dpi.value),
+        outputWidthMm: Number(outputWidthMm.value)
+      };
+
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+      } catch (e) {}
+    }
+
+    function resetSettings() {
+      currentPreset = DEFAULTS.preset;
+      brightness.value = DEFAULTS.brightness;
+      contrast.value = DEFAULTS.contrast;
+      gamma.value = DEFAULTS.gamma;
+      sharpness.value = DEFAULTS.sharpness;
+      ditherMode.value = DEFAULTS.ditherMode;
+      dpi.value = DEFAULTS.dpi;
+      outputWidthMm.value = DEFAULTS.outputWidthMm;
+
+      syncWidthFromMm();
+      sliderPairs.forEach(([id]) => updateSlider(document.getElementById(id)));
+      updateSizeInfo();
+      setActivePresetCard(currentPreset);
+      saveSettings();
+
+      if (originalImage) scheduleProcessImage();
+    }
+
+    function showEditor() {
+      document.getElementById('emptyState').style.display = 'none';
+      document.getElementById('canvasArea').style.display = 'block';
+    }
+
+    function scrollToPreviewOnMobile() {
+      if (window.innerWidth >= 1024) return;
+
+      const target = document.getElementById('canvasArea');
+      if (!target) return;
+
+      setTimeout(() => {
+        target.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        });
+      }, 120);
+    }
+
+    function loadImageIntoEditor(img, switchToResult = false, targetDpi = null) {
+      originalImage = img;
+      showEditor();
+
+      applyCurrentPresetValues();
+      setActivePresetCard(currentPreset);
+
+      if (targetDpi !== null && targetDpi !== undefined) {
+        dpi.value = String(targetDpi);
+      }
+
+      syncWidthFromMm();
+      updateSizeInfo();
+      saveSettings();
+
+      const isMobile = window.innerWidth < 1024;
+      setViewMode(isMobile ? 'result' : (switchToResult ? 'result' : 'compare'));
+
+      resetAllCanvasZoom();
+      processImage();
+
+      if (isMobile) {
+        scrollToPreviewOnMobile();
+      }
+    }
+
+    function loadFile(file) {
+      if (!file || !file.type.startsWith('image/')) return;
+
+      const reader = new FileReader();
+      reader.onload = ev => {
+        const img = new Image();
+        img.onload = () => {
+          loadImageIntoEditor(img, true);
+        };
+        img.onerror = () => alert(t('alertLoadFail'));
+        img.src = ev.target.result;
+      };
+      reader.onerror = () => alert(t('alertReadFail'));
+      reader.readAsDataURL(file);
+    }
+
+    function loadDemoImage() {
+      const img = new Image();
+      img.onload = () => {
+        loadImageIntoEditor(img, false);
+      };
+      img.onerror = () => {
+        console.warn(t('demoLoadFail'));
+      };
+      img.src = 'preview-v3.png';
+    }
+
+    function clamp(n, min, max) {
+      return Math.max(min, Math.min(max, n));
+    }
+
+    function roundTo(value, step) {
+      return Math.round(value / step) * step;
+    }
+
+    function getRawOutputWidthPx() {
+      const mm = Math.max(1, Number(outputWidthMm.value || 0));
+      const dpiValue = Number(dpi.value);
+      return Math.round((mm / 25.4) * dpiValue);
+    }
+
+    function getOutputWidthPx() {
+      return clamp(getRawOutputWidthPx(), OUTPUT_WIDTH_MIN_PX, OUTPUT_WIDTH_MAX_PX);
+    }
+
+    function syncWidthFromMm() {
+      const px = getOutputWidthPx();
+      outputWidthSlider.value = px;
+      updateSlider(outputWidthSlider);
+
+      const correctedMm = Math.round((px / Number(dpi.value)) * 25.4);
+      if (Number(outputWidthMm.value) !== correctedMm) {
+        outputWidthMm.value = correctedMm;
+      }
+    }
+
+    function syncMmFromSlider() {
+      const px = clamp(Math.max(OUTPUT_WIDTH_MIN_PX, Number(outputWidthSlider.value)), OUTPUT_WIDTH_MIN_PX, OUTPUT_WIDTH_MAX_PX);
+      outputWidthSlider.value = px;
+      const dpiValue = Number(dpi.value);
+      outputWidthMm.value = Math.round((px / dpiValue) * 25.4);
+      updateSlider(outputWidthSlider);
+    }
+
+    function updateSizeInfo() {
+      const px = getOutputWidthPx();
+      const mm = Math.round((px / Number(dpi.value)) * 25.4);
+      const dpiValue = Number(dpi.value);
+
+      document.getElementById('sizeInfo').textContent = `${mm} mm`;
+      document.getElementById('pixelInfo').textContent = `${px} px @ ${dpiValue} DPI`;
+    }
+
+    function processImage() {
+      if (!originalImage) return;
+
+      const w = getOutputWidthPx();
+      const h = Math.max(1, Math.round(originalImage.height * w / originalImage.width));
+
+      const srcCanvas = document.createElement('canvas');
+      srcCanvas.width = w;
+      srcCanvas.height = h;
+      const srcCtx = srcCanvas.getContext('2d', { willReadFrequently: true });
+      srcCtx.drawImage(originalImage, 0, 0, w, h);
+
+      let imageData = srcCtx.getImageData(0, 0, w, h);
+      toGrayscale(imageData);
+      applyBrightnessContrast(imageData);
+      applyGamma(imageData);
+
+      const sharp = parseFloat(sharpness.value);
+      if (sharp > 0) imageData = applySharpen(imageData, w, h, sharp);
+
+      applyDithering(imageData, w, h, ditherMode.value, FIXED_THRESHOLD);
+
+      drawOriginalIntoCanvas(canvasCompareOrig, w, h);
+      putImageDataToCanvas(canvasCompareResult, imageData, w, h);
+      putImageDataToCanvas(canvasSingle, imageData, w, h);
+
+      document.getElementById('imageDims').textContent = `${w} × ${h} px`;
+      updateSizeInfo();
+    }
+
+    function drawOriginalIntoCanvas(canvas, w, h) {
+      if (!canvas) return;
+
+      canvas.width = w;
+      canvas.height = h;
+      canvas.style.width = '100%';
+      canvas.style.height = 'auto';
+
+      const ctx = canvas.getContext('2d');
+      ctx.clearRect(0, 0, w, h);
+      ctx.drawImage(originalImage, 0, 0, w, h);
+
+      setCanvasScale(canvas, getCanvasScale(canvas));
+
+      if (getCanvasScale(canvas) <= 1) {
+        const wrapper = canvas.parentElement;
+        if (wrapper) {
+          wrapper.classList.remove('zoomed');
+          wrapper.scrollLeft = 0;
+          wrapper.scrollTop = 0;
+        }
+      }
+    }
+
+    function putImageDataToCanvas(canvas, imageData, w, h) {
+      canvas.width = w;
+      canvas.height = h;
+      canvas.style.width = '100%';
+      canvas.style.height = 'auto';
+
+      const ctx = canvas.getContext('2d');
+      ctx.putImageData(imageData, 0, 0);
+
+      setCanvasScale(canvas, getCanvasScale(canvas));
+
+      if (getCanvasScale(canvas) <= 1) {
+        const wrapper = canvas.parentElement;
+        if (wrapper) {
+          wrapper.classList.remove('zoomed');
+          wrapper.scrollLeft = 0;
+          wrapper.scrollTop = 0;
+        }
+      }
+    }
+
+    function toGrayscale(imageData) {
+      const d = imageData.data;
+      for (let i = 0; i < d.length; i += 4) {
+        const g = 0.299 * d[i] + 0.587 * d[i + 1] + 0.114 * d[i + 2];
+        d[i] = d[i + 1] = d[i + 2] = g;
+      }
+    }
+
+    function applyBrightnessContrast(imageData) {
+      const d = imageData.data;
+      const b = parseInt(brightness.value, 10);
+      const c = parseInt(contrast.value, 10);
+      const factor = (259 * (c + 255)) / (255 * (259 - c));
+
+      for (let i = 0; i < d.length; i += 4) {
+        let v = d[i] + b;
+        v = factor * (v - 128) + 128;
+        v = Math.max(0, Math.min(255, v));
+        d[i] = d[i + 1] = d[i + 2] = v;
+      }
+    }
+
+    function applyGamma(imageData) {
+      const d = imageData.data;
+      const g = parseFloat(gamma.value);
+      if (g === 1.0) return;
+
+      const lut = new Uint8Array(256);
+      for (let i = 0; i < 256; i++) {
+        lut[i] = Math.min(255, Math.round(255 * Math.pow(i / 255, 1 / g)));
+      }
+
+      for (let i = 0; i < d.length; i += 4) {
+        d[i] = d[i + 1] = d[i + 2] = lut[d[i]];
+      }
+    }
+
+    function applySharpen(imageData, w, h, amount) {
+      const src = imageData.data;
+      const out = new ImageData(w, h);
+      const d = out.data;
+
+      const k = amount * 0.3;
+      const kernel = [-k, -k, -k, -k, 1 + 8 * k, -k, -k, -k, -k];
+
+      for (let y = 1; y < h - 1; y++) {
+        for (let x = 1; x < w - 1; x++) {
+          let v = 0;
+          for (let ky = -1; ky <= 1; ky++) {
+            for (let kx = -1; kx <= 1; kx++) {
+              const idx = ((y + ky) * w + (x + kx)) * 4;
+              v += src[idx] * kernel[(ky + 1) * 3 + (kx + 1)];
+            }
+          }
+          const i = (y * w + x) * 4;
+          const clamped = Math.max(0, Math.min(255, v));
+          d[i] = d[i + 1] = d[i + 2] = clamped;
+          d[i + 3] = 255;
+        }
+      }
+
+      for (let x = 0; x < w; x++) {
+        const top = x * 4;
+        const bottom = ((h - 1) * w + x) * 4;
+        for (let c = 0; c < 4; c++) {
+          d[top + c] = src[top + c];
+          d[bottom + c] = src[bottom + c];
+        }
+      }
+
+      for (let y = 0; y < h; y++) {
+        const left = y * w * 4;
+        const right = (y * w + (w - 1)) * 4;
+        for (let c = 0; c < 4; c++) {
+          d[left + c] = src[left + c];
+          d[right + c] = src[right + c];
+        }
+      }
+
+      return out;
+    }
+
+    function applyDithering(imageData, w, h, mode, thresh) {
+      const d = imageData.data;
+      let weights;
+
+      if (mode === 'atkinson') {
+        weights = [
+          [1, 0, 1 / 8],
+          [2, 0, 1 / 8],
+          [-1, 1, 1 / 8],
+          [0, 1, 1 / 8],
+          [1, 1, 1 / 8],
+          [0, 2, 1 / 8]
+        ];
+      } else {
+        weights = [
+          [1, 0, 7 / 16],
+          [-1, 1, 3 / 16],
+          [0, 1, 5 / 16],
+          [1, 1, 1 / 16]
+        ];
+      }
+
+      const pixels = new Float32Array(w * h);
+      for (let i = 0; i < w * h; i++) pixels[i] = d[i * 4];
+
+      for (let y = 0; y < h; y++) {
+        for (let x = 0; x < w; x++) {
+          const idx = y * w + x;
+          const oldVal = pixels[idx];
+          const newVal = oldVal >= thresh ? 255 : 0;
+          pixels[idx] = newVal;
+
+          const err = oldVal - newVal;
+          for (let wi = 0; wi < weights.length; wi++) {
+            const dx = weights[wi][0];
+            const dy = weights[wi][1];
+            const factor = weights[wi][2];
+            const nx = x + dx;
+            const ny = y + dy;
+            if (nx >= 0 && nx < w && ny >= 0 && ny < h) {
+              pixels[ny * w + nx] += err * factor;
+            }
+          }
+        }
+      }
+
+      for (let i = 0; i < w * h; i++) {
+        const v = Math.max(0, Math.min(255, pixels[i]));
+        d[i * 4] = d[i * 4 + 1] = d[i * 4 + 2] = v;
+        d[i * 4 + 3] = 255;
+      }
+    }
+
+    function buildExportFilename() {
+      const dpiValue = Number(dpi.value);
+      const mm = Math.round((getOutputWidthPx() / dpiValue) * 25.4);
+      const style = ditherMode.value === 'atkinson' ? 'contrast' : 'detailed';
+      return `laser-${mm}mm-${dpiValue}dpi-${style}.png`;
+    }
+
+    const ABACUS_GET = 'https://abacus.jasoncameron.dev/get/stunning-twilight-266e8a/downloads';
+    const ABACUS_HIT = 'https://abacus.jasoncameron.dev/hit/stunning-twilight-266e8a/downloads';
+
+    function loadCounter() {
+      fetch(ABACUS_GET)
+        .then(r => r.ok ? r.json() : null)
+        .then(data => {
+          const n = data && data.value ? data.value : 0;
+          document.getElementById('photoCounter').textContent = n > 0 ? n.toLocaleString(currentLang === 'cs' ? 'cs-CZ' : currentLang) : '—';
+        })
+        .catch(() => {
+          document.getElementById('photoCounter').textContent = '—';
+        });
+    }
+
+    function incrementCounter() {
+      fetch(ABACUS_HIT)
+        .then(r => r.ok ? r.json() : null)
+        .then(data => {
+          const n = data && data.value ? data.value : 0;
+          if (n > 0) document.getElementById('photoCounter').textContent = n.toLocaleString(currentLang === 'cs' ? 'cs-CZ' : currentLang);
+        })
+        .catch(() => {});
+    }
+
+    function showIOSModal(blob) {
+      const url = URL.createObjectURL(blob);
+      const overlay = document.createElement('div');
+      overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.9);z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px;';
+      overlay.innerHTML = `
+        <div style="width:min(360px,100%);background:#0f1117;border:1px solid rgba(255,255,255,0.08);border-radius:18px;padding:16px;">
+          <div style="font-size:0.9rem;font-weight:700;color:#f97316;margin-bottom:4px">${t('iosTitle')}</div>
+          <div style="font-size:0.74rem;color:#64748b;margin-bottom:14px">${t('iosText')}</div>
+          <div style="background:#000;border-radius:12px;overflow:hidden;border:1px solid rgba(255,255,255,0.08);margin-bottom:14px;">
+            <img src="${url}" style="width:100%;display:block;" alt="Export PNG">
+          </div>
+          <button class="btn btn-secondary" id="iosCloseBtn" style="width:100%">${t('iosClose')}</button>
+        </div>
+      `;
+      document.body.appendChild(overlay);
+
+      overlay.querySelector('#iosCloseBtn').addEventListener('click', () => {
+        URL.revokeObjectURL(url);
+        overlay.remove();
+      });
+
+      overlay.addEventListener('click', e => {
+        if (e.target === overlay) {
+          URL.revokeObjectURL(url);
+          overlay.remove();
+        }
+      });
+    }
+
+    function crc32(bytes) {
+      let crc = 0xffffffff;
+      for (let i = 0; i < bytes.length; i++) {
+        crc ^= bytes[i];
+        for (let j = 0; j < 8; j++) {
+          if (crc & 1) crc = (crc >>> 1) ^ 0xedb88320;
+          else crc = crc >>> 1;
+        }
+      }
+      return (crc ^ 0xffffffff) >>> 0;
+    }
+
+    function concatUint8Arrays(...arrays) {
+      const total = arrays.reduce((sum, arr) => sum + arr.length, 0);
+      const result = new Uint8Array(total);
+      let offset = 0;
+      for (const arr of arrays) {
+        result.set(arr, offset);
+        offset += arr.length;
+      }
+      return result;
+    }
+
+    function uint32ToBytes(num) {
+      return new Uint8Array([
+        (num >>> 24) & 255,
+        (num >>> 16) & 255,
+        (num >>> 8) & 255,
+        num & 255
+      ]);
+    }
+
+    function createPhysChunk(dpiValue) {
+      const ppm = Math.round(dpiValue / 0.0254);
+      const type = new TextEncoder().encode('pHYs');
+      const data = new Uint8Array(9);
+
+      data[0] = (ppm >>> 24) & 255;
+      data[1] = (ppm >>> 16) & 255;
+      data[2] = (ppm >>> 8) & 255;
+      data[3] = ppm & 255;
+
+      data[4] = (ppm >>> 24) & 255;
+      data[5] = (ppm >>> 16) & 255;
+      data[6] = (ppm >>> 8) & 255;
+      data[7] = ppm & 255;
+
+      data[8] = 1;
+
+      const crc = crc32(concatUint8Arrays(type, data));
+
+      return concatUint8Arrays(
+        uint32ToBytes(data.length),
+        type,
+        data,
+        uint32ToBytes(crc)
+      );
+    }
+
+    async function canvasToPngBlobWithDPI(canvas, dpiValue) {
+      const baseBlob = await new Promise((resolve, reject) => {
+        canvas.toBlob(blob => blob ? resolve(blob) : reject(new Error('Failed to create PNG blob.')), 'image/png');
+      });
+
+      const buffer = await baseBlob.arrayBuffer();
+      const bytes = new Uint8Array(buffer);
+
+      let offset = 8;
+      let ihdrEnd = -1;
+      let existingPhysStart = -1;
+      let existingPhysEnd = -1;
+
+      while (offset < bytes.length) {
+        const length =
+          (bytes[offset] << 24) |
+          (bytes[offset + 1] << 16) |
+          (bytes[offset + 2] << 8) |
+          bytes[offset + 3];
+
+        const typeStart = offset + 4;
+        const type = String.fromCharCode(
+          bytes[typeStart],
+          bytes[typeStart + 1],
+          bytes[typeStart + 2],
+          bytes[typeStart + 3]
+        );
+
+        const chunkTotalLength = 12 + length;
+        if (type === 'IHDR') ihdrEnd = offset + chunkTotalLength;
+        if (type === 'pHYs') {
+          existingPhysStart = offset;
+          existingPhysEnd = offset + chunkTotalLength;
+          break;
+        }
+        offset += chunkTotalLength;
+      }
+
+      const physChunk = createPhysChunk(dpiValue);
+      let finalBytes;
+
+      if (existingPhysStart !== -1) {
+        finalBytes = concatUint8Arrays(
+          bytes.slice(0, existingPhysStart),
+          physChunk,
+          bytes.slice(existingPhysEnd)
+        );
+      } else {
+        finalBytes = concatUint8Arrays(
+          bytes.slice(0, ihdrEnd),
+          physChunk,
+          bytes.slice(ihdrEnd)
+        );
+      }
+
+      return new Blob([finalBytes], { type: 'image/png' });
+    }
+
+    async function downloadResult() {
+      if (!canvasSingle.width) {
+        alert(t('alertUploadFirst'));
+        return;
+      }
+
+      try {
+        const dpiValue = Number(dpi.value);
+        const blob = await canvasToPngBlobWithDPI(canvasSingle, dpiValue);
+        incrementCounter();
+
+        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+        if (isIOS) {
+          showIOSModal(blob);
+          return;
+        }
+
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.download = buildExportFilename();
+        a.href = url;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        setTimeout(() => URL.revokeObjectURL(url), 1500);
+      } catch (err) {
+        console.error(err);
+        alert(t('alertPngFail'));
+      }
+    }
+
+    loadStoredLanguage();
+    loadStoredSettings();
+    sliderPairs.forEach(([id]) => updateSlider(document.getElementById(id)));
+    syncWidthFromMm();
+    updateSizeInfo();
+    setViewMode('compare');
+    setActivePresetCard(currentPreset);
+    setLanguage(currentLang);
+    initializeCanvasZoom();
+    loadDemoImage();
+  </script>
 </body>
 </html>
