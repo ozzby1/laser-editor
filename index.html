@@ -534,20 +534,27 @@
     margin-top: 8px;
   }
 
-  .mobile-reupload-wrap {
+  .mobile-action-stack {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
     margin-top: 14px;
   }
 
-  .mobile-reupload-btn {
+  .mobile-reupload-btn,
+  .mobile-download-btn {
     width: 100%;
     max-width: 320px;
     cursor: pointer;
+    font-size: 0.92rem;
+    font-weight: 700;
+    padding: 12px 16px;
+    box-shadow: 0 8px 24px rgba(249,115,22,0.28);
   }
 
   @media (min-width: 1024px) {
-    .mobile-reupload-wrap {
+    .mobile-action-stack {
       display: none;
     }
   }
@@ -636,8 +643,9 @@
             <div class="helper-text" style="text-align:center;margin-top:10px;" data-i18n="zoomHelp">
               Use the mouse wheel to zoom in or out. When zoomed in, drag the image with the mouse. Double-click resets zoom to 100%.
             </div>
-            <div class="mobile-reupload-wrap">
+            <div class="mobile-action-stack">
               <button class="btn btn-primary mobile-reupload-btn" id="reuploadBtnResult" data-i18n="reuploadBtn">↺ Upload another photo</button>
+              <button class="btn btn-primary mobile-download-btn" id="downloadBtnMobileResult" data-i18n="downloadBtn">⬇ Download PNG for Laser</button>
             </div>
           </div>
 
@@ -657,8 +665,9 @@
             <div class="helper-text" style="text-align:center;margin-top:10px;" data-i18n="zoomHelp">
               Use the mouse wheel to zoom in or out. When zoomed in, drag the image with the mouse. Double-click resets zoom to 100%.
             </div>
-            <div class="mobile-reupload-wrap">
+            <div class="mobile-action-stack">
               <button class="btn btn-primary mobile-reupload-btn" id="reuploadBtnCompare" data-i18n="reuploadBtn">↺ Upload another photo</button>
+              <button class="btn btn-primary mobile-download-btn" id="downloadBtnMobileCompare" data-i18n="downloadBtn">⬇ Download PNG for Laser</button>
             </div>
           </div>
         </div>
@@ -1507,8 +1516,16 @@ dropZone.addEventListener('click', () => fileInput.click());
 uploadCtaCard.addEventListener('click', () => fileInput.click());
 
 document.addEventListener('click', function(e) {
-  const btn = e.target.closest('#reuploadBtnResult, #reuploadBtnCompare');
-  if (btn) fileInput.click();
+  const reuploadBtn = e.target.closest('#reuploadBtnResult, #reuploadBtnCompare');
+  if (reuploadBtn) {
+    fileInput.click();
+    return;
+  }
+
+  const mobileDownloadBtn = e.target.closest('#downloadBtnMobileResult, #downloadBtnMobileCompare');
+  if (mobileDownloadBtn) {
+    downloadResult();
+  }
 });
 
 fileInput.addEventListener('change', e => {
