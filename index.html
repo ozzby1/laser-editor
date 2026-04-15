@@ -1827,11 +1827,19 @@ function loadImageIntoEditor(img, switchToResult = false, targetDpi = null) {
   updateSizeInfo();
   saveSettings();
 
-  setViewMode(switchToResult ? 'result' : 'compare');
+  const isMobile = window.innerWidth < 1024;
+
+  // 👇 Na mobilu vždy zobraz jen výstup (větší přehlednost)
+  setViewMode(isMobile ? 'result' : (switchToResult ? 'result' : 'compare'));
+
   resetAllCanvasZoom();
   processImage();
-}
 
+  // 👇 Auto scroll na preview
+  if (isMobile) {
+    scrollToPreviewOnMobile();
+  }
+}
 function loadFile(file) {
   if (!file || !file.type.startsWith('image/')) return;
 
