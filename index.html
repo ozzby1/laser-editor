@@ -2592,6 +2592,7 @@
 
         const blob = new Blob([svg], { type: 'image/svg+xml;charset=utf-8' });
         downloadBlob(blob, buildSvgExportFilename());
+        incrementCounter();
       } catch (err) {
         console.error(err);
         alert(t('alertSvgFail'));
