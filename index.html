@@ -797,6 +797,7 @@
               <div class="mobile-action-stack">
                 <button class="btn btn-primary mobile-reupload-btn" id="reuploadBtnResult" data-i18n="reuploadBtn">↺ Upload another photo</button>
                 <button class="btn btn-primary mobile-download-btn" id="downloadBtnMobileResult" data-i18n="downloadBtn">Download PNG for Laser</button>
+                <button class="btn btn-primary mobile-download-btn" id="downloadSvgBtnMobileResult" data-i18n="downloadSvgBtn">Download SVG for Inkscape</button>
               </div>
             </div>
 
@@ -821,6 +822,7 @@
               <div class="mobile-action-stack">
                 <button class="btn btn-primary mobile-reupload-btn" id="reuploadBtnCompare" data-i18n="reuploadBtn">↺ Upload another photo</button>
                 <button class="btn btn-primary mobile-download-btn" id="downloadBtnMobileCompare" data-i18n="downloadBtn">Download PNG for Laser</button>
+                <button class="btn btn-primary mobile-download-btn" id="downloadSvgBtnMobileCompare" data-i18n="downloadSvgBtn">Download SVG for Inkscape</button>
               </div>
             </div>
           </div>
@@ -1088,6 +1090,10 @@
             <button class="btn btn-primary w-full mt-1" id="downloadBtn" data-i18n="downloadBtn">
               Download PNG for Laser
             </button>
+
+            <button class="btn btn-primary w-full mt-1" id="downloadSvgBtn" data-i18n="downloadSvgBtn">
+              Download SVG for Inkscape
+            </button>
           </div>
         </div>
 
@@ -1163,12 +1169,14 @@
         sizeInfoLabel: 'Output Size',
         pixelInfoLabel: 'Conversion',
         downloadBtn: 'Download PNG for Laser',
+        downloadSvgBtn: 'Download SVG for Inkscape',
         sectionNote: 'Note',
         footerNote: 'The PNG includes DPI metadata for the correct size in laser software.',
         alertLoadFail: 'The image could not be loaded.',
         alertReadFail: 'Error reading the file.',
         alertUploadFirst: 'Please upload an image first.',
         alertPngFail: 'Failed to create a PNG file with the selected DPI.',
+        alertSvgFail: 'Failed to create an SVG file.',
         iosTitle: 'Save on iOS',
         iosText: 'Press and hold the image and choose <strong style="color:#e2e8f0">Add to Photos</strong> or <strong style="color:#e2e8f0">Save Image</strong>.',
         iosClose: 'Close',
@@ -1264,12 +1272,14 @@
         sizeInfoLabel: 'Tamaño de Salida',
         pixelInfoLabel: 'Conversión',
         downloadBtn: 'Descargar PNG para Láser',
+        downloadSvgBtn: 'Descargar SVG para Inkscape',
         sectionNote: 'Nota',
         footerNote: 'El PNG incluye metadatos DPI para el tamaño correcto en el software láser.',
         alertLoadFail: 'No se pudo cargar la imagen.',
         alertReadFail: 'Error al leer el archivo.',
         alertUploadFirst: 'Primero sube una imagen.',
         alertPngFail: 'No se pudo crear el archivo PNG con el DPI seleccionado.',
+        alertSvgFail: 'No se pudo crear el archivo SVG.',
         iosTitle: 'Guardar en iOS',
         iosText: 'Mantén pulsada la imagen y elige <strong style="color:#e2e8f0">Añadir a Fotos</strong> o <strong style="color:#e2e8f0">Guardar imagen</strong>.',
         iosClose: 'Cerrar',
@@ -1365,12 +1375,14 @@
         sizeInfoLabel: 'Ausgabegröße',
         pixelInfoLabel: 'Umrechnung',
         downloadBtn: 'PNG für Laser Herunterladen',
+        downloadSvgBtn: 'SVG für Inkscape Herunterladen',
         sectionNote: 'Hinweis',
         footerNote: 'Die PNG enthält DPI-Metadaten für die richtige Größe in Lasersoftware.',
         alertLoadFail: 'Das Bild konnte nicht geladen werden.',
         alertReadFail: 'Fehler beim Lesen der Datei.',
         alertUploadFirst: 'Bitte lade zuerst ein Bild hoch.',
         alertPngFail: 'Die PNG-Datei mit den gewählten DPI konnte nicht erstellt werden.',
+        alertSvgFail: 'Die SVG-Datei konnte nicht erstellt werden.',
         iosTitle: 'Auf iOS speichern',
         iosText: 'Halte das Bild gedrückt und wähle <strong style="color:#e2e8f0">Zu Fotos hinzufügen</strong> oder <strong style="color:#e2e8f0">Bild sichern</strong>.',
         iosClose: 'Schließen',
@@ -1466,12 +1478,14 @@
         sizeInfoLabel: 'Výstupní velikost',
         pixelInfoLabel: 'Přepočet',
         downloadBtn: 'Stáhnout PNG pro laser',
+        downloadSvgBtn: 'Stáhnout SVG pro Inkscape',
         sectionNote: 'Poznámka',
         footerNote: 'PNG obsahuje DPI metadata pro správnou velikost v laserovém softwaru.',
         alertLoadFail: 'Nepodařilo se načíst obrázek.',
         alertReadFail: 'Chyba při čtení souboru.',
         alertUploadFirst: 'Nejprve nahraj obrázek.',
         alertPngFail: 'Nepodařilo se vytvořit PNG soubor s nastaveným DPI.',
+        alertSvgFail: 'Nepodařilo se vytvořit SVG soubor.',
         iosTitle: 'Uložení na iOS',
         iosText: 'Podrž prst na obrázku a vyber <strong style="color:#e2e8f0">Přidat do Fotek</strong> nebo <strong style="color:#e2e8f0">Uložit obrázek</strong>.',
         iosClose: 'Zavřít',
@@ -1578,6 +1592,7 @@
     const outputWidthSlider = document.getElementById('outputWidthSlider');
 
     const downloadBtn = document.getElementById('downloadBtn');
+    const downloadSvgBtn = document.getElementById('downloadSvgBtn');
     const resetBtn = document.getElementById('resetBtn');
 
     const canvasSingle = document.getElementById('canvasSingle');
@@ -1670,6 +1685,12 @@
       const mobileDownloadBtn = e.target.closest('#downloadBtnMobileResult, #downloadBtnMobileCompare');
       if (mobileDownloadBtn) {
         downloadResult();
+        return;
+      }
+
+      const mobileDownloadSvgBtn = e.target.closest('#downloadSvgBtnMobileResult, #downloadSvgBtnMobileCompare');
+      if (mobileDownloadSvgBtn) {
+        downloadSvgResult();
       }
     });
 
@@ -1718,6 +1739,7 @@
     });
 
     downloadBtn.addEventListener('click', downloadResult);
+    downloadSvgBtn.addEventListener('click', downloadSvgResult);
     resetBtn.addEventListener('click', resetSettings);
 
     [brightness, contrast, gamma, sharpness].forEach((el) => {
@@ -2065,6 +2087,17 @@
       return clamp(Math.max(OUTPUT_WIDTH_MIN_PX, Number(outputWidthSlider.value)), OUTPUT_WIDTH_MIN_PX, OUTPUT_WIDTH_MAX_PX);
     }
 
+    function pxToMm(px, dpiValue) {
+      return (px / dpiValue) * 25.4;
+    }
+
+    function formatMm(mm) {
+      return mm.toLocaleString(currentLang === 'cs' ? 'cs-CZ' : currentLang, {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+      });
+    }
+
     function syncMmFromSlider() {
       const px = getOutputWidthPx();
       outputWidthSlider.value = px;
@@ -2073,10 +2106,10 @@
 
     function updateSizeInfo() {
       const px = getOutputWidthPx();
-      const mm = Math.round((px / Number(dpi.value)) * 25.4);
       const dpiValue = Number(dpi.value);
+      const mm = pxToMm(px, dpiValue);
 
-      document.getElementById('sizeInfo').textContent = `${mm} mm`;
+      document.getElementById('sizeInfo').textContent = `${formatMm(mm)} mm`;
       document.getElementById('pixelInfo').textContent = `${px} px @ ${dpiValue} DPI`;
     }
 
@@ -2292,9 +2325,13 @@
 
     function buildExportFilename() {
       const dpiValue = Number(dpi.value);
-      const mm = Math.round((getOutputWidthPx() / dpiValue) * 25.4);
+      const mm = pxToMm(getOutputWidthPx(), dpiValue).toFixed(1).replace('.', '-');
       const style = ditherMode.value === 'atkinson' ? 'contrast' : 'detailed';
       return `laser-${mm}mm-${dpiValue}dpi-${style}.png`;
+    }
+
+    function buildSvgExportFilename() {
+      return buildExportFilename().replace(/\.png$/i, '.svg');
     }
 
     const ABACUS_GET = 'https://abacus.jasoncameron.dev/get/stunning-twilight-266e8a/downloads';
@@ -2496,6 +2533,60 @@
       } catch (err) {
         console.error(err);
         alert(t('alertPngFail'));
+      }
+    }
+
+    function canvasToDataURL(canvas) {
+      return canvas.toDataURL('image/png');
+    }
+
+    function downloadBlob(blob, filename) {
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.download = filename;
+      a.href = url;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      setTimeout(() => URL.revokeObjectURL(url), 1500);
+    }
+
+    async function downloadSvgResult() {
+      if (!canvasSingle.width) {
+        alert(t('alertUploadFirst'));
+        return;
+      }
+
+      try {
+        const dpiValue = Number(dpi.value);
+        const widthPx = canvasSingle.width;
+        const heightPx = canvasSingle.height;
+        const widthMm = pxToMm(widthPx, dpiValue);
+        const heightMm = pxToMm(heightPx, dpiValue);
+        const pngDataUrl = canvasToDataURL(canvasSingle);
+
+        const widthMmText = widthMm.toFixed(3);
+        const heightMmText = heightMm.toFixed(3);
+
+        const svg = `<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg"
+     width="${widthMmText}mm"
+     height="${heightMmText}mm"
+     viewBox="0 0 ${widthMmText} ${heightMmText}">
+  <image href="${pngDataUrl}"
+         x="0"
+         y="0"
+         width="${widthMmText}"
+         height="${heightMmText}"
+         preserveAspectRatio="none"
+         image-rendering="pixelated" />
+</svg>`;
+
+        const blob = new Blob([svg], { type: 'image/svg+xml;charset=utf-8' });
+        downloadBlob(blob, buildSvgExportFilename());
+      } catch (err) {
+        console.error(err);
+        alert(t('alertSvgFail'));
       }
     }
 
