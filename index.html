@@ -741,7 +741,7 @@
               <div style="flex:1">
                 <div style="font-size:0.66rem;font-weight:700;letter-spacing:0.08em;color:#94a3b8;margin-bottom:6px;text-align:center" data-i18n="emptyOriginal">ORIGINAL</div>
                 <div style="border-radius:12px;overflow:hidden;border:1px solid rgba(255,255,255,0.07);background:#000">
-                  <img src="preview-v3.png" alt="Preview original image" style="width:100%;display:block;object-fit:contain;" id="emptyOriginalImg">
+                  <img src="preview-v3-small.webp" alt="Preview original image" style="width:100%;display:block;object-fit:contain;" id="emptyOriginalImg" decoding="async" fetchpriority="low" onerror="this.onerror=null;this.src='preview-v3.png';">
                 </div>
               </div>
 
@@ -750,7 +750,7 @@
               <div style="flex:1">
                 <div style="font-size:0.66rem;font-weight:700;letter-spacing:0.08em;color:#f97316;margin-bottom:6px;text-align:center" data-i18n="emptyOutput">OUTPUT</div>
                 <div style="border-radius:12px;overflow:hidden;border:1px solid rgba(249,115,22,0.2);background:#000">
-                  <img src="preview-v3.png" alt="Preview output image" style="width:100%;display:block;object-fit:contain;" id="emptyResultImg">
+                  <img src="preview-v3-small.webp" alt="Preview output image" style="width:100%;display:block;object-fit:contain;" id="emptyResultImg" decoding="async" fetchpriority="low" onerror="this.onerror=null;this.src='preview-v3.png';">
                 </div>
               </div>
             </div>
@@ -1122,6 +1122,8 @@
     const LANG_STORAGE_KEY = 'laserEditorLanguageV1';
     const OUTPUT_WIDTH_MIN_PX = 100;
     const OUTPUT_WIDTH_MAX_PX = 3000;
+    const PREVIEW_IMAGE_SMALL = 'preview-v3-small.webp';
+    const PREVIEW_IMAGE_FALLBACK = 'preview-v3.png';
 
     const translations = {
       en: {
@@ -2065,13 +2067,23 @@
 
     function loadDemoImage() {
       const img = new Image();
+      let triedFallback = false;
+
       img.onload = () => {
         loadImageIntoEditor(img, false);
       };
+
       img.onerror = () => {
+        if (!triedFallback) {
+          triedFallback = true;
+          img.src = PREVIEW_IMAGE_FALLBACK;
+          return;
+        }
+
         console.warn(t('demoLoadFail'));
       };
-      img.src = 'preview-v3.png';
+
+      img.src = PREVIEW_IMAGE_SMALL;
     }
 
     function clamp(n, min, max) {
