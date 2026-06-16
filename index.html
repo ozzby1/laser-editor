@@ -1072,7 +1072,7 @@
                 <input type="range" id="outputWidthSlider" min="100" max="3000" step="10" value="1000">
                 <span class="slider-val" id="outputWidthSliderVal" style="width:72px">1000</span>
               </div>
-              <div class="helper-text" data-i18n="outputSliderHelp">The slider works in pixels and stays synced with width in mm.</div>
+              <div class="helper-text" data-i18n="outputSliderHelp">The slider works in pixels. The physical size is calculated from the selected DPI.</div>
             </div>
 
             <div class="info-card">
@@ -1158,10 +1158,8 @@
         resetBtn: '↺ Default Settings',
         sectionOutput: 'Output',
         labelDpi: 'Desired DPI',
-        labelOutputWidthMm: 'Output Width (mm)',
-        outputWidthHelp: 'Pixels are calculated automatically from the selected DPI.',
         labelFineTuneWidth: 'Fine-tune Width',
-        outputSliderHelp: 'The slider works in pixels and stays synced with width in mm.',
+        outputSliderHelp: 'The slider works in pixels. The physical size is calculated from the selected DPI.',
         sizeInfoLabel: 'Output Size',
         pixelInfoLabel: 'Conversion',
         downloadBtn: 'Download PNG for Laser',
@@ -1261,10 +1259,8 @@
         resetBtn: 'Ajustes Predeterminados',
         sectionOutput: 'Salida',
         labelDpi: 'DPI Deseado',
-        labelOutputWidthMm: 'Ancho de Salida (mm)',
-        outputWidthHelp: 'Los píxeles se calculan automáticamente según el DPI seleccionado.',
         labelFineTuneWidth: 'Ajuste Fino del Ancho',
-        outputSliderHelp: 'El control deslizante funciona en píxeles y se sincroniza con el ancho en mm.',
+        outputSliderHelp: 'El control deslizante funciona en píxeles. El tamaño físico se calcula según el DPI seleccionado.',
         sizeInfoLabel: 'Tamaño de Salida',
         pixelInfoLabel: 'Conversión',
         downloadBtn: 'Descargar PNG para Láser',
@@ -1364,10 +1360,8 @@
         resetBtn: 'Standardeinstellungen',
         sectionOutput: 'Ausgabe',
         labelDpi: 'Gewünschte DPI',
-        labelOutputWidthMm: 'Ausgabebreite (mm)',
-        outputWidthHelp: 'Die Pixel werden automatisch anhand der gewählten DPI berechnet.',
         labelFineTuneWidth: 'Breite Feinabstimmen',
-        outputSliderHelp: 'Der Schieberegler arbeitet in Pixeln und bleibt mit der Breite in mm synchron.',
+        outputSliderHelp: 'Der Schieberegler arbeitet in Pixeln. Die physische Größe wird anhand der gewählten DPI berechnet.',
         sizeInfoLabel: 'Ausgabegröße',
         pixelInfoLabel: 'Umrechnung',
         downloadBtn: 'PNG für Laser Herunterladen',
@@ -1467,10 +1461,8 @@
         resetBtn: 'Výchozí nastavení',
         sectionOutput: 'Výstup',
         labelDpi: 'Požadované DPI',
-        labelOutputWidthMm: 'Šířka výstupu (mm)',
-        outputWidthHelp: 'Pixely se dopočítají automaticky podle zvoleného DPI.',
         labelFineTuneWidth: 'Jemné doladění šířky',
-        outputSliderHelp: 'Posuvník pracuje v pixelech a synchronizuje se se šířkou v mm.',
+        outputSliderHelp: 'Posuvník pracuje v pixelech. Fyzická velikost se počítá podle zvoleného DPI.',
         sizeInfoLabel: 'Výstupní velikost',
         pixelInfoLabel: 'Přepočet',
         downloadBtn: 'Stáhnout PNG pro laser',
@@ -1570,7 +1562,7 @@
       sharpness: PRESETS.normal.sharpness,
       ditherMode: PRESETS.normal.ditherMode,
       dpi: 300,
-      outputWidthMm: 100
+      outputWidthPx: 1000
     };
 
     const fileInput = document.getElementById('fileInput');
@@ -1583,7 +1575,6 @@
     const sharpness = document.getElementById('sharpness');
     const ditherMode = document.getElementById('ditherMode');
     const dpi = document.getElementById('dpi');
-    const outputWidthMm = document.getElementById('outputWidthMm');
     const outputWidthSlider = document.getElementById('outputWidthSlider');
 
     const downloadBtn = document.getElementById('downloadBtn');
@@ -1714,14 +1705,6 @@
     });
 
     dpi.addEventListener('change', () => {
-      syncWidthFromMm();
-      updateSizeInfo();
-      saveSettings();
-      if (originalImage) scheduleProcessImage();
-    });
-
-    outputWidthMm.addEventListener('input', () => {
-      syncWidthFromMm();
       updateSizeInfo();
       saveSettings();
       if (originalImage) scheduleProcessImage();
@@ -1956,7 +1939,11 @@
         if (s.sharpness !== undefined) sharpness.value = s.sharpness;
         if (s.ditherMode) ditherMode.value = s.ditherMode;
         if (s.dpi) dpi.value = s.dpi;
-        if (s.outputWidthMm !== undefined) outputWidthMm.value = s.outputWidthMm;
+        if (s.outputWidthPx !== undefined) {
+          outputWidthSlider.value = s.outputWidthPx;
+        } else if (s.outputWidthMm !== undefined) {
+          outputWidthSlider.value = Math.round((Number(s.outputWidthMm) / 25.4) * Number(dpi.value || DEFAULTS.dpi));
+        }
       } catch (e) {}
     }
 
@@ -1969,7 +1956,7 @@
         sharpness: Number(sharpness.value),
         ditherMode: ditherMode.value,
         dpi: Number(dpi.value),
-        outputWidthMm: Number(outputWidthMm.value)
+        outputWidthPx: Number(outputWidthSlider.value)
       };
 
       try {
@@ -1985,9 +1972,8 @@
       sharpness.value = DEFAULTS.sharpness;
       ditherMode.value = DEFAULTS.ditherMode;
       dpi.value = DEFAULTS.dpi;
-      outputWidthMm.value = DEFAULTS.outputWidthMm;
+      outputWidthSlider.value = DEFAULTS.outputWidthPx;
 
-      syncWidthFromMm();
       sliderPairs.forEach(([id]) => updateSlider(document.getElementById(id)));
       updateSizeInfo();
       setActivePresetCard(currentPreset);
@@ -2026,7 +2012,6 @@
         dpi.value = String(targetDpi);
       }
 
-      syncWidthFromMm();
       updateSizeInfo();
       saveSettings();
 
@@ -2076,32 +2061,13 @@
       return Math.round(value / step) * step;
     }
 
-    function getRawOutputWidthPx() {
-      const mm = Math.max(1, Number(outputWidthMm.value || 0));
-      const dpiValue = Number(dpi.value);
-      return Math.round((mm / 25.4) * dpiValue);
-    }
-
     function getOutputWidthPx() {
-      return clamp(getRawOutputWidthPx(), OUTPUT_WIDTH_MIN_PX, OUTPUT_WIDTH_MAX_PX);
-    }
-
-    function syncWidthFromMm() {
-      const px = getOutputWidthPx();
-      outputWidthSlider.value = px;
-      updateSlider(outputWidthSlider);
-
-      const correctedMm = Math.round((px / Number(dpi.value)) * 25.4);
-      if (Number(outputWidthMm.value) !== correctedMm) {
-        outputWidthMm.value = correctedMm;
-      }
+      return clamp(Math.max(OUTPUT_WIDTH_MIN_PX, Number(outputWidthSlider.value)), OUTPUT_WIDTH_MIN_PX, OUTPUT_WIDTH_MAX_PX);
     }
 
     function syncMmFromSlider() {
-      const px = clamp(Math.max(OUTPUT_WIDTH_MIN_PX, Number(outputWidthSlider.value)), OUTPUT_WIDTH_MIN_PX, OUTPUT_WIDTH_MAX_PX);
+      const px = getOutputWidthPx();
       outputWidthSlider.value = px;
-      const dpiValue = Number(dpi.value);
-      outputWidthMm.value = Math.round((px / dpiValue) * 25.4);
       updateSlider(outputWidthSlider);
     }
 
@@ -2536,7 +2502,7 @@
     loadStoredLanguage();
     loadStoredSettings();
     sliderPairs.forEach(([id]) => updateSlider(document.getElementById(id)));
-    syncWidthFromMm();
+    syncMmFromSlider();
     updateSizeInfo();
     setViewMode('compare');
     setActivePresetCard(currentPreset);
