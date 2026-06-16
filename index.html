@@ -1050,6 +1050,12 @@
           <div class="section-title" data-i18n="sectionOutput">Output</div>
           <div class="flex flex-col gap-3">
             <div>
+              <label for="outputWidthMm" data-i18n="labelOutputWidthMm">Output width</label>
+              <input type="number" id="outputWidthMm" class="mt-1" min="1" step="0.1" value="80">
+              <div class="helper-text" data-i18n="outputWidthMmHelp">Enter the real engraving width in millimeters.</div>
+            </div>
+
+            <div>
               <label for="dpi" data-i18n="labelDpi">Desired DPI</label>
               <select id="dpi" class="mt-1">
                 <option value="72">72 DPI</option>
@@ -1066,23 +1072,27 @@
                 <option value="700">700 DPI</option>
                 <option value="750">750 DPI</option>
               </select>
+              <div class="helper-text" data-i18n="dpiHelp">Changing DPI keeps the same physical size and recalculates the pixel count.</div>
             </div>
 
-            <div>
-              <label for="outputWidthSlider" data-i18n="labelFineTuneWidth">Fine-tune Width</label>
-              <div class="slider-row mt-1">
-                <input type="range" id="outputWidthSlider" min="100" max="3000" step="10" value="1000">
-                <span class="slider-val" id="outputWidthSliderVal" style="width:72px">1000</span>
+            <details>
+              <summary style="cursor:pointer;font-size:0.78rem;font-weight:700;color:#a8b7c8" data-i18n="advancedPixelSummary">Advanced: adjust width in pixels</summary>
+              <div class="mt-3">
+                <label for="outputWidthSlider" data-i18n="labelFineTuneWidth">Width in pixels</label>
+                <div class="slider-row mt-1">
+                  <input type="range" id="outputWidthSlider" min="100" max="6000" step="1" value="945">
+                  <span class="slider-val" id="outputWidthSliderVal" style="width:82px">945 px</span>
+                </div>
+                <div class="helper-text" data-i18n="outputSliderHelp">Advanced control. Changing pixels recalculates the width in mm for the selected DPI.</div>
               </div>
-              <div class="helper-text" data-i18n="outputSliderHelp">The slider works in pixels. The physical size is calculated from the selected DPI.</div>
-            </div>
+            </details>
 
             <div class="info-card">
               <div class="mini-grid">
-                <div style="font-size:0.76rem;color:#94a3b8" data-i18n="sizeInfoLabel">Output Size</div>
+                <div style="font-size:0.76rem;color:#94a3b8" data-i18n="sizeInfoLabel">Physical size</div>
                 <div style="font-size:0.76rem;color:#e2e8f0;font-weight:600" id="sizeInfo">—</div>
 
-                <div style="font-size:0.76rem;color:#94a3b8" data-i18n="pixelInfoLabel">Conversion</div>
+                <div style="font-size:0.76rem;color:#94a3b8" data-i18n="pixelInfoLabel">Pixel size</div>
                 <div style="font-size:0.76rem;color:#e2e8f0;font-weight:600" id="pixelInfo">—</div>
               </div>
             </div>
@@ -1094,6 +1104,10 @@
             <button class="btn btn-primary w-full mt-1" id="downloadSvgBtn" data-i18n="downloadSvgBtn">
               Download SVG
             </button>
+
+            <div class="helper-text" data-i18n-html="exportHelp">
+              PNG is recommended for LightBurn, XCS and LaserGRBL. SVG is useful for Inkscape when you need exact physical size in millimeters.
+            </div>
           </div>
         </div>
 
@@ -1121,7 +1135,7 @@
     const STORAGE_KEY = 'laserEditorSimpleV7';
     const LANG_STORAGE_KEY = 'laserEditorLanguageV1';
     const OUTPUT_WIDTH_MIN_PX = 100;
-    const OUTPUT_WIDTH_MAX_PX = 3000;
+    const OUTPUT_WIDTH_MAX_PX = 6000;
     const PREVIEW_IMAGE_SMALL = 'preview-v3-small.webp';
     const PREVIEW_IMAGE_FALLBACK = 'preview-v3.png';
 
@@ -1165,15 +1179,20 @@
         ditherHelp: 'Photos → Detailed | stronger edges → Contrast',
         resetBtn: '↺ Default Settings',
         sectionOutput: 'Output',
+        labelOutputWidthMm: 'Output width',
+        outputWidthMmHelp: 'Enter the real engraving width in millimeters.',
         labelDpi: 'Desired DPI',
-        labelFineTuneWidth: 'Fine-tune Width',
-        outputSliderHelp: 'The slider works in pixels. The physical size is calculated from the selected DPI.',
-        sizeInfoLabel: 'Output Size',
-        pixelInfoLabel: 'Conversion',
+        dpiHelp: 'Changing DPI keeps the same physical size and recalculates the pixel count.',
+        advancedPixelSummary: 'Advanced: adjust width in pixels',
+        labelFineTuneWidth: 'Width in pixels',
+        outputSliderHelp: 'Advanced control. Changing pixels recalculates the width in mm for the selected DPI.',
+        sizeInfoLabel: 'Physical size',
+        pixelInfoLabel: 'Pixel size',
         downloadBtn: 'Download PNG',
         downloadSvgBtn: 'Download SVG',
+        exportHelp: 'PNG is recommended for LightBurn, XCS and LaserGRBL. SVG is useful for Inkscape when you need exact physical size in millimeters.',
         sectionNote: 'Note',
-        footerNote: 'The PNG includes DPI metadata for the correct size in laser software.',
+        footerNote: 'The PNG includes DPI metadata for the correct size in laser software. Some design programs may show SVG pixels at 96 DPI; for laser sizing, use the mm value.',
         alertLoadFail: 'The image could not be loaded.',
         alertReadFail: 'Error reading the file.',
         alertUploadFirst: 'Please upload an image first.',
@@ -1268,15 +1287,20 @@
         ditherHelp: 'Fotos → Detallado | bordes más marcados → Contraste',
         resetBtn: 'Ajustes Predeterminados',
         sectionOutput: 'Salida',
-        labelDpi: 'DPI Deseado',
-        labelFineTuneWidth: 'Ajuste Fino del Ancho',
-        outputSliderHelp: 'El control deslizante funciona en píxeles. El tamaño físico se calcula según el DPI seleccionado.',
-        sizeInfoLabel: 'Tamaño de Salida',
-        pixelInfoLabel: 'Conversión',
+        labelOutputWidthMm: 'Ancho de salida',
+        outputWidthMmHelp: 'Introduce el ancho real del grabado en milímetros.',
+        labelDpi: 'DPI deseado',
+        dpiHelp: 'Al cambiar el DPI se mantiene el mismo tamaño físico y se recalcula el número de píxeles.',
+        advancedPixelSummary: 'Avanzado: ajustar ancho en píxeles',
+        labelFineTuneWidth: 'Ancho en píxeles',
+        outputSliderHelp: 'Control avanzado. Al cambiar los píxeles se recalcula el ancho en mm según el DPI seleccionado.',
+        sizeInfoLabel: 'Tamaño físico',
+        pixelInfoLabel: 'Tamaño en píxeles',
         downloadBtn: 'Descargar PNG',
         downloadSvgBtn: 'Descargar SVG',
+        exportHelp: 'PNG es el formato recomendado para LightBurn, XCS y LaserGRBL. SVG es útil para Inkscape cuando necesitas un tamaño físico exacto en milímetros.',
         sectionNote: 'Nota',
-        footerNote: 'El PNG incluye metadatos DPI para el tamaño correcto en el software láser.',
+        footerNote: 'El PNG incluye metadatos DPI para el tamaño correcto en el software láser. Algunos programas de diseño pueden mostrar los píxeles SVG a 96 DPI; para el tamaño láser, usa el valor en mm.',
         alertLoadFail: 'No se pudo cargar la imagen.',
         alertReadFail: 'Error al leer el archivo.',
         alertUploadFirst: 'Primero sube una imagen.',
@@ -1371,15 +1395,20 @@
         ditherHelp: 'Fotos → Detailliert | stärkere Kanten → Kontrast',
         resetBtn: 'Standardeinstellungen',
         sectionOutput: 'Ausgabe',
+        labelOutputWidthMm: 'Ausgabebreite',
+        outputWidthMmHelp: 'Gib die reale Gravurbreite in Millimetern ein.',
         labelDpi: 'Gewünschte DPI',
-        labelFineTuneWidth: 'Breite Feinabstimmen',
-        outputSliderHelp: 'Der Schieberegler arbeitet in Pixeln. Die physische Größe wird anhand der gewählten DPI berechnet.',
-        sizeInfoLabel: 'Ausgabegröße',
-        pixelInfoLabel: 'Umrechnung',
+        dpiHelp: 'Beim Ändern der DPI bleibt die physische Größe gleich und die Pixelanzahl wird neu berechnet.',
+        advancedPixelSummary: 'Erweitert: Breite in Pixeln anpassen',
+        labelFineTuneWidth: 'Breite in Pixeln',
+        outputSliderHelp: 'Erweiterte Steuerung. Beim Ändern der Pixel wird die Breite in mm anhand der gewählten DPI neu berechnet.',
+        sizeInfoLabel: 'Physische Größe',
+        pixelInfoLabel: 'Pixelgröße',
         downloadBtn: 'PNG herunterladen',
         downloadSvgBtn: 'SVG herunterladen',
+        exportHelp: 'PNG wird für LightBurn, XCS und LaserGRBL empfohlen. SVG ist nützlich für Inkscape, wenn du eine exakte physische Größe in Millimetern brauchst.',
         sectionNote: 'Hinweis',
-        footerNote: 'Die PNG enthält DPI-Metadaten für die richtige Größe in Lasersoftware.',
+        footerNote: 'Die PNG enthält DPI-Metadaten für die richtige Größe in Lasersoftware. Einige Grafikprogramme zeigen SVG-Pixel mit 96 DPI an; für die Lasergröße zählt der mm-Wert.',
         alertLoadFail: 'Das Bild konnte nicht geladen werden.',
         alertReadFail: 'Fehler beim Lesen der Datei.',
         alertUploadFirst: 'Bitte lade zuerst ein Bild hoch.',
@@ -1403,7 +1432,7 @@
         helpStep4Title: 'Breite fein abstimmen',
         helpStep4Text: 'Mit dem Schieberegler kannst du die Ausgabebreite in Pixeln fein abstimmen. Er bleibt mit dem Breitenfeld in mm synchron – wenn du einen Wert änderst, wird der andere automatisch aktualisiert.',
         helpStep5Title: 'Ausgabe prüfen und PNG herunterladen',
-        helpStep5Text: 'Die Ausgabe zeigt das endgültige gerasterte Bild. Wenn alles gut aussieht, klicke auf PNG herunterladen und importiere die Datei in deine Lasersoftware.',
+        helpStep5Text: 'Die Ausgabe zeigt das endgültige gerasterte Bild. Wenn alles gut aussieht, klicke auf PNG für Laser herunterladen und importiere die Datei in deine Lasersoftware.',
         helpDpiTitle: 'Empfohlene DPI je nach Material',
         helpTableHeadDpi: 'DPI',
         helpTableHeadMaterial: 'Geeignet für',
@@ -1474,15 +1503,20 @@
         ditherHelp: 'Fotky → Detailní | výraznější hrany → Kontrastní',
         resetBtn: 'Výchozí nastavení',
         sectionOutput: 'Výstup',
+        labelOutputWidthMm: 'Šířka výsledku',
+        outputWidthMmHelp: 'Zadej skutečnou šířku gravírování v milimetrech.',
         labelDpi: 'Požadované DPI',
-        labelFineTuneWidth: 'Jemné doladění šířky',
-        outputSliderHelp: 'Posuvník pracuje v pixelech. Fyzická velikost se počítá podle zvoleného DPI.',
-        sizeInfoLabel: 'Výstupní velikost',
-        pixelInfoLabel: 'Přepočet',
+        dpiHelp: 'Při změně DPI zůstane stejná fyzická velikost a přepočítá se počet pixelů.',
+        advancedPixelSummary: 'Pokročilé: upravit šířku v pixelech',
+        labelFineTuneWidth: 'Šířka v pixelech',
+        outputSliderHelp: 'Pokročilé nastavení. Změna pixelů přepočítá šířku v mm podle zvoleného DPI.',
+        sizeInfoLabel: 'Fyzická velikost',
+        pixelInfoLabel: 'Velikost v pixelech',
         downloadBtn: 'Stáhnout PNG',
         downloadSvgBtn: 'Stáhnout SVG',
+        exportHelp: 'PNG je doporučené pro LightBurn, XCS a LaserGRBL. SVG se hodí pro Inkscape, když potřebuješ přesný fyzický rozměr v milimetrech.',
         sectionNote: 'Poznámka',
-        footerNote: 'PNG obsahuje DPI metadata pro správnou velikost v laserovém softwaru.',
+        footerNote: 'PNG obsahuje DPI metadata pro správnou velikost v laserovém softwaru. Některé grafické programy mohou zobrazovat SVG pixely při 96 DPI; pro laserovou velikost používej hodnotu v mm.',
         alertLoadFail: 'Nepodařilo se načíst obrázek.',
         alertReadFail: 'Chyba při čtení souboru.',
         alertUploadFirst: 'Nejprve nahraj obrázek.',
@@ -1577,7 +1611,8 @@
       sharpness: PRESETS.normal.sharpness,
       ditherMode: PRESETS.normal.ditherMode,
       dpi: 300,
-      outputWidthPx: 1000
+      outputWidthMm: 80,
+      outputWidthPx: 945
     };
 
     const fileInput = document.getElementById('fileInput');
@@ -1590,6 +1625,7 @@
     const sharpness = document.getElementById('sharpness');
     const ditherMode = document.getElementById('ditherMode');
     const dpi = document.getElementById('dpi');
+    const outputWidthMm = document.getElementById('outputWidthMm');
     const outputWidthSlider = document.getElementById('outputWidthSlider');
 
     const downloadBtn = document.getElementById('downloadBtn');
@@ -1727,6 +1763,14 @@
     });
 
     dpi.addEventListener('change', () => {
+      syncSliderFromMm();
+      updateSizeInfo();
+      saveSettings();
+      if (originalImage) scheduleProcessImage();
+    });
+
+    outputWidthMm.addEventListener('input', () => {
+      syncSliderFromMm();
       updateSizeInfo();
       saveSettings();
       if (originalImage) scheduleProcessImage();
@@ -1962,11 +2006,14 @@
         if (s.sharpness !== undefined) sharpness.value = s.sharpness;
         if (s.ditherMode) ditherMode.value = s.ditherMode;
         if (s.dpi) dpi.value = s.dpi;
-        if (s.outputWidthPx !== undefined) {
-          outputWidthSlider.value = s.outputWidthPx;
-        } else if (s.outputWidthMm !== undefined) {
-          outputWidthSlider.value = Math.round((Number(s.outputWidthMm) / 25.4) * Number(dpi.value || DEFAULTS.dpi));
+        if (s.outputWidthMm !== undefined) {
+          outputWidthMm.value = formatNumberInput(Number(s.outputWidthMm));
+        } else if (s.outputWidthPx !== undefined) {
+          outputWidthMm.value = formatNumberInput(pxToMm(Number(s.outputWidthPx), Number(dpi.value || DEFAULTS.dpi)));
+        } else {
+          outputWidthMm.value = formatNumberInput(DEFAULTS.outputWidthMm);
         }
+        syncSliderFromMm();
       } catch (e) {}
     }
 
@@ -1979,7 +2026,8 @@
         sharpness: Number(sharpness.value),
         ditherMode: ditherMode.value,
         dpi: Number(dpi.value),
-        outputWidthPx: Number(outputWidthSlider.value)
+        outputWidthMm: Number(outputWidthMm.value),
+        outputWidthPx: getOutputWidthPx()
       };
 
       try {
@@ -1995,7 +2043,8 @@
       sharpness.value = DEFAULTS.sharpness;
       ditherMode.value = DEFAULTS.ditherMode;
       dpi.value = DEFAULTS.dpi;
-      outputWidthSlider.value = DEFAULTS.outputWidthPx;
+      outputWidthMm.value = formatNumberInput(DEFAULTS.outputWidthMm);
+      syncSliderFromMm();
 
       sliderPairs.forEach(([id]) => updateSlider(document.getElementById(id)));
       updateSizeInfo();
@@ -2035,6 +2084,7 @@
         dpi.value = String(targetDpi);
       }
 
+      syncSliderFromMm();
       updateSizeInfo();
       saveSettings();
 
@@ -2094,12 +2144,30 @@
       return Math.round(value / step) * step;
     }
 
+    function getDpiValue() {
+      return Number(dpi.value) || DEFAULTS.dpi;
+    }
+
     function getOutputWidthPx() {
-      return clamp(Math.max(OUTPUT_WIDTH_MIN_PX, Number(outputWidthSlider.value)), OUTPUT_WIDTH_MIN_PX, OUTPUT_WIDTH_MAX_PX);
+      return clamp(Math.round(Number(outputWidthSlider.value) || 0), OUTPUT_WIDTH_MIN_PX, OUTPUT_WIDTH_MAX_PX);
+    }
+
+    function getOutputWidthMm() {
+      const value = Number(outputWidthMm.value);
+      return Number.isFinite(value) && value > 0 ? value : DEFAULTS.outputWidthMm;
+    }
+
+    function mmToPx(mm, dpiValue) {
+      return Math.round((mm / 25.4) * dpiValue);
     }
 
     function pxToMm(px, dpiValue) {
       return (px / dpiValue) * 25.4;
+    }
+
+    function formatNumberInput(value) {
+      if (!Number.isFinite(value)) value = DEFAULTS.outputWidthMm;
+      return Number(value.toFixed(2)).toString();
     }
 
     function formatMm(mm) {
@@ -2109,19 +2177,50 @@
       });
     }
 
-    function syncMmFromSlider() {
-      const px = getOutputWidthPx();
-      outputWidthSlider.value = px;
+    function syncSliderFromMm() {
+      const dpiValue = getDpiValue();
+      let mm = getOutputWidthMm();
+      let px = mmToPx(mm, dpiValue);
+      const clampedPx = clamp(px, OUTPUT_WIDTH_MIN_PX, OUTPUT_WIDTH_MAX_PX);
+
+      if (clampedPx !== px) {
+        mm = pxToMm(clampedPx, dpiValue);
+        outputWidthMm.value = formatNumberInput(mm);
+      }
+
+      outputWidthSlider.value = clampedPx;
       updateSlider(outputWidthSlider);
     }
 
-    function updateSizeInfo() {
+    function syncMmFromSlider() {
+      const dpiValue = getDpiValue();
       const px = getOutputWidthPx();
-      const dpiValue = Number(dpi.value);
-      const mm = pxToMm(px, dpiValue);
+      outputWidthSlider.value = px;
+      outputWidthMm.value = formatNumberInput(pxToMm(px, dpiValue));
+      updateSlider(outputWidthSlider);
+    }
 
-      document.getElementById('sizeInfo').textContent = `${formatMm(mm)} mm`;
-      document.getElementById('pixelInfo').textContent = `${px} px @ ${dpiValue} DPI`;
+    function getOutputHeightPx(widthPx) {
+      if (!originalImage || !originalImage.width) return null;
+      return Math.max(1, Math.round(originalImage.height * widthPx / originalImage.width));
+    }
+
+    function updateSizeInfo() {
+      if (!outputWidthMm || !outputWidthSlider) return;
+
+      const dpiValue = getDpiValue();
+      const widthPx = getOutputWidthPx();
+      const heightPx = getOutputHeightPx(widthPx);
+      const widthMm = pxToMm(widthPx, dpiValue);
+
+      if (heightPx) {
+        const heightMm = pxToMm(heightPx, dpiValue);
+        document.getElementById('sizeInfo').textContent = `${formatMm(widthMm)} × ${formatMm(heightMm)} mm`;
+        document.getElementById('pixelInfo').textContent = `${widthPx} × ${heightPx} px @ ${dpiValue} DPI`;
+      } else {
+        document.getElementById('sizeInfo').textContent = `${formatMm(widthMm)} mm`;
+        document.getElementById('pixelInfo').textContent = `${widthPx} px @ ${dpiValue} DPI`;
+      }
     }
 
     function processImage() {
@@ -2614,7 +2713,7 @@
     loadStoredLanguage();
     loadStoredSettings();
     sliderPairs.forEach(([id]) => updateSlider(document.getElementById(id)));
-    syncMmFromSlider();
+    syncSliderFromMm();
     updateSizeInfo();
     setViewMode('compare');
     setActivePresetCard(currentPreset);
