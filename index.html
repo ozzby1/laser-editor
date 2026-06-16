@@ -1080,7 +1080,7 @@
               <div class="mt-3">
                 <label for="outputWidthSlider" data-i18n="labelFineTuneWidth">Width in pixels</label>
                 <div class="slider-row mt-1">
-                  <input type="range" id="outputWidthSlider" min="100" max="6000" step="1" value="945">
+                  <input type="range" id="outputWidthSlider" min="100" max="6000" step="10" value="945">
                   <span class="slider-val" id="outputWidthSliderVal" style="width:82px">945 px</span>
                 </div>
                 <div class="helper-text" data-i18n="outputSliderHelp">Advanced control. Changing pixels recalculates the width in mm for the selected DPI.</div>
@@ -2177,6 +2177,12 @@
       });
     }
 
+    function formatMmRounded(mm) {
+      return Math.round(mm).toLocaleString(currentLang === 'cs' ? 'cs-CZ' : currentLang, {
+        maximumFractionDigits: 0
+      });
+    }
+
     function syncSliderFromMm() {
       const dpiValue = getDpiValue();
       let mm = getOutputWidthMm();
@@ -2215,10 +2221,10 @@
 
       if (heightPx) {
         const heightMm = pxToMm(heightPx, dpiValue);
-        document.getElementById('sizeInfo').textContent = `${formatMm(widthMm)} × ${formatMm(heightMm)} mm`;
+        document.getElementById('sizeInfo').textContent = `${formatMmRounded(widthMm)} × ${formatMmRounded(heightMm)} mm`;
         document.getElementById('pixelInfo').textContent = `${widthPx} × ${heightPx} px @ ${dpiValue} DPI`;
       } else {
-        document.getElementById('sizeInfo').textContent = `${formatMm(widthMm)} mm`;
+        document.getElementById('sizeInfo').textContent = `${formatMmRounded(widthMm)} mm`;
         document.getElementById('pixelInfo').textContent = `${widthPx} px @ ${dpiValue} DPI`;
       }
     }
