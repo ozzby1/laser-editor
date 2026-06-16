@@ -1485,7 +1485,6 @@
         alertReadFail: 'Chyba při čtení souboru.',
         alertUploadFirst: 'Nejprve nahraj obrázek.',
         alertPngFail: 'Nepodařilo se vytvořit PNG soubor s nastaveným DPI.',
-        alertSvgFail: 'Nepodařilo se vytvořit SVG soubor.',
         iosTitle: 'Uložení na iOS',
         iosText: 'Podrž prst na obrázku a vyber <strong style="color:#e2e8f0">Přidat do Fotek</strong> nebo <strong style="color:#e2e8f0">Uložit obrázek</strong>.',
         iosClose: 'Zavřít',
@@ -2568,18 +2567,27 @@
         const widthMmText = widthMm.toFixed(3);
         const heightMmText = heightMm.toFixed(3);
 
+        // Inkscape-safe SVG wrapper:
+        // - outer SVG has the real physical size in mm
+        // - viewBox uses the original pixel grid
+        // - both href and xlink:href are included for better compatibility
+        // - white background prevents transparent/empty-looking imports
         const svg = `<?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink"
+     version="1.1"
      width="${widthMmText}mm"
      height="${heightMmText}mm"
-     viewBox="0 0 ${widthMmText} ${heightMmText}">
-  <image href="${pngDataUrl}"
-         x="0"
+     viewBox="0 0 ${widthPx} ${heightPx}">
+  <rect x="0" y="0" width="${widthPx}" height="${heightPx}" fill="#ffffff"/>
+  <image x="0"
          y="0"
-         width="${widthMmText}"
-         height="${heightMmText}"
+         width="${widthPx}"
+         height="${heightPx}"
+         href="${pngDataUrl}"
+         xlink:href="${pngDataUrl}"
          preserveAspectRatio="none"
-         image-rendering="pixelated" />
+         image-rendering="pixelated"/>
 </svg>`;
 
         const blob = new Blob([svg], { type: 'image/svg+xml;charset=utf-8' });
