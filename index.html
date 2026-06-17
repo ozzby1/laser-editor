@@ -1760,7 +1760,11 @@
       if (value === null) return;
 
       lastValidOutputWidthMm = value;
-      syncSliderFromMm();
+
+      // While typing, never write a corrected/clamped value back into the mm field.
+      // Otherwise intermediate values like "1" while entering "100" can be replaced
+      // by the minimum pixel equivalent, e.g. 3.91 mm at 650 DPI.
+      syncSliderFromMm({ preserveMmInput: true });
       updateSizeInfo();
       saveSettings();
       if (originalImage) scheduleProcessImage();
@@ -2219,7 +2223,7 @@
       });
     }
 
-    function syncSliderFromMm() {
+    function syncSliderFromMm(options = {}) {
       const dpiValue = getDpiValue();
       let mm = getOutputWidthMm();
       let px = mmToPx(mm, dpiValue);
@@ -2228,10 +2232,10 @@
 
       const clampedPx = clamp(px, OUTPUT_WIDTH_MIN_PX, getOutputWidthMaxPx());
 
-      // Do not overwrite the millimeter field just because the required pixel
-      // width is larger than the default slider range. The slider range expands
-      // automatically up to OUTPUT_WIDTH_HARD_MAX_PX.
-      if (clampedPx !== px) {
+      // Do not overwrite the millimeter field while the user is typing.
+      // This keeps values editable: the user can erase the field and type 500 mm
+      // without an intermediate value being replaced by the minimum pixel size.
+      if (clampedPx !== px && !options.preserveMmInput) {
         mm = pxToMm(clampedPx, dpiValue);
         outputWidthMm.value = formatNumberInput(mm);
         lastValidOutputWidthMm = mm;
