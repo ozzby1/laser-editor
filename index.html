@@ -1627,6 +1627,7 @@
     const dpi = document.getElementById('dpi');
     const outputWidthMm = document.getElementById('outputWidthMm');
     const outputWidthSlider = document.getElementById('outputWidthSlider');
+    let lastValidOutputWidthMm = DEFAULTS.outputWidthMm;
 
     const downloadBtn = document.getElementById('downloadBtn');
     const downloadSvgBtn = document.getElementById('downloadSvgBtn');
@@ -1770,6 +1771,29 @@
     });
 
     outputWidthMm.addEventListener('input', () => {
+      const value = getOutputWidthMmInputValue();
+
+      // Allow the user to temporarily clear the field or type an incomplete value.
+      // Do not immediately replace it while they are editing.
+      if (value === null) return;
+
+      lastValidOutputWidthMm = value;
+      syncSliderFromMm();
+      updateSizeInfo();
+      saveSettings();
+      if (originalImage) scheduleProcessImage();
+    });
+
+    outputWidthMm.addEventListener('blur', () => {
+      const value = getOutputWidthMmInputValue();
+
+      if (value === null) {
+        outputWidthMm.value = formatNumberInput(lastValidOutputWidthMm);
+      } else {
+        lastValidOutputWidthMm = value;
+        outputWidthMm.value = formatNumberInput(value);
+      }
+
       syncSliderFromMm();
       updateSizeInfo();
       saveSettings();
@@ -2013,6 +2037,7 @@
         } else {
           outputWidthMm.value = formatNumberInput(DEFAULTS.outputWidthMm);
         }
+        lastValidOutputWidthMm = getOutputWidthMm();
         syncSliderFromMm();
       } catch (e) {}
     }
@@ -2026,7 +2051,7 @@
         sharpness: Number(sharpness.value),
         ditherMode: ditherMode.value,
         dpi: Number(dpi.value),
-        outputWidthMm: Number(outputWidthMm.value),
+        outputWidthMm: getOutputWidthMm(),
         outputWidthPx: getOutputWidthPx()
       };
 
@@ -2044,6 +2069,7 @@
       ditherMode.value = DEFAULTS.ditherMode;
       dpi.value = DEFAULTS.dpi;
       outputWidthMm.value = formatNumberInput(DEFAULTS.outputWidthMm);
+      lastValidOutputWidthMm = DEFAULTS.outputWidthMm;
       syncSliderFromMm();
 
       sliderPairs.forEach(([id]) => updateSlider(document.getElementById(id)));
@@ -2152,9 +2178,24 @@
       return clamp(Math.round(Number(outputWidthSlider.value) || 0), OUTPUT_WIDTH_MIN_PX, OUTPUT_WIDTH_MAX_PX);
     }
 
+    function getOutputWidthMmInputValue() {
+      const raw = String(outputWidthMm.value || '').trim().replace(',', '.');
+      if (raw === '') return null;
+
+      const value = Number(raw);
+      return Number.isFinite(value) && value > 0 ? value : null;
+    }
+
     function getOutputWidthMm() {
-      const value = Number(outputWidthMm.value);
-      return Number.isFinite(value) && value > 0 ? value : DEFAULTS.outputWidthMm;
+      const value = getOutputWidthMmInputValue();
+      if (value !== null) {
+        lastValidOutputWidthMm = value;
+        return value;
+      }
+
+      return Number.isFinite(lastValidOutputWidthMm) && lastValidOutputWidthMm > 0
+        ? lastValidOutputWidthMm
+        : DEFAULTS.outputWidthMm;
     }
 
     function mmToPx(mm, dpiValue) {
