@@ -1135,7 +1135,8 @@
     const STORAGE_KEY = 'laserEditorSimpleV7';
     const LANG_STORAGE_KEY = 'laserEditorLanguageV1';
     const OUTPUT_WIDTH_MIN_PX = 100;
-    const OUTPUT_WIDTH_MAX_PX = 6000;
+    const OUTPUT_WIDTH_DEFAULT_MAX_PX = 6000;
+    const OUTPUT_WIDTH_HARD_MAX_PX = 25000;
     const PREVIEW_IMAGE_SMALL = 'preview-v3-small.webp';
     const PREVIEW_IMAGE_FALLBACK = 'preview-v3.png';
 
@@ -2174,8 +2175,22 @@
       return Number(dpi.value) || DEFAULTS.dpi;
     }
 
+    function getOutputWidthMaxPx() {
+      const currentMax = Math.round(Number(outputWidthSlider.max) || OUTPUT_WIDTH_DEFAULT_MAX_PX);
+      return clamp(currentMax, OUTPUT_WIDTH_DEFAULT_MAX_PX, OUTPUT_WIDTH_HARD_MAX_PX);
+    }
+
+    function ensureOutputWidthSliderMax(px) {
+      const neededMax = Math.ceil((Math.round(Number(px) || 0)) / 10) * 10;
+      const currentMax = getOutputWidthMaxPx();
+
+      if (neededMax > currentMax) {
+        outputWidthSlider.max = String(clamp(neededMax, OUTPUT_WIDTH_DEFAULT_MAX_PX, OUTPUT_WIDTH_HARD_MAX_PX));
+      }
+    }
+
     function getOutputWidthPx() {
-      return clamp(Math.round(Number(outputWidthSlider.value) || 0), OUTPUT_WIDTH_MIN_PX, OUTPUT_WIDTH_MAX_PX);
+      return clamp(Math.round(Number(outputWidthSlider.value) || 0), OUTPUT_WIDTH_MIN_PX, getOutputWidthMaxPx());
     }
 
     function getOutputWidthMmInputValue() {
@@ -2228,11 +2243,18 @@
       const dpiValue = getDpiValue();
       let mm = getOutputWidthMm();
       let px = mmToPx(mm, dpiValue);
-      const clampedPx = clamp(px, OUTPUT_WIDTH_MIN_PX, OUTPUT_WIDTH_MAX_PX);
 
+      ensureOutputWidthSliderMax(px);
+
+      const clampedPx = clamp(px, OUTPUT_WIDTH_MIN_PX, getOutputWidthMaxPx());
+
+      // Do not overwrite the millimeter field just because the required pixel
+      // width is larger than the default slider range. The slider range expands
+      // automatically up to OUTPUT_WIDTH_HARD_MAX_PX.
       if (clampedPx !== px) {
         mm = pxToMm(clampedPx, dpiValue);
         outputWidthMm.value = formatNumberInput(mm);
+        lastValidOutputWidthMm = mm;
       }
 
       outputWidthSlider.value = clampedPx;
