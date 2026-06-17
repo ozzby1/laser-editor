@@ -797,7 +797,6 @@
               <div class="mobile-action-stack">
                 <button class="btn btn-primary mobile-reupload-btn" id="reuploadBtnResult" data-i18n="reuploadBtn">↺ Upload another photo</button>
                 <button class="btn btn-primary mobile-download-btn" id="downloadBtnMobileResult" data-i18n="downloadBtn">Download PNG</button>
-                <button class="btn btn-primary mobile-download-btn" id="downloadSvgBtnMobileResult" data-i18n="downloadSvgBtn">Download SVG</button>
               </div>
             </div>
 
@@ -822,7 +821,6 @@
               <div class="mobile-action-stack">
                 <button class="btn btn-primary mobile-reupload-btn" id="reuploadBtnCompare" data-i18n="reuploadBtn">↺ Upload another photo</button>
                 <button class="btn btn-primary mobile-download-btn" id="downloadBtnMobileCompare" data-i18n="downloadBtn">Download PNG</button>
-                <button class="btn btn-primary mobile-download-btn" id="downloadSvgBtnMobileCompare" data-i18n="downloadSvgBtn">Download SVG</button>
               </div>
             </div>
           </div>
@@ -1101,12 +1099,8 @@
               Download PNG
             </button>
 
-            <button class="btn btn-primary w-full mt-1" id="downloadSvgBtn" data-i18n="downloadSvgBtn">
-              Download SVG
-            </button>
-
             <div class="helper-text" data-i18n-html="exportHelp">
-              PNG is recommended for LightBurn, XCS and LaserGRBL. SVG is useful for Inkscape when you need exact physical size in millimeters.
+              PNG is recommended for LightBurn, XCS, LaserGRBL and other laser software.
             </div>
           </div>
         </div>
@@ -1190,15 +1184,13 @@
         sizeInfoLabel: 'Size in mm',
         pixelInfoLabel: 'Pixel size',
         downloadBtn: 'Download PNG',
-        downloadSvgBtn: 'Download SVG',
-        exportHelp: 'PNG is recommended for LightBurn, XCS and LaserGRBL. SVG is useful for Inkscape when you need exact physical size in millimeters.',
+        exportHelp: 'PNG is recommended for LightBurn, XCS, LaserGRBL and other laser software.',
         sectionNote: 'Note',
-        footerNote: 'The PNG includes DPI metadata for the correct size in laser software. Some design programs may show SVG pixels at 96 DPI; for laser sizing, use the mm value.',
+        footerNote: 'The PNG includes DPI metadata for the correct size in laser software.',
         alertLoadFail: 'The image could not be loaded.',
         alertReadFail: 'Error reading the file.',
         alertUploadFirst: 'Please upload an image first.',
         alertPngFail: 'Failed to create a PNG file with the selected DPI.',
-        alertSvgFail: 'Failed to create an SVG file.',
         iosTitle: 'Save on iOS',
         iosText: 'Press and hold the image and choose <strong style="color:#e2e8f0">Add to Photos</strong> or <strong style="color:#e2e8f0">Save Image</strong>.',
         iosClose: 'Close',
@@ -1298,15 +1290,13 @@
         sizeInfoLabel: 'Tamaño en mm',
         pixelInfoLabel: 'Tamaño en píxeles',
         downloadBtn: 'Descargar PNG',
-        downloadSvgBtn: 'Descargar SVG',
-        exportHelp: 'PNG es el formato recomendado para LightBurn, XCS y LaserGRBL. SVG es útil para Inkscape cuando necesitas un tamaño físico exacto en milímetros.',
+        exportHelp: 'PNG es el formato recomendado para LightBurn, XCS, LaserGRBL y otros programas láser.',
         sectionNote: 'Nota',
-        footerNote: 'El PNG incluye metadatos DPI para el tamaño correcto en el software láser. Algunos programas de diseño pueden mostrar los píxeles SVG a 96 DPI; para el tamaño láser, usa el valor en mm.',
+        footerNote: 'El PNG incluye metadatos DPI para el tamaño correcto en el software láser.',
         alertLoadFail: 'No se pudo cargar la imagen.',
         alertReadFail: 'Error al leer el archivo.',
         alertUploadFirst: 'Primero sube una imagen.',
         alertPngFail: 'No se pudo crear el archivo PNG con el DPI seleccionado.',
-        alertSvgFail: 'No se pudo crear el archivo SVG.',
         iosTitle: 'Guardar en iOS',
         iosText: 'Mantén pulsada la imagen y elige <strong style="color:#e2e8f0">Añadir a Fotos</strong> o <strong style="color:#e2e8f0">Guardar imagen</strong>.',
         iosClose: 'Cerrar',
@@ -1406,15 +1396,13 @@
         sizeInfoLabel: 'Größe in mm',
         pixelInfoLabel: 'Pixelgröße',
         downloadBtn: 'PNG herunterladen',
-        downloadSvgBtn: 'SVG herunterladen',
-        exportHelp: 'PNG wird für LightBurn, XCS und LaserGRBL empfohlen. SVG ist nützlich für Inkscape, wenn du eine exakte physische Größe in Millimetern brauchst.',
+        exportHelp: 'PNG wird für LightBurn, XCS, LaserGRBL und andere Lasersoftware empfohlen.',
         sectionNote: 'Hinweis',
-        footerNote: 'Die PNG enthält DPI-Metadaten für die richtige Größe in Lasersoftware. Einige Grafikprogramme zeigen SVG-Pixel mit 96 DPI an; für die Lasergröße zählt der mm-Wert.',
+        footerNote: 'Die PNG enthält DPI-Metadaten für die richtige Größe in Lasersoftware.',
         alertLoadFail: 'Das Bild konnte nicht geladen werden.',
         alertReadFail: 'Fehler beim Lesen der Datei.',
         alertUploadFirst: 'Bitte lade zuerst ein Bild hoch.',
         alertPngFail: 'Die PNG-Datei mit den gewählten DPI konnte nicht erstellt werden.',
-        alertSvgFail: 'Die SVG-Datei konnte nicht erstellt werden.',
         iosTitle: 'Auf iOS speichern',
         iosText: 'Halte das Bild gedrückt und wähle <strong style="color:#e2e8f0">Zu Fotos hinzufügen</strong> oder <strong style="color:#e2e8f0">Bild sichern</strong>.',
         iosClose: 'Schließen',
@@ -1514,10 +1502,9 @@
         sizeInfoLabel: 'Velikost v mm',
         pixelInfoLabel: 'Velikost v pixelech',
         downloadBtn: 'Stáhnout PNG',
-        downloadSvgBtn: 'Stáhnout SVG',
-        exportHelp: 'PNG je doporučené pro LightBurn, XCS a LaserGRBL. SVG se hodí pro Inkscape, když potřebuješ přesný fyzický rozměr v milimetrech.',
+        exportHelp: 'PNG je doporučené pro LightBurn, XCS, LaserGRBL a další laserové programy.',
         sectionNote: 'Poznámka',
-        footerNote: 'PNG obsahuje DPI metadata pro správnou velikost v laserovém softwaru. Některé grafické programy mohou zobrazovat SVG pixely při 96 DPI; pro laserovou velikost používej hodnotu v mm.',
+        footerNote: 'PNG obsahuje DPI metadata pro správnou velikost v laserovém softwaru.',
         alertLoadFail: 'Nepodařilo se načíst obrázek.',
         alertReadFail: 'Chyba při čtení souboru.',
         alertUploadFirst: 'Nejprve nahraj obrázek.',
@@ -1631,7 +1618,6 @@
     let lastValidOutputWidthMm = DEFAULTS.outputWidthMm;
 
     const downloadBtn = document.getElementById('downloadBtn');
-    const downloadSvgBtn = document.getElementById('downloadSvgBtn');
     const resetBtn = document.getElementById('resetBtn');
 
     const canvasSingle = document.getElementById('canvasSingle');
@@ -1726,11 +1712,6 @@
         downloadResult();
         return;
       }
-
-      const mobileDownloadSvgBtn = e.target.closest('#downloadSvgBtnMobileResult, #downloadSvgBtnMobileCompare');
-      if (mobileDownloadSvgBtn) {
-        downloadSvgResult();
-      }
     });
 
     fileInput.addEventListener('change', e => {
@@ -1809,7 +1790,6 @@
     });
 
     downloadBtn.addEventListener('click', downloadResult);
-    downloadSvgBtn.addEventListener('click', downloadSvgResult);
     resetBtn.addEventListener('click', resetSettings);
 
     [brightness, contrast, gamma, sharpness].forEach((el) => {
@@ -2509,10 +2489,6 @@
       return `laser-${mm}mm-${dpiValue}dpi-${style}.png`;
     }
 
-    function buildSvgExportFilename() {
-      return buildExportFilename().replace(/\.png$/i, '.svg');
-    }
-
     const ABACUS_GET = 'https://abacus.jasoncameron.dev/get/stunning-twilight-266e8a/downloads';
     const ABACUS_HIT = 'https://abacus.jasoncameron.dev/hit/stunning-twilight-266e8a/downloads';
 
@@ -2715,69 +2691,6 @@
       }
     }
 
-    function canvasToDataURL(canvas) {
-      return canvas.toDataURL('image/png');
-    }
-
-    function downloadBlob(blob, filename) {
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.download = filename;
-      a.href = url;
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      setTimeout(() => URL.revokeObjectURL(url), 1500);
-    }
-
-    async function downloadSvgResult() {
-      if (!canvasSingle.width) {
-        alert(t('alertUploadFirst'));
-        return;
-      }
-
-      try {
-        const dpiValue = Number(dpi.value);
-        const widthPx = canvasSingle.width;
-        const heightPx = canvasSingle.height;
-        const widthMm = pxToMm(widthPx, dpiValue);
-        const heightMm = pxToMm(heightPx, dpiValue);
-        const pngDataUrl = canvasToDataURL(canvasSingle);
-
-        const widthMmText = widthMm.toFixed(3);
-        const heightMmText = heightMm.toFixed(3);
-
-        // Inkscape-safe SVG wrapper:
-        // - outer SVG has the real physical size in mm
-        // - viewBox uses the original pixel grid
-        // - both href and xlink:href are included for better compatibility
-        // - white background prevents transparent/empty-looking imports
-        const svg = `<?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg"
-     xmlns:xlink="http://www.w3.org/1999/xlink"
-     version="1.1"
-     width="${widthMmText}mm"
-     height="${heightMmText}mm"
-     viewBox="0 0 ${widthPx} ${heightPx}">
-  <rect x="0" y="0" width="${widthPx}" height="${heightPx}" fill="#ffffff"/>
-  <image x="0"
-         y="0"
-         width="${widthPx}"
-         height="${heightPx}"
-         href="${pngDataUrl}"
-         xlink:href="${pngDataUrl}"
-         preserveAspectRatio="none"
-         image-rendering="pixelated"/>
-</svg>`;
-
-        const blob = new Blob([svg], { type: 'image/svg+xml;charset=utf-8' });
-        downloadBlob(blob, buildSvgExportFilename());
-        incrementCounter();
-      } catch (err) {
-        console.error(err);
-        alert(t('alertSvgFail'));
-      }
-    }
 
     loadStoredLanguage();
     loadStoredSettings();
