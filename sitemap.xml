@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset
+  xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+
+  <url>
+    <loc>https://photoengraving.online/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://photoengraving.online/" />
+    <xhtml:link rel="alternate" hreflang="cs" href="https://photoengraving.online/cs/" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://photoengraving.online/de/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://photoengraving.online/es/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://photoengraving.online/" />
+  </url>
+  <url>
+    <loc>https://photoengraving.online/cs/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://photoengraving.online/" />
+    <xhtml:link rel="alternate" hreflang="cs" href="https://photoengraving.online/cs/" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://photoengraving.online/de/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://photoengraving.online/es/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://photoengraving.online/" />
+  </url>
+  <url>
+    <loc>https://photoengraving.online/de/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://photoengraving.online/" />
+    <xhtml:link rel="alternate" hreflang="cs" href="https://photoengraving.online/cs/" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://photoengraving.online/de/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://photoengraving.online/es/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://photoengraving.online/" />
+  </url>
+  <url>
+    <loc>https://photoengraving.online/es/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://photoengraving.online/" />
+    <xhtml:link rel="alternate" hreflang="cs" href="https://photoengraving.online/cs/" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://photoengraving.online/de/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://photoengraving.online/es/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://photoengraving.online/" />
+  </url>
+
+</urlset>
