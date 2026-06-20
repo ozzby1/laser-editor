@@ -905,31 +905,37 @@
       width: 100% !important;
     }
 
-    .editor-preview-column,
-    .editor-controls-column {
+    .editor-preview-top,
+    .editor-controls-column,
+    .editor-left-extra {
       display: flex !important;
       flex-direction: column !important;
       gap: 0.75rem !important;
       min-width: 0 !important;
     }
 
-    .editor-preview-column {
+    .editor-preview-top {
       grid-column: 1 !important;
+      grid-row: 1 !important;
     }
 
     .editor-controls-column {
       grid-column: 2 !important;
+      grid-row: 1 / span 2 !important;
+      align-self: start !important;
     }
 
+    .editor-left-extra {
+      grid-column: 1 !important;
+      grid-row: 2 !important;
+    }
 
-    .editor-preview-column #helpArea {
+    .editor-left-extra #helpArea,
+    .editor-left-extra > section,
+    .editor-left-extra > .panel,
+    .editor-left-extra > div {
+      min-width: 0 !important;
       width: 100%;
-    }
-
-    .editor-preview-column > section,
-    .editor-preview-column > #helpArea,
-    .editor-preview-column > .panel {
-      min-width: 0;
     }
 
 @media (min-width: 1024px) {
@@ -945,14 +951,25 @@
         grid-template-columns: 1fr !important;
       }
 
-      .editor-preview-column {
+      .editor-preview-top,
+      .editor-controls-column,
+      .editor-left-extra {
         grid-column: 1 !important;
+      }
+
+      .editor-preview-top {
         order: 1 !important;
+        grid-row: auto !important;
       }
 
       .editor-controls-column {
-        grid-column: 1 !important;
         order: 2 !important;
+        grid-row: auto !important;
+      }
+
+      .editor-left-extra {
+        order: 3 !important;
+        grid-row: auto !important;
       }
 
 .content {
@@ -1009,7 +1026,7 @@
 <h1 data-i18n="heroTitle" style="font-size:clamp(1.8rem,3vw,2.6rem);font-weight:800;line-height:1.1;color:#f8fafc;margin:0 0 12px;">Free Laser Engraving Photo Editor</h1>
 <p data-i18n-html="heroText" style="font-size:1rem;line-height:1.8;color:#cbd5e1;margin:0;max-width:900px;">Convert any photo into a laser engraving ready image directly in your browser. Adjust brightness, contrast, gamma, sharpness, dithering style, output size and DPI, then export a PNG prepared for LightBurn, LaserGRBL, XCS and other laser software. <strong style="color: var(--accent);">100% browser-based. Your images never leave your device.</strong></p>
 </section>
-<div class="main-editor-layout"><div class="editor-preview-column"><div class="panel px-4 py-3 flex gap-3 items-center flex-wrap">
+<div class="main-editor-layout"><div class="editor-preview-top"><div class="panel px-4 py-3 flex gap-3 items-center flex-wrap">
 <button class="btn view-btn active" data-i18n="btnCompare" id="btnCompare">Original + Output</button>
 <button class="btn view-btn" data-i18n="btnOutput" id="btnResult">Only Output</button>
 <div class="ml-auto" id="imageDims" style="font-size:0.76rem;color:#7b8b9c;font-weight:600"></div>
@@ -1086,7 +1103,135 @@
 </div>
 </div>
 </div>
-</div><section class="panel p-5">
+</div></div><div class="editor-controls-column">
+<div class="panel p-4">
+<div class="section-title" data-i18n="sectionUpload">Upload Photo</div>
+<div class="drop-zone p-5 text-center cursor-pointer" id="dropZone">
+<div style="font-size:2rem;margin-bottom:6px">📷</div>
+<div data-i18n="dropZoneMain" style="font-size:0.92rem;color:#ffffff;font-weight:700">Drag &amp; drop or click to choose</div>
+<div data-i18n="dropZoneSub" style="font-size:0.76rem;color:#e2e8f0;margin-top:5px">JPG, PNG, BMP, WebP</div>
+<input accept="image/*" id="fileInput" style="display:none" type="file"/>
+</div>
+</div>
+<div class="panel p-4">
+<div class="section-title" data-i18n="sectionPhotoType">Photo Type</div>
+<div class="grid grid-cols-2 gap-2" id="presetCards">
+<div class="preset-card" data-i18n="presetCustom" data-preset="custom">Custom</div>
+<div class="preset-card active" data-i18n="presetNormal" data-preset="normal">Normal Photo</div>
+<div class="preset-card" data-i18n="presetPortrait" data-preset="portrait">People</div>
+<div class="preset-card" data-i18n="presetDark" data-preset="dark">Dark Photo</div>
+<div class="preset-card" data-i18n="presetLight" data-preset="light">Light Photo</div>
+<div class="preset-card" data-i18n="presetDetail" data-preset="detail">🔍 More Detail</div>
+</div>
+<div class="helper-text mt-2" data-i18n="presetHelp">Default is Normal Photo. You can fine-tune everything with the sliders below.</div>
+</div>
+<div class="panel p-4">
+<div class="section-title" data-i18n="sectionAdjustments">Photo Adjustments</div>
+<div class="flex flex-col gap-4">
+<div>
+<label data-i18n="labelBrightness" for="brightness">Brightness</label>
+<div class="slider-row mt-1">
+<input id="brightness" max="150" min="-150" type="range" value="0"/>
+<span class="slider-val" id="brightnessVal">0</span>
+</div>
+</div>
+<div>
+<label data-i18n="labelContrast" for="contrast">Contrast</label>
+<div class="slider-row mt-1">
+<input id="contrast" max="150" min="-150" type="range" value="0"/>
+<span class="slider-val" id="contrastVal">0</span>
+</div>
+</div>
+<div>
+<label data-i18n="labelGamma" for="gamma">Gamma</label>
+<div class="slider-row mt-1">
+<input id="gamma" max="3.0" min="0.1" step="0.05" type="range" value="1.0"/>
+<span class="slider-val" id="gammaVal">1.00</span>
+</div>
+</div>
+<div>
+<label data-i18n="labelSharpness" for="sharpness">Sharpness</label>
+<div class="slider-row mt-1">
+<input id="sharpness" max="5" min="0" step="0.5" type="range" value="0"/>
+<span class="slider-val" id="sharpnessVal">0.0</span>
+</div>
+</div>
+<div>
+<label data-i18n="labelEngravingStyle" for="ditherMode">Engraving Style</label>
+<select class="mt-1" id="ditherMode">
+<option data-i18n="ditherDetailed" value="floyd">Detailed</option>
+<option data-i18n="ditherContrast" value="atkinson">Contrast</option>
+</select>
+<div class="helper-text" data-i18n="ditherHelp">Photos → Detailed | stronger edges → Contrast</div>
+</div>
+<div>
+<label class="toggle-label toggle-control" for="invertColors">
+<input id="invertColors" type="checkbox"/>
+<span aria-hidden="true" class="toggle-ui"></span>
+<span class="toggle-text" data-i18n="labelInvertColors">Invert Colors (Negative)</span>
+</label>
+<div class="helper-text" data-i18n="invertHelp">Swaps black and white in the final output PNG.</div>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-1 gap-2 pt-1">
+<button class="btn btn-secondary" data-i18n="resetBtn" id="resetBtn">↺ Default Settings</button>
+</div>
+</div>
+</div>
+<div class="panel p-4">
+<div class="section-title" data-i18n="sectionOutput">Output</div>
+<div class="flex flex-col gap-3">
+<div>
+<label data-i18n="labelOutputWidthMm" for="outputWidthMm">Image width</label>
+<input class="mt-1" id="outputWidthMm" min="1" step="0.1" type="number" value="80"/>
+<div class="helper-text" data-i18n="outputWidthMmHelp">Enter the real engraving width in millimeters.</div>
+</div>
+<div>
+<label data-i18n="labelDpi" for="dpiCustomButton">Resolution (DPI)</label>
+<div class="custom-select mt-1" id="dpiCustomSelect">
+<button aria-expanded="false" aria-haspopup="listbox" class="custom-select-button" id="dpiCustomButton" type="button">
+<span id="dpiCustomValue">254 DPI (LightBurn Standard - 0,10 mm)</span>
+</button>
+<ul aria-labelledby="dpiCustomButton" class="custom-select-dropdown" id="dpiCustomOptions" role="listbox"></ul>
+</div>
+<select class="custom-native-hidden" id="dpi" tabindex="-1">
+<option value="96">96 DPI (Screenshot - 0,265 mm)</option>
+<option value="150">150 DPI (Draft - 0,169 mm)</option>
+<option selected="" value="254">254 DPI (LightBurn Standard - 0,10 mm)</option>
+<option value="300">300 DPI (LaserGRBL standard - 0,085 mm)</option>
+<option value="508">508 DPI (Ezcad2 standard - 0,05 mm)</option>
+<option value="custom">Custom DPI…</option>
+</select>
+<div class="custom-dpi-input-wrap mt-2" id="customDpiWrap" style="display:none">
+<label data-i18n="labelCustomDpi" for="customDpi">Custom DPI</label>
+<input class="mt-1" id="customDpi" max="2400" min="1" step="1" type="number" value="254"/>
+<div class="helper-text" data-i18n="customDpiHelp">Enter your own DPI value between 1 and 2400.</div>
+</div>
+<div class="helper-text" data-i18n="dpiHelp">Changing DPI keeps the same physical size and recalculates the pixel count.</div>
+</div>
+<details>
+<summary data-i18n="advancedPixelSummary" style="cursor:pointer;font-size:0.78rem;font-weight:700;color:#a8b7c8">Advanced: adjust width in pixels</summary>
+<div class="mt-3">
+<label data-i18n="labelFineTuneWidth" for="outputWidthSlider">Width in pixels</label>
+<div class="slider-row mt-1">
+<input id="outputWidthSlider" max="6000" min="100" step="10" type="range" value="800"/>
+<span class="slider-val" id="outputWidthSliderVal" style="width:82px">800 px</span>
+</div>
+<div class="helper-text" data-i18n="outputSliderHelp">Advanced control. Changing pixels recalculates the width in mm for the selected DPI.</div>
+</div>
+</details>
+<div class="info-card">
+<div class="mini-grid">
+<div data-i18n="sizeInfoLabel" style="font-size:0.76rem;color:#94a3b8">Size in mm</div>
+<div id="sizeInfo" style="font-size:0.76rem;color:#e2e8f0;font-weight:600">—</div>
+<div data-i18n="pixelInfoLabel" style="font-size:0.76rem;color:#94a3b8">Pixel size</div>
+<div id="pixelInfo" style="font-size:0.76rem;color:#e2e8f0;font-weight:600">—</div>
+</div>
+</div>
+<button class="btn btn-primary w-full mt-1" data-i18n="downloadBtn" id="downloadBtn">Download PNG</button>
+<div class="helper-text" data-i18n-html="exportHelp">PNG is recommended for LightBurn, XCS, LaserGRBL and other laser software. It includes DPI metadata for the correct physical size in laser software.</div>
+</div>
+</div>
+</div><div class="editor-left-extra"><section class="panel p-5">
 <h2 class="help-section-title" data-i18n="seoIntroTitle">Free photo to laser engraving converter online</h2>
 <p class="help-text" data-i18n-html="seoIntroText">Use <strong class="text-white">PhotoEngraving.online</strong> as a free image to laser engraving converter directly in your browser. Upload a photo, convert it to a laser-ready black-and-white PNG, choose DPI, adjust dithering, brightness, contrast, gamma and sharpness, then download the result for LightBurn, XCS, LaserGRBL, EZCAD and other laser software.</p>
 <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
@@ -1246,137 +1391,7 @@
 <div class="help-card-text" data-i18n="faq6Answer">No. Image processing runs locally in your browser, so your photos do not need to be uploaded to a server.</div>
 </div>
 </div>
-</div></div><div class="editor-controls-column">
-<div class="panel p-4">
-<div class="section-title" data-i18n="sectionUpload">Upload Photo</div>
-<div class="drop-zone p-5 text-center cursor-pointer" id="dropZone">
-<div style="font-size:2rem;margin-bottom:6px">📷</div>
-<div data-i18n="dropZoneMain" style="font-size:0.92rem;color:#ffffff;font-weight:700">Drag &amp; drop or click to choose</div>
-<div data-i18n="dropZoneSub" style="font-size:0.76rem;color:#e2e8f0;margin-top:5px">JPG, PNG, BMP, WebP</div>
-<input accept="image/*" id="fileInput" style="display:none" type="file"/>
-</div>
-</div>
-<div class="panel p-4">
-<div class="section-title" data-i18n="sectionPhotoType">Photo Type</div>
-<div class="grid grid-cols-2 gap-2" id="presetCards">
-<div class="preset-card" data-i18n="presetCustom" data-preset="custom">Custom</div>
-<div class="preset-card active" data-i18n="presetNormal" data-preset="normal">Normal Photo</div>
-<div class="preset-card" data-i18n="presetPortrait" data-preset="portrait">People</div>
-<div class="preset-card" data-i18n="presetDark" data-preset="dark">Dark Photo</div>
-<div class="preset-card" data-i18n="presetLight" data-preset="light">Light Photo</div>
-<div class="preset-card" data-i18n="presetDetail" data-preset="detail">🔍 More Detail</div>
-</div>
-<div class="helper-text mt-2" data-i18n="presetHelp">Default is Normal Photo. You can fine-tune everything with the sliders below.</div>
-</div>
-<div class="panel p-4">
-<div class="section-title" data-i18n="sectionAdjustments">Photo Adjustments</div>
-<div class="flex flex-col gap-4">
-<div>
-<label data-i18n="labelBrightness" for="brightness">Brightness</label>
-<div class="slider-row mt-1">
-<input id="brightness" max="150" min="-150" type="range" value="0"/>
-<span class="slider-val" id="brightnessVal">0</span>
-</div>
-</div>
-<div>
-<label data-i18n="labelContrast" for="contrast">Contrast</label>
-<div class="slider-row mt-1">
-<input id="contrast" max="150" min="-150" type="range" value="0"/>
-<span class="slider-val" id="contrastVal">0</span>
-</div>
-</div>
-<div>
-<label data-i18n="labelGamma" for="gamma">Gamma</label>
-<div class="slider-row mt-1">
-<input id="gamma" max="3.0" min="0.1" step="0.05" type="range" value="1.0"/>
-<span class="slider-val" id="gammaVal">1.00</span>
-</div>
-</div>
-<div>
-<label data-i18n="labelSharpness" for="sharpness">Sharpness</label>
-<div class="slider-row mt-1">
-<input id="sharpness" max="5" min="0" step="0.5" type="range" value="0"/>
-<span class="slider-val" id="sharpnessVal">0.0</span>
-</div>
-</div>
-<div>
-<label data-i18n="labelEngravingStyle" for="ditherMode">Engraving Style</label>
-<select class="mt-1" id="ditherMode">
-<option data-i18n="ditherDetailed" value="floyd">Detailed</option>
-<option data-i18n="ditherContrast" value="atkinson">Contrast</option>
-</select>
-<div class="helper-text" data-i18n="ditherHelp">Photos → Detailed | stronger edges → Contrast</div>
-</div>
-<div>
-<label class="toggle-label toggle-control" for="invertColors">
-<input id="invertColors" type="checkbox"/>
-<span aria-hidden="true" class="toggle-ui"></span>
-<span class="toggle-text" data-i18n="labelInvertColors">Invert Colors (Negative)</span>
-</label>
-<div class="helper-text" data-i18n="invertHelp">Swaps black and white in the final output PNG.</div>
-</div>
-<div class="grid grid-cols-1 sm:grid-cols-1 gap-2 pt-1">
-<button class="btn btn-secondary" data-i18n="resetBtn" id="resetBtn">↺ Default Settings</button>
-</div>
-</div>
-</div>
-<div class="panel p-4">
-<div class="section-title" data-i18n="sectionOutput">Output</div>
-<div class="flex flex-col gap-3">
-<div>
-<label data-i18n="labelOutputWidthMm" for="outputWidthMm">Image width</label>
-<input class="mt-1" id="outputWidthMm" min="1" step="0.1" type="number" value="80"/>
-<div class="helper-text" data-i18n="outputWidthMmHelp">Enter the real engraving width in millimeters.</div>
-</div>
-<div>
-<label data-i18n="labelDpi" for="dpiCustomButton">Resolution (DPI)</label>
-<div class="custom-select mt-1" id="dpiCustomSelect">
-<button aria-expanded="false" aria-haspopup="listbox" class="custom-select-button" id="dpiCustomButton" type="button">
-<span id="dpiCustomValue">254 DPI (LightBurn Standard - 0,10 mm)</span>
-</button>
-<ul aria-labelledby="dpiCustomButton" class="custom-select-dropdown" id="dpiCustomOptions" role="listbox"></ul>
-</div>
-<select class="custom-native-hidden" id="dpi" tabindex="-1">
-<option value="96">96 DPI (Screenshot - 0,265 mm)</option>
-<option value="150">150 DPI (Draft - 0,169 mm)</option>
-<option selected="" value="254">254 DPI (LightBurn Standard - 0,10 mm)</option>
-<option value="300">300 DPI (LaserGRBL standard - 0,085 mm)</option>
-<option value="508">508 DPI (Ezcad2 standard - 0,05 mm)</option>
-<option value="custom">Custom DPI…</option>
-</select>
-<div class="custom-dpi-input-wrap mt-2" id="customDpiWrap" style="display:none">
-<label data-i18n="labelCustomDpi" for="customDpi">Custom DPI</label>
-<input class="mt-1" id="customDpi" max="2400" min="1" step="1" type="number" value="254"/>
-<div class="helper-text" data-i18n="customDpiHelp">Enter your own DPI value between 1 and 2400.</div>
-</div>
-<div class="helper-text" data-i18n="dpiHelp">Changing DPI keeps the same physical size and recalculates the pixel count.</div>
-</div>
-<details>
-<summary data-i18n="advancedPixelSummary" style="cursor:pointer;font-size:0.78rem;font-weight:700;color:#a8b7c8">Advanced: adjust width in pixels</summary>
-<div class="mt-3">
-<label data-i18n="labelFineTuneWidth" for="outputWidthSlider">Width in pixels</label>
-<div class="slider-row mt-1">
-<input id="outputWidthSlider" max="6000" min="100" step="10" type="range" value="800"/>
-<span class="slider-val" id="outputWidthSliderVal" style="width:82px">800 px</span>
-</div>
-<div class="helper-text" data-i18n="outputSliderHelp">Advanced control. Changing pixels recalculates the width in mm for the selected DPI.</div>
-</div>
-</details>
-<div class="info-card">
-<div class="mini-grid">
-<div data-i18n="sizeInfoLabel" style="font-size:0.76rem;color:#94a3b8">Size in mm</div>
-<div id="sizeInfo" style="font-size:0.76rem;color:#e2e8f0;font-weight:600">—</div>
-<div data-i18n="pixelInfoLabel" style="font-size:0.76rem;color:#94a3b8">Pixel size</div>
-<div id="pixelInfo" style="font-size:0.76rem;color:#e2e8f0;font-weight:600">—</div>
-</div>
-</div>
-<button class="btn btn-primary w-full mt-1" data-i18n="downloadBtn" id="downloadBtn">Download PNG</button>
-<div class="helper-text" data-i18n-html="exportHelp">PNG is recommended for LightBurn, XCS, LaserGRBL and other laser software. It includes DPI metadata for the correct physical size in laser software.</div>
-</div>
-</div>
-</div></div>
-
-
+</div></div></div>
 </div>
 <script>
     let originalImage = null;
