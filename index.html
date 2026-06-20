@@ -921,6 +921,17 @@
       grid-column: 2 !important;
     }
 
+
+    .editor-preview-column #helpArea {
+      width: 100%;
+    }
+
+    .editor-preview-column > section,
+    .editor-preview-column > #helpArea,
+    .editor-preview-column > .panel {
+      min-width: 0;
+    }
+
 @media (min-width: 1024px) {
       .mobile-action-stack {
         display: none;
@@ -1075,7 +1086,6 @@
 </div>
 </div>
 </div>
-
 </div><section class="panel p-5">
 <h2 class="help-section-title" data-i18n="seoIntroTitle">Free photo to laser engraving converter online</h2>
 <p class="help-text" data-i18n-html="seoIntroText">Use <strong class="text-white">PhotoEngraving.online</strong> as a free image to laser engraving converter directly in your browser. Upload a photo, convert it to a laser-ready black-and-white PNG, choose DPI, adjust dithering, brightness, contrast, gamma and sharpness, then download the result for LightBurn, XCS, LaserGRBL, EZCAD and other laser software.</p>
@@ -1093,7 +1103,150 @@
 <div class="help-card-text" data-i18n="seoCard3Text">Your image is processed locally in your browser, so it does not need to leave your device.</div>
 </div>
 </div>
-</section></div><div class="editor-controls-column">
+</section><div class="flex flex-col gap-3" id="helpArea">
+<div class="panel p-5">
+<div class="help-section-title" data-i18n="helpIntroTitle">What does this tool do?</div>
+<p class="help-text" data-i18n-html="helpIntroText"><strong class="text-white">Photo Engraving Online</strong> converts a regular photo into a rasterized black-and-white image optimized for CO2 or diode laser engraving. You can then import the resulting PNG directly into your laser software (LightBurn, LaserGRBL, XCS, etc.) and engrave it.</p>
+</div>
+<div class="panel p-5">
+<div class="help-section-title" data-i18n="helpStepsTitle">Step-by-step guide</div>
+<div class="space-y-4">
+<div class="help-step">
+<div class="help-step-num">1</div>
+<div>
+<p class="font-semibold text-white" data-i18n="helpStep1Title">Upload a photo</p>
+<p class="text-sm mt-1 text-slate-400" data-i18n="helpStep1Text">Drag the file into the upload area or click to choose it from your device. Supported formats are JPG, PNG, BMP and WebP. For best results, use a sharp photo with good contrast.</p>
+</div>
+</div>
+<div class="help-step">
+<div class="help-step-num">2</div>
+<div>
+<p class="font-semibold text-white" data-i18n="helpStep2Title">Set DPI</p>
+<p class="text-sm mt-1 text-slate-400" data-i18n="helpStep2Text">Choose a resolution that matches your material and your laser’s capabilities. See the recommendation table below.</p>
+</div>
+</div>
+<div class="help-step">
+<div class="help-step-num">3</div>
+<div>
+<p class="font-semibold text-white" data-i18n="helpStep3Title">Set the output size in mm</p>
+<p class="text-sm mt-1 text-slate-400" data-i18n="helpStep3Text">Enter the final engraving width in millimeters. The tool automatically calculates the height, keeps the aspect ratio and shows the resulting pixel count.</p>
+</div>
+</div>
+<div class="help-step">
+<div class="help-step-num">4</div>
+<div>
+<p class="font-semibold text-white" data-i18n="helpStep4Title">Fine-tune the width</p>
+<p class="text-sm mt-1 text-slate-400" data-i18n="helpStep4Text">The slider lets you fine-tune the output width in pixels. It stays synced with the width field in mm, so changing one automatically updates the other.</p>
+</div>
+</div>
+<div class="help-step">
+<div class="help-step-num">5</div>
+<div>
+<p class="font-semibold text-white" data-i18n="helpStep5Title">Check the output and download the PNG</p>
+<p class="text-sm mt-1 text-slate-400" data-i18n="helpStep5Text">The output shows the final rasterized image. If it looks good, click Download PNG and import the file into your laser software.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="panel p-5">
+<div class="help-section-title" data-i18n="helpDpiTitle">Recommended DPI by material</div>
+<div class="help-table-wrap">
+<table class="help-table">
+<thead>
+<tr>
+<th data-i18n="helpTableHeadDpi">DPI</th>
+<th data-i18n="helpTableHeadMaterial">Best for</th>
+<th data-i18n="helpTableHeadNote">Note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>96 DPI</td>
+<td data-i18n="helpDpi96Material">Fabric, leather, rough wood, quick previews</td>
+<td data-i18n="helpDpi96Note">Fastest setting, low detail; good for large engravings and testing.</td>
+</tr>
+<tr>
+<td>150 DPI</td>
+<td data-i18n="helpDpi150Material">Soft wood, plywood, cardboard, large photos</td>
+<td data-i18n="helpDpi150Note">Draft-quality detail with less risk of overburn on absorbent materials.</td>
+</tr>
+<tr>
+<td>254 DPI ✓</td>
+<td data-i18n="helpDpi254Material">Wood photos, MDF, slate, stone, glass</td>
+<td data-i18n="helpDpi254Note">LightBurn-style 0.10 mm spacing; default starting point with a strong quality-to-speed balance.</td>
+</tr>
+<tr>
+<td>300 DPI</td>
+<td data-i18n="helpDpi300Material">Most photo engravings: wood, glass, slate, MDF, plastic</td>
+<td data-i18n="helpDpi300Note">LightBurn-style 0.10 mm spacing; default starting point with a strong quality-to-speed balance.</td>
+</tr>
+<tr>
+<td>508 DPI</td>
+<td data-i18n="helpDpi508Material">Acrylic, laminates, coated metals, anodized aluminum, stainless steel, ceramics</td>
+<td data-i18n="helpDpi508Note">Highest detail in this tool; best for fiber laser metal marking or coated/marked stainless steel. Slower engraving, always test first.</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="panel p-5">
+<div class="help-section-title" data-i18n="helpOutputSizeTitle">How to choose the correct output size?</div>
+<div class="help-note-box">
+<p data-i18n-html="helpOutputSizeText1">The output size in <strong class="text-white">mm</strong> should exactly match the real physical size of the engraving area on your material.</p>
+<p class="mt-3" data-i18n-html="helpOutputSizeText2">Example: If you want to engrave a portrait on a wooden plate with a width of <strong class="text-white">80 mm</strong>, set the width to <strong class="text-white">80 mm</strong> and choose <strong class="text-white">254 DPI</strong>. The tool will create an image about <strong class="text-orange-300">800 px</strong> wide, which matches the required physical size.</p>
+<p class="formula" data-i18n="helpOutputSizeFormula">ℹ️ Formula: width in px = (width in mm ÷ 25.4) × DPI</p>
+</div>
+</div>
+<div class="panel p-5">
+<div class="help-section-title" data-i18n="helpTipsTitle">Tips for better results</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+<div class="help-card">
+<div class="help-card-title" data-i18n="helpTip1Title">📷 Input photo quality</div>
+<div class="help-card-text" data-i18n="helpTip1Text">Use sharp photos with good contrast. Dark or blurry images will produce worse engraving results even at high DPI.</div>
+</div>
+<div class="help-card">
+<div class="help-card-title" data-i18n="helpTip2Title">🔲 Contrast and brightness</div>
+<div class="help-card-text" data-i18n="helpTip2Text">Before uploading, try adjusting the photo in any editor. Higher contrast often improves the final rasterized result a lot.</div>
+</div>
+<div class="help-card">
+<div class="help-card-title" data-i18n="helpTip3Title">🧪 Test engraving</div>
+<div class="help-card-text" data-i18n="helpTip3Text">Always test the result first on an offcut of the same material before running the final engraving.</div>
+</div>
+<div class="help-card">
+<div class="help-card-title" data-i18n="helpTip4Title">⚙️ LightBurn settings</div>
+<div class="help-card-text" data-i18n-html="helpTip4Text">Import the PNG as <strong class="text-gray-200">Passthrough</strong> or <strong class="text-gray-200">Threshold</strong>. The dithering is already included in the file, so additional image processing may make it worse.</div>
+</div>
+</div>
+</div>
+</div><div class="panel p-5">
+<div class="help-section-title" data-i18n="faqTitle">Photo engraving FAQ</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+<div class="help-card">
+<div class="help-card-title" data-i18n="faq1Question">Is this photo to laser engraving converter free?</div>
+<div class="help-card-text" data-i18n="faq1Answer">Yes. The tool is free to use in your browser. You can convert a photo to a laser engraving PNG and download the result without installing software.</div>
+</div>
+<div class="help-card">
+<div class="help-card-title" data-i18n="faq2Question">Which laser software can use the exported PNG?</div>
+<div class="help-card-text" data-i18n="faq2Answer">The PNG output is suitable for LightBurn, XCS, LaserGRBL, EZCAD and other laser engraving software that imports raster images.</div>
+</div>
+<div class="help-card">
+<div class="help-card-title" data-i18n="faq3Question">Does the PNG include DPI information?</div>
+<div class="help-card-text" data-i18n="faq3Answer">Yes. The exported PNG includes DPI metadata, which helps laser software keep the correct physical engraving size.</div>
+</div>
+<div class="help-card">
+<div class="help-card-title" data-i18n="faq4Question">Can I use my own DPI value?</div>
+<div class="help-card-text" data-i18n="faq4Answer">Yes. You can choose a preset DPI or enter a custom DPI value for your laser, material and preferred line spacing.</div>
+</div>
+<div class="help-card">
+<div class="help-card-title" data-i18n="faq5Question">What does Invert Colors do?</div>
+<div class="help-card-text" data-i18n="faq5Answer">Invert Colors creates a negative output by swapping black and white in the final laser-ready image.</div>
+</div>
+<div class="help-card">
+<div class="help-card-title" data-i18n="faq6Question">Are my photos uploaded to a server?</div>
+<div class="help-card-text" data-i18n="faq6Answer">No. Image processing runs locally in your browser, so your photos do not need to be uploaded to a server.</div>
+</div>
+</div>
+</div></div><div class="editor-controls-column">
 <div class="panel p-4">
 <div class="section-title" data-i18n="sectionUpload">Upload Photo</div>
 <div class="drop-zone p-5 text-center cursor-pointer" id="dropZone">
@@ -1222,153 +1375,9 @@
 </div>
 </div>
 </div></div>
-<div class="flex flex-col gap-3 mt-4" id="helpArea">
-<div class="panel p-5">
-<div class="help-section-title" data-i18n="helpIntroTitle">What does this tool do?</div>
-<p class="help-text" data-i18n-html="helpIntroText"><strong class="text-white">Photo Engraving Online</strong> converts a regular photo into a rasterized black-and-white image optimized for CO2 or diode laser engraving. You can then import the resulting PNG directly into your laser software (LightBurn, LaserGRBL, XCS, etc.) and engrave it.</p>
-</div>
-<div class="panel p-5">
-<div class="help-section-title" data-i18n="helpStepsTitle">Step-by-step guide</div>
-<div class="space-y-4">
-<div class="help-step">
-<div class="help-step-num">1</div>
-<div>
-<p class="font-semibold text-white" data-i18n="helpStep1Title">Upload a photo</p>
-<p class="text-sm mt-1 text-slate-400" data-i18n="helpStep1Text">Drag the file into the upload area or click to choose it from your device. Supported formats are JPG, PNG, BMP and WebP. For best results, use a sharp photo with good contrast.</p>
-</div>
-</div>
-<div class="help-step">
-<div class="help-step-num">2</div>
-<div>
-<p class="font-semibold text-white" data-i18n="helpStep2Title">Set DPI</p>
-<p class="text-sm mt-1 text-slate-400" data-i18n="helpStep2Text">Choose a resolution that matches your material and your laser’s capabilities. See the recommendation table below.</p>
-</div>
-</div>
-<div class="help-step">
-<div class="help-step-num">3</div>
-<div>
-<p class="font-semibold text-white" data-i18n="helpStep3Title">Set the output size in mm</p>
-<p class="text-sm mt-1 text-slate-400" data-i18n="helpStep3Text">Enter the final engraving width in millimeters. The tool automatically calculates the height, keeps the aspect ratio and shows the resulting pixel count.</p>
-</div>
-</div>
-<div class="help-step">
-<div class="help-step-num">4</div>
-<div>
-<p class="font-semibold text-white" data-i18n="helpStep4Title">Fine-tune the width</p>
-<p class="text-sm mt-1 text-slate-400" data-i18n="helpStep4Text">The slider lets you fine-tune the output width in pixels. It stays synced with the width field in mm, so changing one automatically updates the other.</p>
-</div>
-</div>
-<div class="help-step">
-<div class="help-step-num">5</div>
-<div>
-<p class="font-semibold text-white" data-i18n="helpStep5Title">Check the output and download the PNG</p>
-<p class="text-sm mt-1 text-slate-400" data-i18n="helpStep5Text">The output shows the final rasterized image. If it looks good, click Download PNG and import the file into your laser software.</p>
-</div>
-</div>
-</div>
-</div>
-<div class="panel p-5">
-<div class="help-section-title" data-i18n="helpDpiTitle">Recommended DPI by material</div>
-<div class="help-table-wrap">
-<table class="help-table">
-<thead>
-<tr>
-<th data-i18n="helpTableHeadDpi">DPI</th>
-<th data-i18n="helpTableHeadMaterial">Best for</th>
-<th data-i18n="helpTableHeadNote">Note</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>96 DPI</td>
-<td data-i18n="helpDpi96Material">Fabric, leather, rough wood, quick previews</td>
-<td data-i18n="helpDpi96Note">Fastest setting, low detail; good for large engravings and testing.</td>
-</tr>
-<tr>
-<td>150 DPI</td>
-<td data-i18n="helpDpi150Material">Soft wood, plywood, cardboard, large photos</td>
-<td data-i18n="helpDpi150Note">Draft-quality detail with less risk of overburn on absorbent materials.</td>
-</tr>
-<tr>
-<td>254 DPI ✓</td>
-<td data-i18n="helpDpi254Material">Wood photos, MDF, slate, stone, glass</td>
-<td data-i18n="helpDpi254Note">LightBurn-style 0.10 mm spacing; default starting point with a strong quality-to-speed balance.</td>
-</tr>
-<tr>
-<td>300 DPI</td>
-<td data-i18n="helpDpi300Material">Most photo engravings: wood, glass, slate, MDF, plastic</td>
-<td data-i18n="helpDpi300Note">LightBurn-style 0.10 mm spacing; default starting point with a strong quality-to-speed balance.</td>
-</tr>
-<tr>
-<td>508 DPI</td>
-<td data-i18n="helpDpi508Material">Acrylic, laminates, coated metals, anodized aluminum, stainless steel, ceramics</td>
-<td data-i18n="helpDpi508Note">Highest detail in this tool; best for fiber laser metal marking or coated/marked stainless steel. Slower engraving, always test first.</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<div class="panel p-5">
-<div class="help-section-title" data-i18n="helpOutputSizeTitle">How to choose the correct output size?</div>
-<div class="help-note-box">
-<p data-i18n-html="helpOutputSizeText1">The output size in <strong class="text-white">mm</strong> should exactly match the real physical size of the engraving area on your material.</p>
-<p class="mt-3" data-i18n-html="helpOutputSizeText2">Example: If you want to engrave a portrait on a wooden plate with a width of <strong class="text-white">80 mm</strong>, set the width to <strong class="text-white">80 mm</strong> and choose <strong class="text-white">254 DPI</strong>. The tool will create an image about <strong class="text-orange-300">800 px</strong> wide, which matches the required physical size.</p>
-<p class="formula" data-i18n="helpOutputSizeFormula">ℹ️ Formula: width in px = (width in mm ÷ 25.4) × DPI</p>
-</div>
-</div>
-<div class="panel p-5">
-<div class="help-section-title" data-i18n="helpTipsTitle">Tips for better results</div>
-<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-<div class="help-card">
-<div class="help-card-title" data-i18n="helpTip1Title">📷 Input photo quality</div>
-<div class="help-card-text" data-i18n="helpTip1Text">Use sharp photos with good contrast. Dark or blurry images will produce worse engraving results even at high DPI.</div>
-</div>
-<div class="help-card">
-<div class="help-card-title" data-i18n="helpTip2Title">🔲 Contrast and brightness</div>
-<div class="help-card-text" data-i18n="helpTip2Text">Before uploading, try adjusting the photo in any editor. Higher contrast often improves the final rasterized result a lot.</div>
-</div>
-<div class="help-card">
-<div class="help-card-title" data-i18n="helpTip3Title">🧪 Test engraving</div>
-<div class="help-card-text" data-i18n="helpTip3Text">Always test the result first on an offcut of the same material before running the final engraving.</div>
-</div>
-<div class="help-card">
-<div class="help-card-title" data-i18n="helpTip4Title">⚙️ LightBurn settings</div>
-<div class="help-card-text" data-i18n-html="helpTip4Text">Import the PNG as <strong class="text-gray-200">Passthrough</strong> or <strong class="text-gray-200">Threshold</strong>. The dithering is already included in the file, so additional image processing may make it worse.</div>
-</div>
-</div>
-</div>
-</div>
-<div class="panel p-5">
-<div class="help-section-title" data-i18n="faqTitle">Photo engraving FAQ</div>
-<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-<div class="help-card">
-<div class="help-card-title" data-i18n="faq1Question">Is this photo to laser engraving converter free?</div>
-<div class="help-card-text" data-i18n="faq1Answer">Yes. The tool is free to use in your browser. You can convert a photo to a laser engraving PNG and download the result without installing software.</div>
-</div>
-<div class="help-card">
-<div class="help-card-title" data-i18n="faq2Question">Which laser software can use the exported PNG?</div>
-<div class="help-card-text" data-i18n="faq2Answer">The PNG output is suitable for LightBurn, XCS, LaserGRBL, EZCAD and other laser engraving software that imports raster images.</div>
-</div>
-<div class="help-card">
-<div class="help-card-title" data-i18n="faq3Question">Does the PNG include DPI information?</div>
-<div class="help-card-text" data-i18n="faq3Answer">Yes. The exported PNG includes DPI metadata, which helps laser software keep the correct physical engraving size.</div>
-</div>
-<div class="help-card">
-<div class="help-card-title" data-i18n="faq4Question">Can I use my own DPI value?</div>
-<div class="help-card-text" data-i18n="faq4Answer">Yes. You can choose a preset DPI or enter a custom DPI value for your laser, material and preferred line spacing.</div>
-</div>
-<div class="help-card">
-<div class="help-card-title" data-i18n="faq5Question">What does Invert Colors do?</div>
-<div class="help-card-text" data-i18n="faq5Answer">Invert Colors creates a negative output by swapping black and white in the final laser-ready image.</div>
-</div>
-<div class="help-card">
-<div class="help-card-title" data-i18n="faq6Question">Are my photos uploaded to a server?</div>
-<div class="help-card-text" data-i18n="faq6Answer">No. Image processing runs locally in your browser, so your photos do not need to be uploaded to a server.</div>
-</div>
-</div>
-</div>
-</div>
 
+
+</div>
 <script>
     let originalImage = null;
     let renderQueued = false;
