@@ -213,6 +213,125 @@
       box-shadow: 0 0 0 4px rgba(249,115,22,0.08);
     }
 
+    .custom-native-hidden {
+      position: absolute !important;
+      width: 1px !important;
+      height: 1px !important;
+      padding: 0 !important;
+      margin: -1px !important;
+      overflow: hidden !important;
+      clip: rect(0, 0, 0, 0) !important;
+      white-space: nowrap !important;
+      border: 0 !important;
+      opacity: 0 !important;
+      pointer-events: none !important;
+    }
+
+    .custom-select {
+      position: relative;
+      width: 100%;
+    }
+
+    .custom-select-button {
+      width: 100%;
+      min-height: 44px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.09);
+      color: #dbe7f3;
+      border-radius: 12px;
+      padding: 10px 42px 10px 12px;
+      font-size: 0.85rem;
+      font-family: inherit;
+      font-weight: 600;
+      line-height: 1.35;
+      text-align: left;
+      cursor: pointer;
+      outline: none;
+      position: relative;
+      transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+    }
+
+    .custom-select-button:hover,
+    .custom-select-button:focus {
+      border-color: rgba(249,115,22,0.45);
+      background: rgba(255,255,255,0.05);
+      box-shadow: 0 0 0 4px rgba(249,115,22,0.08);
+    }
+
+    .custom-select-button::after {
+      content: '';
+      position: absolute;
+      right: 16px;
+      top: 50%;
+      width: 9px;
+      height: 9px;
+      border-right: 2px solid #ff9a57;
+      border-bottom: 2px solid #ff9a57;
+      transform: translateY(-65%) rotate(45deg);
+      transition: transform 0.18s ease;
+      pointer-events: none;
+    }
+
+    .custom-select.open .custom-select-button::after {
+      transform: translateY(-35%) rotate(225deg);
+    }
+
+    .custom-select-dropdown {
+      display: none;
+      position: absolute;
+      z-index: 120;
+      top: calc(100% + 8px);
+      left: 0;
+      right: 0;
+      margin: 0;
+      padding: 8px;
+      list-style: none;
+      background: linear-gradient(180deg, rgba(255,255,255,0.035), rgba(255,255,255,0.015)), var(--panel-strong);
+      border: 1px solid rgba(249,115,22,0.24);
+      border-radius: 16px;
+      box-shadow: 0 18px 48px rgba(0,0,0,0.42), 0 0 0 1px rgba(249,115,22,0.08);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      max-height: 285px;
+      overflow-y: auto;
+    }
+
+    .custom-select.open .custom-select-dropdown {
+      display: block;
+    }
+
+    .custom-select-option {
+      width: 100%;
+      display: block;
+      border: 1px solid transparent;
+      border-radius: 12px;
+      padding: 11px 12px;
+      background: transparent;
+      color: #dbe7f3;
+      font-family: inherit;
+      font-size: 0.86rem;
+      font-weight: 600;
+      line-height: 1.35;
+      text-align: left;
+      cursor: pointer;
+      transition: background 0.16s ease, border-color 0.16s ease, color 0.16s ease;
+    }
+
+    .custom-select-option:hover,
+    .custom-select-option:focus {
+      background: rgba(255,255,255,0.07);
+      border-color: rgba(249,115,22,0.24);
+      color: #ffffff;
+      outline: none;
+    }
+
+    .custom-select-option.selected {
+      background: linear-gradient(135deg, rgba(249,115,22,0.18), rgba(234,88,12,0.14));
+      border-color: rgba(249,115,22,0.50);
+      color: #ffb27c;
+      box-shadow: inset 0 0 0 1px rgba(249,115,22,0.10);
+    }
+
     .helper-text {
       font-size: 0.72rem;
       color: #8ea1b5;
@@ -1026,8 +1145,14 @@
 <div class="helper-text" data-i18n="outputWidthMmHelp">Enter the real engraving width in millimeters.</div>
 </div>
 <div>
-<label data-i18n="labelDpi" for="dpi">Desired DPI</label>
-<select class="mt-1" id="dpi">
+<label data-i18n="labelDpi" for="dpiCustomButton">Desired DPI</label>
+<div class="custom-select mt-1" id="dpiCustomSelect">
+<button aria-expanded="false" aria-haspopup="listbox" class="custom-select-button" id="dpiCustomButton" type="button">
+<span id="dpiCustomValue">300 DPI (LaserGRBL standard)</span>
+</button>
+<ul aria-labelledby="dpiCustomButton" class="custom-select-dropdown" id="dpiCustomOptions" role="listbox"></ul>
+</div>
+<select class="custom-native-hidden" id="dpi" tabindex="-1">
 <option value="96">96 DPI (Screenshot - 0,265 mm)</option>
 <option value="150">150 DPI (Draft - 0,169 mm)</option>
 <option value="254">254 DPI (LightBurn Standard - 0,10 mm)</option>
@@ -1564,6 +1689,10 @@
     const sharpness = document.getElementById('sharpness');
     const ditherMode = document.getElementById('ditherMode');
     const dpi = document.getElementById('dpi');
+    const dpiCustomSelect = document.getElementById('dpiCustomSelect');
+    const dpiCustomButton = document.getElementById('dpiCustomButton');
+    const dpiCustomValue = document.getElementById('dpiCustomValue');
+    const dpiCustomOptions = document.getElementById('dpiCustomOptions');
     const outputWidthMm = document.getElementById('outputWidthMm');
     const outputWidthSlider = document.getElementById('outputWidthSlider');
     let lastValidOutputWidthMm = DEFAULTS.outputWidthMm;
@@ -1580,6 +1709,127 @@
 
     function t(key) {
       return (translations[currentLang] && translations[currentLang][key]) || translations.en[key] || key;
+    }
+
+    function syncCustomDpiSelect() {
+      if (!dpiCustomValue || !dpiCustomOptions) return;
+
+      const selectedOption = dpi.options[dpi.selectedIndex] || dpi.options[0];
+      if (selectedOption) dpiCustomValue.textContent = selectedOption.textContent;
+
+      dpiCustomOptions.querySelectorAll('.custom-select-option').forEach(optionBtn => {
+        const isSelected = optionBtn.dataset.value === dpi.value;
+        optionBtn.classList.toggle('selected', isSelected);
+        optionBtn.setAttribute('aria-selected', isSelected ? 'true' : 'false');
+      });
+    }
+
+    function closeCustomDpiSelect() {
+      if (!dpiCustomSelect || !dpiCustomButton) return;
+      dpiCustomSelect.classList.remove('open');
+      dpiCustomButton.setAttribute('aria-expanded', 'false');
+    }
+
+    function openCustomDpiSelect() {
+      if (!dpiCustomSelect || !dpiCustomButton) return;
+      dpiCustomSelect.classList.add('open');
+      dpiCustomButton.setAttribute('aria-expanded', 'true');
+    }
+
+    function toggleCustomDpiSelect() {
+      if (!dpiCustomSelect) return;
+      if (dpiCustomSelect.classList.contains('open')) {
+        closeCustomDpiSelect();
+      } else {
+        openCustomDpiSelect();
+      }
+    }
+
+    function selectCustomDpiValue(value) {
+      if (dpi.value === value) {
+        syncCustomDpiSelect();
+        closeCustomDpiSelect();
+        return;
+      }
+
+      dpi.value = value;
+      syncCustomDpiSelect();
+      closeCustomDpiSelect();
+      dpi.dispatchEvent(new Event('change', { bubbles: true }));
+    }
+
+    function buildCustomDpiSelect() {
+      if (!dpi || !dpiCustomSelect || !dpiCustomButton || !dpiCustomOptions) return;
+
+      dpiCustomOptions.innerHTML = '';
+
+      Array.from(dpi.options).forEach(option => {
+        const li = document.createElement('li');
+        li.setAttribute('role', 'presentation');
+
+        const optionBtn = document.createElement('button');
+        optionBtn.type = 'button';
+        optionBtn.className = 'custom-select-option';
+        optionBtn.dataset.value = option.value;
+        optionBtn.textContent = option.textContent;
+        optionBtn.setAttribute('role', 'option');
+        optionBtn.addEventListener('click', () => selectCustomDpiValue(option.value));
+
+        li.appendChild(optionBtn);
+        dpiCustomOptions.appendChild(li);
+      });
+
+      dpiCustomButton.addEventListener('click', toggleCustomDpiSelect);
+
+      dpiCustomButton.addEventListener('keydown', e => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          toggleCustomDpiSelect();
+        }
+
+        if (e.key === 'ArrowDown') {
+          e.preventDefault();
+          openCustomDpiSelect();
+          const selected = dpiCustomOptions.querySelector('.custom-select-option.selected') || dpiCustomOptions.querySelector('.custom-select-option');
+          if (selected) selected.focus();
+        }
+
+        if (e.key === 'Escape') closeCustomDpiSelect();
+      });
+
+      dpiCustomOptions.addEventListener('keydown', e => {
+        const options = Array.from(dpiCustomOptions.querySelectorAll('.custom-select-option'));
+        const currentIndex = options.indexOf(document.activeElement);
+
+        if (e.key === 'Escape') {
+          closeCustomDpiSelect();
+          dpiCustomButton.focus();
+        }
+
+        if (e.key === 'ArrowDown') {
+          e.preventDefault();
+          const next = options[Math.min(options.length - 1, currentIndex + 1)] || options[0];
+          if (next) next.focus();
+        }
+
+        if (e.key === 'ArrowUp') {
+          e.preventDefault();
+          const prev = options[Math.max(0, currentIndex - 1)] || options[options.length - 1];
+          if (prev) prev.focus();
+        }
+
+        if ((e.key === 'Enter' || e.key === ' ') && document.activeElement && document.activeElement.dataset.value) {
+          e.preventDefault();
+          selectCustomDpiValue(document.activeElement.dataset.value);
+          dpiCustomButton.focus();
+        }
+      });
+
+      document.addEventListener('click', e => {
+        if (!dpiCustomSelect.contains(e.target)) closeCustomDpiSelect();
+      });
+
+      syncCustomDpiSelect();
     }
 
     function applyTranslations() {
@@ -1699,6 +1949,7 @@
     });
 
     dpi.addEventListener('change', () => {
+      syncCustomDpiSelect();
       syncSliderFromMm();
       updateSizeInfo();
       saveSettings();
@@ -1967,7 +2218,10 @@
         if (s.gamma !== undefined) gamma.value = s.gamma;
         if (s.sharpness !== undefined) sharpness.value = s.sharpness;
         if (s.ditherMode) ditherMode.value = s.ditherMode;
-        if (s.dpi) dpi.value = s.dpi;
+        if (s.dpi) {
+          dpi.value = s.dpi;
+          syncCustomDpiSelect();
+        }
         if (s.outputWidthMm !== undefined) {
           outputWidthMm.value = formatNumberInput(Number(s.outputWidthMm));
         } else if (s.outputWidthPx !== undefined) {
@@ -2006,6 +2260,7 @@
       sharpness.value = DEFAULTS.sharpness;
       ditherMode.value = DEFAULTS.ditherMode;
       dpi.value = DEFAULTS.dpi;
+      syncCustomDpiSelect();
       outputWidthMm.value = formatNumberInput(DEFAULTS.outputWidthMm);
       lastValidOutputWidthMm = DEFAULTS.outputWidthMm;
       syncSliderFromMm();
@@ -2046,6 +2301,7 @@
 
       if (targetDpi !== null && targetDpi !== undefined) {
         dpi.value = String(targetDpi);
+        syncCustomDpiSelect();
       }
 
       syncSliderFromMm();
@@ -2650,6 +2906,7 @@
 
 
     currentLang = document.documentElement.lang || 'en';
+    buildCustomDpiSelect();
     loadStoredSettings();
     sliderPairs.forEach(([id]) => updateSlider(document.getElementById(id)));
     syncSliderFromMm();
