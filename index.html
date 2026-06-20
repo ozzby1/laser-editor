@@ -1006,34 +1006,29 @@
 </thead>
 <tbody>
 <tr>
-<td>72 DPI</td>
-<td data-i18n="helpDpi72Material">Leather, fabrics, very rough wood</td>
-<td data-i18n="helpDpi72Note">Low detail, fast engraving</td>
+<td>96 DPI</td>
+<td data-i18n="helpDpi96Material">Fabric, leather, rough wood, quick previews</td>
+<td data-i18n="helpDpi96Note">Fastest setting, low detail; good for large engravings and testing.</td>
 </tr>
 <tr>
 <td>150 DPI</td>
-<td data-i18n="helpDpi150Material">Soft wood (pine, linden), OSB</td>
-<td data-i18n="helpDpi150Note">Good result for larger formats</td>
+<td data-i18n="helpDpi150Material">Soft wood, plywood, cardboard, large photos</td>
+<td data-i18n="helpDpi150Note">Draft-quality detail with less risk of overburn on absorbent materials.</td>
 </tr>
 <tr>
 <td>254 DPI</td>
-<td data-i18n="helpDpi254Material">Hard wood (oak, beech), plywood</td>
-<td data-i18n="helpDpi254Note">Good balance between detail and speed</td>
+<td data-i18n="helpDpi254Material">Wood photos, MDF, slate, stone, glass</td>
+<td data-i18n="helpDpi254Note">LightBurn-style 0.10 mm spacing; good balance of detail and speed.</td>
 </tr>
 <tr>
 <td>300 DPI ✓</td>
-<td data-i18n="helpDpi300Material">Glass, stone, slate, MDF</td>
-<td data-i18n="helpDpi300Note">Default value – suitable for most projects</td>
+<td data-i18n="helpDpi300Material">Most photo engravings: wood, glass, slate, MDF, plastic</td>
+<td data-i18n="helpDpi300Note">Default starting point; strong quality-to-speed balance for most projects.</td>
 </tr>
 <tr>
-<td>500 DPI</td>
-<td data-i18n="helpDpi500Material">Acrylic, coated metals, ceramics</td>
-<td data-i18n="helpDpi500Note">High detail, great for portraits</td>
-</tr>
-<tr>
-<td>750 DPI</td>
-<td data-i18n="helpDpi750Material">Anodized aluminum, cast acrylic</td>
-<td data-i18n="helpDpi750Note">Maximum detail, slower engraving</td>
+<td>508 DPI</td>
+<td data-i18n="helpDpi508Material">Acrylic, laminates, coated metals, anodized aluminum, ceramics</td>
+<td data-i18n="helpDpi508Note">Highest detail in this tool; slower engraving, always test for heat and dot overlap.</td>
 </tr>
 </tbody>
 </table>
@@ -1148,7 +1143,7 @@
 <label data-i18n="labelDpi" for="dpiCustomButton">Resolution (DPI)</label>
 <div class="custom-select mt-1" id="dpiCustomSelect">
 <button aria-expanded="false" aria-haspopup="listbox" class="custom-select-button" id="dpiCustomButton" type="button">
-<span id="dpiCustomValue">300 DPI (LaserGRBL standard 0,085 mm)</span>
+<span id="dpiCustomValue">300 DPI (LaserGRBL standard - 0,085 mm)</span>
 </button>
 <ul aria-labelledby="dpiCustomButton" class="custom-select-dropdown" id="dpiCustomOptions" role="listbox"></ul>
 </div>
@@ -1290,18 +1285,16 @@
         helpTableHeadDpi: 'DPI',
         helpTableHeadMaterial: 'Best for',
         helpTableHeadNote: 'Note',
-        helpDpi72Material: 'Leather, fabrics, very rough wood',
-        helpDpi72Note: 'Low detail, fast engraving',
-        helpDpi150Material: 'Soft wood (pine, linden), OSB',
-        helpDpi150Note: 'Good result for larger formats',
-        helpDpi254Material: 'Hard wood (oak, beech), plywood',
-        helpDpi254Note: 'Good balance between detail and speed',
-        helpDpi300Material: 'Glass, stone, slate, MDF',
-        helpDpi300Note: 'Default value – suitable for most projects',
-        helpDpi500Material: 'Acrylic, coated metals, ceramics',
-        helpDpi500Note: 'High detail, great for portraits',
-        helpDpi750Material: 'Anodized aluminum, cast acrylic',
-        helpDpi750Note: 'Maximum detail, slower engraving',
+        helpDpi96Material: 'Fabric, leather, rough wood, quick previews',
+        helpDpi96Note: 'Fastest setting, low detail; good for large engravings and testing.',
+        helpDpi150Material: 'Soft wood, plywood, cardboard, large photos',
+        helpDpi150Note: 'Draft-quality detail with less risk of overburn on absorbent materials.',
+        helpDpi254Material: 'Wood photos, MDF, slate, stone, glass',
+        helpDpi254Note: 'LightBurn-style 0.10 mm spacing; good balance of detail and speed.',
+        helpDpi300Material: 'Most photo engravings: wood, glass, slate, MDF, plastic',
+        helpDpi300Note: 'Default starting point; strong quality-to-speed balance for most projects.',
+        helpDpi508Material: 'Acrylic, laminates, coated metals, anodized aluminum, ceramics',
+        helpDpi508Note: 'Highest detail in this tool; slower engraving, always test for heat and dot overlap.',
         helpOutputSizeTitle: 'How to choose the correct output size?',
         helpOutputSizeText1: 'The output size in <strong class="text-white">mm</strong> should exactly match the real physical size of the engraving area on your material.',
         helpOutputSizeText2: 'Example: If you want to engrave a portrait on a wooden plate with a width of <strong class="text-white">80 mm</strong>, set the width to <strong class="text-white">80 mm</strong> and choose <strong class="text-white">300 DPI</strong>. The tool will create an image about <strong class="text-orange-300">945 px</strong> wide, which matches the required physical size.',
@@ -1396,18 +1389,16 @@
         helpTableHeadDpi: 'DPI',
         helpTableHeadMaterial: 'Ideal para',
         helpTableHeadNote: 'Nota',
-        helpDpi72Material: 'Cuero, telas, madera muy rugosa',
-        helpDpi72Note: 'Poco detalle, grabado rápido',
-        helpDpi150Material: 'Madera blanda (pino, tilo), OSB',
-        helpDpi150Note: 'Buen resultado para formatos grandes',
-        helpDpi254Material: 'Madera dura (roble, haya), contrachapado',
-        helpDpi254Note: 'Buen equilibrio entre detalle y velocidad',
-        helpDpi300Material: 'Vidrio, piedra, pizarra, MDF',
-        helpDpi300Note: 'Valor predeterminado: adecuado para la mayoría de proyectos',
-        helpDpi500Material: 'Acrílico, metales lacados, cerámica',
-        helpDpi500Note: 'Alto detalle, ideal para retratos',
-        helpDpi750Material: 'Aluminio anodizado, acrílico fundido',
-        helpDpi750Note: 'Máximo detalle, grabado más lento',
+        helpDpi96Material: 'Tela, cuero, madera rugosa, vistas previas rápidas',
+        helpDpi96Note: 'Configuración más rápida, poco detalle; útil para grabados grandes y pruebas.',
+        helpDpi150Material: 'Madera blanda, contrachapado, cartón, fotos grandes',
+        helpDpi150Note: 'Detalle tipo borrador con menor riesgo de quemado excesivo en materiales absorbentes.',
+        helpDpi254Material: 'Fotos en madera, MDF, pizarra, piedra, vidrio',
+        helpDpi254Note: 'Espaciado estilo LightBurn de 0,10 mm; buen equilibrio entre detalle y velocidad.',
+        helpDpi300Material: 'La mayoría de fotos: madera, vidrio, pizarra, MDF, plástico',
+        helpDpi300Note: 'Punto de partida predeterminado; buen equilibrio entre calidad y velocidad.',
+        helpDpi508Material: 'Acrílico, laminados, metales recubiertos, aluminio anodizado, cerámica',
+        helpDpi508Note: 'Máximo detalle en esta herramienta; más lento, prueba siempre el calor y la superposición de puntos.',
         helpOutputSizeTitle: '¿Cómo elegir el tamaño de salida correcto?',
         helpOutputSizeText1: 'El tamaño de salida en <strong class="text-white">mm</strong> debe coincidir exactamente con el tamaño físico real del área de grabado en tu material.',
         helpOutputSizeText2: 'Ejemplo: si quieres grabar un retrato en una placa de madera con un ancho de <strong class="text-white">80 mm</strong>, configura el ancho en <strong class="text-white">80 mm</strong> y elige <strong class="text-white">300 DPI</strong>. La herramienta generará una imagen de aproximadamente <strong class="text-orange-300">945 px</strong> de ancho, que coincide con el tamaño físico requerido.',
@@ -1502,18 +1493,16 @@
         helpTableHeadDpi: 'DPI',
         helpTableHeadMaterial: 'Geeignet für',
         helpTableHeadNote: 'Hinweis',
-        helpDpi72Material: 'Leder, Stoffe, sehr grobes Holz',
-        helpDpi72Note: 'Wenig Detail, schnelles Gravieren',
-        helpDpi150Material: 'Weichholz (Kiefer, Linde), OSB',
-        helpDpi150Note: 'Gutes Ergebnis für größere Formate',
-        helpDpi254Material: 'Hartholz (Eiche, Buche), Sperrholz',
-        helpDpi254Note: 'Guter Kompromiss aus Detail und Geschwindigkeit',
-        helpDpi300Material: 'Glas, Stein, Schiefer, MDF',
-        helpDpi300Note: 'Standardwert – für die meisten Projekte geeignet',
-        helpDpi500Material: 'Acryl, lackierte Metalle, Keramik',
-        helpDpi500Note: 'Hoher Detailgrad, ideal für Porträts',
-        helpDpi750Material: 'Eloxiertes Aluminium, gegossenes Acryl',
-        helpDpi750Note: 'Maximale Details, langsameres Gravieren',
+        helpDpi96Material: 'Stoff, Leder, grobes Holz, schnelle Vorschauen',
+        helpDpi96Note: 'Schnellste Einstellung, wenig Detail; gut für große Gravuren und Tests.',
+        helpDpi150Material: 'Weichholz, Sperrholz, Karton, große Fotos',
+        helpDpi150Note: 'Entwurfsqualität mit geringerem Risiko von Überbrennen auf saugenden Materialien.',
+        helpDpi254Material: 'Fotos auf Holz, MDF, Schiefer, Stein, Glas',
+        helpDpi254Note: 'LightBurn-ähnlicher 0,10-mm-Abstand; guter Kompromiss aus Detail und Geschwindigkeit.',
+        helpDpi300Material: 'Die meisten Fotogravuren: Holz, Glas, Schiefer, MDF, Kunststoff',
+        helpDpi300Note: 'Standard-Startpunkt; gutes Verhältnis von Qualität und Geschwindigkeit.',
+        helpDpi508Material: 'Acryl, Laminate, beschichtete Metalle, eloxiertes Aluminium, Keramik',
+        helpDpi508Note: 'Höchste Detailstufe in diesem Tool; langsamer, immer Hitze und Punktüberlappung testen.',
         helpOutputSizeTitle: 'Wie wählt man die richtige Ausgabegröße?',
         helpOutputSizeText1: 'Die Ausgabegröße in <strong class="text-white">mm</strong> sollte exakt der realen physischen Größe der Gravurfläche auf deinem Material entsprechen.',
         helpOutputSizeText2: 'Beispiel: Wenn du ein Porträt auf eine Holzplatte mit einer Breite von <strong class="text-white">80 mm</strong> gravieren möchtest, stelle die Breite auf <strong class="text-white">80 mm</strong> und wähle <strong class="text-white">300 DPI</strong>. Das Tool erstellt dann ein Bild mit etwa <strong class="text-orange-300">945 px</strong> Breite, was genau der gewünschten physischen Größe entspricht.',
@@ -1608,18 +1597,16 @@
         helpTableHeadDpi: 'DPI',
         helpTableHeadMaterial: 'Vhodné pro',
         helpTableHeadNote: 'Poznámka',
-        helpDpi72Material: 'Kůže, tkaniny, velmi hrubé dřevo',
-        helpDpi72Note: 'Nízký detail, rychlé gravírování',
-        helpDpi150Material: 'Měkké dřevo (borovice, lípa), OSB',
-        helpDpi150Note: 'Dobrý výsledek pro větší formáty',
-        helpDpi254Material: 'Tvrdé dřevo (dub, buk), překližka',
-        helpDpi254Note: 'Dobrý kompromis detail vs. rychlost',
-        helpDpi300Material: 'Sklo, kámen, břidlice, MDF',
-        helpDpi300Note: 'Výchozí hodnota – vhodná pro většinu projektů',
-        helpDpi500Material: 'Akrylát, lakované kovy, keramika',
-        helpDpi500Note: 'Vysoký detail, vhodné pro portréty',
-        helpDpi750Material: 'Anodizovaný hliník, litý akrylát',
-        helpDpi750Note: 'Maximální detail, pomalé gravírování',
+        helpDpi96Material: 'Textil, kůže, hrubé dřevo, rychlé náhledy',
+        helpDpi96Note: 'Nejrychlejší nastavení, nízký detail; vhodné pro velké gravury a testy.',
+        helpDpi150Material: 'Měkké dřevo, překližka, karton, velké fotografie',
+        helpDpi150Note: 'Náhledová kvalita s menším rizikem přepálení u savých materiálů.',
+        helpDpi254Material: 'Fotografie do dřeva, MDF, břidlice, kámen, sklo',
+        helpDpi254Note: 'Rozestup 0,10 mm ve stylu LightBurn; dobrý poměr detailu a rychlosti.',
+        helpDpi300Material: 'Většina fotogravírování: dřevo, sklo, břidlice, MDF, plast',
+        helpDpi300Note: 'Výchozí bod; dobrý poměr kvality a rychlosti pro většinu projektů.',
+        helpDpi508Material: 'Akrylát, lamináty, lakované kovy, anodizovaný hliník, keramika',
+        helpDpi508Note: 'Nejvyšší detail v tomto nástroji; pomalejší gravírování, vždy otestuj teplo a překryv bodů.',
         helpOutputSizeTitle: 'Jak nastavit správnou výstupní velikost?',
         helpOutputSizeText1: 'Výstupní velikost v <strong class="text-white">mm</strong> by měla přesně odpovídat fyzickým rozměrům gravírované plochy na materiálu.',
         helpOutputSizeText2: 'Příklad: Chceš vygravírovat portrét na dřevěnou destičku o šířce <strong class="text-white">80 mm</strong>. Nastav šířku na <strong class="text-white">80 mm</strong> a zvol <strong class="text-white">300 DPI</strong> – nástroj ti vygeneruje obrázek o šířce <strong class="text-orange-300">~945 px</strong>, který přesně odpovídá požadované fyzické velikosti.',
