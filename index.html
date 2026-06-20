@@ -332,6 +332,83 @@
       box-shadow: inset 0 0 0 1px rgba(249,115,22,0.10);
     }
 
+    .custom-dpi-input-wrap {
+      background: rgba(255,255,255,0.025);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 14px;
+      padding: 12px;
+    }
+
+    .toggle-control {
+      background: rgba(255,255,255,0.025);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 14px;
+      padding: 12px;
+    }
+
+    .toggle-label {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    .toggle-label input {
+      position: absolute;
+      opacity: 0;
+      width: 1px;
+      height: 1px;
+      pointer-events: none;
+    }
+
+    .toggle-ui {
+      width: 44px;
+      height: 24px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.12);
+      position: relative;
+      flex-shrink: 0;
+      transition: background 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
+    }
+
+    .toggle-ui::after {
+      content: '';
+      position: absolute;
+      top: 3px;
+      left: 3px;
+      width: 16px;
+      height: 16px;
+      border-radius: 999px;
+      background: #cbd5e1;
+      transition: transform 0.18s ease, background 0.18s ease;
+    }
+
+    .toggle-label input:checked + .toggle-ui {
+      background: rgba(249,115,22,0.20);
+      border-color: rgba(249,115,22,0.55);
+      box-shadow: 0 0 0 3px rgba(249,115,22,0.08);
+    }
+
+    .toggle-label input:checked + .toggle-ui::after {
+      transform: translateX(20px);
+      background: #ff9a57;
+    }
+
+    .toggle-label input:focus + .toggle-ui {
+      box-shadow: 0 0 0 4px rgba(249,115,22,0.10);
+      border-color: rgba(249,115,22,0.55);
+    }
+
+    .toggle-text {
+      color: #dbe7f3;
+      font-size: 0.84rem;
+      font-weight: 700;
+      line-height: 1.35;
+    }
+
     .helper-text {
       font-size: 0.72rem;
       color: #8ea1b5;
@@ -1027,7 +1104,7 @@
 </tr>
 <tr>
 <td>508 DPI</td>
-<td data-i18n="helpDpi508Material">Acrylic, laminates, coated metals, anodized aluminum, ceramicsAcrylic, laminates, coated metals, anodized aluminum, stainless steel, ceramics</td>
+<td data-i18n="helpDpi508Material">Acrylic, laminates, coated metals, anodized aluminum, stainless steel, ceramics</td>
 <td data-i18n="helpDpi508Note">Highest detail in this tool; slower engraving, always test for heat and dot overlap.</td>
 </tr>
 </tbody>
@@ -1126,6 +1203,14 @@
 </select>
 <div class="helper-text" data-i18n="ditherHelp">Photos → Detailed | stronger edges → Contrast</div>
 </div>
+<div>
+<label class="toggle-label toggle-control" for="invertColors">
+<input id="invertColors" type="checkbox"/>
+<span aria-hidden="true" class="toggle-ui"></span>
+<span class="toggle-text" data-i18n="labelInvertColors">Invert Colors (Negative)</span>
+</label>
+<div class="helper-text" data-i18n="invertHelp">Swaps black and white in the final output PNG.</div>
+</div>
 <div class="grid grid-cols-1 sm:grid-cols-1 gap-2 pt-1">
 <button class="btn btn-secondary" data-i18n="resetBtn" id="resetBtn">↺ Default Settings</button>
 </div>
@@ -1153,7 +1238,13 @@
 <option value="254">254 DPI (LightBurn Standard - 0,10 mm)</option>
 <option selected="" value="300">300 DPI (LaserGRBL standard - 0,085 mm)</option>
 <option value="508">508 DPI (Ezcad2 standard - 0,05 mm)</option>
+<option value="custom">Custom DPI…</option>
 </select>
+<div class="custom-dpi-input-wrap mt-2" id="customDpiWrap" style="display:none">
+<label data-i18n="labelCustomDpi" for="customDpi">Custom DPI</label>
+<input class="mt-1" id="customDpi" max="2400" min="1" step="1" type="number" value="300"/>
+<div class="helper-text" data-i18n="customDpiHelp">Enter your own DPI value between 1 and 2400.</div>
+</div>
 <div class="helper-text" data-i18n="dpiHelp">Changing DPI keeps the same physical size and recalculates the pixel count.</div>
 </div>
 <details>
@@ -1243,12 +1334,16 @@
         ditherDetailed: 'Detailed',
         ditherContrast: 'Contrast',
         ditherHelp: 'Photos → Detailed | stronger edges → Contrast',
+        labelInvertColors: 'Invert Colors (Negative)',
+        invertHelp: 'Swaps black and white in the final output PNG.',
         resetBtn: '↺ Default Settings',
         sectionOutput: 'Output',
         labelOutputWidthMm: 'Image width',
         outputWidthMmHelp: 'Enter the real engraving width in millimeters.',
         labelDpi: 'Resolution (DPI)',
         dpiHelp: 'Changing DPI keeps the same physical size and recalculates the pixel count.',
+        labelCustomDpi: 'Custom DPI',
+        customDpiHelp: 'Enter your own DPI value between 1 and 2400.',
         advancedPixelSummary: 'Advanced: adjust width in pixels',
         labelFineTuneWidth: 'Width in pixels',
         outputSliderHelp: 'Advanced control. Changing pixels recalculates the width in mm for the selected DPI.',
@@ -1293,7 +1388,7 @@
         helpDpi254Note: 'LightBurn-style 0.10 mm spacing; good balance of detail and speed.',
         helpDpi300Material: 'Most photo engravings: wood, glass, slate, MDF, plastic',
         helpDpi300Note: 'Default starting point; strong quality-to-speed balance for most projects.',
-        helpDpi508Material: 'Acrylic, laminates, coated metals, anodized aluminum, ceramics',
+        helpDpi508Material: 'Acrylic, laminates, coated metals, anodized aluminum, stainless steel, ceramics',
         helpDpi508Note: 'Highest detail in this tool; slower engraving, always test for heat and dot overlap.',
         helpOutputSizeTitle: 'How to choose the correct output size?',
         helpOutputSizeText1: 'The output size in <strong class="text-white">mm</strong> should exactly match the real physical size of the engraving area on your material.',
@@ -1347,12 +1442,16 @@
         ditherDetailed: 'Detallado',
         ditherContrast: 'Contraste',
         ditherHelp: 'Fotos → Detallado | bordes más marcados → Contraste',
+        labelInvertColors: 'Invertir colores (negativo)',
+        invertHelp: 'Intercambia blanco y negro en el PNG final.',
         resetBtn: 'Ajustes Predeterminados',
         sectionOutput: 'Salida',
         labelOutputWidthMm: 'Ancho de imagen',
         outputWidthMmHelp: 'Introduce el ancho real del grabado en milímetros.',
         labelDpi: 'DPI deseado',
         dpiHelp: 'Al cambiar el DPI se mantiene el mismo tamaño físico y se recalcula el número de píxeles.',
+        labelCustomDpi: 'DPI personalizado',
+        customDpiHelp: 'Introduce tu propio valor DPI entre 1 y 2400.',
         advancedPixelSummary: 'Avanzado: ajustar ancho en píxeles',
         labelFineTuneWidth: 'Ancho en píxeles',
         outputSliderHelp: 'Control avanzado. Al cambiar los píxeles se recalcula el ancho en mm según el DPI seleccionado.',
@@ -1397,7 +1496,7 @@
         helpDpi254Note: 'Espaciado estilo LightBurn de 0,10 mm; buen equilibrio entre detalle y velocidad.',
         helpDpi300Material: 'La mayoría de fotos: madera, vidrio, pizarra, MDF, plástico',
         helpDpi300Note: 'Punto de partida predeterminado; buen equilibrio entre calidad y velocidad.',
-        helpDpi508Material: 'Acrílico, laminados, metales recubiertos, aluminio anodizado, cerámica',
+        helpDpi508Material: 'Acrílico, laminados, metales recubiertos, aluminio anodizado, acero inoxidable, cerámica',
         helpDpi508Note: 'Máximo detalle en esta herramienta; más lento, prueba siempre el calor y la superposición de puntos.',
         helpOutputSizeTitle: '¿Cómo elegir el tamaño de salida correcto?',
         helpOutputSizeText1: 'El tamaño de salida en <strong class="text-white">mm</strong> debe coincidir exactamente con el tamaño físico real del área de grabado en tu material.',
@@ -1451,12 +1550,16 @@
         ditherDetailed: 'Detailliert',
         ditherContrast: 'Kontrast',
         ditherHelp: 'Fotos → Detailliert | stärkere Kanten → Kontrast',
+        labelInvertColors: 'Farben invertieren (Negativ)',
+        invertHelp: 'Tauscht Schwarz und Weiß in der finalen PNG-Ausgabe.',
         resetBtn: 'Standardeinstellungen',
         sectionOutput: 'Ausgabe',
         labelOutputWidthMm: 'Bildbreite',
         outputWidthMmHelp: 'Gib die reale Gravurbreite in Millimetern ein.',
         labelDpi: 'Gewünschte DPI',
         dpiHelp: 'Beim Ändern der DPI bleibt die physische Größe gleich und die Pixelanzahl wird neu berechnet.',
+        labelCustomDpi: 'Benutzerdefinierte DPI',
+        customDpiHelp: 'Gib einen eigenen DPI-Wert zwischen 1 und 2400 ein.',
         advancedPixelSummary: 'Erweitert: Breite in Pixeln anpassen',
         labelFineTuneWidth: 'Breite in Pixeln',
         outputSliderHelp: 'Erweiterte Steuerung. Beim Ändern der Pixel wird die Breite in mm anhand der gewählten DPI neu berechnet.',
@@ -1501,7 +1604,7 @@
         helpDpi254Note: 'LightBurn-ähnlicher 0,10-mm-Abstand; guter Kompromiss aus Detail und Geschwindigkeit.',
         helpDpi300Material: 'Die meisten Fotogravuren: Holz, Glas, Schiefer, MDF, Kunststoff',
         helpDpi300Note: 'Standard-Startpunkt; gutes Verhältnis von Qualität und Geschwindigkeit.',
-        helpDpi508Material: 'Acryl, Laminate, beschichtete Metalle, eloxiertes Aluminium, Keramik',
+        helpDpi508Material: 'Acryl, Laminate, beschichtete Metalle, eloxiertes Aluminium, Edelstahl, Keramik',
         helpDpi508Note: 'Höchste Detailstufe in diesem Tool; langsamer, immer Hitze und Punktüberlappung testen.',
         helpOutputSizeTitle: 'Wie wählt man die richtige Ausgabegröße?',
         helpOutputSizeText1: 'Die Ausgabegröße in <strong class="text-white">mm</strong> sollte exakt der realen physischen Größe der Gravurfläche auf deinem Material entsprechen.',
@@ -1555,12 +1658,16 @@
         ditherDetailed: 'Detailní',
         ditherContrast: 'Kontrastní',
         ditherHelp: 'Fotky → Detailní | výraznější hrany → Kontrastní',
+        labelInvertColors: 'Invertovat barvy (negativ)',
+        invertHelp: 'Prohodí černou a bílou ve finálním PNG výstupu.',
         resetBtn: 'Výchozí nastavení',
         sectionOutput: 'Výstup',
         labelOutputWidthMm: 'Šířka obrázku',
         outputWidthMmHelp: 'Zadej skutečnou šířku gravírování v milimetrech.',
         labelDpi: 'Požadované DPI',
         dpiHelp: 'Při změně DPI zůstane stejná fyzická velikost a přepočítá se počet pixelů.',
+        labelCustomDpi: 'Vlastní DPI',
+        customDpiHelp: 'Zadej vlastní hodnotu DPI v rozsahu 1 až 2400.',
         advancedPixelSummary: 'Pokročilé: upravit šířku v pixelech',
         labelFineTuneWidth: 'Šířka v pixelech',
         outputSliderHelp: 'Pokročilé nastavení. Změna pixelů přepočítá šířku v mm podle zvoleného DPI.',
@@ -1605,7 +1712,7 @@
         helpDpi254Note: 'Rozestup 0,10 mm ve stylu LightBurn; dobrý poměr detailu a rychlosti.',
         helpDpi300Material: 'Většina fotogravírování: dřevo, sklo, břidlice, MDF, plast',
         helpDpi300Note: 'Výchozí bod; dobrý poměr kvality a rychlosti pro většinu projektů.',
-        helpDpi508Material: 'Akrylát, lamináty, lakované kovy, anodizovaný hliník, keramika',
+        helpDpi508Material: 'Akrylát, lamináty, lakované kovy, anodizovaný hliník, nerezová ocel, keramika',
         helpDpi508Note: 'Nejvyšší detail v tomto nástroji; pomalejší gravírování, vždy otestuj teplo a překryv bodů.',
         helpOutputSizeTitle: 'Jak nastavit správnou výstupní velikost?',
         helpOutputSizeText1: 'Výstupní velikost v <strong class="text-white">mm</strong> by měla přesně odpovídat fyzickým rozměrům gravírované plochy na materiálu.',
@@ -1661,7 +1768,9 @@
       gamma: PRESETS.normal.gamma,
       sharpness: PRESETS.normal.sharpness,
       ditherMode: PRESETS.normal.ditherMode,
+      invertColors: false,
       dpi: 300,
+      customDpi: 300,
       outputWidthMm: 80,
       outputWidthPx: 945
     };
@@ -1675,11 +1784,14 @@
     const gamma = document.getElementById('gamma');
     const sharpness = document.getElementById('sharpness');
     const ditherMode = document.getElementById('ditherMode');
+    const invertColors = document.getElementById('invertColors');
     const dpi = document.getElementById('dpi');
     const dpiCustomSelect = document.getElementById('dpiCustomSelect');
     const dpiCustomButton = document.getElementById('dpiCustomButton');
     const dpiCustomValue = document.getElementById('dpiCustomValue');
     const dpiCustomOptions = document.getElementById('dpiCustomOptions');
+    const customDpi = document.getElementById('customDpi');
+    const customDpiWrap = document.getElementById('customDpiWrap');
     const outputWidthMm = document.getElementById('outputWidthMm');
     const outputWidthSlider = document.getElementById('outputWidthSlider');
     let lastValidOutputWidthMm = DEFAULTS.outputWidthMm;
@@ -1698,11 +1810,56 @@
       return (translations[currentLang] && translations[currentLang][key]) || translations.en[key] || key;
     }
 
+    function normalizeDpiValue(value) {
+      const n = Number(String(value ?? '').trim().replace(',', '.'));
+      return Number.isFinite(n) && n > 0 ? clamp(Math.round(n), 1, 2400) : DEFAULTS.customDpi;
+    }
+
+    function hasDpiOption(value) {
+      return Array.from(dpi.options).some(option => option.value === String(value));
+    }
+
+    function isCustomDpiMode() {
+      return dpi.value === 'custom';
+    }
+
+    function getCustomDpiValue() {
+      return normalizeDpiValue(customDpi ? customDpi.value : DEFAULTS.customDpi);
+    }
+
+    function getDpiDisplayText() {
+      if (isCustomDpiMode()) {
+        return `${getCustomDpiValue()} DPI (Custom)`;
+      }
+
+      const selectedOption = dpi.options[dpi.selectedIndex] || dpi.options[0];
+      return selectedOption ? selectedOption.textContent : `${DEFAULTS.dpi} DPI`;
+    }
+
+    function updateCustomDpiVisibility() {
+      if (!customDpiWrap) return;
+      customDpiWrap.style.display = isCustomDpiMode() ? 'block' : 'none';
+    }
+
+    function setDpiValue(value) {
+      const normalized = normalizeDpiValue(value);
+      const stringValue = String(normalized);
+
+      if (hasDpiOption(stringValue)) {
+        dpi.value = stringValue;
+      } else {
+        dpi.value = 'custom';
+        if (customDpi) customDpi.value = stringValue;
+      }
+
+      updateCustomDpiVisibility();
+      syncCustomDpiSelect();
+    }
+
     function syncCustomDpiSelect() {
       if (!dpiCustomValue || !dpiCustomOptions) return;
 
-      const selectedOption = dpi.options[dpi.selectedIndex] || dpi.options[0];
-      if (selectedOption) dpiCustomValue.textContent = selectedOption.textContent;
+      dpiCustomValue.textContent = getDpiDisplayText();
 
       dpiCustomOptions.querySelectorAll('.custom-select-option').forEach(optionBtn => {
         const isSelected = optionBtn.dataset.value === dpi.value;
@@ -1733,16 +1890,20 @@
     }
 
     function selectCustomDpiValue(value) {
-      if (dpi.value === value) {
-        syncCustomDpiSelect();
-        closeCustomDpiSelect();
-        return;
-      }
+      const changed = dpi.value !== value;
 
       dpi.value = value;
+      updateCustomDpiVisibility();
       syncCustomDpiSelect();
       closeCustomDpiSelect();
-      dpi.dispatchEvent(new Event('change', { bubbles: true }));
+
+      if (value === 'custom' && customDpi) {
+        setTimeout(() => customDpi.focus(), 0);
+      }
+
+      if (changed) {
+        dpi.dispatchEvent(new Event('change', { bubbles: true }));
+      }
     }
 
     function buildCustomDpiSelect() {
@@ -1841,6 +2002,7 @@
       if (resultImg) resultImg.alt = t('emptyResultAlt');
 
       updateSizeInfo();
+      syncCustomDpiSelect();
     }
 
     function setLanguage(lang) {
@@ -1935,7 +2097,36 @@
       if (originalImage) scheduleProcessImage();
     });
 
+    invertColors.addEventListener('change', () => {
+      markAsCustom();
+      saveSettings();
+      if (originalImage) scheduleProcessImage();
+    });
+
     dpi.addEventListener('change', () => {
+      updateCustomDpiVisibility();
+      syncCustomDpiSelect();
+      syncSliderFromMm();
+      updateSizeInfo();
+      saveSettings();
+      if (originalImage) scheduleProcessImage();
+    });
+
+    customDpi.addEventListener('input', () => {
+      if (!isCustomDpiMode()) {
+        dpi.value = 'custom';
+        updateCustomDpiVisibility();
+      }
+
+      syncCustomDpiSelect();
+      syncSliderFromMm({ preserveMmInput: true });
+      updateSizeInfo();
+      saveSettings();
+      if (originalImage) scheduleProcessImage();
+    });
+
+    customDpi.addEventListener('blur', () => {
+      customDpi.value = String(getCustomDpiValue());
       syncCustomDpiSelect();
       syncSliderFromMm();
       updateSizeInfo();
@@ -2027,6 +2218,7 @@
       gamma.value = p.gamma;
       sharpness.value = p.sharpness;
       ditherMode.value = p.ditherMode;
+      invertColors.checked = false;
 
       sliderPairs.forEach(([id]) => updateSlider(document.getElementById(id)));
       setActivePresetCard(key);
@@ -2044,6 +2236,7 @@
       gamma.value = p.gamma;
       sharpness.value = p.sharpness;
       ditherMode.value = p.ditherMode;
+      invertColors.checked = false;
       sliderPairs.forEach(([id]) => updateSlider(document.getElementById(id)));
     }
 
@@ -2205,14 +2398,21 @@
         if (s.gamma !== undefined) gamma.value = s.gamma;
         if (s.sharpness !== undefined) sharpness.value = s.sharpness;
         if (s.ditherMode) ditherMode.value = s.ditherMode;
-        if (s.dpi) {
-          dpi.value = s.dpi;
+        if (s.invertColors !== undefined) invertColors.checked = Boolean(s.invertColors);
+        if (s.customDpi !== undefined) customDpi.value = String(normalizeDpiValue(s.customDpi));
+        if (s.dpiMode === 'custom') {
+          dpi.value = 'custom';
+          customDpi.value = String(normalizeDpiValue(s.dpi ?? s.customDpi));
+        } else if (s.dpi) {
+          setDpiValue(s.dpi);
+        } else {
+          updateCustomDpiVisibility();
           syncCustomDpiSelect();
         }
         if (s.outputWidthMm !== undefined) {
           outputWidthMm.value = formatNumberInput(Number(s.outputWidthMm));
         } else if (s.outputWidthPx !== undefined) {
-          outputWidthMm.value = formatNumberInput(pxToMm(Number(s.outputWidthPx), Number(dpi.value || DEFAULTS.dpi)));
+          outputWidthMm.value = formatNumberInput(pxToMm(Number(s.outputWidthPx), getDpiValue()));
         } else {
           outputWidthMm.value = formatNumberInput(DEFAULTS.outputWidthMm);
         }
@@ -2229,7 +2429,11 @@
         gamma: Number(gamma.value),
         sharpness: Number(sharpness.value),
         ditherMode: ditherMode.value,
-        dpi: Number(dpi.value),
+        invertColors: invertColors.checked,
+        dpiMode: isCustomDpiMode() ? 'custom' : 'preset',
+        dpiPreset: dpi.value,
+        dpi: getDpiValue(),
+        customDpi: getCustomDpiValue(),
         outputWidthMm: getOutputWidthMm(),
         outputWidthPx: getOutputWidthPx()
       };
@@ -2246,7 +2450,10 @@
       gamma.value = DEFAULTS.gamma;
       sharpness.value = DEFAULTS.sharpness;
       ditherMode.value = DEFAULTS.ditherMode;
-      dpi.value = DEFAULTS.dpi;
+      invertColors.checked = DEFAULTS.invertColors;
+      dpi.value = String(DEFAULTS.dpi);
+      customDpi.value = String(DEFAULTS.customDpi);
+      updateCustomDpiVisibility();
       syncCustomDpiSelect();
       outputWidthMm.value = formatNumberInput(DEFAULTS.outputWidthMm);
       lastValidOutputWidthMm = DEFAULTS.outputWidthMm;
@@ -2287,8 +2494,7 @@
       setActivePresetCard(currentPreset);
 
       if (targetDpi !== null && targetDpi !== undefined) {
-        dpi.value = String(targetDpi);
-        syncCustomDpiSelect();
+        setDpiValue(targetDpi);
       }
 
       syncSliderFromMm();
@@ -2352,6 +2558,7 @@
     }
 
     function getDpiValue() {
+      if (isCustomDpiMode()) return getCustomDpiValue();
       return Number(dpi.value) || DEFAULTS.dpi;
     }
 
@@ -2493,6 +2700,7 @@
       if (sharp > 0) imageData = applySharpen(imageData, w, h, sharp);
 
       applyDithering(imageData, w, h, ditherMode.value, FIXED_THRESHOLD);
+      if (invertColors.checked) invertImageData(imageData);
 
       drawOriginalIntoCanvas(canvasCompareOrig, w, h);
       putImageDataToCanvas(canvasCompareResult, imageData, w, h);
@@ -2682,8 +2890,16 @@
       }
     }
 
+    function invertImageData(imageData) {
+      const d = imageData.data;
+      for (let i = 0; i < d.length; i += 4) {
+        const v = 255 - d[i];
+        d[i] = d[i + 1] = d[i + 2] = v;
+      }
+    }
+
     function buildExportFilename() {
-      const dpiValue = Number(dpi.value);
+      const dpiValue = getDpiValue();
       const mm = pxToMm(getOutputWidthPx(), dpiValue).toFixed(1).replace('.', '-');
       const style = ditherMode.value === 'atkinson' ? 'contrast' : 'detailed';
       return `laser-${mm}mm-${dpiValue}dpi-${style}.png`;
@@ -2867,7 +3083,7 @@
       }
 
       try {
-        const dpiValue = Number(dpi.value);
+        const dpiValue = getDpiValue();
         const blob = await canvasToPngBlobWithDPI(canvasSingle, dpiValue);
         incrementCounter();
 
