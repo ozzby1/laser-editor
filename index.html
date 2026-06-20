@@ -896,6 +896,30 @@
       filter: brightness(1.05);
     }
 
+
+    .main-editor-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 2fr) minmax(300px, 1fr);
+      gap: 1rem;
+      align-items: start;
+    }
+
+    .editor-preview-column,
+    .editor-controls-column {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      min-width: 0;
+    }
+
+    .editor-preview-column {
+      grid-column: 1;
+    }
+
+    .editor-controls-column {
+      grid-column: 2;
+    }
+
     @media (min-width: 1024px) {
       .mobile-action-stack {
         display: none;
@@ -903,6 +927,21 @@
     }
 
     @media (max-width: 1023px) {
+
+      .main-editor-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .editor-preview-column {
+        grid-column: 1;
+        order: 1;
+      }
+
+      .editor-controls-column {
+        grid-column: 1;
+        order: 2;
+      }
+
       .content {
         padding-top: 14px;
       }
@@ -958,8 +997,8 @@
 <p data-i18n-html="heroText" style="font-size:1rem;line-height:1.8;color:#cbd5e1;margin:0;max-width:900px;">Convert any photo into a laser engraving ready image directly in your browser. Adjust brightness, contrast, gamma, sharpness, dithering style, output size and DPI, then export a PNG prepared for LightBurn, LaserGRBL, XCS and other laser software. <strong style="color: var(--accent);">100% browser-based. Your images never leave your device.</strong></p>
 </section>
 
-<div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
-<div class="lg:col-span-2 flex flex-col gap-3 order-2 lg:order-1">
+<div class="main-editor-layout">
+<div class="editor-preview-column">
 <div class="panel px-4 py-3 flex gap-3 items-center flex-wrap">
 <button class="btn view-btn active" data-i18n="btnCompare" id="btnCompare">Original + Output</button>
 <button class="btn view-btn" data-i18n="btnOutput" id="btnResult">Only Output</button>
@@ -1057,7 +1096,7 @@
 </div>
 </section>
 </div>
-<div class="flex flex-col gap-3 order-1 lg:order-2">
+<div class="editor-controls-column">
 <div class="panel p-4">
 <div class="section-title" data-i18n="sectionUpload">Upload Photo</div>
 <div class="drop-zone p-5 text-center cursor-pointer" id="dropZone">
