@@ -108,8 +108,52 @@
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
-<script src="https://cdn.tailwindcss.com"></script>
 <style>
+    /* Minimal Tailwind-like utilities used by this single-file build. */
+    .max-w-7xl { max-width: 80rem; }
+    .mx-auto { margin-left: auto; margin-right: auto; }
+    .ml-auto { margin-left: auto; }
+    .w-full { width: 100%; }
+    .flex { display: flex; }
+    .grid { display: grid; }
+    .flex-col { flex-direction: column; }
+    .flex-wrap { flex-wrap: wrap; }
+    .items-center { align-items: center; }
+    .gap-2 { gap: 0.5rem; }
+    .gap-3 { gap: 0.75rem; }
+    .gap-4 { gap: 1rem; }
+    .grid-cols-1 { grid-template-columns: repeat(1, minmax(0, 1fr)); }
+    .grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .p-4 { padding: 1rem; }
+    .p-5 { padding: 1.25rem; }
+    .p-6 { padding: 1.5rem; }
+    .px-4 { padding-left: 1rem; padding-right: 1rem; }
+    .py-3 { padding-top: 0.75rem; padding-bottom: 0.75rem; }
+    .py-6 { padding-top: 1.5rem; padding-bottom: 1.5rem; }
+    .pt-1 { padding-top: 0.25rem; }
+    .mt-1 { margin-top: 0.25rem; }
+    .mt-2 { margin-top: 0.5rem; }
+    .mt-3 { margin-top: 0.75rem; }
+    .mt-4 { margin-top: 1rem; }
+    .mb-4 { margin-bottom: 1rem; }
+    .space-y-4 > :not([hidden]) ~ :not([hidden]) { margin-top: 1rem; }
+    .text-center { text-align: center; }
+    .text-sm { font-size: 0.875rem; line-height: 1.25rem; }
+    .font-semibold { font-weight: 600; }
+    .cursor-pointer { cursor: pointer; }
+    .text-white { color: #fff; }
+    .text-slate-400 { color: #94a3b8; }
+    .text-gray-200 { color: #e5e7eb; }
+    .text-orange-300 { color: #fdba74; }
+    @media (min-width: 640px) {
+      .sm\:grid-cols-1 { grid-template-columns: repeat(1, minmax(0, 1fr)); }
+      .sm\:grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (min-width: 768px) {
+      .md\:grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .md\:grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    }
+
     * { box-sizing: border-box; }
 
     :root {
@@ -428,6 +472,79 @@
       color: #8ea1b5;
       margin-top: 6px;
       line-height: 1.5;
+    }
+
+    .status-message {
+      display: none;
+      margin: 0 0 1rem;
+      padding: 12px 14px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.04);
+      color: #dbe7f3;
+      font-size: 0.84rem;
+      font-weight: 650;
+      line-height: 1.45;
+    }
+
+    .status-message.visible {
+      display: block;
+    }
+
+    .status-message[data-type="error"] {
+      border-color: rgba(248,113,113,0.45);
+      background: rgba(248,113,113,0.10);
+      color: #fecaca;
+    }
+
+    .status-message[data-type="success"] {
+      border-color: rgba(34,197,94,0.35);
+      background: rgba(34,197,94,0.08);
+      color: #bbf7d0;
+    }
+
+    .demo-notice {
+      display: none;
+      margin-bottom: 12px;
+      padding: 11px 13px;
+      border-radius: 14px;
+      border: 1px solid rgba(249,115,22,0.24);
+      background: rgba(249,115,22,0.08);
+      color: #fed7aa;
+      font-size: 0.8rem;
+      line-height: 1.45;
+      font-weight: 650;
+    }
+
+    .canvas-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 8px;
+      padding: 5px 10px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      color: #cbd5e1;
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .canvas-label.accent {
+      background: rgba(249,115,22,0.10);
+      border-color: rgba(249,115,22,0.30);
+      color: #fdba74;
+    }
+
+    .drop-zone:focus-visible,
+    .preset-card:focus-visible,
+    .empty-step.primary:focus-visible,
+    .btn:focus-visible,
+    .lang-btn:focus-visible {
+      outline: 3px solid rgba(249,115,22,0.45);
+      outline-offset: 3px;
     }
 
     .drop-zone {
@@ -865,6 +982,16 @@
       box-shadow: 0 8px 24px rgba(249,115,22,0.28);
     }
 
+
+    .mobile-adjust-btn {
+      width: 100%;
+      max-width: 320px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      font-weight: 700;
+      padding: 11px 16px;
+    }
+
     header.app-header {
   position: sticky;
   top: 0;
@@ -1024,11 +1151,12 @@
 </header>
 <section class="panel p-6 mb-4">
 <h1 data-i18n="heroTitle" style="font-size:clamp(1.8rem,3vw,2.6rem);font-weight:800;line-height:1.1;color:#f8fafc;margin:0 0 12px;">Free Laser Engraving Photo Editor</h1>
-<p data-i18n-html="heroText" style="font-size:1rem;line-height:1.8;color:#cbd5e1;margin:0;max-width:900px;">Convert any photo into a laser engraving ready image directly in your browser. Adjust brightness, contrast, gamma, sharpness, dithering style, output size and DPI, then export a PNG prepared for LightBurn, LaserGRBL, XCS and other laser software. <strong style="color: var(--accent);">100% browser-based. Your images never leave your device.</strong></p>
+<p data-i18n-html="heroText" style="font-size:1rem;line-height:1.8;color:#cbd5e1;margin:0;max-width:900px;">Convert any photo into a laser engraving ready image directly in your browser. Adjust brightness, contrast, gamma, sharpness, dithering style, output size and DPI, then export a PNG prepared for LightBurn, LaserGRBL, XCS and other laser software. <strong style="color: var(--accent);">Your photos are processed locally in your browser and are not uploaded to our server.</strong></p>
 </section>
+<div aria-live="polite" class="status-message" id="statusMessage" role="status"></div>
 <div class="main-editor-layout"><div class="editor-preview-top"><div class="panel px-4 py-3 flex gap-3 items-center flex-wrap">
-<button class="btn view-btn active" data-i18n="btnCompare" id="btnCompare">Original + Output</button>
-<button class="btn view-btn" data-i18n="btnOutput" id="btnResult">Only Output</button>
+<button aria-pressed="true" class="btn view-btn active" data-i18n="btnCompare" id="btnCompare">Original + Output</button>
+<button aria-pressed="false" class="btn view-btn" data-i18n="btnOutput" id="btnResult">Only Output</button>
 <div class="ml-auto" id="imageDims" style="font-size:0.76rem;color:#7b8b9c;font-weight:600"></div>
 </div><div class="panel p-5">
 <div id="emptyState" style="min-height:320px">
@@ -1073,12 +1201,15 @@
 <div class="hint-line" data-i18n="hintLine">↑ Start right away with the demo photo or upload your own</div>
 </div>
 <div id="canvasArea" style="display:none">
+<div class="demo-notice" id="demoNotice"><span data-i18n="demoNoticeText">Demo image loaded — upload your own photo to start.</span></div>
 <div id="resultView" style="display:none">
+<div class="canvas-label accent" data-i18n="labelOutputPreview">Laser-ready output</div>
 <div class="zoom-hover canvas-wrap">
 <canvas class="w-full" id="canvasSingle"></canvas>
 </div>
-<div class="helper-text" data-i18n="zoomHelp" style="text-align:center;margin-top:10px;">Use the mouse wheel to zoom in or out. When zoomed in, drag the image with the mouse. Double-click resets zoom to 100%. For the best experience and more comfortable editing, we recommend using this tool on a desktop computer.</div>
+<div class="helper-text" data-i18n="zoomHelp" style="text-align:center;margin-top:10px;">Hold Ctrl / Cmd and use the mouse wheel to zoom. When zoomed in, drag the image with the mouse. Double-click resets zoom to 100%. For the best experience and more comfortable editing, we recommend using this tool on a desktop computer.</div>
 <div class="mobile-action-stack">
+<button class="btn btn-secondary mobile-adjust-btn" data-i18n="adjustSettingsBtn" id="adjustSettingsBtnResult">Adjust settings ↓</button>
 <button class="btn btn-primary mobile-reupload-btn" data-i18n="reuploadBtn" id="reuploadBtnResult">Upload photo</button>
 <button class="btn btn-primary mobile-download-btn" data-i18n="downloadBtn" id="downloadBtnMobileResult">Download PNG</button>
 </div>
@@ -1086,24 +1217,27 @@
 <div id="compareView">
 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
 <div>
+<div class="canvas-label" data-i18n="labelOriginalPreview">Original</div>
 <div class="zoom-hover canvas-wrap">
 <canvas class="w-full" id="canvasCompareOrig"></canvas>
 </div>
 </div>
 <div>
+<div class="canvas-label accent" data-i18n="labelOutputPreview">Laser-ready output</div>
 <div class="zoom-hover canvas-wrap">
 <canvas class="w-full" id="canvasCompareResult"></canvas>
 </div>
 </div>
 </div>
-<div class="helper-text" data-i18n="zoomHelp" style="text-align:center;margin-top:10px;">Use the mouse wheel to zoom in or out. When zoomed in, drag the image with the mouse. Double-click resets zoom to 100%. For the best experience and more comfortable editing, we recommend using this tool on a desktop computer.</div>
+<div class="helper-text" data-i18n="zoomHelp" style="text-align:center;margin-top:10px;">Hold Ctrl / Cmd and use the mouse wheel to zoom. When zoomed in, drag the image with the mouse. Double-click resets zoom to 100%. For the best experience and more comfortable editing, we recommend using this tool on a desktop computer.</div>
 <div class="mobile-action-stack">
+<button class="btn btn-secondary mobile-adjust-btn" data-i18n="adjustSettingsBtn" id="adjustSettingsBtnCompare">Adjust settings ↓</button>
 <button class="btn btn-primary mobile-reupload-btn" data-i18n="reuploadBtn" id="reuploadBtnCompare">Upload photo</button>
 <button class="btn btn-primary mobile-download-btn" data-i18n="downloadBtn" id="downloadBtnMobileCompare">Download PNG</button>
 </div>
 </div>
 </div>
-</div></div><div class="editor-controls-column">
+</div></div><div class="editor-controls-column" id="editorControlsColumn">
 <div class="panel p-4">
 <div class="section-title" data-i18n="sectionUpload">Upload Photo</div>
 <div class="drop-zone p-5 text-center cursor-pointer" id="dropZone">
@@ -1245,7 +1379,7 @@
 </div>
 <div class="help-card">
 <div class="help-card-title" data-i18n="seoCard3Title">Private browser processing</div>
-<div class="help-card-text" data-i18n="seoCard3Text">Your image is processed locally in your browser, so it does not need to leave your device.</div>
+<div class="help-card-text" data-i18n="seoCard3Text">Your photo is processed locally in your browser and is not uploaded to our server.</div>
 </div>
 </div>
 </section><div class="flex flex-col gap-3" id="helpArea">
@@ -1388,7 +1522,7 @@
 </div>
 <div class="help-card">
 <div class="help-card-title" data-i18n="faq6Question">Are my photos uploaded to a server?</div>
-<div class="help-card-text" data-i18n="faq6Answer">No. Image processing runs locally in your browser, so your photos do not need to be uploaded to a server.</div>
+<div class="help-card-text" data-i18n="faq6Answer">No. Photos are processed locally in your browser and are not uploaded to our server.</div>
 </div>
 </div>
 </div></div></div>
@@ -1415,7 +1549,7 @@
     const translations = {
       en: {
         heroTitle: 'Free Photo to Laser Engraving Converter Online',
-        heroText: 'Convert any image or photo into a laser engraving ready PNG directly in your browser. Adjust DPI, dithering, brightness, contrast, gamma, sharpness, output size and invert colors, then export a PNG prepared for LightBurn, XCS, LaserGRBL, EZCAD and other laser software. <strong style="color: var(--accent);">Free, private and 100% browser-based. Your images never leave your device.</strong>',
+        heroText: 'Convert any image or photo into a laser engraving ready PNG directly in your browser. Adjust DPI, dithering, brightness, contrast, gamma, sharpness, output size and invert colors, then export a PNG prepared for LightBurn, XCS, LaserGRBL, EZCAD and other laser software. <strong style="color: var(--accent);">Free to use. Your photos are processed locally in your browser and are not uploaded to our server.</strong>',
         seoIntroTitle: 'Free photo to laser engraving converter online',
         seoIntroText: 'Use <strong class="text-white">PhotoEngraving.online</strong> as a free image to laser engraving converter directly in your browser. Upload a photo, convert it to a laser-ready black-and-white PNG, choose DPI, adjust dithering, brightness, contrast, gamma and sharpness, then download the result for LightBurn, XCS, LaserGRBL, EZCAD and other laser software.',
         seoCard1Title: 'Free online tool',
@@ -1423,7 +1557,7 @@
         seoCard2Title: 'Laser-ready PNG output',
         seoCard2Text: 'Export black-and-white PNG files with DPI metadata for the correct physical size in laser software.',
         seoCard3Title: 'Private browser processing',
-        seoCard3Text: 'Your image is processed locally in your browser, so it does not need to leave your device.',
+        seoCard3Text: 'Your photo is processed locally in your browser and is not uploaded to our server.',
         faqTitle: 'Photo engraving FAQ',
         faq1Question: 'Is this photo to laser engraving converter free?',
         faq1Answer: 'Yes. The tool is free to use in your browser. You can convert a photo to a laser engraving PNG and download the result without installing software.',
@@ -1436,7 +1570,7 @@
         faq5Question: 'What does Invert Colors do?',
         faq5Answer: 'Invert Colors creates a negative output by swapping black and white in the final laser-ready image.',
         faq6Question: 'Are my photos uploaded to a server?',
-        faq6Answer: 'No. Image processing runs locally in your browser, so your photos do not need to be uploaded to a server.',
+        faq6Answer: 'No. Photos are processed locally in your browser and are not uploaded to our server.',
         counterLabel: '📸 Processed:',
         btnOutput: 'Only Output',
         btnCompare: 'Original + Output',
@@ -1449,7 +1583,7 @@
         stepDownloadTitle: 'Download PNG',
         stepDownloadText: 'Ready for engraving',
         hintLine: '↑ Start right away with the demo photo or upload your own',
-        zoomHelp: 'Use the mouse wheel to zoom in or out. When zoomed in, drag the image with the mouse. Double-click resets zoom to 100%. For the best experience and more comfortable editing, we recommend using this tool on a desktop computer.',
+        zoomHelp: 'Hold Ctrl / Cmd and use the mouse wheel to zoom. When zoomed in, drag the image with the mouse. Double-click resets zoom to 100%. For the best experience and more comfortable editing, we recommend using this tool on a desktop computer.',
         reuploadBtn: 'Upload photo',
         sectionUpload: 'Upload Photo',
         dropZoneMain: 'Drag & drop or click to choose',
@@ -1496,6 +1630,13 @@
         iosText: 'Press and hold the image and choose <strong style="color:#e2e8f0">Add to Photos</strong> or <strong style="color:#e2e8f0">Save Image</strong>.',
         iosClose: 'Close',
         demoLoadFail: 'Demo image could not be loaded.',
+        alertInvalidFile: 'Please upload an image file: JPG, PNG, BMP or WebP.',
+        statusImageLoaded: 'Image loaded. You can now adjust settings or download the PNG.',
+        demoNoticeText: 'Demo image loaded — upload your own photo to start.',
+        adjustSettingsBtn: 'Adjust settings ↓',
+        labelOriginalPreview: 'Original',
+        labelOutputPreview: 'Laser-ready output',
+        confirmLargeOutput: 'This output is very large ({mp} MP) and may be slow or freeze on weaker devices. Continue?',
         emptyOriginalAlt: 'Preview original image',
         emptyResultAlt: 'Preview output image',
         helpIntroTitle: 'What does this tool do?',
@@ -1563,7 +1704,7 @@
         faq5Question: '¿Qué hace Invertir colores?',
         faq5Answer: 'Invertir colores crea una salida negativa intercambiando blanco y negro en la imagen final lista para láser.',
         faq6Question: '¿Mis fotos se suben a un servidor?',
-        faq6Answer: 'No. El procesamiento de imágenes se ejecuta localmente en tu navegador, por lo que tus fotos no necesitan subirse a un servidor.',
+        faq6Answer: 'No. Las fotos se procesan localmente en tu navegador y no se suben a nuestro servidor.',
         counterLabel: '📸 Procesadas:',
         btnOutput: 'Solo salida',
         btnCompare: 'Original + salida',
@@ -1623,6 +1764,13 @@
         iosText: 'Mantén pulsada la imagen y elige <strong style="color:#e2e8f0">Añadir a Fotos</strong> o <strong style="color:#e2e8f0">Guardar imagen</strong>.',
         iosClose: 'Cerrar',
         demoLoadFail: 'No se pudo cargar la imagen de ejemplo.',
+        alertInvalidFile: 'Sube un archivo de imagen: JPG, PNG, BMP o WebP.',
+        statusImageLoaded: 'Imagen cargada. Ahora puedes ajustar la configuración o descargar el PNG.',
+        demoNoticeText: 'Imagen de demostración cargada — sube tu propia foto para empezar.',
+        adjustSettingsBtn: 'Ajustar configuración ↓',
+        labelOriginalPreview: 'Original',
+        labelOutputPreview: 'Salida lista para láser',
+        confirmLargeOutput: 'Esta salida es muy grande ({mp} MP) y puede ser lenta o bloquear dispositivos menos potentes. ¿Continuar?',
         emptyOriginalAlt: 'Vista previa de imagen original',
         emptyResultAlt: 'Vista previa de imagen de salida',
         helpIntroTitle: '¿Qué hace esta herramienta?',
@@ -1750,6 +1898,13 @@
         iosText: 'Halte das Bild gedrückt und wähle <strong style="color:#e2e8f0">Zu Fotos hinzufügen</strong> oder <strong style="color:#e2e8f0">Bild sichern</strong>.',
         iosClose: 'Schließen',
         demoLoadFail: 'Das Demo-Bild konnte nicht geladen werden.',
+        alertInvalidFile: 'Bitte lade eine Bilddatei hoch: JPG, PNG, BMP oder WebP.',
+        statusImageLoaded: 'Bild geladen. Du kannst jetzt Einstellungen anpassen oder das PNG herunterladen.',
+        demoNoticeText: 'Demo-Bild geladen — lade dein eigenes Foto hoch, um zu starten.',
+        adjustSettingsBtn: 'Einstellungen anpassen ↓',
+        labelOriginalPreview: 'Original',
+        labelOutputPreview: 'Laserfertige Ausgabe',
+        confirmLargeOutput: 'Diese Ausgabe ist sehr groß ({mp} MP) und kann langsam sein oder schwächere Geräte einfrieren lassen. Fortfahren?',
         emptyOriginalAlt: 'Vorschau des Originalbilds',
         emptyResultAlt: 'Vorschau des Ausgabebilds',
         helpIntroTitle: 'Was macht dieses Tool?',
@@ -1856,6 +2011,13 @@
         iosText: 'Podrž prst na obrázku a vyber <strong style="color:#e2e8f0">Přidat do Fotek</strong> nebo <strong style="color:#e2e8f0">Uložit obrázek</strong>.',
         iosClose: 'Zavřít',
         demoLoadFail: 'Demo obrázek se nepodařilo načíst.',
+        alertInvalidFile: 'Nahraj prosím obrázek ve formátu JPG, PNG, BMP nebo WebP.',
+        statusImageLoaded: 'Obrázek je načtený. Teď můžeš upravit nastavení nebo stáhnout PNG.',
+        demoNoticeText: 'Je načtený demo obrázek — nahraj vlastní fotku a začni.',
+        adjustSettingsBtn: 'Upravit nastavení ↓',
+        labelOriginalPreview: 'Originál',
+        labelOutputPreview: 'Výstup pro laser',
+        confirmLargeOutput: 'Výstup je velmi velký ({mp} MP) a může být pomalý nebo zaseknout slabší zařízení. Pokračovat?',
         emptyOriginalAlt: 'Ukázka originálního obrázku',
         emptyResultAlt: 'Ukázka výstupního obrázku',
         helpIntroTitle: 'Co tento nástroj umí?',
@@ -1949,6 +2111,11 @@
     const fileInput = document.getElementById('fileInput');
     const dropZone = document.getElementById('dropZone');
     const uploadCtaCard = document.getElementById('uploadCtaCard');
+    const statusMessage = document.getElementById('statusMessage');
+    const demoNotice = document.getElementById('demoNotice');
+    const editorControlsColumn = document.getElementById('editorControlsColumn');
+    const btnResult = document.getElementById('btnResult');
+    const btnCompare = document.getElementById('btnCompare');
 
     const brightness = document.getElementById('brightness');
     const contrast = document.getElementById('contrast');
@@ -2174,6 +2341,7 @@
 
       updateSizeInfo();
       syncCustomDpiSelect();
+      updateSeoMeta();
     }
 
     function setLanguage(lang) {
@@ -2203,14 +2371,65 @@
       currentLang = 'en';
     }
 
+    function setMetaContent(selector, content) {
+      const el = document.querySelector(selector);
+      if (el && content) el.setAttribute('content', content);
+    }
+
+    function updateSeoMeta() {
+      const pathLang = location.pathname.split('/').filter(Boolean)[0];
+      const lang = translations[pathLang] ? pathLang : currentLang;
+      const baseUrl = 'https://photoengraving.online';
+      const localizedPath = lang === 'en' ? '/' : `/${lang}/`;
+      const url = `${baseUrl}${localizedPath}`;
+
+      const seo = {
+        en: {
+          title: 'Free Photo to Laser Engraving Converter Online | PhotoEngraving.online',
+          description: 'Free photo to laser engraving converter online. Create laser-ready black and white PNGs with DPI, dithering, invert colors and local browser processing.',
+          ogTitle: 'Free Photo to Laser Engraving Converter Online',
+          ogDescription: 'Convert images and photos to laser engraving PNGs online for free. Adjust DPI, dithering, brightness, contrast, gamma, sharpness and invert colors in your browser.'
+        },
+        es: {
+          title: 'Convertidor gratis de fotos para grabado láser online | PhotoEngraving.online',
+          description: 'Convierte fotos para grabado láser online gratis. Crea PNG en blanco y negro con DPI, tramado, inversión de colores y procesamiento local en el navegador.',
+          ogTitle: 'Convertidor gratis de fotos para grabado láser online',
+          ogDescription: 'Convierte imágenes y fotos en PNG listos para grabado láser. Ajusta DPI, tramado, brillo, contraste, gamma, nitidez e inversión de colores en tu navegador.'
+        },
+        de: {
+          title: 'Kostenloser Foto-zu-Lasergravur-Konverter online | PhotoEngraving.online',
+          description: 'Kostenloser Online-Konverter für Fotos zur Lasergravur. Erstelle laserfertige Schwarz-Weiß-PNGs mit DPI, Dithering, Invertierung und lokaler Browser-Verarbeitung.',
+          ogTitle: 'Kostenloser Foto-zu-Lasergravur-Konverter online',
+          ogDescription: 'Wandle Bilder und Fotos kostenlos in PNGs für Lasergravur um. Passe DPI, Dithering, Helligkeit, Kontrast, Gamma, Schärfe und invertierte Farben im Browser an.'
+        },
+        cs: {
+          title: 'Převod fotky pro laserové gravírování zdarma online | PhotoEngraving.online',
+          description: 'Převeď fotku pro laserové gravírování online zdarma. Vytvoř černobílý PNG s DPI, ditheringem, inverzí barev a lokálním zpracováním v prohlížeči.',
+          ogTitle: 'Převod fotky pro laserové gravírování zdarma online',
+          ogDescription: 'Převeď obrázky a fotografie na PNG připravený pro laserové gravírování. Uprav DPI, dithering, jas, kontrast, gammu, ostrost a inverzi barev přímo v prohlížeči.'
+        }
+      }[lang] || {};
+
+      document.title = seo.title || document.title;
+      setMetaContent('meta[name="description"]', seo.description);
+      setMetaContent('meta[property="og:title"]', seo.ogTitle);
+      setMetaContent('meta[property="og:description"]', seo.ogDescription);
+      setMetaContent('meta[name="twitter:title"]', seo.ogTitle);
+      setMetaContent('meta[name="twitter:description"]', seo.description);
+      setMetaContent('meta[property="og:url"]', url);
+
+      const canonical = document.querySelector('link[rel="canonical"]');
+      if (canonical) canonical.setAttribute('href', url);
+    }
+
     langButtons.forEach(btn => {
       btn.addEventListener('click', () => {
         try { localStorage.setItem(LANG_STORAGE_KEY, btn.dataset.lang); } catch (e) {}
       });
     });
 
-    document.getElementById('btnResult').addEventListener('click', () => setViewMode('result'));
-    document.getElementById('btnCompare').addEventListener('click', () => setViewMode('compare'));
+    btnResult.addEventListener('click', () => setViewMode('result'));
+    btnCompare.addEventListener('click', () => setViewMode('compare'));
 
     const sliderPairs = [
       ['brightness', 'brightnessVal'],
@@ -2220,8 +2439,58 @@
       ['outputWidthSlider', 'outputWidthSliderVal']
     ];
 
-    dropZone.addEventListener('click', () => fileInput.click());
-    uploadCtaCard.addEventListener('click', () => fileInput.click());
+    function showStatus(message, type = 'info') {
+      if (!statusMessage) return;
+      statusMessage.textContent = message;
+      statusMessage.dataset.type = type;
+      statusMessage.classList.add('visible');
+
+      clearTimeout(showStatus.timer);
+      showStatus.timer = setTimeout(() => {
+        statusMessage.classList.remove('visible');
+        statusMessage.textContent = '';
+        statusMessage.dataset.type = 'info';
+      }, type === 'error' ? 6000 : 4000);
+    }
+
+    function makeKeyboardClickable(el, handler) {
+      if (!el || typeof handler !== 'function') return;
+      el.setAttribute('role', 'button');
+      el.setAttribute('tabindex', '0');
+      el.addEventListener('click', handler);
+      el.addEventListener('keydown', e => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          handler(e);
+        }
+      });
+    }
+
+    function scrollToControls() {
+      if (!editorControlsColumn) return;
+      editorControlsColumn.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function showDemoNotice(isDemo) {
+      if (!demoNotice) return;
+      demoNotice.style.display = isDemo ? 'block' : 'none';
+    }
+
+    function getOutputMegapixels(widthPx = getOutputWidthPx()) {
+      const heightPx = getOutputHeightPx(widthPx);
+      if (!heightPx) return 0;
+      return (widthPx * heightPx) / 1000000;
+    }
+
+    function shouldContinueLargeExport() {
+      const megapixels = getOutputMegapixels();
+      if (megapixels <= 25) return true;
+
+      return confirm(t('confirmLargeOutput').replace('{mp}', megapixels.toFixed(1)));
+    }
+
+    makeKeyboardClickable(dropZone, () => fileInput.click());
+    makeKeyboardClickable(uploadCtaCard, () => fileInput.click());
 
     document.addEventListener('click', function(e) {
       const reuploadBtn = e.target.closest('#reuploadBtnResult, #reuploadBtnCompare');
@@ -2235,10 +2504,19 @@
         downloadResult();
         return;
       }
+
+      const adjustSettingsBtn = e.target.closest('#adjustSettingsBtnResult, #adjustSettingsBtnCompare');
+      if (adjustSettingsBtn) {
+        scrollToControls();
+        return;
+      }
     });
 
     fileInput.addEventListener('change', e => {
-      if (e.target.files && e.target.files[0]) loadFile(e.target.files[0]);
+      if (e.target.files && e.target.files[0]) {
+        loadFile(e.target.files[0]);
+        e.target.value = '';
+      }
     });
 
     dropZone.addEventListener('dragover', e => {
@@ -2257,9 +2535,7 @@
     });
 
     presetCards.forEach(card => {
-      card.addEventListener('click', () => {
-        applyPreset(card.dataset.preset);
-      });
+      makeKeyboardClickable(card, () => applyPreset(card.dataset.preset));
     });
 
     ditherMode.addEventListener('change', () => {
@@ -2360,15 +2636,19 @@
 
     function setViewMode(mode) {
       viewMode = mode;
-      document.getElementById('btnResult').classList.toggle('active', mode === 'result');
-      document.getElementById('btnCompare').classList.toggle('active', mode === 'compare');
+      btnResult.classList.toggle('active', mode === 'result');
+      btnCompare.classList.toggle('active', mode === 'compare');
+      btnResult.setAttribute('aria-pressed', mode === 'result' ? 'true' : 'false');
+      btnCompare.setAttribute('aria-pressed', mode === 'compare' ? 'true' : 'false');
       document.getElementById('resultView').style.display = mode === 'result' ? 'block' : 'none';
       document.getElementById('compareView').style.display = mode === 'compare' ? 'block' : 'none';
     }
 
     function setActivePresetCard(key) {
       presetCards.forEach(card => {
-        card.classList.toggle('active', card.dataset.preset === key);
+        const isActive = card.dataset.preset === key;
+        card.classList.toggle('active', isActive);
+        card.setAttribute('aria-pressed', isActive ? 'true' : 'false');
       });
     }
 
@@ -2492,6 +2772,7 @@
     function attachWheelZoom(wrapper, canvas) {
       wrapper.addEventListener('wheel', (e) => {
         if (!canvas.width || !canvas.height) return;
+        if (!e.ctrlKey && !e.metaKey) return;
 
         e.preventDefault();
 
@@ -2657,9 +2938,10 @@
       }, 120);
     }
 
-    function loadImageIntoEditor(img, switchToResult = false, targetDpi = null) {
+    function loadImageIntoEditor(img, switchToResult = false, targetDpi = null, isDemo = false) {
       originalImage = img;
       showEditor();
+      showDemoNotice(isDemo);
 
       applyCurrentPresetValues();
       setActivePresetCard(currentPreset);
@@ -2684,18 +2966,24 @@
     }
 
     function loadFile(file) {
-      if (!file || !file.type.startsWith('image/')) return;
+      if (!file) return;
+
+      if (!file.type.startsWith('image/')) {
+        showStatus(t('alertInvalidFile'), 'error');
+        return;
+      }
 
       const reader = new FileReader();
       reader.onload = ev => {
         const img = new Image();
         img.onload = () => {
-          loadImageIntoEditor(img, true);
+          loadImageIntoEditor(img, true, null, false);
+          showStatus(t('statusImageLoaded'), 'success');
         };
-        img.onerror = () => alert(t('alertLoadFail'));
+        img.onerror = () => showStatus(t('alertLoadFail'), 'error');
         img.src = ev.target.result;
       };
-      reader.onerror = () => alert(t('alertReadFail'));
+      reader.onerror = () => showStatus(t('alertReadFail'), 'error');
       reader.readAsDataURL(file);
     }
 
@@ -2704,7 +2992,7 @@
       let triedFallback = false;
 
       img.onload = () => {
-        loadImageIntoEditor(img, false);
+        loadImageIntoEditor(img, false, null, true);
       };
 
       img.onerror = () => {
@@ -3249,9 +3537,11 @@
 
     async function downloadResult() {
       if (!canvasSingle.width) {
-        alert(t('alertUploadFirst'));
+        showStatus(t('alertUploadFirst'), 'error');
         return;
       }
+
+      if (!shouldContinueLargeExport()) return;
 
       try {
         const dpiValue = getDpiValue();
@@ -3274,7 +3564,7 @@
         setTimeout(() => URL.revokeObjectURL(url), 1500);
       } catch (err) {
         console.error(err);
-        alert(t('alertPngFail'));
+        showStatus(t('alertPngFail'), 'error');
       }
     }
 
