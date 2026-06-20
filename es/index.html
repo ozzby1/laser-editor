@@ -24,12 +24,9 @@
 <meta content="Convertidor de foto a grabado láser gratis online" property="og:title"/>
 <meta content="Convierte imágenes y fotos en PNG listos para grabado láser. Ajusta DPI, tramado, brillo, contraste, gamma, nitidez e inversión de colores directamente en tu navegador." property="og:description"/>
 <meta content="es_ES" property="og:locale"/>
-<meta content="en_US" property="og:locale:alternate"/>
+<meta content="es_ES" property="og:locale:alternate"/>
 <meta content="de_DE" property="og:locale:alternate"/>
 <meta content="cs_CZ" property="og:locale:alternate"/>
-
-
-
 <meta content="https://photoengraving.online/fb.png" property="og:image"/>
 <meta content="1200" property="og:image:width"/>
 <meta content="630" property="og:image:height"/>
@@ -543,7 +540,8 @@
     .preset-card:focus-visible,
     .empty-step.primary:focus-visible,
     .btn:focus-visible,
-    .lang-btn:focus-visible {
+    .lang-current:focus-visible,
+    .lang-option:focus-visible {
       outline: 3px solid rgba(249,115,22,0.45);
       outline-offset: 3px;
     }
@@ -680,37 +678,117 @@
     }
 
     .lang-switcher {
-      display: flex;
-      gap: 6px;
+      position: relative;
+      display: inline-flex;
       align-items: center;
     }
 
-    .lang-btn {
+    .lang-current {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      text-decoration: none;
-      min-width: 34px;
-      background: rgba(255,255,255,0.04);
+      gap: 7px;
+      min-width: 46px;
+      min-height: 34px;
+      background: rgba(249,115,22,0.12);
       color: #e2e8f0;
-      border: 1px solid rgba(255,255,255,0.08);
+      border: 1px solid rgba(249,115,22,0.55);
       border-radius: 10px;
       padding: 6px 9px;
       font-size: 1rem;
       line-height: 1;
       cursor: pointer;
       transition: all 0.18s ease;
-    }
-
-    .lang-btn:hover {
-      background: rgba(255,255,255,0.08);
-      border-color: rgba(249,115,22,0.28);
-    }
-
-    .lang-btn.active {
-      background: rgba(249,115,22,0.12);
-      border-color: rgba(249,115,22,0.55);
       box-shadow: 0 0 0 1px rgba(249,115,22,0.14);
+    }
+
+    .lang-current:hover,
+    .lang-current[aria-expanded="true"] {
+      background: rgba(249,115,22,0.18);
+      border-color: rgba(249,115,22,0.70);
+      box-shadow: 0 10px 24px rgba(249,115,22,0.12), 0 0 0 1px rgba(249,115,22,0.18);
+    }
+
+    .lang-current-flag,
+    .lang-option-flag {
+      font-size: 1rem;
+      line-height: 1;
+    }
+
+    .lang-current-name {
+      position: absolute !important;
+      width: 1px !important;
+      height: 1px !important;
+      padding: 0 !important;
+      margin: -1px !important;
+      overflow: hidden !important;
+      clip: rect(0, 0, 0, 0) !important;
+      white-space: nowrap !important;
+      border: 0 !important;
+    }
+
+    .lang-chevron {
+      width: 7px;
+      height: 7px;
+      border-right: 2px solid #ff9a57;
+      border-bottom: 2px solid #ff9a57;
+      transform: translateY(-2px) rotate(45deg);
+      transition: transform 0.18s ease;
+      flex-shrink: 0;
+    }
+
+    .lang-switcher.open .lang-chevron {
+      transform: translateY(2px) rotate(225deg);
+    }
+
+    .lang-menu {
+      display: none;
+      position: absolute;
+      top: calc(100% + 8px);
+      right: 0;
+      z-index: 140;
+      min-width: 176px;
+      padding: 8px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.035), rgba(255,255,255,0.015)), var(--panel-strong);
+      border: 1px solid rgba(249,115,22,0.24);
+      border-radius: 16px;
+      box-shadow: 0 18px 48px rgba(0,0,0,0.42), 0 0 0 1px rgba(249,115,22,0.08);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+    }
+
+    .lang-switcher.open .lang-menu {
+      display: grid;
+      gap: 4px;
+    }
+
+    .lang-option {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      width: 100%;
+      text-decoration: none;
+      color: #dbe7f3;
+      background: transparent;
+      border: 1px solid transparent;
+      border-radius: 12px;
+      padding: 10px 11px;
+      font-size: 0.84rem;
+      font-weight: 700;
+      line-height: 1.25;
+      transition: background 0.16s ease, border-color 0.16s ease, color 0.16s ease;
+    }
+
+    .lang-option:hover,
+    .lang-option:focus {
+      background: rgba(255,255,255,0.07);
+      border-color: rgba(249,115,22,0.24);
+      color: #ffffff;
+      outline: none;
+    }
+
+    .lang-option.active {
+      display: none;
     }
 
     .info-card {
@@ -1138,11 +1216,19 @@
 <a href="https://buymeacoffee.com/janosobav" rel="noopener noreferrer" style="display:flex;align-items:center;" target="_blank">
 <img alt="Invítame a un café" class="coffee-logo" src="/bac.png"/>
 </a>
-<nav aria-label="Selector de idioma" class="lang-switcher" id="langSwitcher">
-<a aria-label="Inglés" class="lang-btn" data-lang="en" href="https://photoengraving.online/" hreflang="en" lang="en" title="Inglés">🇬🇧</a>
-<a aria-label="Español" class="lang-btn active" data-lang="es" href="https://photoengraving.online/es/" hreflang="es" lang="es" title="Español">🇪🇸</a>
-<a aria-label="Alemán" class="lang-btn" data-lang="de" href="https://photoengraving.online/de/" hreflang="de" lang="de" title="Alemán">🇩🇪</a>
-<a aria-label="Checo" class="lang-btn" data-lang="cs" href="https://photoengraving.online/cs/" hreflang="cs" lang="cs" title="Checo">🇨🇿</a>
+<nav aria-label="Selector de idioma" class="lang-switcher lang-dropdown" id="langSwitcher">
+<button aria-controls="langMenu" aria-expanded="false" aria-haspopup="true" aria-label="Idioma actual: Español. Cambiar idioma" class="lang-current" id="langCurrentButton" type="button">
+<span aria-hidden="true" class="lang-current-flag" id="langCurrentFlag">🇪🇸</span>
+<span class="lang-current-name" id="langCurrentName">Español</span>
+<span aria-hidden="true" class="lang-chevron"></span>
+</button>
+<div aria-label="Elegir idioma" class="lang-menu" id="langMenu" role="menu">
+<a aria-label="Inglés" class="lang-option" data-lang="en" href="https://photoengraving.online/" hreflang="en" lang="en" role="menuitem" title="Inglés"><span aria-hidden="true" class="lang-option-flag">🇬🇧</span><span class="lang-option-text">Inglés</span></a>
+<a aria-label="Español" class="lang-option active" data-lang="es" href="https://photoengraving.online/es/" hreflang="es" lang="es" role="menuitem" title="Español" aria-current="page"><span aria-hidden="true" class="lang-option-flag">🇪🇸</span><span class="lang-option-text">Español</span></a>
+<a aria-label="Alemán" class="lang-option" data-lang="de" href="https://photoengraving.online/de/" hreflang="de" lang="de" role="menuitem" title="Alemán"><span aria-hidden="true" class="lang-option-flag">🇩🇪</span><span class="lang-option-text">Alemán</span></a>
+<a aria-label="Polaco" class="lang-option" data-lang="pl" href="https://photoengraving.online/pl/" hreflang="pl" lang="pl" role="menuitem" title="Polaco"><span aria-hidden="true" class="lang-option-flag">🇵🇱</span><span class="lang-option-text">Polaco</span></a>
+<a aria-label="Checo" class="lang-option" data-lang="cs" href="https://photoengraving.online/cs/" hreflang="cs" lang="cs" role="menuitem" title="Checo"><span aria-hidden="true" class="lang-option-flag">🇨🇿</span><span class="lang-option-text">Checo</span></a>
+</div>
 </nav>
 <div class="counter-badge">
 <span data-i18n="counterLabel">📸 Procesadas:</span>
@@ -2143,7 +2229,20 @@
     const canvasCompareResult = document.getElementById('canvasCompareResult');
 
     const presetCards = document.querySelectorAll('.preset-card');
-    const langButtons = document.querySelectorAll('.lang-btn');
+    const langButtons = document.querySelectorAll('.lang-option');
+
+    const LANG_DATA = {
+      en: { flag: '🇬🇧', name: 'English' },
+      es: { flag: '🇪🇸', name: 'Español' },
+      de: { flag: '🇩🇪', name: 'Deutsch' },
+      pl: { flag: '🇵🇱', name: 'Polski' },
+      cs: { flag: '🇨🇿', name: 'Čeština' }
+    };
+    const langSwitcher = document.getElementById('langSwitcher');
+    const langCurrentButton = document.getElementById('langCurrentButton');
+    const langCurrentFlag = document.getElementById('langCurrentFlag');
+    const langCurrentName = document.getElementById('langCurrentName');
+    const langMenu = document.getElementById('langMenu');
 
     function t(key) {
       return (translations[currentLang] && translations[currentLang][key]) || translations.en[key] || key;
@@ -2345,13 +2444,51 @@
       updateSeoMeta();
     }
 
+
+    function closeLangDropdown() {
+      if (!langSwitcher || !langCurrentButton) return;
+      langSwitcher.classList.remove('open');
+      langCurrentButton.setAttribute('aria-expanded', 'false');
+    }
+
+    function openLangDropdown() {
+      if (!langSwitcher || !langCurrentButton) return;
+      langSwitcher.classList.add('open');
+      langCurrentButton.setAttribute('aria-expanded', 'true');
+    }
+
+    function toggleLangDropdown() {
+      if (!langSwitcher) return;
+      if (langSwitcher.classList.contains('open')) {
+        closeLangDropdown();
+      } else {
+        openLangDropdown();
+      }
+    }
+
+    function updateLangDropdown(lang) {
+      const data = LANG_DATA[lang] || LANG_DATA.en;
+
+      if (langCurrentFlag) langCurrentFlag.textContent = data.flag;
+      if (langCurrentName) langCurrentName.textContent = data.name;
+      if (langCurrentButton) langCurrentButton.setAttribute('aria-label', `Current language: ${data.name}. Change language`);
+
+      langButtons.forEach(btn => {
+        const isActive = btn.dataset.lang === lang;
+        btn.classList.toggle('active', isActive);
+        if (isActive) {
+          btn.setAttribute('aria-current', 'page');
+        } else {
+          btn.removeAttribute('aria-current');
+        }
+      });
+    }
+
     function setLanguage(lang) {
       if (!translations[lang]) lang = 'en';
       currentLang = lang;
 
-      langButtons.forEach(btn => {
-        btn.classList.toggle('active', btn.dataset.lang === lang);
-      });
+      updateLangDropdown(lang);
 
       try {
         localStorage.setItem(LANG_STORAGE_KEY, lang);
@@ -2422,6 +2559,54 @@
       const canonical = document.querySelector('link[rel="canonical"]');
       if (canonical) canonical.setAttribute('href', url);
     }
+
+
+    if (langCurrentButton) {
+      langCurrentButton.addEventListener('click', toggleLangDropdown);
+      langCurrentButton.addEventListener('keydown', e => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          toggleLangDropdown();
+        }
+
+        if (e.key === 'ArrowDown') {
+          e.preventDefault();
+          openLangDropdown();
+          const firstOption = langMenu ? langMenu.querySelector('.lang-option:not(.active)') : null;
+          if (firstOption) firstOption.focus();
+        }
+
+        if (e.key === 'Escape') closeLangDropdown();
+      });
+    }
+
+    if (langMenu) {
+      langMenu.addEventListener('keydown', e => {
+        const options = Array.from(langMenu.querySelectorAll('.lang-option:not(.active)'));
+        const currentIndex = options.indexOf(document.activeElement);
+
+        if (e.key === 'Escape') {
+          closeLangDropdown();
+          if (langCurrentButton) langCurrentButton.focus();
+        }
+
+        if (e.key === 'ArrowDown') {
+          e.preventDefault();
+          const next = options[Math.min(options.length - 1, currentIndex + 1)] || options[0];
+          if (next) next.focus();
+        }
+
+        if (e.key === 'ArrowUp') {
+          e.preventDefault();
+          const prev = options[Math.max(0, currentIndex - 1)] || options[options.length - 1];
+          if (prev) prev.focus();
+        }
+      });
+    }
+
+    document.addEventListener('click', e => {
+      if (langSwitcher && !langSwitcher.contains(e.target)) closeLangDropdown();
+    });
 
     langButtons.forEach(btn => {
       btn.addEventListener('click', () => {
