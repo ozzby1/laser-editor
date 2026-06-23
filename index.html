@@ -526,11 +526,10 @@
     .demo-notice {
       display: none;
       margin-bottom: 12px;
-      padding: 11px 13px;
-      border-radius: 14px;
-      border: 1px solid rgba(249,115,22,0.24);
-      background: rgba(249,115,22,0.08);
-      color: #fed7aa;
+      padding: 0;
+      border: 0;
+      background: transparent;
+      color: #94a3b8;
       font-size: 0.8rem;
       line-height: 1.45;
       font-weight: 650;
@@ -541,10 +540,10 @@
       align-items: center;
       gap: 6px;
       margin-bottom: 8px;
-      padding: 5px 10px;
-      border-radius: 999px;
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.08);
+      padding: 0;
+      border-radius: 0;
+      background: transparent;
+      border: 0;
       color: #cbd5e1;
       font-size: 0.72rem;
       font-weight: 800;
@@ -553,8 +552,8 @@
     }
 
     .canvas-label.accent {
-      background: rgba(249,115,22,0.10);
-      border-color: rgba(249,115,22,0.30);
+      background: transparent;
+      border-color: transparent;
       color: #fdba74;
     }
 
@@ -836,9 +835,9 @@
     .canvas-wrap {
       border-radius: 14px;
       overflow: hidden;
-      border: 1px solid rgba(255,255,255,0.06);
+      border: 0;
       background: #000;
-      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.02);
+      box-shadow: none;
     }
 
     .zoom-hover {
@@ -1118,20 +1117,7 @@
       width: auto;
       filter: drop-shadow(0 8px 22px rgba(0,0,0,0.22));
     }
-
-    .coffee-logo {
-      height: 28px;
-      width: auto;
-      transition: 0.2s;
-      border-radius: 10px;
-    }
-
-    .coffee-logo:hover {
-      transform: translateY(-1px);
-      filter: brightness(1.05);
-    }
-
-    .main-editor-layout {
+.main-editor-layout {
       display: grid !important;
       grid-template-columns: minmax(0, 2fr) minmax(300px, 1fr) !important;
       gap: 1rem !important;
@@ -1241,9 +1227,6 @@
 <img alt="Photoengraving Logo" class="brand-logo" src="/logo.png"/>
 </a>
 <div class="ml-auto flex flex-wrap gap-2 items-center">
-<a href="https://buymeacoffee.com/janosobav" rel="noopener noreferrer" style="display:flex;align-items:center;" target="_blank">
-<img alt="Buy me a coffee" class="coffee-logo" src="/bac.png"/>
-</a>
 <nav aria-label="Language selector" class="lang-switcher lang-dropdown" id="langSwitcher">
 <button aria-controls="langMenu" aria-expanded="false" aria-haspopup="true" aria-label="Current language: English. Change language" class="lang-current" id="langCurrentButton" type="button">
 <span aria-hidden="true" class="lang-current-flag" id="langCurrentFlag">🇬🇧</span>
