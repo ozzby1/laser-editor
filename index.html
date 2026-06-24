@@ -410,6 +410,37 @@
       box-shadow: inset 0 0 0 1px rgba(249,115,22,0.10);
     }
 
+    /* DPI options are shown as a full visible menu instead of a closed dropdown. */
+    #dpiCustomSelect {
+      display: grid;
+      gap: 8px;
+    }
+
+    #dpiCustomSelect .custom-select-button {
+      display: none;
+    }
+
+    #dpiCustomSelect .custom-select-dropdown {
+      display: grid;
+      position: static;
+      z-index: auto;
+      top: auto;
+      left: auto;
+      right: auto;
+      max-height: none;
+      overflow: visible;
+      grid-template-columns: repeat(auto-fit, minmax(165px, 1fr));
+      gap: 8px;
+    }
+
+    #dpiCustomSelect .custom-select-dropdown li {
+      margin: 0;
+    }
+
+    #dpiCustomSelect.open .custom-select-dropdown {
+      display: grid;
+    }
+
     .custom-dpi-input-wrap {
       background: rgba(255,255,255,0.025);
       border: 1px solid rgba(255,255,255,0.06);
@@ -1558,6 +1589,7 @@
 <button class="btn btn-secondary mobile-adjust-btn" data-i18n="adjustSettingsBtn" id="adjustSettingsBtnResult">Adjust settings ↓</button>
 <button class="btn btn-primary mobile-reupload-btn" data-i18n="reuploadBtn" id="reuploadBtnResult">Upload photo</button>
 <button class="btn btn-primary mobile-download-btn" data-i18n="downloadBtn" id="downloadBtnMobileResult">Download PNG</button>
+<button class="btn btn-secondary mobile-download-btn" data-i18n="downloadBmpBtn" id="downloadBmpBtnMobileResult">Download BMP</button>
 </div>
 </div>
 <div id="compareView">
@@ -1580,6 +1612,7 @@
 <button class="btn btn-secondary mobile-adjust-btn" data-i18n="adjustSettingsBtn" id="adjustSettingsBtnCompare">Adjust settings ↓</button>
 <button class="btn btn-primary mobile-reupload-btn" data-i18n="reuploadBtn" id="reuploadBtnCompare">Upload photo</button>
 <button class="btn btn-primary mobile-download-btn" data-i18n="downloadBtn" id="downloadBtnMobileCompare">Download PNG</button>
+<button class="btn btn-secondary mobile-download-btn" data-i18n="downloadBmpBtn" id="downloadBmpBtnMobileCompare">Download BMP</button>
 </div>
 </div>
 </div>
@@ -1598,10 +1631,8 @@
 <div class="grid grid-cols-2 gap-2" id="presetCards">
 <div class="preset-card" data-i18n="presetCustom" data-preset="custom">Custom</div>
 <div class="preset-card active" data-i18n="presetNormal" data-preset="normal">Normal Photo</div>
-<div class="preset-card" data-i18n="presetPortrait" data-preset="portrait">People</div>
 <div class="preset-card" data-i18n="presetDark" data-preset="dark">Dark Photo</div>
 <div class="preset-card" data-i18n="presetLight" data-preset="light">Light Photo</div>
-<div class="preset-card" data-i18n="presetDetail" data-preset="detail">🔍 More Detail</div>
 </div>
 <div class="helper-text mt-2" data-i18n="presetHelp">Default is Normal Photo. You can fine-tune everything with the sliders below.</div>
 </div>
@@ -1666,12 +1697,12 @@
 <div class="helper-text" data-i18n="outputWidthMmHelp">Enter the real engraving width in millimeters.</div>
 </div>
 <div>
-<label data-i18n="labelDpi" for="dpiCustomButton">Resolution (DPI)</label>
+<label data-i18n="labelDpi" for="dpi" id="dpiLabel">Resolution (DPI)</label>
 <div class="custom-select mt-1" id="dpiCustomSelect">
 <button aria-expanded="false" aria-haspopup="listbox" class="custom-select-button" id="dpiCustomButton" type="button">
 <span id="dpiCustomValue">254 DPI (LightBurn Standard - 0,10 mm)</span>
 </button>
-<ul aria-labelledby="dpiCustomButton" class="custom-select-dropdown" id="dpiCustomOptions" role="listbox"></ul>
+<ul aria-labelledby="dpiLabel" class="custom-select-dropdown" id="dpiCustomOptions" role="listbox"></ul>
 </div>
 <select class="custom-native-hidden" id="dpi" tabindex="-1">
 <option value="96">96 DPI (Screenshot - 0,265 mm)</option>
@@ -1708,7 +1739,8 @@
 </div>
 </div>
 <button class="btn btn-primary w-full mt-1" data-i18n="downloadBtn" id="downloadBtn">Download PNG</button>
-<div class="helper-text" data-i18n-html="exportHelp">PNG is recommended for LightBurn, XCS, LaserGRBL and other laser software. It includes DPI metadata for the correct physical size in laser software.</div>
+<button class="btn btn-secondary w-full mt-2" data-i18n="downloadBmpBtn" id="downloadBmpBtn">Download BMP</button>
+<div class="helper-text" data-i18n-html="exportHelp">PNG is recommended for LightBurn, XCS, LaserGRBL and other laser software. PNG and 1-bit BMP include DPI metadata for the correct physical size in laser software.</div>
 </div>
 </div>
 </div><div class="editor-left-extra"><section class="panel p-5">
@@ -1967,11 +1999,13 @@
         sizeInfoLabel: 'Size in mm',
         pixelInfoLabel: 'Pixel size',
         downloadBtn: 'Download PNG',
-        exportHelp: 'PNG is recommended for LightBurn, XCS, LaserGRBL and other laser software. It includes DPI metadata for the correct physical size in laser software.',
+        downloadBmpBtn: 'Download BMP',
+        exportHelp: 'PNG is recommended for LightBurn, XCS, LaserGRBL and other laser software. PNG and 1-bit BMP include DPI metadata for the correct physical size in laser software.',
         alertLoadFail: 'The image could not be loaded.',
         alertReadFail: 'Error reading the file.',
         alertUploadFirst: 'Please upload an image first.',
         alertPngFail: 'Failed to create a PNG file with the selected DPI.',
+        alertBmpFail: 'Failed to create a 1-bit BMP file with the selected DPI.',
         iosTitle: 'Save on iOS',
         iosText: 'Press and hold the image and choose <strong style="color:#e2e8f0">Add to Photos</strong> or <strong style="color:#e2e8f0">Save Image</strong>.',
         iosClose: 'Close',
@@ -2101,11 +2135,13 @@
         sizeInfoLabel: 'Tamaño en mm',
         pixelInfoLabel: 'Tamaño en píxeles',
         downloadBtn: 'Descargar PNG',
-        exportHelp: 'PNG es el formato recomendado para LightBurn, XCS, LaserGRBL y otros programas láser. Incluye metadatos DPI para mantener el tamaño físico correcto en el software láser.',
+        downloadBmpBtn: 'Download BMP',
+        exportHelp: 'PNG es el formato recomendado para LightBurn, XCS, LaserGRBL y otros programas láser. PNG y BMP de 1 bit incluyen metadatos DPI para mantener el tamaño físico correcto en el software láser.',
         alertLoadFail: 'No se pudo cargar la imagen.',
         alertReadFail: 'Error al leer el archivo.',
         alertUploadFirst: 'Primero sube una imagen.',
         alertPngFail: 'No se pudo crear el archivo PNG con el DPI seleccionado.',
+        alertBmpFail: 'No se pudo crear el archivo BMP de 1 bit con el DPI seleccionado.',
         iosTitle: 'Guardar en iOS',
         iosText: 'Mantén pulsada la imagen y elige <strong style="color:#e2e8f0">Añadir a Fotos</strong> o <strong style="color:#e2e8f0">Guardar imagen</strong>.',
         iosClose: 'Cerrar',
@@ -2228,11 +2264,13 @@
         sizeInfoLabel: 'Größe in mm',
         pixelInfoLabel: 'Pixelgröße',
         downloadBtn: 'PNG herunterladen',
-        exportHelp: 'PNG wird für LightBurn, XCS, LaserGRBL und andere Lasersoftware empfohlen. Es enthält DPI-Metadaten für die korrekte physische Größe in der Lasersoftware.',
+        downloadBmpBtn: 'Download BMP',
+        exportHelp: 'PNG wird für LightBurn, XCS, LaserGRBL und andere Lasersoftware empfohlen. PNG und 1-Bit-BMP enthalten DPI-Metadaten für die korrekte physische Größe in der Lasersoftware.',
         alertLoadFail: 'Das Bild konnte nicht geladen werden.',
         alertReadFail: 'Fehler beim Lesen der Datei.',
         alertUploadFirst: 'Bitte lade zuerst ein Bild hoch.',
         alertPngFail: 'Die PNG-Datei mit den gewählten DPI konnte nicht erstellt werden.',
+        alertBmpFail: 'Die 1-Bit-BMP-Datei mit den gewählten DPI konnte nicht erstellt werden.',
         iosTitle: 'Auf iOS speichern',
         iosText: 'Halte das Bild gedrückt und wähle <strong style="color:#e2e8f0">Zu Fotos hinzufügen</strong> oder <strong style="color:#e2e8f0">Bild sichern</strong>.',
         iosClose: 'Schließen',
@@ -2334,11 +2372,13 @@
         sizeInfoLabel: 'Velikost v mm',
         pixelInfoLabel: 'Velikost v pixelech',
         downloadBtn: 'Stáhnout PNG',
-        exportHelp: 'PNG je doporučené pro LightBurn, XCS, LaserGRBL a další laserové programy. Obsahuje DPI metadata pro správnou fyzickou velikost v laserovém softwaru.',
+        downloadBmpBtn: 'Download BMP',
+        exportHelp: 'PNG je doporučené pro LightBurn, XCS, LaserGRBL a další laserové programy. PNG i 1bit BMP obsahují DPI metadata pro správnou fyzickou velikost v laserovém softwaru.',
         alertLoadFail: 'Nepodařilo se načíst obrázek.',
         alertReadFail: 'Chyba při čtení souboru.',
         alertUploadFirst: 'Nejprve nahraj obrázek.',
         alertPngFail: 'Nepodařilo se vytvořit PNG soubor s nastaveným DPI.',
+        alertBmpFail: 'Nepodařilo se vytvořit 1bit BMP soubor s nastaveným DPI.',
         iosTitle: 'Uložení na iOS',
         iosText: 'Podrž prst na obrázku a vyber <strong style="color:#e2e8f0">Přidat do Fotek</strong> nebo <strong style="color:#e2e8f0">Uložit obrázek</strong>.',
         iosClose: 'Zavřít',
@@ -2477,6 +2517,7 @@
     let lastValidOutputWidthMm = DEFAULTS.outputWidthMm;
 
     const downloadBtn = document.getElementById('downloadBtn');
+    const downloadBmpBtn = document.getElementById('downloadBmpBtn');
     const resetBtn = document.getElementById('resetBtn');
 
     const canvasSingle = document.getElementById('canvasSingle');
@@ -2954,6 +2995,12 @@
         return;
       }
 
+      const mobileDownloadBmpBtn = e.target.closest('#downloadBmpBtnMobileResult, #downloadBmpBtnMobileCompare');
+      if (mobileDownloadBmpBtn) {
+        downloadBmpResult();
+        return;
+      }
+
       const adjustSettingsBtn = e.target.closest('#adjustSettingsBtnResult, #adjustSettingsBtnCompare');
       if (adjustSettingsBtn) {
         scrollToControls();
@@ -3072,6 +3119,7 @@
     });
 
     downloadBtn.addEventListener('click', downloadResult);
+    if (downloadBmpBtn) downloadBmpBtn.addEventListener('click', downloadBmpResult);
     resetBtn.addEventListener('click', resetSettings);
 
     [brightness, contrast, gamma, sharpness].forEach((el) => {
@@ -3806,11 +3854,12 @@
       }
     }
 
-    function buildExportFilename() {
+    function buildExportFilename(extension = 'png') {
       const dpiValue = getDpiValue();
       const mm = pxToMm(getOutputWidthPx(), dpiValue).toFixed(1).replace('.', '-');
       const style = ditherMode.value === 'atkinson' ? 'contrast' : 'detailed';
-      return `laser-${mm}mm-${dpiValue}dpi-${style}.png`;
+      const ext = String(extension).replace(/^\./, '').toLowerCase() || 'png';
+      return `laser-${mm}mm-${dpiValue}dpi-${style}.${ext}`;
     }
 
     const ABACUS_GET = 'https://abacus.jasoncameron.dev/get/stunning-twilight-266e8a/downloads';
@@ -3984,6 +4033,99 @@
       return new Blob([finalBytes], { type: 'image/png' });
     }
 
+
+    function writeAscii(bytes, offset, text) {
+      for (let i = 0; i < text.length; i++) bytes[offset + i] = text.charCodeAt(i);
+    }
+
+    function canvasToBmp1BitBlob(canvas, dpiValue) {
+      const width = canvas.width;
+      const height = canvas.height;
+      if (!width || !height) throw new Error('Canvas is empty.');
+
+      const ctx = canvas.getContext('2d', { willReadFrequently: true });
+      const imageData = ctx.getImageData(0, 0, width, height);
+      const pixels = imageData.data;
+      const rowStride = Math.ceil(width / 32) * 4;
+      const pixelArraySize = rowStride * height;
+      const paletteSize = 8;
+      const headerSize = 14 + 40 + paletteSize;
+      const fileSize = headerSize + pixelArraySize;
+      const bytes = new Uint8Array(fileSize);
+      const view = new DataView(bytes.buffer);
+      const pixelsPerMeter = Math.round(dpiValue * 39.37007874015748);
+
+      writeAscii(bytes, 0, 'BM');
+      view.setUint32(2, fileSize, true);
+      view.setUint32(10, headerSize, true);
+
+      view.setUint32(14, 40, true); // BITMAPINFOHEADER size
+      view.setInt32(18, width, true);
+      view.setInt32(22, -height, true); // top-down rows, same orientation as canvas
+      view.setUint16(26, 1, true); // planes
+      view.setUint16(28, 1, true); // 1 bit per pixel
+      view.setUint32(30, 0, true); // BI_RGB
+      view.setUint32(34, pixelArraySize, true);
+      view.setInt32(38, pixelsPerMeter, true);
+      view.setInt32(42, pixelsPerMeter, true);
+      view.setUint32(46, 2, true); // colors used
+      view.setUint32(50, 2, true); // important colors
+
+      // Palette in BGRA order: index 0 = black, index 1 = white.
+      const paletteOffset = 54;
+      bytes[paletteOffset + 0] = 0;
+      bytes[paletteOffset + 1] = 0;
+      bytes[paletteOffset + 2] = 0;
+      bytes[paletteOffset + 3] = 0;
+      bytes[paletteOffset + 4] = 255;
+      bytes[paletteOffset + 5] = 255;
+      bytes[paletteOffset + 6] = 255;
+      bytes[paletteOffset + 7] = 0;
+
+      const dataOffset = headerSize;
+      for (let y = 0; y < height; y++) {
+        const rowOffset = dataOffset + y * rowStride;
+        for (let x = 0; x < width; x++) {
+          const srcIndex = (y * width + x) * 4;
+          const gray = (pixels[srcIndex] + pixels[srcIndex + 1] + pixels[srcIndex + 2]) / 3;
+          const bit = gray >= 128 ? 1 : 0;
+          if (bit) bytes[rowOffset + (x >> 3)] |= 0x80 >> (x & 7);
+        }
+      }
+
+      return new Blob([bytes], { type: 'image/bmp' });
+    }
+
+    function triggerFileDownload(blob, filename) {
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.download = filename;
+      a.href = url;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      setTimeout(() => URL.revokeObjectURL(url), 1500);
+    }
+
+    async function downloadBmpResult() {
+      if (!canvasSingle.width) {
+        showStatus(t('alertUploadFirst'), 'error');
+        return;
+      }
+
+      if (!shouldContinueLargeExport()) return;
+
+      try {
+        const dpiValue = getDpiValue();
+        const blob = canvasToBmp1BitBlob(canvasSingle, dpiValue);
+        incrementCounter();
+        triggerFileDownload(blob, buildExportFilename('bmp'));
+      } catch (err) {
+        console.error(err);
+        showStatus(t('alertBmpFail'), 'error');
+      }
+    }
+
     async function downloadResult() {
       if (!canvasSingle.width) {
         showStatus(t('alertUploadFirst'), 'error');
@@ -4003,14 +4145,7 @@
           return;
         }
 
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.download = buildExportFilename();
-        a.href = url;
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        setTimeout(() => URL.revokeObjectURL(url), 1500);
+        triggerFileDownload(blob, buildExportFilename('png'));
       } catch (err) {
         console.error(err);
         showStatus(t('alertPngFail'), 'error');
