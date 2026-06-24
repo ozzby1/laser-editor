@@ -1750,46 +1750,6 @@
 <p class="help-text" data-i18n-html="helpIntroText"><strong class="text-white">Photo Engraving Online</strong> converts a regular photo into a rasterized black-and-white image optimized for CO2 or diode laser engraving. You can then import the resulting PNG directly into your laser software (LightBurn, LaserGRBL, XCS, etc.) and engrave it.</p>
 </div>
 <div class="panel p-5">
-<div class="help-section-title" data-i18n="helpStepsTitle">Step-by-step guide</div>
-<div class="space-y-4">
-<div class="help-step">
-<div class="help-step-num">1</div>
-<div>
-<p class="font-semibold text-white" data-i18n="helpStep1Title">Upload a photo</p>
-<p class="text-sm mt-1 text-slate-400" data-i18n="helpStep1Text">Drag the file into the upload area or click to choose it from your device. Supported formats are JPG, PNG, BMP and WebP. For best results, use a sharp photo with good contrast.</p>
-</div>
-</div>
-<div class="help-step">
-<div class="help-step-num">2</div>
-<div>
-<p class="font-semibold text-white" data-i18n="helpStep2Title">Set DPI</p>
-<p class="text-sm mt-1 text-slate-400" data-i18n="helpStep2Text">Choose a resolution that matches your material and your laser’s capabilities. See the recommendation table below.</p>
-</div>
-</div>
-<div class="help-step">
-<div class="help-step-num">3</div>
-<div>
-<p class="font-semibold text-white" data-i18n="helpStep3Title">Set the output size in mm</p>
-<p class="text-sm mt-1 text-slate-400" data-i18n="helpStep3Text">Enter the final engraving width in millimeters. The tool automatically calculates the height, keeps the aspect ratio and shows the resulting pixel count.</p>
-</div>
-</div>
-<div class="help-step">
-<div class="help-step-num">4</div>
-<div>
-<p class="font-semibold text-white" data-i18n="helpStep4Title">Fine-tune the width</p>
-<p class="text-sm mt-1 text-slate-400" data-i18n="helpStep4Text">The slider lets you fine-tune the output width in pixels. It stays synced with the width field in mm, so changing one automatically updates the other.</p>
-</div>
-</div>
-<div class="help-step">
-<div class="help-step-num">5</div>
-<div>
-<p class="font-semibold text-white" data-i18n="helpStep5Title">Check the output and download the PNG</p>
-<p class="text-sm mt-1 text-slate-400" data-i18n="helpStep5Text">The output shows the final rasterized image. If it looks good, click Download PNG and import the file into your laser software.</p>
-</div>
-</div>
-</div>
-</div>
-<div class="panel p-5">
 <div class="help-section-title" data-i18n="helpDpiTitle">Recommended DPI by material</div>
 <div class="help-table-wrap">
 <table class="help-table">
@@ -1818,6 +1778,39 @@
 </tr>
 </tbody>
 </table>
+</div>
+</div>
+<div class="panel p-5">
+<div class="help-section-title" data-i18n="helpStepsTitle">Step-by-step guide</div>
+<div class="space-y-4">
+<div class="help-step">
+<div class="help-step-num">1</div>
+<div>
+<p class="font-semibold text-white" data-i18n="helpStep1Title">Upload a photo</p>
+<p class="text-sm mt-1 text-slate-400" data-i18n="helpStep1Text">Drag the file into the upload area or click to choose it from your device. Supported formats are JPG, PNG, BMP and WebP. For best results, use a sharp photo with good contrast.</p>
+</div>
+</div>
+<div class="help-step">
+<div class="help-step-num">2</div>
+<div>
+<p class="font-semibold text-white" data-i18n="helpStep2Title">Photo adjustments</p>
+<p class="text-sm mt-1 text-slate-400" data-i18n="helpStep2Text">Adjust brightness, contrast, gamma and sharpness to prepare the photo for engraving.</p>
+</div>
+</div>
+<div class="help-step">
+<div class="help-step-num">3</div>
+<div>
+<p class="font-semibold text-white" data-i18n="helpStep3Title">Set the output size in mm</p>
+<p class="text-sm mt-1 text-slate-400" data-i18n="helpStep3Text">Enter the final engraving width in millimeters. The tool automatically calculates the height, keeps the aspect ratio and shows the resulting pixel count.</p>
+</div>
+</div>
+<div class="help-step">
+<div class="help-step-num">4</div>
+<div>
+<p class="font-semibold text-white" data-i18n="helpStep4Title">Check the output and download the PNG or BMP</p>
+<p class="text-sm mt-1 text-slate-400" data-i18n="helpStep4Text">Review the final rasterized image. If it looks good, download the PNG or BMP and import it into your laser software.</p>
+</div>
+</div>
 </div>
 </div>
 <div class="panel p-5">
@@ -1993,14 +1986,12 @@
         helpStepsTitle: 'Step-by-step guide',
         helpStep1Title: 'Upload a photo',
         helpStep1Text: 'Drag the file into the upload area or click to choose it from your device. Supported formats are JPG, PNG, BMP and WebP. For best results, use a sharp photo with good contrast.',
-        helpStep2Title: 'Set DPI',
-        helpStep2Text: 'Choose a resolution that matches your material and your laser’s capabilities. See the recommendation table below.',
+        helpStep2Title: 'Photo adjustments',
+        helpStep2Text: 'Adjust brightness, contrast, gamma and sharpness to prepare the photo for engraving.',
         helpStep3Title: 'Set the output size in mm',
         helpStep3Text: 'Enter the final engraving width in millimeters. The tool automatically calculates the height, keeps the aspect ratio and shows the resulting pixel count.',
-        helpStep4Title: 'Fine-tune the width',
-        helpStep4Text: 'The slider lets you fine-tune the output width in pixels. It stays synced with the width field in mm, so changing one automatically updates the other.',
-        helpStep5Title: 'Check the output and download the PNG',
-        helpStep5Text: 'The output shows the final rasterized image. If it looks good, click Download PNG and import the file into your laser software.',
+        helpStep4Title: 'Check the output and download the PNG or BMP',
+        helpStep4Text: 'Review the final rasterized image. If it looks good, download the PNG or BMP and import it into your laser software.',
         helpDpiTitle: 'Recommended DPI by material',
         helpTableHeadDpi: 'DPI',
         helpTableHeadMaterial: 'Best for',
@@ -2113,14 +2104,12 @@
         helpStepsTitle: 'Guía paso a paso',
         helpStep1Title: 'Sube una foto',
         helpStep1Text: 'Arrastra el archivo al área de carga o haz clic para elegirlo desde tu dispositivo. Los formatos compatibles son JPG, PNG, BMP y WebP. Para obtener mejores resultados, usa una foto nítida y con buen contraste.',
-        helpStep2Title: 'Configura el DPI',
-        helpStep2Text: 'Elige una resolución que se adapte al material y a las capacidades de tu láser. Consulta la tabla de recomendaciones más abajo.',
+        helpStep2Title: 'Ajustes de la foto',
+        helpStep2Text: 'Ajusta brillo, contraste, gamma y nitidez para preparar la foto para el grabado.',
         helpStep3Title: 'Configura el tamaño de salida en mm',
         helpStep3Text: 'Introduce el ancho final del grabado en milímetros. La herramienta calcula automáticamente la altura, mantiene la proporción y muestra el número final de píxeles.',
-        helpStep4Title: 'Ajusta el ancho con precisión',
-        helpStep4Text: 'El control deslizante permite ajustar con precisión el ancho de salida en píxeles. Se mantiene sincronizado con el campo de ancho en mm, así que al cambiar uno se actualiza automáticamente el otro.',
-        helpStep5Title: 'Revisa la salida y descarga el PNG',
-        helpStep5Text: 'La salida muestra la imagen rasterizada final. Si se ve bien, haz clic en Descargar PNG e importa el archivo en tu software láser.',
+        helpStep4Title: 'Revisa la salida y descarga el PNG o BMP',
+        helpStep4Text: 'Revisa la imagen rasterizada final. Si se ve bien, descarga el PNG o BMP e impórtalo en tu software láser.',
         helpDpiTitle: 'DPI recomendado según el material',
         helpTableHeadDpi: 'DPI',
         helpTableHeadMaterial: 'Ideal para',
@@ -2233,14 +2222,12 @@
         helpStepsTitle: 'Schritt-für-Schritt-Anleitung',
         helpStep1Title: 'Foto hochladen',
         helpStep1Text: 'Ziehe die Datei in den Upload-Bereich oder klicke, um sie von deinem Gerät auszuwählen. Unterstützte Formate sind JPG, PNG, BMP und WebP. Für beste Ergebnisse verwende ein scharfes Foto mit gutem Kontrast.',
-        helpStep2Title: 'DPI einstellen',
-        helpStep2Text: 'Wähle eine Auflösung, die zu deinem Material und den Möglichkeiten deines Lasers passt. Siehe die Empfehlungstabelle unten.',
+        helpStep2Title: 'Fotoanpassungen',
+        helpStep2Text: 'Passe Helligkeit, Kontrast, Gamma und Schärfe an, um das Foto für die Gravur vorzubereiten.',
         helpStep3Title: 'Ausgabegröße in mm festlegen',
         helpStep3Text: 'Gib die gewünschte Endbreite der Gravur in Millimetern ein. Das Tool berechnet automatisch die Höhe, behält das Seitenverhältnis bei und zeigt die resultierende Pixelzahl an.',
-        helpStep4Title: 'Breite fein abstimmen',
-        helpStep4Text: 'Mit dem Schieberegler kannst du die Ausgabebreite in Pixeln fein abstimmen. Er bleibt mit dem Breitenfeld in mm synchron – wenn du einen Wert änderst, wird der andere automatisch aktualisiert.',
-        helpStep5Title: 'Ausgabe prüfen und PNG herunterladen',
-        helpStep5Text: 'Die Ausgabe zeigt das endgültige gerasterte Bild. Wenn alles gut aussieht, klicke auf PNG für Laser herunterladen und importiere die Datei in deine Lasersoftware.',
+        helpStep4Title: 'Ausgabe prüfen und PNG oder BMP herunterladen',
+        helpStep4Text: 'Prüfe das endgültige gerasterte Bild. Wenn alles gut aussieht, lade die PNG- oder BMP-Datei herunter und importiere sie in deine Lasersoftware.',
         helpDpiTitle: 'Empfohlene DPI je nach Material',
         helpTableHeadDpi: 'DPI',
         helpTableHeadMaterial: 'Geeignet für',
@@ -2339,14 +2326,12 @@
         helpStepsTitle: 'Postup krok za krokem',
         helpStep1Title: 'Nahraj fotografii',
         helpStep1Text: 'Přetáhni soubor do oblasti na stránce nebo klikni pro výběr ze zařízení. Podporovány jsou formáty JPG, PNG, BMP a WebP. Pro nejlepší výsledky použij ostrou fotografii s dobrým kontrastem.',
-        helpStep2Title: 'Nastav DPI (rozlišení)',
-        helpStep2Text: 'Vyber rozlišení odpovídající materiálu a schopnostem tvého laseru. Viz tabulka níže.',
+        helpStep2Title: 'Úpravy fotografie',
+        helpStep2Text: 'Uprav jas, kontrast, gammu a ostrost, aby byla fotografie připravená pro gravírování.',
         helpStep3Title: 'Nastav výstupní velikost v mm',
         helpStep3Text: 'Zadej šířku výsledného gravírování v milimetrech. Nástroj automaticky přepočítá výšku, zachová poměr stran a zobrazí výsledný počet pixelů.',
-        helpStep4Title: 'Jemné doladění šířky',
-        helpStep4Text: 'Posuvník umožňuje jemně upravit výstupní šířku v pixelech. Hodnota se synchronizuje s polem pro šířku v mm, takže změna jednoho automaticky aktualizuje druhé.',
-        helpStep5Title: 'Zkontroluj výstup a stáhni PNG',
-        helpStep5Text: 'Ve výstupu uvidíš výsledný rastrovaný obraz. Pokud vypadá dobře, klikni na Stáhnout PNG a soubor importuj do laserového softwaru.',
+        helpStep4Title: 'Zkontroluj výstup a stáhni PNG nebo BMP',
+        helpStep4Text: 'Zkontroluj výsledný rastrovaný obraz. Pokud vypadá dobře, stáhni PNG nebo BMP a importuj soubor do laserového softwaru.',
         helpDpiTitle: 'Doporučené DPI podle materiálu',
         helpTableHeadDpi: 'DPI',
         helpTableHeadMaterial: 'Vhodné pro',
