@@ -5,7 +5,7 @@
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Free Photo to Laser Engraving Converter Online | PhotoEngraving.online</title>
-<meta content="Free photo to laser engraving converter online. Create laser-ready black and white PNGs with DPI, dithering, invert colors and private browser processing." name="description"/>
+<meta content="Free photo to laser engraving converter online. Create laser-ready black and white PNGs with DPI, negative photo type and private browser processing." name="description"/>
 <meta content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" name="robots"/>
 <meta content="PhotoEngraving.online" name="author"/>
 <meta content="PhotoEngraving.online" name="application-name"/>
@@ -32,7 +32,7 @@
 <meta content="PhotoEngraving.online" property="og:site_name"/>
 <meta content="https://photoengraving.online/" property="og:url"/>
 <meta content="Free Photo to Laser Engraving Converter Online" property="og:title"/>
-<meta content="Convert images and photos to laser engraving PNGs online for free. Adjust DPI, dithering, brightness, contrast, gamma, sharpness and invert colors in your browser." property="og:description"/>
+<meta content="Convert images and photos to laser engraving PNGs online for free. Adjust DPI, photo type, brightness, contrast, gamma and sharpness in your browser." property="og:description"/>
 <meta content="en_US" property="og:locale"/>
 <meta content="es_ES" property="og:locale:alternate"/>
 <meta content="de_DE" property="og:locale:alternate"/>
@@ -92,7 +92,7 @@
       "operatingSystem": "Web",
       "browserRequirements": "Requires JavaScript and HTML5 Canvas",
       "isAccessibleForFree": true,
-      "description": "Free online photo to laser engraving converter for creating laser-ready black-and-white PNG files with dithering, custom DPI, invert colors, brightness, contrast, gamma and sharpness controls.",
+      "description": "Free online photo to laser engraving converter for creating laser-ready black-and-white PNG files with custom DPI, negative photo type, brightness, contrast, gamma and sharpness controls.",
       "image": "https://photoengraving.online/fb.png",
       "screenshot": "https://photoengraving.online/fb.png",
       "featureList": [
@@ -104,7 +104,7 @@
         "Brightness and contrast adjustment",
         "Gamma correction",
         "Sharpness adjustment",
-        "Invert colors negative mode",
+        "Negative photo type",
         "Browser-based private image processing",
         "Export for LightBurn, XCS and LaserGRBL"
       ],
@@ -429,7 +429,7 @@
       right: auto;
       max-height: none;
       overflow: visible;
-      grid-template-columns: repeat(auto-fit, minmax(165px, 1fr));
+      grid-template-columns: 1fr;
       gap: 8px;
     }
 
@@ -1528,7 +1528,7 @@
 </div>
 <section class="panel p-6 mb-4">
 <h1 data-i18n="heroTitle" style="font-size:clamp(1.8rem,3vw,2.6rem);font-weight:800;line-height:1.1;color:#f8fafc;margin:0 0 12px;">Free Laser Engraving Photo Editor</h1>
-<p data-i18n-html="heroText" style="font-size:1rem;line-height:1.8;color:#cbd5e1;margin:0;max-width:900px;">Convert any photo into a laser engraving ready image directly in your browser. Adjust brightness, contrast, gamma, sharpness, dithering style, output size and DPI, then export a PNG prepared for LightBurn, LaserGRBL, XCS and other laser software. <strong style="color: var(--accent);">Your photos are processed locally in your browser and are not uploaded to our server.</strong></p>
+<p data-i18n-html="heroText" style="font-size:1rem;line-height:1.8;color:#cbd5e1;margin:0;max-width:900px;">Convert any photo into a laser engraving ready image directly in your browser. Choose the photo type, adjust brightness, contrast, gamma, sharpness, output size and DPI, then export a PNG prepared for LightBurn, LaserGRBL, XCS and other laser software. <strong style="color: var(--accent);">Your photos are processed locally in your browser and are not uploaded to our server.</strong></p>
 </section>
 <div aria-live="polite" class="status-message" id="statusMessage" role="status"></div>
 <div class="main-editor-layout"><div class="editor-preview-top"><div class="panel px-4 py-3 flex gap-3 items-center flex-wrap">
@@ -1629,12 +1629,12 @@
 <div class="panel p-4">
 <div class="section-title" data-i18n="sectionPhotoType">Photo Type</div>
 <div class="grid grid-cols-2 gap-2" id="presetCards">
-<div class="preset-card" data-i18n="presetCustom" data-preset="custom">Custom</div>
 <div class="preset-card active" data-i18n="presetNormal" data-preset="normal">Normal Photo</div>
+<div class="preset-card" data-i18n="presetNegative" data-preset="negative">Negative</div>
 <div class="preset-card" data-i18n="presetDark" data-preset="dark">Dark Photo</div>
 <div class="preset-card" data-i18n="presetLight" data-preset="light">Light Photo</div>
 </div>
-<div class="helper-text mt-2" data-i18n="presetHelp">Default is Normal Photo. You can fine-tune everything with the sliders below.</div>
+<div class="helper-text mt-2" data-i18n="presetHelp">Default is Normal Photo. Choose Negative for an inverted output, or fine-tune everything with the sliders below.</div>
 </div>
 <div class="panel p-4">
 <div class="section-title" data-i18n="sectionAdjustments">Photo Adjustments</div>
@@ -1667,22 +1667,8 @@
 <span class="slider-val" id="sharpnessVal">0.0</span>
 </div>
 </div>
-<div>
-<label data-i18n="labelEngravingStyle" for="ditherMode">Engraving Style</label>
-<select class="mt-1" id="ditherMode">
-<option data-i18n="ditherDetailed" value="floyd">Detailed</option>
-<option data-i18n="ditherContrast" value="atkinson">Contrast</option>
-</select>
-<div class="helper-text" data-i18n="ditherHelp">Photos → Detailed | stronger edges → Contrast</div>
-</div>
-<div>
-<label class="toggle-label toggle-control" for="invertColors">
-<input id="invertColors" type="checkbox"/>
-<span aria-hidden="true" class="toggle-ui"></span>
-<span class="toggle-text" data-i18n="labelInvertColors">Invert Colors (Negative)</span>
-</label>
-<div class="helper-text" data-i18n="invertHelp">Swaps black and white in the final output PNG.</div>
-</div>
+<input id="ditherMode" type="hidden" value="floyd"/>
+<input hidden id="invertColors" type="checkbox"/>
 <div class="grid grid-cols-1 sm:grid-cols-1 gap-2 pt-1">
 <button class="btn btn-secondary" data-i18n="resetBtn" id="resetBtn">↺ Default Settings</button>
 </div>
@@ -1745,7 +1731,7 @@
 </div>
 </div><div class="editor-left-extra"><section class="panel p-5">
 <h2 class="help-section-title" data-i18n="seoIntroTitle">Free photo to laser engraving converter online</h2>
-<p class="help-text" data-i18n-html="seoIntroText">Use <strong class="text-white">PhotoEngraving.online</strong> as a free image to laser engraving converter directly in your browser. Upload a photo, convert it to a laser-ready black-and-white PNG, choose DPI, adjust dithering, brightness, contrast, gamma and sharpness, then download the result for LightBurn, XCS, LaserGRBL, EZCAD and other laser software.</p>
+<p class="help-text" data-i18n-html="seoIntroText">Use <strong class="text-white">PhotoEngraving.online</strong> as a free image to laser engraving converter directly in your browser. Upload a photo, convert it to a laser-ready black-and-white PNG, choose a photo type and DPI, adjust brightness, contrast, gamma and sharpness, then download the result for LightBurn, XCS, LaserGRBL, EZCAD and other laser software.</p>
 <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
 <div class="help-card">
 <div class="help-card-title" data-i18n="seoCard1Title">Free online tool</div>
@@ -1895,8 +1881,8 @@
 <div class="help-card-text" data-i18n="faq4Answer">Yes. You can choose a preset DPI or enter a custom DPI value for your laser, material and preferred line spacing.</div>
 </div>
 <div class="help-card">
-<div class="help-card-title" data-i18n="faq5Question">What does Invert Colors do?</div>
-<div class="help-card-text" data-i18n="faq5Answer">Invert Colors creates a negative output by swapping black and white in the final laser-ready image.</div>
+<div class="help-card-title" data-i18n="faq5Question">What does Negative do?</div>
+<div class="help-card-text" data-i18n="faq5Answer">Negative creates an inverted output by swapping black and white in the final laser-ready image.</div>
 </div>
 <div class="help-card">
 <div class="help-card-title" data-i18n="faq6Question">Are my photos uploaded to a server?</div>
@@ -1927,9 +1913,9 @@
     const translations = {
       en: {
         heroTitle: 'Free Photo to Laser Engraving Converter Online',
-        heroText: 'Convert any image or photo into a laser engraving ready PNG directly in your browser. Adjust DPI, dithering, brightness, contrast, gamma, sharpness, output size and invert colors, then export a PNG prepared for LightBurn, XCS, LaserGRBL, EZCAD and other laser software. <strong style="color: var(--accent);">Free to use. Your photos are processed locally in your browser and are not uploaded to our server.</strong>',
+        heroText: 'Convert any image or photo into a laser engraving ready PNG directly in your browser. Choose photo type, adjust DPI, brightness, contrast, gamma, sharpness and output size, then export a PNG prepared for LightBurn, XCS, LaserGRBL, EZCAD and other laser software. <strong style="color: var(--accent);">Free to use. Your photos are processed locally in your browser and are not uploaded to our server.</strong>',
         seoIntroTitle: 'Free photo to laser engraving converter online',
-        seoIntroText: 'Use <strong class="text-white">PhotoEngraving.online</strong> as a free image to laser engraving converter directly in your browser. Upload a photo, convert it to a laser-ready black-and-white PNG, choose DPI, adjust dithering, brightness, contrast, gamma and sharpness, then download the result for LightBurn, XCS, LaserGRBL, EZCAD and other laser software.',
+        seoIntroText: 'Use <strong class="text-white">PhotoEngraving.online</strong> as a free image to laser engraving converter directly in your browser. Upload a photo, convert it to a laser-ready black-and-white PNG, choose a photo type and DPI, adjust brightness, contrast, gamma and sharpness, then download the result for LightBurn, XCS, LaserGRBL, EZCAD and other laser software.',
         seoCard1Title: 'Free online tool',
         seoCard1Text: 'No installation needed. Convert photos for laser engraving online and download the PNG for free.',
         seoCard2Title: 'Laser-ready PNG output',
@@ -1945,8 +1931,8 @@
         faq3Answer: 'Yes. The exported PNG includes DPI metadata, which helps laser software keep the correct physical engraving size.',
         faq4Question: 'Can I use my own DPI value?',
         faq4Answer: 'Yes. You can choose a preset DPI or enter a custom DPI value for your laser, material and preferred line spacing.',
-        faq5Question: 'What does Invert Colors do?',
-        faq5Answer: 'Invert Colors creates a negative output by swapping black and white in the final laser-ready image.',
+        faq5Question: 'What does Negative do?',
+        faq5Answer: 'Negative creates an inverted output by swapping black and white in the final laser-ready image.',
         faq6Question: 'Are my photos uploaded to a server?',
         faq6Answer: 'No. Photos are processed locally in your browser and are not uploaded to our server.',
         counterLabel: '📸 Processed:',
@@ -1969,22 +1955,17 @@
         sectionPhotoType: 'Photo Type',
         presetCustom: 'Custom',
         presetNormal: 'Normal Photo',
+        presetNegative: 'Negative',
         presetPortrait: 'People',
         presetDark: 'Dark Photo',
         presetLight: 'Light Photo',
         presetDetail: '🔍 More Detail',
-        presetHelp: 'Default is Normal Photo. You can fine-tune everything with the sliders below.',
+        presetHelp: 'Default is Normal Photo. Choose Negative for an inverted output, or fine-tune everything with the sliders below.',
         sectionAdjustments: 'Photo Adjustments',
         labelBrightness: 'Brightness',
         labelContrast: 'Contrast',
         labelGamma: 'Gamma',
         labelSharpness: 'Sharpness',
-        labelEngravingStyle: 'Engraving Style',
-        ditherDetailed: 'Detailed',
-        ditherContrast: 'Contrast',
-        ditherHelp: 'Photos → Detailed | stronger edges → Contrast',
-        labelInvertColors: 'Invert Colors (Negative)',
-        invertHelp: 'Swaps black and white in the final output PNG.',
         resetBtn: '↺ Default Settings',
         sectionOutput: 'Output',
         labelOutputWidthMm: 'Image width',
@@ -2063,9 +2044,9 @@
 
       es: {
         heroTitle: 'Conversor gratuito de foto a grabado láser online',
-        heroText: 'Convierte cualquier imagen o foto en un PNG listo para grabado láser directamente en tu navegador. Ajusta DPI, dithering, brillo, contraste, gamma, nitidez, tamaño de salida e invierte colores, y exporta un PNG preparado para LightBurn, XCS, LaserGRBL, EZCAD y otros programas láser. <strong style="color: var(--accent);">Gratis, privado y 100% basado en el navegador. Tus imágenes nunca salen de tu dispositivo.</strong>',
+        heroText: 'Convierte cualquier imagen o foto en un PNG listo para grabado láser directamente en tu navegador. Elige el tipo de foto, ajusta DPI, brillo, contraste, gamma, nitidez y tamaño de salida, y exporta un PNG preparado para LightBurn, XCS, LaserGRBL, EZCAD y otros programas láser. <strong style="color: var(--accent);">Gratis, privado y 100% basado en el navegador. Tus imágenes nunca salen de tu dispositivo.</strong>',
         seoIntroTitle: 'Conversor gratuito de foto a grabado láser online',
-        seoIntroText: 'Usa <strong class="text-white">PhotoEngraving.online</strong> como conversor gratuito de imagen a grabado láser directamente en tu navegador. Sube una foto, conviértela en un PNG en blanco y negro listo para láser, elige DPI, ajusta dithering, brillo, contraste, gamma y nitidez, y descarga el resultado para LightBurn, XCS, LaserGRBL, EZCAD y otros programas láser.',
+        seoIntroText: 'Usa <strong class="text-white">PhotoEngraving.online</strong> como conversor gratuito de imagen a grabado láser directamente en tu navegador. Sube una foto, conviértela en un PNG en blanco y negro listo para láser, elige el tipo de foto y DPI, ajusta brillo, contraste, gamma y nitidez, y descarga el resultado para LightBurn, XCS, LaserGRBL, EZCAD y otros programas láser.',
         seoCard1Title: 'Herramienta online gratis',
         seoCard1Text: 'No necesita instalación. Convierte fotos para grabado láser online y descarga el PNG gratis.',
         seoCard2Title: 'PNG listo para láser',
@@ -2081,8 +2062,8 @@
         faq3Answer: 'Sí. El PNG exportado incluye metadatos DPI, lo que ayuda al software láser a mantener el tamaño físico correcto.',
         faq4Question: '¿Puedo usar un valor DPI propio?',
         faq4Answer: 'Sí. Puedes elegir un DPI predefinido o introducir un valor DPI personalizado para tu láser, material y espaciado de líneas.',
-        faq5Question: '¿Qué hace Invertir colores?',
-        faq5Answer: 'Invertir colores crea una salida negativa intercambiando blanco y negro en la imagen final lista para láser.',
+        faq5Question: '¿Qué hace Negativo?',
+        faq5Answer: 'Negativo crea una salida invertida intercambiando blanco y negro en la imagen final lista para láser.',
         faq6Question: '¿Mis fotos se suben a un servidor?',
         faq6Answer: 'No. Las fotos se procesan localmente en tu navegador y no se suben a nuestro servidor.',
         counterLabel: '📸 Procesadas:',
@@ -2105,22 +2086,17 @@
         sectionPhotoType: 'Tipo de Foto',
         presetCustom: 'Personalizado',
         presetNormal: 'Foto Normal',
+        presetNegative: 'Negativo',
         presetPortrait: 'Personas',
         presetDark: 'Foto Oscura',
         presetLight: 'Foto Clara',
         presetDetail: 'Más Detalle',
-        presetHelp: 'El valor predeterminado es Foto Normal. Puedes ajustar todo con los controles de abajo.',
+        presetHelp: 'El valor predeterminado es Foto Normal. Elige Negativo para una salida invertida o ajusta todo con los controles de abajo.',
         sectionAdjustments: 'Ajustes de la Foto',
         labelBrightness: 'Brillo',
         labelContrast: 'Contraste',
         labelGamma: 'Gamma',
         labelSharpness: 'Nitidez',
-        labelEngravingStyle: 'Estilo de grabado',
-        ditherDetailed: 'Detallado',
-        ditherContrast: 'Contraste',
-        ditherHelp: 'Fotos → Detallado | bordes más marcados → Contraste',
-        labelInvertColors: 'Invertir colores (negativo)',
-        invertHelp: 'Intercambia blanco y negro en el PNG final.',
         resetBtn: 'Ajustes Predeterminados',
         sectionOutput: 'Salida',
         labelOutputWidthMm: 'Ancho de imagen',
@@ -2192,9 +2168,9 @@
 
       de: {
         heroTitle: 'Kostenloser Foto-zu-Lasergravur-Konverter online',
-        heroText: 'Wandle jedes Bild oder Foto direkt im Browser in eine lasergravur-taugliche PNG-Datei um. Passe DPI, Dithering, Helligkeit, Kontrast, Gamma, Schärfe, Ausgabegröße und Farben invertieren an und exportiere eine PNG-Datei für LightBurn, XCS, LaserGRBL, EZCAD und andere Lasersoftware. <strong style="color: var(--accent);">Kostenlos, privat und 100 % browserbasiert. Deine Bilder verlassen dein Gerät niemals.</strong>',
+        heroText: 'Wandle jedes Bild oder Foto direkt im Browser in eine lasergravur-taugliche PNG-Datei um. Wähle den Fototyp, passe DPI, Helligkeit, Kontrast, Gamma, Schärfe und Ausgabegröße an und exportiere eine PNG-Datei für LightBurn, XCS, LaserGRBL, EZCAD und andere Lasersoftware. <strong style="color: var(--accent);">Kostenlos, privat und 100 % browserbasiert. Deine Bilder verlassen dein Gerät niemals.</strong>',
         seoIntroTitle: 'Kostenloser Foto-zu-Lasergravur-Konverter online',
-        seoIntroText: 'Nutze <strong class="text-white">PhotoEngraving.online</strong> als kostenlosen Bild-zu-Lasergravur-Konverter direkt im Browser. Lade ein Foto hoch, wandle es in eine laserfertige Schwarz-Weiß-PNG-Datei um, wähle DPI, passe Dithering, Helligkeit, Kontrast, Gamma und Schärfe an und lade das Ergebnis für LightBurn, XCS, LaserGRBL, EZCAD und andere Lasersoftware herunter.',
+        seoIntroText: 'Nutze <strong class="text-white">PhotoEngraving.online</strong> als kostenlosen Bild-zu-Lasergravur-Konverter direkt im Browser. Lade ein Foto hoch, wandle es in eine laserfertige Schwarz-Weiß-PNG-Datei um, wähle Fototyp und DPI, passe Helligkeit, Kontrast, Gamma und Schärfe an und lade das Ergebnis für LightBurn, XCS, LaserGRBL, EZCAD und andere Lasersoftware herunter.',
         seoCard1Title: 'Kostenloses Online-Tool',
         seoCard1Text: 'Keine Installation nötig. Konvertiere Fotos für die Lasergravur online und lade die PNG-Datei kostenlos herunter.',
         seoCard2Title: 'Laserfertige PNG-Ausgabe',
@@ -2210,8 +2186,8 @@
         faq3Answer: 'Ja. Die exportierte PNG enthält DPI-Metadaten, damit die Lasersoftware die korrekte physische Gravurgröße beibehalten kann.',
         faq4Question: 'Kann ich einen eigenen DPI-Wert verwenden?',
         faq4Answer: 'Ja. Du kannst einen DPI-Preset wählen oder einen eigenen DPI-Wert für deinen Laser, dein Material und deinen gewünschten Linienabstand eingeben.',
-        faq5Question: 'Was macht Farben invertieren?',
-        faq5Answer: 'Farben invertieren erzeugt eine Negativausgabe, indem Schwarz und Weiß im finalen laserfertigen Bild vertauscht werden.',
+        faq5Question: 'Was macht Negativ?',
+        faq5Answer: 'Negativ erzeugt eine invertierte Ausgabe, indem Schwarz und Weiß im finalen laserfertigen Bild vertauscht werden.',
         faq6Question: 'Werden meine Fotos auf einen Server hochgeladen?',
         faq6Answer: 'Nein. Die Bildverarbeitung läuft lokal in deinem Browser, daher müssen deine Fotos nicht auf einen Server hochgeladen werden.',
         counterLabel: '📸 Verarbeitet:',
@@ -2234,22 +2210,17 @@
         sectionPhotoType: 'Fototyp',
         presetCustom: 'Benutzerdefiniert',
         presetNormal: 'Normales Foto',
+        presetNegative: 'Negativ',
         presetPortrait: 'Menschen',
         presetDark: 'Dunkles Foto',
         presetLight: 'Helles Foto',
         presetDetail: 'Mehr Details',
-        presetHelp: 'Standard ist Normales Foto. Mit den Reglern unten kannst du alles fein abstimmen.',
+        presetHelp: 'Standard ist Normales Foto. Wähle Negativ für eine invertierte Ausgabe oder stimme alles mit den Reglern unten fein ab.',
         sectionAdjustments: 'Fotoanpassung',
         labelBrightness: 'Helligkeit',
         labelContrast: 'Kontrast',
         labelGamma: 'Gamma',
         labelSharpness: 'Schärfe',
-        labelEngravingStyle: 'Gravierstil',
-        ditherDetailed: 'Detailliert',
-        ditherContrast: 'Kontrast',
-        ditherHelp: 'Fotos → Detailliert | stärkere Kanten → Kontrast',
-        labelInvertColors: 'Farben invertieren (Negativ)',
-        invertHelp: 'Tauscht Schwarz und Weiß in der finalen PNG-Ausgabe.',
         resetBtn: 'Standardeinstellungen',
         sectionOutput: 'Ausgabe',
         labelOutputWidthMm: 'Bildbreite',
@@ -2321,7 +2292,7 @@
 
       cs: {
         heroTitle: 'Online editor fotek pro gravírování laserem',
-        heroText: 'Převeď libovolnou fotografii přímo v prohlížeči na obrázek připravený pro gravírování laserem. Uprav jas, kontrast, gamu, ostrost, styl ditheringu, výslednou velikost a DPI a potom exportuj PNG připravené pro LightBurn, LaserGRBL, XCS a další laserový software. <strong style="color: var(--accent);">100% v prohlížeči. Tvoje obrázky nikdy neopustí tvoje zařízení.</strong>',
+        heroText: 'Převeď libovolnou fotografii přímo v prohlížeči na obrázek připravený pro gravírování laserem. Vyber typ fotky, uprav jas, kontrast, gamu, ostrost, výslednou velikost a DPI a potom exportuj PNG připravené pro LightBurn, LaserGRBL, XCS a další laserový software. <strong style="color: var(--accent);">100% v prohlížeči. Tvoje obrázky nikdy neopustí tvoje zařízení.</strong>',
         counterLabel: '📸 Zpracováno:',
         btnOutput: 'Pouze výstup',
         btnCompare: 'Originál + výstup',
@@ -2342,22 +2313,17 @@
         sectionPhotoType: 'Typ fotky',
         presetCustom: 'Vlastní nastavení',
         presetNormal: 'Běžná fotka',
+        presetNegative: 'Negativ',
         presetPortrait: 'Lidé',
         presetDark: 'Tmavá fotka',
         presetLight: 'Světlá fotka',
         presetDetail: 'Více detailů',
-        presetHelp: 'Pomocí sliderů níže můžeš fotku jemně doladit.',
+        presetHelp: 'Výchozí je Běžná fotka. Pro negativní výstup zvol Negativ, případně vše dolaď slidery níže.',
         sectionAdjustments: 'Úprava fotky',
         labelBrightness: 'Jas',
         labelContrast: 'Kontrast',
         labelGamma: 'Gama',
         labelSharpness: 'Ostrost',
-        labelEngravingStyle: 'Styl gravírování',
-        ditherDetailed: 'Detailní',
-        ditherContrast: 'Kontrastní',
-        ditherHelp: 'Fotky → Detailní | výraznější hrany → Kontrastní',
-        labelInvertColors: 'Invertovat barvy (negativ)',
-        invertHelp: 'Prohodí černou a bílou ve finálním PNG výstupu.',
         resetBtn: 'Výchozí nastavení',
         sectionOutput: 'Výstup',
         labelOutputWidthMm: 'Šířka obrázku',
@@ -2468,12 +2434,11 @@
     };
 
     const PRESETS = {
-      custom:   { brightness: 0, contrast: 0, gamma: 1.00, sharpness: 0.0, ditherMode: 'floyd' },
-      normal:   { brightness: 5, contrast: 30, gamma: 1.08, sharpness: 1.0, ditherMode: 'floyd' },
-      portrait: { brightness: 10, contrast: 22, gamma: 1.20, sharpness: 0.5, ditherMode: 'floyd' },
-      dark:     { brightness: 25, contrast: 35, gamma: 1.25, sharpness: 1.0, ditherMode: 'floyd' },
-      light:    { brightness: -10, contrast: 45, gamma: 0.95, sharpness: 1.0, ditherMode: 'floyd' },
-      detail:   { brightness: 0, contrast: 55, gamma: 1.00, sharpness: 2.0, ditherMode: 'atkinson' }
+      custom:   { brightness: 0, contrast: 0, gamma: 1.00, sharpness: 0.0, ditherMode: 'floyd', invertColors: false },
+      normal:   { brightness: 5, contrast: 30, gamma: 1.08, sharpness: 1.0, ditherMode: 'floyd', invertColors: false },
+      negative: { brightness: 5, contrast: 30, gamma: 1.08, sharpness: 1.0, ditherMode: 'floyd', invertColors: true },
+      dark:     { brightness: 25, contrast: 35, gamma: 1.25, sharpness: 1.0, ditherMode: 'floyd', invertColors: false },
+      light:    { brightness: -10, contrast: 45, gamma: 0.95, sharpness: 1.0, ditherMode: 'floyd', invertColors: false }
     };
 
     const DEFAULTS = {
@@ -2483,7 +2448,7 @@
       gamma: PRESETS.normal.gamma,
       sharpness: PRESETS.normal.sharpness,
       ditherMode: PRESETS.normal.ditherMode,
-      invertColors: false,
+      invertColors: PRESETS.normal.invertColors,
       dpi: 254,
       customDpi: 254,
       outputWidthMm: 80,
@@ -2828,9 +2793,9 @@
       const seo = {
         en: {
           title: 'Free Photo to Laser Engraving Converter Online | PhotoEngraving.online',
-          description: 'Free photo to laser engraving converter online. Create laser-ready black and white PNGs with DPI, dithering, invert colors and local browser processing.',
+          description: 'Free photo to laser engraving converter online. Create laser-ready black and white PNGs with DPI, negative photo type and local browser processing.',
           ogTitle: 'Free Photo to Laser Engraving Converter Online',
-          ogDescription: 'Convert images and photos to laser engraving PNGs online for free. Adjust DPI, dithering, brightness, contrast, gamma, sharpness and invert colors in your browser.'
+          ogDescription: 'Convert images and photos to laser engraving PNGs online for free. Adjust DPI, photo type, brightness, contrast, gamma and sharpness in your browser.'
         },
         es: {
           title: 'Convertidor gratis de fotos para grabado láser online | PhotoEngraving.online',
@@ -2840,15 +2805,15 @@
         },
         de: {
           title: 'Kostenloser Foto-zu-Lasergravur-Konverter online | PhotoEngraving.online',
-          description: 'Kostenloser Online-Konverter für Fotos zur Lasergravur. Erstelle laserfertige Schwarz-Weiß-PNGs mit DPI, Dithering, Invertierung und lokaler Browser-Verarbeitung.',
+          description: 'Kostenloser Online-Konverter für Fotos zur Lasergravur. Erstelle laserfertige Schwarz-Weiß-PNGs mit DPI, negativem Fototyp und lokaler Browser-Verarbeitung.',
           ogTitle: 'Kostenloser Foto-zu-Lasergravur-Konverter online',
-          ogDescription: 'Wandle Bilder und Fotos kostenlos in PNGs für Lasergravur um. Passe DPI, Dithering, Helligkeit, Kontrast, Gamma, Schärfe und invertierte Farben im Browser an.'
+          ogDescription: 'Wandle Bilder und Fotos kostenlos in PNGs für Lasergravur um. Passe Fototyp, DPI, Helligkeit, Kontrast, Gamma und Schärfe im Browser an.'
         },
         cs: {
           title: 'Převod fotky pro laserové gravírování zdarma online | PhotoEngraving.online',
-          description: 'Převeď fotku pro laserové gravírování online zdarma. Vytvoř černobílý PNG s DPI, ditheringem, inverzí barev a lokálním zpracováním v prohlížeči.',
+          description: 'Převeď fotku pro laserové gravírování online zdarma. Vytvoř černobílý PNG s DPI, typem fotky Negativ a lokálním zpracováním v prohlížeči.',
           ogTitle: 'Převod fotky pro laserové gravírování zdarma online',
-          ogDescription: 'Převeď obrázky a fotografie na PNG připravený pro laserové gravírování. Uprav DPI, dithering, jas, kontrast, gammu, ostrost a inverzi barev přímo v prohlížeči.'
+          ogDescription: 'Převeď obrázky a fotografie na PNG připravený pro laserové gravírování. Vyber typ fotky a DPI, potom uprav jas, kontrast, gammu a ostrost přímo v prohlížeči.'
         }
       }[lang] || {};
 
@@ -3034,17 +2999,17 @@
       makeKeyboardClickable(card, () => applyPreset(card.dataset.preset));
     });
 
-    ditherMode.addEventListener('change', () => {
-      markAsCustom();
-      saveSettings();
-      if (originalImage) scheduleProcessImage();
-    });
+    if (ditherMode) {
+      ditherMode.value = DEFAULTS.ditherMode;
+    }
 
-    invertColors.addEventListener('change', () => {
-      markAsCustom();
-      saveSettings();
-      if (originalImage) scheduleProcessImage();
-    });
+    if (invertColors) {
+      invertColors.addEventListener('change', () => {
+        markAsCustom();
+        saveSettings();
+        if (originalImage) scheduleProcessImage();
+      });
+    }
 
     dpi.addEventListener('change', () => {
       updateCustomDpiVisibility();
@@ -3165,8 +3130,8 @@
       contrast.value = p.contrast;
       gamma.value = p.gamma;
       sharpness.value = p.sharpness;
-      ditherMode.value = p.ditherMode;
-      invertColors.checked = false;
+      ditherMode.value = p.ditherMode || DEFAULTS.ditherMode;
+      invertColors.checked = Boolean(p.invertColors);
 
       sliderPairs.forEach(([id]) => updateSlider(document.getElementById(id)));
       setActivePresetCard(key);
@@ -3183,8 +3148,8 @@
       contrast.value = p.contrast;
       gamma.value = p.gamma;
       sharpness.value = p.sharpness;
-      ditherMode.value = p.ditherMode;
-      invertColors.checked = false;
+      ditherMode.value = p.ditherMode || DEFAULTS.ditherMode;
+      invertColors.checked = Boolean(p.invertColors);
       sliderPairs.forEach(([id]) => updateSlider(document.getElementById(id)));
     }
 
@@ -3346,7 +3311,7 @@
         if (s.contrast !== undefined) contrast.value = s.contrast;
         if (s.gamma !== undefined) gamma.value = s.gamma;
         if (s.sharpness !== undefined) sharpness.value = s.sharpness;
-        if (s.ditherMode) ditherMode.value = s.ditherMode;
+        ditherMode.value = DEFAULTS.ditherMode;
         if (s.invertColors !== undefined) invertColors.checked = Boolean(s.invertColors);
         if (s.customDpi !== undefined) customDpi.value = String(normalizeDpiValue(s.customDpi));
         if (s.dpiMode === 'custom') {
@@ -3377,7 +3342,7 @@
         contrast: Number(contrast.value),
         gamma: Number(gamma.value),
         sharpness: Number(sharpness.value),
-        ditherMode: ditherMode.value,
+        ditherMode: DEFAULTS.ditherMode,
         invertColors: invertColors.checked,
         dpiMode: isCustomDpiMode() ? 'custom' : 'preset',
         dpiPreset: dpi.value,
@@ -3655,7 +3620,7 @@
       const sharp = parseFloat(sharpness.value);
       if (sharp > 0) imageData = applySharpen(imageData, w, h, sharp);
 
-      applyDithering(imageData, w, h, ditherMode.value, FIXED_THRESHOLD);
+      applyDithering(imageData, w, h, DEFAULTS.ditherMode, FIXED_THRESHOLD);
       if (invertColors.checked) invertImageData(imageData);
 
       drawOriginalIntoCanvas(canvasCompareOrig, w, h);
@@ -3857,9 +3822,8 @@
     function buildExportFilename(extension = 'png') {
       const dpiValue = getDpiValue();
       const mm = pxToMm(getOutputWidthPx(), dpiValue).toFixed(1).replace('.', '-');
-      const style = ditherMode.value === 'atkinson' ? 'contrast' : 'detailed';
       const ext = String(extension).replace(/^\./, '').toLowerCase() || 'png';
-      return `laser-${mm}mm-${dpiValue}dpi-${style}.${ext}`;
+      return `laser-${mm}mm-${dpiValue}dpi.${ext}`;
     }
 
     const ABACUS_GET = 'https://abacus.jasoncameron.dev/get/stunning-twilight-266e8a/downloads';
