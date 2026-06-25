@@ -1451,6 +1451,55 @@
         height: 52px;
       }
     }
+
+    /* Detail preview magnifier for engraving/dither inspection. */
+    .detail-magnifier {
+      display: none;
+      position: fixed;
+      width: 270px;
+      height: 270px;
+      border-radius: 999px;
+      overflow: hidden;
+      z-index: 260;
+      pointer-events: none;
+      border: 3px solid #0ea5e9;
+      background: #fff;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.45), 0 0 0 1px rgba(255,255,255,0.30);
+    }
+
+    .detail-magnifier.visible {
+      display: block;
+    }
+
+    .detail-magnifier canvas {
+      width: 100%;
+      height: 100%;
+      max-width: none;
+      background: #fff;
+      image-rendering: pixelated;
+    }
+
+    .detail-magnifier::after {
+      content: '4×';
+      position: absolute;
+      right: 13px;
+      bottom: 12px;
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: rgba(9,9,13,0.74);
+      color: #fff;
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.03em;
+    }
+
+    @media (max-width: 640px) {
+      .detail-magnifier {
+        width: 190px;
+        height: 190px;
+      }
+    }
+
   </style>
 <!-- 100% privacy-first analytics -->
 <script async="" src="https://scripts.simpleanalyticscdn.com/latest.js"></script>
@@ -1585,7 +1634,7 @@
 <div class="zoom-hover canvas-wrap">
 <canvas class="w-full" id="canvasSingle"></canvas>
 </div>
-<div class="helper-text" data-i18n="zoomHelp" style="text-align:center;margin-top:10px;">Hold Ctrl / Cmd and use the mouse wheel to zoom. When zoomed in, drag the image with the mouse. Double-click resets zoom to 100%. For the best experience and more comfortable editing, we recommend using this tool on a desktop computer.</div>
+<div class="helper-text" data-i18n="zoomHelp" style="text-align:center;margin-top:10px;">Move the mouse over the image to inspect details in the magnifier. On touch devices, hold and drag over the image. For the best experience and more comfortable editing, we recommend using this tool on a desktop computer.</div>
 <div class="mobile-action-stack">
 <button class="btn btn-secondary mobile-adjust-btn" data-i18n="adjustSettingsBtn" id="adjustSettingsBtnResult">Adjust settings ↓</button>
 <button class="btn btn-primary mobile-reupload-btn" data-i18n="reuploadBtn" id="reuploadBtnResult">Upload photo</button>
@@ -1608,7 +1657,7 @@
 </div>
 </div>
 </div>
-<div class="helper-text" data-i18n="zoomHelp" style="text-align:center;margin-top:10px;">Hold Ctrl / Cmd and use the mouse wheel to zoom. When zoomed in, drag the image with the mouse. Double-click resets zoom to 100%. For the best experience and more comfortable editing, we recommend using this tool on a desktop computer.</div>
+<div class="helper-text" data-i18n="zoomHelp" style="text-align:center;margin-top:10px;">Move the mouse over the image to inspect details in the magnifier. On touch devices, hold and drag over the image. For the best experience and more comfortable editing, we recommend using this tool on a desktop computer.</div>
 <div class="mobile-action-stack">
 <button class="btn btn-secondary mobile-adjust-btn" data-i18n="adjustSettingsBtn" id="adjustSettingsBtnCompare">Adjust settings ↓</button>
 <button class="btn btn-primary mobile-reupload-btn" data-i18n="reuploadBtn" id="reuploadBtnCompare">Upload photo</button>
@@ -1929,7 +1978,7 @@
         stepDownloadTitle: 'Download PNG',
         stepDownloadText: 'Ready for engraving',
         hintLine: '↑ Start right away with the demo photo or upload your own',
-        zoomHelp: 'Hold Ctrl / Cmd and use the mouse wheel to zoom. When zoomed in, drag the image with the mouse. Double-click resets zoom to 100%. For the best experience and more comfortable editing, we recommend using this tool on a desktop computer.',
+        zoomHelp: 'Move the mouse over the image to inspect details in the magnifier. On touch devices, hold and drag over the image. For the best experience and more comfortable editing, we recommend using this tool on a desktop computer.',
         reuploadBtn: 'Upload photo',
         sectionUpload: 'Upload Photo',
         dropZoneMain: 'Drag & drop or click to choose',
@@ -2054,7 +2103,7 @@
         stepDownloadTitle: 'Descargar PNG',
         stepDownloadText: 'Listo para grabado',
         hintLine: '↑ Empieza ahora mismo con la foto de ejemplo o sube la tuya',
-        zoomHelp: 'Usa la rueda del ratón para acercar o alejar. Cuando esté ampliado, arrastra la imagen con el ratón. Doble clic restablece el zoom al 100%. Para disfrutar de la mejor experiencia y una edición más cómoda, recomendamos usar esta herramienta en un ordenador de escritorio.',
+        zoomHelp: 'Mueve el ratón sobre la imagen para ver los detalles con la lupa. En dispositivos táctiles, mantén pulsado y arrastra sobre la imagen. Para disfrutar de la mejor experiencia y una edición más cómoda, recomendamos usar esta herramienta en un ordenador de escritorio.',
         reuploadBtn: 'Subir foto',
         sectionUpload: 'Subir Foto',
         dropZoneMain: 'Arrastra y suelta o haz clic para elegir',
@@ -2172,7 +2221,7 @@
         stepDownloadTitle: 'PNG herunterladen',
         stepDownloadText: 'Bereit zum Gravieren',
         hintLine: '↑ Starte sofort mit dem Beispielfoto oder lade dein eigenes hoch',
-        zoomHelp: 'Mit dem Mausrad kannst du hinein- oder herauszoomen. Im vergrößerten Zustand kannst du das Bild mit der Maus verschieben. Doppelklick setzt den Zoom auf 100 % zurück. Für das beste Erlebnis und eine bequemere Bearbeitung empfehlen wir, dieses Tool auf einem Desktop-Computer zu verwenden.',
+        zoomHelp: 'Bewege die Maus über das Bild, um Details in der Lupe zu prüfen. Auf Touch-Geräten halte den Finger gedrückt und ziehe über das Bild. Für das beste Erlebnis und eine bequemere Bearbeitung empfehlen wir, dieses Tool auf einem Desktop-Computer zu verwenden.',
         reuploadBtn: 'Foto hochladen',
         sectionUpload: 'Foto Hochladen',
         dropZoneMain: 'Per Drag & Drop oder klicken zum Auswählen',
@@ -2269,7 +2318,7 @@
         stepDownloadTitle: 'Stáhni PNG',
         stepDownloadText: 'Hotovo pro gravírování',
         hintLine: '↑ Můžeš začít hned na ukázkové fotce nebo nahrát vlastní',
-        zoomHelp: 'Kolečkem myši přiblížíš nebo oddálíš obrázek. Přiblížený obrázek můžeš posouvat tažením myší. Dvojklik vrátí zoom na 100 %. Pro nejlepší zážitek a pohodlnější úpravy doporučujeme používat tento nástroj na počítači.',
+        zoomHelp: 'Přejeďte myší nad obrázkem a detaily zkontrolujte v lupě. Na dotykovém zařízení podržte prst a táhněte po obrázku. Pro nejlepší zážitek a pohodlnější úpravy doporučujeme používat tento nástroj na počítači.',
         reuploadBtn: 'Nahrát fotku',
         sectionUpload: 'Nahrát fotku',
         dropZoneMain: 'Přetáhni nebo klikni pro výběr',
@@ -3234,6 +3283,113 @@
       window.addEventListener('mouseup', stopDrag);
     }
 
+
+    function initializeCanvasMagnifier() {
+      const MAGNIFIER_ZOOM = 4;
+      const lens = document.createElement('div');
+      lens.id = 'detailMagnifier';
+      lens.className = 'detail-magnifier';
+      lens.setAttribute('aria-hidden', 'true');
+
+      const lensCanvas = document.createElement('canvas');
+      lens.appendChild(lensCanvas);
+      document.body.appendChild(lens);
+
+      const lensCtx = lensCanvas.getContext('2d');
+      let activeCanvas = null;
+
+      function getMagnifierSize() {
+        return window.matchMedia('(max-width: 640px)').matches ? 190 : 270;
+      }
+
+      function prepareLensCanvas(size) {
+        const dpr = window.devicePixelRatio || 1;
+        const pixelSize = Math.round(size * dpr);
+
+        lens.style.width = `${size}px`;
+        lens.style.height = `${size}px`;
+
+        if (lensCanvas.width !== pixelSize || lensCanvas.height !== pixelSize) {
+          lensCanvas.width = pixelSize;
+          lensCanvas.height = pixelSize;
+        }
+
+        lensCtx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        lensCtx.imageSmoothingEnabled = false;
+      }
+
+      function positionLens(e, size) {
+        const gap = 22;
+        let left = e.clientX + gap;
+        let top = e.clientY + gap;
+
+        if (left + size + 8 > window.innerWidth) left = e.clientX - size - gap;
+        if (top + size + 8 > window.innerHeight) top = e.clientY - size - gap;
+
+        left = clamp(left, 8, Math.max(8, window.innerWidth - size - 8));
+        top = clamp(top, 8, Math.max(8, window.innerHeight - size - 8));
+
+        lens.style.left = `${left}px`;
+        lens.style.top = `${top}px`;
+      }
+
+      function showMagnifier(e) {
+        activeCanvas = e.currentTarget;
+        if (!activeCanvas || !activeCanvas.width || !activeCanvas.height) return;
+
+        lens.classList.add('visible');
+        updateMagnifier(e);
+      }
+
+      function hideMagnifier() {
+        lens.classList.remove('visible');
+        activeCanvas = null;
+      }
+
+      function updateMagnifier(e) {
+        const canvas = activeCanvas || e.currentTarget;
+        if (!canvas || !canvas.width || !canvas.height) return;
+
+        const rect = canvas.getBoundingClientRect();
+        if (!rect.width || !rect.height) return;
+
+        const size = getMagnifierSize();
+        prepareLensCanvas(size);
+        positionLens(e, size);
+
+        const sourceX = (e.clientX - rect.left) * (canvas.width / rect.width);
+        const sourceY = (e.clientY - rect.top) * (canvas.height / rect.height);
+        const sourceW = Math.min(size / MAGNIFIER_ZOOM, canvas.width);
+        const sourceH = Math.min(size / MAGNIFIER_ZOOM, canvas.height);
+        const sx = clamp(sourceX - sourceW / 2, 0, Math.max(0, canvas.width - sourceW));
+        const sy = clamp(sourceY - sourceH / 2, 0, Math.max(0, canvas.height - sourceH));
+
+        lensCtx.clearRect(0, 0, size, size);
+        lensCtx.imageSmoothingEnabled = false;
+        lensCtx.drawImage(canvas, sx, sy, sourceW, sourceH, 0, 0, size, size);
+      }
+
+      [canvasSingle, canvasCompareOrig, canvasCompareResult].forEach(canvas => {
+        canvas.addEventListener('pointerenter', showMagnifier);
+        canvas.addEventListener('pointermove', (e) => {
+          if (e.pointerType === 'mouse' || activeCanvas === canvas) updateMagnifier(e);
+        });
+        canvas.addEventListener('pointerleave', hideMagnifier);
+
+        canvas.addEventListener('pointerdown', (e) => {
+          if (e.pointerType === 'mouse') return;
+          canvas.setPointerCapture(e.pointerId);
+          showMagnifier(e);
+          e.preventDefault();
+        });
+        canvas.addEventListener('pointerup', hideMagnifier);
+        canvas.addEventListener('pointercancel', hideMagnifier);
+      });
+
+      window.addEventListener('scroll', hideMagnifier, true);
+      window.addEventListener('resize', hideMagnifier);
+    }
+
     function scheduleProcessImage() {
       if (renderQueued) return;
       renderQueued = true;
@@ -4189,7 +4345,7 @@
     setViewMode('compare');
     setActivePresetCard(currentPreset);
     setLanguage(currentLang);
-    initializeCanvasZoom();
+    initializeCanvasMagnifier();
     loadDemoImage();
   </script>
 </body>
