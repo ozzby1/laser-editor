@@ -1567,8 +1567,8 @@
 </section>
 <div aria-live="polite" class="status-message" id="statusMessage" role="status"></div>
 <div class="main-editor-layout"><div class="editor-preview-top"><div class="panel px-4 py-3 flex gap-3 items-center flex-wrap">
-<button aria-pressed="true" class="btn view-btn active" data-i18n="btnCompare" id="btnCompare">Original + Output</button>
-<button aria-pressed="false" class="btn view-btn" data-i18n="btnOutput" id="btnResult">Only Output</button>
+<button type="button" aria-pressed="true" class="btn view-btn active" data-i18n="btnCompare" id="btnCompare">Original + Output</button>
+<button type="button" aria-pressed="false" class="btn view-btn" data-i18n="btnOutput" id="btnResult">Only Output</button>
 <div class="ml-auto" id="imageDims" style="font-size:0.76rem;color:#7b8b9c;font-weight:600"></div>
 </div><div class="panel p-5">
 <div id="emptyState" style="min-height:320px">
@@ -1621,10 +1621,10 @@
 </div>
 <div class="helper-text" data-i18n="zoomHelp" style="text-align:center;margin-top:10px;">Move the mouse over the image to inspect details in the magnifier. On touch devices, hold and drag over the image. For the best experience and more comfortable editing, we recommend using this tool on a desktop computer.</div>
 <div class="mobile-action-stack">
-<button class="btn btn-secondary mobile-adjust-btn" data-i18n="adjustSettingsBtn" id="adjustSettingsBtnResult">Adjust settings ↓</button>
-<button class="btn btn-primary mobile-reupload-btn" data-i18n="reuploadBtn" id="reuploadBtnResult">Upload photo</button>
-<button class="btn btn-primary mobile-download-btn" data-i18n="downloadBtn" id="downloadBtnMobileResult">Download PNG</button>
-<button class="btn btn-secondary mobile-download-btn" data-i18n="downloadBmpBtn" id="downloadBmpBtnMobileResult">Download BMP</button>
+<button type="button" class="btn btn-secondary mobile-adjust-btn" data-i18n="adjustSettingsBtn" id="adjustSettingsBtnResult">Adjust settings ↓</button>
+<button type="button" class="btn btn-primary mobile-reupload-btn" data-i18n="reuploadBtn" id="reuploadBtnResult">Upload photo</button>
+<button type="button" class="btn btn-primary mobile-download-btn" data-i18n="downloadBtn" id="downloadBtnMobileResult">Download PNG</button>
+<button type="button" class="btn btn-secondary mobile-download-btn" data-i18n="downloadBmpBtn" id="downloadBmpBtnMobileResult">Download BMP</button>
 </div>
 </div>
 <div id="compareView">
@@ -1644,10 +1644,10 @@
 </div>
 <div class="helper-text" data-i18n="zoomHelp" style="text-align:center;margin-top:10px;">Move the mouse over the image to inspect details in the magnifier. On touch devices, hold and drag over the image. For the best experience and more comfortable editing, we recommend using this tool on a desktop computer.</div>
 <div class="mobile-action-stack">
-<button class="btn btn-secondary mobile-adjust-btn" data-i18n="adjustSettingsBtn" id="adjustSettingsBtnCompare">Adjust settings ↓</button>
-<button class="btn btn-primary mobile-reupload-btn" data-i18n="reuploadBtn" id="reuploadBtnCompare">Upload photo</button>
-<button class="btn btn-primary mobile-download-btn" data-i18n="downloadBtn" id="downloadBtnMobileCompare">Download PNG</button>
-<button class="btn btn-secondary mobile-download-btn" data-i18n="downloadBmpBtn" id="downloadBmpBtnMobileCompare">Download BMP</button>
+<button type="button" class="btn btn-secondary mobile-adjust-btn" data-i18n="adjustSettingsBtn" id="adjustSettingsBtnCompare">Adjust settings ↓</button>
+<button type="button" class="btn btn-primary mobile-reupload-btn" data-i18n="reuploadBtn" id="reuploadBtnCompare">Upload photo</button>
+<button type="button" class="btn btn-primary mobile-download-btn" data-i18n="downloadBtn" id="downloadBtnMobileCompare">Download PNG</button>
+<button type="button" class="btn btn-secondary mobile-download-btn" data-i18n="downloadBmpBtn" id="downloadBmpBtnMobileCompare">Download BMP</button>
 </div>
 </div>
 </div>
@@ -1705,7 +1705,7 @@
 <input id="ditherMode" type="hidden" value="floyd"/>
 <input hidden id="invertColors" type="checkbox"/>
 <div class="grid grid-cols-1 sm:grid-cols-1 gap-2 pt-1">
-<button class="btn btn-secondary" data-i18n="resetBtn" id="resetBtn">↺ Default Settings</button>
+<button type="button" class="btn btn-secondary" data-i18n="resetBtn" id="resetBtn">↺ Default Settings</button>
 </div>
 </div>
 </div>
@@ -1757,8 +1757,8 @@
 <div id="pixelInfo" style="font-size:0.76rem;color:#e2e8f0;font-weight:600">—</div>
 </div>
 </div>
-<button class="btn btn-primary w-full mt-1" data-i18n="downloadBtn" id="downloadBtn">Download PNG</button>
-<button class="btn btn-secondary w-full mt-2" data-i18n="downloadBmpBtn" id="downloadBmpBtn">Download BMP</button>
+<button type="button" class="btn btn-primary w-full mt-1" data-i18n="downloadBtn" id="downloadBtn">Download PNG</button>
+<button type="button" class="btn btn-secondary w-full mt-2" data-i18n="downloadBmpBtn" id="downloadBmpBtn">Download BMP</button>
 <div class="helper-text" data-i18n-html="exportHelp">PNG is recommended for LightBurn, XCS, LaserGRBL and other laser software. PNG and 1-bit BMP include DPI metadata for the correct physical size in laser software.</div>
 </div>
 </div>
@@ -1913,6 +1913,8 @@
     let viewMode = 'compare';
     let currentPreset = 'normal';
     let currentLang = 'en';
+    let originalImageToken = 0;
+    let lastRenderedOutputSignature = '';
 
     const FIXED_THRESHOLD = 128;
     const STORAGE_KEY = 'laserEditorSimpleV8';
@@ -1920,6 +1922,8 @@
     const OUTPUT_WIDTH_MIN_PX = 100;
     const OUTPUT_WIDTH_DEFAULT_MAX_PX = 6000;
     const OUTPUT_WIDTH_HARD_MAX_PX = 25000;
+    const LARGE_OUTPUT_CONFIRM_MEGAPIXELS = 25;
+    const HARD_OUTPUT_MAX_MEGAPIXELS = 50;
     const PREVIEW_IMAGE_SMALL = '/preview-v3-small.webp';
     const PREVIEW_IMAGE_FALLBACK = '/preview-v3.png';
 
@@ -2011,6 +2015,9 @@
         labelOriginalPreview: 'Original',
         labelOutputPreview: 'Laser-ready output',
         confirmLargeOutput: 'This output is very large ({mp} MP) and may be slow or freeze on weaker devices. Continue?',
+        statusLargePreviewSkipped: 'Live preview is paused because the selected output is very large ({mp} MP). Reduce width/DPI for live preview, or use Download to render the full-size file after confirmation.',
+        alertOutputTooLarge: 'The selected output is too large ({size}, {mp} MP). Reduce the image width or DPI before preview/export.',
+        alertRenderFail: 'Failed to process the image with the selected settings.',
         emptyOriginalAlt: 'Preview original image',
         emptyResultAlt: 'Preview output image',
         helpIntroTitle: 'What does this tool do?',
@@ -2960,9 +2967,68 @@
       return (widthPx * heightPx) / 1000000;
     }
 
-    function shouldContinueLargeExport() {
-      const megapixels = getOutputMegapixels();
-      if (megapixels <= 25) return true;
+    function getOutputSizeLabel(widthPx, heightPx) {
+      return `${widthPx} × ${heightPx} px`;
+    }
+
+    function getCurrentRenderSignature(widthPx, heightPx) {
+      return [
+        originalImageToken,
+        widthPx,
+        heightPx,
+        brightness.value,
+        contrast.value,
+        gamma.value,
+        sharpness.value,
+        ditherMode.value || DEFAULTS.ditherMode,
+        invertColors.checked ? '1' : '0'
+      ].join('|');
+    }
+
+    function showOutputTooLargeStatus(widthPx, heightPx, megapixels) {
+      showStatus(
+        t('alertOutputTooLarge')
+          .replace('{size}', getOutputSizeLabel(widthPx, heightPx))
+          .replace('{mp}', megapixels.toFixed(1)),
+        'error'
+      );
+    }
+
+    function canProcessOutputSize(widthPx, heightPx, options = {}) {
+      const megapixels = (widthPx * heightPx) / 1000000;
+
+      if (megapixels > HARD_OUTPUT_MAX_MEGAPIXELS) {
+        showOutputTooLargeStatus(widthPx, heightPx, megapixels);
+        return false;
+      }
+
+      if (!options.allowLarge && megapixels > LARGE_OUTPUT_CONFIRM_MEGAPIXELS) {
+        const imageDimsEl = document.getElementById('imageDims');
+        if (imageDimsEl) imageDimsEl.textContent = `${getOutputSizeLabel(widthPx, heightPx)} · preview paused`;
+
+        showStatus(
+          t('statusLargePreviewSkipped').replace('{mp}', megapixels.toFixed(1)),
+          'info'
+        );
+        updateSizeInfo();
+        return false;
+      }
+
+      return true;
+    }
+
+    function shouldContinueLargeExport(widthPx = getOutputWidthPx()) {
+      const heightPx = getOutputHeightPx(widthPx);
+      if (!heightPx) return false;
+
+      const megapixels = (widthPx * heightPx) / 1000000;
+
+      if (megapixels > HARD_OUTPUT_MAX_MEGAPIXELS) {
+        showOutputTooLargeStatus(widthPx, heightPx, megapixels);
+        return false;
+      }
+
+      if (megapixels <= LARGE_OUTPUT_CONFIRM_MEGAPIXELS) return true;
 
       return confirm(t('confirmLargeOutput').replace('{mp}', megapixels.toFixed(1)));
     }
@@ -3350,7 +3416,7 @@
         if (s.contrast !== undefined) contrast.value = s.contrast;
         if (s.gamma !== undefined) gamma.value = s.gamma;
         if (s.sharpness !== undefined) sharpness.value = s.sharpness;
-        ditherMode.value = DEFAULTS.ditherMode;
+        ditherMode.value = s.ditherMode || DEFAULTS.ditherMode;
         if (s.invertColors !== undefined) invertColors.checked = Boolean(s.invertColors);
         if (s.customDpi !== undefined) customDpi.value = String(normalizeDpiValue(s.customDpi));
         if (s.dpiMode === 'custom') {
@@ -3381,7 +3447,7 @@
         contrast: Number(contrast.value),
         gamma: Number(gamma.value),
         sharpness: Number(sharpness.value),
-        ditherMode: DEFAULTS.ditherMode,
+        ditherMode: ditherMode.value || DEFAULTS.ditherMode,
         invertColors: invertColors.checked,
         dpiMode: isCustomDpiMode() ? 'custom' : 'preset',
         dpiPreset: dpi.value,
@@ -3441,6 +3507,8 @@
 
     function loadImageIntoEditor(img, switchToResult = false, targetDpi = null, isDemo = false) {
       originalImage = img;
+      originalImageToken += 1;
+      lastRenderedOutputSignature = '';
       showEditor();
       showDemoNotice(isDemo);
 
@@ -3639,35 +3707,53 @@
       }
     }
 
-    function processImage() {
-      if (!originalImage) return;
+    function processImage(options = {}) {
+      if (!originalImage) return false;
 
       const w = getOutputWidthPx();
       const h = Math.max(1, Math.round(originalImage.height * w / originalImage.width));
+      const renderSignature = getCurrentRenderSignature(w, h);
 
-      const srcCanvas = document.createElement('canvas');
-      srcCanvas.width = w;
-      srcCanvas.height = h;
-      const srcCtx = srcCanvas.getContext('2d', { willReadFrequently: true });
-      srcCtx.drawImage(originalImage, 0, 0, w, h);
+      if (!canProcessOutputSize(w, h, options)) {
+        return false;
+      }
 
-      let imageData = srcCtx.getImageData(0, 0, w, h);
-      toGrayscale(imageData);
-      applyBrightnessContrast(imageData);
-      applyGamma(imageData);
+      try {
+        const srcCanvas = document.createElement('canvas');
+        srcCanvas.width = w;
+        srcCanvas.height = h;
+        const srcCtx = srcCanvas.getContext('2d', { willReadFrequently: true });
+        if (!srcCtx) throw new Error('2D canvas context is not available.');
 
-      const sharp = parseFloat(sharpness.value);
-      if (sharp > 0) imageData = applySharpen(imageData, w, h, sharp);
+        srcCtx.drawImage(originalImage, 0, 0, w, h);
 
-      applyDithering(imageData, w, h, DEFAULTS.ditherMode, FIXED_THRESHOLD);
-      if (invertColors.checked) invertImageData(imageData);
+        let imageData = srcCtx.getImageData(0, 0, w, h);
+        toGrayscale(imageData);
+        applyBrightnessContrast(imageData);
+        applyGamma(imageData);
 
-      drawOriginalIntoCanvas(canvasCompareOrig, w, h);
-      putImageDataToCanvas(canvasCompareResult, imageData, w, h);
-      putImageDataToCanvas(canvasSingle, imageData, w, h);
+        const sharp = parseFloat(sharpness.value);
+        if (sharp > 0) imageData = applySharpen(imageData, w, h, sharp);
 
-      document.getElementById('imageDims').textContent = `${w} × ${h} px`;
-      updateSizeInfo();
+        applyDithering(imageData, w, h, ditherMode.value || DEFAULTS.ditherMode, FIXED_THRESHOLD);
+        if (invertColors.checked) invertImageData(imageData);
+
+        drawOriginalIntoCanvas(canvasCompareOrig, w, h);
+        putImageDataToCanvas(canvasCompareResult, imageData, w, h);
+        putImageDataToCanvas(canvasSingle, imageData, w, h);
+
+        const imageDimsEl = document.getElementById('imageDims');
+        if (imageDimsEl) imageDimsEl.textContent = getOutputSizeLabel(w, h);
+
+        lastRenderedOutputSignature = renderSignature;
+        updateSizeInfo();
+        return true;
+      } catch (err) {
+        console.error(err);
+        lastRenderedOutputSignature = '';
+        showStatus(t('alertRenderFail'), 'error');
+        return false;
+      }
     }
 
     function drawOriginalIntoCanvas(canvas, w, h) {
@@ -3879,7 +3965,7 @@
           <div style="background:#000;border-radius:12px;overflow:hidden;border:1px solid rgba(255,255,255,0.08);margin-bottom:14px;">
             <img src="${url}" style="width:100%;display:block;" alt="Export PNG">
           </div>
-          <button class="btn btn-secondary" id="iosCloseBtn" style="width:100%">${t('iosClose')}</button>
+          <button type="button" class="btn btn-secondary" id="iosCloseBtn" style="width:100%">${t('iosClose')}</button>
         </div>
       `;
       document.body.appendChild(overlay);
@@ -4096,13 +4182,31 @@
       setTimeout(() => URL.revokeObjectURL(url), 1500);
     }
 
-    async function downloadBmpResult() {
-      if (!canvasSingle.width) {
+    function ensureCanvasReadyForExport() {
+      if (!originalImage) {
         showStatus(t('alertUploadFirst'), 'error');
-        return;
+        return false;
       }
 
-      if (!shouldContinueLargeExport()) return;
+      const w = getOutputWidthPx();
+      const h = getOutputHeightPx(w);
+      if (!h) {
+        showStatus(t('alertUploadFirst'), 'error');
+        return false;
+      }
+
+      if (!shouldContinueLargeExport(w)) return false;
+
+      const expectedSignature = getCurrentRenderSignature(w, h);
+      if (lastRenderedOutputSignature !== expectedSignature || canvasSingle.width !== w || canvasSingle.height !== h) {
+        return processImage({ allowLarge: true });
+      }
+
+      return true;
+    }
+
+    async function downloadBmpResult() {
+      if (!ensureCanvasReadyForExport()) return;
 
       try {
         const dpiValue = getDpiValue();
@@ -4116,12 +4220,7 @@
     }
 
     async function downloadResult() {
-      if (!canvasSingle.width) {
-        showStatus(t('alertUploadFirst'), 'error');
-        return;
-      }
-
-      if (!shouldContinueLargeExport()) return;
+      if (!ensureCanvasReadyForExport()) return;
 
       try {
         const dpiValue = getDpiValue();
