@@ -1078,32 +1078,17 @@
     .zoom-hover {
       overflow: hidden;
       border-radius: 14px;
-      cursor: zoom-in;
+      cursor: crosshair;
       user-select: none;
       -webkit-user-select: none;
       position: relative;
+      touch-action: none;
     }
 
     .zoom-hover canvas {
       display: block;
       width: 100%;
       height: auto;
-      transform-origin: top left;
-      transition: transform 0.08s ease;
-    }
-
-    .zoom-hover.zoomed {
-      cursor: grab;
-      overflow: auto;
-      max-height: 75vh;
-    }
-
-    .zoom-hover.dragging {
-      cursor: grabbing !important;
-    }
-
-    .zoom-hover.dragging canvas {
-      transition: none;
     }
 
     .preset-card {
@@ -1929,9 +1914,6 @@
     let currentPreset = 'normal';
     let currentLang = 'en';
 
-    const ZOOM_STEP = 0.1;
-    const ZOOM_MIN = 0.2;
-    const ZOOM_MAX = 6;
     const FIXED_THRESHOLD = 128;
     const STORAGE_KEY = 'laserEditorSimpleV8';
     const LANG_STORAGE_KEY = 'laserEditorLanguageV1';
@@ -2104,6 +2086,9 @@
         stepDownloadText: 'Listo para grabado',
         hintLine: '↑ Empieza ahora mismo con la foto de ejemplo o sube la tuya',
         zoomHelp: 'Mueve el ratón sobre la imagen para ver los detalles con la lupa. En dispositivos táctiles, mantén pulsado y arrastra sobre la imagen. Para disfrutar de la mejor experiencia y una edición más cómoda, recomendamos usar esta herramienta en un ordenador de escritorio.',
+        adjustSettingsBtn: 'Ajustar configuración ↓',
+        labelOriginalPreview: 'Original',
+        labelOutputPreview: 'Salida lista para láser',
         reuploadBtn: 'Subir foto',
         sectionUpload: 'Subir Foto',
         dropZoneMain: 'Arrastra y suelta o haz clic para elegir',
@@ -2140,9 +2125,13 @@
         exportHelp: 'PNG es el formato recomendado para LightBurn, XCS, LaserGRBL y otros programas láser. PNG y BMP de 1 bit incluyen metadatos DPI para mantener el tamaño físico correcto en el software láser.',
         alertLoadFail: 'No se pudo cargar la imagen.',
         alertReadFail: 'Error al leer el archivo.',
+        alertInvalidFile: 'Sube un archivo de imagen: JPG, PNG, BMP o WebP.',
+        statusImageLoaded: 'Imagen cargada. Ahora puedes ajustar la configuración o descargar el PNG.',
+        demoNoticeText: 'Imagen de demostración cargada — sube tu propia foto para empezar.',
         alertUploadFirst: 'Primero sube una imagen.',
         alertPngFail: 'No se pudo crear el archivo PNG con el DPI seleccionado.',
         alertBmpFail: 'No se pudo crear el archivo BMP de 1 bit con el DPI seleccionado.',
+        confirmLargeOutput: 'Esta salida es muy grande ({mp} MP) y puede ser lenta o bloquearse en dispositivos menos potentes. ¿Continuar?',
         iosTitle: 'Guardar en iOS',
         iosText: 'Mantén pulsada la imagen y elige <strong style="color:#e2e8f0">Añadir a Fotos</strong> o <strong style="color:#e2e8f0">Guardar imagen</strong>.',
         iosClose: 'Cerrar',
@@ -2222,6 +2211,9 @@
         stepDownloadText: 'Bereit zum Gravieren',
         hintLine: '↑ Starte sofort mit dem Beispielfoto oder lade dein eigenes hoch',
         zoomHelp: 'Bewege die Maus über das Bild, um Details in der Lupe zu prüfen. Auf Touch-Geräten halte den Finger gedrückt und ziehe über das Bild. Für das beste Erlebnis und eine bequemere Bearbeitung empfehlen wir, dieses Tool auf einem Desktop-Computer zu verwenden.',
+        adjustSettingsBtn: 'Einstellungen anpassen ↓',
+        labelOriginalPreview: 'Original',
+        labelOutputPreview: 'Laserfertige Ausgabe',
         reuploadBtn: 'Foto hochladen',
         sectionUpload: 'Foto Hochladen',
         dropZoneMain: 'Per Drag & Drop oder klicken zum Auswählen',
@@ -2258,9 +2250,13 @@
         exportHelp: 'PNG wird für LightBurn, XCS, LaserGRBL und andere Lasersoftware empfohlen. PNG und 1-Bit-BMP enthalten DPI-Metadaten für die korrekte physische Größe in der Lasersoftware.',
         alertLoadFail: 'Das Bild konnte nicht geladen werden.',
         alertReadFail: 'Fehler beim Lesen der Datei.',
+        alertInvalidFile: 'Bitte lade eine Bilddatei hoch: JPG, PNG, BMP oder WebP.',
+        statusImageLoaded: 'Bild geladen. Du kannst jetzt die Einstellungen anpassen oder die PNG-Datei herunterladen.',
+        demoNoticeText: 'Demo-Bild geladen — lade dein eigenes Foto hoch, um zu beginnen.',
         alertUploadFirst: 'Bitte lade zuerst ein Bild hoch.',
         alertPngFail: 'Die PNG-Datei mit den gewählten DPI konnte nicht erstellt werden.',
         alertBmpFail: 'Die 1-Bit-BMP-Datei mit den gewählten DPI konnte nicht erstellt werden.',
+        confirmLargeOutput: 'Diese Ausgabe ist sehr groß ({mp} MP) und kann auf schwächeren Geräten langsam sein oder einfrieren. Fortfahren?',
         iosTitle: 'Auf iOS speichern',
         iosText: 'Halte das Bild gedrückt und wähle <strong style="color:#e2e8f0">Zu Fotos hinzufügen</strong> oder <strong style="color:#e2e8f0">Bild sichern</strong>.',
         iosClose: 'Schließen',
@@ -2371,6 +2367,27 @@
         confirmLargeOutput: 'Výstup je velmi velký ({mp} MP) a může být pomalý nebo zaseknout slabší zařízení. Pokračovat?',
         emptyOriginalAlt: 'Ukázka originálního obrázku',
         emptyResultAlt: 'Ukázka výstupního obrázku',
+        seoIntroTitle: 'Online převod fotky pro laserové gravírování zdarma',
+        seoIntroText: 'Použij <strong class="text-white">PhotoEngraving.online</strong> jako bezplatný převodník obrázků pro laserové gravírování přímo v prohlížeči. Nahraj fotku, převeď ji na černobílý PNG připravený pro laser, zvol typ fotky a DPI, zkontroluj doporučenou rychlost gravírování podle materiálu, uprav jas, kontrast, gammu a ostrost a stáhni výsledek pro LightBurn, XCS, LaserGRBL, EZCAD a další laserový software.',
+        seoCard1Title: 'Bezplatný online nástroj',
+        seoCard1Text: 'Bez instalace. Převáděj fotky pro laserové gravírování online a stáhni si PNG zdarma.',
+        seoCard2Title: 'PNG připravené pro laser',
+        seoCard2Text: 'Exportuj černobílé PNG soubory s DPI metadaty a doporučením rychlosti gravírování pro správnou fyzickou velikost v laserovém softwaru.',
+        seoCard3Title: 'Soukromé zpracování v prohlížeči',
+        seoCard3Text: 'Fotka se zpracovává lokálně ve tvém prohlížeči a neodesílá se na náš server.',
+        faqTitle: 'Časté dotazy k fotogravírování',
+        faq1Question: 'Je tento převodník fotek pro laserové gravírování zdarma?',
+        faq1Answer: 'Ano. Nástroj je zdarma přímo v prohlížeči. Fotku můžeš převést na PNG pro laserové gravírování a výsledek stáhnout bez instalace softwaru.',
+        faq2Question: 'Který laserový software umí exportovaný PNG použít?',
+        faq2Answer: 'PNG výstup je vhodný pro LightBurn, XCS, LaserGRBL, EZCAD a další software pro laserové gravírování, který umí importovat rastrové obrázky.',
+        faq3Question: 'Obsahuje PNG informace o DPI?',
+        faq3Answer: 'Ano. Exportovaný PNG obsahuje DPI metadata, která pomáhají laserovému softwaru zachovat správnou fyzickou velikost gravírování.',
+        faq4Question: 'Můžu použít vlastní hodnotu DPI?',
+        faq4Answer: 'Ano. Můžeš vybrat přednastavené DPI nebo zadat vlastní hodnotu podle laseru, materiálu a požadovaného rozestupu řádků.',
+        faq5Question: 'Co dělá volba Negativ?',
+        faq5Answer: 'Negativ vytvoří invertovaný výstup tak, že ve finálním obrázku připraveném pro laser prohodí černou a bílou.',
+        faq6Question: 'Nahrávají se moje fotky na server?',
+        faq6Answer: 'Ne. Fotky se zpracovávají lokálně ve tvém prohlížeči a nejsou odesílány na náš server.',
         helpIntroTitle: 'Co tento nástroj umí?',
         helpIntroText: '<strong class="text-white">PhotoEngraving.online</strong> převede vaši fotografii na ditherovaný černobílý obraz, který je optimalizovaný pro gravírování CO2, fiber nebo diodovým laserem. Výsledný soubor PNG pak importuješ přímo do svého laserového softwaru (LightBurn, LaserGRBL, XCS apod.).',
         helpStepsTitle: 'Postup krok za krokem',
@@ -2423,21 +2440,6 @@
       tr: 'tr_TR',
       zh: 'zh_CN',
       cs: 'cs_CZ'
-    };
-
-    const zoomState = {
-      canvasSingle: 1,
-      canvasCompareOrig: 1,
-      canvasCompareResult: 1
-    };
-
-    const dragState = {
-      isDragging: false,
-      wrapper: null,
-      startX: 0,
-      startY: 0,
-      scrollLeft: 0,
-      scrollTop: 0
     };
 
     const PRESETS = {
@@ -2781,6 +2783,20 @@
         currentLang = pathLang;
         return;
       }
+
+      const htmlLang = (document.documentElement.lang || '').toLowerCase();
+      if (htmlLang && translations[htmlLang]) {
+        currentLang = htmlLang;
+        return;
+      }
+
+      try {
+        const storedLang = localStorage.getItem(LANG_STORAGE_KEY);
+        if (storedLang && translations[storedLang]) {
+          currentLang = storedLang;
+          return;
+        }
+      } catch (e) {}
 
       currentLang = 'en';
     }
@@ -3160,132 +3176,33 @@
       sliderPairs.forEach(([id]) => updateSlider(document.getElementById(id)));
     }
 
-    function getCanvasZoomKey(canvas) {
-      return canvas.id;
-    }
-
-    function getCanvasScale(canvas) {
-      return zoomState[getCanvasZoomKey(canvas)] || 1;
-    }
-
-    function setCanvasScale(canvas, scale) {
-      const clamped = clamp(scale, ZOOM_MIN, ZOOM_MAX);
-      zoomState[getCanvasZoomKey(canvas)] = clamped;
-
-      const wrapper = canvas.parentElement;
-      if (!wrapper) return;
-
-      canvas.style.transform = `scale(${clamped})`;
-      wrapper.classList.toggle('zoomed', clamped > 1);
-
-      if (clamped <= 1) {
-        wrapper.scrollLeft = 0;
-        wrapper.scrollTop = 0;
-      }
-    }
-
-    function resetAllCanvasZoom() {
+    function resetCanvasInspectionState() {
       [canvasSingle, canvasCompareOrig, canvasCompareResult].forEach(canvas => {
-        zoomState[canvas.id] = 1;
+        if (!canvas) return;
+
+        canvas.style.transform = '';
+
         const wrapper = canvas.parentElement;
-        if (!wrapper) return;
-
-        canvas.style.transform = 'scale(1)';
-        wrapper.classList.remove('zoomed', 'dragging');
-        wrapper.scrollLeft = 0;
-        wrapper.scrollTop = 0;
+        if (wrapper) {
+          wrapper.classList.remove('zoomed', 'dragging');
+          wrapper.scrollLeft = 0;
+          wrapper.scrollTop = 0;
+        }
       });
 
-      dragState.isDragging = false;
-      dragState.wrapper = null;
-    }
-
-    function startDrag(wrapper, e) {
-      if (e.button !== 0) return;
-      const canvas = wrapper.querySelector('canvas');
-      if (!canvas) return;
-      if (getCanvasScale(canvas) <= 1) return;
-
-      dragState.isDragging = true;
-      dragState.wrapper = wrapper;
-      dragState.startX = e.clientX;
-      dragState.startY = e.clientY;
-      dragState.scrollLeft = wrapper.scrollLeft;
-      dragState.scrollTop = wrapper.scrollTop;
-
-      wrapper.classList.add('dragging');
-      e.preventDefault();
-    }
-
-    function onDragMove(e) {
-      if (!dragState.isDragging || !dragState.wrapper) return;
-
-      const dx = e.clientX - dragState.startX;
-      const dy = e.clientY - dragState.startY;
-
-      dragState.wrapper.scrollLeft = dragState.scrollLeft - dx;
-      dragState.wrapper.scrollTop = dragState.scrollTop - dy;
-    }
-
-    function stopDrag() {
-      if (!dragState.wrapper) {
-        dragState.isDragging = false;
-        return;
-      }
-
-      dragState.wrapper.classList.remove('dragging');
-      dragState.isDragging = false;
-      dragState.wrapper = null;
-    }
-
-    function attachWheelZoom(wrapper, canvas) {
-      wrapper.addEventListener('wheel', (e) => {
-        if (!canvas.width || !canvas.height) return;
-        if (!e.ctrlKey && !e.metaKey) return;
-
-        e.preventDefault();
-
-        const oldScale = getCanvasScale(canvas);
-        const delta = e.deltaY < 0 ? ZOOM_STEP : -ZOOM_STEP;
-        const newScale = clamp(roundTo(oldScale + delta, 0.05), ZOOM_MIN, ZOOM_MAX);
-
-        if (newScale === oldScale) return;
-
-        const rect = wrapper.getBoundingClientRect();
-        const offsetX = e.clientX - rect.left + wrapper.scrollLeft;
-        const offsetY = e.clientY - rect.top + wrapper.scrollTop;
-
-        const pointX = offsetX / oldScale;
-        const pointY = offsetY / oldScale;
-
-        setCanvasScale(canvas, newScale);
-
-        wrapper.scrollLeft = pointX * newScale - (e.clientX - rect.left);
-        wrapper.scrollTop = pointY * newScale - (e.clientY - rect.top);
-      }, { passive: false });
-
-      wrapper.addEventListener('dblclick', () => {
-        setCanvasScale(canvas, 1);
-        wrapper.scrollLeft = 0;
-        wrapper.scrollTop = 0;
-      });
-
-      wrapper.addEventListener('mousedown', (e) => startDrag(wrapper, e));
-      wrapper.addEventListener('mouseleave', stopDrag);
-    }
-
-    function initializeCanvasZoom() {
-      attachWheelZoom(canvasSingle.parentElement, canvasSingle);
-      attachWheelZoom(canvasCompareOrig.parentElement, canvasCompareOrig);
-      attachWheelZoom(canvasCompareResult.parentElement, canvasCompareResult);
-
-      window.addEventListener('mousemove', onDragMove);
-      window.addEventListener('mouseup', stopDrag);
+      const lens = document.getElementById('detailMagnifier');
+      if (lens) lens.classList.remove('visible');
     }
 
 
     function initializeCanvasMagnifier() {
+      const existingLens = document.getElementById('detailMagnifier');
+      if (existingLens) existingLens.remove();
+
       const MAGNIFIER_ZOOM = 4;
+      const canvases = [canvasSingle, canvasCompareOrig, canvasCompareResult].filter(Boolean);
+      if (!canvases.length) return;
+
       const lens = document.createElement('div');
       lens.id = 'detailMagnifier';
       lens.className = 'detail-magnifier';
@@ -3296,6 +3213,11 @@
       document.body.appendChild(lens);
 
       const lensCtx = lensCanvas.getContext('2d');
+      if (!lensCtx) {
+        lens.remove();
+        return;
+      }
+
       let activeCanvas = null;
 
       function getMagnifierSize() {
@@ -3369,7 +3291,7 @@
         lensCtx.drawImage(canvas, sx, sy, sourceW, sourceH, 0, 0, size, size);
       }
 
-      [canvasSingle, canvasCompareOrig, canvasCompareResult].forEach(canvas => {
+      canvases.forEach(canvas => {
         canvas.addEventListener('pointerenter', showMagnifier);
         canvas.addEventListener('pointermove', (e) => {
           if (e.pointerType === 'mouse' || activeCanvas === canvas) updateMagnifier(e);
@@ -3378,12 +3300,15 @@
 
         canvas.addEventListener('pointerdown', (e) => {
           if (e.pointerType === 'mouse') return;
-          canvas.setPointerCapture(e.pointerId);
+          if (typeof canvas.setPointerCapture === 'function') {
+            canvas.setPointerCapture(e.pointerId);
+          }
           showMagnifier(e);
           e.preventDefault();
         });
         canvas.addEventListener('pointerup', hideMagnifier);
         canvas.addEventListener('pointercancel', hideMagnifier);
+        canvas.addEventListener('lostpointercapture', hideMagnifier);
       });
 
       window.addEventListener('scroll', hideMagnifier, true);
@@ -3533,7 +3458,7 @@
       const isMobile = window.innerWidth < 1024;
       setViewMode(isMobile ? 'result' : (switchToResult ? 'result' : 'compare'));
 
-      resetAllCanvasZoom();
+      resetCanvasInspectionState();
       processImage();
 
       if (isMobile) {
@@ -3756,17 +3681,6 @@
       const ctx = canvas.getContext('2d');
       ctx.clearRect(0, 0, w, h);
       ctx.drawImage(originalImage, 0, 0, w, h);
-
-      setCanvasScale(canvas, getCanvasScale(canvas));
-
-      if (getCanvasScale(canvas) <= 1) {
-        const wrapper = canvas.parentElement;
-        if (wrapper) {
-          wrapper.classList.remove('zoomed');
-          wrapper.scrollLeft = 0;
-          wrapper.scrollTop = 0;
-        }
-      }
     }
 
     function putImageDataToCanvas(canvas, imageData, w, h) {
@@ -3777,17 +3691,6 @@
 
       const ctx = canvas.getContext('2d');
       ctx.putImageData(imageData, 0, 0);
-
-      setCanvasScale(canvas, getCanvasScale(canvas));
-
-      if (getCanvasScale(canvas) <= 1) {
-        const wrapper = canvas.parentElement;
-        if (wrapper) {
-          wrapper.classList.remove('zoomed');
-          wrapper.scrollLeft = 0;
-          wrapper.scrollTop = 0;
-        }
-      }
     }
 
     function toGrayscale(imageData) {
@@ -4066,12 +3969,14 @@
       let existingPhysStart = -1;
       let existingPhysEnd = -1;
 
-      while (offset < bytes.length) {
+      while (offset + 8 <= bytes.length) {
         const length =
           (bytes[offset] << 24) |
           (bytes[offset + 1] << 16) |
           (bytes[offset + 2] << 8) |
           bytes[offset + 3];
+
+        if (length < 0) break;
 
         const typeStart = offset + 4;
         const type = String.fromCharCode(
@@ -4082,6 +3987,8 @@
         );
 
         const chunkTotalLength = 12 + length;
+        if (offset + chunkTotalLength > bytes.length) break;
+
         if (type === 'IHDR') ihdrEnd = offset + chunkTotalLength;
         if (type === 'pHYs') {
           existingPhysStart = offset;
@@ -4089,6 +3996,10 @@
           break;
         }
         offset += chunkTotalLength;
+      }
+
+      if (ihdrEnd === -1) {
+        return baseBlob;
       }
 
       const physChunk = createPhysChunk(dpiValue);
@@ -4336,7 +4247,7 @@
 
 
 
-    currentLang = document.documentElement.lang || 'en';
+    loadStoredLanguage();
     buildCustomDpiSelect();
     loadStoredSettings();
     sliderPairs.forEach(([id]) => updateSlider(document.getElementById(id)));
