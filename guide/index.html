@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/>
 <title>Laser Photo Engraving Guide 2026: DPI, Dithering &amp; Material Settings | PhotoEngraving.online</title>
 <meta content="Complete laser photo engraving guide: photo selection, image preparation, DPI, line interval, dithering, grayscale, LightBurn workflow, material settings, calibration tests and troubleshooting." name="description"/>
 <meta content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" name="robots"/>
@@ -1999,6 +1999,399 @@ z-index: 300;
   .guide-hero-title { letter-spacing: -0.04em; }
 }
 
+/* Mobile guide refinements: better readability and touch layout for phones/tablets. */
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+  scroll-padding-top: 16px;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+img,
+svg,
+video {
+  max-width: 100%;
+  height: auto;
+}
+
+.guide-copy,
+.guide-card-text,
+.guide-step-item span,
+.guide-source-list li,
+.guide-table td,
+.guide-table th {
+  overflow-wrap: anywhere;
+}
+
+@supports (text-wrap: balance) {
+  .guide-hero-title,
+  .guide-section h2,
+  .guide-section h3 {
+    text-wrap: balance;
+  }
+}
+
+@media (max-width: 1023px) {
+  .content.max-w-7xl {
+    width: 100%;
+    max-width: 100%;
+    padding-left: clamp(12px, 3.4vw, 18px);
+    padding-right: clamp(12px, 3.4vw, 18px);
+    padding-top: 10px;
+    padding-bottom: 18px;
+  }
+
+  header.app-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    margin-bottom: 12px;
+    border-radius: 16px;
+  }
+
+  header.app-header .ml-auto {
+    margin-left: auto;
+    flex: 0 0 auto;
+  }
+
+  .brand-logo {
+    height: 46px;
+    max-width: min(62vw, 270px);
+    object-fit: contain;
+  }
+
+  .guide-nav-link,
+  .guide-hero-actions .btn {
+    min-height: 44px;
+  }
+
+  .guide-nav-link {
+    padding: 8px 12px;
+    font-size: 0.8rem;
+    white-space: nowrap;
+  }
+
+  .panel.p-6 {
+    padding: 20px 16px;
+  }
+
+  .panel.p-4 {
+    padding: 14px;
+  }
+
+  .guide-layout {
+    gap: 12px;
+  }
+
+  .guide-hero-title {
+    font-size: clamp(1.9rem, 7.2vw, 3rem);
+    line-height: 1.02;
+    letter-spacing: -0.045em;
+    margin-bottom: 12px;
+  }
+
+  .guide-hero-subtitle {
+    font-size: 0.98rem;
+    line-height: 1.68;
+  }
+
+  .guide-hero-actions {
+    gap: 9px;
+    margin-top: 18px;
+  }
+
+  .guide-toc {
+    position: static;
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+  }
+
+  .guide-toc .section-title {
+    margin-bottom: 10px;
+    white-space: normal;
+  }
+
+  .guide-toc a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 38px;
+    margin: 0 6px 8px 0;
+    padding: 8px 11px;
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 999px;
+    background: rgba(255,255,255,0.035);
+    color: #dbe7f3;
+    font-size: 0.78rem;
+    line-height: 1.15;
+  }
+
+  .guide-toc a:hover,
+  .guide-toc a:focus-visible {
+    background: rgba(249,115,22,0.12);
+    border-color: rgba(249,115,22,0.40);
+    color: #fdba74;
+  }
+
+  .guide-main {
+    gap: 12px;
+  }
+
+  .guide-section {
+    scroll-margin-top: 18px;
+  }
+
+  .guide-section h2 {
+    font-size: clamp(1.38rem, 4.4vw, 2rem);
+    line-height: 1.14;
+    margin-bottom: 12px;
+  }
+
+  .guide-section h3 {
+    margin-top: 20px;
+  }
+
+  .guide-copy {
+    font-size: 0.93rem;
+    line-height: 1.72;
+  }
+
+  .guide-copy p {
+    margin-bottom: 12px;
+  }
+
+  .guide-copy ul,
+  .guide-copy ol {
+    padding-left: 1.1rem;
+  }
+
+  .guide-card {
+    padding: 15px;
+  }
+
+  .guide-callout,
+  .guide-warning,
+  .guide-success,
+  .help-note-box {
+    padding: 15px;
+  }
+
+  .guide-source-list li {
+    padding: 11px 12px;
+  }
+}
+
+@media (max-width: 700px) {
+  .guide-hero-title {
+    font-size: clamp(1.65rem, 8.4vw, 2.35rem);
+    line-height: 1.04;
+    letter-spacing: -0.035em;
+  }
+
+  .guide-hero-subtitle {
+    font-size: 0.93rem;
+    line-height: 1.62;
+  }
+
+  .guide-hero-actions {
+    flex-direction: column;
+  }
+
+  .guide-hero-actions .btn {
+    width: 100%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .guide-grid-2,
+  .guide-grid-3,
+  .guide-grid-4 {
+    gap: 10px;
+  }
+
+  .guide-step-item {
+    grid-template-columns: 34px minmax(0, 1fr);
+    gap: 10px;
+    padding: 13px;
+  }
+
+  .guide-step-item::before {
+    width: 30px;
+    height: 30px;
+    font-size: 0.82rem;
+  }
+
+  .guide-step-item span {
+    font-size: 0.84rem;
+    line-height: 1.58;
+  }
+
+  .guide-table-wrap {
+    overflow: visible;
+    border: 0;
+    border-radius: 0;
+    margin: 14px 0 18px;
+  }
+
+  .guide-table {
+    display: block;
+    width: 100%;
+    min-width: 0;
+    border-collapse: separate;
+    border-spacing: 0;
+    font-size: 0.84rem;
+  }
+
+  .guide-table thead {
+    display: none;
+  }
+
+  .guide-table tbody {
+    display: grid;
+    gap: 10px;
+  }
+
+  .guide-table tr {
+    display: block;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 14px;
+    background: rgba(255,255,255,0.024);
+  }
+
+  .guide-table th,
+  .guide-table td {
+    display: block;
+    width: 100%;
+    padding: 10px 12px;
+    border-bottom: 1px solid rgba(255,255,255,0.055);
+  }
+
+  .guide-table td:first-child {
+    background: rgba(249,115,22,0.075);
+    color: #fdba74;
+    font-weight: 850;
+  }
+
+  .guide-table td:last-child {
+    border-bottom: 0;
+  }
+
+  .guide-formula code {
+    padding: 11px 12px;
+    font-size: 0.78rem;
+    line-height: 1.55;
+  }
+}
+
+@media (max-width: 520px) {
+  .content.max-w-7xl {
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 8px;
+  }
+
+  header.app-header {
+    flex-wrap: nowrap;
+    padding: 9px 10px;
+    gap: 8px;
+    border-radius: 14px;
+  }
+
+  .brand-logo {
+    height: 38px;
+    max-width: calc(100vw - 150px);
+  }
+
+  .guide-nav-link {
+    min-height: 38px;
+    padding: 7px 10px;
+    font-size: 0.76rem;
+    border-radius: 9px;
+  }
+
+  .panel {
+    border-radius: 14px;
+  }
+
+  .panel.p-6 {
+    padding: 16px 13px;
+  }
+
+  .panel.p-4 {
+    padding: 12px;
+  }
+
+  .guide-hero-title {
+    font-size: clamp(1.52rem, 8.8vw, 2.05rem);
+    line-height: 1.06;
+    margin-bottom: 10px;
+  }
+
+  .guide-section h2 {
+    font-size: 1.32rem;
+    line-height: 1.16;
+  }
+
+  .guide-section h3 {
+    font-size: 1rem;
+    line-height: 1.28;
+  }
+
+  .guide-copy {
+    font-size: 0.9rem;
+    line-height: 1.68;
+  }
+
+  .guide-card,
+  .guide-callout,
+  .guide-warning,
+  .guide-success {
+    border-radius: 13px;
+    padding: 13px;
+  }
+
+  .guide-step-item {
+    grid-template-columns: 30px minmax(0, 1fr);
+    padding: 12px;
+  }
+
+  .guide-step-item::before {
+    width: 28px;
+    height: 28px;
+  }
+
+  .guide-toc a {
+    min-height: 36px;
+    padding: 7px 10px;
+    font-size: 0.76rem;
+  }
+
+  .guide-faq summary {
+    padding: 13px 14px;
+    font-size: 0.9rem;
+    line-height: 1.35;
+  }
+
+  .guide-faq details p {
+    padding: 0 14px 14px;
+    font-size: 0.86rem;
+  }
+
+  .footer-note {
+    font-size: 0.72rem;
+  }
+}
+
+
   </style>
 <script async="" src="https://scripts.simpleanalyticscdn.com/latest.js"></script>
 </head>
@@ -2022,20 +2415,6 @@ z-index: 300;
 <div class="guide-layout">
 <aside aria-label="Table of contents" class="panel p-4 guide-toc">
 <div class="section-title">Guide contents</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <a href="#quick-start">Quick start</a><a href="#principles">How laser photo engraving works</a><a href="#laser-types">Laser types</a><a href="#photo-selection">Photo quality checklist</a><a href="#workflow">Image preparation workflow</a><a href="#dpi">DPI, line interval and size</a><a href="#calibration">Calibration workflow</a><a href="#dithering">Dithering algorithms</a><a href="#materials">Material-specific advice</a><a href="#settings">Starting settings and tests</a><a href="#software">Software workflow</a><a href="#export">Export and file handling</a><a href="#troubleshooting">Troubleshooting</a><a href="#safety">Safety</a><a href="#advanced">Advanced techniques</a><a href="#quality-control">Final quality checklist</a><a href="#faq">FAQ</a><a href="#sources">Sources</a></aside>
 <main class="guide-main">
 <section class="panel p-6 guide-section" id="quick-start">
