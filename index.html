@@ -807,7 +807,8 @@ input[type=number]:focus {
 }
 
 
-.feedback-btn {
+.feedback-btn,
+.guide-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -823,11 +824,21 @@ input[type=number]:focus {
   font-weight: 800;
   line-height: 1;
   cursor: pointer;
+  text-decoration: none;
   transition: all 0.18s ease;
 }
 
+.guide-btn {
+  background: rgba(249,115,22,0.12);
+  border-color: rgba(249,115,22,0.42);
+  color: #ffedd5;
+  box-shadow: 0 0 0 1px rgba(249,115,22,0.10);
+}
+
 .feedback-btn:hover,
-.feedback-btn:focus-visible {
+.feedback-btn:focus-visible,
+.guide-btn:hover,
+.guide-btn:focus-visible {
   background: rgba(249,115,22,0.14);
   border-color: rgba(249,115,22,0.55);
   color: #ffffff;
@@ -1583,6 +1594,11 @@ z-index: 300;
        </a>
       </div>
      </nav>
+     <a aria-label="Open laser photo engraving user guide" class="guide-btn" href="https://photoengraving.online/guide/">
+      <span>
+       User Guide
+      </span>
+     </a>
      <button aria-controls="feedbackModal" aria-haspopup="dialog" class="feedback-btn" id="feedbackOpenBtn" type="button">
       <span aria-hidden="true">
        💬
