@@ -1859,6 +1859,35 @@ z-index: 300;
       </div>
      </div>
      <div class="panel p-4">
+      <div class="section-title" data-i18n="sectionDithering">
+       Dithering
+      </div>
+      <div class="flex flex-col gap-3">
+       <div>
+        <label data-i18n="labelDitherMode" for="ditherMode">
+         Dithering method
+        </label>
+        <select class="mt-1" id="ditherMode">
+         <option data-i18n="ditherFloyd" selected="" value="floyd">
+          Floyd-Steinberg (default)
+         </option>
+         <option data-i18n="ditherAtkinson" value="atkinson">
+          Atkinson
+         </option>
+         <option data-i18n="ditherJarvis" value="jarvis">
+          Jarvis
+         </option>
+         <option data-i18n="ditherOrdered" value="ordered">
+          Ordered / Bayer
+         </option>
+        </select>
+        <div class="helper-text" data-i18n="ditherHelp">
+         Floyd is the default balanced choice. Atkinson is softer, Jarvis is smoother with more tones, and Ordered/Bayer creates a regular pattern.
+        </div>
+       </div>
+      </div>
+     </div>
+     <div class="panel p-4">
       <div class="section-title" data-i18n="sectionAdjustments">
        Photo Adjustments
       </div>
@@ -1907,7 +1936,6 @@ z-index: 300;
          </span>
         </div>
        </div>
-       <input id="ditherMode" type="hidden" value="floyd"/>
        <input hidden="" id="invertColors" type="checkbox"/>
        <div class="grid grid-cols-1 sm:grid-cols-1 gap-2 pt-1">
         <button class="btn btn-secondary" data-i18n="resetBtn" id="resetBtn" type="button">
@@ -2391,6 +2419,13 @@ const translations = {
     presetLight: 'Light Photo',
     presetDetail: '🔍 More Detail',
     presetHelp: 'Default is Normal Photo. Choose Negative for an inverted output, or fine-tune everything with the sliders below.',
+    sectionDithering: 'Dithering',
+    labelDitherMode: 'Dithering method',
+    ditherFloyd: 'Floyd-Steinberg (default)',
+    ditherAtkinson: 'Atkinson',
+    ditherJarvis: 'Jarvis',
+    ditherOrdered: 'Ordered / Bayer',
+    ditherHelp: 'Floyd is the default balanced choice. Atkinson is softer, Jarvis is smoother with more tones, and Ordered/Bayer creates a regular pattern.',
     sectionAdjustments: 'Photo Adjustments',
     labelBrightness: 'Brightness',
     labelContrast: 'Contrast',
@@ -2467,399 +2502,11 @@ const translations = {
     helpTip3Text: 'Always test the result first on an offcut of the same material before running the final engraving.',
     helpTip4Title: '⚙️ LightBurn settings',
     helpTip4Text: 'Import the PNG as <strong class="text-gray-200">Passthrough</strong> or <strong class="text-gray-200">Threshold</strong>. The dithering is already included in the file, so additional image processing may make it worse.'
-  },
-
-  es: {
-    heroTitle: 'Conversor gratuito de foto a grabado láser online',
-    heroText: 'Convierte cualquier imagen o foto en un PNG listo para grabado láser directamente en tu navegador. Elige el tipo de foto, ajusta DPI, brillo, contraste, gamma, nitidez y tamaño de salida, y exporta un PNG preparado para LightBurn, XCS, LaserGRBL, EZCAD y otros programas láser. <strong style="color: var(--accent);">Gratis, privado y 100% basado en el navegador. Tus imágenes nunca salen de tu dispositivo.</strong>',
-    seoIntroTitle: 'Conversor gratuito de foto a grabado láser online',
-    seoIntroText: 'Usa <strong class="text-white">PhotoEngraving.online</strong> como conversor gratuito de imagen a grabado láser directamente en tu navegador. Sube una foto, conviértela en un PNG en blanco y negro listo para láser, elige el tipo de foto y DPI, revisa la velocidad de grabado recomendada por material, ajusta brillo, contraste, gamma y nitidez, y descarga el resultado para LightBurn, XCS, LaserGRBL, EZCAD y otros programas láser.',
-    seoCard1Title: 'Herramienta online gratis',
-    seoCard1Text: 'No necesita instalación. Convierte fotos para grabado láser online y descarga el PNG gratis.',
-    seoCard2Title: 'PNG listo para láser',
-    seoCard2Text: 'Exporta PNG en blanco y negro con metadatos DPI y guía de velocidad de grabado para el tamaño físico correcto en software láser.',
-    seoCard3Title: 'Procesamiento privado',
-    seoCard3Text: 'Tu imagen se procesa localmente en el navegador, por lo que no necesita salir de tu dispositivo.',
-    faqTitle: 'Preguntas frecuentes sobre grabado de fotos',
-    faq1Question: '¿Este conversor de foto a grabado láser es gratis?',
-    faq1Answer: 'Sí. La herramienta es gratuita en el navegador. Puedes convertir una foto a PNG para grabado láser y descargar el resultado sin instalar software.',
-    faq2Question: '¿Qué software láser puede usar el PNG exportado?',
-    faq2Answer: 'El PNG es adecuado para LightBurn, XCS, LaserGRBL, EZCAD y otros programas de grabado láser que importan imágenes raster.',
-    faq3Question: '¿El PNG incluye información DPI?',
-    faq3Answer: 'Sí. El PNG exportado incluye metadatos DPI, lo que ayuda al software láser a mantener el tamaño físico correcto.',
-    faq4Question: '¿Puedo usar un valor DPI propio?',
-    faq4Answer: 'Sí. Puedes elegir un DPI predefinido o introducir un valor DPI personalizado para tu láser, material y espaciado de líneas.',
-    faq5Question: '¿Qué hace Negativo?',
-    faq5Answer: 'Negativo crea una salida invertida intercambiando blanco y negro en la imagen final lista para láser.',
-    faq6Question: '¿Mis fotos se suben a un servidor?',
-    faq6Answer: 'No. Las fotos se procesan localmente en tu navegador y no se suben a nuestro servidor.',
-    counterLabel: '📸 Procesadas:',
-    btnOutput: 'Solo salida',
-    btnCompare: 'Original + salida',
-    emptyOriginal: 'ORIGINAL',
-    emptyOutput: 'SALIDA',
-    stepUploadTitle: 'Sube una foto ↑',
-    stepUploadText: 'Haz clic aquí o arrastra y suelta',
-    stepTryTitle: 'O pruébalo ahora mismo',
-    stepTryText: 'La foto de ejemplo se carga automáticamente',
-    stepDownloadTitle: 'Descargar PNG',
-    stepDownloadText: 'Listo para grabado',
-    hintLine: '↑ Empieza ahora mismo con la foto de ejemplo o sube la tuya',
-    zoomHelp: 'Mueve el ratón sobre la imagen para ver los detalles con la lupa. En dispositivos táctiles, mantén pulsado y arrastra sobre la imagen. Para disfrutar de la mejor experiencia y una edición más cómoda, recomendamos usar esta herramienta en un ordenador de escritorio.',
-    adjustSettingsBtn: 'Ajustar configuración ↓',
-    labelOriginalPreview: 'Original',
-    labelOutputPreview: 'Salida lista para láser',
-    reuploadBtn: 'Subir foto',
-    sectionUpload: 'Subir Foto',
-    dropZoneMain: 'Arrastra y suelta o haz clic para elegir',
-    dropZoneSub: 'JPG, PNG, BMP, WebP',
-    sectionPhotoType: 'Tipo de Foto',
-    presetCustom: 'Personalizado',
-    presetNormal: 'Foto Normal',
-    presetNegative: 'Negativo',
-    presetPortrait: 'Personas',
-    presetDark: 'Foto Oscura',
-    presetLight: 'Foto Clara',
-    presetDetail: 'Más Detalle',
-    presetHelp: 'El valor predeterminado es Foto Normal. Elige Negativo para una salida invertida o ajusta todo con los controles de abajo.',
-    sectionAdjustments: 'Ajustes de la Foto',
-    labelBrightness: 'Brillo',
-    labelContrast: 'Contraste',
-    labelGamma: 'Gamma',
-    labelSharpness: 'Nitidez',
-    resetBtn: 'Ajustes Predeterminados',
-    sectionOutput: 'Salida',
-    labelOutputWidthMm: 'Ancho de imagen',
-    outputWidthMmHelp: 'Introduce el ancho real del grabado en milímetros.',
-    labelDpi: 'DPI deseado',
-    dpiHelp: 'Al cambiar el DPI se mantiene el mismo tamaño físico y se recalcula el número de píxeles.',
-    labelCustomDpi: 'DPI personalizado',
-    customDpiHelp: 'Introduce tu propio valor DPI entre 1 y 2400.',
-    advancedPixelSummary: 'Avanzado: ajustar ancho en píxeles',
-    labelFineTuneWidth: 'Ancho en píxeles',
-    outputSliderHelp: 'Control avanzado. Al cambiar los píxeles se recalcula el ancho en mm según el DPI seleccionado.',
-    sizeInfoLabel: 'Tamaño en mm',
-    pixelInfoLabel: 'Tamaño en píxeles',
-    downloadBtn: 'Descargar PNG',
-    downloadBmpBtn: 'Download BMP',
-    exportHelp: 'PNG es el formato recomendado para LightBurn, XCS, LaserGRBL y otros programas láser. PNG y BMP de 1 bit incluyen metadatos DPI para mantener el tamaño físico correcto en el software láser.',
-    alertLoadFail: 'No se pudo cargar la imagen.',
-    alertReadFail: 'Error al leer el archivo.',
-    alertInvalidFile: 'Sube un archivo de imagen: JPG, PNG, BMP o WebP.',
-    statusImageLoaded: 'Imagen cargada. Ahora puedes ajustar la configuración o descargar el PNG.',
-    demoNoticeText: 'Imagen de demostración cargada — sube tu propia foto para empezar.',
-    alertUploadFirst: 'Primero sube una imagen.',
-    alertPngFail: 'No se pudo crear el archivo PNG con el DPI seleccionado.',
-    alertBmpFail: 'No se pudo crear el archivo BMP de 1 bit con el DPI seleccionado.',
-    confirmLargeOutput: 'Esta salida es muy grande ({mp} MP) y puede ser lenta o bloquearse en dispositivos menos potentes. ¿Continuar?',
-    iosTitle: 'Guardar en iOS',
-    iosText: 'Mantén pulsada la imagen y elige <strong style="color:#e2e8f0">Añadir a Fotos</strong> o <strong style="color:#e2e8f0">Guardar imagen</strong>.',
-    iosClose: 'Cerrar',
-    demoLoadFail: 'No se pudo cargar la imagen de ejemplo.',
-    emptyOriginalAlt: 'Vista previa de imagen original',
-    emptyResultAlt: 'Vista previa de imagen de salida',
-    helpIntroTitle: '¿Qué hace esta herramienta?',
-    helpIntroText: '<strong class="text-white">Photo Engraving Online</strong> convierte una fotografía normal en una imagen en blanco y negro rasterizada, optimizada para grabado láser CO2 o de diodo. Después puedes importar el PNG resultante directamente en tu software láser (LightBurn, LaserGRBL, XCS, etc.) y grabarlo.',
-    helpStepsTitle: 'Guía paso a paso',
-    helpStep1Title: 'Sube una foto',
-    helpStep1Text: 'Arrastra el archivo al área de carga o haz clic para elegirlo desde tu dispositivo. Los formatos compatibles son JPG, PNG, BMP y WebP. Para obtener mejores resultados, usa una foto nítida y con buen contraste.',
-    helpStep2Title: 'Ajustes de la foto',
-    helpStep2Text: 'Ajusta brillo, contraste, gamma y nitidez para preparar la foto para el grabado.',
-    helpStep3Title: 'Configura el tamaño de salida en mm',
-    helpStep3Text: 'Introduce el ancho final del grabado en milímetros. La herramienta calcula automáticamente la altura, mantiene la proporción y muestra el número final de píxeles.',
-    helpStep4Title: 'Revisa la salida y descarga el PNG o BMP',
-    helpStep4Text: 'Revisa la imagen rasterizada final. Si se ve bien, descarga el PNG o BMP e impórtalo en tu software láser.',
-    helpDpiTitle: 'DPI recomendado según el material',
-    helpTableHeadDpi: 'DPI',
-    helpTableHeadMaterial: 'Ideal para',
-    helpTableHeadNote: 'Velocidad de grabado',
-    helpDpi254Material: 'Fotos en madera, MDF, pizarra, piedra, vidrio',
-    helpDpi254Note: 'rápida',
-    helpDpi300Material: 'La mayoría de fotos: madera, vidrio, pizarra, MDF, plástico',
-    helpDpi300Note: 'media',
-    helpDpi508Material: 'Acrílico, laminados, metales recubiertos, aluminio anodizado, acero inoxidable, cerámica',
-    helpDpi508Note: 'lenta',
-    helpOutputSizeTitle: '¿Cómo elegir el tamaño de salida correcto?',
-    helpOutputSizeText1: 'El tamaño de salida en <strong class="text-white">mm</strong> debe coincidir exactamente con el tamaño físico real del área de grabado en tu material.',
-    helpOutputSizeText2: 'Ejemplo: si quieres grabar un retrato en una placa de madera con un ancho de <strong class="text-white">80 mm</strong>, configura el ancho en <strong class="text-white">80 mm</strong> y elige <strong class="text-white">254 DPI</strong>. La herramienta generará una imagen de aproximadamente <strong class="text-orange-300">800 px</strong> de ancho, que coincide con el tamaño físico requerido.',
-    helpOutputSizeFormula: 'ℹ️ Fórmula: ancho en px = (ancho en mm ÷ 25,4) × DPI',
-    helpTipsTitle: 'Consejos para mejores resultados',
-    helpTip1Title: '📷 Calidad de la foto de entrada',
-    helpTip1Text: 'Usa fotos nítidas y con buen contraste. Las imágenes oscuras o borrosas producirán peores resultados incluso con un DPI alto.',
-    helpTip2Title: '🔲 Contraste y brillo',
-    helpTip2Text: 'Antes de subirla, intenta ajustar la foto en cualquier editor. Un mayor contraste suele mejorar mucho el resultado rasterizado final.',
-    helpTip3Title: '🧪 Grabado de prueba',
-    helpTip3Text: 'Haz siempre primero una prueba en un recorte del mismo material antes de lanzar el grabado final.',
-    helpTip4Title: '⚙️ Ajustes en LightBurn',
-    helpTip4Text: 'Importa el PNG como <strong class="text-gray-200">Passthrough</strong> o <strong class="text-gray-200">Threshold</strong>. El dithering ya está incluido en el archivo, así que un procesamiento adicional puede empeorarlo.'
-  },
-
-  de: {
-    heroTitle: 'Kostenloser Foto-zu-Lasergravur-Konverter online',
-    heroText: 'Wandle jedes Bild oder Foto direkt im Browser in eine lasergravur-taugliche PNG-Datei um. Wähle den Fototyp, passe DPI, Helligkeit, Kontrast, Gamma, Schärfe und Ausgabegröße an und exportiere eine PNG-Datei für LightBurn, XCS, LaserGRBL, EZCAD und andere Lasersoftware. <strong style="color: var(--accent);">Kostenlos, privat und 100 % browserbasiert. Deine Bilder verlassen dein Gerät niemals.</strong>',
-    seoIntroTitle: 'Kostenloser Foto-zu-Lasergravur-Konverter online',
-    seoIntroText: 'Nutze <strong class="text-white">PhotoEngraving.online</strong> als kostenlosen Bild-zu-Lasergravur-Konverter direkt im Browser. Lade ein Foto hoch, wandle es in eine laserfertige Schwarz-Weiß-PNG-Datei um, wähle Fototyp und DPI, prüfe die empfohlene Graviergeschwindigkeit je nach Material, passe Helligkeit, Kontrast, Gamma und Schärfe an und lade das Ergebnis für LightBurn, XCS, LaserGRBL, EZCAD und andere Lasersoftware herunter.',
-    seoCard1Title: 'Kostenloses Online-Tool',
-    seoCard1Text: 'Keine Installation nötig. Konvertiere Fotos für die Lasergravur online und lade die PNG-Datei kostenlos herunter.',
-    seoCard2Title: 'Laserfertige PNG-Ausgabe',
-    seoCard2Text: 'Exportiere Schwarz-Weiß-PNG-Dateien mit DPI-Metadaten und Graviergeschwindigkeits-Hinweisen für die korrekte physische Größe in Lasersoftware.',
-    seoCard3Title: 'Private Browser-Verarbeitung',
-    seoCard3Text: 'Dein Bild wird lokal im Browser verarbeitet und muss dein Gerät nicht verlassen.',
-    faqTitle: 'FAQ zur Fotogravur',
-    faq1Question: 'Ist dieser Foto-zu-Lasergravur-Konverter kostenlos?',
-    faq1Answer: 'Ja. Das Tool ist kostenlos im Browser nutzbar. Du kannst ein Foto in eine Lasergravur-PNG-Datei umwandeln und das Ergebnis ohne Softwareinstallation herunterladen.',
-    faq2Question: 'Welche Lasersoftware kann die exportierte PNG nutzen?',
-    faq2Answer: 'Die PNG-Ausgabe eignet sich für LightBurn, XCS, LaserGRBL, EZCAD und andere Lasergravur-Software, die Rasterbilder importiert.',
-    faq3Question: 'Enthält die PNG DPI-Informationen?',
-    faq3Answer: 'Ja. Die exportierte PNG enthält DPI-Metadaten, damit die Lasersoftware die korrekte physische Gravurgröße beibehalten kann.',
-    faq4Question: 'Kann ich einen eigenen DPI-Wert verwenden?',
-    faq4Answer: 'Ja. Du kannst einen DPI-Preset wählen oder einen eigenen DPI-Wert für deinen Laser, dein Material und deinen gewünschten Linienabstand eingeben.',
-    faq5Question: 'Was macht Negativ?',
-    faq5Answer: 'Negativ erzeugt eine invertierte Ausgabe, indem Schwarz und Weiß im finalen laserfertigen Bild vertauscht werden.',
-    faq6Question: 'Werden meine Fotos auf einen Server hochgeladen?',
-    faq6Answer: 'Nein. Die Bildverarbeitung läuft lokal in deinem Browser, daher müssen deine Fotos nicht auf einen Server hochgeladen werden.',
-    counterLabel: '📸 Verarbeitet:',
-    btnOutput: 'Nur Ausgabe',
-    btnCompare: 'Original + Ausgabe',
-    emptyOriginal: 'ORIGINAL',
-    emptyOutput: 'AUSGABE',
-    stepUploadTitle: 'Foto hochladen ↑',
-    stepUploadText: 'Hier klicken oder per Drag & Drop',
-    stepTryTitle: 'Oder direkt ausprobieren',
-    stepTryText: 'Ein Beispielfoto wird automatisch geladen',
-    stepDownloadTitle: 'PNG herunterladen',
-    stepDownloadText: 'Bereit zum Gravieren',
-    hintLine: '↑ Starte sofort mit dem Beispielfoto oder lade dein eigenes hoch',
-    zoomHelp: 'Bewege die Maus über das Bild, um Details in der Lupe zu prüfen. Auf Touch-Geräten halte den Finger gedrückt und ziehe über das Bild. Für das beste Erlebnis und eine bequemere Bearbeitung empfehlen wir, dieses Tool auf einem Desktop-Computer zu verwenden.',
-    adjustSettingsBtn: 'Einstellungen anpassen ↓',
-    labelOriginalPreview: 'Original',
-    labelOutputPreview: 'Laserfertige Ausgabe',
-    reuploadBtn: 'Foto hochladen',
-    sectionUpload: 'Foto Hochladen',
-    dropZoneMain: 'Per Drag & Drop oder klicken zum Auswählen',
-    dropZoneSub: 'JPG, PNG, BMP, WebP',
-    sectionPhotoType: 'Fototyp',
-    presetCustom: 'Benutzerdefiniert',
-    presetNormal: 'Normales Foto',
-    presetNegative: 'Negativ',
-    presetPortrait: 'Menschen',
-    presetDark: 'Dunkles Foto',
-    presetLight: 'Helles Foto',
-    presetDetail: 'Mehr Details',
-    presetHelp: 'Standard ist Normales Foto. Wähle Negativ für eine invertierte Ausgabe oder stimme alles mit den Reglern unten fein ab.',
-    sectionAdjustments: 'Fotoanpassung',
-    labelBrightness: 'Helligkeit',
-    labelContrast: 'Kontrast',
-    labelGamma: 'Gamma',
-    labelSharpness: 'Schärfe',
-    resetBtn: 'Standardeinstellungen',
-    sectionOutput: 'Ausgabe',
-    labelOutputWidthMm: 'Bildbreite',
-    outputWidthMmHelp: 'Gib die reale Gravurbreite in Millimetern ein.',
-    labelDpi: 'Gewünschte DPI',
-    dpiHelp: 'Beim Ändern der DPI bleibt die physische Größe gleich und die Pixelanzahl wird neu berechnet.',
-    labelCustomDpi: 'Benutzerdefinierte DPI',
-    customDpiHelp: 'Gib einen eigenen DPI-Wert zwischen 1 und 2400 ein.',
-    advancedPixelSummary: 'Erweitert: Breite in Pixeln anpassen',
-    labelFineTuneWidth: 'Breite in Pixeln',
-    outputSliderHelp: 'Erweiterte Steuerung. Beim Ändern der Pixel wird die Breite in mm anhand der gewählten DPI neu berechnet.',
-    sizeInfoLabel: 'Größe in mm',
-    pixelInfoLabel: 'Pixelgröße',
-    downloadBtn: 'PNG herunterladen',
-    downloadBmpBtn: 'Download BMP',
-    exportHelp: 'PNG wird für LightBurn, XCS, LaserGRBL und andere Lasersoftware empfohlen. PNG und 1-Bit-BMP enthalten DPI-Metadaten für die korrekte physische Größe in der Lasersoftware.',
-    alertLoadFail: 'Das Bild konnte nicht geladen werden.',
-    alertReadFail: 'Fehler beim Lesen der Datei.',
-    alertInvalidFile: 'Bitte lade eine Bilddatei hoch: JPG, PNG, BMP oder WebP.',
-    statusImageLoaded: 'Bild geladen. Du kannst jetzt die Einstellungen anpassen oder die PNG-Datei herunterladen.',
-    demoNoticeText: 'Demo-Bild geladen — lade dein eigenes Foto hoch, um zu beginnen.',
-    alertUploadFirst: 'Bitte lade zuerst ein Bild hoch.',
-    alertPngFail: 'Die PNG-Datei mit den gewählten DPI konnte nicht erstellt werden.',
-    alertBmpFail: 'Die 1-Bit-BMP-Datei mit den gewählten DPI konnte nicht erstellt werden.',
-    confirmLargeOutput: 'Diese Ausgabe ist sehr groß ({mp} MP) und kann auf schwächeren Geräten langsam sein oder einfrieren. Fortfahren?',
-    iosTitle: 'Auf iOS speichern',
-    iosText: 'Halte das Bild gedrückt und wähle <strong style="color:#e2e8f0">Zu Fotos hinzufügen</strong> oder <strong style="color:#e2e8f0">Bild sichern</strong>.',
-    iosClose: 'Schließen',
-    demoLoadFail: 'Das Demo-Bild konnte nicht geladen werden.',
-    emptyOriginalAlt: 'Vorschau des Originalbilds',
-    emptyResultAlt: 'Vorschau des Ausgabebilds',
-    helpIntroTitle: 'Was macht dieses Tool?',
-    helpIntroText: '<strong class="text-white">Photo Engraving Online</strong> wandelt ein normales Foto in ein gerastertes Schwarz-Weiß-Bild um, das für CO2- oder Diodenlasergravuren optimiert ist. Die resultierende PNG-Datei kannst du direkt in deine Lasersoftware (LightBurn, LaserGRBL, XCS usw.) importieren und gravieren.',
-    helpStepsTitle: 'Schritt-für-Schritt-Anleitung',
-    helpStep1Title: 'Foto hochladen',
-    helpStep1Text: 'Ziehe die Datei in den Upload-Bereich oder klicke, um sie von deinem Gerät auszuwählen. Unterstützte Formate sind JPG, PNG, BMP und WebP. Für beste Ergebnisse verwende ein scharfes Foto mit gutem Kontrast.',
-    helpStep2Title: 'Fotoanpassungen',
-    helpStep2Text: 'Passe Helligkeit, Kontrast, Gamma und Schärfe an, um das Foto für die Gravur vorzubereiten.',
-    helpStep3Title: 'Ausgabegröße in mm festlegen',
-    helpStep3Text: 'Gib die gewünschte Endbreite der Gravur in Millimetern ein. Das Tool berechnet automatisch die Höhe, behält das Seitenverhältnis bei und zeigt die resultierende Pixelzahl an.',
-    helpStep4Title: 'Ausgabe prüfen und PNG oder BMP herunterladen',
-    helpStep4Text: 'Prüfe das endgültige gerasterte Bild. Wenn alles gut aussieht, lade die PNG- oder BMP-Datei herunter und importiere sie in deine Lasersoftware.',
-    helpDpiTitle: 'Empfohlene DPI je nach Material',
-    helpTableHeadDpi: 'DPI',
-    helpTableHeadMaterial: 'Geeignet für',
-    helpTableHeadNote: 'Graviergeschwindigkeit',
-    helpDpi254Material: 'Fotos auf Holz, MDF, Schiefer, Stein, Glas',
-    helpDpi254Note: 'schnell',
-    helpDpi300Material: 'Die meisten Fotogravuren: Holz, Glas, Schiefer, MDF, Kunststoff',
-    helpDpi300Note: 'mittel',
-    helpDpi508Material: 'Acryl, Laminate, beschichtete Metalle, eloxiertes Aluminium, Edelstahl, Keramik',
-    helpDpi508Note: 'langsam',
-    helpOutputSizeTitle: 'Wie wählt man die richtige Ausgabegröße?',
-    helpOutputSizeText1: 'Die Ausgabegröße in <strong class="text-white">mm</strong> sollte exakt der realen physischen Größe der Gravurfläche auf deinem Material entsprechen.',
-    helpOutputSizeText2: 'Beispiel: Wenn du ein Porträt auf eine Holzplatte mit einer Breite von <strong class="text-white">80 mm</strong> gravieren möchtest, stelle die Breite auf <strong class="text-white">80 mm</strong> und wähle <strong class="text-white">254 DPI</strong>. Das Tool erstellt dann ein Bild mit etwa <strong class="text-orange-300">800 px</strong> Breite, was genau der gewünschten physischen Größe entspricht.',
-    helpOutputSizeFormula: 'ℹ️ Formel: Breite in px = (Breite in mm ÷ 25,4) × DPI',
-    helpTipsTitle: 'Tipps für bessere Ergebnisse',
-    helpTip1Title: '📷 Qualität des Ausgangsfotos',
-    helpTip1Text: 'Verwende scharfe Fotos mit gutem Kontrast. Dunkle oder unscharfe Bilder liefern selbst bei hoher DPI schlechtere Gravurergebnisse.',
-    helpTip2Title: '🔲 Kontrast und Helligkeit',
-    helpTip2Text: 'Versuche vor dem Upload, das Foto in einem beliebigen Editor anzupassen. Ein höherer Kontrast verbessert das endgültige Rasterergebnis oft deutlich.',
-    helpTip3Title: '🧪 Testgravur',
-    helpTip3Text: 'Teste das Ergebnis immer zuerst an einem Reststück desselben Materials, bevor du die endgültige Gravur startest.',
-    helpTip4Title: '⚙️ LightBurn-Einstellungen',
-    helpTip4Text: 'Importiere die PNG als <strong class="text-gray-200">Passthrough</strong> oder <strong class="text-gray-200">Threshold</strong>. Das Dithering ist bereits in der Datei enthalten, daher kann zusätzliche Bildverarbeitung das Ergebnis verschlechtern.'
-  },
-
-  cs: {
-    heroTitle: 'Online editor fotek pro gravírování laserem',
-    heroText: 'Převeď libovolnou fotografii přímo v prohlížeči na obrázek připravený pro gravírování laserem. Vyber typ fotky, uprav jas, kontrast, gamu, ostrost, výslednou velikost a DPI a potom exportuj PNG připravené pro LightBurn, LaserGRBL, XCS a další laserový software. <strong style="color: var(--accent);">100% v prohlížeči. Tvoje obrázky nikdy neopustí tvoje zařízení.</strong>',
-    counterLabel: '📸 Zpracováno:',
-    btnOutput: 'Pouze výstup',
-    btnCompare: 'Originál + výstup',
-    emptyOriginal: 'ORIGINÁL',
-    emptyOutput: 'VÝSTUP',
-    stepUploadTitle: 'Nahraj fotku ↑',
-    stepUploadText: 'Klikni sem nebo přetáhni',
-    stepTryTitle: 'Nebo si to rovnou vyzkoušej',
-    stepTryText: 'Ukázková fotka se načte automaticky',
-    stepDownloadTitle: 'Stáhni PNG',
-    stepDownloadText: 'Hotovo pro gravírování',
-    hintLine: '↑ Můžeš začít hned na ukázkové fotce nebo nahrát vlastní',
-    zoomHelp: 'Přejeďte myší nad obrázkem a detaily zkontrolujte v lupě. Na dotykovém zařízení podržte prst a táhněte po obrázku. Pro nejlepší zážitek a pohodlnější úpravy doporučujeme používat tento nástroj na počítači.',
-    reuploadBtn: 'Nahrát fotku',
-    sectionUpload: 'Nahrát fotku',
-    dropZoneMain: 'Přetáhni nebo klikni pro výběr',
-    dropZoneSub: 'JPG, PNG, BMP, WebP',
-    sectionPhotoType: 'Typ fotky',
-    presetCustom: 'Vlastní nastavení',
-    presetNormal: 'Běžná fotka',
-    presetNegative: 'Negativ',
-    presetPortrait: 'Lidé',
-    presetDark: 'Tmavá fotka',
-    presetLight: 'Světlá fotka',
-    presetDetail: 'Více detailů',
-    presetHelp: 'Výchozí je Běžná fotka. Pro negativní výstup zvol Negativ, případně vše dolaď slidery níže.',
-    sectionAdjustments: 'Úprava fotky',
-    labelBrightness: 'Jas',
-    labelContrast: 'Kontrast',
-    labelGamma: 'Gama',
-    labelSharpness: 'Ostrost',
-    resetBtn: 'Výchozí nastavení',
-    sectionOutput: 'Výstup',
-    labelOutputWidthMm: 'Šířka obrázku',
-    outputWidthMmHelp: 'Zadej skutečnou šířku gravírování v milimetrech.',
-    labelDpi: 'Požadované DPI',
-    dpiHelp: 'Při změně DPI zůstane stejná fyzická velikost a přepočítá se počet pixelů.',
-    labelCustomDpi: 'Vlastní DPI',
-    customDpiHelp: 'Zadej vlastní hodnotu DPI v rozsahu 1 až 2400.',
-    advancedPixelSummary: 'Pokročilé: upravit šířku v pixelech',
-    labelFineTuneWidth: 'Šířka v pixelech',
-    outputSliderHelp: 'Pokročilé nastavení. Změna pixelů přepočítá šířku v mm podle zvoleného DPI.',
-    sizeInfoLabel: 'Velikost v mm',
-    pixelInfoLabel: 'Velikost v pixelech',
-    downloadBtn: 'Stáhnout PNG',
-    downloadBmpBtn: 'Download BMP',
-    exportHelp: 'PNG je doporučené pro LightBurn, XCS, LaserGRBL a další laserové programy. PNG i 1bit BMP obsahují DPI metadata pro správnou fyzickou velikost v laserovém softwaru.',
-    alertLoadFail: 'Nepodařilo se načíst obrázek.',
-    alertReadFail: 'Chyba při čtení souboru.',
-    alertUploadFirst: 'Nejprve nahraj obrázek.',
-    alertPngFail: 'Nepodařilo se vytvořit PNG soubor s nastaveným DPI.',
-    alertBmpFail: 'Nepodařilo se vytvořit 1bit BMP soubor s nastaveným DPI.',
-    iosTitle: 'Uložení na iOS',
-    iosText: 'Podrž prst na obrázku a vyber <strong style="color:#e2e8f0">Přidat do Fotek</strong> nebo <strong style="color:#e2e8f0">Uložit obrázek</strong>.',
-    iosClose: 'Zavřít',
-    demoLoadFail: 'Demo obrázek se nepodařilo načíst.',
-    alertInvalidFile: 'Nahraj prosím obrázek ve formátu JPG, PNG, BMP nebo WebP.',
-    statusImageLoaded: 'Obrázek je načtený. Teď můžeš upravit nastavení nebo stáhnout PNG.',
-    demoNoticeText: 'Je načtený demo obrázek — nahraj vlastní fotku a začni.',
-    adjustSettingsBtn: 'Upravit nastavení ↓',
-    labelOriginalPreview: 'Originál',
-    labelOutputPreview: 'Výstup pro laser',
-    confirmLargeOutput: 'Výstup je velmi velký ({mp} MP) a může být pomalý nebo zaseknout slabší zařízení. Pokračovat?',
-    emptyOriginalAlt: 'Ukázka originálního obrázku',
-    emptyResultAlt: 'Ukázka výstupního obrázku',
-    seoIntroTitle: 'Online převod fotky pro laserové gravírování zdarma',
-    seoIntroText: 'Použij <strong class="text-white">PhotoEngraving.online</strong> jako bezplatný převodník obrázků pro laserové gravírování přímo v prohlížeči. Nahraj fotku, převeď ji na černobílý PNG připravený pro laser, zvol typ fotky a DPI, zkontroluj doporučenou rychlost gravírování podle materiálu, uprav jas, kontrast, gammu a ostrost a stáhni výsledek pro LightBurn, XCS, LaserGRBL, EZCAD a další laserový software.',
-    seoCard1Title: 'Bezplatný online nástroj',
-    seoCard1Text: 'Bez instalace. Převáděj fotky pro laserové gravírování online a stáhni si PNG zdarma.',
-    seoCard2Title: 'PNG připravené pro laser',
-    seoCard2Text: 'Exportuj černobílé PNG soubory s DPI metadaty a doporučením rychlosti gravírování pro správnou fyzickou velikost v laserovém softwaru.',
-    seoCard3Title: 'Soukromé zpracování v prohlížeči',
-    seoCard3Text: 'Fotka se zpracovává lokálně ve tvém prohlížeči a neodesílá se na náš server.',
-    faqTitle: 'Časté dotazy k fotogravírování',
-    faq1Question: 'Je tento převodník fotek pro laserové gravírování zdarma?',
-    faq1Answer: 'Ano. Nástroj je zdarma přímo v prohlížeči. Fotku můžeš převést na PNG pro laserové gravírování a výsledek stáhnout bez instalace softwaru.',
-    faq2Question: 'Který laserový software umí exportovaný PNG použít?',
-    faq2Answer: 'PNG výstup je vhodný pro LightBurn, XCS, LaserGRBL, EZCAD a další software pro laserové gravírování, který umí importovat rastrové obrázky.',
-    faq3Question: 'Obsahuje PNG informace o DPI?',
-    faq3Answer: 'Ano. Exportovaný PNG obsahuje DPI metadata, která pomáhají laserovému softwaru zachovat správnou fyzickou velikost gravírování.',
-    faq4Question: 'Můžu použít vlastní hodnotu DPI?',
-    faq4Answer: 'Ano. Můžeš vybrat přednastavené DPI nebo zadat vlastní hodnotu podle laseru, materiálu a požadovaného rozestupu řádků.',
-    faq5Question: 'Co dělá volba Negativ?',
-    faq5Answer: 'Negativ vytvoří invertovaný výstup tak, že ve finálním obrázku připraveném pro laser prohodí černou a bílou.',
-    faq6Question: 'Nahrávají se moje fotky na server?',
-    faq6Answer: 'Ne. Fotky se zpracovávají lokálně ve tvém prohlížeči a nejsou odesílány na náš server.',
-    helpIntroTitle: 'Co tento nástroj umí?',
-    helpIntroText: '<strong class="text-white">PhotoEngraving.online</strong> převede vaši fotografii na ditherovaný černobílý obraz, který je optimalizovaný pro gravírování CO2, fiber nebo diodovým laserem. Výsledný soubor PNG pak importuješ přímo do svého laserového softwaru (LightBurn, LaserGRBL, XCS apod.).',
-    helpStepsTitle: 'Postup krok za krokem',
-    helpStep1Title: 'Nahraj fotografii',
-    helpStep1Text: 'Přetáhni soubor do oblasti na stránce nebo klikni pro výběr ze zařízení. Podporovány jsou formáty JPG, PNG, BMP a WebP. Pro nejlepší výsledky použij ostrou fotografii s dobrým kontrastem.',
-    helpStep2Title: 'Úpravy fotografie',
-    helpStep2Text: 'Uprav jas, kontrast, gammu a ostrost, aby byla fotografie připravená pro gravírování.',
-    helpStep3Title: 'Nastav výstupní velikost v mm',
-    helpStep3Text: 'Zadej šířku výsledného gravírování v milimetrech. Nástroj automaticky přepočítá výšku, zachová poměr stran a zobrazí výsledný počet pixelů.',
-    helpStep4Title: 'Zkontroluj výstup a stáhni PNG nebo BMP',
-    helpStep4Text: 'Zkontroluj výsledný rastrovaný obraz. Pokud vypadá dobře, stáhni PNG nebo BMP a importuj soubor do laserového softwaru.',
-    helpDpiTitle: 'Doporučené DPI podle materiálu',
-    helpTableHeadDpi: 'DPI',
-    helpTableHeadMaterial: 'Vhodné pro',
-    helpTableHeadNote: 'Rychlost gravírování',
-    helpDpi254Material: 'Fotografie do dřeva, MDF, břidlice, kámen, sklo',
-    helpDpi254Note: 'rychlá',
-    helpDpi300Material: 'Většina fotogravírování: dřevo, sklo, břidlice, MDF, plast',
-    helpDpi300Note: 'střední',
-    helpDpi508Material: 'Akrylát, lamináty, lakované kovy, anodizovaný hliník, nerezová ocel, keramika',
-    helpDpi508Note: 'pomalá',
-    helpOutputSizeTitle: 'Jak nastavit správnou výstupní velikost?',
-    helpOutputSizeText1: 'Výstupní velikost v <strong class="text-white">mm</strong> by měla přesně odpovídat fyzickým rozměrům gravírované plochy na materiálu.',
-    helpOutputSizeText2: 'Příklad: Chceš vygravírovat portrét na dřevěnou destičku o šířce <strong class="text-white">80 mm</strong>. Nastav šířku na <strong class="text-white">80 mm</strong> a zvol <strong class="text-white">254 DPI</strong> – nástroj ti vygeneruje obrázek o šířce <strong class="text-orange-300">~800 px</strong>, který přesně odpovídá požadované fyzické velikosti.',
-    helpOutputSizeFormula: 'ℹ️ Přepočet: šířka v px = (šířka v mm ÷ 25,4) × DPI',
-    helpTipsTitle: 'Tipy pro lepší výsledky',
-    helpTip1Title: '📷 Kvalita vstupní fotky',
-    helpTip1Text: 'Používej ostré fotografie s dobrým kontrastem. Tmavé nebo rozmazané fotky dají horší výsledky i při vysokém DPI.',
-    helpTip2Title: '🔲 Kontrast a jas',
-    helpTip2Text: 'Před nahráním fotku zkus upravit v libovolném editoru – zvýšený kontrast výrazně zlepší výsledný rastrovaný obraz.',
-    helpTip3Title: '🧪 Testovací gravírování',
-    helpTip3Text: 'Vždy nejprve vyzkoušej výsledek na odřezku stejného materiálu, než spustíš finální gravírování.',
-    helpTip4Title: '⚙️ Nastavení v LightBurn',
-    helpTip4Text: 'Importovaný PNG nastav jako <strong class="text-gray-200">Passthrough</strong> nebo <strong class="text-gray-200">Threshold</strong> – dithering je již obsažen v souboru, další zpracování by ho zhoršilo.'
   }
 };
 
 const localeMap = {
-  en: 'en_US',
-  es: 'es_ES',
-  de: 'de_DE',
-  fr: 'fr_FR',
-  hi: 'hi_IN',
-  it: 'it_IT',
-  ja: 'ja_JP',
-  ko: 'ko_KR',
-  pl: 'pl_PL',
-  'pt-br': 'pt_BR',
-  ru: 'ru_RU',
-  tr: 'tr_TR',
-  zh: 'zh_CN',
-  cs: 'cs_CZ'
+  en: 'en_US'
 };
 
 const PRESETS = {
@@ -2869,6 +2516,8 @@ const PRESETS = {
   dark:     { brightness: 25, contrast: 35, gamma: 1.25, sharpness: 1.0, ditherMode: 'floyd', invertColors: false },
   light:    { brightness: -10, contrast: 45, gamma: 0.95, sharpness: 1.0, ditherMode: 'floyd', invertColors: false }
 };
+
+const DITHER_MODES = ['floyd', 'atkinson', 'jarvis', 'ordered'];
 
 const DEFAULTS = {
   preset: 'normal',
@@ -3239,24 +2888,6 @@ function updateSeoMeta() {
       description: 'Free photo to laser engraving converter online. Create laser-ready black and white PNGs with DPI, engraving speed guidance and local browser processing.',
       ogTitle: 'Free Photo to Laser Engraving Converter Online',
       ogDescription: 'Convert images and photos to laser engraving PNGs online for free. Adjust DPI, engraving speed, photo type, brightness, contrast, gamma and sharpness in your browser.'
-    },
-    es: {
-      title: 'Convertidor gratis de fotos para grabado láser online | PhotoEngraving.online',
-      description: 'Convierte fotos para grabado láser online gratis. Crea PNG en blanco y negro con DPI, guía de velocidad de grabado y procesamiento local en el navegador.',
-      ogTitle: 'Convertidor gratis de fotos para grabado láser online',
-      ogDescription: 'Convierte imágenes y fotos en PNG listos para grabado láser. Ajusta DPI, velocidad de grabado, brillo, contraste, gamma y nitidez en tu navegador.'
-    },
-    de: {
-      title: 'Kostenloser Foto-zu-Lasergravur-Konverter online | PhotoEngraving.online',
-      description: 'Kostenloser Online-Konverter für Fotos zur Lasergravur. Erstelle laserfertige Schwarz-Weiß-PNGs mit DPI, Graviergeschwindigkeits-Hinweisen und lokaler Browser-Verarbeitung.',
-      ogTitle: 'Kostenloser Foto-zu-Lasergravur-Konverter online',
-      ogDescription: 'Wandle Bilder und Fotos kostenlos in PNGs für Lasergravur um. Passe Fototyp, DPI, Graviergeschwindigkeit, Helligkeit, Kontrast, Gamma und Schärfe im Browser an.'
-    },
-    cs: {
-      title: 'Převod fotky pro laserové gravírování zdarma online | PhotoEngraving.online',
-      description: 'Převeď fotku pro laserové gravírování online zdarma. Vytvoř černobílý PNG s DPI, doporučenou rychlostí gravírování a lokálním zpracováním v prohlížeči.',
-      ogTitle: 'Převod fotky pro laserové gravírování zdarma online',
-      ogDescription: 'Převeď obrázky a fotografie na PNG připravený pro laserové gravírování. Vyber typ fotky, DPI a rychlost gravírování, potom uprav jas, kontrast, gammu a ostrost přímo v prohlížeči.'
     }
   }[lang] || {};
 
@@ -3503,6 +3134,12 @@ presetCards.forEach(card => {
 
 if (ditherMode) {
   ditherMode.value = DEFAULTS.ditherMode;
+  ditherMode.addEventListener('change', () => {
+    if (!DITHER_MODES.includes(ditherMode.value)) ditherMode.value = DEFAULTS.ditherMode;
+    markAsCustom();
+    saveSettings();
+    if (originalImage) scheduleProcessImage();
+  });
 }
 
 if (invertColors) {
@@ -3632,7 +3269,6 @@ function applyPreset(key) {
   contrast.value = p.contrast;
   gamma.value = p.gamma;
   sharpness.value = p.sharpness;
-  ditherMode.value = p.ditherMode || DEFAULTS.ditherMode;
   invertColors.checked = Boolean(p.invertColors);
 
   sliderPairs.forEach(([id]) => updateSlider(document.getElementById(id)));
@@ -3650,7 +3286,6 @@ function applyCurrentPresetValues() {
   contrast.value = p.contrast;
   gamma.value = p.gamma;
   sharpness.value = p.sharpness;
-  ditherMode.value = p.ditherMode || DEFAULTS.ditherMode;
   invertColors.checked = Boolean(p.invertColors);
   sliderPairs.forEach(([id]) => updateSlider(document.getElementById(id)));
 }
@@ -3829,7 +3464,7 @@ function loadStoredSettings() {
     if (s.contrast !== undefined) contrast.value = s.contrast;
     if (s.gamma !== undefined) gamma.value = s.gamma;
     if (s.sharpness !== undefined) sharpness.value = s.sharpness;
-    ditherMode.value = s.ditherMode || DEFAULTS.ditherMode;
+    ditherMode.value = DITHER_MODES.includes(s.ditherMode) ? s.ditherMode : DEFAULTS.ditherMode;
     if (s.invertColors !== undefined) invertColors.checked = Boolean(s.invertColors);
     if (s.customDpi !== undefined) customDpi.value = String(normalizeDpiValue(s.customDpi));
     if (s.dpiMode === 'custom') {
@@ -4276,45 +3911,79 @@ function applySharpen(imageData, w, h, amount) {
 
 function applyDithering(imageData, w, h, mode, thresh) {
   const d = imageData.data;
-  let weights;
-
-  if (mode === 'atkinson') {
-    weights = [
-      [1, 0, 1 / 8],
-      [2, 0, 1 / 8],
-      [-1, 1, 1 / 8],
-      [0, 1, 1 / 8],
-      [1, 1, 1 / 8],
-      [0, 2, 1 / 8]
-    ];
-  } else {
-    weights = [
-      [1, 0, 7 / 16],
-      [-1, 1, 3 / 16],
-      [0, 1, 5 / 16],
-      [1, 1, 1 / 16]
-    ];
-  }
-
+  const selectedMode = DITHER_MODES.includes(mode) ? mode : DEFAULTS.ditherMode;
   const pixels = new Float32Array(w * h);
   for (let i = 0; i < w * h; i++) pixels[i] = d[i * 4];
 
-  for (let y = 0; y < h; y++) {
-    for (let x = 0; x < w; x++) {
-      const idx = y * w + x;
-      const oldVal = pixels[idx];
-      const newVal = oldVal >= thresh ? 255 : 0;
-      pixels[idx] = newVal;
+  if (selectedMode === 'ordered') {
+    const bayer4 = [
+      [0, 8, 2, 10],
+      [12, 4, 14, 6],
+      [3, 11, 1, 9],
+      [15, 7, 13, 5]
+    ];
 
-      const err = oldVal - newVal;
-      for (let wi = 0; wi < weights.length; wi++) {
-        const dx = weights[wi][0];
-        const dy = weights[wi][1];
-        const factor = weights[wi][2];
-        const nx = x + dx;
-        const ny = y + dy;
-        if (nx >= 0 && nx < w && ny >= 0 && ny < h) {
-          pixels[ny * w + nx] += err * factor;
+    for (let y = 0; y < h; y++) {
+      for (let x = 0; x < w; x++) {
+        const idx = y * w + x;
+        const thresholdOffset = (bayer4[y % 4][x % 4] - 7.5) * (255 / 16);
+        const localThreshold = thresh + thresholdOffset;
+        pixels[idx] = pixels[idx] >= localThreshold ? 255 : 0;
+      }
+    }
+  } else {
+    let weights;
+
+    if (selectedMode === 'atkinson') {
+      weights = [
+        [1, 0, 1 / 8],
+        [2, 0, 1 / 8],
+        [-1, 1, 1 / 8],
+        [0, 1, 1 / 8],
+        [1, 1, 1 / 8],
+        [0, 2, 1 / 8]
+      ];
+    } else if (selectedMode === 'jarvis') {
+      weights = [
+        [1, 0, 7 / 48],
+        [2, 0, 5 / 48],
+        [-2, 1, 3 / 48],
+        [-1, 1, 5 / 48],
+        [0, 1, 7 / 48],
+        [1, 1, 5 / 48],
+        [2, 1, 3 / 48],
+        [-2, 2, 1 / 48],
+        [-1, 2, 3 / 48],
+        [0, 2, 5 / 48],
+        [1, 2, 3 / 48],
+        [2, 2, 1 / 48]
+      ];
+    } else {
+      weights = [
+        [1, 0, 7 / 16],
+        [-1, 1, 3 / 16],
+        [0, 1, 5 / 16],
+        [1, 1, 1 / 16]
+      ];
+    }
+
+    for (let y = 0; y < h; y++) {
+      for (let x = 0; x < w; x++) {
+        const idx = y * w + x;
+        const oldVal = pixels[idx];
+        const newVal = oldVal >= thresh ? 255 : 0;
+        pixels[idx] = newVal;
+
+        const err = oldVal - newVal;
+        for (let wi = 0; wi < weights.length; wi++) {
+          const dx = weights[wi][0];
+          const dy = weights[wi][1];
+          const factor = weights[wi][2];
+          const nx = x + dx;
+          const ny = y + dy;
+          if (nx >= 0 && nx < w && ny >= 0 && ny < h) {
+            pixels[ny * w + nx] += err * factor;
+          }
         }
       }
     }
