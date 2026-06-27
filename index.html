@@ -1862,29 +1862,23 @@ z-index: 300;
       <div class="section-title" data-i18n="sectionDithering">
        Dithering
       </div>
-      <div class="flex flex-col gap-3">
-       <div>
-        <label data-i18n="labelDitherMode" for="ditherMode">
-         Dithering method
-        </label>
-        <select class="mt-1" id="ditherMode">
-         <option data-i18n="ditherFloyd" selected="" value="floyd">
-          Floyd-Steinberg (default)
-         </option>
-         <option data-i18n="ditherAtkinson" value="atkinson">
-          Atkinson
-         </option>
-         <option data-i18n="ditherJarvis" value="jarvis">
-          Jarvis
-         </option>
-         <option data-i18n="ditherOrdered" value="ordered">
-          Ordered / Bayer
-         </option>
-        </select>
-        <div class="helper-text" data-i18n="ditherHelp">
-         Floyd is the default balanced choice. Atkinson is softer, Jarvis is smoother with more tones, and Ordered/Bayer creates a regular pattern.
-        </div>
+      <div class="grid grid-cols-2 gap-2" id="ditherCards">
+       <div class="preset-card active" data-dither="floyd" data-i18n="ditherFloyd">
+        Floyd-Steinberg
        </div>
+       <div class="preset-card" data-dither="atkinson" data-i18n="ditherAtkinson">
+        Atkinson
+       </div>
+       <div class="preset-card" data-dither="jarvis" data-i18n="ditherJarvis">
+        Jarvis
+       </div>
+       <div class="preset-card" data-dither="ordered" data-i18n="ditherOrdered">
+        Ordered / Bayer
+       </div>
+      </div>
+      <input id="ditherMode" type="hidden" value="floyd"/>
+      <div class="helper-text mt-2" data-i18n="ditherHelp">
+       Floyd-Steinberg is the balanced choice. Atkinson is softer, Jarvis is smoother with more tones, and Ordered/Bayer creates a regular pattern.
       </div>
      </div>
      <div class="panel p-4">
@@ -2420,12 +2414,11 @@ const translations = {
     presetDetail: '🔍 More Detail',
     presetHelp: 'Default is Normal Photo. Choose Negative for an inverted output, or fine-tune everything with the sliders below.',
     sectionDithering: 'Dithering',
-    labelDitherMode: 'Dithering method',
-    ditherFloyd: 'Floyd-Steinberg (default)',
+    ditherFloyd: 'Floyd-Steinberg',
     ditherAtkinson: 'Atkinson',
     ditherJarvis: 'Jarvis',
     ditherOrdered: 'Ordered / Bayer',
-    ditherHelp: 'Floyd is the default balanced choice. Atkinson is softer, Jarvis is smoother with more tones, and Ordered/Bayer creates a regular pattern.',
+    ditherHelp: 'Floyd-Steinberg is the balanced choice. Atkinson is softer, Jarvis is smoother with more tones, and Ordered/Bayer creates a regular pattern.',
     sectionAdjustments: 'Photo Adjustments',
     labelBrightness: 'Brightness',
     labelContrast: 'Contrast',
@@ -2567,7 +2560,8 @@ const canvasSingle = document.getElementById('canvasSingle');
 const canvasCompareOrig = document.getElementById('canvasCompareOrig');
 const canvasCompareResult = document.getElementById('canvasCompareResult');
 
-const presetCards = document.querySelectorAll('.preset-card');
+const presetCards = document.querySelectorAll('#presetCards .preset-card');
+const ditherCards = document.querySelectorAll('#ditherCards .preset-card');
 const langButtons = document.querySelectorAll('.lang-option');
 
 const LANG_DATA = {
@@ -3132,13 +3126,15 @@ presetCards.forEach(card => {
   makeKeyboardClickable(card, () => applyPreset(card.dataset.preset));
 });
 
+ditherCards.forEach(card => {
+  makeKeyboardClickable(card, () => setDitherMode(card.dataset.dither, { markCustom: true }));
+});
+
 if (ditherMode) {
   ditherMode.value = DEFAULTS.ditherMode;
+  setActiveDitherCard(ditherMode.value);
   ditherMode.addEventListener('change', () => {
-    if (!DITHER_MODES.includes(ditherMode.value)) ditherMode.value = DEFAULTS.ditherMode;
-    markAsCustom();
-    saveSettings();
-    if (originalImage) scheduleProcessImage();
+    setDitherMode(ditherMode.value, { markCustom: true });
   });
 }
 
@@ -3251,6 +3247,25 @@ function setActivePresetCard(key) {
     card.classList.toggle('active', isActive);
     card.setAttribute('aria-pressed', isActive ? 'true' : 'false');
   });
+}
+
+function setActiveDitherCard(mode) {
+  const selectedMode = DITHER_MODES.includes(mode) ? mode : DEFAULTS.ditherMode;
+  ditherCards.forEach(card => {
+    const isActive = card.dataset.dither === selectedMode;
+    card.classList.toggle('active', isActive);
+    card.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+  });
+}
+
+function setDitherMode(mode, options = {}) {
+  const selectedMode = DITHER_MODES.includes(mode) ? mode : DEFAULTS.ditherMode;
+  if (ditherMode) ditherMode.value = selectedMode;
+  setActiveDitherCard(selectedMode);
+
+  if (options.markCustom) markAsCustom();
+  saveSettings();
+  if (originalImage) scheduleProcessImage();
 }
 
 function markAsCustom() {
@@ -3465,6 +3480,7 @@ function loadStoredSettings() {
     if (s.gamma !== undefined) gamma.value = s.gamma;
     if (s.sharpness !== undefined) sharpness.value = s.sharpness;
     ditherMode.value = DITHER_MODES.includes(s.ditherMode) ? s.ditherMode : DEFAULTS.ditherMode;
+    setActiveDitherCard(ditherMode.value);
     if (s.invertColors !== undefined) invertColors.checked = Boolean(s.invertColors);
     if (s.customDpi !== undefined) customDpi.value = String(normalizeDpiValue(s.customDpi));
     if (s.dpiMode === 'custom') {
@@ -3517,6 +3533,7 @@ function resetSettings() {
   gamma.value = DEFAULTS.gamma;
   sharpness.value = DEFAULTS.sharpness;
   ditherMode.value = DEFAULTS.ditherMode;
+  setActiveDitherCard(ditherMode.value);
   invertColors.checked = DEFAULTS.invertColors;
   dpi.value = String(DEFAULTS.dpi);
   customDpi.value = String(DEFAULTS.customDpi);
@@ -4436,6 +4453,7 @@ syncSliderFromMm();
 updateSizeInfo();
 setViewMode('compare');
 setActivePresetCard(currentPreset);
+setActiveDitherCard(ditherMode.value || DEFAULTS.ditherMode);
 setLanguage(currentLang);
 initializeCanvasMagnifier();
 loadDemoImage();
