@@ -1,0 +1,2191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Laser Photo Engraving Guide: DPI, Dithering, Materials & Settings | PhotoEngraving.online</title>
+  <meta name="description" content="A complete practical guide to laser photo engraving: image preparation, DPI, line interval, dithering algorithms, material-specific tips, testing workflow and troubleshooting." />
+  <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
+  <meta name="author" content="PhotoEngraving.online" />
+  <meta name="application-name" content="PhotoEngraving.online" />
+  <meta name="theme-color" content="#09090d" />
+  <link rel="canonical" href="https://photoengraving.online/guide" />
+  <link rel="alternate" hreflang="en" href="https://photoengraving.online/guide" />
+  <link rel="alternate" hreflang="x-default" href="https://photoengraving.online/guide" />
+  <link rel="icon" type="image/png" href="https://photoengraving.online/favi.png" />
+  <link rel="apple-touch-icon" href="https://photoengraving.online/favi.png" />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="PhotoEngraving.online" />
+  <meta property="og:url" content="https://photoengraving.online/guide" />
+  <meta property="og:title" content="Complete Laser Photo Engraving Guide" />
+  <meta property="og:description" content="Learn how to prepare photos for laser engraving with correct DPI, line interval, dithering, material choice and test settings." />
+  <meta property="og:image" content="https://photoengraving.online/fb.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="PhotoEngraving.online laser photo engraving guide" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Complete Laser Photo Engraving Guide" />
+  <meta name="twitter:description" content="A practical guide to DPI, line interval, dithering, material settings and troubleshooting for laser photo engraving." />
+  <meta name="twitter:image" content="https://photoengraving.online/fb.png" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://photoengraving.online/#organization",
+        "name": "PhotoEngraving.online",
+        "url": "https://photoengraving.online/",
+        "logo": "https://photoengraving.online/logo.png"
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://photoengraving.online/guide#breadcrumb",
+        "itemListElement": [
+          {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://photoengraving.online/"},
+          {"@type": "ListItem", "position": 2, "name": "Laser Photo Engraving Guide", "item": "https://photoengraving.online/guide"}
+        ]
+      },
+      {
+        "@type": "Article",
+        "@id": "https://photoengraving.online/guide#article",
+        "headline": "Complete Laser Photo Engraving Guide",
+        "description": "A practical knowledge guide for preparing photos for laser engraving, covering DPI, line interval, dithering, material-specific setup, test workflow and troubleshooting.",
+        "image": "https://photoengraving.online/fb.png",
+        "datePublished": "2026-06-27",
+        "dateModified": "2026-06-27",
+        "author": {"@id": "https://photoengraving.online/#organization"},
+        "publisher": {"@id": "https://photoengraving.online/#organization"},
+        "mainEntityOfPage": "https://photoengraving.online/guide",
+        "inLanguage": "en"
+      },
+      {
+        "@type": "FAQPage",
+        "@id": "https://photoengraving.online/guide#faq",
+        "mainEntity": [
+          {"@type": "Question", "name": "What DPI should I use for laser photo engraving?", "acceptedAnswer": {"@type": "Answer", "text": "There is no universal DPI. Start around 300 DPI for many photo engravings, use lower line density on materials with dot bleed such as wood and stone, and use higher DPI on materials that hold tiny dots such as anodized aluminum or some acrylics. Always confirm with an interval test."}},
+          {"@type": "Question", "name": "Should I use grayscale or dithering?", "acceptedAnswer": {"@type": "Answer", "text": "Use dithering when the material behaves mostly on/off or when you want predictable photo shading. Use grayscale only when the laser and material can reproduce stable intermediate power levels."}},
+          {"@type": "Question", "name": "Do I invert photos for laser engraving?", "acceptedAnswer": {"@type": "Answer", "text": "Invert for materials where the engraved mark becomes lighter than the background, such as slate, glass, clear or dark acrylic, and many coated or anodized surfaces. Do not invert for light wood when the burn becomes darker."}}
+        ]
+      }
+    ]
+  }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <style>
+  
+   /* Minimal Tailwind-like utilities used by this single-file build. */ .max-w-7xl { max-width: 80rem; } .mx-auto { margin-left: auto; margin-right: auto; } .ml-auto { margin-left: auto; } .w-full { width: 100%; } .flex { display: flex; } .grid { display: grid; } .flex-col { flex-direction: column; } .flex-wrap { flex-wrap: wrap; } .items-center { align-items: center; } .gap-2 { gap: 0.5rem; } .gap-3 { gap: 0.75rem; } .gap-4 { gap: 1rem; } .grid-cols-1 { grid-template-columns: repeat(1, minmax(0, 1fr)); } .grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); } .p-4 { padding: 1rem; } .p-5 { padding: 1.25rem; } .p-6 { padding: 1.5rem; } .px-4 { padding-left: 1rem; padding-right: 1rem; } .py-3 { padding-top: 0.75rem; padding-bottom: 0.75rem; } .py-6 { padding-top: 1.5rem; padding-bottom: 1.5rem; } .pt-1 { padding-top: 0.25rem; } .mt-1 { margin-top: 0.25rem; } .mt-2 { margin-top: 0.5rem; } .mt-3 { margin-top: 0.75rem; } .mt-4 { margin-top: 1rem; } .mb-4 { margin-bottom: 1rem; } .space-y-4 > :not([hidden]) ~ :not([hidden]) { margin-top: 1rem; } .text-center { text-align: center; } .text-sm { font-size: 0.875rem; line-height: 1.25rem; } .font-semibold { font-weight: 600; } .cursor-pointer { cursor: pointer; } .text-white { color: #fff; } .text-slate-400 { color: #94a3b8; } .text-gray-200 { color: #e5e7eb; } .text-orange-300 { color: #fdba74; } @media (min-width: 640px) { .sm\:grid-cols-1 { grid-template-columns: repeat(1, minmax(0, 1fr)); } .sm\:grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); } } @media (min-width: 768px) { .md\:grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); } .md\:grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+
+* { box-sizing: border-box; }
+
+:root {
+  --bg: #09090d;
+  --bg2: #11131a;
+  --panel: rgba(17, 19, 28, 0.82);
+  --panel-strong: rgba(20, 23, 34, 0.96);
+  --border: rgba(255,255,255,0.07);
+  --border-strong: rgba(255,255,255,0.12);
+  --muted: #94a3b8;
+  --soft: #64748b;
+  --text: #e5edf6;
+  --heading: #f8fafc;
+  --accent: #f97316;
+  --accent2: #ea580c;
+  --accent-soft: rgba(249,115,22,0.14);
+  --shadow-lg: 0 18px 50px rgba(0,0,0,0.30);
+  --shadow-md: 0 10px 30px rgba(0,0,0,0.20);
+  --radius-xl: 20px;
+  --radius-lg: 16px;
+  --radius-md: 12px;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+  min-height: 100%;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 75% 45% at 15% -10%, rgba(249,115,22,0.10) 0%, transparent 60%),
+    radial-gradient(ellipse 55% 35% at 85% 110%, rgba(99,102,241,0.08) 0%, transparent 60%),
+    linear-gradient(180deg, rgba(255,255,255,0.015) 0%, transparent 100%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.content {
+  position: relative;
+  z-index: 1;
+}
+
+canvas {
+  display: block;
+  max-width: 100%;
+  background: #000;
+}
+
+#canvasSingle,
+#canvasCompareResult {
+  image-rendering: pixelated;
+}
+
+input[type=range] {
+  accent-color: var(--accent);
+}
+
+.panel {
+  background: linear-gradient(180deg, rgba(255,255,255,0.025), rgba(255,255,255,0.01)), var(--panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: var(--shadow-md);
+  transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.panel:hover {
+  border-color: rgba(255,255,255,0.10);
+  box-shadow: var(--shadow-lg);
+}
+
+.section-title {
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #8ea1b5;
+  margin-bottom: 14px;
+}
+
+label {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #a8b7c8;
+}
+
+select,
+input[type=number] {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.09);
+  color: #dbe7f3;
+  border-radius: 12px;
+  padding: 10px 12px;
+  font-size: 0.85rem;
+  font-family: inherit;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+  width: 100%;
+}
+
+select:hover,
+select:focus,
+input[type=number]:hover,
+input[type=number]:focus {
+  border-color: rgba(249,115,22,0.45);
+  background: rgba(255,255,255,0.05);
+  box-shadow: 0 0 0 4px rgba(249,115,22,0.08);
+}
+
+.custom-native-hidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+.custom-select {
+  position: relative;
+  width: 100%;
+}
+
+.custom-select-button {
+  width: 100%;
+  min-height: 44px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.09);
+  color: #dbe7f3;
+  border-radius: 12px;
+  padding: 10px 42px 10px 12px;
+  font-size: 0.85rem;
+  font-family: inherit;
+  font-weight: 600;
+  line-height: 1.35;
+  text-align: left;
+  cursor: pointer;
+  outline: none;
+  position: relative;
+  transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+}
+
+.custom-select-button:hover,
+.custom-select-button:focus {
+  border-color: rgba(249,115,22,0.45);
+  background: rgba(255,255,255,0.05);
+  box-shadow: 0 0 0 4px rgba(249,115,22,0.08);
+}
+
+.custom-select-button::after {
+  content: '';
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  width: 9px;
+  height: 9px;
+  border-right: 2px solid #ff9a57;
+  border-bottom: 2px solid #ff9a57;
+  transform: translateY(-65%) rotate(45deg);
+  transition: transform 0.18s ease;
+  pointer-events: none;
+}
+
+.custom-select.open .custom-select-button::after {
+  transform: translateY(-35%) rotate(225deg);
+}
+
+.custom-select-dropdown {
+  display: none;
+  position: absolute;
+  z-index: 120;
+  top: calc(100% + 8px);
+  left: 0;
+  right: 0;
+  margin: 0;
+  padding: 8px;
+  list-style: none;
+  background: linear-gradient(180deg, rgba(255,255,255,0.035), rgba(255,255,255,0.015)), var(--panel-strong);
+  border: 1px solid rgba(249,115,22,0.24);
+  border-radius: 16px;
+  box-shadow: 0 18px 48px rgba(0,0,0,0.42), 0 0 0 1px rgba(249,115,22,0.08);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  max-height: 285px;
+  overflow-y: auto;
+}
+
+.custom-select.open .custom-select-dropdown {
+  display: block;
+}
+
+.custom-select-option {
+  width: 100%;
+  display: block;
+  border: 1px solid transparent;
+  border-radius: 12px;
+  padding: 11px 12px;
+  background: transparent;
+  color: #dbe7f3;
+  font-family: inherit;
+  font-size: 0.86rem;
+  font-weight: 600;
+  line-height: 1.35;
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.16s ease, border-color 0.16s ease, color 0.16s ease;
+}
+
+.custom-select-option:hover,
+.custom-select-option:focus {
+  background: rgba(255,255,255,0.07);
+  border-color: rgba(249,115,22,0.24);
+  color: #ffffff;
+  outline: none;
+}
+
+.custom-select-option.selected {
+  background: linear-gradient(135deg, rgba(249,115,22,0.18), rgba(234,88,12,0.14));
+  border-color: rgba(249,115,22,0.50);
+  color: #ffb27c;
+  box-shadow: inset 0 0 0 1px rgba(249,115,22,0.10);
+}
+
+/* DPI options are shown as a full visible menu instead of a closed dropdown. */
+#dpiCustomSelect {
+  display: grid;
+  gap: 8px;
+}
+
+#dpiCustomSelect .custom-select-button {
+  display: none;
+}
+
+#dpiCustomSelect .custom-select-dropdown {
+  display: grid;
+  position: static;
+  z-index: auto;
+  top: auto;
+  left: auto;
+  right: auto;
+  max-height: none;
+  overflow: visible;
+  grid-template-columns: 1fr;
+  gap: 8px;
+}
+
+#dpiCustomSelect .custom-select-dropdown li {
+  margin: 0;
+}
+
+#dpiCustomSelect.open .custom-select-dropdown {
+  display: grid;
+}
+
+.custom-dpi-input-wrap {
+  background: rgba(255,255,255,0.025);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 14px;
+  padding: 12px;
+}
+
+.toggle-control {
+  background: rgba(255,255,255,0.025);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 14px;
+  padding: 12px;
+}
+
+.toggle-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.toggle-label input {
+  position: absolute;
+  opacity: 0;
+  width: 1px;
+  height: 1px;
+  pointer-events: none;
+}
+
+.toggle-ui {
+  width: 44px;
+  height: 24px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.12);
+  position: relative;
+  flex-shrink: 0;
+  transition: background 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
+}
+
+.toggle-ui::after {
+  content: '';
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 16px;
+  height: 16px;
+  border-radius: 999px;
+  background: #cbd5e1;
+  transition: transform 0.18s ease, background 0.18s ease;
+}
+
+.toggle-label input:checked + .toggle-ui {
+  background: rgba(249,115,22,0.20);
+  border-color: rgba(249,115,22,0.55);
+  box-shadow: 0 0 0 3px rgba(249,115,22,0.08);
+}
+
+.toggle-label input:checked + .toggle-ui::after {
+  transform: translateX(20px);
+  background: #ff9a57;
+}
+
+.toggle-label input:focus + .toggle-ui {
+  box-shadow: 0 0 0 4px rgba(249,115,22,0.10);
+  border-color: rgba(249,115,22,0.55);
+}
+
+.toggle-text {
+  color: #dbe7f3;
+  font-size: 0.84rem;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.helper-text {
+  font-size: 0.72rem;
+  color: #8ea1b5;
+  margin-top: 6px;
+  line-height: 1.5;
+}
+
+.status-message {
+  display: none;
+  margin: 0 0 1rem;
+  padding: 12px 14px;
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,0.08);
+  background: rgba(255,255,255,0.04);
+  color: #dbe7f3;
+  font-size: 0.84rem;
+  font-weight: 650;
+  line-height: 1.45;
+}
+
+.status-message.visible {
+  display: block;
+}
+
+.status-message[data-type="error"] {
+  border-color: rgba(248,113,113,0.45);
+  background: rgba(248,113,113,0.10);
+  color: #fecaca;
+}
+
+.status-message[data-type="success"] {
+  border-color: rgba(34,197,94,0.35);
+  background: rgba(34,197,94,0.08);
+  color: #bbf7d0;
+}
+
+.demo-notice {
+  display: none;
+  margin-bottom: 12px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #94a3b8;
+  font-size: 0.8rem;
+  line-height: 1.45;
+  font-weight: 650;
+}
+
+.canvas-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 8px;
+  padding: 0;
+  border-radius: 0;
+  background: transparent;
+  border: 0;
+  color: #cbd5e1;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.canvas-label.accent {
+  background: transparent;
+  border-color: transparent;
+  color: #fdba74;
+}
+
+.drop-zone:focus-visible,
+.preset-card:focus-visible,
+.empty-step.primary:focus-visible,
+.btn:focus-visible,
+.lang-current:focus-visible,
+.lang-option:focus-visible {
+  outline: 3px solid rgba(249,115,22,0.45);
+  outline-offset: 3px;
+}
+
+.drop-zone {
+  border: 2px dashed rgba(249,115,22,0.78);
+  border-radius: 16px;
+  transition: all 0.2s ease;
+  background: rgba(249,115,22,0.06);
+  box-shadow:
+    0 0 0 1px rgba(249,115,22,0.10),
+    inset 0 0 0 1px rgba(249,115,22,0.06);
+  min-height: 150px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.drop-zone:hover {
+  border-color: rgba(249,115,22,1);
+  background: rgba(249,115,22,0.10);
+  box-shadow:
+    0 0 0 1px rgba(249,115,22,0.18),
+    0 10px 28px rgba(249,115,22,0.10),
+    inset 0 0 0 1px rgba(249,115,22,0.10);
+}
+
+.drop-zone.drag-over {
+  border-color: rgba(249,115,22,1);
+  background: rgba(249,115,22,0.14);
+  box-shadow:
+    0 0 0 2px rgba(249,115,22,0.22),
+    0 14px 34px rgba(249,115,22,0.14),
+    inset 0 0 0 1px rgba(249,115,22,0.12);
+}
+
+.slider-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 12px;
+}
+
+.slider-row input[type=range] {
+  width: 100%;
+}
+
+.slider-val {
+  min-width: 72px;
+  text-align: right;
+  font-size: 0.79rem;
+  font-weight: 700;
+  color: #ff9a57;
+  font-variant-numeric: tabular-nums;
+}
+
+.btn {
+  cursor: pointer;
+  transition: all 0.16s ease;
+  font-family: inherit;
+  font-weight: 600;
+  border: none;
+  outline: none;
+}
+
+.btn:hover {
+  filter: brightness(1.06);
+}
+
+.btn:active {
+  transform: scale(0.985);
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 100%);
+  color: #fff;
+  border-radius: 12px;
+  padding: 11px 16px;
+  font-size: 0.88rem;
+  box-shadow: 0 8px 22px rgba(249,115,22,0.24);
+}
+
+.btn-secondary {
+  background: rgba(255,255,255,0.045);
+  color: #d8e1ea;
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 12px;
+  padding: 10px 14px;
+  font-size: 0.84rem;
+}
+
+.btn-secondary:hover {
+  background: rgba(255,255,255,0.07);
+}
+
+.view-btn {
+  background: rgba(255,255,255,0.04);
+  color: #dbe3ee;
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 12px;
+  padding: 10px 16px;
+  font-size: 0.84rem;
+  font-weight: 700;
+  transition: all 0.18s ease;
+  min-width: 146px;
+}
+
+.view-btn:hover {
+  background: rgba(255,255,255,0.08);
+  border-color: rgba(249,115,22,0.28);
+  color: #ffffff;
+}
+
+.view-btn.active {
+  background: linear-gradient(135deg, rgba(249,115,22,0.18) 0%, rgba(234,88,12,0.18) 100%);
+  color: #fff;
+  border-color: rgba(249,115,22,0.50);
+  box-shadow: 0 0 0 1px rgba(249,115,22,0.18), 0 10px 24px rgba(249,115,22,0.16);
+}
+
+.counter-badge {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 999px;
+  padding: 6px 12px;
+  font-size: 0.74rem;
+  color: #aab8c8;
+  white-space: nowrap;
+}
+
+.counter-badge span {
+  color: #ff9a57;
+  font-weight: 700;
+}
+
+.lang-switcher {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.lang-current {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  min-width: 46px;
+  min-height: 34px;
+  background: rgba(249,115,22,0.12);
+  color: #e2e8f0;
+  border: 1px solid rgba(249,115,22,0.55);
+  border-radius: 10px;
+  padding: 6px 9px;
+  font-size: 1rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: all 0.18s ease;
+  box-shadow: 0 0 0 1px rgba(249,115,22,0.14);
+}
+
+.lang-current:hover,
+.lang-current[aria-expanded="true"] {
+  background: rgba(249,115,22,0.18);
+  border-color: rgba(249,115,22,0.70);
+  box-shadow: 0 10px 24px rgba(249,115,22,0.12), 0 0 0 1px rgba(249,115,22,0.18);
+}
+
+.lang-current-flag,
+.lang-option-flag {
+  font-size: 1rem;
+  line-height: 1;
+}
+
+.lang-current-name {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+.lang-chevron {
+  width: 7px;
+  height: 7px;
+  border-right: 2px solid #ff9a57;
+  border-bottom: 2px solid #ff9a57;
+  transform: translateY(-2px) rotate(45deg);
+  transition: transform 0.18s ease;
+  flex-shrink: 0;
+}
+
+.lang-switcher.open .lang-chevron {
+  transform: translateY(2px) rotate(225deg);
+}
+
+.lang-menu {
+  display: none;
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  z-index: 140;
+  min-width: 176px;
+  padding: 8px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.035), rgba(255,255,255,0.015)), var(--panel-strong);
+  border: 1px solid rgba(249,115,22,0.24);
+  border-radius: 16px;
+  box-shadow: 0 18px 48px rgba(0,0,0,0.42), 0 0 0 1px rgba(249,115,22,0.08);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+.lang-switcher.open .lang-menu {
+  display: grid;
+  gap: 4px;
+}
+
+.lang-option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  text-decoration: none;
+  color: #dbe7f3;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 12px;
+  padding: 10px 11px;
+  font-size: 0.84rem;
+  font-weight: 700;
+  line-height: 1.25;
+  transition: background 0.16s ease, border-color 0.16s ease, color 0.16s ease;
+}
+
+.lang-option:hover,
+.lang-option:focus {
+  background: rgba(255,255,255,0.07);
+  border-color: rgba(249,115,22,0.24);
+  color: #ffffff;
+  outline: none;
+}
+
+.lang-option.active {
+  display: none;
+}
+
+/* Defensive language dropdown guard: old side-by-side flag buttons must not display inline. */
+.lang-dropdown .lang-btn {
+  display: none !important;
+}
+
+
+.feedback-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  min-height: 34px;
+  background: rgba(255,255,255,0.045);
+  color: #e2e8f0;
+  border: 1px solid rgba(255,255,255,0.10);
+  border-radius: 10px;
+  padding: 7px 11px;
+  font-family: inherit;
+  font-size: 0.82rem;
+  font-weight: 800;
+  line-height: 1;
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+
+.feedback-btn:hover,
+.feedback-btn:focus-visible {
+  background: rgba(249,115,22,0.14);
+  border-color: rgba(249,115,22,0.55);
+  color: #ffffff;
+  box-shadow: 0 10px 24px rgba(249,115,22,0.12), 0 0 0 1px rgba(249,115,22,0.14);
+}
+
+.feedback-modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 220;
+  padding: 18px;
+  background: rgba(0,0,0,0.62);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  align-items: center;
+  justify-content: center;
+}
+
+.feedback-modal-overlay.open {
+  display: flex;
+}
+
+.feedback-modal {
+  width: min(100%, 520px);
+  background: linear-gradient(180deg, rgba(255,255,255,0.035), rgba(255,255,255,0.015)), var(--panel-strong);
+  border: 1px solid rgba(249,115,22,0.28);
+  border-radius: 20px;
+  box-shadow: 0 24px 70px rgba(0,0,0,0.54), 0 0 0 1px rgba(249,115,22,0.08);
+  padding: 20px;
+  color: #dbe7f3;
+}
+
+.feedback-modal-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+
+.feedback-modal-title {
+  margin: 0 0 5px;
+  color: #f8fafc;
+  font-size: 1.12rem;
+  line-height: 1.25;
+  font-weight: 850;
+}
+
+.feedback-modal-text {
+  margin: 0;
+  color: #94a3b8;
+  font-size: 0.84rem;
+  line-height: 1.55;
+}
+
+.feedback-close-btn {
+  width: 36px;
+  height: 36px;
+  flex: 0 0 auto;
+  border: 1px solid rgba(255,255,255,0.10);
+  border-radius: 999px;
+  background: rgba(255,255,255,0.045);
+  color: #cbd5e1;
+  font-size: 1.2rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.feedback-close-btn:hover,
+.feedback-close-btn:focus-visible {
+  background: rgba(255,255,255,0.08);
+  color: #ffffff;
+  outline: 3px solid rgba(249,115,22,0.25);
+  outline-offset: 2px;
+}
+
+.feedback-form {
+  display: grid;
+  gap: 12px;
+}
+
+.feedback-field {
+  display: grid;
+  gap: 6px;
+}
+
+.feedback-field textarea,
+.feedback-field input[type="email"] {
+  width: 100%;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.09);
+  color: #dbe7f3;
+  border-radius: 12px;
+  padding: 11px 12px;
+  font-size: 0.88rem;
+  font-family: inherit;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+}
+
+.feedback-field textarea {
+  min-height: 136px;
+  resize: vertical;
+}
+
+.feedback-field textarea:hover,
+.feedback-field textarea:focus,
+.feedback-field input[type="email"]:hover,
+.feedback-field input[type="email"]:focus {
+  border-color: rgba(249,115,22,0.45);
+  background: rgba(255,255,255,0.05);
+  box-shadow: 0 0 0 4px rgba(249,115,22,0.08);
+}
+
+.feedback-hp {
+  position: absolute !important;
+  left: -10000px !important;
+  width: 1px !important;
+  height: 1px !important;
+  overflow: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+.feedback-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  margin-top: 2px;
+}
+
+.feedback-note {
+  color: #7b8b9c;
+  font-size: 0.74rem;
+  line-height: 1.55;
+}
+
+.feedback-message {
+  display: none;
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.08);
+  background: rgba(255,255,255,0.04);
+  color: #dbe7f3;
+  font-size: 0.82rem;
+  font-weight: 650;
+  line-height: 1.45;
+}
+
+.feedback-message.visible {
+  display: block;
+}
+
+.feedback-message[data-type="error"] {
+  border-color: rgba(248,113,113,0.45);
+  background: rgba(248,113,113,0.10);
+  color: #fecaca;
+}
+
+.feedback-message[data-type="success"] {
+  border-color: rgba(34,197,94,0.35);
+  background: rgba(34,197,94,0.08);
+  color: #bbf7d0;
+}
+
+@media (max-width: 520px) {
+  .feedback-btn span:last-child {
+    display: none;
+  }
+
+  .feedback-actions {
+    flex-direction: column-reverse;
+  }
+
+  .feedback-actions .btn {
+    width: 100%;
+  }
+}
+
+
+.info-card {
+  background: rgba(255,255,255,0.025);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 14px;
+  padding: 12px 14px;
+}
+
+.mini-grid {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 8px 10px;
+  align-items: center;
+}
+
+.canvas-wrap {
+  border-radius: 14px;
+  overflow: hidden;
+  border: 0;
+  background: #000;
+  box-shadow: none;
+}
+
+.zoom-hover {
+  overflow: hidden;
+  border-radius: 14px;
+  cursor: crosshair;
+  user-select: none;
+  -webkit-user-select: none;
+  position: relative;
+  touch-action: none;
+}
+
+.zoom-hover canvas {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.preset-card {
+  background: rgba(255,255,255,0.035);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 12px;
+  padding: 13px 12px;
+  text-align: center;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  color: #dbe3ee;
+}
+
+.preset-card:hover {
+  transform: translateY(-1px);
+  border-color: rgba(249,115,22,0.35);
+  background: rgba(255,255,255,0.06);
+}
+
+.preset-card.active {
+  background: linear-gradient(180deg, rgba(249,115,22,0.14), rgba(249,115,22,0.07));
+  border-color: rgba(249,115,22,0.52);
+  color: #ff9a57;
+  box-shadow: 0 0 0 1px rgba(249,115,22,0.12);
+}
+
+.empty-steps {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.empty-step {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 12px;
+  padding: 13px 14px;
+  flex: 1;
+  min-width: 130px;
+  max-width: 210px;
+}
+
+.empty-step.primary {
+  background: rgba(249,115,22,0.07);
+  border-color: rgba(249,115,22,0.35);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.empty-step.primary:hover {
+  background: rgba(249,115,22,0.12);
+  transform: translateY(-1px);
+}
+
+.empty-step-num {
+  width: 28px;
+  height: 28px;
+  border-radius: 999px;
+  background: rgba(249,115,22,0.18);
+  border: 1px solid rgba(249,115,22,0.36);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--accent);
+  flex-shrink: 0;
+}
+
+.hint-line {
+  text-align: center;
+  margin-top: 18px;
+  font-size: 0.79rem;
+  color: #64748b;
+}
+
+.footer-note {
+  font-size: 0.76rem;
+  color: #7b8b9c;
+  line-height: 1.6;
+}
+
+.help-section-title {
+  font-size: 1.08rem;
+  font-weight: 800;
+  color: #ff9a57;
+  margin-bottom: 12px;
+}
+
+.help-text {
+  color: #d7e0ea;
+  font-size: 0.94rem;
+  line-height: 1.8;
+}
+
+.help-step,
+.help-card,
+.help-note-box {
+  background: rgba(255,255,255,0.025);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 16px;
+}
+
+.help-step {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  padding: 18px;
+}
+
+.help-step-num {
+  min-width: 2rem;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  background: var(--accent);
+  color: white;
+  flex-shrink: 0;
+  box-shadow: 0 4px 16px rgba(249,115,22,0.2);
+}
+
+.help-card {
+  padding: 18px;
+}
+
+.help-card-title {
+  color: #fdba74;
+  font-weight: 700;
+  margin-bottom: 6px;
+  font-size: 0.92rem;
+}
+
+.help-card-text {
+  color: #94a3b8;
+  font-size: 0.84rem;
+  line-height: 1.65;
+}
+
+.help-table-wrap {
+  overflow-x: auto;
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,0.06);
+}
+
+.help-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.84rem;
+}
+
+.help-table thead tr {
+  background: rgba(255,255,255,0.05);
+  color: #cbd5e1;
+  text-align: left;
+}
+
+.help-table th,
+.help-table td {
+  padding: 12px 14px;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  vertical-align: top;
+}
+
+.help-table tbody tr {
+  background: rgba(255,255,255,0.02);
+}
+
+.help-table tbody tr:hover {
+  background: rgba(255,255,255,0.04);
+}
+
+.help-table td:first-child {
+  color: #fdba74;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.help-note-box {
+  padding: 18px;
+  color: #cbd5e1;
+  font-size: 0.88rem;
+  line-height: 1.7;
+}
+
+.help-note-box .formula {
+  color: #94a3b8;
+  font-size: 0.82rem;
+  margin-top: 8px;
+}
+
+.mobile-action-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+  margin-top: 14px;
+}
+
+.mobile-reupload-btn,
+.mobile-download-btn {
+  width: 100%;
+  max-width: 320px;
+  cursor: pointer;
+  font-size: 0.92rem;
+  font-weight: 700;
+  padding: 12px 16px;
+  box-shadow: 0 8px 24px rgba(249,115,22,0.28);
+}
+
+
+.mobile-adjust-btn {
+  width: 100%;
+  max-width: 320px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 700;
+  padding: 11px 16px;
+}
+
+header.app-header {
+position: sticky;
+top: 0;
+z-index: 50;
+padding: 14px 16px;
+border-radius: 0;
+background: rgba(10, 12, 18, 0.85);
+backdrop-filter: blur(14px);
+-webkit-backdrop-filter: blur(14px);
+border: 1px solid rgba(255,255,255,0.06);
+box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+margin-bottom: 1.5rem;
+}
+
+.brand-logo {
+  height: 64px;
+  width: auto;
+  filter: drop-shadow(0 8px 22px rgba(0,0,0,0.22));
+}
+.main-editor-layout {
+display: grid !important;
+grid-template-columns: minmax(0, 2fr) minmax(300px, 1fr) !important;
+gap: 1rem !important;
+align-items: start !important;
+width: 100% !important;
+}
+
+.editor-preview-top,
+.editor-controls-column,
+.editor-left-extra {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 0.75rem !important;
+  min-width: 0 !important;
+}
+
+.editor-preview-top {
+  grid-column: 1 !important;
+  grid-row: 1 !important;
+}
+
+.editor-controls-column {
+  grid-column: 2 !important;
+  grid-row: 1 / span 2 !important;
+  align-self: start !important;
+}
+
+.editor-left-extra {
+  grid-column: 1 !important;
+  grid-row: 2 !important;
+}
+
+.editor-left-extra #helpArea,
+.editor-left-extra > section,
+.editor-left-extra > .panel,
+.editor-left-extra > div {
+  min-width: 0 !important;
+  width: 100%;
+}
+@media (min-width: 1024px) {
+.mobile-action-stack {
+display: none;
+}
+}
+
+@media (max-width: 1023px) {
+
+  .main-editor-layout {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+  }
+
+  .editor-preview-top,
+  .editor-controls-column,
+  .editor-left-extra {
+    grid-column: 1 !important;
+  }
+
+  .editor-preview-top {
+    order: 1 !important;
+    grid-row: auto !important;
+  }
+
+  .editor-controls-column {
+    order: 2 !important;
+    grid-row: auto !important;
+  }
+
+  .editor-left-extra {
+    order: 3 !important;
+    grid-row: auto !important;
+  }
+.content {
+padding-top: 14px;
+}
+
+ header.app-header {
+position: relative;
+top: auto;
+z-index: 200;
+overflow: visible;
+border-radius: 0;
+padding: 12px 14px;
+margin-bottom: 16px;
+}
+
+  header.app-header .lang-menu {
+z-index: 300;
+}
+
+  .panel {
+    border-radius: 16px;
+  }
+
+  .view-btn {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .brand-logo {
+    height: 52px;
+  }
+}
+
+/* Detail preview magnifier for engraving/dither inspection. */
+.detail-magnifier {
+  display: none;
+  position: fixed;
+  width: 270px;
+  height: 270px;
+  border-radius: 999px;
+  overflow: hidden;
+  z-index: 260;
+  pointer-events: none;
+  border: 3px solid #0ea5e9;
+  background: #fff;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.45), 0 0 0 1px rgba(255,255,255,0.30);
+}
+
+.detail-magnifier.visible {
+  display: block;
+}
+
+.detail-magnifier canvas {
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  background: #fff;
+  image-rendering: pixelated;
+}
+
+.detail-magnifier::after {
+  content: '4×';
+  position: absolute;
+  right: 13px;
+  bottom: 12px;
+  padding: 3px 8px;
+  border-radius: 999px;
+  background: rgba(9,9,13,0.74);
+  color: #fff;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.03em;
+}
+
+@media (max-width: 640px) {
+  .detail-magnifier {
+    width: 190px;
+    height: 190px;
+  }
+}
+  
+  
+
+/* Guide page additions */
+.guide-nav-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 34px;
+  text-decoration: none;
+  color: #e2e8f0;
+  background: rgba(255,255,255,0.045);
+  border: 1px solid rgba(255,255,255,0.10);
+  border-radius: 10px;
+  padding: 8px 12px;
+  font-size: 0.82rem;
+  font-weight: 800;
+  transition: all 0.18s ease;
+}
+.guide-nav-link:hover,
+.guide-nav-link:focus-visible {
+  background: rgba(249,115,22,0.14);
+  border-color: rgba(249,115,22,0.55);
+  color: #fff;
+  outline: none;
+}
+.guide-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #fdba74;
+  background: rgba(249,115,22,0.10);
+  border: 1px solid rgba(249,115,22,0.26);
+  border-radius: 999px;
+  padding: 7px 12px;
+  font-size: 0.76rem;
+  font-weight: 850;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+.guide-hero-title {
+  margin: 0 0 14px;
+  color: #f8fafc;
+  font-size: clamp(2.1rem, 4.5vw, 4.6rem);
+  line-height: 0.96;
+  letter-spacing: -0.055em;
+  font-weight: 900;
+  max-width: 1120px;
+}
+.guide-hero-subtitle {
+  margin: 0;
+  max-width: 940px;
+  color: #cbd5e1;
+  font-size: clamp(1rem, 1.4vw, 1.22rem);
+  line-height: 1.85;
+}
+.guide-hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 22px;
+}
+.guide-pill-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 18px;
+}
+.guide-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border-radius: 999px;
+  padding: 8px 11px;
+  color: #dbe7f3;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+.guide-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 270px) minmax(0, 1fr);
+  gap: 1rem;
+  align-items: start;
+}
+.guide-toc {
+  position: sticky;
+  top: 104px;
+}
+.guide-toc a {
+  display: block;
+  text-decoration: none;
+  color: #b9c7d6;
+  padding: 8px 0;
+  font-size: 0.84rem;
+  font-weight: 650;
+  line-height: 1.35;
+  border-bottom: 1px solid rgba(255,255,255,0.045);
+}
+.guide-toc a:hover { color: #fdba74; }
+.guide-main {
+  display: grid;
+  gap: 1rem;
+}
+.guide-section {
+  scroll-margin-top: 110px;
+}
+.guide-section h2 {
+  margin: 0 0 14px;
+  color: #f8fafc;
+  font-size: clamp(1.52rem, 2.2vw, 2.3rem);
+  line-height: 1.08;
+  letter-spacing: -0.035em;
+  font-weight: 900;
+}
+.guide-section h3 {
+  margin: 26px 0 10px;
+  color: #fdba74;
+  font-size: 1.08rem;
+  line-height: 1.25;
+  font-weight: 850;
+}
+.guide-section h4 {
+  margin: 18px 0 8px;
+  color: #e5edf6;
+  font-size: .96rem;
+  line-height: 1.3;
+  font-weight: 800;
+}
+.guide-copy {
+  color: #cbd5e1;
+  font-size: .95rem;
+  line-height: 1.82;
+}
+.guide-copy p { margin: 0 0 14px; }
+.guide-copy ul,
+.guide-copy ol { margin: 10px 0 16px; padding-left: 1.25rem; }
+.guide-copy li { margin: 7px 0; }
+.guide-copy strong { color: #fff; }
+.guide-copy a { color: #fdba74; text-decoration: none; }
+.guide-copy a:hover { text-decoration: underline; }
+.guide-grid-2,
+.guide-grid-3,
+.guide-grid-4 {
+  display: grid;
+  gap: 12px;
+  margin: 16px 0;
+}
+.guide-grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.guide-grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.guide-grid-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.guide-card {
+  background: rgba(255,255,255,0.025);
+  border: 1px solid rgba(255,255,255,0.065);
+  border-radius: 16px;
+  padding: 16px;
+}
+.guide-card-title {
+  color: #fdba74;
+  font-weight: 850;
+  margin: 0 0 7px;
+  font-size: .94rem;
+  line-height: 1.35;
+}
+.guide-card-text {
+  color: #9fb0c2;
+  font-size: .84rem;
+  line-height: 1.65;
+  margin: 0;
+}
+.guide-kpi {
+  display: grid;
+  gap: 4px;
+}
+.guide-kpi strong {
+  display: block;
+  color: #fff;
+  font-size: 1.25rem;
+  letter-spacing: -0.03em;
+}
+.guide-kpi span {
+  color: #94a3b8;
+  font-size: .78rem;
+  line-height: 1.45;
+}
+.guide-callout,
+.guide-warning,
+.guide-success {
+  border-radius: 16px;
+  padding: 16px 17px;
+  margin: 16px 0;
+  line-height: 1.7;
+  font-size: .9rem;
+}
+.guide-callout {
+  background: rgba(249,115,22,0.09);
+  border: 1px solid rgba(249,115,22,0.26);
+  color: #fed7aa;
+}
+.guide-warning {
+  background: rgba(248,113,113,0.09);
+  border: 1px solid rgba(248,113,113,0.26);
+  color: #fecaca;
+}
+.guide-success {
+  background: rgba(34,197,94,0.075);
+  border: 1px solid rgba(34,197,94,0.20);
+  color: #bbf7d0;
+}
+.guide-table-wrap {
+  overflow-x: auto;
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,0.07);
+  margin: 16px 0 22px;
+}
+.guide-table {
+  width: 100%;
+  min-width: 760px;
+  border-collapse: collapse;
+  font-size: .84rem;
+}
+.guide-table th,
+.guide-table td {
+  padding: 13px 14px;
+  border-bottom: 1px solid rgba(255,255,255,0.065);
+  text-align: left;
+  vertical-align: top;
+}
+.guide-table th {
+  background: rgba(255,255,255,0.05);
+  color: #dbe7f3;
+  font-weight: 850;
+  white-space: nowrap;
+}
+.guide-table td { color: #b8c7d7; }
+.guide-table td:first-child { color: #fdba74; font-weight: 850; }
+.guide-table tr:last-child td { border-bottom: 0; }
+.guide-formula {
+  display: grid;
+  gap: 8px;
+  margin: 14px 0;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  color: #e2e8f0;
+}
+.guide-formula code {
+  display: block;
+  white-space: normal;
+  background: rgba(0,0,0,0.24);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 12px;
+  padding: 12px 13px;
+  color: #fed7aa;
+  font-size: .84rem;
+  line-height: 1.6;
+}
+.guide-step-list {
+  counter-reset: guideStep;
+  display: grid;
+  gap: 10px;
+  margin: 16px 0;
+}
+.guide-step-item {
+  counter-increment: guideStep;
+  display: grid;
+  grid-template-columns: 42px minmax(0, 1fr);
+  gap: 12px;
+  background: rgba(255,255,255,0.025);
+  border: 1px solid rgba(255,255,255,0.065);
+  border-radius: 16px;
+  padding: 15px;
+}
+.guide-step-item::before {
+  content: counter(guideStep);
+  width: 34px;
+  height: 34px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  background: rgba(249,115,22,0.18);
+  border: 1px solid rgba(249,115,22,0.36);
+  color: #fdba74;
+  font-weight: 900;
+}
+.guide-step-item strong {
+  color: #fff;
+  display: block;
+  margin-bottom: 4px;
+}
+.guide-step-item span {
+  color: #9fb0c2;
+  font-size: .88rem;
+  line-height: 1.65;
+}
+.guide-badge {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  padding: 4px 8px;
+  margin: 0 4px 4px 0;
+  background: rgba(255,255,255,0.055);
+  border: 1px solid rgba(255,255,255,0.08);
+  color: #cbd5e1;
+  font-size: .72rem;
+  font-weight: 800;
+}
+.guide-faq details {
+  background: rgba(255,255,255,0.025);
+  border: 1px solid rgba(255,255,255,0.065);
+  border-radius: 16px;
+  padding: 0;
+  margin: 10px 0;
+  overflow: hidden;
+}
+.guide-faq summary {
+  cursor: pointer;
+  color: #f8fafc;
+  font-weight: 850;
+  padding: 15px 17px;
+  list-style: none;
+}
+.guide-faq summary::-webkit-details-marker { display: none; }
+.guide-faq details p {
+  margin: 0;
+  padding: 0 17px 17px;
+  color: #9fb0c2;
+  font-size: .9rem;
+  line-height: 1.7;
+}
+.guide-source-list {
+  display: grid;
+  gap: 9px;
+  margin: 12px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.guide-source-list li {
+  margin: 0;
+  padding: 12px 13px;
+  border-radius: 12px;
+  background: rgba(255,255,255,0.025);
+  border: 1px solid rgba(255,255,255,0.06);
+  color: #94a3b8;
+  font-size: .82rem;
+  line-height: 1.55;
+}
+.guide-source-list a { color: #fdba74; text-decoration: none; }
+.guide-source-list a:hover { text-decoration: underline; }
+@media (max-width: 1023px) {
+  .guide-layout { grid-template-columns: 1fr; }
+  .guide-toc { position: static; }
+  .guide-grid-3, .guide-grid-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 700px) {
+  .guide-grid-2, .guide-grid-3, .guide-grid-4 { grid-template-columns: 1fr; }
+  .guide-step-item { grid-template-columns: 1fr; }
+  .guide-hero-title { letter-spacing: -0.04em; }
+}
+
+  </style>
+  <script async src="https://scripts.simpleanalyticscdn.com/latest.js"></script>
+</head>
+<body>
+  <div class="content max-w-7xl mx-auto px-4 py-6">
+    <header class="app-header flex items-center gap-3 flex-wrap">
+      <a href="https://photoengraving.online/" aria-label="PhotoEngraving.online home">
+        <img alt="PhotoEngraving.online logo" class="brand-logo" src="/logo.png" />
+      </a>
+      <div class="ml-auto flex flex-wrap gap-2 items-center">
+        <a class="guide-nav-link" href="https://photoengraving.online/">Open editor</a>
+        <a class="guide-nav-link" href="#quick-start">Quick start</a>
+        <a class="guide-nav-link" href="#troubleshooting">Troubleshooting</a>
+      </div>
+    </header>
+
+    <section class="panel p-6 mb-4">
+      <div class="guide-eyebrow">Laser photo engraving knowledge base</div>
+      <h1 class="guide-hero-title">Complete guide to laser photo engraving</h1>
+      <p class="guide-hero-subtitle">
+        Learn how to turn a normal photograph into a laser-ready image: choose the right photo, set the physical size, pick DPI and line interval, select dithering or grayscale, prepare for wood, acrylic, glass, slate, leather or metal, and troubleshoot common problems before wasting material.
+      </p>
+      <div class="guide-hero-actions">
+        <a class="btn btn-primary" href="https://photoengraving.online/">Prepare a photo now</a>
+        <a class="btn btn-secondary" href="#workflow">Read the workflow</a>
+        <a class="btn btn-secondary" href="#settings">See starting settings</a>
+      </div>
+      <div class="guide-pill-row" aria-label="Guide topics">
+        <span class="guide-pill">DPI &amp; line interval</span>
+        <span class="guide-pill">Floyd-Steinberg, Atkinson, Jarvis, Stucki</span>
+        <span class="guide-pill">Wood, acrylic, glass, slate, metal</span>
+        <span class="guide-pill">LightBurn, LaserGRBL, XCS</span>
+        <span class="guide-pill">Beginner to advanced</span>
+      </div>
+    </section>
+
+    <div class="guide-layout">
+      <aside class="panel p-4 guide-toc" aria-label="Table of contents">
+        <div class="section-title">Guide contents</div>
+        <a href="#quick-start">Quick start</a>
+        <a href="#principles">How laser photo engraving works</a>
+        <a href="#laser-types">Laser types and materials</a>
+        <a href="#photo-selection">Choosing the photo</a>
+        <a href="#workflow">Image preparation workflow</a>
+        <a href="#dpi">DPI, line interval and size</a>
+        <a href="#dithering">Dithering algorithms</a>
+        <a href="#materials">Material-specific advice</a>
+        <a href="#settings">Starting settings and test method</a>
+        <a href="#software">Software workflow</a>
+        <a href="#troubleshooting">Troubleshooting</a>
+        <a href="#safety">Safety</a>
+        <a href="#faq">FAQ</a>
+        <a href="#sources">Sources</a>
+      </aside>
+
+      <main class="guide-main">
+        <section class="panel p-6 guide-section" id="quick-start">
+          <h2>Quick start: the reliable five-step method</h2>
+          <div class="guide-copy">
+            <p>Photo engraving is not just “send a JPG to the laser”. The best results come from controlling the image first, then testing the material. Use this fast workflow whenever you start a new photo, machine, lens or material batch.</p>
+            <div class="guide-step-list">
+              <div class="guide-step-item"><div><strong>Choose a photo with real separation.</strong><span>Good light, visible eyes, clean subject edges and a balanced mix of highlights, midtones and shadows are more important than extreme resolution.</span></div></div>
+              <div class="guide-step-item"><div><strong>Crop to the final physical size.</strong><span>Decide the engraved width and height in millimeters before choosing DPI. A 100 mm portrait and a 250 mm portrait do not need the same pixel dimensions.</span></div></div>
+              <div class="guide-step-item"><div><strong>Prepare grayscale tones.</strong><span>Remove distractions, convert to grayscale, adjust levels/curves, protect facial detail, add moderate sharpening and avoid crushed black areas.</span></div></div>
+              <div class="guide-step-item"><div><strong>Choose the output method.</strong><span>Use dithering for predictable black/white dot engraving. Use grayscale only when the laser and material can reproduce real intermediate tones.</span></div></div>
+              <div class="guide-step-item"><div><strong>Run a small test matrix.</strong><span>Engrave a 20–40 mm crop with several power/speed or interval variants. Keep notes. The final large engraving should only run after the small crop looks right.</span></div></div>
+            </div>
+            <div class="guide-callout"><strong>Rule of thumb:</strong> if a photo looks too dark after engraving, do not immediately increase DPI. First reduce power, increase speed, lower contrast in the shadows, or choose a dithering mode that opens the midtones.</div>
+          </div>
+        </section>
+
+        <section class="panel p-6 guide-section" id="principles">
+          <h2>How laser photo engraving works</h2>
+          <div class="guide-copy">
+            <p>A laser can only do a limited set of things at each tiny point: mark, burn, ablate, melt, frost, bleach, remove coating, or change color. A photograph, however, contains continuous tones. The whole art of photo engraving is converting those tones into marks your exact laser and material can reproduce.</p>
+            <div class="guide-grid-3">
+              <div class="guide-card"><p class="guide-card-title">Raster engraving</p><p class="guide-card-text">The laser scans the image line by line. The line spacing is the line interval, and its inverse is DPI/LPI. Too tight can make burns overlap; too loose can leave visible gaps.</p></div>
+              <div class="guide-card"><p class="guide-card-title">Dithering</p><p class="guide-card-text">The image is converted into black and white dots. More dots create darker areas; fewer dots create lighter areas. This is usually the safest photo method.</p></div>
+              <div class="guide-card"><p class="guide-card-title">Grayscale power modulation</p><p class="guide-card-text">The laser varies power or dot duration for each pixel. It can be beautiful on the right material, but it is less forgiving and depends on linear material response.</p></div>
+            </div>
+            <p>Many materials are not linear. A little power may do nothing, then a tiny increase suddenly burns dark. For those materials, dithering is easier because every engraved dot uses a chosen mark power while tonal value is controlled by dot density.</p>
+          </div>
+        </section>
+
+        <section class="panel p-6 guide-section" id="laser-types">
+          <h2>Laser types and what they mean for photos</h2>
+          <div class="guide-copy">
+            <p>The same image can behave very differently on a blue diode, CO2 tube, fiber galvo, infrared diode or UV laser. Material absorption and spot size matter more than the brand name.</p>
+            <div class="guide-table-wrap">
+              <table class="guide-table">
+                <thead><tr><th>Laser type</th><th>Typical strengths for photo engraving</th><th>Common limitations</th><th>Best photo materials</th></tr></thead>
+                <tbody>
+                  <tr><td>Blue diode laser</td><td>Affordable, compact, good on wood, leather, cardboard, painted surfaces and some dark acrylics.</td><td>Clear/blue acrylic and many metals are difficult without coating or a separate IR module. Slower than many CO2 systems.</td><td>Light wood, bamboo, leather, slate, painted tile, coated metal, dark acrylic.</td></tr>
+                  <tr><td>CO2 laser</td><td>Very versatile on organic materials, acrylic, glass and many coated materials. Good speed and consistent raster engraving.</td><td>Not ideal for bare metals without marking compounds or coatings. Tube power and lens condition strongly affect photo detail.</td><td>Wood, acrylic, glass, stone, leather, paper, coated/anodized surfaces.</td></tr>
+                  <tr><td>Fiber / IR galvo</td><td>Excellent for metals, anodized aluminum, coated metal, some plastics and very fine marking. Fast dot-style processing.</td><td>Small work area on many galvos. Not the right choice for natural wood photo engraving unless the surface is coated or specially prepared.</td><td>Anodized aluminum, stainless, coated metal, some plastics, jewelry, tumblers.</td></tr>
+                  <tr><td>UV laser</td><td>Cold marking on many plastics, glass and delicate surfaces with less heat-affected damage.</td><td>Different process logic; some software grayscale modes are not compatible. Usually higher cost.</td><td>Glass, coated parts, plastics, fine industrial marking.</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="guide-success"><strong>Best practice:</strong> treat every new combination as a new process: laser source + lens + focus + material + finish + image mode. A setting that works on birch plywood may fail on beech, bamboo or a different plywood glue layer.</div>
+          </div>
+        </section>
+
+        <section class="panel p-6 guide-section" id="photo-selection">
+          <h2>Choosing a photo that will engrave well</h2>
+          <div class="guide-copy">
+            <p>The source photo decides half of the result. A technically sharp but badly lit photo can engrave worse than a smaller image with clear tonal separation.</p>
+            <div class="guide-grid-2">
+              <div class="guide-card"><p class="guide-card-title">Good candidates</p><p class="guide-card-text">Clear subject, visible eyes, simple background, soft but directional light, no heavy phone noise, no crushed shadows, enough contrast between face/hair/clothes/background.</p></div>
+              <div class="guide-card"><p class="guide-card-title">Difficult candidates</p><p class="guide-card-text">Backlit faces, black hair on black background, white clothing on white background, tiny faces in group photos, strong filters, low-resolution screenshots, JPEG artifacts.</p></div>
+            </div>
+            <h3>Portrait tips</h3>
+            <ul>
+              <li><strong>Eyes must survive.</strong> If the eyes disappear in the processed preview, the engraving will feel dead.</li>
+              <li><strong>Open the shadows.</strong> Dark hair and dark clothes often merge into one burnt mass unless you lighten them before dithering.</li>
+              <li><strong>Simplify backgrounds.</strong> A busy forest, room or crowd competes with the face. Blur, remove or lighten it.</li>
+              <li><strong>Use local contrast, not just global contrast.</strong> Increasing contrast globally can destroy highlights and shadows. Curves or selective masks are better.</li>
+            </ul>
+          </div>
+        </section>
+
+        <section class="panel p-6 guide-section" id="workflow">
+          <h2>Image preparation workflow</h2>
+          <div class="guide-copy">
+            <p>This workflow works in browser tools such as PhotoEngraving.online, in LightBurn’s image tools, or in Photoshop, GIMP, Affinity Photo and similar editors.</p>
+            <div class="guide-table-wrap">
+              <table class="guide-table">
+                <thead><tr><th>Step</th><th>What to do</th><th>Why it matters</th><th>Typical mistake</th></tr></thead>
+                <tbody>
+                  <tr><td>1. Crop</td><td>Crop to the subject and final aspect ratio.</td><td>Laser time and detail are spent on what matters.</td><td>Leaving too much background and making the face too small.</td></tr>
+                  <tr><td>2. Resize</td><td>Set physical size first, then choose DPI/line interval.</td><td>Pixel count should match the final engraved dimensions.</td><td>Upscaling a small image until it looks artificially sharp.</td></tr>
+                  <tr><td>3. Grayscale</td><td>Convert color to grayscale and tune luminance.</td><td>The laser does not care whether a pixel was red or blue; it needs mark intensity.</td><td>Relying on automatic RGB conversion that makes important colors too similar.</td></tr>
+                  <tr><td>4. Levels/curves</td><td>Set white and black points carefully; shape midtones.</td><td>Most photo detail lives in midtones, not in pure black or pure white.</td><td>Crushing blacks until all shadows become solid.</td></tr>
+                  <tr><td>5. Gamma</td><td>Use gamma to brighten or darken midtones without moving endpoints as aggressively.</td><td>Useful when faces are too dark but highlights are already bright.</td><td>Using brightness alone and washing out the entire image.</td></tr>
+                  <tr><td>6. Sharpen</td><td>Apply moderate sharpening after resizing.</td><td>Engraving softens edges, especially on wood and leather.</td><td>Oversharpening creates halos that engrave as ugly outlines.</td></tr>
+                  <tr><td>7. Invert if needed</td><td>Invert for materials where the engraved mark is lighter than the surface.</td><td>Slate, glass and many dark materials work opposite to light wood.</td><td>Using a normal non-inverted photo on slate and getting a negative-looking result.</td></tr>
+                  <tr><td>8. Dither/export</td><td>Convert to 1-bit black/white dithering or export grayscale depending on workflow.</td><td>Prepares predictable dot structure for the laser software.</td><td>Letting several tools dither the same image more than once.</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="guide-callout"><strong>Important:</strong> if you export a pre-dithered PNG/BMP, do not re-dither it again in the laser software. Use pass-through or a true black/white mode where available so the dot pattern stays intact.</div>
+          </div>
+        </section>
+
+        <section class="panel p-6 guide-section" id="dpi">
+          <h2>DPI, line interval and physical size</h2>
+          <div class="guide-copy">
+            <p>DPI is often misunderstood. On a laser it is not a magic quality slider. It is a way of describing how close the raster lines or pixels are. If your laser spot and material burn are larger than the pixel spacing, extra DPI can make the engraving darker, slower and muddier.</p>
+            <div class="guide-formula">
+              <code>DPI = 25.4 ÷ line interval in millimeters</code>
+              <code>line interval in mm = 25.4 ÷ DPI</code>
+              <code>pixel width = final width in mm × DPI ÷ 25.4</code>
+            </div>
+            <div class="guide-table-wrap">
+              <table class="guide-table">
+                <thead><tr><th>DPI</th><th>Line interval</th><th>100 mm wide image needs</th><th>Where it often makes sense</th></tr></thead>
+                <tbody>
+                  <tr><td>125 DPI</td><td>0.203 mm</td><td>492 px</td><td>Large rustic engravings, fast tests, materials with very large dot bleed.</td></tr>
+                  <tr><td>250 DPI</td><td>0.102 mm</td><td>984 px</td><td>Wood, stone, leather, glass where dots spread or heat needs more spacing.</td></tr>
+                  <tr><td>318 DPI</td><td>0.080 mm</td><td>1252 px</td><td>Common photo starting point for many diode/CO2 jobs and moderate detail.</td></tr>
+                  <tr><td>333 DPI</td><td>0.076 mm</td><td>1311 px</td><td>Frequently used photo baseline; often enough for wood and stone.</td></tr>
+                  <tr><td>500 DPI</td><td>0.051 mm</td><td>1969 px</td><td>Acrylic, coated materials, fine detail on machines/materials that can hold it.</td></tr>
+                  <tr><td>600 DPI</td><td>0.042 mm</td><td>2362 px</td><td>Fine acrylic, anodized aluminum, high-resolution CO2/fiber workflows.</td></tr>
+                  <tr><td>1000 DPI</td><td>0.025 mm</td><td>3937 px</td><td>Special cases: metal/fiber, very fine marking, only if spot size and material support it.</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <h3>How to find your real best DPI</h3>
+            <ol>
+              <li>Engrave a small line interval test on the real material.</li>
+              <li>Look under good light or magnification. The ideal interval makes adjacent lines just touch without becoming a solid smear.</li>
+              <li>Use that interval as your maximum useful detail. More density usually increases time and darkness rather than real detail.</li>
+              <li>Repeat after changing lens, focus, speed, power, air assist or material finish.</li>
+            </ol>
+          </div>
+        </section>
+
+        <section class="panel p-6 guide-section" id="dithering">
+          <h2>Dithering algorithms: which one to choose</h2>
+          <div class="guide-copy">
+            <p>Dithering converts grayscale into black and white dots. Different algorithms create different dot textures. There is no single winner; choose by image type, material, viewing distance and taste.</p>
+            <div class="guide-table-wrap">
+              <table class="guide-table">
+                <thead><tr><th>Mode</th><th>Look</th><th>Best use</th><th>Watch out for</th></tr></thead>
+                <tbody>
+                  <tr><td>Threshold</td><td>Pure black/white cutoff, no dot shading.</td><td>Logos, icons, already prepared 1-bit art, masks.</td><td>Bad for normal photos; loses midtones.</td></tr>
+                  <tr><td>Ordered / Bayer</td><td>Regular grid pattern with controlled dot arrangement.</td><td>Graphics, logos with gradients, glass, acrylic, designs where predictable pattern is acceptable.</td><td>Pattern can be visible in portraits.</td></tr>
+                  <tr><td>Floyd-Steinberg</td><td>Natural error-diffusion texture, good detail.</td><td>Default all-rounder for many photos and materials.</td><td>Can create diagonal artifacts in flat gradients.</td></tr>
+                  <tr><td>Atkinson</td><td>Lighter, softer, classic high-contrast dot look.</td><td>Portraits that need open highlights, vintage effect, photos that are getting too dark.</td><td>Can lose detail in extreme shadows and highlights.</td></tr>
+                  <tr><td>Jarvis</td><td>Smoother tonal transitions, rich detail, larger diffusion kernel.</td><td>Portraits, smooth skin tones, larger photos where processing time is not critical.</td><td>Can look too soft or dense on materials with dot bleed.</td></tr>
+                  <tr><td>Stucki</td><td>Similar family to Jarvis, often slightly sharper/faster.</td><td>General photo engraving, good balance for wood and slate tests.</td><td>Midtones may need brightness/gamma tuning.</td></tr>
+                  <tr><td>Sierra / Burkes</td><td>Variants between Floyd and Jarvis in texture and smoothness.</td><td>Advanced comparison tests when your software offers them.</td><td>Not always available in laser software.</td></tr>
+                  <tr><td>Newsprint / Halftone</td><td>Visible round-dot print style.</td><td>Decorative poster effect, graphics, intentional newspaper look.</td><td>Not the most natural portrait look at close viewing distance.</td></tr>
+                  <tr><td>Grayscale</td><td>No black/white dot conversion; laser power varies by tone.</td><td>Materials and machines with stable power modulation; relief/depth effects; some acrylic/metal workflows.</td><td>Harder to tune; many materials are not linear.</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="guide-grid-3">
+              <div class="guide-card"><p class="guide-card-title">Beginner choice</p><p class="guide-card-text">Start with Floyd-Steinberg or Stucki at a conservative DPI. Adjust brightness/gamma before changing everything else.</p></div>
+              <div class="guide-card"><p class="guide-card-title">Portrait choice</p><p class="guide-card-text">Test Floyd-Steinberg, Atkinson and Jarvis on a small face crop. Pick the one that keeps eyes and skin tones readable.</p></div>
+              <div class="guide-card"><p class="guide-card-title">Logo/graphic choice</p><p class="guide-card-text">Use Threshold for pure black/white artwork, or Ordered/Bayer for predictable gradients and clean repeated textures.</p></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel p-6 guide-section" id="materials">
+          <h2>Material-specific advice</h2>
+          <div class="guide-copy">
+            <p>Every material has its own “tone language”. Some get darker when engraved. Some get lighter. Some melt, frost, bleach or expose an underlayer. The same photo should often be inverted, sharpened or softened differently for each surface.</p>
+
+            <h3>Wood, plywood and bamboo</h3>
+            <p><span class="guide-badge">Usually not inverted</span><span class="guide-badge">Dithering recommended</span><span class="guide-badge">Lower to medium DPI</span></p>
+            <ul>
+              <li>Light, fine-grain wood is easiest. Birch, maple, basswood and bamboo can work well; strong grain can compete with facial detail.</li>
+              <li>Use moderate power. Too much power makes all dark areas merge and removes detail.</li>
+              <li>Sand consistently before engraving. Uneven surface height changes focus and tone.</li>
+              <li>Air assist can reduce smoke staining, but too much air may reduce darkness or produce uneven tone on some setups.</li>
+              <li>After engraving, gently brush or clean soot. Do not judge final contrast while the surface is still covered with residue.</li>
+            </ul>
+
+            <h3>Slate and dark stone</h3>
+            <p><span class="guide-badge">Invert image</span><span class="guide-badge">Engraved areas become lighter</span><span class="guide-badge">Test power carefully</span></p>
+            <ul>
+              <li>Slate often gives a bright gray/white mark, so use a negative image workflow.</li>
+              <li>Keep the process shallow. Too much power can chip or flatten delicate tones.</li>
+              <li>Clean, dry and inspect the surface first. Some slate has veins or uneven coatings.</li>
+              <li>For photos, a small power matrix is more useful than guessing from someone else’s exact settings.</li>
+            </ul>
+
+            <h3>Acrylic</h3>
+            <p><span class="guide-badge">Often inverted on dark/clear acrylic</span><span class="guide-badge">CO2 excels on clear acrylic</span><span class="guide-badge">Higher DPI often possible</span></p>
+            <ul>
+              <li>Cast acrylic generally engraves cleaner than extruded acrylic for frosted photo effects.</li>
+              <li>Blue diode lasers usually need opaque/darker acrylic; clear and blue acrylic are difficult because of wavelength absorption.</li>
+              <li>Opaque acrylic can hold smoother, cleaner photo detail than wood because it has no grain.</li>
+              <li>Remove protective film for engraving unless your test proves it helps. Film can melt into fine photo details.</li>
+            </ul>
+
+            <h3>Glass and mirrors</h3>
+            <p><span class="guide-badge">Often inverted</span><span class="guide-badge">Use masking or moist paper</span><span class="guide-badge">Avoid heat overload</span></p>
+            <ul>
+              <li>Glass engraves by micro-fracturing/frosting the surface, not by creating a black burn.</li>
+              <li>A single moist paper towel layer can reduce roughness and produce a clearer white mark. Avoid bubbles and overlaps.</li>
+              <li>Lower heat is often better. Too much power creates chips, craters and rough patches.</li>
+              <li>Use a rotary attachment for glasses and mugs. Keep handles out of the laser path.</li>
+            </ul>
+
+            <h3>Anodized aluminum and coated metals</h3>
+            <p><span class="guide-badge">Usually inverted on dark anodized surfaces</span><span class="guide-badge">High detail possible</span><span class="guide-badge">Fiber/IR or CO2 depending on coating</span></p>
+            <ul>
+              <li>Dark anodized aluminum can hold very fine bright marks, so higher DPI may be useful.</li>
+              <li>Coated tumblers behave like a coating-removal process: the laser removes or changes the top layer.</li>
+              <li>Bare stainless and aluminum need appropriate fiber/IR/fiber-like marking or a marking compound; ordinary blue diode/CO2 behavior differs by surface.</li>
+            </ul>
+
+            <h3>Leather, paper, cardboard and fabric</h3>
+            <p><span class="guide-badge">Low heat</span><span class="guide-badge">Ventilation essential</span><span class="guide-badge">Test for safety</span></p>
+            <ul>
+              <li>Leather and paper darken quickly, so use lower power and higher speed than you might expect.</li>
+              <li>Fine photo dots can close up on soft fibers. Lower DPI or a lighter dithering mode may look better.</li>
+              <li>Confirm material composition. Artificial leather, vinyl and treated materials can be unsafe.</li>
+            </ul>
+          </div>
+        </section>
+
+        <section class="panel p-6 guide-section" id="settings">
+          <h2>Starting settings and the right way to test</h2>
+          <div class="guide-copy">
+            <div class="guide-warning"><strong>These are starting points, not universal parameters.</strong> Laser wattage, true optical output, lens, focus, controller acceleration, material finish and even room ventilation can change the result. Always run a test crop.</div>
+            <div class="guide-table-wrap">
+              <table class="guide-table">
+                <thead><tr><th>Material</th><th>Suggested image mode</th><th>Starting DPI / interval</th><th>Image preparation</th><th>First tuning move</th></tr></thead>
+                <tbody>
+                  <tr><td>Light wood</td><td>Floyd-Steinberg, Stucki, Jarvis</td><td>250–333 DPI / 0.10–0.076 mm</td><td>Not inverted. Open shadows. Moderate sharpening.</td><td>If muddy, reduce power or increase speed before increasing DPI.</td></tr>
+                  <tr><td>Bamboo</td><td>Floyd-Steinberg or Atkinson</td><td>250–318 DPI / 0.10–0.08 mm</td><td>Lower contrast than screen preview. Avoid heavy blacks.</td><td>If stripy or grainy, rotate image or test a different board direction.</td></tr>
+                  <tr><td>Slate</td><td>Floyd-Steinberg, Stucki, Jarvis, grayscale tests</td><td>250–500 DPI / 0.10–0.051 mm</td><td>Invert. Keep highlights controlled.</td><td>If washed out, increase power slightly; if chipped, reduce power.</td></tr>
+                  <tr><td>Glass</td><td>Ordered, Jarvis, Stucki, light dithering</td><td>250–500 DPI / 0.10–0.051 mm</td><td>Often invert. Consider moist paper towel or application tape.</td><td>If rough/chipped, reduce heat, use masking, or lower density.</td></tr>
+                  <tr><td>Opaque acrylic</td><td>Grayscale or dithering</td><td>500–600 DPI / 0.051–0.042 mm</td><td>Often invert when engraving light marks on dark material.</td><td>If melted or blurry, increase speed or reduce power.</td></tr>
+                  <tr><td>Dark anodized aluminum</td><td>Dithering, grayscale, dot matrix on galvo</td><td>600–1000 DPI / 0.042–0.025 mm</td><td>Invert for bright mark. Preserve fine facial contrast.</td><td>If too pale, increase power/dot duration; if blown out, reduce energy.</td></tr>
+                  <tr><td>Leather</td><td>Atkinson, Floyd-Steinberg, low-density dithering</td><td>200–318 DPI / 0.127–0.08 mm</td><td>Not inverted for light leather. Reduce contrast.</td><td>If too dark, lower power and clean residue before judging.</td></tr>
+                </tbody>
+              </table>
+            </div>
+
+            <h3>Make a photo test matrix</h3>
+            <p>Do not test with a simple black square only. A photo needs highlights, skin/midtones and shadows. Use a 25–40 mm crop containing an eye, hair, skin and background. Duplicate it 6–12 times and test one variable at a time.</p>
+            <div class="guide-grid-3">
+              <div class="guide-card"><p class="guide-card-title">Power/speed matrix</p><p class="guide-card-text">Keep DPI and image fixed. Test several powers or speeds. Pick the version with the most detail, not necessarily the darkest mark.</p></div>
+              <div class="guide-card"><p class="guide-card-title">DPI/interval matrix</p><p class="guide-card-text">Keep power and speed fixed. Test 250, 318, 333, 500 and 600 DPI if appropriate. Stop where detail stops improving.</p></div>
+              <div class="guide-card"><p class="guide-card-title">Dither matrix</p><p class="guide-card-text">Keep laser settings fixed. Compare Floyd-Steinberg, Atkinson, Jarvis, Stucki and Ordered/Bayer on the same crop.</p></div>
+            </div>
+
+            <h3>How to read test results</h3>
+            <ul>
+              <li><strong>Too dark everywhere:</strong> reduce power, increase speed, lower DPI, brighten midtones, or use Atkinson.</li>
+              <li><strong>Highlights missing:</strong> increase contrast in light areas, darken the image slightly, or choose a dither that places more dots in highlights.</li>
+              <li><strong>Shadows are a black block:</strong> lift shadows with curves/gamma, lower power, or reduce dot density.</li>
+              <li><strong>Faces look flat:</strong> add local contrast and sharpening before dithering; avoid over-smoothing skin.</li>
+              <li><strong>Visible horizontal bands:</strong> check focus, belts, acceleration, line interval, dirty lens, excessive air assist or material unevenness.</li>
+            </ul>
+          </div>
+        </section>
+
+        <section class="panel p-6 guide-section" id="software">
+          <h2>Software workflow: PhotoEngraving.online, LightBurn, LaserGRBL and XCS</h2>
+          <div class="guide-copy">
+            <h3>PhotoEngraving.online</h3>
+            <p>Use the online editor when you want a fast browser-based workflow: upload a photo, select photo type, adjust brightness, contrast, gamma and sharpness, choose DPI/output size, apply dithering, inspect the result and export a laser-ready PNG. The editor is designed for private local browser processing, so the photo does not need to be uploaded to a server.</p>
+            <h3>LightBurn</h3>
+            <ul>
+              <li>Use Image Mode for raster photos and choose the correct image mode: Threshold, Ordered, Atkinson, Dither, Stucki, Jarvis, Newsprint, Halftone or Grayscale.</li>
+              <li>Set line interval/DPI deliberately. Use Interval Test or Material Test for the actual laser/material combination.</li>
+              <li>If the image is already dithered exactly as you want, use Pass-Through where appropriate to avoid re-processing.</li>
+              <li>Use Negative Image for slate, glass and other materials where engraved marks become lighter.</li>
+              <li>Use overscanning for raster jobs when your controller needs room to reach stable speed before firing.</li>
+            </ul>
+            <h3>LaserGRBL</h3>
+            <ul>
+              <li>Use “1bit BW dithering” for materials that behave mostly on/off.</li>
+              <li>Use line-to-line grayscale only when your laser supports power modulation and the material can reproduce intermediate shades.</li>
+              <li>Adjust brightness and contrast in the raster import workflow before engraving.</li>
+            </ul>
+            <h3>xTool Creative Space / galvo dot workflows</h3>
+            <ul>
+              <li>Bitmap engraving may use dot duration, power, DPI, bitmap mode and laser type. These settings interact strongly.</li>
+              <li>For dual-source machines, choose the correct source: blue light for many organic materials, IR/fiber-type source for metals and selected plastics.</li>
+              <li>When using dot duration, excessive dwell time can whiten, over-mark or slow the job dramatically. Test small.</li>
+            </ul>
+          </div>
+        </section>
+
+        <section class="panel p-6 guide-section" id="troubleshooting">
+          <h2>Troubleshooting laser photo engravings</h2>
+          <div class="guide-copy">
+            <div class="guide-table-wrap">
+              <table class="guide-table">
+                <thead><tr><th>Problem</th><th>Most likely causes</th><th>Fix</th></tr></thead>
+                <tbody>
+                  <tr><td>Engraving is too dark and muddy</td><td>Power too high, speed too slow, DPI too high, shadows crushed, dot bleed.</td><td>Reduce power, increase speed, lower DPI/line density, lift shadows with curves, use Atkinson or a lighter dither.</td></tr>
+                  <tr><td>Engraving is too light</td><td>Power too low, speed too high, image too bright, wrong focus, surface not absorbing.</td><td>Increase power gradually, reduce speed, darken midtones, refocus, use coating/paint if material requires it.</td></tr>
+                  <tr><td>Photo looks like a negative</td><td>Wrong inversion for the material.</td><td>Invert for dark materials that mark light; do not invert for light materials that burn dark.</td></tr>
+                  <tr><td>Face has no detail</td><td>Original photo has poor lighting, low local contrast, or face is too small.</td><td>Use a better photo, crop closer, enhance eyes and facial midtones, remove background distractions.</td></tr>
+                  <tr><td>Visible grid or pattern</td><td>Ordered dithering visible, too low DPI, viewing distance too close.</td><td>Use error diffusion dithering, increase DPI only if material supports it, or embrace halftone as a style.</td></tr>
+                  <tr><td>Horizontal banding</td><td>Mechanical vibration, belt tension, dirty optics, unstable air assist, inconsistent material.</td><td>Check mechanics, clean lens/mirrors, reduce speed, stabilize material, test unidirectional engraving.</td></tr>
+                  <tr><td>Edges burned darker than center</td><td>No overscanning or acceleration effects near scan turnaround.</td><td>Enable/adjust overscan, reduce speed, move design away from bed limits.</td></tr>
+                  <tr><td>Glass is rough or chipped</td><td>Too much heat, high power, no masking, air assist drying moist paper.</td><td>Use moist paper towel or application tape, reduce power, use ordered dithering, turn off air assist when using moist paper where safe for your machine.</td></tr>
+                  <tr><td>Acrylic melts or blurs</td><td>Too much heat or wrong acrylic type.</td><td>Increase speed, reduce power, remove unsuitable masking, use cast/opaque acrylic suitable for your laser wavelength.</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel p-6 guide-section" id="safety">
+          <h2>Safety: do not skip this</h2>
+          <div class="guide-copy">
+            <p>Photo engraving often means long raster jobs. Long jobs create smoke, heat and fire risk. Use proper enclosure, exhaust, filtration where needed, eye protection suitable for the wavelength, and never leave the machine running unattended.</p>
+            <div class="guide-warning"><strong>Never process unknown plastics.</strong> PVC/vinyl, halogen-containing materials, chromium-treated leather, PTFE/Teflon, PVB and some resins can create dangerous gases or corrosive residue. When in doubt, check the supplier’s SDS or do not laser it.</div>
+            <ul>
+              <li>Keep the machine clean. Soot, paper scraps and wood dust increase fire risk.</li>
+              <li>Use proper ventilation, not just an open window.</li>
+              <li>Keep a suitable fire extinguisher nearby and know how to use it.</li>
+              <li>Use air assist appropriately; it helps with many materials but can change photo tone.</li>
+              <li>Do not engrave reflective bare metal with an unsuitable open diode setup.</li>
+              <li>Confirm coatings, paints and artificial leathers before lasering.</li>
+            </ul>
+          </div>
+        </section>
+
+        <section class="panel p-6 guide-section" id="advanced">
+          <h2>Advanced techniques</h2>
+          <div class="guide-copy">
+            <h3>Material-specific image versions</h3>
+            <p>Create different processed files for different materials. A wood version may need brighter shadows and lower DPI. A slate version may need inversion and stronger midtone contrast. A dark anodized aluminum version may need higher DPI and finer sharpening.</p>
+            <h3>Selective editing</h3>
+            <p>Do not treat the whole photo equally. Faces, eyes, hair, clothing and background need different contrast. Use masks or local adjustments when a single brightness/contrast slider cannot solve everything.</p>
+            <h3>Defocus intentionally</h3>
+            <p>A tiny intentional defocus can soften overly harsh dots on some materials, especially glass, acrylic or harsh diode burns. It can also reduce detail, so test carefully.</p>
+            <h3>Multiple passes</h3>
+            <p>For photos, one controlled pass is often cleaner than multiple hot passes. Multiple passes can help special materials, but they can also darken shadows, cause registration issues and increase heat damage.</p>
+            <h3>Finishing</h3>
+            <p>Cleaning and finish can change perceived contrast. Wood may need brushing and sealing. Slate may look different before and after cleaning. Acrylic may need washing, paint filling or backlighting depending on the project.</p>
+          </div>
+        </section>
+
+        <section class="panel p-6 guide-section guide-faq" id="faq">
+          <h2>FAQ</h2>
+          <details open><summary>What DPI is best for laser photo engraving?</summary><p>There is no universal best DPI. Around 300–333 DPI is a practical starting point for many photo jobs, lower can be better on wood/stone with dot bleed, and 500–1000 DPI can be useful on acrylic or metal surfaces that hold fine dots. The best value is the one that matches your real laser spot and material response.</p></details>
+          <details><summary>Should I use Floyd-Steinberg, Jarvis, Stucki or Atkinson?</summary><p>Start with Floyd-Steinberg or Stucki. Try Atkinson when the engraving is too dark or you want a lighter vintage look. Try Jarvis when you want smoother skin tones and have enough material detail to support it. Always compare on the same small crop.</p></details>
+          <details><summary>Should photos be inverted?</summary><p>Invert when engraved areas become lighter than the surface, such as slate, glass, dark acrylic or dark anodized aluminum. Do not invert for light wood where burned areas become darker.</p></details>
+          <details><summary>Why does my screen preview look better than the engraving?</summary><p>A screen is backlit, high resolution and can show smooth grayscale. A laser makes physical marks on a material with grain, melting, soot, chipping or coating removal. That is why test matrices and material-specific preparation are essential.</p></details>
+          <details><summary>Can I engrave any web photo?</summary><p>Only if it has enough pixel resolution at the final size and good tonal separation. A 72 DPI web image is not automatically bad if it has enough pixels and is scaled down, but enlarging a tiny image rarely creates real detail.</p></details>
+          <details><summary>PNG, BMP, JPG or SVG?</summary><p>For photo engraving, PNG or BMP are common because they preserve raster pixels without JPEG compression artifacts. JPG is acceptable as a source if high quality, but avoid repeated JPG exports. SVG is mainly for vectors, not final dithered photo pixels.</p></details>
+        </section>
+
+        <section class="panel p-6 guide-section" id="sources">
+          <h2>Research sources and further reading</h2>
+          <div class="guide-copy">
+            <p>This guide is built from practical laser-photo workflows and current documentation from laser software and machine manufacturers. Always compare with the manual for your exact machine.</p>
+            <ul class="guide-source-list">
+              <li><a href="https://docs.lightburnsoftware.com/2.1/Reference/CutSettingsEditor/ImageMode/" target="_blank" rel="noopener">LightBurn User Guide: Image Mode</a> — image modes, negative image, pass-through, line interval, DPI, grayscale and dithering modes.</li>
+              <li><a href="https://docs.lightburnsoftware.com/2.1/Reference/IntervalTest/" target="_blank" rel="noopener">LightBurn User Guide: Interval Test</a> — finding optimal line interval for a machine/material/focal-length combination.</li>
+              <li><a href="https://www.troteclaser.com/en/helpcenter/software/graphics-software/resolution-laser-engraving" target="_blank" rel="noopener">Trotec: choosing the right engraving resolution</a> — material-dependent DPI and dot bleed.</li>
+              <li><a href="https://www.troteclaser.com/en-us/helpcenter/software/jobcontrol/raster-algorithms" target="_blank" rel="noopener">Trotec: raster algorithms</a> — ordered dithering and error diffusion principles.</li>
+              <li><a href="https://www.troteclaser.com/en/helpcenter/software/jobcontrol/photo-laser-engraving" target="_blank" rel="noopener">Trotec: photo laser engraving tips</a> — photo quality, less-is-more power approach and grayscale matrix testing.</li>
+              <li><a href="https://www.troteclaser.com/en/helpcenter/materials/material-usage-hints/glass-engraving" target="_blank" rel="noopener">Trotec: glass engraving tips</a> — moist paper towel, tape and ordered dithering for glass.</li>
+              <li><a href="https://lasergrbl.com/usage/raster-image-import/dithering-tool/" target="_blank" rel="noopener">LaserGRBL: dithering tool</a> — 1-bit dithering for materials that do not react linearly to power.</li>
+              <li><a href="https://lasergrbl.com/usage/raster-image-import/line-to-line-tool/" target="_blank" rel="noopener">LaserGRBL: line-to-line tool</a> — grayscale line engraving and power modulation notes.</li>
+              <li><a href="https://support.xtool.com/article/1963" target="_blank" rel="noopener">xTool: material processing guide</a> — grayscale vs dithering algorithms and material behavior.</li>
+              <li><a href="https://www.xtool.com/blogs/how-to/prepare-a-photo-for-laser-engraving" target="_blank" rel="noopener">xTool: preparing a photo for laser engraving</a> — photo preparation, resolution, contrast and grayscale workflow.</li>
+              <li><a href="https://support.xtool.com/article/789" target="_blank" rel="noopener">xTool F1 bitmap parameters</a> — dot duration, power, DPI and laser source selection.</li>
+              <li><a href="https://support.xtool.com/article/870" target="_blank" rel="noopener">xTool: plastic safety guide</a> and <a href="https://www.troteclaser.com/en-tt/resources/faqs/unsuitable-materials-laser-processing" target="_blank" rel="noopener">Trotec: unsuitable materials</a> — material safety warnings.</li>
+              <li><a href="https://omtech.com/blogs/knowledge/diode-laser-vs-co2-laser-vs-fiber-laser" target="_blank" rel="noopener">OMTech: diode vs CO2 vs fiber lasers</a> — practical differences between laser sources and materials.</li>
+            </ul>
+          </div>
+        </section>
+
+        <section class="panel p-6 guide-section" id="cta">
+          <h2>Prepare your photo for engraving</h2>
+          <div class="guide-copy">
+            <p>Use PhotoEngraving.online to crop, tune contrast, set DPI, preview dithering and export a laser-ready PNG. Then confirm the result on your real material with a small test crop before running the full job.</p>
+            <div class="guide-hero-actions">
+              <a class="btn btn-primary" href="https://photoengraving.online/">Open the free photo engraving editor</a>
+              <a class="btn btn-secondary" href="#quick-start">Back to top</a>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <footer class="panel p-4 mt-4 footer-note">
+      <strong style="color:#fdba74;">PhotoEngraving.online</strong> — Complete laser photo engraving guide. Last updated June 27, 2026. Settings are educational starting points; always follow your laser manufacturer’s manual and local safety rules.
+    </footer>
+  </div>
+</body>
+</html>
