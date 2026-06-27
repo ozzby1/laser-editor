@@ -1,10 +1,11 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Laser Photo Engraving Guide: DPI, Dithering, Materials & Settings | PhotoEngraving.online</title>
-  <meta name="description" content="A complete practical guide to laser photo engraving: image preparation, DPI, line interval, dithering algorithms, material-specific tips, testing workflow and troubleshooting." />
+  <title>Complete Laser Photo Engraving Knowledge Base: Photos, DPI, Dithering, Materials & Settings | PhotoEngraving.online</title>
+  <meta name="description" content="A complete laser photo engraving knowledge base: photo selection, image preparation, DPI, line interval, dithering, grayscale, material workflows, test matrices, safety, software setup and troubleshooting." />
   <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
   <meta name="author" content="PhotoEngraving.online" />
   <meta name="application-name" content="PhotoEngraving.online" />
@@ -17,15 +18,15 @@
   <meta property="og:type" content="article" />
   <meta property="og:site_name" content="PhotoEngraving.online" />
   <meta property="og:url" content="https://photoengraving.online/guide" />
-  <meta property="og:title" content="Complete Laser Photo Engraving Guide" />
-  <meta property="og:description" content="Learn how to prepare photos for laser engraving with correct DPI, line interval, dithering, material choice and test settings." />
+  <meta property="og:title" content="Complete Laser Photo Engraving Knowledge Base" />
+  <meta property="og:description" content="A deep practical guide to preparing and engraving photos on wood, slate, acrylic, glass, tile, leather and metal with laser-ready image settings." />
   <meta property="og:image" content="https://photoengraving.online/fb.png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   <meta property="og:image:alt" content="PhotoEngraving.online laser photo engraving guide" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Complete Laser Photo Engraving Guide" />
-  <meta name="twitter:description" content="A practical guide to DPI, line interval, dithering, material settings and troubleshooting for laser photo engraving." />
+  <meta name="twitter:title" content="Complete Laser Photo Engraving Knowledge Base" />
+  <meta name="twitter:description" content="Photo selection, image preparation, DPI, line interval, dithering, grayscale, materials, test workflows and troubleshooting for laser photo engraving." />
   <meta name="twitter:image" content="https://photoengraving.online/fb.png" />
   <script type="application/ld+json">
   {
@@ -49,8 +50,8 @@
       {
         "@type": "Article",
         "@id": "https://photoengraving.online/guide#article",
-        "headline": "Complete Laser Photo Engraving Guide",
-        "description": "A practical knowledge guide for preparing photos for laser engraving, covering DPI, line interval, dithering, material-specific setup, test workflow and troubleshooting.",
+        "headline": "Complete Laser Photo Engraving Knowledge Base",
+        "description": "A complete knowledge guide for laser photo engraving, covering photo selection, image preparation, DPI, line interval, dithering, grayscale, laser types, material-specific setup, test workflow, safety and troubleshooting.",
         "image": "https://photoengraving.online/fb.png",
         "datePublished": "2026-06-27",
         "dateModified": "2026-06-27",
@@ -63,9 +64,14 @@
         "@type": "FAQPage",
         "@id": "https://photoengraving.online/guide#faq",
         "mainEntity": [
-          {"@type": "Question", "name": "What DPI should I use for laser photo engraving?", "acceptedAnswer": {"@type": "Answer", "text": "There is no universal DPI. Start around 300 DPI for many photo engravings, use lower line density on materials with dot bleed such as wood and stone, and use higher DPI on materials that hold tiny dots such as anodized aluminum or some acrylics. Always confirm with an interval test."}},
-          {"@type": "Question", "name": "Should I use grayscale or dithering?", "acceptedAnswer": {"@type": "Answer", "text": "Use dithering when the material behaves mostly on/off or when you want predictable photo shading. Use grayscale only when the laser and material can reproduce stable intermediate power levels."}},
-          {"@type": "Question", "name": "Do I invert photos for laser engraving?", "acceptedAnswer": {"@type": "Answer", "text": "Invert for materials where the engraved mark becomes lighter than the background, such as slate, glass, clear or dark acrylic, and many coated or anodized surfaces. Do not invert for light wood when the burn becomes darker."}}
+          {"@type": "Question", "name": "What DPI should I use for laser photo engraving?", "acceptedAnswer": {"@type": "Answer", "text": "There is no universal best DPI. Around 254 to 333 DPI is a practical starting range for many photo jobs, lower can be better on wood or leather with dot gain, and 500 to 600 DPI can be useful on surfaces that hold fine marks. Confirm with an interval test."}},
+          {"@type": "Question", "name": "Should I use grayscale or dithering?", "acceptedAnswer": {"@type": "Answer", "text": "Use dithering when the material behaves mostly on/off or when you want predictable shading through dot density. Use grayscale only when the laser and material can produce stable intermediate tones or controlled depth."}},
+          {"@type": "Question", "name": "Which dithering algorithm should I start with?", "acceptedAnswer": {"@type": "Answer", "text": "Start with Floyd-Steinberg or Stucki. Try Atkinson for lighter portraits or materials that engrave too dark. Try Jarvis for smoother tones on larger photos. Ordered or Bayer is useful for logos, graphics and some glass or acrylic workflows."}},
+          {"@type": "Question", "name": "Do I invert photos for laser engraving?", "acceptedAnswer": {"@type": "Answer", "text": "Invert when the laser creates a light mark on a dark material, such as slate, glass, dark acrylic or dark anodized aluminum. Do not invert for light wood when the laser burn becomes darker than the surface."}},
+          {"@type": "Question", "name": "Why is my engraving darker than the preview?", "acceptedAnswer": {"@type": "Answer", "text": "The material may have dot gain or the laser may deliver too much energy per area. Reduce power, increase speed, lower DPI, brighten midtones or use a lighter dithering algorithm."}},
+          {"@type": "Question", "name": "Can I use JPG files for photo engraving?", "acceptedAnswer": {"@type": "Answer", "text": "A high-quality JPG can be used as a source, but repeated JPG saving creates compression artifacts. For the final laser-ready image, use PNG or BMP when possible."}},
+          {"@type": "Question", "name": "Is higher laser power better for photos?", "acceptedAnswer": {"@type": "Answer", "text": "No. Photo engraving is usually about controlled contrast rather than maximum depth. Too much power burns shadows together, increases smoke and removes fine detail."}},
+          {"@type": "Question", "name": "Can I engrave any material?", "acceptedAnswer": {"@type": "Answer", "text": "No. Some materials are unsafe or unsuitable, especially PVC, vinyl, unknown plastics and some coated materials. Always verify material composition and follow safety guidance."}}
         ]
       }
     ]
@@ -1418,6 +1424,24 @@ z-index: 300;
   color: #fff;
   outline: none;
 }
+.guide-nav-primary {
+  min-height: 42px;
+  padding: 11px 18px;
+  color: #fff;
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 100%);
+  border-color: rgba(249,115,22,0.75);
+  border-radius: 12px;
+  font-size: 0.9rem;
+  font-weight: 900;
+  box-shadow: 0 10px 26px rgba(249,115,22,0.26), 0 0 0 1px rgba(249,115,22,0.16);
+}
+.guide-nav-primary:hover,
+.guide-nav-primary:focus-visible {
+  background: linear-gradient(135deg, #fb923c 0%, var(--accent) 100%);
+  border-color: rgba(251,146,60,0.95);
+  box-shadow: 0 14px 32px rgba(249,115,22,0.34), 0 0 0 4px rgba(249,115,22,0.10);
+  transform: translateY(-1px);
+}
 .guide-eyebrow {
   display: inline-flex;
   align-items: center;
@@ -1436,11 +1460,11 @@ z-index: 300;
 .guide-hero-title {
   margin: 0 0 14px;
   color: #f8fafc;
-  font-size: clamp(2.1rem, 4.5vw, 4.6rem);
-  line-height: 0.96;
-  letter-spacing: -0.055em;
-  font-weight: 900;
-  max-width: 1120px;
+  font-size: clamp(1.8rem, 3vw, 2.6rem);
+  line-height: 1.1;
+  letter-spacing: -0.035em;
+  font-weight: 800;
+  max-width: 920px;
 }
 .guide-hero-subtitle {
   margin: 0;
@@ -1763,17 +1787,15 @@ z-index: 300;
         <img alt="PhotoEngraving.online logo" class="brand-logo" src="/logo.png" />
       </a>
       <div class="ml-auto flex flex-wrap gap-2 items-center">
-        <a class="guide-nav-link" href="https://photoengraving.online/">Open editor</a>
-        <a class="guide-nav-link" href="#quick-start">Quick start</a>
-        <a class="guide-nav-link" href="#troubleshooting">Troubleshooting</a>
+        <a class="guide-nav-link guide-nav-primary" href="https://photoengraving.online/">Open editor</a>
       </div>
     </header>
 
     <section class="panel p-6 mb-4">
       <div class="guide-eyebrow">Laser photo engraving knowledge base</div>
-      <h1 class="guide-hero-title">Complete guide to laser photo engraving</h1>
+      <h1 class="guide-hero-title" style="font-size:clamp(1.8rem,3vw,2.6rem);font-weight:800;line-height:1.1;color:#f8fafc;margin:0 0 14px;letter-spacing:-0.035em;max-width:920px;">Complete guide to laser photo engraving</h1>
       <p class="guide-hero-subtitle">
-        Learn how to turn a normal photograph into a laser-ready image: choose the right photo, set the physical size, pick DPI and line interval, select dithering or grayscale, prepare for wood, acrylic, glass, slate, leather or metal, and troubleshoot common problems before wasting material.
+        A deep practical knowledge base for laser photo engraving: photo selection, image preparation, DPI, line interval, dithering, grayscale, laser types, material workflows, testing, safety, troubleshooting and advanced finishing.
       </p>
       <div class="guide-hero-actions">
         <a class="btn btn-primary" href="https://photoengraving.online/">Prepare a photo now</a>
@@ -1783,8 +1805,8 @@ z-index: 300;
       <div class="guide-pill-row" aria-label="Guide topics">
         <span class="guide-pill">DPI &amp; line interval</span>
         <span class="guide-pill">Floyd-Steinberg, Atkinson, Jarvis, Stucki</span>
-        <span class="guide-pill">Wood, acrylic, glass, slate, metal</span>
-        <span class="guide-pill">LightBurn, LaserGRBL, XCS</span>
+        <span class="guide-pill">Wood, slate, tile, acrylic, glass, metal</span>
+        <span class="guide-pill">LightBurn, LaserGRBL, XCS, pass-through</span>
         <span class="guide-pill">Beginner to advanced</span>
       </div>
     </section>
@@ -1793,17 +1815,22 @@ z-index: 300;
       <aside class="panel p-4 guide-toc" aria-label="Table of contents">
         <div class="section-title">Guide contents</div>
         <a href="#quick-start">Quick start</a>
-        <a href="#principles">How laser photo engraving works</a>
-        <a href="#laser-types">Laser types and materials</a>
-        <a href="#photo-selection">Choosing the photo</a>
-        <a href="#workflow">Image preparation workflow</a>
-        <a href="#dpi">DPI, line interval and size</a>
+        <a href="#principles">Core principles</a>
+        <a href="#laser-types">Laser types</a>
+        <a href="#photo-selection">Choosing a photo</a>
+        <a href="#image-preparation">Image preparation</a>
+        <a href="#dpi">DPI, line interval &amp; size</a>
         <a href="#dithering">Dithering algorithms</a>
-        <a href="#materials">Material-specific advice</a>
-        <a href="#settings">Starting settings and test method</a>
+        <a href="#grayscale">Grayscale, threshold &amp; pass-through</a>
+        <a href="#focus">Focus, lens &amp; motion</a>
+        <a href="#materials">Material workflows</a>
+        <a href="#settings">Starting settings</a>
+        <a href="#testing">Testing method</a>
         <a href="#software">Software workflow</a>
         <a href="#troubleshooting">Troubleshooting</a>
+        <a href="#advanced">Advanced techniques</a>
         <a href="#safety">Safety</a>
+        <a href="#checklist">Final checklist</a>
         <a href="#faq">FAQ</a>
         <a href="#sources">Sources</a>
       </aside>
@@ -1812,246 +1839,322 @@ z-index: 300;
         <section class="panel p-6 guide-section" id="quick-start">
           <h2>Quick start: the reliable five-step method</h2>
           <div class="guide-copy">
-            <p>Photo engraving is not just “send a JPG to the laser”. The best results come from controlling the image first, then testing the material. Use this fast workflow whenever you start a new photo, machine, lens or material batch.</p>
+            <p>Laser photo engraving is the process of translating a continuous-tone photograph into physical marks that a laser and a material can reproduce. The best results come from controlling the image before the laser job, then validating the settings on a small test crop.</p>
             <div class="guide-step-list">
-              <div class="guide-step-item"><div><strong>Choose a photo with real separation.</strong><span>Good light, visible eyes, clean subject edges and a balanced mix of highlights, midtones and shadows are more important than extreme resolution.</span></div></div>
-              <div class="guide-step-item"><div><strong>Crop to the final physical size.</strong><span>Decide the engraved width and height in millimeters before choosing DPI. A 100 mm portrait and a 250 mm portrait do not need the same pixel dimensions.</span></div></div>
-              <div class="guide-step-item"><div><strong>Prepare grayscale tones.</strong><span>Remove distractions, convert to grayscale, adjust levels/curves, protect facial detail, add moderate sharpening and avoid crushed black areas.</span></div></div>
-              <div class="guide-step-item"><div><strong>Choose the output method.</strong><span>Use dithering for predictable black/white dot engraving. Use grayscale only when the laser and material can reproduce real intermediate tones.</span></div></div>
-              <div class="guide-step-item"><div><strong>Run a small test matrix.</strong><span>Engrave a 20–40 mm crop with several power/speed or interval variants. Keep notes. The final large engraving should only run after the small crop looks right.</span></div></div>
+              <div class="guide-step-item"><div><strong>1. Pick a photo with readable light.</strong><span>Choose clear facial features, visible eyes, separated hair/background, and enough midtones. Avoid backlit faces, heavy filters, compressed screenshots and very dark shadows with no detail.</span></div></div>
+              <div class="guide-step-item"><div><strong>2. Decide the real engraved size first.</strong><span>Set the final width and height in millimeters or inches before choosing DPI. A 70 mm pendant photo and a 300 mm wall plaque need different pixel counts and different line intervals.</span></div></div>
+              <div class="guide-step-item"><div><strong>3. Prepare the grayscale image.</strong><span>Crop, remove distractions, convert to grayscale, adjust levels/curves, protect important details, brighten shadows when needed, and sharpen only after resizing.</span></div></div>
+              <div class="guide-step-item"><div><strong>4. Choose the output method.</strong><span>Use dithering for predictable black/white dot engraving. Use grayscale only when your machine and material can produce stable intermediate tones.</span></div></div>
+              <div class="guide-step-item"><div><strong>5. Test a crop before the final job.</strong><span>Engrave a 20–50 mm crop containing a face, hair, background and shadow. Compare power, speed, DPI and dithering modes. Save the winning settings.</span></div></div>
             </div>
-            <div class="guide-callout"><strong>Rule of thumb:</strong> if a photo looks too dark after engraving, do not immediately increase DPI. First reduce power, increase speed, lower contrast in the shadows, or choose a dithering mode that opens the midtones.</div>
+            <div class="guide-callout"><strong>The most important rule:</strong> do not chase quality by blindly increasing DPI. Once the lines overlap more than the material can handle, the result becomes slower, darker and muddier instead of sharper.</div>
           </div>
         </section>
 
         <section class="panel p-6 guide-section" id="principles">
-          <h2>How laser photo engraving works</h2>
+          <h2>Core principles: what the laser is really doing</h2>
           <div class="guide-copy">
-            <p>A laser can only do a limited set of things at each tiny point: mark, burn, ablate, melt, frost, bleach, remove coating, or change color. A photograph, however, contains continuous tones. The whole art of photo engraving is converting those tones into marks your exact laser and material can reproduce.</p>
+            <p>A screen emits light. A laser engraving reflects light from a physical surface. That difference explains why a beautiful monitor preview can still engrave badly. The laser does not print ink; it changes the material by burning, bleaching, foaming, melting, frosting, ablating a coating, oxidizing a surface or bonding a marking compound.</p>
             <div class="guide-grid-3">
-              <div class="guide-card"><p class="guide-card-title">Raster engraving</p><p class="guide-card-text">The laser scans the image line by line. The line spacing is the line interval, and its inverse is DPI/LPI. Too tight can make burns overlap; too loose can leave visible gaps.</p></div>
-              <div class="guide-card"><p class="guide-card-title">Dithering</p><p class="guide-card-text">The image is converted into black and white dots. More dots create darker areas; fewer dots create lighter areas. This is usually the safest photo method.</p></div>
-              <div class="guide-card"><p class="guide-card-title">Grayscale power modulation</p><p class="guide-card-text">The laser varies power or dot duration for each pixel. It can be beautiful on the right material, but it is less forgiving and depends on linear material response.</p></div>
+              <div class="guide-card"><p class="guide-card-title">Pixel</p><p class="guide-card-text">The image unit. Pixel count determines whether a source image has enough real detail for the chosen physical size.</p></div>
+              <div class="guide-card"><p class="guide-card-title">Dot / mark</p><p class="guide-card-text">The physical laser mark on the material. It can be larger than the software pixel because of beam diameter, heat spread, smoke staining and material grain.</p></div>
+              <div class="guide-card"><p class="guide-card-title">Line interval</p><p class="guide-card-text">The distance between raster scan lines. DPI is simply 25.4 divided by line interval in millimeters.</p></div>
+              <div class="guide-card"><p class="guide-card-title">Tonal range</p><p class="guide-card-text">The number of visually distinct light-to-dark levels the material can show. Some surfaces have many levels; others are mostly on/off.</p></div>
+              <div class="guide-card"><p class="guide-card-title">Dot gain</p><p class="guide-card-text">The physical mark becomes wider or darker than expected. Wood, leather and paper often have strong dot gain.</p></div>
+              <div class="guide-card"><p class="guide-card-title">Material contrast</p><p class="guide-card-text">The difference between untouched surface and engraved mark. Low-contrast materials require stronger image preparation and careful finishing.</p></div>
             </div>
-            <p>Many materials are not linear. A little power may do nothing, then a tiny increase suddenly burns dark. For those materials, dithering is easier because every engraved dot uses a chosen mark power while tonal value is controlled by dot density.</p>
+            <p>Great photo engraving is therefore a balance of four things: image tone, dot pattern, physical line spacing and material reaction. Changing one without the others often creates new problems.</p>
           </div>
         </section>
 
         <section class="panel p-6 guide-section" id="laser-types">
           <h2>Laser types and what they mean for photos</h2>
           <div class="guide-copy">
-            <p>The same image can behave very differently on a blue diode, CO2 tube, fiber galvo, infrared diode or UV laser. Material absorption and spot size matter more than the brand name.</p>
+            <p>The correct settings depend on laser wavelength, optical power, spot size, lens, controller, motion system and material absorption. The table below gives practical expectations rather than fixed machine presets.</p>
             <div class="guide-table-wrap">
               <table class="guide-table">
-                <thead><tr><th>Laser type</th><th>Typical strengths for photo engraving</th><th>Common limitations</th><th>Best photo materials</th></tr></thead>
+                <thead><tr><th>Laser type</th><th>Photo engraving strengths</th><th>Common limitations</th><th>Best photo targets</th></tr></thead>
                 <tbody>
-                  <tr><td>Blue diode laser</td><td>Affordable, compact, good on wood, leather, cardboard, painted surfaces and some dark acrylics.</td><td>Clear/blue acrylic and many metals are difficult without coating or a separate IR module. Slower than many CO2 systems.</td><td>Light wood, bamboo, leather, slate, painted tile, coated metal, dark acrylic.</td></tr>
-                  <tr><td>CO2 laser</td><td>Very versatile on organic materials, acrylic, glass and many coated materials. Good speed and consistent raster engraving.</td><td>Not ideal for bare metals without marking compounds or coatings. Tube power and lens condition strongly affect photo detail.</td><td>Wood, acrylic, glass, stone, leather, paper, coated/anodized surfaces.</td></tr>
-                  <tr><td>Fiber / IR galvo</td><td>Excellent for metals, anodized aluminum, coated metal, some plastics and very fine marking. Fast dot-style processing.</td><td>Small work area on many galvos. Not the right choice for natural wood photo engraving unless the surface is coated or specially prepared.</td><td>Anodized aluminum, stainless, coated metal, some plastics, jewelry, tumblers.</td></tr>
-                  <tr><td>UV laser</td><td>Cold marking on many plastics, glass and delicate surfaces with less heat-affected damage.</td><td>Different process logic; some software grayscale modes are not compatible. Usually higher cost.</td><td>Glass, coated parts, plastics, fine industrial marking.</td></tr>
+                  <tr><td>Blue diode laser</td><td>Affordable, compact, strong on many organic and dark-coated materials. Good for hobby photo work when tuned carefully.</td><td>Clear acrylic, bare metals and some light plastics are difficult. Jobs can be slow, and open-frame machines require serious safety control.</td><td>Light wood, bamboo, leather, paper, slate, painted tile, coated metal, dark acrylic.</td></tr>
+                  <tr><td>CO2 laser</td><td>Very versatile and fast on organic materials, acrylic, glass, leather, paper, stone and many coatings. Excellent raster workflow.</td><td>Bare metals usually need anodizing, coating or marking compound. Too much power can overburn photos quickly.</td><td>Wood, acrylic, glass, stone, leather, paper, coated/anodized surfaces.</td></tr>
+                  <tr><td>Fiber / IR galvo</td><td>Excellent for metal marking and very fine detail. Fast dot processing, high precision and durable marks on suitable surfaces.</td><td>Small field on many galvos; natural wood photo engraving is not its primary strength. Parameters are more material-specific.</td><td>Anodized aluminum, stainless, coated metal, tumblers, tools, some plastics.</td></tr>
+                  <tr><td>Infrared diode module</td><td>Useful add-on for metals and some plastics where blue diode light is poorly absorbed.</td><td>Lower power on many modules; not a general replacement for CO2 or fiber.</td><td>Metal tags, dark/colored plastics, coated surfaces.</td></tr>
+                  <tr><td>UV laser</td><td>Cold marking on sensitive plastics, glass and coated materials with minimal heat effect.</td><td>Different control behavior than CO2/diode; grayscale workflows may not translate directly.</td><td>Glass, plastics, electronics, coated items, fine industrial marks.</td></tr>
                 </tbody>
               </table>
             </div>
-            <div class="guide-success"><strong>Best practice:</strong> treat every new combination as a new process: laser source + lens + focus + material + finish + image mode. A setting that works on birch plywood may fail on beech, bamboo or a different plywood glue layer.</div>
+            <div class="guide-warning"><strong>Manufacturer presets are only a starting point.</strong> A “10 W diode” from one machine can behave differently from another because true optical output, spot shape, focus, speed accuracy and firmware power scaling all matter.</div>
           </div>
         </section>
 
         <section class="panel p-6 guide-section" id="photo-selection">
           <h2>Choosing a photo that will engrave well</h2>
           <div class="guide-copy">
-            <p>The source photo decides half of the result. A technically sharp but badly lit photo can engrave worse than a smaller image with clear tonal separation.</p>
+            <p>The photo itself sets the ceiling for quality. A poor source can be improved, but it cannot become a perfect engraving simply by changing the laser mode.</p>
             <div class="guide-grid-2">
-              <div class="guide-card"><p class="guide-card-title">Good candidates</p><p class="guide-card-text">Clear subject, visible eyes, simple background, soft but directional light, no heavy phone noise, no crushed shadows, enough contrast between face/hair/clothes/background.</p></div>
-              <div class="guide-card"><p class="guide-card-title">Difficult candidates</p><p class="guide-card-text">Backlit faces, black hair on black background, white clothing on white background, tiny faces in group photos, strong filters, low-resolution screenshots, JPEG artifacts.</p></div>
+              <div class="guide-card"><p class="guide-card-title">Good candidates</p><p class="guide-card-text">Clear subject, visible eyes, natural contrast, directional light, separated face and hair, simple background, enough pixels, low noise, no heavy blur.</p></div>
+              <div class="guide-card"><p class="guide-card-title">Difficult candidates</p><p class="guide-card-text">Backlit faces, dark hair on a dark background, white clothing on a white background, tiny group faces, strong beauty filters, JPEG blocks, screenshots.</p></div>
             </div>
-            <h3>Portrait tips</h3>
+            <h3>Portrait checklist</h3>
             <ul>
-              <li><strong>Eyes must survive.</strong> If the eyes disappear in the processed preview, the engraving will feel dead.</li>
-              <li><strong>Open the shadows.</strong> Dark hair and dark clothes often merge into one burnt mass unless you lighten them before dithering.</li>
-              <li><strong>Simplify backgrounds.</strong> A busy forest, room or crowd competes with the face. Blur, remove or lighten it.</li>
-              <li><strong>Use local contrast, not just global contrast.</strong> Increasing contrast globally can destroy highlights and shadows. Curves or selective masks are better.</li>
+              <li><strong>Eyes:</strong> catchlights and eyelids must remain visible after grayscale conversion.</li>
+              <li><strong>Skin:</strong> avoid harsh contrast that turns skin into spots, but keep enough midtone separation to avoid a flat face.</li>
+              <li><strong>Hair:</strong> dark hair needs lifted shadows; light hair needs local contrast so it does not disappear.</li>
+              <li><strong>Background:</strong> simplify or remove distracting backgrounds. A busy background steals dot detail from the face.</li>
+              <li><strong>Crop:</strong> fill the engraving with the important subject. Tiny faces are hard to engrave sharply.</li>
             </ul>
+            <h3>Minimum useful resolution</h3>
+            <p>Calculate required pixels from final size, not from the image’s metadata label. For example, a 100 mm wide engraving at 318 DPI needs roughly 1252 pixels across: 100 ÷ 25.4 × 318. More source pixels are helpful for editing, but the final exported raster only needs enough pixels for the chosen size and line interval.</p>
           </div>
         </section>
 
-        <section class="panel p-6 guide-section" id="workflow">
-          <h2>Image preparation workflow</h2>
+        <section class="panel p-6 guide-section" id="image-preparation">
+          <h2>Image preparation workflow in detail</h2>
           <div class="guide-copy">
-            <p>This workflow works in browser tools such as PhotoEngraving.online, in LightBurn’s image tools, or in Photoshop, GIMP, Affinity Photo and similar editors.</p>
+            <p>Most failed photo engravings are image-preparation failures. Prepare the image for the material, not for the screen.</p>
             <div class="guide-table-wrap">
               <table class="guide-table">
-                <thead><tr><th>Step</th><th>What to do</th><th>Why it matters</th><th>Typical mistake</th></tr></thead>
+                <thead><tr><th>Step</th><th>What to do</th><th>Why it matters</th></tr></thead>
                 <tbody>
-                  <tr><td>1. Crop</td><td>Crop to the subject and final aspect ratio.</td><td>Laser time and detail are spent on what matters.</td><td>Leaving too much background and making the face too small.</td></tr>
-                  <tr><td>2. Resize</td><td>Set physical size first, then choose DPI/line interval.</td><td>Pixel count should match the final engraved dimensions.</td><td>Upscaling a small image until it looks artificially sharp.</td></tr>
-                  <tr><td>3. Grayscale</td><td>Convert color to grayscale and tune luminance.</td><td>The laser does not care whether a pixel was red or blue; it needs mark intensity.</td><td>Relying on automatic RGB conversion that makes important colors too similar.</td></tr>
-                  <tr><td>4. Levels/curves</td><td>Set white and black points carefully; shape midtones.</td><td>Most photo detail lives in midtones, not in pure black or pure white.</td><td>Crushing blacks until all shadows become solid.</td></tr>
-                  <tr><td>5. Gamma</td><td>Use gamma to brighten or darken midtones without moving endpoints as aggressively.</td><td>Useful when faces are too dark but highlights are already bright.</td><td>Using brightness alone and washing out the entire image.</td></tr>
-                  <tr><td>6. Sharpen</td><td>Apply moderate sharpening after resizing.</td><td>Engraving softens edges, especially on wood and leather.</td><td>Oversharpening creates halos that engrave as ugly outlines.</td></tr>
-                  <tr><td>7. Invert if needed</td><td>Invert for materials where the engraved mark is lighter than the surface.</td><td>Slate, glass and many dark materials work opposite to light wood.</td><td>Using a normal non-inverted photo on slate and getting a negative-looking result.</td></tr>
-                  <tr><td>8. Dither/export</td><td>Convert to 1-bit black/white dithering or export grayscale depending on workflow.</td><td>Prepares predictable dot structure for the laser software.</td><td>Letting several tools dither the same image more than once.</td></tr>
+                  <tr><td>Crop</td><td>Crop to the real composition and output ratio before editing tones.</td><td>Every unnecessary background pixel consumes engraving time and reduces subject impact.</td></tr>
+                  <tr><td>Clean</td><td>Remove dust, blemishes, compression blocks, distracting backgrounds and tiny high-contrast objects.</td><td>Lasers exaggerate hard artifacts, especially after sharpening and dithering.</td></tr>
+                  <tr><td>Convert to grayscale</td><td>Use a controlled grayscale conversion. Do not assume simple desaturation is always best.</td><td>Red, green and blue colors can convert to surprisingly similar gray values.</td></tr>
+                  <tr><td>Set black/white points</td><td>Use levels or curves, but keep important shadow and highlight detail.</td><td>Clipped shadows become black blobs; clipped highlights disappear.</td></tr>
+                  <tr><td>Adjust gamma/midtones</td><td>Brighten or darken the midtones depending on material response.</td><td>Most faces live in the midtones, so gamma often matters more than global brightness.</td></tr>
+                  <tr><td>Local contrast</td><td>Increase detail around eyes, hair, fur, architecture or texture.</td><td>Local contrast makes details survive dither conversion and material grain.</td></tr>
+                  <tr><td>Resize</td><td>Resize to the exact final pixel dimensions after deciding physical size and DPI.</td><td>Prevents laser software from resampling your carefully prepared dot pattern.</td></tr>
+                  <tr><td>Sharpen last</td><td>Apply moderate sharpening after resizing, before dithering.</td><td>Sharpening too early creates halos; sharpening after dithering damages dot structure.</td></tr>
+                  <tr><td>Dither/export</td><td>Export PNG or BMP when possible. Avoid repeated JPG saves.</td><td>Lossless formats preserve the laser-ready pixels and dot pattern.</td></tr>
                 </tbody>
               </table>
             </div>
-            <div class="guide-callout"><strong>Important:</strong> if you export a pre-dithered PNG/BMP, do not re-dither it again in the laser software. Use pass-through or a true black/white mode where available so the dot pattern stays intact.</div>
+            <div class="guide-callout"><strong>For dark engravings on light material:</strong> the burned parts become dark, so normal positive photos usually work. <strong>For light marks on dark material:</strong> invert the image so the important bright areas are engraved.</div>
           </div>
         </section>
 
         <section class="panel p-6 guide-section" id="dpi">
           <h2>DPI, line interval and physical size</h2>
           <div class="guide-copy">
-            <p>DPI is often misunderstood. On a laser it is not a magic quality slider. It is a way of describing how close the raster lines or pixels are. If your laser spot and material burn are larger than the pixel spacing, extra DPI can make the engraving darker, slower and muddier.</p>
-            <div class="guide-formula">
-              <code>DPI = 25.4 ÷ line interval in millimeters</code>
-              <code>line interval in mm = 25.4 ÷ DPI</code>
-              <code>pixel width = final width in mm × DPI ÷ 25.4</code>
-            </div>
+            <p>DPI in laser engraving is not magic “quality”. It is line density. Higher DPI means more scan lines per inch, smaller line interval and usually longer run time. It can improve detail only until the material and laser spot can no longer separate the lines.</p>
             <div class="guide-table-wrap">
               <table class="guide-table">
-                <thead><tr><th>DPI</th><th>Line interval</th><th>100 mm wide image needs</th><th>Where it often makes sense</th></tr></thead>
+                <thead><tr><th>DPI / LPI</th><th>Line interval</th><th>Practical use</th><th>Risk</th></tr></thead>
                 <tbody>
-                  <tr><td>125 DPI</td><td>0.203 mm</td><td>492 px</td><td>Large rustic engravings, fast tests, materials with very large dot bleed.</td></tr>
-                  <tr><td>250 DPI</td><td>0.102 mm</td><td>984 px</td><td>Wood, stone, leather, glass where dots spread or heat needs more spacing.</td></tr>
-                  <tr><td>318 DPI</td><td>0.080 mm</td><td>1252 px</td><td>Common photo starting point for many diode/CO2 jobs and moderate detail.</td></tr>
-                  <tr><td>333 DPI</td><td>0.076 mm</td><td>1311 px</td><td>Frequently used photo baseline; often enough for wood and stone.</td></tr>
-                  <tr><td>500 DPI</td><td>0.051 mm</td><td>1969 px</td><td>Acrylic, coated materials, fine detail on machines/materials that can hold it.</td></tr>
-                  <tr><td>600 DPI</td><td>0.042 mm</td><td>2362 px</td><td>Fine acrylic, anodized aluminum, high-resolution CO2/fiber workflows.</td></tr>
-                  <tr><td>1000 DPI</td><td>0.025 mm</td><td>3937 px</td><td>Special cases: metal/fiber, very fine marking, only if spot size and material support it.</td></tr>
+                  <tr><td>150 DPI</td><td>0.169 mm</td><td>Large viewing distance, rough wood, fast tests, rustic signs.</td><td>Visible scan lines on close-up photos.</td></tr>
+                  <tr><td>200 DPI</td><td>0.127 mm</td><td>Soft wood, leather, large photos, materials with strong dot gain.</td><td>Lower fine detail, but often cleaner than too much DPI.</td></tr>
+                  <tr><td>254 DPI</td><td>0.100 mm</td><td>Good metric-friendly starting point for many diode/CO2 jobs.</td><td>May still be too dense for very smoky wood.</td></tr>
+                  <tr><td>318 DPI</td><td>0.080 mm</td><td>Common practical photo range for balanced detail and speed.</td><td>Can darken wood if power is not reduced.</td></tr>
+                  <tr><td>333 DPI</td><td>0.076 mm</td><td>Popular compromise for CO2/diode photo engraving.</td><td>Not automatically better than 254/300.</td></tr>
+                  <tr><td>500 DPI</td><td>0.051 mm</td><td>Acrylic, anodized aluminum, fine detail surfaces, small objects.</td><td>Slower; can become muddy on absorbent materials.</td></tr>
+                  <tr><td>600 DPI</td><td>0.042 mm</td><td>Very fine details where the material holds small marks.</td><td>Easy to overdo; heat overlap and long run time.</td></tr>
+                  <tr><td>1000 DPI</td><td>0.025 mm</td><td>Special cases on galvo/fiber or very fine surfaces.</td><td>Usually unnecessary for wood photos; demands precise optics and motion.</td></tr>
                 </tbody>
               </table>
             </div>
-            <h3>How to find your real best DPI</h3>
-            <ol>
-              <li>Engrave a small line interval test on the real material.</li>
-              <li>Look under good light or magnification. The ideal interval makes adjacent lines just touch without becoming a solid smear.</li>
-              <li>Use that interval as your maximum useful detail. More density usually increases time and darkness rather than real detail.</li>
-              <li>Repeat after changing lens, focus, speed, power, air assist or material finish.</li>
-            </ol>
+            <h3>Useful formulas</h3>
+            <ul>
+              <li><strong>Line interval in mm = 25.4 ÷ DPI</strong></li>
+              <li><strong>Pixels wide = width in inches × DPI</strong></li>
+              <li><strong>Width in inches = width in mm ÷ 25.4</strong></li>
+              <li><strong>Estimated scan lines = engraving height in inches × DPI</strong></li>
+            </ul>
+            <h3>How to choose the best line interval</h3>
+            <p>Run an interval test on the real material using the lens and focus you will use for the job. If the lines overlap and darken, lower DPI or reduce power. If you see gaps, increase DPI or use a slightly larger dot through focus/power adjustment. The ideal line interval is tied to the real mark width, not only to the theoretical laser spot.</p>
+            <div class="guide-warning"><strong>Do not trust image metadata alone.</strong> Many PNG/JPG files carry metadata that software interprets differently. The reliable method is to set final physical size and line interval inside the laser workflow, or use pass-through carefully when the image has already been resized and dithered.</div>
           </div>
         </section>
 
         <section class="panel p-6 guide-section" id="dithering">
           <h2>Dithering algorithms: which one to choose</h2>
           <div class="guide-copy">
-            <p>Dithering converts grayscale into black and white dots. Different algorithms create different dot textures. There is no single winner; choose by image type, material, viewing distance and taste.</p>
+            <p>Dithering converts a grayscale photo into a black-and-white dot pattern. Dark areas receive many black dots; light areas receive fewer dots. Different algorithms distribute those dots differently, which changes texture, contrast and perceived detail.</p>
             <div class="guide-table-wrap">
               <table class="guide-table">
-                <thead><tr><th>Mode</th><th>Look</th><th>Best use</th><th>Watch out for</th></tr></thead>
+                <thead><tr><th>Algorithm</th><th>Look</th><th>Best use</th><th>Watch out for</th></tr></thead>
                 <tbody>
-                  <tr><td>Threshold</td><td>Pure black/white cutoff, no dot shading.</td><td>Logos, icons, already prepared 1-bit art, masks.</td><td>Bad for normal photos; loses midtones.</td></tr>
-                  <tr><td>Ordered / Bayer</td><td>Regular grid pattern with controlled dot arrangement.</td><td>Graphics, logos with gradients, glass, acrylic, designs where predictable pattern is acceptable.</td><td>Pattern can be visible in portraits.</td></tr>
-                  <tr><td>Floyd-Steinberg</td><td>Natural error-diffusion texture, good detail.</td><td>Default all-rounder for many photos and materials.</td><td>Can create diagonal artifacts in flat gradients.</td></tr>
-                  <tr><td>Atkinson</td><td>Lighter, softer, classic high-contrast dot look.</td><td>Portraits that need open highlights, vintage effect, photos that are getting too dark.</td><td>Can lose detail in extreme shadows and highlights.</td></tr>
-                  <tr><td>Jarvis</td><td>Smoother tonal transitions, rich detail, larger diffusion kernel.</td><td>Portraits, smooth skin tones, larger photos where processing time is not critical.</td><td>Can look too soft or dense on materials with dot bleed.</td></tr>
-                  <tr><td>Stucki</td><td>Similar family to Jarvis, often slightly sharper/faster.</td><td>General photo engraving, good balance for wood and slate tests.</td><td>Midtones may need brightness/gamma tuning.</td></tr>
-                  <tr><td>Sierra / Burkes</td><td>Variants between Floyd and Jarvis in texture and smoothness.</td><td>Advanced comparison tests when your software offers them.</td><td>Not always available in laser software.</td></tr>
-                  <tr><td>Newsprint / Halftone</td><td>Visible round-dot print style.</td><td>Decorative poster effect, graphics, intentional newspaper look.</td><td>Not the most natural portrait look at close viewing distance.</td></tr>
-                  <tr><td>Grayscale</td><td>No black/white dot conversion; laser power varies by tone.</td><td>Materials and machines with stable power modulation; relief/depth effects; some acrylic/metal workflows.</td><td>Harder to tune; many materials are not linear.</td></tr>
+                  <tr><td>Floyd-Steinberg</td><td>Sharp, detailed, balanced error diffusion.</td><td>Best first test for portraits, wood, slate, leather and general photos.</td><td>Can create grain or diagonal artifacts in smooth areas.</td></tr>
+                  <tr><td>Atkinson</td><td>Lighter, softer, more open highlights.</td><td>Faces, vintage style, materials that engrave too dark, diode on wood/leather.</td><td>Can lose deep shadow density and very fine texture.</td></tr>
+                  <tr><td>Jarvis</td><td>Smooth, tonal, rich dot distribution.</td><td>Skin tones, animals, landscapes, larger engravings with enough resolution.</td><td>Can look soft or heavy on small engravings.</td></tr>
+                  <tr><td>Stucki</td><td>Detailed but slightly smoother than Floyd in many cases.</td><td>Architecture, fur, hair, textured materials and high-detail photos.</td><td>May darken if the material has strong dot gain.</td></tr>
+                  <tr><td>Sierra / Burkes</td><td>Often smoother than Floyd with a different grain structure.</td><td>When available, useful for comparison on portraits and gradients.</td><td>Software support varies.</td></tr>
+                  <tr><td>Ordered / Bayer</td><td>Regular visible pattern.</td><td>Logos, graphics, predictable gradients, some glass/acrylic workflows.</td><td>Can look artificial on faces and may show a grid texture.</td></tr>
+                  <tr><td>Halftone</td><td>Print-like dots or cells.</td><td>Stylized posters, newspaper look, graphic projects.</td><td>Less photorealistic and sensitive to cell size/angle.</td></tr>
+                  <tr><td>Threshold</td><td>Pure black/white cutoff.</td><td>Logos, silhouettes, line art, text, prepared high-contrast artwork.</td><td>Poor for normal photos because midtones disappear.</td></tr>
                 </tbody>
               </table>
             </div>
             <div class="guide-grid-3">
-              <div class="guide-card"><p class="guide-card-title">Beginner choice</p><p class="guide-card-text">Start with Floyd-Steinberg or Stucki at a conservative DPI. Adjust brightness/gamma before changing everything else.</p></div>
-              <div class="guide-card"><p class="guide-card-title">Portrait choice</p><p class="guide-card-text">Test Floyd-Steinberg, Atkinson and Jarvis on a small face crop. Pick the one that keeps eyes and skin tones readable.</p></div>
-              <div class="guide-card"><p class="guide-card-title">Logo/graphic choice</p><p class="guide-card-text">Use Threshold for pure black/white artwork, or Ordered/Bayer for predictable gradients and clean repeated textures.</p></div>
+              <div class="guide-card"><p class="guide-card-title">Beginner default</p><p class="guide-card-text">Start with Floyd-Steinberg or Stucki, then compare Atkinson if the result is too dark or harsh.</p></div>
+              <div class="guide-card"><p class="guide-card-title">Portrait default</p><p class="guide-card-text">Test Floyd-Steinberg, Atkinson and Jarvis on a face crop. Pick the one with readable eyes and natural skin.</p></div>
+              <div class="guide-card"><p class="guide-card-title">Logo/graphic default</p><p class="guide-card-text">Use Threshold for pure black/white artwork. Use Ordered/Bayer for controlled pattern-style gradients.</p></div>
+            </div>
+            <div class="guide-callout"><strong>Never dither twice.</strong> If PhotoEngraving.online exports a dithered PNG/BMP, do not let the laser software dither it again. Use pass-through or a mode that preserves the original pixels.</div>
+          </div>
+        </section>
+
+        <section class="panel p-6 guide-section" id="grayscale">
+          <h2>Grayscale, threshold, halftone and pass-through</h2>
+          <div class="guide-copy">
+            <p>Dithering is not the only way to engrave photos. Some machines and materials can use grayscale power modulation, while others need strict black/white data.</p>
+            <div class="guide-table-wrap">
+              <table class="guide-table">
+                <thead><tr><th>Mode</th><th>How it works</th><th>When to use it</th><th>When to avoid it</th></tr></thead>
+                <tbody>
+                  <tr><td>Dithered 1-bit</td><td>Every pixel is either mark or no mark. Shading comes from dot density.</td><td>Wood, leather, paper, stone, many coated materials, predictable photo workflow.</td><td>When you need true depth mapping or a machine-specific grayscale process.</td></tr>
+                  <tr><td>Grayscale</td><td>Laser power, pulse duration or output varies according to pixel brightness.</td><td>Materials that respond with controllable intermediate tones or depth.</td><td>Materials that jump from no mark to burned black; workflows where UV/fiber behavior is incompatible.</td></tr>
+                  <tr><td>Threshold</td><td>Pixels above/below a cutoff become black or white.</td><td>Text, logos, silhouettes, QR-like graphics, already prepared black/white art.</td><td>Normal portraits and photos with important midtones.</td></tr>
+                  <tr><td>Halftone</td><td>Uses dot/cell size or pattern to simulate tone.</td><td>Stylized photo prints, posters, graphic engraving effects.</td><td>Highly detailed small portraits where the halftone structure dominates.</td></tr>
+                  <tr><td>Pass-through</td><td>Sends a prepared image without resampling or re-dithering.</td><td>Pre-dithered exports where each pixel must map predictably to the laser job.</td><td>If the image has not been resized/prepared correctly for the final output size.</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <h3>When grayscale is worth testing</h3>
+            <p>Use grayscale when a test wedge shows many distinct levels from light to dark without sudden burning, banding or muddy shadows. If only a few levels are visible, dithering usually gives a better photo.</p>
+            <h3>When pass-through matters</h3>
+            <p>Pass-through is important when your file already contains the final dot pattern. Resizing or reprocessing a dithered image can create moiré, blur and broken dots. The physical size, pixel count and line interval must already agree before you use it.</p>
+          </div>
+        </section>
+
+        <section class="panel p-6 guide-section" id="focus">
+          <h2>Focus, lens, air assist and machine motion</h2>
+          <div class="guide-copy">
+            <p>Image processing cannot compensate for poor focus, dirty optics or unstable motion. Mechanical and optical setup often decide whether fine dots stay sharp.</p>
+            <div class="guide-grid-2">
+              <div class="guide-card"><p class="guide-card-title">Focus</p><p class="guide-card-text">Accurate focus creates the smallest, most consistent mark. Slight intentional defocus can soften harsh dots, but it should be tested deliberately, not caused by poor setup.</p></div>
+              <div class="guide-card"><p class="guide-card-title">Lens choice</p><p class="guide-card-text">Shorter focal lenses can create finer detail on flat materials; longer lenses help with larger areas, uneven surfaces and deeper focus tolerance.</p></div>
+              <div class="guide-card"><p class="guide-card-title">Air assist</p><p class="guide-card-text">Strong air can reduce flame and soot, but it can also cool the mark or change tone. Photo engraving sometimes needs lower air than cutting.</p></div>
+              <div class="guide-card"><p class="guide-card-title">Overscan &amp; acceleration</p><p class="guide-card-text">Raster jobs need enough overscan so the head reaches stable speed before engraving. Poor acceleration settings can cause darker edges or banding.</p></div>
+              <div class="guide-card"><p class="guide-card-title">Clean optics</p><p class="guide-card-text">Smoke on lenses or mirrors reduces power and creates inconsistent marks. Long photo jobs create a lot of residue.</p></div>
+              <div class="guide-card"><p class="guide-card-title">Flatness</p><p class="guide-card-text">Warped wood, curved objects and uneven slate shift focus across the image. Use jigs, hold-downs or choose a more forgiving lens.</p></div>
             </div>
           </div>
         </section>
 
         <section class="panel p-6 guide-section" id="materials">
-          <h2>Material-specific advice</h2>
+          <h2>Material workflows</h2>
           <div class="guide-copy">
-            <p>Every material has its own “tone language”. Some get darker when engraved. Some get lighter. Some melt, frost, bleach or expose an underlayer. The same photo should often be inverted, sharpened or softened differently for each surface.</p>
+            <p>Each material has a different tonal language. Prepare separate image versions for wood, slate, glass, acrylic and metal instead of using one universal file.</p>
 
             <h3>Wood, plywood and bamboo</h3>
-            <p><span class="guide-badge">Usually not inverted</span><span class="guide-badge">Dithering recommended</span><span class="guide-badge">Lower to medium DPI</span></p>
+            <p>Wood is popular but difficult because grain, glue, density and smoke all affect contrast. Light, fine-grain woods usually show photos better than dark or strongly figured woods. Basswood, maple, birch plywood and bamboo can work well; oak and highly varied woods can hide facial detail.</p>
             <ul>
-              <li>Light, fine-grain wood is easiest. Birch, maple, basswood and bamboo can work well; strong grain can compete with facial detail.</li>
-              <li>Use moderate power. Too much power makes all dark areas merge and removes detail.</li>
-              <li>Sand consistently before engraving. Uneven surface height changes focus and tone.</li>
-              <li>Air assist can reduce smoke staining, but too much air may reduce darkness or produce uneven tone on some setups.</li>
-              <li>After engraving, gently brush or clean soot. Do not judge final contrast while the surface is still covered with residue.</li>
+              <li>Use lower-to-medium DPI first, often around 200–333 DPI depending on dot gain.</li>
+              <li>Brighten shadows before dithering so dark hair and eyes do not become solid blocks.</li>
+              <li>Use moderate air assist and clean smoke residue after engraving.</li>
+              <li>Masking can reduce smoke stains but may soften tiny dot detail or add cleanup work.</li>
+              <li>Test finishing oil/varnish on scrap because it can darken the wood and change contrast.</li>
             </ul>
 
             <h3>Slate and dark stone</h3>
-            <p><span class="guide-badge">Invert image</span><span class="guide-badge">Engraved areas become lighter</span><span class="guide-badge">Test power carefully</span></p>
+            <p>Slate usually engraves lighter than the original surface, so photos often need inversion. It can produce dramatic high-contrast portraits, especially with strong midtone preparation.</p>
             <ul>
-              <li>Slate often gives a bright gray/white mark, so use a negative image workflow.</li>
-              <li>Keep the process shallow. Too much power can chip or flatten delicate tones.</li>
-              <li>Clean, dry and inspect the surface first. Some slate has veins or uneven coatings.</li>
-              <li>For photos, a small power matrix is more useful than guessing from someone else’s exact settings.</li>
-            </ul>
-
-            <h3>Acrylic</h3>
-            <p><span class="guide-badge">Often inverted on dark/clear acrylic</span><span class="guide-badge">CO2 excels on clear acrylic</span><span class="guide-badge">Higher DPI often possible</span></p>
-            <ul>
-              <li>Cast acrylic generally engraves cleaner than extruded acrylic for frosted photo effects.</li>
-              <li>Blue diode lasers usually need opaque/darker acrylic; clear and blue acrylic are difficult because of wavelength absorption.</li>
-              <li>Opaque acrylic can hold smoother, cleaner photo detail than wood because it has no grain.</li>
-              <li>Remove protective film for engraving unless your test proves it helps. Film can melt into fine photo details.</li>
+              <li>Invert the image for most dark slate workflows.</li>
+              <li>Use enough contrast for faces, but avoid blowing out large white patches.</li>
+              <li>Clean after engraving; dust changes perceived contrast.</li>
+              <li>Slate varies greatly. Test each batch and even each tile when quality matters.</li>
             </ul>
 
             <h3>Glass and mirrors</h3>
-            <p><span class="guide-badge">Often inverted</span><span class="guide-badge">Use masking or moist paper</span><span class="guide-badge">Avoid heat overload</span></p>
+            <p>Glass does not burn like wood; it frosts, chips or micro-fractures. The best result is often a controlled light frost rather than maximum power.</p>
             <ul>
-              <li>Glass engraves by micro-fracturing/frosting the surface, not by creating a black burn.</li>
-              <li>A single moist paper towel layer can reduce roughness and produce a clearer white mark. Avoid bubbles and overlaps.</li>
-              <li>Lower heat is often better. Too much power creates chips, craters and rough patches.</li>
-              <li>Use a rotary attachment for glasses and mugs. Keep handles out of the laser path.</li>
+              <li>Use low-to-moderate power and avoid excessive heat.</li>
+              <li>Ordered dithering or a softer algorithm can work well for smooth glass tones.</li>
+              <li>Wet paper towel, dish soap, transfer tape or masking methods are often tested to reduce chipping.</li>
+              <li>For mirrors, decide whether engraving from the front or back gives the desired look.</li>
+            </ul>
+
+            <h3>Acrylic</h3>
+            <p>Acrylic can engrave beautifully, especially cast acrylic. Clear acrylic usually responds better to CO2 than blue diode. Dark or opaque acrylic may respond differently depending on pigment and wavelength.</p>
+            <ul>
+              <li>Invert when the engraved mark becomes lighter than the surface or when edge-lit/back-lit.</li>
+              <li>Use clean focus and avoid excessive heat that melts tiny details.</li>
+              <li>Cast acrylic usually engraves cleaner than extruded acrylic.</li>
+              <li>Consider backside engraving for signs and photo panels.</li>
+            </ul>
+
+            <h3>Ceramic tile and the Norton White Tile method</h3>
+            <p>White ceramic tile can be marked by using coatings or titanium-dioxide-rich paint methods. The laser bonds or changes the coating to create a dark image. This workflow is highly dependent on paint, tile, laser wavelength and cleaning process.</p>
+            <ul>
+              <li>Prepare a test grid with the exact paint and tile combination.</li>
+              <li>Use a face/detail crop first, not the full photo.</li>
+              <li>Allow coatings to dry fully and keep application thickness consistent.</li>
+              <li>Use safe ventilation and confirm paint/coating suitability before lasering.</li>
             </ul>
 
             <h3>Anodized aluminum and coated metals</h3>
-            <p><span class="guide-badge">Usually inverted on dark anodized surfaces</span><span class="guide-badge">High detail possible</span><span class="guide-badge">Fiber/IR or CO2 depending on coating</span></p>
+            <p>Photo engraving on anodized or coated metal usually removes or changes a surface layer. It can hold very fine detail and may support higher DPI than wood.</p>
             <ul>
-              <li>Dark anodized aluminum can hold very fine bright marks, so higher DPI may be useful.</li>
-              <li>Coated tumblers behave like a coating-removal process: the laser removes or changes the top layer.</li>
-              <li>Bare stainless and aluminum need appropriate fiber/IR/fiber-like marking or a marking compound; ordinary blue diode/CO2 behavior differs by surface.</li>
+              <li>Dark anodized aluminum often needs inversion because the laser creates a light mark.</li>
+              <li>Higher DPI can be useful if the machine and coating can resolve it.</li>
+              <li>Keep the surface clean; fingerprints can affect marks.</li>
+              <li>For tumblers and curved objects, rotary setup and focus consistency are critical.</li>
+            </ul>
+
+            <h3>Stainless steel and bare metals</h3>
+            <p>CO2 and diode lasers usually need a marking compound or coating for durable dark marks on stainless steel. Fiber/IR lasers are much better suited for direct metal marking.</p>
+            <ul>
+              <li>Use the correct laser source for the metal.</li>
+              <li>Test marking spray/compound separately from photo dithering.</li>
+              <li>For fiber galvos, dot duration, frequency, hatch and lens field settings can matter as much as image DPI.</li>
             </ul>
 
             <h3>Leather, paper, cardboard and fabric</h3>
-            <p><span class="guide-badge">Low heat</span><span class="guide-badge">Ventilation essential</span><span class="guide-badge">Test for safety</span></p>
+            <p>These materials mark easily but burn, curl or discolor quickly. Photos often need lower power, higher speed and open dithering.</p>
             <ul>
-              <li>Leather and paper darken quickly, so use lower power and higher speed than you might expect.</li>
-              <li>Fine photo dots can close up on soft fibers. Lower DPI or a lighter dithering mode may look better.</li>
-              <li>Confirm material composition. Artificial leather, vinyl and treated materials can be unsafe.</li>
+              <li>Use real leather with known tanning process. Avoid unknown artificial leather and PVC/vinyl materials.</li>
+              <li>Atkinson or lower-density dithering can prevent overly dark skin tones.</li>
+              <li>Paper and cardboard ignite easily; never leave the machine unattended.</li>
+              <li>Fabric may need low power, fast speed and test strips because synthetic fibers can melt or release fumes.</li>
             </ul>
+
+            <div class="guide-warning"><strong>Material identity matters.</strong> “Acrylic,” “leather,” “plastic” and “coated metal” are broad categories. Always confirm the exact material and coating before building a repeatable preset.</div>
           </div>
         </section>
 
         <section class="panel p-6 guide-section" id="settings">
-          <h2>Starting settings and the right way to test</h2>
+          <h2>Starting settings and how to think about them</h2>
           <div class="guide-copy">
-            <div class="guide-warning"><strong>These are starting points, not universal parameters.</strong> Laser wattage, true optical output, lens, focus, controller acceleration, material finish and even room ventilation can change the result. Always run a test crop.</div>
+            <p>The following values are not universal presets. They are safe thinking ranges for building your own tests. Real settings depend on wattage, true optical output, lens, controller, material and desired tone.</p>
+            <div class="guide-warning"><strong>Always test first.</strong> For unknown material, start with conservative power and a small crop. Increase energy only when the image is too light and still clean.</div>
             <div class="guide-table-wrap">
               <table class="guide-table">
-                <thead><tr><th>Material</th><th>Suggested image mode</th><th>Starting DPI / interval</th><th>Image preparation</th><th>First tuning move</th></tr></thead>
+                <thead><tr><th>Material</th><th>DPI starting range</th><th>Image tendency</th><th>First adjustment if too dark</th><th>First adjustment if too light</th></tr></thead>
                 <tbody>
-                  <tr><td>Light wood</td><td>Floyd-Steinberg, Stucki, Jarvis</td><td>250–333 DPI / 0.10–0.076 mm</td><td>Not inverted. Open shadows. Moderate sharpening.</td><td>If muddy, reduce power or increase speed before increasing DPI.</td></tr>
-                  <tr><td>Bamboo</td><td>Floyd-Steinberg or Atkinson</td><td>250–318 DPI / 0.10–0.08 mm</td><td>Lower contrast than screen preview. Avoid heavy blacks.</td><td>If stripy or grainy, rotate image or test a different board direction.</td></tr>
-                  <tr><td>Slate</td><td>Floyd-Steinberg, Stucki, Jarvis, grayscale tests</td><td>250–500 DPI / 0.10–0.051 mm</td><td>Invert. Keep highlights controlled.</td><td>If washed out, increase power slightly; if chipped, reduce power.</td></tr>
-                  <tr><td>Glass</td><td>Ordered, Jarvis, Stucki, light dithering</td><td>250–500 DPI / 0.10–0.051 mm</td><td>Often invert. Consider moist paper towel or application tape.</td><td>If rough/chipped, reduce heat, use masking, or lower density.</td></tr>
-                  <tr><td>Opaque acrylic</td><td>Grayscale or dithering</td><td>500–600 DPI / 0.051–0.042 mm</td><td>Often invert when engraving light marks on dark material.</td><td>If melted or blurry, increase speed or reduce power.</td></tr>
-                  <tr><td>Dark anodized aluminum</td><td>Dithering, grayscale, dot matrix on galvo</td><td>600–1000 DPI / 0.042–0.025 mm</td><td>Invert for bright mark. Preserve fine facial contrast.</td><td>If too pale, increase power/dot duration; if blown out, reduce energy.</td></tr>
-                  <tr><td>Leather</td><td>Atkinson, Floyd-Steinberg, low-density dithering</td><td>200–318 DPI / 0.127–0.08 mm</td><td>Not inverted for light leather. Reduce contrast.</td><td>If too dark, lower power and clean residue before judging.</td></tr>
+                  <tr><td>Light wood</td><td>200–333</td><td>Positive image, lifted shadows, moderate sharpening.</td><td>Reduce power, increase speed, lower DPI, brighten midtones.</td><td>Increase power slightly or reduce speed; add contrast.</td></tr>
+                  <tr><td>Bamboo</td><td>254–333</td><td>Positive image, avoid heavy blacks.</td><td>Use Atkinson or lower contrast; reduce power.</td><td>Increase power slowly; sharpen local detail.</td></tr>
+                  <tr><td>Leather</td><td>200–318</td><td>Positive image, open dot pattern.</td><td>Increase speed, reduce power, use lighter dither.</td><td>Reduce speed carefully; leather can jump dark quickly.</td></tr>
+                  <tr><td>Slate</td><td>254–500</td><td>Usually inverted, stronger midtone contrast.</td><td>Reduce power or darken the source after inversion.</td><td>Increase energy or strengthen contrast.</td></tr>
+                  <tr><td>Glass</td><td>300–600</td><td>Usually inverted/negative depending on viewing side.</td><td>Reduce power; test masking/wet paper; try ordered dithering.</td><td>Increase power carefully or slow down.</td></tr>
+                  <tr><td>Acrylic</td><td>300–600</td><td>Often inverted for dark/clear acrylic; clean edges.</td><td>Increase speed or reduce power to avoid melting.</td><td>Increase energy or improve focus.</td></tr>
+                  <tr><td>Anodized aluminum</td><td>318–600+</td><td>Often inverted on dark anodizing.</td><td>Reduce power or increase speed to avoid washed-out areas.</td><td>Increase power or lower speed; clean surface first.</td></tr>
+                  <tr><td>Painted tile</td><td>254–500</td><td>Depends on coating; test grid required.</td><td>Reduce energy or change coating thickness.</td><td>Increase energy or improve coating consistency.</td></tr>
                 </tbody>
               </table>
             </div>
+            <h3>Power, speed and DPI relationship</h3>
+            <p>Higher power, slower speed and higher DPI all increase delivered energy per area. If you increase DPI, you often need to reduce power or increase speed. If you lower DPI, you may need slightly more power per mark to maintain contrast.</p>
+          </div>
+        </section>
 
-            <h3>Make a photo test matrix</h3>
-            <p>Do not test with a simple black square only. A photo needs highlights, skin/midtones and shadows. Use a 25–40 mm crop containing an eye, hair, skin and background. Duplicate it 6–12 times and test one variable at a time.</p>
+        <section class="panel p-6 guide-section" id="testing">
+          <h2>The testing method professionals rely on</h2>
+          <div class="guide-copy">
+            <p>Testing is not wasted time. It is the fastest path to a repeatable preset. A single full-size failed engraving usually wastes more time and material than several small tests.</p>
             <div class="guide-grid-3">
-              <div class="guide-card"><p class="guide-card-title">Power/speed matrix</p><p class="guide-card-text">Keep DPI and image fixed. Test several powers or speeds. Pick the version with the most detail, not necessarily the darkest mark.</p></div>
-              <div class="guide-card"><p class="guide-card-title">DPI/interval matrix</p><p class="guide-card-text">Keep power and speed fixed. Test 250, 318, 333, 500 and 600 DPI if appropriate. Stop where detail stops improving.</p></div>
-              <div class="guide-card"><p class="guide-card-title">Dither matrix</p><p class="guide-card-text">Keep laser settings fixed. Compare Floyd-Steinberg, Atkinson, Jarvis, Stucki and Ordered/Bayer on the same crop.</p></div>
+              <div class="guide-card"><p class="guide-card-title">1. Crop test</p><p class="guide-card-text">Use a small crop containing eyes, hair, highlights, midtones and shadow. A good crop predicts the final engraving better than a generic test square.</p></div>
+              <div class="guide-card"><p class="guide-card-title">2. Power/speed matrix</p><p class="guide-card-text">Keep image and DPI fixed. Test several powers or speeds. Choose the most detailed version, not automatically the darkest.</p></div>
+              <div class="guide-card"><p class="guide-card-title">3. DPI/interval matrix</p><p class="guide-card-text">Keep power/speed fixed. Compare two or three line intervals. Stop increasing DPI when detail stops improving.</p></div>
+              <div class="guide-card"><p class="guide-card-title">4. Dither matrix</p><p class="guide-card-text">Keep laser settings fixed. Compare Floyd, Atkinson, Jarvis, Stucki and Ordered/Bayer on the same crop.</p></div>
+              <div class="guide-card"><p class="guide-card-title">5. Finishing test</p><p class="guide-card-text">Clean, seal, oil, wash or backlight the test exactly as the final product will be finished.</p></div>
+              <div class="guide-card"><p class="guide-card-title">6. Record settings</p><p class="guide-card-text">Write down material, lens, focus, air, speed, power, DPI, dither mode, software version and finish.</p></div>
             </div>
-
-            <h3>How to read test results</h3>
+            <h3>What to record in your preset notes</h3>
             <ul>
-              <li><strong>Too dark everywhere:</strong> reduce power, increase speed, lower DPI, brighten midtones, or use Atkinson.</li>
-              <li><strong>Highlights missing:</strong> increase contrast in light areas, darken the image slightly, or choose a dither that places more dots in highlights.</li>
-              <li><strong>Shadows are a black block:</strong> lift shadows with curves/gamma, lower power, or reduce dot density.</li>
-              <li><strong>Faces look flat:</strong> add local contrast and sharpening before dithering; avoid over-smoothing skin.</li>
-              <li><strong>Visible horizontal bands:</strong> check focus, belts, acceleration, line interval, dirty lens, excessive air assist or material unevenness.</li>
+              <li>Machine, laser source, wattage, lens, focus method and bed height.</li>
+              <li>Material supplier, thickness, color, coating and batch if known.</li>
+              <li>Software, image mode, DPI/interval, speed, power, passes, air assist and overscan.</li>
+              <li>Photo preparation values: inversion, brightness, contrast, gamma, sharpening and dithering algorithm.</li>
+              <li>Post-processing: cleaning, brushing, washing, sealing, oiling, painting or backlighting.</li>
             </ul>
           </div>
         </section>
@@ -2060,27 +2163,15 @@ z-index: 300;
           <h2>Software workflow: PhotoEngraving.online, LightBurn, LaserGRBL and XCS</h2>
           <div class="guide-copy">
             <h3>PhotoEngraving.online</h3>
-            <p>Use the online editor when you want a fast browser-based workflow: upload a photo, select photo type, adjust brightness, contrast, gamma and sharpness, choose DPI/output size, apply dithering, inspect the result and export a laser-ready PNG. The editor is designed for private local browser processing, so the photo does not need to be uploaded to a server.</p>
+            <p>Use PhotoEngraving.online as the image-preparation stage: load the photo, choose normal or negative output, set physical size and DPI, tune brightness/contrast/gamma/sharpness, choose dithering and export a laser-ready PNG or BMP.</p>
             <h3>LightBurn</h3>
-            <ul>
-              <li>Use Image Mode for raster photos and choose the correct image mode: Threshold, Ordered, Atkinson, Dither, Stucki, Jarvis, Newsprint, Halftone or Grayscale.</li>
-              <li>Set line interval/DPI deliberately. Use Interval Test or Material Test for the actual laser/material combination.</li>
-              <li>If the image is already dithered exactly as you want, use Pass-Through where appropriate to avoid re-processing.</li>
-              <li>Use Negative Image for slate, glass and other materials where engraved marks become lighter.</li>
-              <li>Use overscanning for raster jobs when your controller needs room to reach stable speed before firing.</li>
-            </ul>
+            <p>LightBurn can process images directly with several image modes, but if the PNG/BMP is already resized and dithered, use pass-through or a workflow that preserves the prepared pixels. Confirm that physical size, DPI/line interval and layer mode agree before running the job.</p>
             <h3>LaserGRBL</h3>
-            <ul>
-              <li>Use “1bit BW dithering” for materials that behave mostly on/off.</li>
-              <li>Use line-to-line grayscale only when your laser supports power modulation and the material can reproduce intermediate shades.</li>
-              <li>Adjust brightness and contrast in the raster import workflow before engraving.</li>
-            </ul>
-            <h3>xTool Creative Space / galvo dot workflows</h3>
-            <ul>
-              <li>Bitmap engraving may use dot duration, power, DPI, bitmap mode and laser type. These settings interact strongly.</li>
-              <li>For dual-source machines, choose the correct source: blue light for many organic materials, IR/fiber-type source for metals and selected plastics.</li>
-              <li>When using dot duration, excessive dwell time can whiten, over-mark or slow the job dramatically. Test small.</li>
-            </ul>
+            <p>LaserGRBL supports raster import, grayscale line-to-line engraving and 1-bit dithering. For materials that do not react linearly to power, dithering is often more predictable than grayscale.</p>
+            <h3>xTool Creative Space / galvo-style workflows</h3>
+            <p>XCS and galvo workflows can use grayscale, dithering, dot duration, power, speed and laser-source choices. On machines with both blue and IR/fiber sources, choose the source according to material absorption, not according to photo appearance alone.</p>
+            <h3>General rule for all software</h3>
+            <p>Only one tool should be responsible for final dithering. If the photo editor has already created the dot pattern, the laser software should not resize or re-dither it.</p>
           </div>
         </section>
 
@@ -2089,36 +2180,24 @@ z-index: 300;
           <div class="guide-copy">
             <div class="guide-table-wrap">
               <table class="guide-table">
-                <thead><tr><th>Problem</th><th>Most likely causes</th><th>Fix</th></tr></thead>
+                <thead><tr><th>Problem</th><th>Likely cause</th><th>Fix</th></tr></thead>
                 <tbody>
-                  <tr><td>Engraving is too dark and muddy</td><td>Power too high, speed too slow, DPI too high, shadows crushed, dot bleed.</td><td>Reduce power, increase speed, lower DPI/line density, lift shadows with curves, use Atkinson or a lighter dither.</td></tr>
-                  <tr><td>Engraving is too light</td><td>Power too low, speed too high, image too bright, wrong focus, surface not absorbing.</td><td>Increase power gradually, reduce speed, darken midtones, refocus, use coating/paint if material requires it.</td></tr>
-                  <tr><td>Photo looks like a negative</td><td>Wrong inversion for the material.</td><td>Invert for dark materials that mark light; do not invert for light materials that burn dark.</td></tr>
-                  <tr><td>Face has no detail</td><td>Original photo has poor lighting, low local contrast, or face is too small.</td><td>Use a better photo, crop closer, enhance eyes and facial midtones, remove background distractions.</td></tr>
-                  <tr><td>Visible grid or pattern</td><td>Ordered dithering visible, too low DPI, viewing distance too close.</td><td>Use error diffusion dithering, increase DPI only if material supports it, or embrace halftone as a style.</td></tr>
-                  <tr><td>Horizontal banding</td><td>Mechanical vibration, belt tension, dirty optics, unstable air assist, inconsistent material.</td><td>Check mechanics, clean lens/mirrors, reduce speed, stabilize material, test unidirectional engraving.</td></tr>
-                  <tr><td>Edges burned darker than center</td><td>No overscanning or acceleration effects near scan turnaround.</td><td>Enable/adjust overscan, reduce speed, move design away from bed limits.</td></tr>
-                  <tr><td>Glass is rough or chipped</td><td>Too much heat, high power, no masking, air assist drying moist paper.</td><td>Use moist paper towel or application tape, reduce power, use ordered dithering, turn off air assist when using moist paper where safe for your machine.</td></tr>
-                  <tr><td>Acrylic melts or blurs</td><td>Too much heat or wrong acrylic type.</td><td>Increase speed, reduce power, remove unsuitable masking, use cast/opaque acrylic suitable for your laser wavelength.</td></tr>
+                  <tr><td>Engraving is too dark overall</td><td>Too much energy per area, too high DPI, shadows clipped, aggressive contrast.</td><td>Reduce power, increase speed, lower DPI, brighten midtones, try Atkinson, reduce shadow contrast.</td></tr>
+                  <tr><td>Face looks flat</td><td>Midtones compressed, no local contrast, source photo too soft.</td><td>Use curves/gamma, enhance eyes/hair locally, sharpen after resizing, choose a clearer crop.</td></tr>
+                  <tr><td>Hair becomes a black blob</td><td>Shadow detail crushed before dithering.</td><td>Lift shadows, reduce black point, mask hair separately, use less aggressive dither/power.</td></tr>
+                  <tr><td>Highlights disappear</td><td>White point clipped or material cannot show very light marks.</td><td>Lower white point compression, add gentle local contrast, test different inversion/material.</td></tr>
+                  <tr><td>Visible horizontal lines</td><td>Line interval too large, mechanical issue, inconsistent focus or dirty optics.</td><td>Increase DPI slightly, clean optics, check belts/rails, verify material flatness.</td></tr>
+                  <tr><td>Muddy / overburned detail</td><td>Lines overlap too much, smoke staining, too much power, grain/dot gain.</td><td>Lower DPI, reduce power, increase speed, improve air/exhaust, use lighter material or finish.</td></tr>
+                  <tr><td>Checkerboard or moiré pattern</td><td>Pre-dithered image was resized or dithered again.</td><td>Use pass-through, export at final size, avoid double dithering, keep integer-like scaling where possible.</td></tr>
+                  <tr><td>Edges darker than center</td><td>Acceleration/overscan issue, head speed not stable at edges.</td><td>Increase overscan, reduce speed, check controller settings and scanning direction.</td></tr>
+                  <tr><td>Banding</td><td>Mechanical vibration, belt tension, power instability, material variation.</td><td>Clean/adjust motion system, test lower speed, verify power supply and material consistency.</td></tr>
+                  <tr><td>Glass chips or flakes</td><td>Too much heat or unsuitable dot pattern.</td><td>Reduce power, test wet paper/tape, try ordered dithering, use lower speed only carefully.</td></tr>
+                  <tr><td>Acrylic melts or smears</td><td>Too much heat, wrong acrylic type, poor focus.</td><td>Increase speed, reduce power, improve focus, use cast acrylic when appropriate.</td></tr>
+                  <tr><td>Metal mark wipes off</td><td>Wrong laser source or marking compound not bonded.</td><td>Use suitable fiber/IR settings or proper marking spray; test cleaning durability.</td></tr>
+                  <tr><td>Photo is sharp on screen but soft engraved</td><td>Laser spot/material cannot resolve the chosen detail, focus off, overprocessing.</td><td>Reduce physical size expectations, improve focus, use higher-quality source, reduce heat and resampling.</td></tr>
                 </tbody>
               </table>
             </div>
-          </div>
-        </section>
-
-        <section class="panel p-6 guide-section" id="safety">
-          <h2>Safety: do not skip this</h2>
-          <div class="guide-copy">
-            <p>Photo engraving often means long raster jobs. Long jobs create smoke, heat and fire risk. Use proper enclosure, exhaust, filtration where needed, eye protection suitable for the wavelength, and never leave the machine running unattended.</p>
-            <div class="guide-warning"><strong>Never process unknown plastics.</strong> PVC/vinyl, halogen-containing materials, chromium-treated leather, PTFE/Teflon, PVB and some resins can create dangerous gases or corrosive residue. When in doubt, check the supplier’s SDS or do not laser it.</div>
-            <ul>
-              <li>Keep the machine clean. Soot, paper scraps and wood dust increase fire risk.</li>
-              <li>Use proper ventilation, not just an open window.</li>
-              <li>Keep a suitable fire extinguisher nearby and know how to use it.</li>
-              <li>Use air assist appropriately; it helps with many materials but can change photo tone.</li>
-              <li>Do not engrave reflective bare metal with an unsuitable open diode setup.</li>
-              <li>Confirm coatings, paints and artificial leathers before lasering.</li>
-            </ul>
           </div>
         </section>
 
@@ -2126,46 +2205,89 @@ z-index: 300;
           <h2>Advanced techniques</h2>
           <div class="guide-copy">
             <h3>Material-specific image versions</h3>
-            <p>Create different processed files for different materials. A wood version may need brighter shadows and lower DPI. A slate version may need inversion and stronger midtone contrast. A dark anodized aluminum version may need higher DPI and finer sharpening.</p>
-            <h3>Selective editing</h3>
-            <p>Do not treat the whole photo equally. Faces, eyes, hair, clothing and background need different contrast. Use masks or local adjustments when a single brightness/contrast slider cannot solve everything.</p>
-            <h3>Defocus intentionally</h3>
-            <p>A tiny intentional defocus can soften overly harsh dots on some materials, especially glass, acrylic or harsh diode burns. It can also reduce detail, so test carefully.</p>
-            <h3>Multiple passes</h3>
-            <p>For photos, one controlled pass is often cleaner than multiple hot passes. Multiple passes can help special materials, but they can also darken shadows, cause registration issues and increase heat damage.</p>
-            <h3>Finishing</h3>
-            <p>Cleaning and finish can change perceived contrast. Wood may need brushing and sealing. Slate may look different before and after cleaning. Acrylic may need washing, paint filling or backlighting depending on the project.</p>
+            <p>Create separate processed files for each material. A wood version may need lifted shadows and lower DPI. A slate version may need inversion and stronger midtones. A dark anodized aluminum version may need high DPI and crisp sharpening.</p>
+            <h3>Selective editing with masks</h3>
+            <p>Edit faces, hair, clothing and background separately. A single global brightness slider rarely preserves everything. Brighten dark hair while keeping eyes sharp; soften skin while preserving facial features.</p>
+            <h3>Background control</h3>
+            <p>For portraits, removing or fading the background often improves the perceived engraving more than increasing DPI. Background dots compete with facial detail.</p>
+            <h3>Controlled defocus</h3>
+            <p>A tiny intentional defocus can soften harsh dots on glass, acrylic or aggressive diode burns. It can also destroy fine detail, so compare focused and slightly defocused samples.</p>
+            <h3>Multi-pass strategy</h3>
+            <p>For most photos, one clean pass is better than multiple hot passes. Multiple passes can help special coatings or tile methods, but they can also darken shadows and create registration errors.</p>
+            <h3>Two-stage engraving</h3>
+            <p>Some advanced workflows engrave a light photo pass first, then add a second pass only for text, border, silhouette or selected deep shadows. Keep this separate from blindly repeating the full image.</p>
+            <h3>Viewing distance</h3>
+            <p>A photo viewed from one meter does not need the same detail as a pendant viewed from 20 cm. Large wall pieces can use lower DPI and stronger contrast; small keepsakes need cleaner source photos and careful focus.</p>
+            <h3>Finishing for contrast</h3>
+            <p>Cleaning, brushing, washing, oiling, sealing or backlighting can change the final appearance as much as a laser parameter. Always finish the test sample the same way as the final product.</p>
+          </div>
+        </section>
+
+        <section class="panel p-6 guide-section" id="safety">
+          <h2>Safety: do not skip this</h2>
+          <div class="guide-copy">
+            <p>Photo engravings can be long raster jobs, which means extended smoke, heat and fire risk. Use a proper enclosure, exhaust, suitable filtration where needed, correct eye protection for your laser wavelength and continuous supervision.</p>
+            <div class="guide-warning"><strong>Never process unknown plastics or coatings.</strong> PVC/vinyl and chlorinated materials can release dangerous corrosive fumes. Some artificial leathers, coated fabrics, resins and plastics are unsafe or unknown. If you cannot verify the material, do not laser it.</div>
+            <ul>
+              <li>Never leave a running laser unattended.</li>
+              <li>Keep a suitable fire extinguisher nearby and know how to use it.</li>
+              <li>Use ventilation that removes fumes from the workspace, not just an open window.</li>
+              <li>Clean soot, scraps and dust from the machine before long raster jobs.</li>
+              <li>Do not engrave reflective bare metal with an unsuitable open laser setup.</li>
+              <li>Check the material Safety Data Sheet when using plastics, coatings, paints, leather or unknown composites.</li>
+              <li>Follow the machine manufacturer’s instructions for enclosure, interlocks, eyewear and exhaust.</li>
+            </ul>
+          </div>
+        </section>
+
+        <section class="panel p-6 guide-section" id="checklist">
+          <h2>Final checklist before running a full photo engraving</h2>
+          <div class="guide-copy">
+            <div class="guide-grid-2">
+              <div class="guide-card"><p class="guide-card-title">Image</p><p class="guide-card-text">Correct crop, enough pixels, grayscale prepared, important details visible, final size decided, sharpened after resizing.</p></div>
+              <div class="guide-card"><p class="guide-card-title">Output</p><p class="guide-card-text">Correct DPI/line interval, correct inversion, chosen dither/grayscale mode, lossless export, no double dithering.</p></div>
+              <div class="guide-card"><p class="guide-card-title">Machine</p><p class="guide-card-text">Clean optics, correct focus, flat material, appropriate air assist, overscan set, rotary/jig aligned if needed.</p></div>
+              <div class="guide-card"><p class="guide-card-title">Material</p><p class="guide-card-text">Known safe material, tested batch, cleaned surface, masking/coating consistent, finish tested.</p></div>
+              <div class="guide-card"><p class="guide-card-title">Safety</p><p class="guide-card-text">Enclosure closed, ventilation on, fire watch active, extinguisher nearby, no unknown plastics or unsafe coatings.</p></div>
+              <div class="guide-card"><p class="guide-card-title">Proof</p><p class="guide-card-text">Small crop test approved under final lighting and final post-processing method.</p></div>
+            </div>
           </div>
         </section>
 
         <section class="panel p-6 guide-section guide-faq" id="faq">
           <h2>FAQ</h2>
-          <details open><summary>What DPI is best for laser photo engraving?</summary><p>There is no universal best DPI. Around 300–333 DPI is a practical starting point for many photo jobs, lower can be better on wood/stone with dot bleed, and 500–1000 DPI can be useful on acrylic or metal surfaces that hold fine dots. The best value is the one that matches your real laser spot and material response.</p></details>
-          <details><summary>Should I use Floyd-Steinberg, Jarvis, Stucki or Atkinson?</summary><p>Start with Floyd-Steinberg or Stucki. Try Atkinson when the engraving is too dark or you want a lighter vintage look. Try Jarvis when you want smoother skin tones and have enough material detail to support it. Always compare on the same small crop.</p></details>
-          <details><summary>Should photos be inverted?</summary><p>Invert when engraved areas become lighter than the surface, such as slate, glass, dark acrylic or dark anodized aluminum. Do not invert for light wood where burned areas become darker.</p></details>
-          <details><summary>Why does my screen preview look better than the engraving?</summary><p>A screen is backlit, high resolution and can show smooth grayscale. A laser makes physical marks on a material with grain, melting, soot, chipping or coating removal. That is why test matrices and material-specific preparation are essential.</p></details>
-          <details><summary>Can I engrave any web photo?</summary><p>Only if it has enough pixel resolution at the final size and good tonal separation. A 72 DPI web image is not automatically bad if it has enough pixels and is scaled down, but enlarging a tiny image rarely creates real detail.</p></details>
-          <details><summary>PNG, BMP, JPG or SVG?</summary><p>For photo engraving, PNG or BMP are common because they preserve raster pixels without JPEG compression artifacts. JPG is acceptable as a source if high quality, but avoid repeated JPG exports. SVG is mainly for vectors, not final dithered photo pixels.</p></details>
+          <details open><summary>What DPI is best for laser photo engraving?</summary><p>There is no universal best DPI. Around 254–333 DPI is a practical starting range for many photo jobs, lower can be better on wood or leather with dot gain, and 500–600 DPI can be useful on acrylic or anodized surfaces that hold fine marks. Confirm with an interval test.</p></details>
+          <details><summary>Should I use dithering or grayscale?</summary><p>Use dithering when the material behaves mostly on/off or when you want predictable shading through dot density. Use grayscale only when your laser and material can produce stable intermediate tones or controlled depth.</p></details>
+          <details><summary>Which dithering algorithm should I start with?</summary><p>Start with Floyd-Steinberg or Stucki. Try Atkinson for lighter, softer portraits or materials that engrave too dark. Try Jarvis for smoother tones on larger photos. Ordered/Bayer is useful for logos, graphics and some glass/acrylic looks.</p></details>
+          <details><summary>Should I invert the photo?</summary><p>Invert when the laser creates a light mark on a dark material, such as slate, glass, dark acrylic or dark anodized aluminum. Do not invert for light wood when the laser burn becomes darker than the surface.</p></details>
+          <details><summary>Why is my engraving darker than the preview?</summary><p>The material has dot gain or you are delivering too much energy per area. Reduce power, increase speed, lower DPI, brighten midtones or use a lighter dithering algorithm such as Atkinson.</p></details>
+          <details><summary>Can I use JPG files?</summary><p>A high-quality JPG can be used as a source, but repeated JPG saving creates compression artifacts. For the final laser-ready image, use PNG or BMP when possible.</p></details>
+          <details><summary>Is higher laser power better for photos?</summary><p>No. Photo engraving is usually about controlled contrast, not maximum depth. Too much power burns shadows together, increases smoke and removes fine detail.</p></details>
+          <details><summary>Can I engrave any material?</summary><p>No. Some materials are unsafe or unsuitable, especially PVC/vinyl, unknown plastics and some coated materials. Always verify material composition and follow safety guidance.</p></details>
         </section>
 
         <section class="panel p-6 guide-section" id="sources">
           <h2>Research sources and further reading</h2>
           <div class="guide-copy">
-            <p>This guide is built from practical laser-photo workflows and current documentation from laser software and machine manufacturers. Always compare with the manual for your exact machine.</p>
+            <p>This knowledge base combines practical laser-photo workflows with current documentation from laser software developers, machine manufacturers and safety resources. Always compare these notes with the manual for your exact machine and material.</p>
             <ul class="guide-source-list">
-              <li><a href="https://docs.lightburnsoftware.com/2.1/Reference/CutSettingsEditor/ImageMode/" target="_blank" rel="noopener">LightBurn User Guide: Image Mode</a> — image modes, negative image, pass-through, line interval, DPI, grayscale and dithering modes.</li>
-              <li><a href="https://docs.lightburnsoftware.com/2.1/Reference/IntervalTest/" target="_blank" rel="noopener">LightBurn User Guide: Interval Test</a> — finding optimal line interval for a machine/material/focal-length combination.</li>
-              <li><a href="https://www.troteclaser.com/en/helpcenter/software/graphics-software/resolution-laser-engraving" target="_blank" rel="noopener">Trotec: choosing the right engraving resolution</a> — material-dependent DPI and dot bleed.</li>
-              <li><a href="https://www.troteclaser.com/en-us/helpcenter/software/jobcontrol/raster-algorithms" target="_blank" rel="noopener">Trotec: raster algorithms</a> — ordered dithering and error diffusion principles.</li>
-              <li><a href="https://www.troteclaser.com/en/helpcenter/software/jobcontrol/photo-laser-engraving" target="_blank" rel="noopener">Trotec: photo laser engraving tips</a> — photo quality, less-is-more power approach and grayscale matrix testing.</li>
-              <li><a href="https://www.troteclaser.com/en/helpcenter/materials/material-usage-hints/glass-engraving" target="_blank" rel="noopener">Trotec: glass engraving tips</a> — moist paper towel, tape and ordered dithering for glass.</li>
-              <li><a href="https://lasergrbl.com/usage/raster-image-import/dithering-tool/" target="_blank" rel="noopener">LaserGRBL: dithering tool</a> — 1-bit dithering for materials that do not react linearly to power.</li>
-              <li><a href="https://lasergrbl.com/usage/raster-image-import/line-to-line-tool/" target="_blank" rel="noopener">LaserGRBL: line-to-line tool</a> — grayscale line engraving and power modulation notes.</li>
-              <li><a href="https://support.xtool.com/article/1963" target="_blank" rel="noopener">xTool: material processing guide</a> — grayscale vs dithering algorithms and material behavior.</li>
-              <li><a href="https://www.xtool.com/blogs/how-to/prepare-a-photo-for-laser-engraving" target="_blank" rel="noopener">xTool: preparing a photo for laser engraving</a> — photo preparation, resolution, contrast and grayscale workflow.</li>
-              <li><a href="https://support.xtool.com/article/789" target="_blank" rel="noopener">xTool F1 bitmap parameters</a> — dot duration, power, DPI and laser source selection.</li>
-              <li><a href="https://support.xtool.com/article/870" target="_blank" rel="noopener">xTool: plastic safety guide</a> and <a href="https://www.troteclaser.com/en-tt/resources/faqs/unsuitable-materials-laser-processing" target="_blank" rel="noopener">Trotec: unsuitable materials</a> — material safety warnings.</li>
-              <li><a href="https://omtech.com/blogs/knowledge/diode-laser-vs-co2-laser-vs-fiber-laser" target="_blank" rel="noopener">OMTech: diode vs CO2 vs fiber lasers</a> — practical differences between laser sources and materials.</li>
+              <li><a href="https://docs.lightburnsoftware.com/2.1/Reference/CutSettingsEditor/ImageMode/" target="_blank" rel="noopener">LightBurn User Guide: Image Mode</a> — image modes, grayscale, dithering, halftone, negative image and pass-through concepts.</li>
+              <li><a href="https://docs.lightburnsoftware.com/2.1/Reference/IntervalTest/" target="_blank" rel="noopener">LightBurn User Guide: Interval Test</a> — finding line interval based on real machine/material/focal-length behavior.</li>
+              <li><a href="https://forum.lightburnsoftware.com/t/understanding-line-interval-dpi-for-engraving/13110" target="_blank" rel="noopener">LightBurn forum: understanding line interval/DPI</a> — practical explanation of dot overlap and why DPI depends on real mark size.</li>
+              <li><a href="https://forum.lightburnsoftware.com/t/pass-through-mode/2862" target="_blank" rel="noopener">LightBurn forum: Pass Through mode</a> — why pre-dithered images should not be resampled.</li>
+              <li><a href="https://www.troteclaser.com/en/helpcenter/software/graphics-software/resolution-laser-engraving" target="_blank" rel="noopener">Trotec: choosing the right engraving resolution</a> — material-dependent resolution and dot bleed.</li>
+              <li><a href="https://www.troteclaser.com/en/helpcenter/software/jobcontrol/raster-algorithms" target="_blank" rel="noopener">Trotec: raster algorithms</a> — ordered dithering, error diffusion and image-type recommendations.</li>
+              <li><a href="https://www.troteclaser.com/en/helpcenter/software/jobcontrol/photo-laser-engraving" target="_blank" rel="noopener">Trotec: photo laser engraving tips</a> — high-contrast photos, lens choice, raster algorithms and image optimization.</li>
+              <li><a href="https://www.troteclaser.com/en/helpcenter/materials/laser-parameter/grayscale-matrix" target="_blank" rel="noopener">Trotec: grayscale matrix</a> — testing power/speed response and engraving intensity.</li>
+              <li><a href="https://lasergrbl.com/usage/raster-image-import/" target="_blank" rel="noopener">LaserGRBL: raster image import</a> — importing photos and raster images for laser engraving.</li>
+              <li><a href="https://lasergrbl.com/usage/raster-image-import/dithering-tool/" target="_blank" rel="noopener">LaserGRBL: dithering tool</a> — why dithering helps materials with non-linear response.</li>
+              <li><a href="https://lasergrbl.com/usage/raster-image-import/line-to-line-tool/" target="_blank" rel="noopener">LaserGRBL: line-to-line grayscale engraving</a> — grayscale power modulation notes.</li>
+              <li><a href="https://support.xtool.com/article/1963" target="_blank" rel="noopener">xTool: material processing guide</a> — grayscale and dithering algorithm concepts for image engraving.</li>
+              <li><a href="https://support.xtool.com/article/766" target="_blank" rel="noopener">xTool: grayscale power range test</a> — grayscale testing and inversion note for dark materials.</li>
+              <li><a href="https://support.xtool.com/article/870" target="_blank" rel="noopener">xTool: plastic safety guide</a> — plastic materials to avoid and safety considerations.</li>
+              <li><a href="https://www.troteclaser.com/en-tt/resources/faqs/unsuitable-materials-laser-processing" target="_blank" rel="noopener">Trotec: unsuitable materials</a> — unsafe laser-processing materials and why they should be avoided.</li>
+              <li><a href="https://ehs.mit.edu/wp-content/uploads/MITEHS_Laser_Cutter_Guidance.pdf" target="_blank" rel="noopener">MIT EHS: Laser Cutter Safety Guidance</a> — PVC/chlorinated thermoplastic warnings, exhaust and general safety.</li>
+              <li><a href="https://omtech.com/blogs/tips/how-to-laser-engrave-ceramic-tiles-norton-white-tile-method" target="_blank" rel="noopener">OMTech: Norton White Tile method</a> — ceramic tile test-grid approach for coated tile photo engraving.</li>
             </ul>
           </div>
         </section>
@@ -2173,7 +2295,7 @@ z-index: 300;
         <section class="panel p-6 guide-section" id="cta">
           <h2>Prepare your photo for engraving</h2>
           <div class="guide-copy">
-            <p>Use PhotoEngraving.online to crop, tune contrast, set DPI, preview dithering and export a laser-ready PNG. Then confirm the result on your real material with a small test crop before running the full job.</p>
+            <p>Use PhotoEngraving.online to prepare a laser-ready photo in the browser: set physical size, choose DPI, tune brightness, contrast, gamma and sharpness, select dithering and export a PNG or BMP for your laser software.</p>
             <div class="guide-hero-actions">
               <a class="btn btn-primary" href="https://photoengraving.online/">Open the free photo engraving editor</a>
               <a class="btn btn-secondary" href="#quick-start">Back to top</a>
@@ -2184,7 +2306,7 @@ z-index: 300;
     </div>
 
     <footer class="panel p-4 mt-4 footer-note">
-      <strong style="color:#fdba74;">PhotoEngraving.online</strong> — Complete laser photo engraving guide. Last updated June 27, 2026. Settings are educational starting points; always follow your laser manufacturer’s manual and local safety rules.
+      <strong style="color:#fdba74;">PhotoEngraving.online</strong> — Complete laser photo engraving knowledge base. Last updated June 27, 2026. Settings are educational starting points; always follow your laser manufacturer’s manual and local safety rules.
     </footer>
   </div>
 </body>
