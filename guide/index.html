@@ -226,7 +226,7 @@
           "@type": "HowToStep",
           "position": 2,
           "name": "Choose the Photo Type",
-          "text": "Start with Normal Photo, use Negative when the engraving should become lighter than the surface, or try Dark Photo and Light Photo when the source image needs a quick tonal push."
+          "text": "Start with Normal Photo, use Negative for dark materials such as slate, dark acrylic or black anodized aluminum, and wherever the engraved mark becomes lighter than the surrounding surface. Try Dark Photo and Light Photo when the source image needs a quick tonal push."
         },
         {
           "@type": "HowToStep",
@@ -291,7 +291,7 @@
           "name": "When should I use Negative Photo Type?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Use Negative when the engraved mark becomes lighter than the material, such as slate, glass, dark acrylic or dark anodized aluminum. Use Normal Photo for light wood where the laser burn is darker than the surface."
+            "text": "Use Negative for dark materials such as slate, dark acrylic or black anodized aluminum, and for any workflow where the engraved mark becomes lighter than the surrounding surface. Use Normal Photo for light wood where the laser burn is darker than the surface."
           }
         },
         {
@@ -2460,7 +2460,7 @@ video {
 <p>The editor does not replace material testing. It gives you a controlled starting file, so your test is about laser power, speed, focus and material behavior instead of accidental scaling, repeated compression or double dithering.</p>
 <div class="guide-step-list">
 <div class="guide-step-item"><div><strong>1. Upload a suitable photo</strong><span>Use the upload area in the editor and start with a sharp JPG, PNG, BMP or WebP. A demo image is useful for learning the interface, but your real test should use the actual photo you plan to engrave.</span></div></div>
-<div class="guide-step-item"><div><strong>2. Choose the Photo Type</strong><span>Start with <strong>Normal Photo</strong>. Use <strong>Negative</strong> when your material becomes lighter where the laser marks it. Use <strong>Dark Photo</strong> or <strong>Light Photo</strong> only when the original image needs a quick tonal correction before fine tuning.</span></div></div>
+<div class="guide-step-item"><div><strong>2. Choose the Photo Type</strong><span>Start with <strong>Normal Photo</strong>. Use <strong>Negative</strong> for dark materials such as slate, dark acrylic or black anodized aluminum, and wherever the engraved mark becomes lighter than the surrounding surface. Use <strong>Dark Photo</strong> or <strong>Light Photo</strong> only when the original image needs a quick tonal correction before fine tuning.</span></div></div>
 <div class="guide-step-item"><div><strong>3. Adjust brightness, contrast, gamma and sharpness</strong><span>Make the important parts readable. For portraits, that usually means eyes, mouth, hairline and the border between the subject and the background. Avoid pushing contrast so far that skin becomes hard black and white blocks.</span></div></div>
 <div class="guide-step-item"><div><strong>4. Set the real engraving width in millimeters</strong><span>Enter the final physical width of the engraving. The tool keeps the aspect ratio, calculates height and shows pixel size. Choose this size before judging detail, because a small pendant and a large wall plaque need different pixel density.</span></div></div>
 <div class="guide-step-item"><div><strong>5. Choose DPI and dithering</strong><span>Pick 254, 300 or 508 DPI, or use Custom DPI when you already know your preferred line interval. Compare Floyd-Steinberg, Atkinson, Jarvis and Ordered/Bayer in the <strong>Original + Output</strong> preview.</span></div></div>
@@ -2527,7 +2527,7 @@ video {
 <div class="guide-step-list">
 <div class="guide-step-item"><div><strong>Upload Photo</strong><span>Drag and drop or click to choose a JPG, PNG, BMP or WebP. The image is processed locally in the browser, so you can test private photos without sending them to the server.</span></div></div>
 <div class="guide-step-item"><div><strong>Use Original + Output view</strong><span>Start in the comparison view. The original side reminds you what detail exists in the source, while the output side shows the laser-ready interpretation. Switch to <strong>Only Output</strong> when you need a larger final preview.</span></div></div>
-<div class="guide-step-item"><div><strong>Choose Photo Type</strong><span><strong>Normal Photo</strong> is the default. <strong>Negative</strong> inverts the output. <strong>Dark Photo</strong> and <strong>Light Photo</strong> are fast starting points, but the sliders give more control.</span></div></div>
+<div class="guide-step-item"><div><strong>Choose Photo Type</strong><span><strong>Normal Photo</strong> is the default. <strong>Negative</strong> inverts the output for dark materials and other surfaces where the engraved mark becomes lighter than the surrounding surface. <strong>Dark Photo</strong> and <strong>Light Photo</strong> are fast starting points, but the sliders give more control.</span></div></div>
 <div class="guide-step-item"><div><strong>Fine tune the photo</strong><span>Use brightness for overall lightness, contrast for separation, gamma for midtones and sharpness for edge detail. Small changes are usually better than extreme slider positions.</span></div></div>
 <div class="guide-step-item"><div><strong>Set Output size</strong><span>Enter the real engraving width in millimeters. The tool calculates the height and pixel size. If you change pixel width directly, the millimeter width is recalculated for the selected DPI.</span></div></div>
 <div class="guide-step-item"><div><strong>Choose DPI and dithering</strong><span>Use 254 DPI for many softer or rougher materials, 300 DPI as a general photo starting point and 508 DPI for materials that hold finer dots. Use Custom DPI when you know the exact line interval you want.</span></div></div>
@@ -2615,7 +2615,7 @@ video {
 <tr><td>Glass</td><td>Laser creates a frosted or rough mark that appears light.</td><td>Use Negative for many workflows, avoid extremely dense shadows and test lower contrast than you expect.</td><td>Chipping, harsh white spots and lost facial softness.</td></tr>
 <tr><td>Clear acrylic</td><td>Engraved areas frost or scatter light.</td><td>Prepare a clean high-contrast file, often with inversion depending on the viewing/background setup.</td><td>Photo only becomes readable with a dark backing or side lighting.</td></tr>
 <tr><td>Dark acrylic</td><td>Mark may become lighter or may remove surface/color.</td><td>Test Negative and 300–508 DPI depending on how fine the surface holds dots.</td><td>Too much heat melts details and makes skin look plastic.</td></tr>
-<tr><td>Anodized aluminum</td><td>Laser removes or changes the coating, often creating a light mark.</td><td>Use Negative, consider finer DPI and compare Floyd-Steinberg with Jarvis on a test crop.</td><td>Fine dots may vanish if the marking parameters are not tuned.</td></tr>
+<tr><td>Black anodized aluminum</td><td>Laser removes or changes the dark coating, often creating a light mark.</td><td>Use Negative, consider finer DPI and compare Floyd-Steinberg with Jarvis on a test crop.</td><td>Fine dots may vanish if the marking parameters are not tuned.</td></tr>
 <tr><td>Painted/coated metal</td><td>Laser removes paint or coating to reveal another color below.</td><td>Use the editor to make a clean black-and-white file and test how much detail the coating can preserve.</td><td>Overburn removes too much coating and destroys tonal separation.</td></tr>
 <tr><td>Leather</td><td>Laser darkens, burns or discolors the surface.</td><td>Use lower energy tests, moderate DPI and avoid dense black regions in the editor.</td><td>Heat marks spread and the image becomes dirty or smoky.</td></tr>
 </tbody>
@@ -2630,7 +2630,7 @@ video {
 <p>There is no universal laser setting table that works for every machine. A 10 W diode, 60 W CO₂ and 30 W fiber laser do not share the same power scale. The safest use of PhotoEngraving.online is to make a consistent image file, then find the laser settings on your own material.</p>
 <div class="guide-grid-3">
 <div class="guide-card"><div class="guide-card-title">Wood and bamboo</div><p class="guide-card-text">Start with Normal Photo, 254 or 300 DPI, Floyd-Steinberg, controlled gamma and moderate sharpness. Test a grid where power increases slowly. If shadows close, reduce power or make the image lighter.</p></div>
-<div class="guide-card"><div class="guide-card-title">Slate and dark materials</div><p class="guide-card-text">Start with Negative, 300 DPI, Floyd-Steinberg or Jarvis. Make sure the face is not washed out. Test whether the material gives enough light contrast before running a full portrait.</p></div>
+<div class="guide-card"><div class="guide-card-title">Slate, dark acrylic and black anodized aluminum</div><p class="guide-card-text">Start with Negative, 300 DPI, Floyd-Steinberg or Jarvis. Use it where the engraved mark becomes lighter than the surrounding dark surface. Make sure the face is not washed out before running a full portrait.</p></div>
 <div class="guide-card"><div class="guide-card-title">Acrylic, glass and coated metals</div><p class="guide-card-text">Use small tests and watch heat. Try 300 or 508 DPI only if dots stay separate. Compare Floyd-Steinberg and Jarvis, then tune speed and power in your laser software.</p></div>
 </div>
 <h3>A useful first test matrix</h3>
@@ -2754,7 +2754,7 @@ video {
 <details open=""><summary>What does PhotoEngraving.online do?</summary><p>It converts a normal photo into a laser-ready black-and-white raster image directly in your browser. You can choose Photo Type, adjust brightness, contrast, gamma and sharpness, set real engraving width, choose DPI, compare dithering methods and export PNG or BMP for laser software.</p></details>
 <details><summary>Are my photos uploaded to a server?</summary><p>No. The photo processing happens locally in your browser. This is useful for private portraits and also makes it easy to test different settings without uploading your image to the server.</p></details>
 <details><summary>What DPI should I choose in the editor?</summary><p>Start with 254 DPI for softer materials or faster tests, 300 DPI for many general photo jobs and 508 DPI for materials that can hold fine dots such as some acrylics, laminates, anodized aluminum and coated metals. The right value depends on the laser spot, material and final physical size.</p></details>
-<details><summary>What does Negative Photo Type do?</summary><p>Negative swaps black and white in the final output. Use it when the laser mark becomes lighter than the material, such as slate, glass, dark acrylic or dark anodized aluminum. Use Normal Photo for light wood where burned areas become darker.</p></details>
+<details><summary>What does Negative Photo Type do?</summary><p>Negative swaps black and white in the final output. Use it for dark materials such as slate, dark acrylic or black anodized aluminum, and for any surface where the engraved mark becomes lighter than the surrounding material. Use Normal Photo for light wood where burned areas become darker.</p></details>
 <details><summary>Which dithering method should I start with?</summary><p>Start with Floyd-Steinberg. Try Atkinson when the result is too dark or you want a softer lighter look. Try Jarvis when the material can hold fine detail and you want smoother tones. Try Ordered/Bayer for logos, graphic-style work or a regular visible pattern.</p></details>
 <details><summary>Should I dither again in LightBurn, LaserGRBL, XCS or EZCAD?</summary><p>Normally no. If the exported file from PhotoEngraving.online is already dithered, avoid applying another dithering algorithm in your laser software. Use pass-through or a true black-and-white workflow where possible.</p></details>
 <details><summary>Does the PNG or BMP include DPI information?</summary><p>Yes. The export is designed to include DPI metadata so compatible software can preserve the intended physical size more easily. Still, always confirm the millimeter size after import because some programs ignore or reinterpret metadata.</p></details>
