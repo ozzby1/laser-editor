@@ -2015,14 +2015,6 @@ z-index: 300;
         Stainless
        </div>
       </div>
-      <div class="flex gap-2 mt-3 flex-wrap">
-       <button class="btn btn-secondary w-full" data-i18n="clearMaterialPreviewBtn" id="clearMaterialPreviewBtn" type="button">
-        Show output
-       </button>
-      </div>
-      <div class="helper-text mt-2" data-i18n="materialPreviewHelp">
-       Choose a material to preview whether laser marks should appear darker or lighter than the surface. Click the active material again or use Show output to turn the preview off.
-      </div>
       <div class="material-preview-note" id="materialPreviewTip">
        Select a material to see an approximate preview of how the engraved image may look on the surface.
       </div>
@@ -2617,8 +2609,6 @@ const translations = {
     materialGlass: 'Glass',
     materialLeather: 'Leather',
     materialCeramic: 'Ceramic tile',
-    clearMaterialPreviewBtn: 'Show output',
-    materialPreviewHelp: 'Choose a material to preview whether laser marks should appear darker or lighter than the surface. Click the active material again or use Show output to turn the preview off.',
     materialPreviewDisclaimer: 'This is an approximate visual simulation only. Real results depend on laser type, lens, focus, speed, power and the exact material surface. The downloaded PNG/BMP remains the clean black-and-white laser-ready output.',
     materialTipNone: 'Select a material to see an approximate preview of how the engraved image may look on the surface.',
     materialTipWood: 'Birch plywood and light wood usually engrave darker than the surface. Expect some dot gain, especially on plywood and softer wood.',
@@ -2814,7 +2804,6 @@ const canvasMaterialPreview = document.getElementById('canvasMaterialPreview');
 const presetCards = document.querySelectorAll('#presetCards .preset-card');
 const ditherCards = document.querySelectorAll('#ditherCards .preset-card');
 const materialCards = document.querySelectorAll('#materialCards .material-card');
-const clearMaterialPreviewBtn = document.getElementById('clearMaterialPreviewBtn');
 const langButtons = document.querySelectorAll('.lang-option');
 
 const LANG_DATA = {
@@ -3394,10 +3383,6 @@ ditherCards.forEach(card => {
 materialCards.forEach(card => {
   makeKeyboardClickable(card, () => setMaterialPreview(card.dataset.material));
 });
-
-if (clearMaterialPreviewBtn) {
-  clearMaterialPreviewBtn.addEventListener('click', () => clearMaterialPreview());
-}
 
 if (ditherMode) {
   ditherMode.value = DEFAULTS.ditherMode;
