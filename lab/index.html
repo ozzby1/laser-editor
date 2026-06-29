@@ -2144,16 +2144,13 @@ z-index: 300;
       <div class="section-title" data-i18n="sectionCrop">
        Crop Photo
       </div>
-      <div class="flex flex-col gap-2">
+      <div class="grid grid-cols-2 gap-2">
        <button class="btn btn-secondary w-full" data-i18n="cropOpenBtn" id="cropOpenBtn" type="button">
         Crop photo
        </button>
        <button class="btn btn-secondary w-full" data-i18n="cropResetBtn" id="cropResetBtn" type="button">
         Reset crop
        </button>
-      </div>
-      <div class="material-preview-note" id="cropInfo">
-       No crop selected.
       </div>
      </div>
      <div class="panel p-4">
@@ -2746,8 +2743,6 @@ const translations = {
     sectionCrop: 'Crop Photo',
     cropOpenBtn: 'Crop photo',
     cropResetBtn: 'Reset crop',
-    cropInfoNone: 'No crop selected.',
-    cropInfoActive: 'Crop: {width} × {height} px',
     cropModalTitle: 'Crop photo',
     cropModalText: 'Drag to draw a crop area. Drag inside the area to move it, or drag a corner to resize it.',
     cropModalHelp: 'The crop is applied before dithering, material preview and PNG/BMP export.',
@@ -2984,7 +2979,6 @@ const dropZone = document.getElementById('dropZone');
 const uploadCtaCard = document.getElementById('uploadCtaCard');
 const cropOpenBtn = document.getElementById('cropOpenBtn');
 const cropResetBtn = document.getElementById('cropResetBtn');
-const cropInfo = document.getElementById('cropInfo');
 const cropModalOverlay = document.getElementById('cropModalOverlay');
 const cropModal = document.getElementById('cropModal');
 const cropCanvasShell = document.getElementById('cropCanvasShell');
@@ -3695,22 +3689,7 @@ function getCropSignature() {
 }
 
 function updateCropInfo() {
-  if (!cropInfo) return;
-
-  if (!originalImage || !cropRect) {
-    cropInfo.textContent = t('cropInfoNone');
-    return;
-  }
-
-  const r = normalizeCropRect(cropRect);
-  if (!r || isFullCropRect(r)) {
-    cropInfo.textContent = t('cropInfoNone');
-    return;
-  }
-
-  cropInfo.textContent = t('cropInfoActive')
-    .replace('{width}', Math.round(r.width))
-    .replace('{height}', Math.round(r.height));
+  // The visible crop status line was intentionally removed from the UI.
 }
 
 function getCropCanvasImagePoint(e) {
@@ -4074,6 +4053,10 @@ if (cropCanvas) {
   cropCanvas.addEventListener('pointerup', handleCropPointerUp);
   cropCanvas.addEventListener('pointercancel', handleCropPointerUp);
 }
+
+cropAspectButtons.forEach(btn => {
+  btn.addEventListener('click', () => setCropAspectMode(btn.dataset.cropAspect));
+});
 
 window.addEventListener('keydown', e => {
   if (e.key === 'Escape' && cropModalOverlay && cropModalOverlay.classList.contains('open')) {
