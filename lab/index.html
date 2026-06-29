@@ -399,6 +399,47 @@ input[type=number]:focus {
 #dpiCustomSelect.open .custom-select-dropdown {
   display: grid;
 }
+#materialCustomSelect.material-preview-dropdown {
+  width: auto;
+}
+
+.material-preview-button {
+  position: relative;
+  padding-right: 42px;
+}
+
+.material-preview-button::after {
+  content: '';
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  width: 9px;
+  height: 9px;
+  border-right: 2px solid #ff9a57;
+  border-bottom: 2px solid #ff9a57;
+  transform: translateY(-65%) rotate(45deg);
+  transition: transform 0.18s ease;
+  pointer-events: none;
+}
+
+.material-preview-dropdown.open .material-preview-button::after {
+  transform: translateY(-35%) rotate(225deg);
+}
+
+.material-preview-menu {
+  min-width: 230px;
+}
+
+@media (max-width: 820px) {
+  #materialCustomSelect.material-preview-dropdown {
+    width: 100%;
+  }
+
+  .material-preview-button {
+    width: 100%;
+  }
+}
+
 
 .custom-dpi-input-wrap {
   background: rgba(255,255,255,0.025);
@@ -1342,6 +1383,27 @@ input[type=number]:focus {
   flex-shrink: 0;
 }
 
+
+.hint-upload-link {
+  appearance: none;
+  -webkit-appearance: none;
+  border: 0;
+  background: transparent;
+  color: #f97316;
+  font: inherit;
+  font-weight: 800;
+  padding: 0;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.hint-upload-link:hover,
+.hint-upload-link:focus-visible {
+  color: #ff9a57;
+  outline: none;
+}
+
 .hint-line {
   text-align: center;
   margin-top: 18px;
@@ -1945,23 +2007,13 @@ z-index: 300;
       <button aria-pressed="false" class="btn view-btn" data-i18n="btnOutput" id="btnResult" type="button">
        Output
       </button>
-      <button aria-pressed="false" class="btn view-btn" data-i18n="btnMaterialPreview" id="btnMaterial" type="button">
-       Material Preview
-      </button>
-      <div class="material-top-select">
-       <div class="custom-select" id="materialCustomSelect">
-        <button aria-expanded="false" aria-haspopup="listbox" class="custom-select-button" id="materialCustomButton" type="button">
-         <span id="materialCustomValue">
-          Choose material for preview
-         </span>
-        </button>
-        <ul aria-labelledby="btnMaterial" class="custom-select-dropdown" id="materialCustomOptions" role="listbox">
-        </ul>
-       </div>
+      <div class="custom-select material-preview-dropdown" id="materialCustomSelect">
+       <button aria-expanded="false" aria-haspopup="listbox" aria-pressed="false" class="btn view-btn material-preview-button" data-i18n="btnMaterialPreview" id="btnMaterial" type="button">
+        Material Preview
+       </button>
+       <ul aria-labelledby="btnMaterial" class="custom-select-dropdown material-preview-menu" id="materialCustomOptions" role="listbox">
+       </ul>
        <select class="custom-native-hidden" id="materialSelectNative" tabindex="-1">
-        <option selected="" data-i18n="materialSelectPlaceholder" value="">
-         Choose material for preview
-        </option>
         <option data-i18n="materialWood" value="wood">
          Wood
         </option>
@@ -1999,49 +2051,11 @@ z-index: 300;
          </div>
         </div>
        </div>
-       <div class="empty-steps">
-        <div class="empty-step primary" id="uploadCtaCard">
-         <div class="empty-step-num">
-          1
-         </div>
-         <div>
-          <div data-i18n="stepUploadTitle" style="font-size:0.82rem;font-weight:700;color:#f97316;margin-bottom:2px">
-           Upload a photo ↑
-          </div>
-          <div data-i18n="stepUploadText" style="font-size:0.72rem;color:#94a3b8">
-           Click here or drag &amp; drop
-          </div>
-         </div>
-        </div>
-        <div class="empty-step">
-         <div class="empty-step-num">
-          2
-         </div>
-         <div>
-          <div data-i18n="stepTryTitle" style="font-size:0.82rem;font-weight:600;color:#cbd5e1;margin-bottom:2px">
-           Or try it right away
-          </div>
-          <div data-i18n="stepTryText" style="font-size:0.72rem;color:#64748b">
-           A demo photo loads automatically
-          </div>
-         </div>
-        </div>
-        <div class="empty-step">
-         <div class="empty-step-num">
-          3
-         </div>
-         <div>
-          <div data-i18n="stepDownloadTitle" style="font-size:0.82rem;font-weight:600;color:#cbd5e1;margin-bottom:2px">
-           Download PNG
-          </div>
-          <div data-i18n="stepDownloadText" style="font-size:0.72rem;color:#64748b">
-           Ready for engraving
-          </div>
-         </div>
-        </div>
-       </div>
-       <div class="hint-line" data-i18n="hintLine">
-        ↑ Start right away with the demo photo or upload your own
+       <div class="hint-line" id="emptyHintLine">
+        Start right away with the demo photo or
+        <button class="hint-upload-link" id="hintUploadLink" type="button">
+         upload your own
+        </button>
        </div>
       </div>
       <div id="canvasArea" style="display:none">
@@ -2740,7 +2754,7 @@ const translations = {
     stepTryText: 'A demo photo loads automatically',
     stepDownloadTitle: 'Download PNG',
     stepDownloadText: 'Ready for engraving',
-    hintLine: '↑ Start right away with the demo photo or upload your own',
+    hintLine: 'Start right away with the demo photo or upload your own',
     zoomHelp: 'Move the mouse over the image to inspect details in the magnifier. On touch devices, hold and drag over the image. For the best experience and more comfortable editing, we recommend using this tool on a desktop computer.',
     reuploadBtn: 'Upload photo',
     sectionUpload: 'Upload Photo',
@@ -2983,6 +2997,7 @@ const DEFAULTS = {
 const fileInput = document.getElementById('fileInput');
 const dropZone = document.getElementById('dropZone');
 const uploadCtaCard = document.getElementById('uploadCtaCard');
+const hintUploadLink = document.getElementById('hintUploadLink');
 const cropOpenBtn = document.getElementById('cropOpenBtn');
 const cropResetBtn = document.getElementById('cropResetBtn');
 const cropModalOverlay = document.getElementById('cropModalOverlay');
@@ -3031,8 +3046,6 @@ const presetCards = document.querySelectorAll('#presetCards .preset-card');
 const ditherCards = document.querySelectorAll('#ditherCards .preset-card');
 const materialCards = document.querySelectorAll('#materialCards .material-card');
 const materialCustomSelect = document.getElementById('materialCustomSelect');
-const materialCustomButton = document.getElementById('materialCustomButton');
-const materialCustomValue = document.getElementById('materialCustomValue');
 const materialCustomOptions = document.getElementById('materialCustomOptions');
 const materialSelectNative = document.getElementById('materialSelectNative');
 const langButtons = document.querySelectorAll('.lang-option');
@@ -3300,6 +3313,116 @@ function updateLangDropdown(lang) {
   });
 }
 
+function syncMaterialSelect() {
+  if (!materialSelectNative || !materialCustomOptions) return;
+
+  materialSelectNative.value = currentMaterial && MATERIALS[currentMaterial] ? currentMaterial : '';
+
+  materialCustomOptions.querySelectorAll('.custom-select-option').forEach(optionBtn => {
+    const isSelected = optionBtn.dataset.value === materialSelectNative.value;
+    optionBtn.classList.toggle('selected', isSelected);
+    optionBtn.setAttribute('aria-selected', isSelected ? 'true' : 'false');
+  });
+}
+
+function closeMaterialSelect() {
+  if (!materialCustomSelect || !btnMaterial) return;
+  materialCustomSelect.classList.remove('open');
+  btnMaterial.setAttribute('aria-expanded', 'false');
+}
+
+function openMaterialSelect() {
+  if (!materialCustomSelect || !btnMaterial) return;
+  materialCustomSelect.classList.add('open');
+  btnMaterial.setAttribute('aria-expanded', 'true');
+}
+
+function toggleMaterialSelect() {
+  if (!materialCustomSelect) return;
+  if (materialCustomSelect.classList.contains('open')) {
+    closeMaterialSelect();
+  } else {
+    openMaterialSelect();
+  }
+}
+
+function chooseMaterialValue(value) {
+  if (!materialSelectNative || !value) return;
+
+  materialSelectNative.value = value;
+  syncMaterialSelect();
+  closeMaterialSelect();
+  setMaterialPreview(value, { force: true });
+}
+
+function buildMaterialSelect() {
+  if (!materialSelectNative || !materialCustomSelect || !btnMaterial || !materialCustomOptions) return;
+
+  materialCustomOptions.innerHTML = '';
+
+  Array.from(materialSelectNative.options).forEach(option => {
+    if (!option.value) return;
+
+    const li = document.createElement('li');
+    li.setAttribute('role', 'presentation');
+
+    const optionBtn = document.createElement('button');
+    optionBtn.type = 'button';
+    optionBtn.className = 'custom-select-option';
+    optionBtn.dataset.value = option.value;
+    optionBtn.textContent = option.textContent.trim();
+    optionBtn.setAttribute('role', 'option');
+    optionBtn.addEventListener('click', () => chooseMaterialValue(option.value));
+
+    li.appendChild(optionBtn);
+    materialCustomOptions.appendChild(li);
+  });
+
+  btnMaterial.addEventListener('keydown', e => {
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      openMaterialSelect();
+      const selected = materialCustomOptions.querySelector('.custom-select-option.selected') || materialCustomOptions.querySelector('.custom-select-option');
+      if (selected) selected.focus();
+    }
+
+    if (e.key === 'Escape') closeMaterialSelect();
+  });
+
+  materialCustomOptions.addEventListener('keydown', e => {
+    const options = Array.from(materialCustomOptions.querySelectorAll('.custom-select-option'));
+    const currentIndex = options.indexOf(document.activeElement);
+
+    if (e.key === 'Escape') {
+      closeMaterialSelect();
+      btnMaterial.focus();
+    }
+
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      const next = options[Math.min(options.length - 1, currentIndex + 1)] || options[0];
+      if (next) next.focus();
+    }
+
+    if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      const prev = options[Math.max(0, currentIndex - 1)] || options[options.length - 1];
+      if (prev) prev.focus();
+    }
+
+    if ((e.key === 'Enter' || e.key === ' ') && document.activeElement && document.activeElement.dataset.value !== undefined) {
+      e.preventDefault();
+      chooseMaterialValue(document.activeElement.dataset.value);
+    }
+  });
+
+  document.addEventListener('click', e => {
+    if (materialCustomSelect && !materialCustomSelect.contains(e.target)) closeMaterialSelect();
+  });
+
+  syncMaterialSelect();
+}
+
 function setLanguage(lang) {
   if (!translations[lang]) lang = 'en';
   currentLang = lang;
@@ -3312,6 +3435,7 @@ function setLanguage(lang) {
 
   applyTranslations();
   syncCustomDpiSelect();
+  buildMaterialSelect();
   syncMaterialSelect();
   loadCounter();
 }
@@ -3430,12 +3554,7 @@ langButtons.forEach(btn => {
 btnResult.addEventListener('click', () => setViewMode('result'));
 btnCompare.addEventListener('click', () => setViewMode('compare'));
 if (btnMaterial) btnMaterial.addEventListener('click', () => {
-  if (!currentMaterial) {
-    openMaterialSelect();
-    showStatus(t('alertSelectMaterialFirst'), 'info');
-  } else {
-    setViewMode('material');
-  }
+  toggleMaterialSelect();
 });
 
 const sliderPairs = [
@@ -4044,7 +4163,8 @@ function shouldContinueLargeExport(widthPx = getOutputWidthPx()) {
 }
 
 makeKeyboardClickable(dropZone, () => fileInput.click());
-makeKeyboardClickable(uploadCtaCard, () => fileInput.click());
+if (uploadCtaCard) makeKeyboardClickable(uploadCtaCard, () => fileInput.click());
+if (hintUploadLink) hintUploadLink.addEventListener('click', () => fileInput.click());
 if (cropOpenBtn) cropOpenBtn.addEventListener('click', openCropModal);
 if (cropResetBtn) cropResetBtn.addEventListener('click', () => resetCrop());
 if (cropCloseBtn) cropCloseBtn.addEventListener('click', closeCropModal);
@@ -4340,14 +4460,10 @@ function setMaterialPreview(key, options = {}) {
   }
 
   if (!options.force && currentMaterial === normalizedKey) {
-    if (viewMode === 'material') {
-      clearMaterialPreview(options);
-    } else {
-      syncMaterialControls();
-      updateMaterialPreviewLabel();
-      updateMaterialPreviewFromCurrentCanvas();
-      if (!options.keepView) setViewMode('material');
-    }
+    syncMaterialControls();
+    updateMaterialPreviewLabel();
+    updateMaterialPreviewFromCurrentCanvas();
+    if (!options.keepView) setViewMode('material');
     return;
   }
 
