@@ -2653,7 +2653,7 @@ z-index: 300;
           Width in pixels
          </label>
          <div class="slider-row mt-1">
-          <input id="outputWidthSlider" max="6000" min="100" step="10" type="range" value="800"/>
+          <input id="outputWidthSlider" max="6000" min="1" step="10" type="range" value="800"/>
           <span class="slider-val" id="outputWidthSliderVal" style="width:82px">
            800 px
           </span>
@@ -3006,7 +3006,7 @@ z-index: 300;
 const FIXED_THRESHOLD = 128;
 const STORAGE_KEY = 'laserEditorSimpleV8';
 const LANG_STORAGE_KEY = 'laserEditorLanguageV1';
-const OUTPUT_WIDTH_MIN_PX = 100;
+const OUTPUT_WIDTH_MIN_PX = 1;
 const OUTPUT_WIDTH_DEFAULT_MAX_PX = 6000;
 const OUTPUT_WIDTH_HARD_MAX_PX = 25000;
 const LARGE_OUTPUT_CONFIRM_MEGAPIXELS = 25;
@@ -4136,6 +4136,23 @@ function fitOutputWidthToActiveSource(options = {}) {
   if (!options.skipSave) saveSettings();
 }
 
+function setOutputWidthToActiveSource(options = {}) {
+  const sourceRect = getActiveSourceRect();
+  if (!sourceRect || !outputWidthMm) return;
+
+  const sourceWidthPx = Math.max(1, Math.round(sourceRect.width));
+  const newWidthMm = pxToMm(sourceWidthPx, getDpiValue());
+
+  outputWidthMm.value = formatNumberInput(newWidthMm);
+  lastValidOutputWidthMm = newWidthMm;
+
+  ensureOutputWidthSliderMax(sourceWidthPx);
+  syncSliderFromMm();
+  updateSizeInfo();
+
+  if (!options.skipSave) saveSettings();
+}
+
 function updateCropInfo() {
   // The visible crop status line was intentionally removed from the UI.
 }
@@ -4347,7 +4364,7 @@ function applyCropFromModal() {
     }
     : null;
 
-  fitOutputWidthToActiveSource();
+  setOutputWidthToActiveSource();
   lastRenderedOutputSignature = '';
   updateCropInfo();
   updateSizeInfo();
@@ -4359,7 +4376,7 @@ function applyCropFromModal() {
 function resetCrop(options = {}) {
   cropRect = null;
   cropEditorRect = getFullImageRect();
-  fitOutputWidthToActiveSource();
+  setOutputWidthToActiveSource();
   lastRenderedOutputSignature = '';
   updateCropInfo();
   updateSizeInfo();
@@ -5147,8 +5164,7 @@ function loadImageIntoEditor(img, switchToResult = false, targetDpi = null, isDe
     setDpiValue(targetDpi);
   }
 
-  syncSliderFromMm();
-  fitOutputWidthToActiveSource();
+  setOutputWidthToActiveSource({ skipSave: true });
   updateSizeInfo();
   saveSettings();
 
