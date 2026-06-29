@@ -1114,6 +1114,10 @@ input[type=number]:focus {
   background: linear-gradient(135deg, #050607, #20242a 58%, #090a0c);
 }
 
+.material-card[data-material="stainless"]::before {
+  background: linear-gradient(135deg, #c9ced3, #7d858d 48%, #eef1f3);
+}
+
 .material-card[data-material="glass"]::before {
   background: linear-gradient(135deg, rgba(142,166,176,0.95), rgba(232,246,248,0.90) 48%, rgba(108,132,145,0.95));
 }
@@ -2000,32 +2004,16 @@ z-index: 300;
       <div class="section-title" data-i18n="sectionMaterialPreview">
        Material Preview
       </div>
-      <div class="grid grid-cols-2 gap-2" id="materialCards">
+      <div class="grid gap-2" id="materialCards" style="grid-template-columns: repeat(3, minmax(0, 1fr));">
        <div class="preset-card material-card" data-i18n="materialWood" data-material="wood">
         Wood
        </div>
        <div class="preset-card material-card" data-i18n="materialBlackAnodized" data-material="blackAnodized">
-        Black anodized aluminum
+        Black
        </div>
-      </div>
-      <div class="mt-3">
-       <select aria-label="More materials" class="mt-1" id="materialMoreSelect">
-        <option data-i18n="materialMorePlaceholder" value="">
-         More materials…
-        </option>
-        <option data-i18n="materialSlate" value="slate">
-         Slate
-        </option>
-        <option data-i18n="materialGlass" value="glass">
-         Glass
-        </option>
-        <option data-i18n="materialLeather" value="leather">
-         Leather
-        </option>
-        <option data-i18n="materialCeramic" value="ceramic">
-         Ceramic tile
-        </option>
-       </select>
+       <div class="preset-card material-card" data-i18n="materialStainless" data-material="stainless">
+        Stainless
+       </div>
       </div>
       <div class="flex gap-2 mt-3 flex-wrap">
        <button class="btn btn-secondary" data-i18n="clearMaterialPreviewBtn" id="clearMaterialPreviewBtn" type="button">
@@ -2624,12 +2612,11 @@ const translations = {
     sectionMaterialPreview: 'Material Preview',
     materialWood: 'Wood',
     materialSlate: 'Slate',
-    materialBlackAnodized: 'Black anodized aluminum',
+    materialBlackAnodized: 'Black',
+    materialStainless: 'Stainless',
     materialGlass: 'Glass',
     materialLeather: 'Leather',
     materialCeramic: 'Ceramic tile',
-    materialMoreLabel: 'More materials',
-    materialMorePlaceholder: 'More materials…',
     clearMaterialPreviewBtn: 'Show output',
     materialPreviewHelp: 'Choose a material to preview whether laser marks should appear darker or lighter than the surface. Click the active material again or use Show output to turn the preview off.',
     materialPreviewDisclaimer: 'This is an approximate visual simulation only. Real results depend on laser type, lens, focus, speed, power and the exact material surface. The downloaded PNG/BMP remains the clean black-and-white laser-ready output.',
@@ -2637,6 +2624,7 @@ const translations = {
     materialTipWood: 'Birch plywood and light wood usually engrave darker than the surface. Expect some dot gain, especially on plywood and softer wood.',
     materialTipSlate: 'Slate and dark stone usually engrave lighter than the surface. Negative mode is often the right starting point.',
     materialTipBlackAnodized: 'Black anodized aluminum usually engraves lighter or silvery. Negative mode is often useful for photo engraving on this material.',
+    materialTipStainless: 'Stainless steel preview is only approximate. Real results depend strongly on fiber/diode laser type, marking spray, focus, speed and power.',
     materialTipGlass: 'Glass usually produces a frosted, milky mark. Real results depend strongly on focus, coating and laser type.',
     materialTipLeather: 'Leather usually engraves darker and can spread slightly. Lower detail and test pieces are recommended.',
     materialTipCeramic: 'Ceramic tile can behave differently depending on glaze, coating and spray. Treat this preview as a rough visual guide.',
@@ -2727,6 +2715,17 @@ const MATERIALS = {
     dotGain: 0.05,
     seed: 31
   },
+  stainless: {
+    nameKey: 'materialStainless',
+    tipKey: 'materialTipStainless',
+    base: [188, 194, 198],
+    mark: [55, 58, 60],
+    noise: 8,
+    grain: 'metal',
+    grainStrength: 10,
+    dotGain: 0.06,
+    seed: 37
+  },
   glass: {
     nameKey: 'materialGlass',
     tipKey: 'materialTipGlass',
@@ -2815,7 +2814,6 @@ const canvasMaterialPreview = document.getElementById('canvasMaterialPreview');
 const presetCards = document.querySelectorAll('#presetCards .preset-card');
 const ditherCards = document.querySelectorAll('#ditherCards .preset-card');
 const materialCards = document.querySelectorAll('#materialCards .material-card');
-const materialMoreSelect = document.getElementById('materialMoreSelect');
 const clearMaterialPreviewBtn = document.getElementById('clearMaterialPreviewBtn');
 const langButtons = document.querySelectorAll('.lang-option');
 
@@ -3397,16 +3395,6 @@ materialCards.forEach(card => {
   makeKeyboardClickable(card, () => setMaterialPreview(card.dataset.material));
 });
 
-if (materialMoreSelect) {
-  materialMoreSelect.addEventListener('change', () => {
-    if (materialMoreSelect.value) {
-      setMaterialPreview(materialMoreSelect.value);
-    } else {
-      clearMaterialPreview();
-    }
-  });
-}
-
 if (clearMaterialPreviewBtn) {
   clearMaterialPreviewBtn.addEventListener('click', () => clearMaterialPreview());
 }
@@ -3561,11 +3549,6 @@ function setActiveMaterialCard(key) {
 
 function syncMaterialControls() {
   setActiveMaterialCard(currentMaterial);
-
-  if (materialMoreSelect) {
-    const dropdownMaterials = ['slate', 'glass', 'leather', 'ceramic'];
-    materialMoreSelect.value = dropdownMaterials.includes(currentMaterial) ? currentMaterial : '';
-  }
 }
 
 function updateMaterialPreviewLabel() {
