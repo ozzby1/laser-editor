@@ -816,7 +816,7 @@ input[type=number]:focus {
   position: absolute;
   top: calc(100% + 8px);
   right: 0;
-  z-index: 140;
+  z-index: 2200;
   min-width: 176px;
   padding: 8px;
   background: linear-gradient(180deg, rgba(255,255,255,0.035), rgba(255,255,255,0.015)), var(--panel-strong);
@@ -1683,7 +1683,7 @@ margin-bottom: 16px;
 }
 
   header.app-header .lang-menu {
-z-index: 300;
+z-index: 2200;
 }
 
   .panel {
@@ -2136,6 +2136,57 @@ z-index: 300;
 
   #imageDims {
     display: none !important;
+  }
+}
+
+
+/* Keep the language dropdown above hero/editor panels. */
+.app-header {
+  position: relative;
+  z-index: 2000;
+  overflow: visible;
+}
+
+.lang-switcher,
+.lang-dropdown {
+  position: relative;
+  z-index: 2100;
+}
+
+.lang-menu,
+.lang-dropdown-menu,
+#langMenu {
+  z-index: 2200 !important;
+}
+
+.hero,
+.hero-card,
+.editor-preview-top,
+.editor-grid,
+.editor-controls-column {
+  position: relative;
+}
+
+.hero,
+.hero-card {
+  z-index: 1;
+}
+
+.editor-preview-top,
+.editor-grid,
+.editor-controls-column {
+  z-index: 2;
+}
+
+@media (max-width: 760px) {
+  .app-header {
+    z-index: 2400;
+  }
+
+  .lang-menu,
+  .lang-dropdown-menu,
+  #langMenu {
+    z-index: 2500 !important;
   }
 }
 
