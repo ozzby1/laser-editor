@@ -1948,6 +1948,31 @@ z-index: 300;
       <button aria-pressed="false" class="btn view-btn" data-i18n="btnMaterialPreview" id="btnMaterial" type="button">
        Material Preview
       </button>
+      <div class="material-top-select">
+       <div class="custom-select" id="materialCustomSelect">
+        <button aria-expanded="false" aria-haspopup="listbox" class="custom-select-button" id="materialCustomButton" type="button">
+         <span id="materialCustomValue">
+          Choose material for preview
+         </span>
+        </button>
+        <ul aria-labelledby="btnMaterial" class="custom-select-dropdown" id="materialCustomOptions" role="listbox">
+        </ul>
+       </div>
+       <select class="custom-native-hidden" id="materialSelectNative" tabindex="-1">
+        <option selected="" data-i18n="materialSelectPlaceholder" value="">
+         Choose material for preview
+        </option>
+        <option data-i18n="materialWood" value="wood">
+         Wood
+        </option>
+        <option data-i18n="materialBlackAnodized" value="blackAnodized">
+         Black materials
+        </option>
+        <option data-i18n="materialStainless" value="stainless">
+         Stainless steel
+        </option>
+       </select>
+      </div>
       <div class="ml-auto" id="imageDims" style="font-size:0.76rem;color:#7b8b9c;font-weight:600">
       </div>
      </div>
@@ -2196,25 +2221,6 @@ z-index: 300;
       <input id="ditherMode" type="hidden" value="floyd"/>
       <div class="helper-text mt-2" data-i18n="ditherHelp">
        Floyd-Steinberg is the balanced choice. Atkinson is softer, Jarvis is smoother with more tones, and Ordered/Bayer creates a regular pattern (suitable for logos and graphics).
-      </div>
-     </div>
-     <div class="panel p-4">
-      <div class="section-title" data-i18n="sectionMaterialPreview">
-       Material Preview
-      </div>
-      <div class="grid gap-2" id="materialCards" style="grid-template-columns: repeat(3, minmax(0, 1fr));">
-       <div class="preset-card material-card" data-i18n="materialWood" data-material="wood">
-        Wood
-       </div>
-       <div class="preset-card material-card" data-i18n="materialBlackAnodized" data-material="blackAnodized">
-        Black
-       </div>
-       <div class="preset-card material-card" data-i18n="materialStainless" data-material="stainless">
-        Stainless
-       </div>
-      </div>
-      <div class="material-preview-note" id="materialPreviewTip">
-       Select a material to see an approximate preview of how the engraved image may look on the surface.
       </div>
      </div>
      <div class="panel p-4">
@@ -2813,8 +2819,8 @@ const translations = {
     sectionMaterialPreview: 'Material Preview',
     materialWood: 'Wood',
     materialSlate: 'Slate',
-    materialBlackAnodized: 'Black',
-    materialStainless: 'Stainless',
+    materialBlackAnodized: 'Black materials',
+    materialStainless: 'Stainless steel',
     materialGlass: 'Glass',
     materialLeather: 'Leather',
     materialCeramic: 'Ceramic tile',
@@ -3024,6 +3030,11 @@ const canvasMaterialPreview = document.getElementById('canvasMaterialPreview');
 const presetCards = document.querySelectorAll('#presetCards .preset-card');
 const ditherCards = document.querySelectorAll('#ditherCards .preset-card');
 const materialCards = document.querySelectorAll('#materialCards .material-card');
+const materialCustomSelect = document.getElementById('materialCustomSelect');
+const materialCustomButton = document.getElementById('materialCustomButton');
+const materialCustomValue = document.getElementById('materialCustomValue');
+const materialCustomOptions = document.getElementById('materialCustomOptions');
+const materialSelectNative = document.getElementById('materialSelectNative');
 const langButtons = document.querySelectorAll('.lang-option');
 
 const LANG_DATA = {
@@ -3300,6 +3311,8 @@ function setLanguage(lang) {
   } catch (e) {}
 
   applyTranslations();
+  syncCustomDpiSelect();
+  syncMaterialSelect();
   loadCounter();
 }
 
@@ -3418,7 +3431,8 @@ btnResult.addEventListener('click', () => setViewMode('result'));
 btnCompare.addEventListener('click', () => setViewMode('compare'));
 if (btnMaterial) btnMaterial.addEventListener('click', () => {
   if (!currentMaterial) {
-    setMaterialPreview('wood', { force: true });
+    openMaterialSelect();
+    showStatus(t('alertSelectMaterialFirst'), 'info');
   } else {
     setViewMode('material');
   }
@@ -4281,6 +4295,7 @@ function setActiveMaterialCard(key) {
 
 function syncMaterialControls() {
   setActiveMaterialCard(currentMaterial);
+  syncMaterialSelect();
 }
 
 function updateMaterialPreviewLabel() {
@@ -4562,7 +4577,7 @@ function loadStoredSettings() {
     const s = JSON.parse(raw);
 
     if (s.preset && PRESETS[s.preset]) currentPreset = s.preset;
-    currentMaterial = (s.materialPreview && MATERIALS[s.materialPreview]) ? s.materialPreview : null;
+    currentMaterial = null;
     if (s.brightness !== undefined) brightness.value = s.brightness;
     if (s.contrast !== undefined) contrast.value = s.contrast;
     if (s.gamma !== undefined) gamma.value = s.gamma;
@@ -5652,6 +5667,7 @@ async function downloadResult() {
 
 loadStoredLanguage();
 buildCustomDpiSelect();
+buildMaterialSelect();
 loadStoredSettings();
 sliderPairs.forEach(([id]) => updateSlider(document.getElementById(id)));
 syncSliderFromMm();
