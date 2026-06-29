@@ -4117,6 +4117,25 @@ function getCropSignature() {
   ].join(',');
 }
 
+function fitOutputWidthToActiveSource(options = {}) {
+  const sourceRect = getActiveSourceRect();
+  if (!sourceRect || !outputWidthMm) return;
+
+  const sourceWidthPx = Math.max(1, Math.round(sourceRect.width));
+  const currentWidthPx = getOutputWidthPx();
+
+  if (currentWidthPx <= sourceWidthPx) return;
+
+  const newWidthMm = pxToMm(sourceWidthPx, getDpiValue());
+  outputWidthMm.value = formatNumberInput(newWidthMm);
+  lastValidOutputWidthMm = newWidthMm;
+
+  syncSliderFromMm();
+  updateSizeInfo();
+
+  if (!options.skipSave) saveSettings();
+}
+
 function updateCropInfo() {
   // The visible crop status line was intentionally removed from the UI.
 }
@@ -4328,6 +4347,7 @@ function applyCropFromModal() {
     }
     : null;
 
+  fitOutputWidthToActiveSource();
   lastRenderedOutputSignature = '';
   updateCropInfo();
   updateSizeInfo();
@@ -4339,6 +4359,7 @@ function applyCropFromModal() {
 function resetCrop(options = {}) {
   cropRect = null;
   cropEditorRect = getFullImageRect();
+  fitOutputWidthToActiveSource();
   lastRenderedOutputSignature = '';
   updateCropInfo();
   updateSizeInfo();
@@ -5127,6 +5148,7 @@ function loadImageIntoEditor(img, switchToResult = false, targetDpi = null, isDe
   }
 
   syncSliderFromMm();
+  fitOutputWidthToActiveSource();
   updateSizeInfo();
   saveSettings();
 
