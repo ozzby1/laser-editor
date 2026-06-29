@@ -2012,6 +2012,29 @@ z-index: 300;
   display: none !important;
 }
 
+
+/* Prominent upload button in the top preview toolbar. */
+.top-upload-btn {
+  min-height: 44px;
+  padding-left: 18px;
+  padding-right: 18px;
+  box-shadow: 0 0 0 1px rgba(249,115,22,0.32), 0 12px 30px rgba(249,115,22,0.18);
+  white-space: nowrap;
+}
+
+.top-upload-btn:hover,
+.top-upload-btn:focus-visible {
+  box-shadow: 0 0 0 1px rgba(249,115,22,0.48), 0 16px 38px rgba(249,115,22,0.24);
+}
+
+@media (max-width: 760px) {
+  .top-upload-btn {
+    grid-column: 1 / -1;
+    width: 100%;
+    min-height: 46px;
+  }
+}
+
   </style>
 <!-- 100% privacy-first analytics -->
 <script async="" src="https://scripts.simpleanalyticscdn.com/latest.js"></script>
@@ -2282,7 +2305,7 @@ z-index: 300;
 </div>
 <div class="main-editor-layout">
 <div class="editor-preview-top">
-<div class="panel px-4 py-3 flex gap-3 items-center flex-wrap">
+<div class="panel px-4 py-3 flex gap-3 items-center flex-wrap"><input accept="image/*" id="fileInput" style="display:none" type="file"/>
 <button aria-pressed="true" class="btn view-btn active" data-i18n="btnCompare" id="btnCompare" type="button">
        Original + Output
       </button>
@@ -2306,7 +2329,7 @@ z-index: 300;
          Stainless steel
         </option>
 </select>
-</div>
+</div><button class="btn btn-primary top-upload-btn" data-i18n="reuploadBtn" id="topUploadBtn" type="button">Upload photo</button>
 <div class="ml-auto" id="imageDims" style="font-size:0.76rem;color:#7b8b9c;font-weight:600">
 </div>
 </div>
@@ -2444,23 +2467,7 @@ z-index: 300;
 </div>
 </div>
 <div class="editor-controls-column" id="editorControlsColumn">
-<div class="panel p-4">
-<div class="section-title" data-i18n="sectionUpload">
-       Upload Photo
-      </div>
-<div class="drop-zone p-5 text-center cursor-pointer" id="dropZone">
-<div style="font-size:2rem;margin-bottom:6px">
-        📷
-       </div>
-<div data-i18n="dropZoneMain" style="font-size:0.92rem;color:#ffffff;font-weight:700">
-        Drag &amp; drop or click to choose
-       </div>
-<div data-i18n="dropZoneSub" style="font-size:0.76rem;color:#e2e8f0;margin-top:5px">
-        JPG, PNG, BMP, WebP
-       </div>
-<input accept="image/*" id="fileInput" style="display:none" type="file"/>
-</div>
-</div>
+
 <div class="panel p-4">
 <div class="section-title" data-i18n="sectionCrop">
        Crop Photo
@@ -2474,52 +2481,6 @@ z-index: 300;
        </button>
 </div>
 </div>
-<div class="panel p-4">
-<div class="section-title" data-i18n="sectionPhotoType">
-       Photo Type
-      </div>
-<div class="grid grid-cols-2 gap-2" id="presetCards">
-<div class="preset-card active" data-i18n="presetNormal" data-preset="normal">
-        Normal Photo
-       </div>
-<div class="preset-card" data-i18n="presetNegative" data-preset="negative">
-        Negative
-       </div>
-<div class="preset-card" data-i18n="presetDark" data-preset="dark">
-        Dark Photo
-       </div>
-<div class="preset-card" data-i18n="presetLight" data-preset="light">
-        Light Photo
-       </div>
-</div>
-<div class="helper-text mt-2" data-i18n="presetHelp">
-       Default is Normal Photo. Choose Negative for an inverted output, or fine-tune everything with the sliders below.
-      </div>
-</div>
-<div class="panel p-4">
-<div class="section-title" data-i18n="sectionDithering">
-       Dithering
-      </div>
-<div class="grid grid-cols-2 gap-2" id="ditherCards">
-<div class="preset-card active" data-dither="floyd" data-i18n="ditherFloyd">
-        Floyd-Steinberg
-       </div>
-<div class="preset-card" data-dither="atkinson" data-i18n="ditherAtkinson">
-        Atkinson
-       </div>
-<div class="preset-card" data-dither="jarvis" data-i18n="ditherJarvis">
-        Jarvis
-       </div>
-<div class="preset-card" data-dither="ordered" data-i18n="ditherOrdered">
-        Ordered / Bayer
-       </div>
-</div>
-<input id="ditherMode" type="hidden" value="floyd"/>
-<div class="helper-text mt-2" data-i18n="ditherHelp">
-       Floyd-Steinberg is the balanced choice. Atkinson is softer, Jarvis is smoother with more tones, and Ordered/Bayer creates a regular pattern (suitable for logos and graphics).
-      </div>
-</div>
-
 <div class="panel p-4">
 <div class="section-title" data-i18n="sectionAdjustments">
        Photo Adjustments
@@ -2577,6 +2538,51 @@ z-index: 300;
 </div>
 </div>
 </div><div class="panel p-4">
+<div class="section-title" data-i18n="sectionPhotoType">
+       Photo Type
+      </div>
+<div class="grid grid-cols-2 gap-2" id="presetCards">
+<div class="preset-card active" data-i18n="presetNormal" data-preset="normal">
+        Normal Photo
+       </div>
+<div class="preset-card" data-i18n="presetNegative" data-preset="negative">
+        Negative
+       </div>
+<div class="preset-card" data-i18n="presetDark" data-preset="dark">
+        Dark Photo
+       </div>
+<div class="preset-card" data-i18n="presetLight" data-preset="light">
+        Light Photo
+       </div>
+</div>
+<div class="helper-text mt-2" data-i18n="presetHelp">
+       Default is Normal Photo. Choose Negative for an inverted output, or fine-tune everything with the sliders below.
+      </div>
+</div>
+<div class="panel p-4">
+<div class="section-title" data-i18n="sectionDithering">
+       Dithering
+      </div>
+<div class="grid grid-cols-2 gap-2" id="ditherCards">
+<div class="preset-card active" data-dither="floyd" data-i18n="ditherFloyd">
+        Floyd-Steinberg
+       </div>
+<div class="preset-card" data-dither="atkinson" data-i18n="ditherAtkinson">
+        Atkinson
+       </div>
+<div class="preset-card" data-dither="jarvis" data-i18n="ditherJarvis">
+        Jarvis
+       </div>
+<div class="preset-card" data-dither="ordered" data-i18n="ditherOrdered">
+        Ordered / Bayer
+       </div>
+</div>
+<input id="ditherMode" type="hidden" value="floyd"/>
+<div class="helper-text mt-2" data-i18n="ditherHelp">
+       Floyd-Steinberg is the balanced choice. Atkinson is softer, Jarvis is smoother with more tones, and Ordered/Bayer creates a regular pattern (suitable for logos and graphics).
+      </div>
+</div>
+<div class="panel p-4">
 <div class="section-title" data-i18n="sectionMaterialPreview">
        Material Preview
       </div>
@@ -3296,6 +3302,7 @@ const DEFAULTS = {
 };
 
 const fileInput = document.getElementById('fileInput');
+const topUploadBtn = document.getElementById('topUploadBtn');
 const dropZone = document.getElementById('dropZone');
 const uploadCtaCard = document.getElementById('uploadCtaCard');
 const hintUploadLink = document.getElementById('hintUploadLink');
@@ -4502,7 +4509,8 @@ function shouldContinueLargeExport(widthPx = getOutputWidthPx()) {
   return confirm(t('confirmLargeOutput').replace('{mp}', megapixels.toFixed(1)));
 }
 
-makeKeyboardClickable(dropZone, () => fileInput.click());
+if (dropZone) makeKeyboardClickable(dropZone, () => fileInput.click());
+if (topUploadBtn) topUploadBtn.addEventListener('click', () => fileInput.click());
 if (uploadCtaCard) makeKeyboardClickable(uploadCtaCard, () => fileInput.click());
 if (hintUploadLink) hintUploadLink.addEventListener('click', () => fileInput.click());
 if (cropOpenBtn) cropOpenBtn.addEventListener('click', openCropModal);
