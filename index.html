@@ -4558,7 +4558,7 @@ ditherCards.forEach(card => {
 });
 
 materialCards.forEach(card => {
-  makeKeyboardClickable(card, () => setMaterialPreview(card.dataset.material));
+  makeKeyboardClickable(card, () => toggleMaterialPreviewFromCard(card.dataset.material));
 });
 
 if (ditherMode) {
@@ -4771,6 +4771,23 @@ function setMaterialPreview(key, options = {}) {
   updateMaterialPreviewFromCurrentCanvas();
   if (!options.keepView) setViewMode('material');
 }
+
+function toggleMaterialPreviewFromCard(key) {
+  const normalizedKey = MATERIALS[key] ? key : null;
+
+  if (!normalizedKey) {
+    clearMaterialPreview();
+    return;
+  }
+
+  if (currentMaterial === normalizedKey) {
+    clearMaterialPreview();
+    return;
+  }
+
+  setMaterialPreview(normalizedKey);
+}
+
 
 function setDitherMode(mode, options = {}) {
   const selectedMode = DITHER_MODES.includes(mode) ? mode : DEFAULTS.ditherMode;
