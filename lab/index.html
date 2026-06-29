@@ -1074,6 +1074,47 @@ input[type=number]:focus {
   line-height: 1.55;
 }
 
+
+.crop-aspect-options {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.crop-aspect-btn {
+  width: 100%;
+  background: rgba(255,255,255,0.04);
+  color: #dbe3ee;
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 12px;
+  padding: 10px 12px;
+  font-size: 0.82rem;
+  font-weight: 800;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+
+.crop-aspect-btn:hover {
+  background: rgba(255,255,255,0.08);
+  border-color: rgba(249,115,22,0.28);
+  color: #fff;
+}
+
+.crop-aspect-btn.active {
+  background: linear-gradient(135deg, rgba(249,115,22,0.18) 0%, rgba(234,88,12,0.18) 100%);
+  color: #fff;
+  border-color: rgba(249,115,22,0.50);
+  box-shadow: 0 0 0 1px rgba(249,115,22,0.18), 0 10px 24px rgba(249,115,22,0.16);
+}
+
+@media (max-width: 560px) {
+  .crop-aspect-options {
+    grid-template-columns: 1fr;
+  }
+}
+
 .crop-canvas-shell {
   display: flex;
   justify-content: center;
@@ -1852,6 +1893,17 @@ z-index: 300;
        ×
       </button>
      </div>
+     <div aria-label="Crop aspect ratio" class="crop-aspect-options" id="cropAspectOptions">
+      <button aria-pressed="true" class="crop-aspect-btn active" data-crop-aspect="free" data-i18n="cropAspectFree" type="button">
+       Free ratio
+      </button>
+      <button aria-pressed="false" class="crop-aspect-btn" data-crop-aspect="original" data-i18n="cropAspectOriginal" type="button">
+       Keep original ratio
+      </button>
+      <button aria-pressed="false" class="crop-aspect-btn" data-crop-aspect="square" data-i18n="cropAspectSquare" type="button">
+       Square
+      </button>
+     </div>
      <div class="crop-canvas-shell" id="cropCanvasShell">
       <canvas aria-label="Photo crop editor" class="crop-canvas" id="cropCanvas"></canvas>
      </div>
@@ -2092,16 +2144,13 @@ z-index: 300;
       <div class="section-title" data-i18n="sectionCrop">
        Crop Photo
       </div>
-      <div class="flex gap-2 flex-wrap">
-       <button class="btn btn-secondary" data-i18n="cropOpenBtn" id="cropOpenBtn" type="button">
+      <div class="flex flex-col gap-2">
+       <button class="btn btn-secondary w-full" data-i18n="cropOpenBtn" id="cropOpenBtn" type="button">
         Crop photo
        </button>
-       <button class="btn btn-secondary" data-i18n="cropResetBtn" id="cropResetBtn" type="button">
+       <button class="btn btn-secondary w-full" data-i18n="cropResetBtn" id="cropResetBtn" type="button">
         Reset crop
        </button>
-      </div>
-      <div class="helper-text mt-2" data-i18n="cropHelp">
-       Crop the photo before dithering so you do not need another image editor.
       </div>
       <div class="material-preview-note" id="cropInfo">
        No crop selected.
@@ -2639,7 +2688,7 @@ z-index: 300;
    </div>
   </div>
   <script>
-   let originalImage = null; let cropRect = null; let cropEditorRect = null; let cropEditorScale = 1; let cropDragState = null; let renderQueued = false; let viewMode = 'compare'; let currentPreset = 'normal'; let currentMaterial = null; let currentLang = 'en'; let originalImageToken = 0; let lastRenderedOutputSignature = '';
+   let originalImage = null; let cropRect = null; let cropEditorRect = null; let cropEditorScale = 1; let cropDragState = null; let cropAspectMode = 'free'; let renderQueued = false; let viewMode = 'compare'; let currentPreset = 'normal'; let currentMaterial = null; let currentLang = 'en'; let originalImageToken = 0; let lastRenderedOutputSignature = '';
 
 const FIXED_THRESHOLD = 128;
 const STORAGE_KEY = 'laserEditorSimpleV8';
@@ -2697,7 +2746,6 @@ const translations = {
     sectionCrop: 'Crop Photo',
     cropOpenBtn: 'Crop photo',
     cropResetBtn: 'Reset crop',
-    cropHelp: 'Crop the photo before dithering so you do not need another image editor.',
     cropInfoNone: 'No crop selected.',
     cropInfoActive: 'Crop: {width} × {height} px',
     cropModalTitle: 'Crop photo',
@@ -2705,6 +2753,9 @@ const translations = {
     cropModalHelp: 'The crop is applied before dithering, material preview and PNG/BMP export.',
     cropCancelBtn: 'Cancel',
     cropApplyBtn: 'Apply crop',
+    cropAspectFree: 'Free ratio',
+    cropAspectOriginal: 'Keep original ratio',
+    cropAspectSquare: 'Square',
     sectionPhotoType: 'Photo Type',
     presetCustom: 'Custom',
     presetNormal: 'Normal Photo',
@@ -2942,6 +2993,7 @@ const cropCloseBtn = document.getElementById('cropCloseBtn');
 const cropCancelBtn = document.getElementById('cropCancelBtn');
 const cropResetModalBtn = document.getElementById('cropResetModalBtn');
 const cropApplyBtn = document.getElementById('cropApplyBtn');
+const cropAspectButtons = document.querySelectorAll('[data-crop-aspect]');
 const statusMessage = document.getElementById('statusMessage');
 const demoNotice = document.getElementById('demoNotice');
 const editorControlsColumn = document.getElementById('editorControlsColumn');
@@ -3477,6 +3529,140 @@ function normalizeCropRect(rect) {
   return { x, y, width, height };
 }
 
+function getCropAspectRatio() {
+  if (!originalImage) return null;
+
+  if (cropAspectMode === 'square') return 1;
+
+  if (cropAspectMode === 'original') {
+    return originalImage.width / Math.max(1, originalImage.height);
+  }
+
+  return null;
+}
+
+function fitRectToAspect(rect, aspectRatio, anchor = 'center') {
+  if (!originalImage || !rect || !aspectRatio) return normalizeCropRect(rect);
+
+  let normalized = normalizeCropRect(rect);
+  if (!normalized) return null;
+
+  let { x, y, width, height } = normalized;
+  const centerX = x + width / 2;
+  const centerY = y + height / 2;
+  const currentRatio = width / Math.max(1, height);
+
+  if (currentRatio > aspectRatio) {
+    width = height * aspectRatio;
+  } else {
+    height = width / aspectRatio;
+  }
+
+  if (anchor === 'topleft') {
+    x = normalized.x;
+    y = normalized.y;
+  } else {
+    x = centerX - width / 2;
+    y = centerY - height / 2;
+  }
+
+  if (x < 0) x = 0;
+  if (y < 0) y = 0;
+
+  if (x + width > originalImage.width) x = originalImage.width - width;
+  if (y + height > originalImage.height) y = originalImage.height - height;
+
+  return normalizeCropRect({ x, y, width, height });
+}
+
+function setCropAspectMode(mode) {
+  cropAspectMode = ['free', 'original', 'square'].includes(mode) ? mode : 'free';
+
+  cropAspectButtons.forEach(btn => {
+    const active = btn.dataset.cropAspect === cropAspectMode;
+    btn.classList.toggle('active', active);
+    btn.setAttribute('aria-pressed', active ? 'true' : 'false');
+  });
+
+  const ratio = getCropAspectRatio();
+  if (ratio && originalImage) {
+    cropEditorRect = fitRectToAspect(cropEditorRect || cropRect || getFullImageRect(), ratio);
+    drawCropEditor();
+  }
+}
+
+function makeAspectRectFromPoints(startPoint, point, aspectRatio) {
+  if (!originalImage || !aspectRatio) {
+    return normalizeCropRect({
+      x: Math.min(startPoint.x, point.x),
+      y: Math.min(startPoint.y, point.y),
+      width: Math.abs(point.x - startPoint.x),
+      height: Math.abs(point.y - startPoint.y)
+    });
+  }
+
+  const dx = point.x - startPoint.x;
+  const dy = point.y - startPoint.y;
+  const signX = dx < 0 ? -1 : 1;
+  const signY = dy < 0 ? -1 : 1;
+
+  let width = Math.abs(dx);
+  let height = Math.abs(dy);
+
+  if (width / Math.max(1, height) > aspectRatio) {
+    height = width / aspectRatio;
+  } else {
+    width = height * aspectRatio;
+  }
+
+  let x = signX < 0 ? startPoint.x - width : startPoint.x;
+  let y = signY < 0 ? startPoint.y - height : startPoint.y;
+
+  if (x < 0) {
+    width += x;
+    x = 0;
+    height = width / aspectRatio;
+    if (signY < 0) y = startPoint.y - height;
+  }
+
+  if (y < 0) {
+    height += y;
+    y = 0;
+    width = height * aspectRatio;
+    if (signX < 0) x = startPoint.x - width;
+  }
+
+  if (x + width > originalImage.width) {
+    width = originalImage.width - x;
+    height = width / aspectRatio;
+    if (signY < 0) y = startPoint.y - height;
+  }
+
+  if (y + height > originalImage.height) {
+    height = originalImage.height - y;
+    width = height * aspectRatio;
+    if (signX < 0) x = startPoint.x - width;
+  }
+
+  return normalizeCropRect({ x, y, width, height });
+}
+
+function resizeAspectRect(start, action, point, aspectRatio) {
+  if (!originalImage || !aspectRatio) return null;
+
+  let fixedX = start.x;
+  let fixedY = start.y;
+
+  if (action.includes('l')) fixedX = start.x + start.width;
+  if (action.includes('t')) fixedY = start.y + start.height;
+
+  return makeAspectRectFromPoints(
+    { x: fixedX, y: fixedY },
+    point,
+    aspectRatio
+  );
+}
+
 function isFullCropRect(rect) {
   if (!originalImage || !rect) return true;
 
@@ -3662,12 +3848,15 @@ function updateCropDrag(point) {
   }
 
   if (cropDragState.action === 'draw') {
-    cropEditorRect = normalizeCropRect({
-      x: Math.min(cropDragState.startPoint.x, point.x),
-      y: Math.min(cropDragState.startPoint.y, point.y),
-      width: Math.abs(point.x - cropDragState.startPoint.x),
-      height: Math.abs(point.y - cropDragState.startPoint.y)
-    });
+    cropEditorRect = makeAspectRectFromPoints(cropDragState.startPoint, point, getCropAspectRatio());
+    drawCropEditor();
+    return;
+  }
+
+  const aspectRatio = getCropAspectRatio();
+
+  if (aspectRatio) {
+    cropEditorRect = resizeAspectRect(start, cropDragState.action, point, aspectRatio);
     drawCropEditor();
     return;
   }
@@ -3705,6 +3894,7 @@ function openCropModal() {
     cropModalOverlay.setAttribute('aria-hidden', 'false');
   }
 
+  setCropAspectMode(cropAspectMode);
   setTimeout(renderCropEditor, 0);
 }
 
@@ -5489,6 +5679,7 @@ setActiveDitherCard(ditherMode.value || DEFAULTS.ditherMode);
 syncMaterialControls();
 updateMaterialPreviewLabel();
 updateCropInfo();
+setCropAspectMode(cropAspectMode);
 setLanguage(currentLang);
 initializeCanvasMagnifier();
 loadDemoImage();
