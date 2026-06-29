@@ -3578,7 +3578,14 @@ function setMaterialPreview(key, options = {}) {
   }
 
   if (!options.force && currentMaterial === normalizedKey) {
-    clearMaterialPreview(options);
+    if (viewMode === 'material') {
+      clearMaterialPreview(options);
+    } else {
+      syncMaterialControls();
+      updateMaterialPreviewLabel();
+      updateMaterialPreviewFromCurrentCanvas();
+      if (!options.keepView) setViewMode('material');
+    }
     return;
   }
 
