@@ -2015,7 +2015,6 @@ z-index: 300;
 
 /* Prominent upload button in the top preview toolbar. */
 .top-upload-btn {
-  min-height: 44px;
   padding-left: 18px;
   padding-right: 18px;
   box-shadow: 0 0 0 1px rgba(249,115,22,0.32), 0 12px 30px rgba(249,115,22,0.18);
@@ -2031,7 +2030,6 @@ z-index: 300;
   .top-upload-btn {
     grid-column: 1 / -1;
     width: 100%;
-    min-height: 46px;
   }
 }
 
@@ -4510,9 +4508,9 @@ function shouldContinueLargeExport(widthPx = getOutputWidthPx()) {
 }
 
 if (dropZone) makeKeyboardClickable(dropZone, () => fileInput.click());
-if (topUploadBtn) topUploadBtn.addEventListener('click', () => fileInput.click());
+if (topUploadBtn && fileInput) topUploadBtn.addEventListener('click', () => fileInput.click());
 if (uploadCtaCard) makeKeyboardClickable(uploadCtaCard, () => fileInput.click());
-if (hintUploadLink) hintUploadLink.addEventListener('click', () => fileInput.click());
+if (hintUploadLink && fileInput) hintUploadLink.addEventListener('click', () => fileInput.click());
 if (cropOpenBtn) cropOpenBtn.addEventListener('click', openCropModal);
 if (cropResetBtn) cropResetBtn.addEventListener('click', () => resetCrop());
 if (cropCloseBtn) cropCloseBtn.addEventListener('click', closeCropModal);
@@ -4586,20 +4584,22 @@ fileInput.addEventListener('change', e => {
   }
 });
 
-dropZone.addEventListener('dragover', e => {
-  e.preventDefault();
-  dropZone.classList.add('drag-over');
-});
+if (dropZone) {
+  dropZone.addEventListener('dragover', e => {
+    e.preventDefault();
+    dropZone.classList.add('drag-over');
+  });
 
-dropZone.addEventListener('dragleave', () => {
-  dropZone.classList.remove('drag-over');
-});
+  dropZone.addEventListener('dragleave', () => {
+    dropZone.classList.remove('drag-over');
+  });
 
-dropZone.addEventListener('drop', e => {
-  e.preventDefault();
-  dropZone.classList.remove('drag-over');
-  if (e.dataTransfer.files && e.dataTransfer.files[0]) loadFile(e.dataTransfer.files[0]);
-});
+  dropZone.addEventListener('drop', e => {
+    e.preventDefault();
+    dropZone.classList.remove('drag-over');
+    if (e.dataTransfer.files && e.dataTransfer.files[0]) loadFile(e.dataTransfer.files[0]);
+  });
+}
 
 presetCards.forEach(card => {
   makeKeyboardClickable(card, () => applyPreset(card.dataset.preset));
