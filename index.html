@@ -2006,6 +2006,12 @@ z-index: 300;
   }
 }
 
+
+/* Hide the rendered pixel-size label in the top-left preview toolbar. */
+#imageDims {
+  display: none !important;
+}
+
   </style>
   <!-- 100% privacy-first analytics -->
   <script async="" src="https://scripts.simpleanalyticscdn.com/latest.js"></script>
@@ -2469,6 +2475,106 @@ z-index: 300;
        </button>
       </div>
      </div>
+<div class="panel p-4">
+      <div class="section-title" data-i18n="sectionOutput">
+       Output
+      </div>
+      <div class="flex flex-col gap-3">
+       <div>
+        <label data-i18n="labelOutputWidthMm" for="outputWidthMm">
+         Image width
+        </label>
+        <input class="mt-1" id="outputWidthMm" min="1" step="0.1" type="number" value="80"/>
+        <div class="helper-text" data-i18n="outputWidthMmHelp">
+         Enter the real engraving width in millimeters.
+        </div>
+       </div>
+       <div>
+        <label data-i18n="labelDpi" for="dpi" id="dpiLabel">
+         Resolution (DPI)
+        </label>
+        <div class="custom-select mt-1" id="dpiCustomSelect">
+         <button aria-expanded="false" aria-haspopup="listbox" class="custom-select-button" id="dpiCustomButton" type="button">
+          <span id="dpiCustomValue">
+           254 DPI - 0.1 mm
+          </span>
+         </button>
+         <ul aria-labelledby="dpiLabel" class="custom-select-dropdown" id="dpiCustomOptions" role="listbox">
+         </ul>
+        </div>
+        <select class="custom-native-hidden" id="dpi" tabindex="-1">
+         <option selected="" value="254">
+          254 DPI - 0.1 mm
+         </option>
+         <option value="300">
+          300 DPI - 0.085 mm
+         </option>
+         <option value="508">
+          508 DPI - 0.05 mm
+         </option>
+         <option value="custom">
+          Custom DPI…
+         </option>
+        </select>
+        <div class="custom-dpi-input-wrap mt-2" id="customDpiWrap" style="display:none">
+         <label data-i18n="labelCustomDpi" for="customDpi">
+          Custom DPI
+         </label>
+         <input class="mt-1" id="customDpi" max="2400" min="1" step="1" type="number" value="254"/>
+         <div class="helper-text" data-i18n="customDpiHelp">
+          Enter your own DPI value between 1 and 2400.
+         </div>
+        </div>
+        <div class="helper-text" data-i18n="dpiHelp">
+         Changing DPI keeps the same physical size and recalculates the pixel count.
+        </div>
+       </div>
+       <details>
+        <summary data-i18n="advancedPixelSummary" style="cursor:pointer;font-size:0.78rem;font-weight:700;color:#a8b7c8">
+         Advanced: adjust width in pixels
+        </summary>
+        <div class="mt-3">
+         <label data-i18n="labelFineTuneWidth" for="outputWidthSlider">
+          Width in pixels
+         </label>
+         <div class="slider-row mt-1">
+          <input id="outputWidthSlider" max="6000" min="1" step="10" type="range" value="1000"/>
+          <span class="slider-val" id="outputWidthSliderVal" style="width:82px">
+           1000 px
+          </span>
+         </div>
+         <div class="helper-text" data-i18n="outputSliderHelp">
+          Advanced control. Changing pixels recalculates the width in mm for the selected DPI.
+         </div>
+        </div>
+       </details>
+       <div class="info-card">
+        <div class="mini-grid">
+         <div data-i18n="sizeInfoLabel" style="font-size:0.76rem;color:#94a3b8">
+          Size in mm
+         </div>
+         <div id="sizeInfo" style="font-size:0.76rem;color:#e2e8f0;font-weight:600">
+          —
+         </div>
+         <div data-i18n="pixelInfoLabel" style="font-size:0.76rem;color:#94a3b8">
+          Pixel size
+         </div>
+         <div id="pixelInfo" style="font-size:0.76rem;color:#e2e8f0;font-weight:600">
+          —
+         </div>
+        </div>
+       </div>
+       <button class="btn btn-primary w-full mt-1" data-i18n="downloadBtn" id="downloadBtn" type="button">
+        Download PNG
+       </button>
+       <button class="btn btn-secondary w-full mt-2" data-i18n="downloadBmpBtn" id="downloadBmpBtn" type="button">
+        Download BMP
+       </button>
+       <div class="helper-text" data-i18n-html="exportHelp">
+        PNG is recommended for LightBurn, XCS, LaserGRBL and other laser software. PNG and 1-bit BMP include DPI metadata for the correct physical size in laser software.
+       </div>
+      </div>
+     </div>
      <div class="panel p-4">
       <div class="section-title" data-i18n="sectionPhotoType">
        Photo Type
@@ -2590,106 +2696,7 @@ z-index: 300;
        </div>
       </div>
      </div>
-     <div class="panel p-4">
-      <div class="section-title" data-i18n="sectionOutput">
-       Output
-      </div>
-      <div class="flex flex-col gap-3">
-       <div>
-        <label data-i18n="labelOutputWidthMm" for="outputWidthMm">
-         Image width
-        </label>
-        <input class="mt-1" id="outputWidthMm" min="1" step="0.1" type="number" value="80"/>
-        <div class="helper-text" data-i18n="outputWidthMmHelp">
-         Enter the real engraving width in millimeters.
-        </div>
-       </div>
-       <div>
-        <label data-i18n="labelDpi" for="dpi" id="dpiLabel">
-         Resolution (DPI)
-        </label>
-        <div class="custom-select mt-1" id="dpiCustomSelect">
-         <button aria-expanded="false" aria-haspopup="listbox" class="custom-select-button" id="dpiCustomButton" type="button">
-          <span id="dpiCustomValue">
-           254 DPI - 0.1 mm
-          </span>
-         </button>
-         <ul aria-labelledby="dpiLabel" class="custom-select-dropdown" id="dpiCustomOptions" role="listbox">
-         </ul>
-        </div>
-        <select class="custom-native-hidden" id="dpi" tabindex="-1">
-         <option selected="" value="254">
-          254 DPI - 0.1 mm
-         </option>
-         <option value="300">
-          300 DPI - 0.085 mm
-         </option>
-         <option value="508">
-          508 DPI - 0.05 mm
-         </option>
-         <option value="custom">
-          Custom DPI…
-         </option>
-        </select>
-        <div class="custom-dpi-input-wrap mt-2" id="customDpiWrap" style="display:none">
-         <label data-i18n="labelCustomDpi" for="customDpi">
-          Custom DPI
-         </label>
-         <input class="mt-1" id="customDpi" max="2400" min="1" step="1" type="number" value="254"/>
-         <div class="helper-text" data-i18n="customDpiHelp">
-          Enter your own DPI value between 1 and 2400.
-         </div>
-        </div>
-        <div class="helper-text" data-i18n="dpiHelp">
-         Changing DPI keeps the same physical size and recalculates the pixel count.
-        </div>
-       </div>
-       <details>
-        <summary data-i18n="advancedPixelSummary" style="cursor:pointer;font-size:0.78rem;font-weight:700;color:#a8b7c8">
-         Advanced: adjust width in pixels
-        </summary>
-        <div class="mt-3">
-         <label data-i18n="labelFineTuneWidth" for="outputWidthSlider">
-          Width in pixels
-         </label>
-         <div class="slider-row mt-1">
-          <input id="outputWidthSlider" max="6000" min="1" step="10" type="range" value="800"/>
-          <span class="slider-val" id="outputWidthSliderVal" style="width:82px">
-           800 px
-          </span>
-         </div>
-         <div class="helper-text" data-i18n="outputSliderHelp">
-          Advanced control. Changing pixels recalculates the width in mm for the selected DPI.
-         </div>
-        </div>
-       </details>
-       <div class="info-card">
-        <div class="mini-grid">
-         <div data-i18n="sizeInfoLabel" style="font-size:0.76rem;color:#94a3b8">
-          Size in mm
-         </div>
-         <div id="sizeInfo" style="font-size:0.76rem;color:#e2e8f0;font-weight:600">
-          —
-         </div>
-         <div data-i18n="pixelInfoLabel" style="font-size:0.76rem;color:#94a3b8">
-          Pixel size
-         </div>
-         <div id="pixelInfo" style="font-size:0.76rem;color:#e2e8f0;font-weight:600">
-          —
-         </div>
-        </div>
-       </div>
-       <button class="btn btn-primary w-full mt-1" data-i18n="downloadBtn" id="downloadBtn" type="button">
-        Download PNG
-       </button>
-       <button class="btn btn-secondary w-full mt-2" data-i18n="downloadBmpBtn" id="downloadBmpBtn" type="button">
-        Download BMP
-       </button>
-       <div class="helper-text" data-i18n-html="exportHelp">
-        PNG is recommended for LightBurn, XCS, LaserGRBL and other laser software. PNG and 1-bit BMP include DPI metadata for the correct physical size in laser software.
-       </div>
-      </div>
-     </div>
+     
     </div>
     <div class="editor-left-extra">
      <section class="panel p-5">
@@ -3286,8 +3293,8 @@ const DEFAULTS = {
   invertColors: PRESETS.normal.invertColors,
   dpi: 254,
   customDpi: 254,
-  outputWidthMm: 80,
-  outputWidthPx: 800
+  outputWidthMm: 100,
+  outputWidthPx: 1000
 };
 
 const fileInput = document.getElementById('fileInput');
@@ -4141,7 +4148,8 @@ function setOutputWidthToActiveSource(options = {}) {
   if (!sourceRect || !outputWidthMm) return;
 
   const sourceWidthPx = Math.max(1, Math.round(sourceRect.width));
-  const newWidthMm = pxToMm(sourceWidthPx, getDpiValue());
+  const targetWidthPx = Math.min(sourceWidthPx, DEFAULTS.outputWidthPx);
+  const newWidthMm = pxToMm(targetWidthPx, getDpiValue());
 
   outputWidthMm.value = formatNumberInput(newWidthMm);
   lastValidOutputWidthMm = newWidthMm;
