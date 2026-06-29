@@ -102,6 +102,7 @@
         "DPI scaling",
         "Custom DPI setting",
         "Recommended DPI by material and engraving speed guidance",
+        "Approximate material preview simulation",
         "Brightness and contrast adjustment",
         "Gamma correction",
         "Sharpness adjustment",
@@ -1085,6 +1086,76 @@ input[type=number]:focus {
   box-shadow: 0 0 0 1px rgba(249,115,22,0.12);
 }
 
+
+.material-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.material-card::before {
+  content: '';
+  display: block;
+  width: 100%;
+  height: 28px;
+  margin-bottom: 9px;
+  border-radius: 9px;
+  border: 1px solid rgba(255,255,255,0.10);
+  background: linear-gradient(135deg, rgba(228,214,189,0.98), rgba(206,186,154,0.98) 55%, rgba(236,223,201,0.98));
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.10);
+}
+
+.material-card[data-material="slate"]::before {
+  background:
+    linear-gradient(135deg, rgba(24,26,29,0.98), rgba(66,70,76,0.98)),
+    repeating-linear-gradient(12deg, transparent 0 8px, rgba(255,255,255,0.06) 8px 9px);
+}
+
+.material-card[data-material="blackAnodized"]::before {
+  background: linear-gradient(135deg, #050607, #20242a 58%, #090a0c);
+}
+
+.material-card[data-material="stainless"]::before {
+  background: linear-gradient(135deg, #c9ced3, #7d858d 48%, #eef1f3);
+}
+
+.material-card[data-material="glass"]::before {
+  background: linear-gradient(135deg, rgba(142,166,176,0.95), rgba(232,246,248,0.90) 48%, rgba(108,132,145,0.95));
+}
+
+.material-card[data-material="leather"]::before {
+  background: linear-gradient(135deg, #8a552d, #3d2414 64%, #6a3c1f);
+}
+
+.material-card[data-material="ceramic"]::before {
+  background: linear-gradient(135deg, #e8e0d0, #a99d8c 52%, #f6f0e8);
+}
+
+.material-preview-note {
+  margin-top: 10px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: rgba(249,115,22,0.08);
+  border: 1px solid rgba(249,115,22,0.22);
+  color: #cbd5e1;
+  font-size: 0.74rem;
+  line-height: 1.55;
+}
+
+.material-preview-note strong {
+  color: #fdba74;
+}
+
+.material-preview-disclaimer {
+  margin-top: 10px;
+  padding: 11px 13px;
+  border-radius: 12px;
+  background: rgba(255,255,255,0.035);
+  border: 1px solid rgba(255,255,255,0.07);
+  color: #94a3b8;
+  font-size: 0.76rem;
+  line-height: 1.55;
+}
+
 .empty-steps {
   display: flex;
   gap: 10px;
@@ -1687,7 +1758,10 @@ z-index: 300;
        Original + Output
       </button>
       <button aria-pressed="false" class="btn view-btn" data-i18n="btnOutput" id="btnResult" type="button">
-       Only Output
+       Output
+      </button>
+      <button aria-pressed="false" class="btn view-btn" data-i18n="btnMaterialPreview" id="btnMaterial" type="button">
+       Material Preview
       </button>
       <div class="ml-auto" id="imageDims" style="font-size:0.76rem;color:#7b8b9c;font-weight:600">
       </div>
@@ -1831,6 +1905,35 @@ z-index: 300;
          </button>
         </div>
        </div>
+       <div id="materialView" style="display:none">
+        <div class="canvas-label accent" id="materialPreviewLabel">
+         Material preview
+        </div>
+        <div class="zoom-hover canvas-wrap">
+         <canvas class="w-full" id="canvasMaterialPreview">
+         </canvas>
+        </div>
+        <div class="material-preview-disclaimer" data-i18n="materialPreviewDisclaimer">
+         This is an approximate visual simulation only. The downloaded PNG/BMP remains the clean black-and-white laser-ready output.
+        </div>
+        <div class="helper-text" data-i18n="zoomHelp" style="text-align:center;margin-top:10px;">
+         Move the mouse over the image to inspect details in the magnifier. On touch devices, hold and drag over the image. For the best experience and more comfortable editing, we recommend using this tool on a desktop computer.
+        </div>
+        <div class="mobile-action-stack">
+         <button class="btn btn-secondary mobile-adjust-btn" data-i18n="adjustSettingsBtn" id="adjustSettingsBtnMaterial" type="button">
+          Adjust settings ↓
+         </button>
+         <button class="btn btn-primary mobile-reupload-btn" data-i18n="reuploadBtn" id="reuploadBtnMaterial" type="button">
+          Upload photo
+         </button>
+         <button class="btn btn-primary mobile-download-btn" data-i18n="downloadBtn" id="downloadBtnMobileMaterial" type="button">
+          Download PNG
+         </button>
+         <button class="btn btn-secondary mobile-download-btn" data-i18n="downloadBmpBtn" id="downloadBmpBtnMobileMaterial" type="button">
+          Download BMP
+         </button>
+        </div>
+       </div>
       </div>
      </div>
     </div>
@@ -1895,6 +1998,25 @@ z-index: 300;
       <input id="ditherMode" type="hidden" value="floyd"/>
       <div class="helper-text mt-2" data-i18n="ditherHelp">
        Floyd-Steinberg is the balanced choice. Atkinson is softer, Jarvis is smoother with more tones, and Ordered/Bayer creates a regular pattern (suitable for logos and graphics).
+      </div>
+     </div>
+     <div class="panel p-4">
+      <div class="section-title" data-i18n="sectionMaterialPreview">
+       Material Preview
+      </div>
+      <div class="grid gap-2" id="materialCards" style="grid-template-columns: repeat(3, minmax(0, 1fr));">
+       <div class="preset-card material-card" data-i18n="materialWood" data-material="wood">
+        Wood
+       </div>
+       <div class="preset-card material-card" data-i18n="materialBlackAnodized" data-material="blackAnodized">
+        Black
+       </div>
+       <div class="preset-card material-card" data-i18n="materialStainless" data-material="stainless">
+        Stainless
+       </div>
+      </div>
+      <div class="material-preview-note" id="materialPreviewTip">
+       Select a material to see an approximate preview of how the engraved image may look on the surface.
       </div>
      </div>
      <div class="panel p-4">
@@ -2365,7 +2487,7 @@ z-index: 300;
    </div>
   </div>
   <script>
-   let originalImage = null; let renderQueued = false; let viewMode = 'compare'; let currentPreset = 'normal'; let currentLang = 'en'; let originalImageToken = 0; let lastRenderedOutputSignature = '';
+   let originalImage = null; let renderQueued = false; let viewMode = 'compare'; let currentPreset = 'normal'; let currentMaterial = null; let currentLang = 'en'; let originalImageToken = 0; let lastRenderedOutputSignature = '';
 
 const FIXED_THRESHOLD = 128;
 const STORAGE_KEY = 'laserEditorSimpleV8';
@@ -2404,7 +2526,7 @@ const translations = {
     faq6Question: 'Are my photos uploaded to a server?',
     faq6Answer: 'No. Photos are processed locally in your browser and are not uploaded to our server.',
     counterLabel: '📸 Processed:',
-    btnOutput: 'Only Output',
+    btnOutput: 'Output',
     btnCompare: 'Original + Output',
     emptyOriginal: 'ORIGINAL',
     emptyOutput: 'OUTPUT',
@@ -2477,6 +2599,25 @@ const translations = {
     alertRenderFail: 'Failed to process the image with the selected settings.',
     emptyOriginalAlt: 'Preview original image',
     emptyResultAlt: 'Preview output image',
+    btnMaterialPreview: 'Material Preview',
+    labelMaterialPreview: 'Material preview',
+    sectionMaterialPreview: 'Material Preview',
+    materialWood: 'Wood',
+    materialSlate: 'Slate',
+    materialBlackAnodized: 'Black',
+    materialStainless: 'Stainless',
+    materialGlass: 'Glass',
+    materialLeather: 'Leather',
+    materialCeramic: 'Ceramic tile',
+    materialPreviewDisclaimer: 'This is an approximate visual simulation only. Real results depend on laser type, lens, focus, speed, power and the exact material surface. The downloaded PNG/BMP remains the clean black-and-white laser-ready output.',
+    materialTipNone: 'Select a material to see an approximate preview of how the engraved image may look on the surface.',
+    materialTipWood: 'Birch plywood and light wood usually engrave darker than the surface. Expect some dot gain, especially on plywood and softer wood.',
+    materialTipSlate: 'Slate and dark stone usually engrave lighter than the surface. Negative mode is often the right starting point.',
+    materialTipBlackAnodized: 'Black anodized aluminum usually engraves lighter or silvery. Negative mode is often useful for photo engraving on this material.',
+    materialTipStainless: 'Stainless steel preview is only approximate. Real results depend strongly on fiber/diode laser type, marking spray, focus, speed and power.',
+    materialTipGlass: 'Glass usually produces a frosted, milky mark. Real results depend strongly on focus, coating and laser type.',
+    materialTipLeather: 'Leather usually engraves darker and can spread slightly. Lower detail and test pieces are recommended.',
+    materialTipCeramic: 'Ceramic tile can behave differently depending on glaze, coating and spray. Treat this preview as a rough visual guide.',
     helpIntroTitle: 'What does this tool do?',
     helpIntroText: '<strong class="text-white">Photo Engraving Online</strong> converts a regular photo into a rasterized black-and-white image optimized for CO2 or diode laser engraving. You can then import the resulting PNG directly into your laser software (LightBurn, LaserGRBL, XCS, etc.) and engrave it.',
     helpStepsTitle: 'Step-by-step guide',
@@ -2528,6 +2669,88 @@ const PRESETS = {
 
 const DITHER_MODES = ['floyd', 'atkinson', 'jarvis', 'ordered'];
 
+const MATERIAL_PREVIEW_MAX_PX = 1600;
+
+const MATERIALS = {
+  wood: {
+    nameKey: 'materialWood',
+    tipKey: 'materialTipWood',
+    base: [225, 213, 192],
+    mark: [82, 48, 24],
+    noise: 13,
+    grain: 'wood',
+    grainStrength: 17,
+    dotGain: 0.28,
+    seed: 11
+  },
+  slate: {
+    nameKey: 'materialSlate',
+    tipKey: 'materialTipSlate',
+    base: [31, 34, 38],
+    mark: [184, 184, 174],
+    noise: 18,
+    grain: 'stone',
+    grainStrength: 12,
+    dotGain: 0.14,
+    seed: 23
+  },
+  blackAnodized: {
+    nameKey: 'materialBlackAnodized',
+    tipKey: 'materialTipBlackAnodized',
+    base: [7, 8, 10],
+    mark: [214, 218, 210],
+    noise: 7,
+    grain: 'metal',
+    grainStrength: 8,
+    dotGain: 0.05,
+    seed: 31
+  },
+  stainless: {
+    nameKey: 'materialStainless',
+    tipKey: 'materialTipStainless',
+    base: [188, 194, 198],
+    mark: [55, 58, 60],
+    noise: 8,
+    grain: 'metal',
+    grainStrength: 10,
+    dotGain: 0.06,
+    seed: 37
+  },
+  glass: {
+    nameKey: 'materialGlass',
+    tipKey: 'materialTipGlass',
+    base: [150, 172, 180],
+    mark: [236, 246, 246],
+    noise: 10,
+    grain: 'glass',
+    grainStrength: 10,
+    dotGain: 0.12,
+    seed: 47
+  },
+  leather: {
+    nameKey: 'materialLeather',
+    tipKey: 'materialTipLeather',
+    base: [123, 72, 39],
+    mark: [39, 22, 12],
+    noise: 20,
+    grain: 'leather',
+    grainStrength: 18,
+    dotGain: 0.32,
+    seed: 59
+  },
+  ceramic: {
+    nameKey: 'materialCeramic',
+    tipKey: 'materialTipCeramic',
+    base: [220, 211, 194],
+    mark: [78, 78, 76],
+    noise: 9,
+    grain: 'ceramic',
+    grainStrength: 10,
+    dotGain: 0.10,
+    seed: 71
+  }
+};
+
 const DEFAULTS = {
   preset: 'normal',
   brightness: PRESETS.normal.brightness,
@@ -2550,6 +2773,7 @@ const demoNotice = document.getElementById('demoNotice');
 const editorControlsColumn = document.getElementById('editorControlsColumn');
 const btnResult = document.getElementById('btnResult');
 const btnCompare = document.getElementById('btnCompare');
+const btnMaterial = document.getElementById('btnMaterial');
 
 const brightness = document.getElementById('brightness');
 const contrast = document.getElementById('contrast');
@@ -2575,9 +2799,11 @@ const resetBtn = document.getElementById('resetBtn');
 const canvasSingle = document.getElementById('canvasSingle');
 const canvasCompareOrig = document.getElementById('canvasCompareOrig');
 const canvasCompareResult = document.getElementById('canvasCompareResult');
+const canvasMaterialPreview = document.getElementById('canvasMaterialPreview');
 
 const presetCards = document.querySelectorAll('#presetCards .preset-card');
 const ditherCards = document.querySelectorAll('#ditherCards .preset-card');
+const materialCards = document.querySelectorAll('#materialCards .material-card');
 const langButtons = document.querySelectorAll('.lang-option');
 
 const LANG_DATA = {
@@ -2799,6 +3025,7 @@ function applyTranslations() {
 
   updateSizeInfo();
   syncCustomDpiSelect();
+  updateMaterialPreviewLabel();
   updateSeoMeta();
 }
 
@@ -2969,6 +3196,13 @@ langButtons.forEach(btn => {
 
 btnResult.addEventListener('click', () => setViewMode('result'));
 btnCompare.addEventListener('click', () => setViewMode('compare'));
+if (btnMaterial) btnMaterial.addEventListener('click', () => {
+  if (!currentMaterial) {
+    setMaterialPreview('wood', { force: true });
+  } else {
+    setViewMode('material');
+  }
+});
 
 const sliderPairs = [
   ['brightness', 'brightnessVal'],
@@ -3091,25 +3325,25 @@ makeKeyboardClickable(dropZone, () => fileInput.click());
 makeKeyboardClickable(uploadCtaCard, () => fileInput.click());
 
 document.addEventListener('click', function(e) {
-  const reuploadBtn = e.target.closest('#reuploadBtnResult, #reuploadBtnCompare');
+  const reuploadBtn = e.target.closest('#reuploadBtnResult, #reuploadBtnCompare, #reuploadBtnMaterial');
   if (reuploadBtn) {
     fileInput.click();
     return;
   }
 
-  const mobileDownloadBtn = e.target.closest('#downloadBtnMobileResult, #downloadBtnMobileCompare');
+  const mobileDownloadBtn = e.target.closest('#downloadBtnMobileResult, #downloadBtnMobileCompare, #downloadBtnMobileMaterial');
   if (mobileDownloadBtn) {
     downloadResult();
     return;
   }
 
-  const mobileDownloadBmpBtn = e.target.closest('#downloadBmpBtnMobileResult, #downloadBmpBtnMobileCompare');
+  const mobileDownloadBmpBtn = e.target.closest('#downloadBmpBtnMobileResult, #downloadBmpBtnMobileCompare, #downloadBmpBtnMobileMaterial');
   if (mobileDownloadBmpBtn) {
     downloadBmpResult();
     return;
   }
 
-  const adjustSettingsBtn = e.target.closest('#adjustSettingsBtnResult, #adjustSettingsBtnCompare');
+  const adjustSettingsBtn = e.target.closest('#adjustSettingsBtnResult, #adjustSettingsBtnCompare, #adjustSettingsBtnMaterial');
   if (adjustSettingsBtn) {
     scrollToControls();
     return;
@@ -3144,6 +3378,10 @@ presetCards.forEach(card => {
 
 ditherCards.forEach(card => {
   makeKeyboardClickable(card, () => setDitherMode(card.dataset.dither, { markCustom: true }));
+});
+
+materialCards.forEach(card => {
+  makeKeyboardClickable(card, () => setMaterialPreview(card.dataset.material));
 });
 
 if (ditherMode) {
@@ -3248,13 +3486,23 @@ resetBtn.addEventListener('click', resetSettings);
 });
 
 function setViewMode(mode) {
+  if (!['result', 'compare', 'material'].includes(mode)) mode = 'compare';
+
   viewMode = mode;
   btnResult.classList.toggle('active', mode === 'result');
   btnCompare.classList.toggle('active', mode === 'compare');
+  if (btnMaterial) btnMaterial.classList.toggle('active', mode === 'material');
+
   btnResult.setAttribute('aria-pressed', mode === 'result' ? 'true' : 'false');
   btnCompare.setAttribute('aria-pressed', mode === 'compare' ? 'true' : 'false');
+  if (btnMaterial) btnMaterial.setAttribute('aria-pressed', mode === 'material' ? 'true' : 'false');
+
   document.getElementById('resultView').style.display = mode === 'result' ? 'block' : 'none';
   document.getElementById('compareView').style.display = mode === 'compare' ? 'block' : 'none';
+  const materialView = document.getElementById('materialView');
+  if (materialView) materialView.style.display = mode === 'material' ? 'block' : 'none';
+
+  if (mode === 'material') updateMaterialPreviewFromCurrentCanvas();
 }
 
 function setActivePresetCard(key) {
@@ -3272,6 +3520,82 @@ function setActiveDitherCard(mode) {
     card.classList.toggle('active', isActive);
     card.setAttribute('aria-pressed', isActive ? 'true' : 'false');
   });
+}
+
+function setActiveMaterialCard(key) {
+  const selectedMaterial = MATERIALS[key] ? key : null;
+
+  materialCards.forEach(card => {
+    const isActive = Boolean(selectedMaterial) && card.dataset.material === selectedMaterial;
+    card.classList.toggle('active', isActive);
+    card.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+  });
+}
+
+function syncMaterialControls() {
+  setActiveMaterialCard(currentMaterial);
+}
+
+function updateMaterialPreviewLabel() {
+  const label = document.getElementById('materialPreviewLabel');
+  const tip = document.getElementById('materialPreviewTip');
+
+  if (!currentMaterial || !MATERIALS[currentMaterial]) {
+    if (label) label.textContent = t('labelMaterialPreview');
+    if (tip) tip.innerHTML = t('materialTipNone');
+    return;
+  }
+
+  const material = MATERIALS[currentMaterial];
+
+  if (label) {
+    label.textContent = `${t('labelMaterialPreview')} · ${t(material.nameKey)}`;
+  }
+
+  if (tip) {
+    const negativeHint = ['slate', 'blackAnodized'].includes(currentMaterial)
+      ? ' <strong>Tip:</strong> Negative mode is often useful here because laser marks become lighter.'
+      : '';
+    tip.innerHTML = `${t(material.tipKey)}${negativeHint}`;
+  }
+}
+
+function clearMaterialPreview(options = {}) {
+  currentMaterial = null;
+  syncMaterialControls();
+  updateMaterialPreviewLabel();
+
+  if (!options.skipSave) saveSettings();
+  if (!options.keepView) setViewMode('result');
+}
+
+function setMaterialPreview(key, options = {}) {
+  const normalizedKey = MATERIALS[key] ? key : null;
+
+  if (!normalizedKey) {
+    clearMaterialPreview(options);
+    return;
+  }
+
+  if (!options.force && currentMaterial === normalizedKey) {
+    if (viewMode === 'material') {
+      clearMaterialPreview(options);
+    } else {
+      syncMaterialControls();
+      updateMaterialPreviewLabel();
+      updateMaterialPreviewFromCurrentCanvas();
+      if (!options.keepView) setViewMode('material');
+    }
+    return;
+  }
+
+  currentMaterial = normalizedKey;
+  syncMaterialControls();
+  updateMaterialPreviewLabel();
+
+  if (!options.skipSave) saveSettings();
+  updateMaterialPreviewFromCurrentCanvas();
+  if (!options.keepView) setViewMode('material');
 }
 
 function setDitherMode(mode, options = {}) {
@@ -3322,7 +3646,7 @@ function applyCurrentPresetValues() {
 }
 
 function resetCanvasInspectionState() {
-  [canvasSingle, canvasCompareOrig, canvasCompareResult].forEach(canvas => {
+  [canvasSingle, canvasCompareOrig, canvasCompareResult, canvasMaterialPreview].forEach(canvas => {
     if (!canvas) return;
 
     canvas.style.transform = '';
@@ -3345,7 +3669,7 @@ function initializeCanvasMagnifier() {
   if (existingLens) existingLens.remove();
 
   const MAGNIFIER_ZOOM = 4;
-  const canvases = [canvasSingle, canvasCompareOrig, canvasCompareResult].filter(Boolean);
+  const canvases = [canvasSingle, canvasCompareOrig, canvasCompareResult, canvasMaterialPreview].filter(Boolean);
   if (!canvases.length) return;
 
   const lens = document.createElement('div');
@@ -3491,6 +3815,7 @@ function loadStoredSettings() {
     const s = JSON.parse(raw);
 
     if (s.preset && PRESETS[s.preset]) currentPreset = s.preset;
+    currentMaterial = (s.materialPreview && MATERIALS[s.materialPreview]) ? s.materialPreview : null;
     if (s.brightness !== undefined) brightness.value = s.brightness;
     if (s.contrast !== undefined) contrast.value = s.contrast;
     if (s.gamma !== undefined) gamma.value = s.gamma;
@@ -3523,6 +3848,7 @@ function loadStoredSettings() {
 function saveSettings() {
   const data = {
     preset: currentPreset,
+    materialPreview: currentMaterial || '',
     brightness: Number(brightness.value),
     contrast: Number(contrast.value),
     gamma: Number(gamma.value),
@@ -3544,6 +3870,9 @@ function saveSettings() {
 
 function resetSettings() {
   currentPreset = DEFAULTS.preset;
+  currentMaterial = null;
+  syncMaterialControls();
+  updateMaterialPreviewLabel();
   brightness.value = DEFAULTS.brightness;
   contrast.value = DEFAULTS.contrast;
   gamma.value = DEFAULTS.gamma;
@@ -3822,6 +4151,7 @@ function processImage(options = {}) {
     drawOriginalIntoCanvas(canvasCompareOrig, w, h);
     putImageDataToCanvas(canvasCompareResult, imageData, w, h);
     putImageDataToCanvas(canvasSingle, imageData, w, h);
+    updateMaterialPreviewFromCurrentCanvas();
 
     const imageDimsEl = document.getElementById('imageDims');
     if (imageDimsEl) imageDimsEl.textContent = getOutputSizeLabel(w, h);
@@ -3858,6 +4188,108 @@ function putImageDataToCanvas(canvas, imageData, w, h) {
 
   const ctx = canvas.getContext('2d');
   ctx.putImageData(imageData, 0, 0);
+}
+
+function updateMaterialPreviewFromCurrentCanvas() {
+  if (!currentMaterial || !MATERIALS[currentMaterial]) return;
+  if (!canvasMaterialPreview || !canvasSingle || !canvasSingle.width || !canvasSingle.height) return;
+
+  const previewScale = Math.min(1, MATERIAL_PREVIEW_MAX_PX / Math.max(canvasSingle.width, canvasSingle.height));
+  const previewW = Math.max(1, Math.round(canvasSingle.width * previewScale));
+  const previewH = Math.max(1, Math.round(canvasSingle.height * previewScale));
+  const tmp = document.createElement('canvas');
+  tmp.width = previewW;
+  tmp.height = previewH;
+
+  const tmpCtx = tmp.getContext('2d', { willReadFrequently: true });
+  if (!tmpCtx) return;
+
+  tmpCtx.imageSmoothingEnabled = false;
+  tmpCtx.drawImage(canvasSingle, 0, 0, previewW, previewH);
+
+  try {
+    const imageData = tmpCtx.getImageData(0, 0, previewW, previewH);
+    renderMaterialPreview(imageData, previewW, previewH);
+  } catch (err) {
+    console.warn('Material preview could not be rendered.', err);
+  }
+}
+
+function renderMaterialPreview(sourceImageData, w, h) {
+  if (!canvasMaterialPreview) return;
+
+  const material = MATERIALS[currentMaterial];
+  canvasMaterialPreview.width = w;
+  canvasMaterialPreview.height = h;
+  canvasMaterialPreview.style.width = '100%';
+  canvasMaterialPreview.style.height = 'auto';
+
+  const ctx = canvasMaterialPreview.getContext('2d');
+  if (!ctx) return;
+
+  const src = sourceImageData.data;
+  const out = ctx.createImageData(w, h);
+  const dst = out.data;
+
+  for (let y = 0; y < h; y++) {
+    for (let x = 0; x < w; x++) {
+      const i = (y * w + x) * 4;
+      let laserAmount = 1 - src[i] / 255;
+
+      if (material.dotGain > 0 && laserAmount < 1) {
+        const left = x > 0 ? 1 - src[i - 4] / 255 : 0;
+        const right = x + 1 < w ? 1 - src[i + 4] / 255 : 0;
+        const up = y > 0 ? 1 - src[i - w * 4] / 255 : 0;
+        const down = y + 1 < h ? 1 - src[i + w * 4] / 255 : 0;
+        laserAmount = Math.max(laserAmount, left * material.dotGain, right * material.dotGain, up * material.dotGain, down * material.dotGain);
+      }
+
+      laserAmount = clamp(laserAmount, 0, 1);
+
+      const texture = getMaterialTexture(material, x, y, w, h);
+      const baseR = material.base[0] + texture;
+      const baseG = material.base[1] + texture;
+      const baseB = material.base[2] + texture;
+      const markR = material.mark[0] + texture * 0.35;
+      const markG = material.mark[1] + texture * 0.35;
+      const markB = material.mark[2] + texture * 0.35;
+
+      dst[i] = clamp(Math.round(baseR * (1 - laserAmount) + markR * laserAmount), 0, 255);
+      dst[i + 1] = clamp(Math.round(baseG * (1 - laserAmount) + markG * laserAmount), 0, 255);
+      dst[i + 2] = clamp(Math.round(baseB * (1 - laserAmount) + markB * laserAmount), 0, 255);
+      dst[i + 3] = 255;
+    }
+  }
+
+  ctx.putImageData(out, 0, 0);
+}
+
+function pseudoNoise(x, y, seed) {
+  const n = Math.sin(x * 12.9898 + y * 78.233 + seed * 37.719) * 43758.5453;
+  return n - Math.floor(n);
+}
+
+function getMaterialTexture(material, x, y, w, h) {
+  const n = (pseudoNoise(x, y, material.seed) - 0.5) * material.noise;
+  let grain = 0;
+
+  if (material.grain === 'wood') {
+    grain = Math.sin(y * 0.055 + Math.sin(x * 0.018) * 2.4) * material.grainStrength;
+    grain += Math.sin(y * 0.19 + material.seed) * material.grainStrength * 0.18;
+  } else if (material.grain === 'stone') {
+    grain = (pseudoNoise(Math.floor(x / 12), Math.floor(y / 7), material.seed + 3) - 0.5) * material.grainStrength;
+  } else if (material.grain === 'metal') {
+    grain = Math.sin((x + y) * 0.08) * material.grainStrength * 0.3;
+  } else if (material.grain === 'glass') {
+    const shine = Math.max(0, 1 - Math.abs((x / Math.max(1, w)) - 0.28) * 7) * material.grainStrength;
+    grain = shine + Math.sin((x + y) * 0.02) * material.grainStrength * 0.18;
+  } else if (material.grain === 'leather') {
+    grain = (pseudoNoise(Math.floor(x / 5), Math.floor(y / 5), material.seed + 5) - 0.5) * material.grainStrength;
+  } else if (material.grain === 'ceramic') {
+    grain = Math.sin((x + y) * 0.035) * material.grainStrength * 0.35;
+  }
+
+  return n + grain;
 }
 
 function toGrayscale(imageData) {
@@ -4470,6 +4902,8 @@ updateSizeInfo();
 setViewMode('compare');
 setActivePresetCard(currentPreset);
 setActiveDitherCard(ditherMode.value || DEFAULTS.ditherMode);
+syncMaterialControls();
+updateMaterialPreviewLabel();
 setLanguage(currentLang);
 initializeCanvasMagnifier();
 loadDemoImage();
