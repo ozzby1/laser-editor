@@ -2519,11 +2519,7 @@ z-index: 2200;
 </div>
 </div>
 <div id="canvasArea" style="display:none">
-<div class="demo-notice" id="demoNotice">
-<span data-i18n="demoNoticeText">
-         Demo image loaded — upload your own photo to start.
-        </span>
-</div>
+
 <div id="resultView" style="display:none">
 <div class="canvas-label accent" data-i18n="labelOutputPreview">
          Laser-ready output
@@ -2736,25 +2732,7 @@ z-index: 2200;
        Floyd-Steinberg is the balanced choice. Atkinson is softer, Jarvis is smoother with more tones, and Ordered/Bayer creates a regular pattern (suitable for logos and graphics).
       </div>
 </div>
-<div class="panel p-4">
-<div class="section-title" data-i18n="sectionMaterialPreview">
-       Material Preview
-      </div>
-<div class="grid gap-2" id="materialCards" style="grid-template-columns: repeat(3, minmax(0, 1fr));">
-<div class="preset-card material-card" data-i18n="materialWood" data-material="wood">
-        Wood
-       </div>
-<div class="preset-card material-card" data-i18n="materialBlackAnodized" data-material="blackAnodized">
-        Black materials
-       </div>
-<div class="preset-card material-card" data-i18n="materialStainless" data-material="stainless">
-        Stainless steel
-       </div>
-</div>
-<div class="material-preview-note" id="materialPreviewTip">
-       Select a material to see an approximate preview of how the engraved image may look on the surface.
-      </div>
-</div>
+
 <div class="panel p-4">
 <div class="section-title" data-i18n="sectionOutput">
        Output
@@ -3279,7 +3257,6 @@ const translations = {
     demoLoadFail: 'Demo image could not be loaded.',
     alertInvalidFile: 'Please upload an image file: JPG, PNG, BMP or WebP.',
     statusImageLoaded: 'Image loaded. You can now adjust settings or download the PNG.',
-    demoNoticeText: 'Demo image loaded — upload your own photo to start.',
     adjustSettingsBtn: 'Adjust settings ↓',
     labelOriginalPreview: 'Original',
     labelOutputPreview: 'Laser-ready output',
@@ -4060,6 +4037,7 @@ function scrollToControls() {
 }
 
 function showDemoNotice(isDemo) {
+  const demoNotice = document.getElementById('demoNotice');
   if (!demoNotice) return;
   demoNotice.style.display = isDemo ? 'block' : 'none';
 }
