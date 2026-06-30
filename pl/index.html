@@ -5,7 +5,7 @@
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Darmowy konwerter zdjęć do grawerowania laserowego online | PhotoEngraving.online</title>
-<meta content="Darmowy konwerter zdjęć do grawerowania laserowego online. Twórz czarno-białe pliki PNG gotowe do lasera z DPI, wskazówkami prędkości grawerowania i prywatnym przetwarzaniem w przeglądarce." name="description"/>
+<meta content="Darmowy konwerter zdjęć do grawerowania laserowego online. Twórz gotowe do lasera czarno-białe pliki PNG z DPI, wskazówkami prędkości grawerowania i prywatnym przetwarzaniem w przeglądarce." name="description"/>
 <meta content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" name="robots"/>
 <meta content="PhotoEngraving.online" name="author"/>
 <meta content="PhotoEngraving.online" name="application-name"/>
@@ -32,7 +32,7 @@
 <meta content="PhotoEngraving.online" property="og:site_name"/>
 <meta content="https://photoengraving.online/pl/" property="og:url"/>
 <meta content="Darmowy konwerter zdjęć do grawerowania laserowego online" property="og:title"/>
-<meta content="Konwertuj obrazy i zdjęcia na pliki PNG do grawerowania laserowego online za darmo. Ustaw DPI, prędkość grawerowania, typ zdjęcia, jasność, kontrast, gamma i ostrość w przeglądarce." property="og:description"/>
+<meta content="Konwertuj obrazy i zdjęcia do grawerowania laserowego online za darmo. Ustaw DPI, prędkość grawerowania, typ zdjęcia, jasność, kontrast, gammę i ostrość w przeglądarce." property="og:description"/>
 <meta content="pl_PL" property="og:locale"/><meta content="en_US" property="og:locale:alternate"/><meta content="es_ES" property="og:locale:alternate"/><meta content="de_DE" property="og:locale:alternate"/><meta content="fr_FR" property="og:locale:alternate"/><meta content="hi_IN" property="og:locale:alternate"/><meta content="it_IT" property="og:locale:alternate"/><meta content="ja_JP" property="og:locale:alternate"/><meta content="ko_KR" property="og:locale:alternate"/><meta content="pt_BR" property="og:locale:alternate"/><meta content="ru_RU" property="og:locale:alternate"/><meta content="tr_TR" property="og:locale:alternate"/><meta content="zh_CN" property="og:locale:alternate"/><meta content="cs_CZ" property="og:locale:alternate"/>
 
 
@@ -53,7 +53,7 @@
 <meta content="Podgląd edytora zdjęć do grawerowania laserowego PhotoEngraving.online" property="og:image:alt"/>
 <meta content="summary_large_image" name="twitter:card"/>
 <meta content="Darmowy konwerter zdjęć do grawerowania laserowego online" name="twitter:title"/>
-<meta content="Darmowe narzędzie online do przygotowania zdjęć do grawerowania laserowego. Twórz czarno-białe pliki PNG gotowe do lasera z metadanymi DPI i prywatnym przetwarzaniem w przeglądarce." name="twitter:description"/>
+<meta content="Darmowy konwerter zdjęć do grawerowania laserowego online. Twórz gotowe do lasera czarno-białe pliki PNG z DPI, wskazówkami prędkości grawerowania i prywatnym przetwarzaniem w przeglądarce." name="twitter:description"/>
 <meta content="https://photoengraving.online/fb.png" name="twitter:image"/>
 <meta content="Podgląd edytora zdjęć do grawerowania laserowego PhotoEngraving.online" name="twitter:image:alt"/>
 <script type="application/ld+json">{
@@ -91,26 +91,27 @@
       "operatingSystem": "Web",
       "browserRequirements": "Requires JavaScript and HTML5 Canvas",
       "isAccessibleForFree": true,
-      "description": "Darmowy konwerter zdjęć do grawerowania laserowego online do tworzenia czarno-białych plików PNG gotowych do lasera z własnym DPI, zalecaną prędkością grawerowania według materiału, trybem negatywu oraz regulacją jasności, kontrastu, gamma i ostrości.",
+      "description": "Darmowy konwerter zdjęć do grawerowania laserowego online do tworzenia gotowych do lasera czarno-białych plików PNG z własnym DPI, zalecaną prędkością grawerowania według materiału, trybem negatywu oraz regulacją jasności, kontrastu, gammy i ostrości.",
       "image": "https://photoengraving.online/fb.png",
       "screenshot": "https://photoengraving.online/fb.png",
       "featureList": [
-        "Darmowa konwersja zdjęć do grawerowania laserowego PNG",
+        "Darmowa konwersja zdjęć do PNG do grawerowania laserowego",
         "Konwerter obrazu do grawerowania laserowego",
         "Czarno-biały dithering",
         "Skalowanie DPI",
         "Własne ustawienie DPI",
         "Zalecane DPI według materiału i wskazówki prędkości grawerowania",
+        "Przybliżona symulacja podglądu materiału",
         "Regulacja jasności i kontrastu",
         "Korekcja gamma",
         "Regulacja ostrości",
         "Tryb negatywu",
         "Prywatne przetwarzanie obrazu w przeglądarce",
-        "Eksport do LightBurn, XCS, LaserGRBL i EZCAD"
+        "Eksport do LightBurn, XCS i LaserGRBL"
       ],
       "potentialAction": {
         "@type": "UseAction",
-        "target": "https://photoengraving.online/pl/"
+        "target": "https://photoengraving.online/"
       },
       "offers": {
         "@type": "Offer",
@@ -366,6 +367,66 @@ input[type=number]:focus {
   box-shadow: inset 0 0 0 1px rgba(249,115,22,0.10);
 }
 
+
+/* Material Preview dropdown in the top preview toolbar. */
+.editor-preview-top > .panel:first-child {
+  position: relative;
+  z-index: 180;
+  overflow: visible;
+}
+
+.editor-preview-top > .panel:nth-child(2) {
+  position: relative;
+  z-index: 1;
+}
+
+#materialCustomSelect.material-preview-dropdown {
+  position: relative;
+  z-index: 260;
+  width: auto;
+}
+
+.material-preview-button {
+  position: relative;
+  min-width: 230px;
+  padding-right: 48px !important;
+  white-space: nowrap;
+}
+
+.material-preview-button::after {
+  content: '';
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  width: 9px;
+  height: 9px;
+  border-right: 2px solid #ff9a57;
+  border-bottom: 2px solid #ff9a57;
+  transform: translateY(-65%) rotate(45deg);
+  transition: transform 0.18s ease;
+  pointer-events: none;
+}
+
+.material-preview-dropdown.open .material-preview-button::after {
+  transform: translateY(-35%) rotate(225deg);
+}
+
+.material-preview-menu {
+  min-width: 230px;
+  z-index: 999;
+}
+
+@media (max-width: 820px) {
+  #materialCustomSelect.material-preview-dropdown {
+    width: 100%;
+  }
+
+  .material-preview-button {
+    width: 100%;
+    min-width: 0;
+  }
+}
+
 /* DPI options are shown as a full visible menu instead of a closed dropdown. */
 #dpiCustomSelect {
   display: grid;
@@ -396,7 +457,6 @@ input[type=number]:focus {
 #dpiCustomSelect.open .custom-select-dropdown {
   display: grid;
 }
-
 .custom-dpi-input-wrap {
   background: rgba(255,255,255,0.025);
   border: 1px solid rgba(255,255,255,0.06);
@@ -754,7 +814,7 @@ input[type=number]:focus {
   position: absolute;
   top: calc(100% + 8px);
   right: 0;
-  z-index: 140;
+  z-index: 2200;
   min-width: 176px;
   padding: 8px;
   background: linear-gradient(180deg, rgba(255,255,255,0.035), rgba(255,255,255,0.015)), var(--panel-strong);
@@ -805,7 +865,8 @@ input[type=number]:focus {
 }
 
 
-.feedback-btn {
+.feedback-btn,
+.guide-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -821,11 +882,21 @@ input[type=number]:focus {
   font-weight: 800;
   line-height: 1;
   cursor: pointer;
+  text-decoration: none;
   transition: all 0.18s ease;
 }
 
+.guide-btn {
+  background: rgba(249,115,22,0.12);
+  border-color: rgba(249,115,22,0.42);
+  color: #e2e8f0;
+  box-shadow: 0 0 0 1px rgba(249,115,22,0.10);
+}
+
 .feedback-btn:hover,
-.feedback-btn:focus-visible {
+.feedback-btn:focus-visible,
+.guide-btn:hover,
+.guide-btn:focus-visible {
   background: rgba(249,115,22,0.14);
   border-color: rgba(249,115,22,0.55);
   color: #ffffff;
@@ -1008,6 +1079,145 @@ input[type=number]:focus {
 }
 
 
+.crop-modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 230;
+  padding: 18px;
+  background: rgba(0,0,0,0.68);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  align-items: center;
+  justify-content: center;
+}
+
+.crop-modal-overlay.open {
+  display: flex;
+}
+
+.crop-modal {
+  width: min(100%, 980px);
+  max-height: min(92vh, 860px);
+  overflow: auto;
+  background: linear-gradient(180deg, rgba(255,255,255,0.035), rgba(255,255,255,0.015)), var(--panel-strong);
+  border: 1px solid rgba(249,115,22,0.28);
+  border-radius: 20px;
+  box-shadow: 0 24px 70px rgba(0,0,0,0.54), 0 0 0 1px rgba(249,115,22,0.08);
+  padding: 18px;
+  color: #dbe7f3;
+}
+
+.crop-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+
+.crop-modal-title {
+  margin: 0 0 5px;
+  color: #f8fafc;
+  font-size: 1.12rem;
+  line-height: 1.25;
+  font-weight: 850;
+}
+
+.crop-modal-text {
+  margin: 0;
+  color: #94a3b8;
+  font-size: 0.82rem;
+  line-height: 1.55;
+}
+
+
+.crop-aspect-options {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.crop-aspect-btn {
+  width: 100%;
+  background: rgba(255,255,255,0.04);
+  color: #dbe3ee;
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 12px;
+  padding: 10px 12px;
+  font-size: 0.82rem;
+  font-weight: 800;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+
+.crop-aspect-btn:hover {
+  background: rgba(255,255,255,0.08);
+  border-color: rgba(249,115,22,0.28);
+  color: #fff;
+}
+
+.crop-aspect-btn.active {
+  background: linear-gradient(135deg, rgba(249,115,22,0.18) 0%, rgba(234,88,12,0.18) 100%);
+  color: #fff;
+  border-color: rgba(249,115,22,0.50);
+  box-shadow: 0 0 0 1px rgba(249,115,22,0.18), 0 10px 24px rgba(249,115,22,0.16);
+}
+
+@media (max-width: 560px) {
+  .crop-aspect-options {
+    grid-template-columns: 1fr;
+  }
+}
+
+.crop-canvas-shell {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 240px;
+  padding: 12px;
+  border-radius: 16px;
+  background: rgba(0,0,0,0.34);
+  border: 1px solid rgba(255,255,255,0.07);
+  overflow: auto;
+}
+
+.crop-canvas {
+  max-width: 100%;
+  height: auto;
+  background: #111;
+  border-radius: 12px;
+  cursor: crosshair;
+  touch-action: none;
+  box-shadow: 0 12px 35px rgba(0,0,0,0.30);
+}
+
+.crop-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  margin-top: 14px;
+}
+
+.crop-status {
+  color: #94a3b8;
+  font-size: 0.74rem;
+  line-height: 1.55;
+}
+
+@media (max-width: 560px) {
+  .crop-actions {
+    flex-direction: column-reverse;
+  }
+
+  .crop-actions .btn {
+    width: 100%;
+  }
+}
+
 .info-card {
   background: rgba(255,255,255,0.025);
   border: 1px solid rgba(255,255,255,0.06);
@@ -1072,6 +1282,76 @@ input[type=number]:focus {
   box-shadow: 0 0 0 1px rgba(249,115,22,0.12);
 }
 
+
+.material-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.material-card::before {
+  content: '';
+  display: block;
+  width: 100%;
+  height: 28px;
+  margin-bottom: 9px;
+  border-radius: 9px;
+  border: 1px solid rgba(255,255,255,0.10);
+  background: linear-gradient(135deg, rgba(228,214,189,0.98), rgba(206,186,154,0.98) 55%, rgba(236,223,201,0.98));
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.10);
+}
+
+.material-card[data-material="slate"]::before {
+  background:
+    linear-gradient(135deg, rgba(24,26,29,0.98), rgba(66,70,76,0.98)),
+    repeating-linear-gradient(12deg, transparent 0 8px, rgba(255,255,255,0.06) 8px 9px);
+}
+
+.material-card[data-material="blackAnodized"]::before {
+  background: linear-gradient(135deg, #050607, #20242a 58%, #090a0c);
+}
+
+.material-card[data-material="stainless"]::before {
+  background: linear-gradient(135deg, #c9ced3, #7d858d 48%, #eef1f3);
+}
+
+.material-card[data-material="glass"]::before {
+  background: linear-gradient(135deg, rgba(142,166,176,0.95), rgba(232,246,248,0.90) 48%, rgba(108,132,145,0.95));
+}
+
+.material-card[data-material="leather"]::before {
+  background: linear-gradient(135deg, #8a552d, #3d2414 64%, #6a3c1f);
+}
+
+.material-card[data-material="ceramic"]::before {
+  background: linear-gradient(135deg, #e8e0d0, #a99d8c 52%, #f6f0e8);
+}
+
+.material-preview-note {
+  margin-top: 10px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: rgba(249,115,22,0.08);
+  border: 1px solid rgba(249,115,22,0.22);
+  color: #cbd5e1;
+  font-size: 0.74rem;
+  line-height: 1.55;
+}
+
+.material-preview-note strong {
+  color: #fdba74;
+}
+
+.material-preview-disclaimer {
+  margin-top: 10px;
+  padding: 11px 13px;
+  border-radius: 12px;
+  background: rgba(255,255,255,0.035);
+  border: 1px solid rgba(255,255,255,0.07);
+  color: #94a3b8;
+  font-size: 0.76rem;
+  line-height: 1.55;
+}
+
 .empty-steps {
   display: flex;
   gap: 10px;
@@ -1117,6 +1397,27 @@ input[type=number]:focus {
   font-weight: 700;
   color: var(--accent);
   flex-shrink: 0;
+}
+
+
+.hint-upload-link {
+  appearance: none;
+  -webkit-appearance: none;
+  border: 0;
+  background: transparent;
+  color: #f97316;
+  font: inherit;
+  font-weight: 800;
+  padding: 0;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.hint-upload-link:hover,
+.hint-upload-link:focus-visible {
+  color: #ff9a57;
+  outline: none;
 }
 
 .hint-line {
@@ -1380,7 +1681,7 @@ margin-bottom: 16px;
 }
 
   header.app-header .lang-menu {
-z-index: 300;
+z-index: 2200;
 }
 
   .panel {
@@ -1444,6 +1745,449 @@ z-index: 300;
     height: 190px;
   }
 }
+
+/* Mobile layout polish for the editor, material preview and crop tools. */
+@media (max-width: 760px) {
+  .content {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  header.app-header {
+    padding: 10px;
+  }
+
+  header.app-header .ml-auto {
+    width: 100%;
+    justify-content: flex-start;
+    gap: 8px;
+  }
+
+  .brand-logo {
+    height: 46px;
+  }
+
+  .counter-badge {
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .editor-preview-top > .panel:first-child {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px !important;
+    align-items: stretch;
+  }
+
+  .editor-preview-top > .panel:first-child .view-btn {
+    width: 100%;
+    min-width: 0;
+    padding: 10px 8px;
+    font-size: 0.8rem;
+    line-height: 1.2;
+  }
+
+  #materialCustomSelect.material-preview-dropdown {
+    grid-column: 1 / -1;
+    width: 100%;
+  }
+
+  .material-preview-button {
+    width: 100%;
+    min-width: 0;
+    padding-left: 12px;
+    padding-right: 46px !important;
+    text-align: center;
+  }
+
+  .material-preview-menu {
+    left: 0;
+    right: 0;
+    min-width: 0;
+    width: 100%;
+  }
+
+  #imageDims {
+    grid-column: 1 / -1;
+    margin-left: 0 !important;
+    text-align: center;
+    width: 100%;
+    font-size: 0.72rem !important;
+  }
+
+  #emptyState {
+    min-height: 0 !important;
+  }
+
+  #emptyState > div:first-child {
+    flex-direction: column;
+    gap: 10px !important;
+    align-items: stretch !important;
+    margin-bottom: 14px !important;
+  }
+
+  #emptyState > div:first-child > div {
+    width: 100%;
+  }
+
+  #emptyState > div:first-child > div[style*="font-size:1.4rem"] {
+    display: none !important;
+  }
+
+  .hint-line {
+    margin-top: 12px;
+    line-height: 1.55;
+  }
+
+  .canvas-wrap,
+  .zoom-hover {
+    border-radius: 12px;
+  }
+
+  .panel.p-5 {
+    padding: 12px;
+  }
+
+  .panel.p-4 {
+    padding: 13px;
+  }
+
+  .section-title {
+    margin-bottom: 10px;
+  }
+
+  #materialCards {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    gap: 7px !important;
+  }
+
+  #materialCards .preset-card {
+    padding: 10px 6px;
+    font-size: 0.72rem;
+    line-height: 1.25;
+    word-break: normal;
+    overflow-wrap: anywhere;
+  }
+
+  #materialCards .material-card::before {
+    height: 22px;
+    margin-bottom: 7px;
+  }
+
+  #presetCards,
+  #ditherCards {
+    gap: 7px !important;
+  }
+
+  #presetCards .preset-card,
+  #ditherCards .preset-card {
+    padding: 11px 8px;
+    font-size: 0.76rem;
+    line-height: 1.25;
+  }
+
+  .slider-row {
+    gap: 8px;
+  }
+
+  .slider-val {
+    min-width: 56px;
+    font-size: 0.74rem;
+  }
+
+  .mobile-action-stack {
+    margin-top: 12px;
+  }
+
+  .mobile-reupload-btn,
+  .mobile-download-btn,
+  .mobile-adjust-btn {
+    max-width: none;
+  }
+
+  .help-step {
+    padding: 14px;
+  }
+
+  .help-card,
+  .help-note-box {
+    padding: 14px;
+  }
+}
+
+@media (max-width: 430px) {
+  .editor-preview-top > .panel:first-child {
+    grid-template-columns: 1fr;
+  }
+
+  .editor-preview-top > .panel:first-child .view-btn {
+    min-height: 42px;
+  }
+
+  #materialCards {
+    grid-template-columns: 1fr !important;
+  }
+
+  #materialCards .material-card::before {
+    height: 20px;
+  }
+
+  #presetCards,
+  #ditherCards {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+@media (max-width: 760px) {
+  .crop-modal-overlay {
+    padding: 10px;
+    align-items: flex-start;
+    overflow-y: auto;
+  }
+
+  .crop-modal {
+    width: 100%;
+    max-height: none;
+    margin: 10px 0;
+    padding: 14px;
+    border-radius: 16px;
+  }
+
+  .crop-modal-header {
+    gap: 10px;
+  }
+
+  .crop-modal-title {
+    font-size: 1rem;
+  }
+
+  .crop-modal-text {
+    font-size: 0.78rem;
+  }
+
+  .crop-canvas-shell {
+    min-height: 180px;
+    padding: 8px;
+    max-height: 55vh;
+  }
+
+  .crop-aspect-options {
+    grid-template-columns: 1fr;
+  }
+
+  .crop-aspect-btn {
+    padding: 10px;
+  }
+
+  .crop-actions {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .crop-actions .btn {
+    width: 100%;
+  }
+}
+
+@media (max-width: 760px) {
+  .detail-magnifier {
+    display: none !important;
+  }
+}
+
+
+@media (max-width: 430px) {
+  .editor-controls-column #cropOpenBtn,
+  .editor-controls-column #cropResetBtn {
+    min-height: 42px;
+  }
+}
+
+
+/* Hide the rendered pixel-size label in the top-left preview toolbar. */
+#imageDims {
+  display: none !important;
+}
+
+
+/* Prominent upload button in the top preview toolbar. */
+.top-upload-btn {
+  min-height: 0 !important;
+  height: 42px;
+  padding: 10px 18px !important;
+  line-height: 1.2;
+  box-sizing: border-box;
+  align-self: stretch;
+  box-shadow: 0 0 0 1px rgba(249,115,22,0.32), 0 12px 30px rgba(249,115,22,0.18);
+  white-space: nowrap;
+}
+
+.top-upload-btn:hover,
+.top-upload-btn:focus-visible {
+  box-shadow: 0 0 0 1px rgba(249,115,22,0.48), 0 16px 38px rgba(249,115,22,0.24);
+}
+
+@media (max-width: 760px) {
+  .top-upload-btn {
+    grid-column: 1 / -1;
+    width: 100%;
+    height: 42px;
+  }
+}
+
+
+/* Keep all top preview toolbar controls aligned to the same height. */
+.editor-preview-top > .panel:first-child {
+  align-items: stretch;
+}
+
+.editor-preview-top > .panel:first-child .view-btn,
+.editor-preview-top > .panel:first-child .top-upload-btn {
+  height: 42px;
+  min-height: 0 !important;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.editor-preview-top > .panel:first-child .material-preview-dropdown {
+  display: inline-flex;
+  align-items: stretch;
+}
+
+.editor-preview-top > .panel:first-child .material-preview-button {
+  height: 42px;
+  min-height: 0 !important;
+}
+
+@media (max-width: 760px) {
+  .editor-preview-top > .panel:first-child .view-btn,
+  .editor-preview-top > .panel:first-child .top-upload-btn,
+  .editor-preview-top > .panel:first-child .material-preview-button {
+    height: 42px;
+    min-height: 0 !important;
+  }
+}
+
+
+/* Final mobile polish after moving Upload photo to the top toolbar. */
+@media (max-width: 760px) {
+  .editor-preview-top > .panel:first-child {
+    grid-template-columns: 1fr 1fr;
+    overflow: visible;
+  }
+
+  .editor-preview-top > .panel:first-child .view-btn {
+    white-space: nowrap;
+  }
+
+  #materialCustomSelect.material-preview-dropdown {
+    grid-column: 1 / -1;
+    width: 100%;
+    z-index: 320;
+  }
+
+  .material-preview-menu {
+    z-index: 1000;
+  }
+
+  .top-upload-btn {
+    grid-column: 1 / -1;
+    width: 100%;
+  }
+
+  .editor-controls-column {
+    gap: 12px;
+  }
+
+  .editor-controls-column .panel {
+    scroll-margin-top: 12px;
+  }
+
+  .crop-modal-overlay {
+    z-index: 1200;
+  }
+
+  .crop-modal {
+    max-width: 100%;
+  }
+
+  .crop-canvas-shell {
+    overflow: hidden;
+  }
+
+  .mobile-action-stack .btn {
+    min-height: 42px;
+  }
+}
+
+@media (max-width: 390px) {
+  .editor-preview-top > .panel:first-child {
+    grid-template-columns: 1fr;
+  }
+
+  .editor-preview-top > .panel:first-child .view-btn,
+  .editor-preview-top > .panel:first-child .top-upload-btn {
+    width: 100%;
+  }
+
+  #imageDims {
+    display: none !important;
+  }
+}
+
+
+/* Keep the language dropdown above hero/editor panels. */
+.app-header {
+  position: relative;
+  z-index: 2000;
+  overflow: visible;
+}
+
+.lang-switcher,
+.lang-dropdown {
+  position: relative;
+  z-index: 2100;
+}
+
+.lang-menu,
+.lang-dropdown-menu,
+#langMenu {
+  z-index: 2200 !important;
+}
+
+.hero,
+.hero-card,
+.editor-preview-top,
+.editor-grid,
+.editor-controls-column {
+  position: relative;
+}
+
+.hero,
+.hero-card {
+  z-index: 1;
+}
+
+.editor-preview-top,
+.editor-grid,
+.editor-controls-column {
+  z-index: 2;
+}
+
+@media (max-width: 760px) {
+  .app-header {
+    z-index: 2400;
+  }
+
+  .lang-menu,
+  .lang-dropdown-menu,
+  #langMenu {
+    z-index: 2500 !important;
+  }
+}
+
   </style>
 <!-- 100% privacy-first analytics -->
 <script async="" src="https://scripts.simpleanalyticscdn.com/latest.js"></script>
@@ -1452,82 +2196,111 @@ z-index: 300;
 <div class="content max-w-7xl mx-auto px-4 py-6">
 <header class="app-header flex items-center gap-3 flex-wrap">
 <a href="https://photoengraving.online/pl/">
-<img alt="Logo PhotoEngraving" class="brand-logo" src="/logo.png"/>
+<img alt="Photoengraving Logo" class="brand-logo" src="/logo.png"/>
 </a>
 <div class="ml-auto flex flex-wrap gap-2 items-center">
-<nav aria-label="Wybór języka" class="lang-switcher lang-dropdown" id="langSwitcher">
-<button aria-controls="langMenu" aria-expanded="false" aria-haspopup="true" aria-label="Aktualny język: polski. Zmień język" class="lang-current" id="langCurrentButton" type="button">
+<nav aria-label="Language selector" class="lang-switcher lang-dropdown" id="langSwitcher">
+<button aria-controls="langMenu" aria-expanded="false" aria-haspopup="true" aria-label="Bieżący język: Polski. Zmień język" class="lang-current" id="langCurrentButton" type="button">
 <span aria-hidden="true" class="lang-current-flag" id="langCurrentFlag">🇵🇱</span>
 <span class="lang-current-name" id="langCurrentName">Polski</span>
 <span aria-hidden="true" class="lang-chevron">
 </span>
 </button>
-<div aria-label="Wybierz język" class="lang-menu" id="langMenu" role="menu">
-<a aria-label="Angielski" class="lang-option" data-lang="en" href="https://photoengraving.online/" hreflang="en" lang="en" role="menuitem" title="Angielski">
-<span aria-hidden="true" class="lang-option-flag">🇬🇧</span>
-<span class="lang-option-text">Angielski</span>
+<div aria-label="Choose language" class="lang-menu" id="langMenu" role="menu">
+<a aria-label="English" class="lang-option" data-lang="en" href="https://photoengraving.online/" hreflang="en" lang="en" role="menuitem" title="English">
+<span aria-hidden="true" class="lang-option-flag">
+         🇬🇧
+        </span>
+<span class="lang-option-text">English</span>
 </a>
-<a aria-label="Hiszpański" class="lang-option" data-lang="es" href="https://photoengraving.online/es/" hreflang="es" lang="es" role="menuitem" title="Hiszpański">
-<span aria-hidden="true" class="lang-option-flag">🇪🇸</span>
-<span class="lang-option-text">Hiszpański</span>
+<a aria-label="Español" class="lang-option" data-lang="es" href="https://photoengraving.online/es/" hreflang="es" lang="es" role="menuitem" title="Español">
+<span aria-hidden="true" class="lang-option-flag">
+         🇪🇸
+        </span>
+<span class="lang-option-text">Español</span>
 </a>
-<a aria-label="Niemiecki" class="lang-option" data-lang="de" href="https://photoengraving.online/de/" hreflang="de" lang="de" role="menuitem" title="Niemiecki">
-<span aria-hidden="true" class="lang-option-flag">🇩🇪</span>
-<span class="lang-option-text">Niemiecki</span>
+<a aria-label="Deutsch" class="lang-option" data-lang="de" href="https://photoengraving.online/de/" hreflang="de" lang="de" role="menuitem" title="Deutsch">
+<span aria-hidden="true" class="lang-option-flag">
+         🇩🇪
+        </span>
+<span class="lang-option-text">Deutsch</span>
 </a>
-<a aria-label="Francuski" class="lang-option" data-lang="fr" href="https://photoengraving.online/fr/" hreflang="fr" lang="fr" role="menuitem" title="Francuski">
-<span aria-hidden="true" class="lang-option-flag">🇫🇷</span>
-<span class="lang-option-text">Francuski</span>
+<a aria-label="Français" class="lang-option" data-lang="fr" href="https://photoengraving.online/fr/" hreflang="fr" lang="fr" role="menuitem" title="Français">
+<span aria-hidden="true" class="lang-option-flag">
+         🇫🇷
+        </span>
+<span class="lang-option-text">Français</span>
 </a>
-<a aria-label="Hindi" class="lang-option" data-lang="hi" href="https://photoengraving.online/hi/" hreflang="hi" lang="hi" role="menuitem" title="Hindi">
-<span aria-hidden="true" class="lang-option-flag">🇮🇳</span>
-<span class="lang-option-text">Hindi</span>
+<a aria-label="हिन्दी" class="lang-option" data-lang="hi" href="https://photoengraving.online/hi/" hreflang="hi" lang="hi" role="menuitem" title="हिन्दी">
+<span aria-hidden="true" class="lang-option-flag">
+         🇮🇳
+        </span>
+<span class="lang-option-text">हिन्दी</span>
 </a>
-<a aria-label="Włoski" class="lang-option" data-lang="it" href="https://photoengraving.online/it/" hreflang="it" lang="it" role="menuitem" title="Włoski">
-<span aria-hidden="true" class="lang-option-flag">🇮🇹</span>
-<span class="lang-option-text">Włoski</span>
+<a aria-label="Italiano" class="lang-option" data-lang="it" href="https://photoengraving.online/it/" hreflang="it" lang="it" role="menuitem" title="Italiano">
+<span aria-hidden="true" class="lang-option-flag">
+         🇮🇹
+        </span>
+<span class="lang-option-text">Italiano</span>
 </a>
-<a aria-label="Japoński" class="lang-option" data-lang="ja" href="https://photoengraving.online/ja/" hreflang="ja" lang="ja" role="menuitem" title="Japoński">
-<span aria-hidden="true" class="lang-option-flag">🇯🇵</span>
-<span class="lang-option-text">Japoński</span>
+<a aria-label="日本語" class="lang-option" data-lang="ja" href="https://photoengraving.online/ja/" hreflang="ja" lang="ja" role="menuitem" title="日本語">
+<span aria-hidden="true" class="lang-option-flag">
+         🇯🇵
+        </span>
+<span class="lang-option-text">日本語</span>
 </a>
-<a aria-label="Koreański" class="lang-option" data-lang="ko" href="https://photoengraving.online/ko/" hreflang="ko" lang="ko" role="menuitem" title="Koreański">
-<span aria-hidden="true" class="lang-option-flag">🇰🇷</span>
-<span class="lang-option-text">Koreański</span>
+<a aria-label="한국어" class="lang-option" data-lang="ko" href="https://photoengraving.online/ko/" hreflang="ko" lang="ko" role="menuitem" title="한국어">
+<span aria-hidden="true" class="lang-option-flag">
+         🇰🇷
+        </span>
+<span class="lang-option-text">한국어</span>
 </a>
 <a aria-current="page" aria-label="Polski" class="lang-option active" data-lang="pl" href="https://photoengraving.online/pl/" hreflang="pl" lang="pl" role="menuitem" title="Polski">
-<span aria-hidden="true" class="lang-option-flag">🇵🇱</span>
+<span aria-hidden="true" class="lang-option-flag">
+         🇵🇱
+        </span>
 <span class="lang-option-text">Polski</span>
 </a>
-<a aria-label="Portugalski brazylijski" class="lang-option" data-lang="pt-br" href="https://photoengraving.online/pt-br/" hreflang="pt-BR" lang="pt-BR" role="menuitem" title="Portugalski brazylijski">
-<span aria-hidden="true" class="lang-option-flag">🇧🇷</span>
-<span class="lang-option-text">Portugalski brazylijski</span>
+<a aria-label="Português (Brasil)" class="lang-option" data-lang="pt-br" href="https://photoengraving.online/pt-br/" hreflang="pt-BR" lang="pt-BR" role="menuitem" title="Português (Brasil)">
+<span aria-hidden="true" class="lang-option-flag">
+         🇧🇷
+        </span>
+<span class="lang-option-text">Português (Brasil)</span>
 </a>
-<a aria-label="Rosyjski" class="lang-option" data-lang="ru" href="https://photoengraving.online/ru/" hreflang="ru" lang="ru" role="menuitem" title="Rosyjski">
-<span aria-hidden="true" class="lang-option-flag">🇷🇺</span>
-<span class="lang-option-text">Rosyjski</span>
+<a aria-label="Русский" class="lang-option" data-lang="ru" href="https://photoengraving.online/ru/" hreflang="ru" lang="ru" role="menuitem" title="Русский">
+<span aria-hidden="true" class="lang-option-flag">
+         🇷🇺
+        </span>
+<span class="lang-option-text">Русский</span>
 </a>
-<a aria-label="Turecki" class="lang-option" data-lang="tr" href="https://photoengraving.online/tr/" hreflang="tr" lang="tr" role="menuitem" title="Turecki">
-<span aria-hidden="true" class="lang-option-flag">🇹🇷</span>
-<span class="lang-option-text">Turecki</span>
+<a aria-label="Türkçe" class="lang-option" data-lang="tr" href="https://photoengraving.online/tr/" hreflang="tr" lang="tr" role="menuitem" title="Türkçe">
+<span aria-hidden="true" class="lang-option-flag">
+         🇹🇷
+        </span>
+<span class="lang-option-text">Türkçe</span>
 </a>
-<a aria-label="Chiński" class="lang-option" data-lang="zh" href="https://photoengraving.online/zh/" hreflang="zh" lang="zh" role="menuitem" title="Chiński">
-<span aria-hidden="true" class="lang-option-flag">🇨🇳</span>
-<span class="lang-option-text">Chiński</span>
+<a aria-label="中文" class="lang-option" data-lang="zh" href="https://photoengraving.online/zh/" hreflang="zh" lang="zh" role="menuitem" title="中文">
+<span aria-hidden="true" class="lang-option-flag">
+         🇨🇳
+        </span>
+<span class="lang-option-text">中文</span>
 </a>
-<a aria-label="Czeski" class="lang-option" data-lang="cs" href="https://photoengraving.online/cs/" hreflang="cs" lang="cs" role="menuitem" title="Czeski">
-<span aria-hidden="true" class="lang-option-flag">🇨🇿</span>
-<span class="lang-option-text">Czeski</span>
+<a aria-label="Čeština" class="lang-option" data-lang="cs" href="https://photoengraving.online/cs/" hreflang="cs" lang="cs" role="menuitem" title="Čeština">
+<span aria-hidden="true" class="lang-option-flag">
+         🇨🇿
+        </span>
+<span class="lang-option-text">Čeština</span>
 </a>
 </div>
 </nav>
+<a aria-label="Otwórz przewodnik po grawerowaniu zdjęć laserem" class="guide-btn" href="https://photoengraving.online/guide">
+<span>Przewodnik</span>
+</a>
 <button aria-controls="feedbackModal" aria-haspopup="dialog" class="feedback-btn" id="feedbackOpenBtn" type="button">
 <span aria-hidden="true">
        💬
       </span>
-<span>
-       Opinia
-      </span>
+<span>Opinia</span>
 </button>
 <div class="counter-badge">
 <span data-i18n="counterLabel">📸 Przetworzono:</span>
@@ -1542,60 +2315,81 @@ z-index: 300;
 <div class="feedback-modal-header">
 <div>
 <h2 class="feedback-modal-title" id="feedbackModalTitle">Wyślij opinię</h2>
-<p class="feedback-modal-text">
-        Napisz, co można poprawić, czego brakuje albo co nie zadziałało zgodnie z oczekiwaniami.
-       </p>
+<p class="feedback-modal-text">Napisz, co można poprawić, czego brakuje albo co nie zadziałało zgodnie z oczekiwaniami.</p>
 </div>
-<button aria-label="Zamknij formularz opinii" class="feedback-close-btn" id="feedbackCloseBtn" type="button">
-       ×
-      </button>
+<button aria-label="Zamknij formularz opinii" class="feedback-close-btn" id="feedbackCloseBtn" type="button">×</button>
 </div>
 <form class="feedback-form" id="feedbackForm" novalidate="">
 <div class="feedback-field">
-<label for="feedbackText">
-        Twoja opinia
-       </label>
-<textarea id="feedbackText" maxlength="3000" minlength="8" name="message" placeholder="Co możemy poprawić?" required=""></textarea>
+<label for="feedbackText">Twoja opinia</label>
+<textarea id="feedbackText" maxlength="3000" minlength="8" name="message" placeholder="Co powinniśmy poprawić?" required=""></textarea>
 </div>
 <div class="feedback-field">
-<label for="feedbackEmail">
-        Twój e-mail (opcjonalnie)
-       </label>
+<label for="feedbackEmail">Twój e-mail (opcjonalnie)</label>
 <input autocomplete="email" id="feedbackEmail" name="email" placeholder="name@example.com" type="email"/>
 </div>
 <div aria-hidden="true" class="feedback-hp">
-<label for="feedbackWebsite">
-        Strona internetowa
-       </label>
+<label for="feedbackWebsite">Strona internetowa</label>
 <input autocomplete="off" id="feedbackWebsite" name="website" tabindex="-1" type="text"/>
 </div>
 <div aria-live="polite" class="feedback-message" id="feedbackMessage" role="status">
 </div>
-<p class="feedback-note">
-       Podstawowa ochrona przed spamem jest aktywna.
-      </p>
+<p class="feedback-note">Podstawowa ochrona przed spamem jest aktywna.</p>
 <div class="feedback-actions">
-<button class="btn btn-secondary" id="feedbackCancelBtn" type="button">
-        Anuluj
-       </button>
-<button class="btn btn-primary" type="submit">
-        Wyślij opinię
-       </button>
+<button class="btn btn-secondary" id="feedbackCancelBtn" type="button">Anuluj</button>
+<button class="btn btn-primary" type="submit">Wyślij opinię</button>
 </div>
 </form>
 </div>
 </div>
+<div aria-hidden="true" class="crop-modal-overlay" id="cropModalOverlay">
+<div aria-labelledby="cropModalTitle" aria-modal="true" class="crop-modal" id="cropModal" role="dialog">
+<div class="crop-modal-header">
+<div>
+<h2 class="crop-modal-title" data-i18n="cropModalTitle" id="cropModalTitle">Kadrowanie zdjęcia</h2>
+<p class="crop-modal-text" data-i18n="cropModalText">Przeciągnij, aby zaznaczyć obszar kadrowania. Przeciągnij wewnątrz obszaru, aby go przesunąć, albo przeciągnij narożnik, aby zmienić rozmiar.</p>
+</div>
+<button aria-label="Zamknij edytor kadrowania" class="feedback-close-btn" id="cropCloseBtn" type="button">
+       ×
+      </button>
+</div>
+<div aria-label="Proporcje kadrowania" class="crop-aspect-options" id="cropAspectOptions">
+<button aria-pressed="true" class="crop-aspect-btn active" data-crop-aspect="free" data-i18n="cropAspectFree" type="button">Dowolne proporcje</button>
+<button aria-pressed="false" class="crop-aspect-btn" data-crop-aspect="original" data-i18n="cropAspectOriginal" type="button">Zachowaj oryginalne proporcje</button>
+<button aria-pressed="false" class="crop-aspect-btn" data-crop-aspect="square" data-i18n="cropAspectSquare" type="button">Kwadrat</button>
+</div>
+<div class="crop-canvas-shell" id="cropCanvasShell">
+<canvas aria-label="Edytor kadrowania zdjęcia" class="crop-canvas" id="cropCanvas"></canvas>
+</div>
+<div class="crop-status mt-3" data-i18n="cropModalHelp">Kadr jest stosowany przed ditheringiem, podglądem materiału oraz eksportem PNG/BMP.</div>
+<div class="crop-actions">
+<button class="btn btn-secondary" data-i18n="cropCancelBtn" id="cropCancelBtn" type="button">Anuluj</button>
+<button class="btn btn-secondary" data-i18n="cropResetBtn" id="cropResetModalBtn" type="button">Resetuj kadr</button>
+<button class="btn btn-primary" data-i18n="cropApplyBtn" id="cropApplyBtn" type="button">Zastosuj kadr</button>
+</div>
+</div>
+</div>
 <section class="panel p-6 mb-4">
-<h1 data-i18n="heroTitle" style="font-size:clamp(1.8rem,3vw,2.6rem);font-weight:800;line-height:1.1;color:#f8fafc;margin:0 0 12px;">Darmowy edytor zdjęć do grawerowania laserowego</h1>
-<p data-i18n-html="heroText" style="font-size:1rem;line-height:1.8;color:#cbd5e1;margin:0;max-width:900px;">Zamień dowolne zdjęcie lub obraz w plik PNG gotowy do grawerowania laserowego bezpośrednio w przeglądarce. Wybierz typ zdjęcia, ustaw DPI, jasność, kontrast, gamma, ostrość i rozmiar wyjściowy, a następnie wyeksportuj PNG przygotowany do LightBurn, XCS, LaserGRBL, EZCAD i innych programów laserowych. <strong style="color: var(--accent);">Korzystanie jest bezpłatne. Twoje zdjęcia są przetwarzane lokalnie w przeglądarce i nie są przesyłane na nasz serwer.</strong></p>
+<h1 data-i18n="heroTitle" style="font-size:clamp(1.8rem,3vw,2.6rem);font-weight:800;line-height:1.1;color:#f8fafc;margin:0 0 12px;">Darmowy konwerter zdjęć do grawerowania laserowego online</h1>
+<p data-i18n-html="heroText" style="font-size:1rem;line-height:1.8;color:#cbd5e1;margin:0;max-width:900px;">Przekształć dowolny obraz lub zdjęcie w gotowy do grawerowania laserowego plik PNG bezpośrednio w przeglądarce. Wybierz typ zdjęcia, ustaw DPI, jasność, kontrast, gammę, ostrość i rozmiar wyjściowy, a następnie wyeksportuj PNG przygotowany do LightBurn, XCS, LaserGRBL, EZCAD i innych programów laserowych. <strong style="color: var(--accent);">Narzędzie jest darmowe. Twoje zdjęcia są przetwarzane lokalnie w przeglądarce i nie są przesyłane na nasz serwer.</strong></p>
 </section>
 <div aria-live="polite" class="status-message" id="statusMessage" role="status">
 </div>
 <div class="main-editor-layout">
 <div class="editor-preview-top">
-<div class="panel px-4 py-3 flex gap-3 items-center flex-wrap">
-<button aria-pressed="true" class="btn view-btn active" data-i18n="btnCompare" id="btnCompare" type="button">Oryginał + wynik</button>
-<button aria-pressed="false" class="btn view-btn" data-i18n="btnOutput" id="btnResult" type="button">Tylko wynik</button>
+<div class="panel px-4 py-3 flex gap-3 items-center flex-wrap"><input accept="image/*" id="fileInput" style="display:none" type="file"/>
+<button class="btn btn-primary top-upload-btn" data-i18n="reuploadBtn" id="topUploadBtn" type="button">Prześlij zdjęcie</button><button aria-pressed="true" class="btn view-btn active" data-i18n="btnCompare" id="btnCompare" type="button">Oryginał + wynik</button>
+<button aria-pressed="false" class="btn view-btn" data-i18n="btnOutput" id="btnResult" type="button">Wynik</button>
+<div class="custom-select material-preview-dropdown" id="materialCustomSelect">
+<button aria-expanded="false" aria-haspopup="listbox" aria-pressed="false" class="btn view-btn material-preview-button" data-i18n="btnMaterialPreview" id="btnMaterial" type="button">Podgląd materiału</button>
+<ul aria-label="Lista materiałów" aria-labelledby="btnMaterial" class="custom-select-dropdown material-preview-menu" id="materialCustomOptions" role="listbox">
+</ul>
+<select class="custom-native-hidden" id="materialSelectNative" tabindex="-1">
+<option data-i18n="materialWood" value="wood">Drewno</option>
+<option data-i18n="materialBlackAnodized" value="blackAnodized">Ciemne powierzchnie</option>
+<option data-i18n="materialStainless" value="stainless">Stal nierdzewna</option>
+</select>
+</div>
 <div class="ml-auto" id="imageDims" style="font-size:0.76rem;color:#7b8b9c;font-weight:600">
 </div>
 </div>
@@ -1605,7 +2399,7 @@ z-index: 300;
 <div style="flex:1">
 <div data-i18n="emptyOriginal" style="font-size:0.66rem;font-weight:700;letter-spacing:0.08em;color:#94a3b8;margin-bottom:6px;text-align:center">ORYGINAŁ</div>
 <div style="border-radius:12px;overflow:hidden;border:1px solid rgba(255,255,255,0.07);background:#000">
-<img alt="Podgląd obrazu oryginalnego" decoding="async" fetchpriority="low" id="emptyOriginalImg" onerror="this.onerror=null;this.src='/preview-v3.png';" src="/preview-v3-small.webp" style="width:100%;display:block;object-fit:contain;"/>
+<img alt="Podgląd oryginalnego obrazu" decoding="async" fetchpriority="low" id="emptyOriginalImg" onerror="this.onerror=null;this.src='/preview-v3.png';" src="/preview-v3-small.webp" style="width:100%;display:block;object-fit:contain;"/>
 </div>
 </div>
 <div style="display:flex;align-items:center;color:#f97316;font-size:1.4rem;padding-bottom:4px">
@@ -1614,52 +2408,20 @@ z-index: 300;
 <div style="flex:1">
 <div data-i18n="emptyOutput" style="font-size:0.66rem;font-weight:700;letter-spacing:0.08em;color:#f97316;margin-bottom:6px;text-align:center">WYNIK</div>
 <div style="border-radius:12px;overflow:hidden;border:1px solid rgba(249,115,22,0.2);background:#000">
-<img alt="Podgląd obrazu wyjściowego" decoding="async" fetchpriority="low" id="emptyResultImg" onerror="this.onerror=null;this.src='/preview-v3.png';" src="/preview-v3-small.webp" style="width:100%;display:block;object-fit:contain;"/>
+<img alt="Podgląd obrazu wynikowego" decoding="async" fetchpriority="low" id="emptyResultImg" onerror="this.onerror=null;this.src='/preview-v3.png';" src="/preview-v3-small.webp" style="width:100%;display:block;object-fit:contain;"/>
 </div>
 </div>
 </div>
-<div class="empty-steps">
-<div class="empty-step primary" id="uploadCtaCard">
-<div class="empty-step-num">
-          1
-         </div>
-<div>
-<div data-i18n="stepUploadTitle" style="font-size:0.82rem;font-weight:700;color:#f97316;margin-bottom:2px">Prześlij zdjęcie ↑</div>
-<div data-i18n="stepUploadText" style="font-size:0.72rem;color:#94a3b8">Kliknij tutaj albo przeciągnij i upuść</div>
-</div>
-</div>
-<div class="empty-step">
-<div class="empty-step-num">
-          2
-         </div>
-<div>
-<div data-i18n="stepTryTitle" style="font-size:0.82rem;font-weight:600;color:#cbd5e1;margin-bottom:2px">Albo wypróbuj od razu</div>
-<div data-i18n="stepTryText" style="font-size:0.72rem;color:#64748b">Zdjęcie demo załaduje się automatycznie</div>
-</div>
-</div>
-<div class="empty-step">
-<div class="empty-step-num">
-          3
-         </div>
-<div>
-<div data-i18n="stepDownloadTitle" style="font-size:0.82rem;font-weight:600;color:#cbd5e1;margin-bottom:2px">Pobierz PNG</div>
-<div data-i18n="stepDownloadText" style="font-size:0.72rem;color:#64748b">Gotowe do grawerowania</div>
-</div>
-</div>
-</div>
-<div class="hint-line" data-i18n="hintLine">↑ Zacznij od razu ze zdjęciem demo albo prześlij własne</div>
+<div class="hint-line" id="emptyHintLine">Zacznij od razu od zdjęcia demo albo <button class="hint-upload-link" id="hintUploadLink" type="button">prześlij własne</button></div>
 </div>
 <div id="canvasArea" style="display:none">
-<div class="demo-notice" id="demoNotice">
-<span data-i18n="demoNoticeText">Załadowano obraz demo — prześlij własne zdjęcie, aby rozpocząć.</span>
-</div>
 <div id="resultView" style="display:none">
 <div class="canvas-label accent" data-i18n="labelOutputPreview">Wynik gotowy do lasera</div>
 <div class="zoom-hover canvas-wrap">
 <canvas class="w-full" id="canvasSingle">
 </canvas>
 </div>
-<div class="helper-text" data-i18n="zoomHelp" style="text-align:center;margin-top:10px;">Najedź myszą na obraz, aby sprawdzić szczegóły w lupie. Na urządzeniach dotykowych przytrzymaj i przeciągnij po obrazie. Dla największej wygody edycji zalecamy korzystanie z tego narzędzia na komputerze.</div>
+<div class="helper-text" data-i18n="zoomHelp" style="text-align:center;margin-top:10px;">Najedź myszą na obraz, aby sprawdzić szczegóły w lupie. Na urządzeniach dotykowych przytrzymaj i przeciągnij po obrazie. Dla największej wygody edycji zalecamy korzystanie z narzędzia na komputerze.</div>
 <div class="mobile-action-stack">
 <button class="btn btn-secondary mobile-adjust-btn" data-i18n="adjustSettingsBtn" id="adjustSettingsBtnResult" type="button">Dostosuj ustawienia ↓</button>
 <button class="btn btn-primary mobile-reupload-btn" data-i18n="reuploadBtn" id="reuploadBtnResult" type="button">Prześlij zdjęcie</button>
@@ -1684,7 +2446,7 @@ z-index: 300;
 </div>
 </div>
 </div>
-<div class="helper-text" data-i18n="zoomHelp" style="text-align:center;margin-top:10px;">Najedź myszą na obraz, aby sprawdzić szczegóły w lupie. Na urządzeniach dotykowych przytrzymaj i przeciągnij po obrazie. Dla największej wygody edycji zalecamy korzystanie z tego narzędzia na komputerze.</div>
+<div class="helper-text" data-i18n="zoomHelp" style="text-align:center;margin-top:10px;">Najedź myszą na obraz, aby sprawdzić szczegóły w lupie. Na urządzeniach dotykowych przytrzymaj i przeciągnij po obrazie. Dla największej wygody edycji zalecamy korzystanie z narzędzia na komputerze.</div>
 <div class="mobile-action-stack">
 <button class="btn btn-secondary mobile-adjust-btn" data-i18n="adjustSettingsBtn" id="adjustSettingsBtnCompare" type="button">Dostosuj ustawienia ↓</button>
 <button class="btn btn-primary mobile-reupload-btn" data-i18n="reuploadBtn" id="reuploadBtnCompare" type="button">Prześlij zdjęcie</button>
@@ -1692,44 +2454,36 @@ z-index: 300;
 <button class="btn btn-secondary mobile-download-btn" data-i18n="downloadBmpBtn" id="downloadBmpBtnMobileCompare" type="button">Pobierz BMP</button>
 </div>
 </div>
+<div id="materialView" style="display:none">
+<div class="canvas-label accent" id="materialPreviewLabel">
+         Material preview
+        </div>
+<div class="zoom-hover canvas-wrap">
+<canvas class="w-full" id="canvasMaterialPreview">
+</canvas>
+</div>
+<div class="material-preview-disclaimer" data-i18n="materialPreviewDisclaimer">To tylko przybliżona symulacja wizualna. Rzeczywisty efekt zależy od typu lasera, soczewki, ogniskowania, prędkości, mocy oraz dokładnej powierzchni materiału. Pobrany PNG/BMP pozostaje czystym czarno-białym plikiem przygotowanym do lasera.</div>
+<div class="helper-text" data-i18n="zoomHelp" style="text-align:center;margin-top:10px;">Najedź myszą na obraz, aby sprawdzić szczegóły w lupie. Na urządzeniach dotykowych przytrzymaj i przeciągnij po obrazie. Dla największej wygody edycji zalecamy korzystanie z narzędzia na komputerze.</div>
+<div class="mobile-action-stack">
+<button class="btn btn-secondary mobile-adjust-btn" data-i18n="adjustSettingsBtn" id="adjustSettingsBtnMaterial" type="button">Dostosuj ustawienia ↓</button>
+<button class="btn btn-primary mobile-reupload-btn" data-i18n="reuploadBtn" id="reuploadBtnMaterial" type="button">Prześlij zdjęcie</button>
+<button class="btn btn-primary mobile-download-btn" data-i18n="downloadBtn" id="downloadBtnMobileMaterial" type="button">Pobierz PNG</button>
+<button class="btn btn-secondary mobile-download-btn" data-i18n="downloadBmpBtn" id="downloadBmpBtnMobileMaterial" type="button">Pobierz BMP</button>
+</div>
+</div>
 </div>
 </div>
 </div>
 <div class="editor-controls-column" id="editorControlsColumn">
 <div class="panel p-4">
-<div class="section-title" data-i18n="sectionUpload">Prześlij zdjęcie</div>
-<div class="drop-zone p-5 text-center cursor-pointer" id="dropZone">
-<div style="font-size:2rem;margin-bottom:6px">
-        📷
-       </div>
-<div data-i18n="dropZoneMain" style="font-size:0.92rem;color:#ffffff;font-weight:700">Przeciągnij i upuść albo kliknij, aby wybrać</div>
-<div data-i18n="dropZoneSub" style="font-size:0.76rem;color:#e2e8f0;margin-top:5px">JPG, PNG, BMP, WebP</div>
-<input accept="image/*" id="fileInput" style="display:none" type="file"/>
+<div class="section-title" data-i18n="sectionCrop">Kadrowanie zdjęcia</div>
+<div class="grid grid-cols-2 gap-2">
+<button class="btn btn-secondary w-full" data-i18n="cropOpenBtn" id="cropOpenBtn" type="button">Kadruj zdjęcie</button>
+<button class="btn btn-secondary w-full" data-i18n="cropResetBtn" id="cropResetBtn" type="button">Resetuj kadr</button>
 </div>
 </div>
 <div class="panel p-4">
-<div class="section-title" data-i18n="sectionPhotoType">Typ zdjęcia</div>
-<div class="grid grid-cols-2 gap-2" id="presetCards">
-<div class="preset-card active" data-i18n="presetNormal" data-preset="normal">Zdjęcie normalne</div>
-<div class="preset-card" data-i18n="presetNegative" data-preset="negative">Negatyw</div>
-<div class="preset-card" data-i18n="presetDark" data-preset="dark">Ciemne zdjęcie</div>
-<div class="preset-card" data-i18n="presetLight" data-preset="light">Jasne zdjęcie</div>
-</div>
-<div class="helper-text mt-2" data-i18n="presetHelp">Domyślnie wybrane jest Zdjęcie normalne. Wybierz Negatyw dla odwróconego obrazu albo dopracuj ustawienia suwakami poniżej.</div>
-</div>
-<div class="panel p-4">
-<div class="section-title" data-i18n="sectionDithering">Dithering</div>
-<div class="grid grid-cols-2 gap-2" id="ditherCards">
-<div class="preset-card active" data-dither="floyd" data-i18n="ditherFloyd">Floyd-Steinberg</div>
-<div class="preset-card" data-dither="atkinson" data-i18n="ditherAtkinson">Atkinson</div>
-<div class="preset-card" data-dither="jarvis" data-i18n="ditherJarvis">Jarvis</div>
-<div class="preset-card" data-dither="ordered" data-i18n="ditherOrdered">Ordered / Bayer</div>
-</div>
-<input id="ditherMode" type="hidden" value="floyd"/>
-<div class="helper-text mt-2" data-i18n="ditherHelp">Floyd-Steinberg to najbardziej uniwersalny wybór. Atkinson daje delikatniejszy efekt, Jarvis płynniejsze przejścia z większą liczbą tonów, a Ordered/Bayer tworzy regularny wzór (odpowiedni do logo i grafiki).</div>
-</div>
-<div class="panel p-4">
-<div class="section-title" data-i18n="sectionAdjustments">Ustawienia zdjęcia</div>
+<div class="section-title" data-i18n="sectionAdjustments">Korekta zdjęcia</div>
 <div class="flex flex-col gap-4">
 <div>
 <label data-i18n="labelBrightness" for="brightness">Jasność</label>
@@ -1772,6 +2526,26 @@ z-index: 300;
 <button class="btn btn-secondary" data-i18n="resetBtn" id="resetBtn" type="button">↺ Ustawienia domyślne</button>
 </div>
 </div>
+</div><div class="panel p-4">
+<div class="section-title" data-i18n="sectionPhotoType">Typ zdjęcia</div>
+<div class="grid grid-cols-2 gap-2" id="presetCards">
+<div class="preset-card active" data-i18n="presetNormal" data-preset="normal">Normalne zdjęcie</div>
+<div class="preset-card" data-i18n="presetNegative" data-preset="negative">Negatyw</div>
+<div class="preset-card" data-i18n="presetDark" data-preset="dark">Ciemne zdjęcie</div>
+<div class="preset-card" data-i18n="presetLight" data-preset="light">Jasne zdjęcie</div>
+</div>
+<div class="helper-text mt-2" data-i18n="presetHelp">Domyślnie używany jest tryb Normalne zdjęcie. Wybierz Negatyw dla odwróconego obrazu albo dopracuj ustawienia suwakami poniżej.</div>
+</div>
+<div class="panel p-4">
+<div class="section-title" data-i18n="sectionDithering">Dithering</div>
+<div class="grid grid-cols-2 gap-2" id="ditherCards">
+<div class="preset-card active" data-dither="floyd" data-i18n="ditherFloyd">Floyd-Steinberg</div>
+<div class="preset-card" data-dither="atkinson" data-i18n="ditherAtkinson">Atkinson</div>
+<div class="preset-card" data-dither="jarvis" data-i18n="ditherJarvis">Jarvis</div>
+<div class="preset-card" data-dither="ordered" data-i18n="ditherOrdered">Ordered / Bayer</div>
+</div>
+<input id="ditherMode" type="hidden" value="floyd"/>
+<div class="helper-text mt-2" data-i18n="ditherHelp">Floyd-Steinberg to zrównoważony wybór. Atkinson daje łagodniejszy efekt, Jarvis płynniejsze przejścia z większą liczbą tonów, a Ordered/Bayer tworzy regularny wzór, odpowiedni m.in. do logo i grafiki.</div>
 </div>
 <div class="panel p-4">
 <div class="section-title" data-i18n="sectionOutput">Wynik</div>
@@ -1789,7 +2563,7 @@ z-index: 300;
            254 DPI - 0.1 mm
           </span>
 </button>
-<ul aria-labelledby="dpiLabel" class="custom-select-dropdown" id="dpiCustomOptions" role="listbox">
+<ul aria-label="Lista rozdzielczości DPI" aria-labelledby="dpiLabel" class="custom-select-dropdown" id="dpiCustomOptions" role="listbox">
 </ul>
 </div>
 <select class="custom-native-hidden" id="dpi" tabindex="-1">
@@ -1803,13 +2577,13 @@ z-index: 300;
           508 DPI - 0.05 mm
          </option>
 <option value="custom">
-          Własne DPI…
+          Custom DPI…
          </option>
 </select>
 <div class="custom-dpi-input-wrap mt-2" id="customDpiWrap" style="display:none">
 <label data-i18n="labelCustomDpi" for="customDpi">Własne DPI</label>
 <input class="mt-1" id="customDpi" max="2400" min="1" step="1" type="number" value="254"/>
-<div class="helper-text" data-i18n="customDpiHelp">Wpisz własną wartość DPI od 1 do 2400.</div>
+<div class="helper-text" data-i18n="customDpiHelp">Wpisz własną wartość DPI w zakresie od 1 do 2400.</div>
 </div>
 <div class="helper-text" data-i18n="dpiHelp">Zmiana DPI zachowuje ten sam rozmiar fizyczny i przelicza liczbę pikseli.</div>
 </div>
@@ -1818,9 +2592,9 @@ z-index: 300;
 <div class="mt-3">
 <label data-i18n="labelFineTuneWidth" for="outputWidthSlider">Szerokość w pikselach</label>
 <div class="slider-row mt-1">
-<input id="outputWidthSlider" max="6000" min="100" step="10" type="range" value="800"/>
+<input id="outputWidthSlider" max="6000" min="1" step="10" type="range" value="1000"/>
 <span class="slider-val" id="outputWidthSliderVal" style="width:82px">
-           800 px
+           1000 px
           </span>
 </div>
 <div class="helper-text" data-i18n="outputSliderHelp">Ustawienie zaawansowane. Zmiana liczby pikseli przelicza szerokość w mm dla wybranego DPI.</div>
@@ -1840,22 +2614,22 @@ z-index: 300;
 </div>
 <button class="btn btn-primary w-full mt-1" data-i18n="downloadBtn" id="downloadBtn" type="button">Pobierz PNG</button>
 <button class="btn btn-secondary w-full mt-2" data-i18n="downloadBmpBtn" id="downloadBmpBtn" type="button">Pobierz BMP</button>
-<div class="helper-text" data-i18n-html="exportHelp">PNG jest zalecany do LightBurn, XCS, LaserGRBL i innych programów laserowych. PNG i 1-bitowy BMP zawierają metadane DPI, aby zachować prawidłowy rozmiar fizyczny w programie laserowym.</div>
+<div class="helper-text" data-i18n-html="exportHelp">PNG jest zalecany do LightBurn, XCS, LaserGRBL i innych programów laserowych. PNG oraz 1-bitowy BMP zawierają metadane DPI, które pomagają zachować prawidłowy rozmiar fizyczny w programie laserowym.</div>
 </div>
 </div>
 </div>
 <div class="editor-left-extra">
 <section class="panel p-5">
 <h2 class="help-section-title" data-i18n="seoIntroTitle">Darmowy konwerter zdjęć do grawerowania laserowego online</h2>
-<p class="help-text" data-i18n-html="seoIntroText">Użyj <strong class="text-white">PhotoEngraving.online</strong> jako darmowego konwertera obrazu do grawerowania laserowego bezpośrednio w przeglądarce. Prześlij zdjęcie, zamień je na czarno-biały plik PNG gotowy do lasera, wybierz typ zdjęcia i DPI, sprawdź zalecaną prędkość grawerowania dla materiału, dostosuj jasność, kontrast, gamma i ostrość, a następnie pobierz wynik do LightBurn, XCS, LaserGRBL, EZCAD i innych programów laserowych.</p>
+<p class="help-text" data-i18n-html="seoIntroText">Użyj <strong class="text-white">PhotoEngraving.online</strong> jako darmowego konwertera obrazu do grawerowania laserowego bezpośrednio w przeglądarce. Prześlij zdjęcie, zamień je na gotowy do lasera czarno-biały plik PNG, wybierz typ zdjęcia i DPI, sprawdź zalecaną prędkość grawerowania dla materiału, dopasuj jasność, kontrast, gammę i ostrość, a następnie pobierz wynik do LightBurn, XCS, LaserGRBL, EZCAD lub innego programu laserowego.</p>
 <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
 <div class="help-card">
 <div class="help-card-title" data-i18n="seoCard1Title">Darmowe narzędzie online</div>
-<div class="help-card-text" data-i18n="seoCard1Text">Bez instalacji. Konwertuj zdjęcia do grawerowania laserowego online i pobieraj PNG za darmo.</div>
+<div class="help-card-text" data-i18n="seoCard1Text">Bez instalacji. Konwertuj zdjęcia do grawerowania laserowego online i pobierz PNG za darmo.</div>
 </div>
 <div class="help-card">
-<div class="help-card-title" data-i18n="seoCard2Title">Plik wyjściowy gotowy do lasera</div>
-<div class="help-card-text" data-i18n="seoCard2Text">Eksportuj czarno-białe pliki PNG lub BMP z metadanymi DPI i wskazówkami dotyczącymi prędkości grawerowania, aby zachować prawidłowy rozmiar fizyczny w programie laserowym.</div>
+<div class="help-card-title" data-i18n="seoCard2Title">Gotowy do lasera plik PNG</div>
+<div class="help-card-text" data-i18n="seoCard2Text">Eksportuj czarno-białe pliki PNG z metadanymi DPI i wskazówkami dotyczącymi prędkości grawerowania, aby zachować poprawny rozmiar fizyczny w programie laserowym.</div>
 </div>
 <div class="help-card">
 <div class="help-card-title" data-i18n="seoCard3Title">Prywatne przetwarzanie w przeglądarce</div>
@@ -1866,7 +2640,7 @@ z-index: 300;
 <div class="flex flex-col gap-3" id="helpArea">
 <div class="panel p-5">
 <div class="help-section-title" data-i18n="helpIntroTitle">Do czego służy to narzędzie?</div>
-<p class="help-text" data-i18n-html="helpIntroText"><strong class="text-white">Photo Engraving Online</strong> zamienia zwykłe zdjęcie w rastrowy, czarno-biały obraz zoptymalizowany do grawerowania laserem CO2 lub diodowym. Następnie możesz zaimportować wynikowy plik PNG bezpośrednio do swojego programu laserowego (LightBurn, LaserGRBL, XCS itp.) i wykonać grawer.</p>
+<p class="help-text" data-i18n-html="helpIntroText"><strong class="text-white">Photo Engraving Online</strong> zamienia zwykłe zdjęcie w rastrowy czarno-biały obraz zoptymalizowany pod grawerowanie laserem CO2 lub diodowym. Gotowy PNG możesz następnie zaimportować bezpośrednio do programu laserowego, takiego jak LightBurn, LaserGRBL, XCS itp., i wykonać grawer.</p>
 </div>
 <div class="panel p-5">
 <div class="help-section-title" data-i18n="helpDpiTitle">Zalecane DPI według materiału</div>
@@ -1906,7 +2680,7 @@ z-index: 300;
 </div>
 </div>
 <div class="panel p-5">
-<div class="help-section-title" data-i18n="helpStepsTitle">Instrukcja krok po kroku</div>
+<div class="help-section-title" data-i18n="helpStepsTitle">Przewodnik krok po kroku</div>
 <div class="space-y-4">
 <div class="help-step">
 <div class="help-step-num">
@@ -1914,7 +2688,7 @@ z-index: 300;
          </div>
 <div>
 <p class="font-semibold text-white" data-i18n="helpStep1Title">Prześlij zdjęcie</p>
-<p class="text-sm mt-1 text-slate-400" data-i18n="helpStep1Text">Przeciągnij plik do obszaru przesyłania albo kliknij, aby wybrać go z urządzenia. Obsługiwane formaty to JPG, PNG, BMP i WebP. Najlepsze efekty daje ostre zdjęcie z dobrym kontrastem.</p>
+<p class="text-sm mt-1 text-slate-400" data-i18n="helpStep1Text">Przeciągnij plik do obszaru przesyłania albo kliknij, aby wybrać go z urządzenia. Obsługiwane formaty to JPG, PNG, BMP i WebP. Najlepsze efekty dają ostre zdjęcia z dobrym kontrastem.</p>
 </div>
 </div>
 <div class="help-step">
@@ -1922,8 +2696,8 @@ z-index: 300;
           2
          </div>
 <div>
-<p class="font-semibold text-white" data-i18n="helpStep2Title">Ustawienia zdjęcia</p>
-<p class="text-sm mt-1 text-slate-400" data-i18n="helpStep2Text">Dostosuj jasność, kontrast, gamma i ostrość, aby przygotować zdjęcie do grawerowania.</p>
+<p class="font-semibold text-white" data-i18n="helpStep2Title">Korekta zdjęcia</p>
+<p class="text-sm mt-1 text-slate-400" data-i18n="helpStep2Text">Dostosuj jasność, kontrast, gammę i ostrość, aby przygotować zdjęcie do grawerowania.</p>
 </div>
 </div>
 <div class="help-step">
@@ -1932,7 +2706,7 @@ z-index: 300;
          </div>
 <div>
 <p class="font-semibold text-white" data-i18n="helpStep3Title">Ustaw rozmiar wyjściowy w mm</p>
-<p class="text-sm mt-1 text-slate-400" data-i18n="helpStep3Text">Wpisz końcową szerokość grawerowania w milimetrach. Narzędzie automatycznie obliczy wysokość, zachowa proporcje i pokaże wynikową liczbę pikseli.</p>
+<p class="text-sm mt-1 text-slate-400" data-i18n="helpStep3Text">Wpisz finalną szerokość grawerowania w milimetrach. Narzędzie automatycznie obliczy wysokość, zachowa proporcje i pokaże wynikową liczbę pikseli.</p>
 </div>
 </div>
 <div class="help-step">
@@ -1941,7 +2715,7 @@ z-index: 300;
          </div>
 <div>
 <p class="font-semibold text-white" data-i18n="helpStep4Title">Sprawdź wynik i pobierz PNG lub BMP</p>
-<p class="text-sm mt-1 text-slate-400" data-i18n="helpStep4Text">Obejrzyj końcowy obraz rastrowy. Jeśli wygląda dobrze, pobierz PNG lub BMP i zaimportuj go do programu laserowego.</p>
+<p class="text-sm mt-1 text-slate-400" data-i18n="helpStep4Text">Obejrzyj finalny zrastrowany obraz. Jeśli wygląda dobrze, pobierz PNG lub BMP i zaimportuj go do programu laserowego.</p>
 </div>
 </div>
 </div>
@@ -1949,8 +2723,8 @@ z-index: 300;
 <div class="panel p-5">
 <div class="help-section-title" data-i18n="helpOutputSizeTitle">Jak wybrać prawidłowy rozmiar wyjściowy?</div>
 <div class="help-note-box">
-<p data-i18n-html="helpOutputSizeText1">Rozmiar wyjściowy w <strong class="text-white">mm</strong> powinien dokładnie odpowiadać rzeczywistemu fizycznemu rozmiarowi obszaru grawerowania na materiale.</p>
-<p class="mt-3" data-i18n-html="helpOutputSizeText2">Przykład: jeśli chcesz wygrawerować portret na drewnianej płytce o szerokości <strong class="text-white">80 mm</strong>, ustaw szerokość na <strong class="text-white">80 mm</strong> i wybierz <strong class="text-white">254 DPI</strong>. Narzędzie utworzy obraz o szerokości około <strong class="text-orange-300">800 px</strong>, co odpowiada wymaganemu rozmiarowi fizycznemu.</p>
+<p data-i18n-html="helpOutputSizeText1">Rozmiar wyjściowy w <strong class="text-white">mm</strong> powinien dokładnie odpowiadać rzeczywistemu fizycznemu rozmiarowi pola grawerowania na materiale.</p>
+<p class="mt-3" data-i18n-html="helpOutputSizeText2">Przykład: jeśli chcesz wygrawerować portret na drewnianej tabliczce o szerokości <strong class="text-white">80 mm</strong>, ustaw szerokość na <strong class="text-white">80 mm</strong> i wybierz <strong class="text-white">254 DPI</strong>. Narzędzie utworzy obraz o szerokości około <strong class="text-orange-300">800 px</strong>, co odpowiada wymaganemu rozmiarowi fizycznemu.</p>
 <p class="formula" data-i18n="helpOutputSizeFormula">ℹ️ Wzór: szerokość w px = (szerokość w mm ÷ 25,4) × DPI</p>
 </div>
 </div>
@@ -1959,15 +2733,15 @@ z-index: 300;
 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
 <div class="help-card">
 <div class="help-card-title" data-i18n="helpTip1Title">📷 Jakość zdjęcia wejściowego</div>
-<div class="help-card-text" data-i18n="helpTip1Text">Używaj ostrych zdjęć z dobrym kontrastem. Ciemne lub rozmyte obrazy dadzą gorsze efekty grawerowania nawet przy wysokim DPI.</div>
+<div class="help-card-text" data-i18n="helpTip1Text">Używaj ostrych zdjęć z dobrym kontrastem. Ciemne lub rozmyte obrazy dadzą słabszy efekt grawerowania nawet przy wysokim DPI.</div>
 </div>
 <div class="help-card">
 <div class="help-card-title" data-i18n="helpTip2Title">🔲 Kontrast i jasność</div>
-<div class="help-card-text" data-i18n="helpTip2Text">Przed przesłaniem spróbuj dostosować zdjęcie w dowolnym edytorze. Wyższy kontrast często wyraźnie poprawia końcowy efekt rastrowania.</div>
+<div class="help-card-text" data-i18n="helpTip2Text">Przed przesłaniem warto poprawić zdjęcie w dowolnym edytorze. Wyższy kontrast często znacząco poprawia finalny efekt rastrowania.</div>
 </div>
 <div class="help-card">
-<div class="help-card-title" data-i18n="helpTip3Title">🧪 Test grawerowania</div>
-<div class="help-card-text" data-i18n="helpTip3Text">Zawsze najpierw przetestuj wynik na odpadowym kawałku tego samego materiału, zanim uruchomisz finalne grawerowanie.</div>
+<div class="help-card-title" data-i18n="helpTip3Title">🧪 Grawer próbny</div>
+<div class="help-card-text" data-i18n="helpTip3Text">Zawsze najpierw wykonaj próbę na odcinku tego samego materiału, zanim uruchomisz finalne grawerowanie.</div>
 </div>
 <div class="help-card">
 <div class="help-card-title" data-i18n="helpTip4Title">⚙️ Ustawienia LightBurn</div>
@@ -1981,26 +2755,26 @@ z-index: 300;
 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
 <div class="help-card">
 <div class="help-card-title" data-i18n="faq1Question">Czy ten konwerter zdjęć do grawerowania laserowego jest darmowy?</div>
-<div class="help-card-text" data-i18n="faq1Answer">Tak. Narzędzie jest darmowe i działa w przeglądarce. Możesz zamienić zdjęcie na plik PNG do grawerowania laserowego i pobrać wynik bez instalowania programu.</div>
+<div class="help-card-text" data-i18n="faq1Answer">Tak. Narzędzie jest darmowe i działa w przeglądarce. Możesz przekonwertować zdjęcie na PNG do grawerowania laserowego i pobrać wynik bez instalowania programu.</div>
 </div>
 <div class="help-card">
 <div class="help-card-title" data-i18n="faq2Question">Które programy laserowe obsłużą wyeksportowany PNG?</div>
-<div class="help-card-text" data-i18n="faq2Answer">Plik PNG nadaje się do LightBurn, XCS, LaserGRBL, EZCAD oraz innych programów do grawerowania laserowego, które importują obrazy rastrowe.</div>
+<div class="help-card-text" data-i18n="faq2Answer">Plik PNG jest odpowiedni dla LightBurn, XCS, LaserGRBL, EZCAD oraz innych programów do grawerowania laserowego, które importują obrazy rastrowe.</div>
 </div>
 <div class="help-card">
 <div class="help-card-title" data-i18n="faq3Question">Czy PNG zawiera informacje DPI?</div>
-<div class="help-card-text" data-i18n="faq3Answer">Tak. Wyeksportowany PNG zawiera metadane DPI, dzięki którym program laserowy łatwiej zachowa prawidłowy fizyczny rozmiar grawerowania.</div>
+<div class="help-card-text" data-i18n="faq3Answer">Tak. Eksportowany PNG zawiera metadane DPI, które pomagają programowi laserowemu zachować prawidłowy fizyczny rozmiar grawerowania.</div>
 </div>
 <div class="help-card">
 <div class="help-card-title" data-i18n="faq4Question">Czy mogę użyć własnej wartości DPI?</div>
-<div class="help-card-text" data-i18n="faq4Answer">Tak. Możesz wybrać gotowe DPI albo wpisać własną wartość dopasowaną do lasera, materiału i preferowanej odległości między liniami.</div>
+<div class="help-card-text" data-i18n="faq4Answer">Tak. Możesz wybrać gotowe DPI albo wpisać własną wartość dopasowaną do lasera, materiału i preferowanego odstępu linii.</div>
 </div>
 <div class="help-card">
-<div class="help-card-title" data-i18n="faq5Question">Co robi tryb Negatyw?</div>
-<div class="help-card-text" data-i18n="faq5Answer">Negatyw tworzy odwrócony obraz wyjściowy, zamieniając czerń i biel w finalnym pliku gotowym do lasera.</div>
+<div class="help-card-title" data-i18n="faq5Question">Do czego służy tryb Negatyw?</div>
+<div class="help-card-text" data-i18n="faq5Answer">Negatyw tworzy odwrócony obraz wyjściowy, zamieniając czerń i biel w finalnym pliku przygotowanym do lasera.</div>
 </div>
 <div class="help-card">
-<div class="help-card-title" data-i18n="faq6Question">Czy moje zdjęcia są wysyłane na serwer?</div>
+<div class="help-card-title" data-i18n="faq6Question">Czy moje zdjęcia są przesyłane na serwer?</div>
 <div class="help-card-text" data-i18n="faq6Answer">Nie. Zdjęcia są przetwarzane lokalnie w Twojej przeglądarce i nie są przesyłane na nasz serwer.</div>
 </div>
 </div>
@@ -2009,12 +2783,12 @@ z-index: 300;
 </div>
 </div>
 <script>
-   let originalImage = null; let renderQueued = false; let viewMode = 'compare'; let currentPreset = 'normal'; let currentLang = 'en'; let originalImageToken = 0; let lastRenderedOutputSignature = '';
+   let originalImage = null; let cropRect = null; let cropEditorRect = null; let cropEditorScale = 1; let cropDragState = null; let cropAspectMode = 'free'; let renderQueued = false; let viewMode = 'compare'; let currentPreset = 'normal'; let currentMaterial = null; let currentLang = 'pl'; let originalImageToken = 0; let lastRenderedOutputSignature = '';
 
 const FIXED_THRESHOLD = 128;
 const STORAGE_KEY = 'laserEditorSimpleV8';
 const LANG_STORAGE_KEY = 'laserEditorLanguageV1';
-const OUTPUT_WIDTH_MIN_PX = 100;
+const OUTPUT_WIDTH_MIN_PX = 1;
 const OUTPUT_WIDTH_DEFAULT_MAX_PX = 6000;
 const OUTPUT_WIDTH_HARD_MAX_PX = 25000;
 const LARGE_OUTPUT_CONFIRM_MEGAPIXELS = 25;
@@ -2048,7 +2822,7 @@ const translations = {
     faq6Question: 'Are my photos uploaded to a server?',
     faq6Answer: 'No. Photos are processed locally in your browser and are not uploaded to our server.',
     counterLabel: '📸 Processed:',
-    btnOutput: 'Only Output',
+    btnOutput: 'Output',
     btnCompare: 'Original + Output',
     emptyOriginal: 'ORIGINAL',
     emptyOutput: 'OUTPUT',
@@ -2058,12 +2832,23 @@ const translations = {
     stepTryText: 'A demo photo loads automatically',
     stepDownloadTitle: 'Download PNG',
     stepDownloadText: 'Ready for engraving',
-    hintLine: '↑ Start right away with the demo photo or upload your own',
+    hintLine: 'Start right away with the demo photo or upload your own',
     zoomHelp: 'Move the mouse over the image to inspect details in the magnifier. On touch devices, hold and drag over the image. For the best experience and more comfortable editing, we recommend using this tool on a desktop computer.',
     reuploadBtn: 'Upload photo',
     sectionUpload: 'Upload Photo',
     dropZoneMain: 'Drag & drop or click to choose',
     dropZoneSub: 'JPG, PNG, BMP, WebP',
+    sectionCrop: 'Crop Photo',
+    cropOpenBtn: 'Crop photo',
+    cropResetBtn: 'Reset crop',
+    cropModalTitle: 'Crop photo',
+    cropModalText: 'Drag to draw a crop area. Drag inside the area to move it, or drag a corner to resize it.',
+    cropModalHelp: 'The crop is applied before dithering, material preview and PNG/BMP export.',
+    cropCancelBtn: 'Cancel',
+    cropApplyBtn: 'Apply crop',
+    cropAspectFree: 'Free ratio',
+    cropAspectOriginal: 'Keep original ratio',
+    cropAspectSquare: 'Square',
     sectionPhotoType: 'Photo Type',
     presetCustom: 'Custom',
     presetNormal: 'Normal Photo',
@@ -2111,7 +2896,6 @@ const translations = {
     demoLoadFail: 'Demo image could not be loaded.',
     alertInvalidFile: 'Please upload an image file: JPG, PNG, BMP or WebP.',
     statusImageLoaded: 'Image loaded. You can now adjust settings or download the PNG.',
-    demoNoticeText: 'Demo image loaded — upload your own photo to start.',
     adjustSettingsBtn: 'Adjust settings ↓',
     labelOriginalPreview: 'Original',
     labelOutputPreview: 'Laser-ready output',
@@ -2121,6 +2905,25 @@ const translations = {
     alertRenderFail: 'Failed to process the image with the selected settings.',
     emptyOriginalAlt: 'Preview original image',
     emptyResultAlt: 'Preview output image',
+    btnMaterialPreview: 'Material Preview',
+    labelMaterialPreview: 'Material preview',
+    sectionMaterialPreview: 'Material Preview',
+    materialWood: 'Wood',
+    materialSlate: 'Slate',
+    materialBlackAnodized: 'Dark surfaces',
+    materialStainless: 'Stainless steel',
+    materialGlass: 'Glass',
+    materialLeather: 'Leather',
+    materialCeramic: 'Ceramic tile',
+    materialPreviewDisclaimer: 'This is an approximate visual simulation only. Real results depend on laser type, lens, focus, speed, power and the exact material surface. The downloaded PNG/BMP remains the clean black-and-white laser-ready output.',
+    materialTipNone: 'Select a material to see an approximate preview of how the engraved image may look on the surface.',
+    materialTipWood: 'Birch plywood and light wood usually engrave darker than the surface. Expect some dot gain, especially on plywood and softer wood.',
+    materialTipSlate: 'Slate and dark stone usually engrave lighter than the surface. Negative mode is often the right starting point.',
+    materialTipBlackAnodized: 'Black anodized aluminum usually engraves lighter or silvery. Negative mode is often useful for photo engraving on this material.',
+    materialTipStainless: 'Stainless steel preview is only approximate. Real results depend strongly on fiber/diode laser type, marking spray, focus, speed and power.',
+    materialTipGlass: 'Glass usually produces a frosted, milky mark. Real results depend strongly on focus, coating and laser type.',
+    materialTipLeather: 'Leather usually engraves darker and can spread slightly. Lower detail and test pieces are recommended.',
+    materialTipCeramic: 'Ceramic tile can behave differently depending on glaze, coating and spray. Treat this preview as a rough visual guide.',
     helpIntroTitle: 'What does this tool do?',
     helpIntroText: '<strong class="text-white">Photo Engraving Online</strong> converts a regular photo into a rasterized black-and-white image optimized for CO2 or diode laser engraving. You can then import the resulting PNG directly into your laser software (LightBurn, LaserGRBL, XCS, etc.) and engrave it.',
     helpStepsTitle: 'Step-by-step guide',
@@ -2154,65 +2957,76 @@ const translations = {
     helpTip3Title: '🧪 Test engraving',
     helpTip3Text: 'Always test the result first on an offcut of the same material before running the final engraving.',
     helpTip4Title: '⚙️ LightBurn settings',
-    helpTip4Text: 'Import the PNG as <strong class="text-gray-200">Passthrough</strong> or <strong class="text-gray-200">Threshold</strong>. The dithering is already included in the file, so additional image processing may make it worse.',
+    helpTip4Text: 'Import the PNG as <strong class="text-gray-200">Passthrough</strong> or <strong class="text-gray-200">Threshold</strong>. The dithering is already included in the file, so additional image processing may make it worse.'
   },
   pl: {
-      "heroTitle": "Darmowy edytor zdjęć do grawerowania laserowego",
-      "heroText": "Zamień dowolne zdjęcie lub obraz w plik PNG gotowy do grawerowania laserowego bezpośrednio w przeglądarce. Wybierz typ zdjęcia, ustaw DPI, jasność, kontrast, gamma, ostrość i rozmiar wyjściowy, a następnie wyeksportuj PNG przygotowany do LightBurn, XCS, LaserGRBL, EZCAD i innych programów laserowych. <strong style=\"color: var(--accent);\">Korzystanie jest bezpłatne. Twoje zdjęcia są przetwarzane lokalnie w przeglądarce i nie są przesyłane na nasz serwer.</strong>",
+      "heroTitle": "Darmowy konwerter zdjęć do grawerowania laserowego online",
+      "heroText": "Przekształć dowolny obraz lub zdjęcie w gotowy do grawerowania laserowego plik PNG bezpośrednio w przeglądarce. Wybierz typ zdjęcia, ustaw DPI, jasność, kontrast, gammę, ostrość i rozmiar wyjściowy, a następnie wyeksportuj PNG przygotowany do LightBurn, XCS, LaserGRBL, EZCAD i innych programów laserowych. <strong style=\"color: var(--accent);\">Narzędzie jest darmowe. Twoje zdjęcia są przetwarzane lokalnie w przeglądarce i nie są przesyłane na nasz serwer.</strong>",
       "seoIntroTitle": "Darmowy konwerter zdjęć do grawerowania laserowego online",
-      "seoIntroText": "Użyj <strong class=\"text-white\">PhotoEngraving.online</strong> jako darmowego konwertera obrazu do grawerowania laserowego bezpośrednio w przeglądarce. Prześlij zdjęcie, zamień je na czarno-biały plik PNG gotowy do lasera, wybierz typ zdjęcia i DPI, sprawdź zalecaną prędkość grawerowania dla materiału, dostosuj jasność, kontrast, gamma i ostrość, a następnie pobierz wynik do LightBurn, XCS, LaserGRBL, EZCAD i innych programów laserowych.",
+      "seoIntroText": "Użyj <strong class=\"text-white\">PhotoEngraving.online</strong> jako darmowego konwertera obrazu do grawerowania laserowego bezpośrednio w przeglądarce. Prześlij zdjęcie, zamień je na gotowy do lasera czarno-biały plik PNG, wybierz typ zdjęcia i DPI, sprawdź zalecaną prędkość grawerowania dla materiału, dopasuj jasność, kontrast, gammę i ostrość, a następnie pobierz wynik do LightBurn, XCS, LaserGRBL, EZCAD lub innego programu laserowego.",
       "seoCard1Title": "Darmowe narzędzie online",
-      "seoCard1Text": "Bez instalacji. Konwertuj zdjęcia do grawerowania laserowego online i pobieraj PNG za darmo.",
-      "seoCard2Title": "Plik wyjściowy gotowy do lasera",
-      "seoCard2Text": "Eksportuj czarno-białe pliki PNG lub BMP z metadanymi DPI i wskazówkami dotyczącymi prędkości grawerowania, aby zachować prawidłowy rozmiar fizyczny w programie laserowym.",
+      "seoCard1Text": "Bez instalacji. Konwertuj zdjęcia do grawerowania laserowego online i pobierz PNG za darmo.",
+      "seoCard2Title": "Gotowy do lasera plik PNG",
+      "seoCard2Text": "Eksportuj czarno-białe pliki PNG z metadanymi DPI i wskazówkami dotyczącymi prędkości grawerowania, aby zachować poprawny rozmiar fizyczny w programie laserowym.",
       "seoCard3Title": "Prywatne przetwarzanie w przeglądarce",
       "seoCard3Text": "Twoje zdjęcie jest przetwarzane lokalnie w przeglądarce i nie jest przesyłane na nasz serwer.",
       "faqTitle": "FAQ dotyczące grawerowania zdjęć",
       "faq1Question": "Czy ten konwerter zdjęć do grawerowania laserowego jest darmowy?",
-      "faq1Answer": "Tak. Narzędzie jest darmowe i działa w przeglądarce. Możesz zamienić zdjęcie na plik PNG do grawerowania laserowego i pobrać wynik bez instalowania programu.",
+      "faq1Answer": "Tak. Narzędzie jest darmowe i działa w przeglądarce. Możesz przekonwertować zdjęcie na PNG do grawerowania laserowego i pobrać wynik bez instalowania programu.",
       "faq2Question": "Które programy laserowe obsłużą wyeksportowany PNG?",
-      "faq2Answer": "Plik PNG nadaje się do LightBurn, XCS, LaserGRBL, EZCAD oraz innych programów do grawerowania laserowego, które importują obrazy rastrowe.",
+      "faq2Answer": "Plik PNG jest odpowiedni dla LightBurn, XCS, LaserGRBL, EZCAD oraz innych programów do grawerowania laserowego, które importują obrazy rastrowe.",
       "faq3Question": "Czy PNG zawiera informacje DPI?",
-      "faq3Answer": "Tak. Wyeksportowany PNG zawiera metadane DPI, dzięki którym program laserowy łatwiej zachowa prawidłowy fizyczny rozmiar grawerowania.",
+      "faq3Answer": "Tak. Eksportowany PNG zawiera metadane DPI, które pomagają programowi laserowemu zachować prawidłowy fizyczny rozmiar grawerowania.",
       "faq4Question": "Czy mogę użyć własnej wartości DPI?",
-      "faq4Answer": "Tak. Możesz wybrać gotowe DPI albo wpisać własną wartość dopasowaną do lasera, materiału i preferowanej odległości między liniami.",
-      "faq5Question": "Co robi tryb Negatyw?",
-      "faq5Answer": "Negatyw tworzy odwrócony obraz wyjściowy, zamieniając czerń i biel w finalnym pliku gotowym do lasera.",
-      "faq6Question": "Czy moje zdjęcia są wysyłane na serwer?",
+      "faq4Answer": "Tak. Możesz wybrać gotowe DPI albo wpisać własną wartość dopasowaną do lasera, materiału i preferowanego odstępu linii.",
+      "faq5Question": "Do czego służy tryb Negatyw?",
+      "faq5Answer": "Negatyw tworzy odwrócony obraz wyjściowy, zamieniając czerń i biel w finalnym pliku przygotowanym do lasera.",
+      "faq6Question": "Czy moje zdjęcia są przesyłane na serwer?",
       "faq6Answer": "Nie. Zdjęcia są przetwarzane lokalnie w Twojej przeglądarce i nie są przesyłane na nasz serwer.",
       "counterLabel": "📸 Przetworzono:",
-      "btnOutput": "Tylko wynik",
+      "btnOutput": "Wynik",
       "btnCompare": "Oryginał + wynik",
       "emptyOriginal": "ORYGINAŁ",
       "emptyOutput": "WYNIK",
       "stepUploadTitle": "Prześlij zdjęcie ↑",
       "stepUploadText": "Kliknij tutaj albo przeciągnij i upuść",
       "stepTryTitle": "Albo wypróbuj od razu",
-      "stepTryText": "Zdjęcie demo załaduje się automatycznie",
+      "stepTryText": "Zdjęcie demonstracyjne wczyta się automatycznie",
       "stepDownloadTitle": "Pobierz PNG",
       "stepDownloadText": "Gotowe do grawerowania",
-      "hintLine": "↑ Zacznij od razu ze zdjęciem demo albo prześlij własne",
-      "zoomHelp": "Najedź myszą na obraz, aby sprawdzić szczegóły w lupie. Na urządzeniach dotykowych przytrzymaj i przeciągnij po obrazie. Dla największej wygody edycji zalecamy korzystanie z tego narzędzia na komputerze.",
+      "hintLine": "Zacznij od zdjęcia demo albo prześlij własne",
+      "zoomHelp": "Najedź myszą na obraz, aby sprawdzić szczegóły w lupie. Na urządzeniach dotykowych przytrzymaj i przeciągnij po obrazie. Dla największej wygody edycji zalecamy korzystanie z narzędzia na komputerze.",
       "reuploadBtn": "Prześlij zdjęcie",
       "sectionUpload": "Prześlij zdjęcie",
       "dropZoneMain": "Przeciągnij i upuść albo kliknij, aby wybrać",
       "dropZoneSub": "JPG, PNG, BMP, WebP",
+      "sectionCrop": "Kadrowanie zdjęcia",
+      "cropOpenBtn": "Kadruj zdjęcie",
+      "cropResetBtn": "Resetuj kadr",
+      "cropModalTitle": "Kadrowanie zdjęcia",
+      "cropModalText": "Przeciągnij, aby zaznaczyć obszar kadrowania. Przeciągnij wewnątrz obszaru, aby go przesunąć, albo przeciągnij narożnik, aby zmienić rozmiar.",
+      "cropModalHelp": "Kadr jest stosowany przed ditheringiem, podglądem materiału oraz eksportem PNG/BMP.",
+      "cropCancelBtn": "Anuluj",
+      "cropApplyBtn": "Zastosuj kadr",
+      "cropAspectFree": "Dowolne proporcje",
+      "cropAspectOriginal": "Zachowaj oryginalne proporcje",
+      "cropAspectSquare": "Kwadrat",
       "sectionPhotoType": "Typ zdjęcia",
       "presetCustom": "Własne",
-      "presetNormal": "Zdjęcie normalne",
+      "presetNormal": "Normalne zdjęcie",
       "presetNegative": "Negatyw",
       "presetPortrait": "Ludzie",
       "presetDark": "Ciemne zdjęcie",
       "presetLight": "Jasne zdjęcie",
       "presetDetail": "🔍 Więcej szczegółów",
-      "presetHelp": "Domyślnie wybrane jest Zdjęcie normalne. Wybierz Negatyw dla odwróconego obrazu albo dopracuj ustawienia suwakami poniżej.",
+      "presetHelp": "Domyślnie używany jest tryb Normalne zdjęcie. Wybierz Negatyw dla odwróconego obrazu albo dopracuj ustawienia suwakami poniżej.",
       "sectionDithering": "Dithering",
       "ditherFloyd": "Floyd-Steinberg",
       "ditherAtkinson": "Atkinson",
       "ditherJarvis": "Jarvis",
       "ditherOrdered": "Ordered / Bayer",
-      "ditherHelp": "Floyd-Steinberg to najbardziej uniwersalny wybór. Atkinson daje delikatniejszy efekt, Jarvis płynniejsze przejścia z większą liczbą tonów, a Ordered/Bayer tworzy regularny wzór (odpowiedni do logo i grafiki).",
-      "sectionAdjustments": "Ustawienia zdjęcia",
+      "ditherHelp": "Floyd-Steinberg to zrównoważony wybór. Atkinson daje łagodniejszy efekt, Jarvis płynniejsze przejścia z większą liczbą tonów, a Ordered/Bayer tworzy regularny wzór, odpowiedni m.in. do logo i grafiki.",
+      "sectionAdjustments": "Korekta zdjęcia",
       "labelBrightness": "Jasność",
       "labelContrast": "Kontrast",
       "labelGamma": "Gamma",
@@ -2224,7 +3038,7 @@ const translations = {
       "labelDpi": "Rozdzielczość (DPI)",
       "dpiHelp": "Zmiana DPI zachowuje ten sam rozmiar fizyczny i przelicza liczbę pikseli.",
       "labelCustomDpi": "Własne DPI",
-      "customDpiHelp": "Wpisz własną wartość DPI od 1 do 2400.",
+      "customDpiHelp": "Wpisz własną wartość DPI w zakresie od 1 do 2400.",
       "advancedPixelSummary": "Zaawansowane: dostosuj szerokość w pikselach",
       "labelFineTuneWidth": "Szerokość w pikselach",
       "outputSliderHelp": "Ustawienie zaawansowane. Zmiana liczby pikseli przelicza szerokość w mm dla wybranego DPI.",
@@ -2232,8 +3046,8 @@ const translations = {
       "pixelInfoLabel": "Rozmiar w pikselach",
       "downloadBtn": "Pobierz PNG",
       "downloadBmpBtn": "Pobierz BMP",
-      "exportHelp": "PNG jest zalecany do LightBurn, XCS, LaserGRBL i innych programów laserowych. PNG i 1-bitowy BMP zawierają metadane DPI, aby zachować prawidłowy rozmiar fizyczny w programie laserowym.",
-      "alertLoadFail": "Nie udało się załadować obrazu.",
+      "exportHelp": "PNG jest zalecany do LightBurn, XCS, LaserGRBL i innych programów laserowych. PNG oraz 1-bitowy BMP zawierają metadane DPI, które pomagają zachować prawidłowy rozmiar fizyczny w programie laserowym.",
+      "alertLoadFail": "Nie udało się wczytać obrazu.",
       "alertReadFail": "Błąd odczytu pliku.",
       "alertUploadFirst": "Najpierw prześlij obraz.",
       "alertPngFail": "Nie udało się utworzyć pliku PNG z wybranym DPI.",
@@ -2241,30 +3055,48 @@ const translations = {
       "iosTitle": "Zapisywanie na iOS",
       "iosText": "Naciśnij i przytrzymaj obraz, a następnie wybierz <strong style=\"color:#e2e8f0\">Dodaj do Zdjęć</strong> albo <strong style=\"color:#e2e8f0\">Zapisz obraz</strong>.",
       "iosClose": "Zamknij",
-      "demoLoadFail": "Nie udało się załadować obrazu demo.",
+      "demoLoadFail": "Nie udało się wczytać zdjęcia demonstracyjnego.",
       "alertInvalidFile": "Prześlij plik obrazu: JPG, PNG, BMP lub WebP.",
-      "statusImageLoaded": "Obraz załadowany. Możesz teraz dostosować ustawienia albo pobrać PNG.",
-      "demoNoticeText": "Załadowano obraz demo — prześlij własne zdjęcie, aby rozpocząć.",
+      "statusImageLoaded": "Obraz został wczytany. Możesz teraz dostosować ustawienia albo pobrać PNG.",
       "adjustSettingsBtn": "Dostosuj ustawienia ↓",
       "labelOriginalPreview": "Oryginał",
       "labelOutputPreview": "Wynik gotowy do lasera",
-      "confirmLargeOutput": "Ten plik wyjściowy jest bardzo duży ({mp} MP) i może działać wolno albo zawiesić słabsze urządzenia. Kontynuować?",
-      "statusLargePreviewSkipped": "Podgląd na żywo został wstrzymany, ponieważ wybrany wynik jest bardzo duży ({mp} MP). Zmniejsz szerokość/DPI dla podglądu na żywo albo użyj Pobierz, aby po potwierdzeniu wyrenderować plik w pełnym rozmiarze.",
-      "alertOutputTooLarge": "Wybrany wynik jest zbyt duży ({size}, {mp} MP). Zmniejsz szerokość obrazu lub DPI przed podglądem/eksportem.",
+      "confirmLargeOutput": "Ten wynik jest bardzo duży ({mp} MP) i na słabszych urządzeniach może działać wolno lub się zawiesić. Kontynuować?",
+      "statusLargePreviewSkipped": "Podgląd na żywo jest wstrzymany, ponieważ wybrany wynik jest bardzo duży ({mp} MP). Zmniejsz szerokość/DPI, aby zobaczyć podgląd, albo użyj Pobierz, aby wyrenderować pełny plik po potwierdzeniu.",
+      "alertOutputTooLarge": "Wybrany wynik jest zbyt duży ({size}, {mp} MP). Zmniejsz szerokość obrazu albo DPI przed podglądem/eksportem.",
       "alertRenderFail": "Nie udało się przetworzyć obrazu z wybranymi ustawieniami.",
-      "emptyOriginalAlt": "Podgląd obrazu oryginalnego",
-      "emptyResultAlt": "Podgląd obrazu wyjściowego",
+      "emptyOriginalAlt": "Podgląd oryginalnego obrazu",
+      "emptyResultAlt": "Podgląd obrazu wynikowego",
+      "btnMaterialPreview": "Podgląd materiału",
+      "labelMaterialPreview": "Podgląd materiału",
+      "sectionMaterialPreview": "Podgląd materiału",
+      "materialWood": "Drewno",
+      "materialSlate": "Łupek",
+      "materialBlackAnodized": "Ciemne powierzchnie",
+      "materialStainless": "Stal nierdzewna",
+      "materialGlass": "Szkło",
+      "materialLeather": "Skóra",
+      "materialCeramic": "Płytka ceramiczna",
+      "materialPreviewDisclaimer": "To tylko przybliżona symulacja wizualna. Rzeczywisty efekt zależy od typu lasera, soczewki, ogniskowania, prędkości, mocy oraz dokładnej powierzchni materiału. Pobrany PNG/BMP pozostaje czystym czarno-białym plikiem przygotowanym do lasera.",
+      "materialTipNone": "Wybierz materiał, aby zobaczyć orientacyjny podgląd wyglądu wygrawerowanego obrazu na powierzchni.",
+      "materialTipWood": "Sklejka brzozowa i jasne drewno zwykle grawerują się ciemniej niż powierzchnia. Możliwy jest przyrost punktu, szczególnie na sklejce i miękkim drewnie.",
+      "materialTipSlate": "Łupek i ciemny kamień zwykle grawerują się jaśniej niż powierzchnia. Tryb Negatyw jest często dobrym punktem startowym.",
+      "materialTipBlackAnodized": "Czarne anodowane aluminium zwykle graweruje się jaśniej albo srebrzyście. Przy grawerowaniu zdjęć na tym materiale tryb Negatyw często pomaga.",
+      "materialTipStainless": "Podgląd stali nierdzewnej jest tylko orientacyjny. Rzeczywisty efekt mocno zależy od typu lasera fiber/diodowego, sprayu do znakowania, ogniskowania, prędkości i mocy.",
+      "materialTipGlass": "Szkło zwykle daje matowy, mleczny ślad. Rzeczywisty efekt mocno zależy od ogniskowania, powłoki i typu lasera.",
+      "materialTipLeather": "Skóra zwykle graweruje się ciemniej i może lekko rozlewać szczegóły. Zalecane są niższe detale i próby na materiale testowym.",
+      "materialTipCeramic": "Płytka ceramiczna może zachowywać się różnie w zależności od szkliwa, powłoki i sprayu. Traktuj ten podgląd jako ogólną wskazówkę wizualną.",
       "helpIntroTitle": "Do czego służy to narzędzie?",
-      "helpIntroText": "<strong class=\"text-white\">Photo Engraving Online</strong> zamienia zwykłe zdjęcie w rastrowy, czarno-biały obraz zoptymalizowany do grawerowania laserem CO2 lub diodowym. Następnie możesz zaimportować wynikowy plik PNG bezpośrednio do swojego programu laserowego (LightBurn, LaserGRBL, XCS itp.) i wykonać grawer.",
-      "helpStepsTitle": "Instrukcja krok po kroku",
+      "helpIntroText": "<strong class=\"text-white\">Photo Engraving Online</strong> zamienia zwykłe zdjęcie w rastrowy czarno-biały obraz zoptymalizowany pod grawerowanie laserem CO2 lub diodowym. Gotowy PNG możesz następnie zaimportować bezpośrednio do programu laserowego, takiego jak LightBurn, LaserGRBL, XCS itp., i wykonać grawer.",
+      "helpStepsTitle": "Przewodnik krok po kroku",
       "helpStep1Title": "Prześlij zdjęcie",
-      "helpStep1Text": "Przeciągnij plik do obszaru przesyłania albo kliknij, aby wybrać go z urządzenia. Obsługiwane formaty to JPG, PNG, BMP i WebP. Najlepsze efekty daje ostre zdjęcie z dobrym kontrastem.",
-      "helpStep2Title": "Ustawienia zdjęcia",
-      "helpStep2Text": "Dostosuj jasność, kontrast, gamma i ostrość, aby przygotować zdjęcie do grawerowania.",
+      "helpStep1Text": "Przeciągnij plik do obszaru przesyłania albo kliknij, aby wybrać go z urządzenia. Obsługiwane formaty to JPG, PNG, BMP i WebP. Najlepsze efekty dają ostre zdjęcia z dobrym kontrastem.",
+      "helpStep2Title": "Korekta zdjęcia",
+      "helpStep2Text": "Dostosuj jasność, kontrast, gammę i ostrość, aby przygotować zdjęcie do grawerowania.",
       "helpStep3Title": "Ustaw rozmiar wyjściowy w mm",
-      "helpStep3Text": "Wpisz końcową szerokość grawerowania w milimetrach. Narzędzie automatycznie obliczy wysokość, zachowa proporcje i pokaże wynikową liczbę pikseli.",
+      "helpStep3Text": "Wpisz finalną szerokość grawerowania w milimetrach. Narzędzie automatycznie obliczy wysokość, zachowa proporcje i pokaże wynikową liczbę pikseli.",
       "helpStep4Title": "Sprawdź wynik i pobierz PNG lub BMP",
-      "helpStep4Text": "Obejrzyj końcowy obraz rastrowy. Jeśli wygląda dobrze, pobierz PNG lub BMP i zaimportuj go do programu laserowego.",
+      "helpStep4Text": "Obejrzyj finalny zrastrowany obraz. Jeśli wygląda dobrze, pobierz PNG lub BMP i zaimportuj go do programu laserowego.",
       "helpDpiTitle": "Zalecane DPI według materiału",
       "helpTableHeadDpi": "DPI",
       "helpTableHeadMaterial": "Najlepsze do",
@@ -2276,16 +3108,16 @@ const translations = {
       "helpDpi508Material": "Akryl, laminaty, metale powlekane, anodowane aluminium, stal nierdzewna, ceramika",
       "helpDpi508Note": "wolna",
       "helpOutputSizeTitle": "Jak wybrać prawidłowy rozmiar wyjściowy?",
-      "helpOutputSizeText1": "Rozmiar wyjściowy w <strong class=\"text-white\">mm</strong> powinien dokładnie odpowiadać rzeczywistemu fizycznemu rozmiarowi obszaru grawerowania na materiale.",
-      "helpOutputSizeText2": "Przykład: jeśli chcesz wygrawerować portret na drewnianej płytce o szerokości <strong class=\"text-white\">80 mm</strong>, ustaw szerokość na <strong class=\"text-white\">80 mm</strong> i wybierz <strong class=\"text-white\">254 DPI</strong>. Narzędzie utworzy obraz o szerokości około <strong class=\"text-orange-300\">800 px</strong>, co odpowiada wymaganemu rozmiarowi fizycznemu.",
+      "helpOutputSizeText1": "Rozmiar wyjściowy w <strong class=\"text-white\">mm</strong> powinien dokładnie odpowiadać rzeczywistemu fizycznemu rozmiarowi pola grawerowania na materiale.",
+      "helpOutputSizeText2": "Przykład: jeśli chcesz wygrawerować portret na drewnianej tabliczce o szerokości <strong class=\"text-white\">80 mm</strong>, ustaw szerokość na <strong class=\"text-white\">80 mm</strong> i wybierz <strong class=\"text-white\">254 DPI</strong>. Narzędzie utworzy obraz o szerokości około <strong class=\"text-orange-300\">800 px</strong>, co odpowiada wymaganemu rozmiarowi fizycznemu.",
       "helpOutputSizeFormula": "ℹ️ Wzór: szerokość w px = (szerokość w mm ÷ 25,4) × DPI",
       "helpTipsTitle": "Wskazówki dla lepszych efektów",
       "helpTip1Title": "📷 Jakość zdjęcia wejściowego",
-      "helpTip1Text": "Używaj ostrych zdjęć z dobrym kontrastem. Ciemne lub rozmyte obrazy dadzą gorsze efekty grawerowania nawet przy wysokim DPI.",
+      "helpTip1Text": "Używaj ostrych zdjęć z dobrym kontrastem. Ciemne lub rozmyte obrazy dadzą słabszy efekt grawerowania nawet przy wysokim DPI.",
       "helpTip2Title": "🔲 Kontrast i jasność",
-      "helpTip2Text": "Przed przesłaniem spróbuj dostosować zdjęcie w dowolnym edytorze. Wyższy kontrast często wyraźnie poprawia końcowy efekt rastrowania.",
-      "helpTip3Title": "🧪 Test grawerowania",
-      "helpTip3Text": "Zawsze najpierw przetestuj wynik na odpadowym kawałku tego samego materiału, zanim uruchomisz finalne grawerowanie.",
+      "helpTip2Text": "Przed przesłaniem warto poprawić zdjęcie w dowolnym edytorze. Wyższy kontrast często znacząco poprawia finalny efekt rastrowania.",
+      "helpTip3Title": "🧪 Grawer próbny",
+      "helpTip3Text": "Zawsze najpierw wykonaj próbę na odcinku tego samego materiału, zanim uruchomisz finalne grawerowanie.",
       "helpTip4Title": "⚙️ Ustawienia LightBurn",
       "helpTip4Text": "Zaimportuj PNG jako <strong class=\"text-gray-200\">Passthrough</strong> albo <strong class=\"text-gray-200\">Threshold</strong>. Dithering jest już zapisany w pliku, więc dodatkowe przetwarzanie obrazu może pogorszyć efekt."
   }
@@ -2306,6 +3138,88 @@ const PRESETS = {
 
 const DITHER_MODES = ['floyd', 'atkinson', 'jarvis', 'ordered'];
 
+const MATERIAL_PREVIEW_MAX_PX = 1600;
+
+const MATERIALS = {
+  wood: {
+    nameKey: 'materialWood',
+    tipKey: 'materialTipWood',
+    base: [225, 213, 192],
+    mark: [82, 48, 24],
+    noise: 13,
+    grain: 'wood',
+    grainStrength: 17,
+    dotGain: 0.28,
+    seed: 11
+  },
+  slate: {
+    nameKey: 'materialSlate',
+    tipKey: 'materialTipSlate',
+    base: [31, 34, 38],
+    mark: [184, 184, 174],
+    noise: 18,
+    grain: 'stone',
+    grainStrength: 12,
+    dotGain: 0.14,
+    seed: 23
+  },
+  blackAnodized: {
+    nameKey: 'materialBlackAnodized',
+    tipKey: 'materialTipBlackAnodized',
+    base: [7, 8, 10],
+    mark: [214, 218, 210],
+    noise: 7,
+    grain: 'metal',
+    grainStrength: 8,
+    dotGain: 0.05,
+    seed: 31
+  },
+  stainless: {
+    nameKey: 'materialStainless',
+    tipKey: 'materialTipStainless',
+    base: [188, 194, 198],
+    mark: [55, 58, 60],
+    noise: 8,
+    grain: 'metal',
+    grainStrength: 10,
+    dotGain: 0.06,
+    seed: 37
+  },
+  glass: {
+    nameKey: 'materialGlass',
+    tipKey: 'materialTipGlass',
+    base: [150, 172, 180],
+    mark: [236, 246, 246],
+    noise: 10,
+    grain: 'glass',
+    grainStrength: 10,
+    dotGain: 0.12,
+    seed: 47
+  },
+  leather: {
+    nameKey: 'materialLeather',
+    tipKey: 'materialTipLeather',
+    base: [123, 72, 39],
+    mark: [39, 22, 12],
+    noise: 20,
+    grain: 'leather',
+    grainStrength: 18,
+    dotGain: 0.32,
+    seed: 59
+  },
+  ceramic: {
+    nameKey: 'materialCeramic',
+    tipKey: 'materialTipCeramic',
+    base: [220, 211, 194],
+    mark: [78, 78, 76],
+    noise: 9,
+    grain: 'ceramic',
+    grainStrength: 10,
+    dotGain: 0.10,
+    seed: 71
+  }
+};
+
 const DEFAULTS = {
   preset: 'normal',
   brightness: PRESETS.normal.brightness,
@@ -2316,18 +3230,32 @@ const DEFAULTS = {
   invertColors: PRESETS.normal.invertColors,
   dpi: 254,
   customDpi: 254,
-  outputWidthMm: 80,
-  outputWidthPx: 800
+  outputWidthMm: 100,
+  outputWidthPx: 1000
 };
 
 const fileInput = document.getElementById('fileInput');
+const topUploadBtn = document.getElementById('topUploadBtn');
 const dropZone = document.getElementById('dropZone');
 const uploadCtaCard = document.getElementById('uploadCtaCard');
+const hintUploadLink = document.getElementById('hintUploadLink');
+const cropOpenBtn = document.getElementById('cropOpenBtn');
+const cropResetBtn = document.getElementById('cropResetBtn');
+const cropModalOverlay = document.getElementById('cropModalOverlay');
+const cropModal = document.getElementById('cropModal');
+const cropCanvasShell = document.getElementById('cropCanvasShell');
+const cropCanvas = document.getElementById('cropCanvas');
+const cropCloseBtn = document.getElementById('cropCloseBtn');
+const cropCancelBtn = document.getElementById('cropCancelBtn');
+const cropResetModalBtn = document.getElementById('cropResetModalBtn');
+const cropApplyBtn = document.getElementById('cropApplyBtn');
+const cropAspectButtons = document.querySelectorAll('[data-crop-aspect]');
 const statusMessage = document.getElementById('statusMessage');
 const demoNotice = document.getElementById('demoNotice');
 const editorControlsColumn = document.getElementById('editorControlsColumn');
 const btnResult = document.getElementById('btnResult');
 const btnCompare = document.getElementById('btnCompare');
+const btnMaterial = document.getElementById('btnMaterial');
 
 const brightness = document.getElementById('brightness');
 const contrast = document.getElementById('contrast');
@@ -2353,26 +3281,31 @@ const resetBtn = document.getElementById('resetBtn');
 const canvasSingle = document.getElementById('canvasSingle');
 const canvasCompareOrig = document.getElementById('canvasCompareOrig');
 const canvasCompareResult = document.getElementById('canvasCompareResult');
+const canvasMaterialPreview = document.getElementById('canvasMaterialPreview');
 
 const presetCards = document.querySelectorAll('#presetCards .preset-card');
 const ditherCards = document.querySelectorAll('#ditherCards .preset-card');
+const materialCards = document.querySelectorAll('#materialCards .material-card');
+const materialCustomSelect = document.getElementById('materialCustomSelect');
+const materialCustomOptions = document.getElementById('materialCustomOptions');
+const materialSelectNative = document.getElementById('materialSelectNative');
 const langButtons = document.querySelectorAll('.lang-option');
 
 const LANG_DATA = {
-  en: { flag: '🇬🇧', name: 'Angielski' },
-  es: { flag: '🇪🇸', name: 'Hiszpański' },
-  de: { flag: '🇩🇪', name: 'Niemiecki' },
-  fr: { flag: '🇫🇷', name: 'Francuski' },
-  hi: { flag: '🇮🇳', name: 'Hindi' },
-  it: { flag: '🇮🇹', name: 'Włoski' },
-  ja: { flag: '🇯🇵', name: 'Japoński' },
-  ko: { flag: '🇰🇷', name: 'Koreański' },
+  en: { flag: '🇬🇧', name: 'English' },
+  es: { flag: '🇪🇸', name: 'Español' },
+  de: { flag: '🇩🇪', name: 'Deutsch' },
+  fr: { flag: '🇫🇷', name: 'Français' },
+  hi: { flag: '🇮🇳', name: 'हिन्दी' },
+  it: { flag: '🇮🇹', name: 'Italiano' },
+  ja: { flag: '🇯🇵', name: '日本語' },
+  ko: { flag: '🇰🇷', name: '한국어' },
   pl: { flag: '🇵🇱', name: 'Polski' },
-  'pt-br': { flag: '🇧🇷', name: 'Portugalski brazylijski' },
-  ru: { flag: '🇷🇺', name: 'Rosyjski' },
-  tr: { flag: '🇹🇷', name: 'Turecki' },
-  zh: { flag: '🇨🇳', name: 'Chiński' },
-  cs: { flag: '🇨🇿', name: 'Czeski' }
+  'pt-br': { flag: '🇧🇷', name: 'Português (Brasil)' },
+  ru: { flag: '🇷🇺', name: 'Русский' },
+  tr: { flag: '🇹🇷', name: 'Türkçe' },
+  zh: { flag: '🇨🇳', name: '中文' },
+  cs: { flag: '🇨🇿', name: 'Čeština' }
 };
 const langSwitcher = document.getElementById('langSwitcher');
 const langCurrentButton = document.getElementById('langCurrentButton');
@@ -2403,7 +3336,7 @@ function getCustomDpiValue() {
 
 function getDpiDisplayText() {
   if (isCustomDpiMode()) {
-    return currentLang === 'pl' ? `${getCustomDpiValue()} DPI (własne)` : `${getCustomDpiValue()} DPI (Custom)`;
+    return `${getCustomDpiValue()} DPI (${currentLang === 'pl' ? 'własne' : 'Custom'})`;
   }
 
   const selectedOption = dpi.options[dpi.selectedIndex] || dpi.options[0];
@@ -2577,6 +3510,7 @@ function applyTranslations() {
 
   updateSizeInfo();
   syncCustomDpiSelect();
+  updateMaterialPreviewLabel();
   updateSeoMeta();
 }
 
@@ -2607,7 +3541,7 @@ function updateLangDropdown(lang) {
 
   if (langCurrentFlag) langCurrentFlag.textContent = data.flag;
   if (langCurrentName) langCurrentName.textContent = data.name;
-  if (langCurrentButton) langCurrentButton.setAttribute('aria-label', `Aktualny język: ${data.name}. Zmień język`);
+  if (langCurrentButton) langCurrentButton.setAttribute('aria-label', currentLang === 'pl' ? `Bieżący język: ${data.name}. Zmień język` : `Current language: ${data.name}. Change language`);
 
   langButtons.forEach(btn => {
     const isActive = btn.dataset.lang === lang;
@@ -2618,6 +3552,116 @@ function updateLangDropdown(lang) {
       btn.removeAttribute('aria-current');
     }
   });
+}
+
+function syncMaterialSelect() {
+  if (!materialSelectNative || !materialCustomOptions) return;
+
+  materialSelectNative.value = currentMaterial && MATERIALS[currentMaterial] ? currentMaterial : '';
+
+  materialCustomOptions.querySelectorAll('.custom-select-option').forEach(optionBtn => {
+    const isSelected = optionBtn.dataset.value === materialSelectNative.value;
+    optionBtn.classList.toggle('selected', isSelected);
+    optionBtn.setAttribute('aria-selected', isSelected ? 'true' : 'false');
+  });
+}
+
+function closeMaterialSelect() {
+  if (!materialCustomSelect || !btnMaterial) return;
+  materialCustomSelect.classList.remove('open');
+  btnMaterial.setAttribute('aria-expanded', 'false');
+}
+
+function openMaterialSelect() {
+  if (!materialCustomSelect || !btnMaterial) return;
+  materialCustomSelect.classList.add('open');
+  btnMaterial.setAttribute('aria-expanded', 'true');
+}
+
+function toggleMaterialSelect() {
+  if (!materialCustomSelect) return;
+  if (materialCustomSelect.classList.contains('open')) {
+    closeMaterialSelect();
+  } else {
+    openMaterialSelect();
+  }
+}
+
+function chooseMaterialValue(value) {
+  if (!materialSelectNative || !value) return;
+
+  materialSelectNative.value = value;
+  syncMaterialSelect();
+  closeMaterialSelect();
+  setMaterialPreview(value, { force: true });
+}
+
+function buildMaterialSelect() {
+  if (!materialSelectNative || !materialCustomSelect || !btnMaterial || !materialCustomOptions) return;
+
+  materialCustomOptions.innerHTML = '';
+
+  Array.from(materialSelectNative.options).forEach(option => {
+    if (!option.value) return;
+
+    const li = document.createElement('li');
+    li.setAttribute('role', 'presentation');
+
+    const optionBtn = document.createElement('button');
+    optionBtn.type = 'button';
+    optionBtn.className = 'custom-select-option';
+    optionBtn.dataset.value = option.value;
+    optionBtn.textContent = option.textContent.trim();
+    optionBtn.setAttribute('role', 'option');
+    optionBtn.addEventListener('click', () => chooseMaterialValue(option.value));
+
+    li.appendChild(optionBtn);
+    materialCustomOptions.appendChild(li);
+  });
+
+  btnMaterial.addEventListener('keydown', e => {
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      openMaterialSelect();
+      const selected = materialCustomOptions.querySelector('.custom-select-option.selected') || materialCustomOptions.querySelector('.custom-select-option');
+      if (selected) selected.focus();
+    }
+
+    if (e.key === 'Escape') closeMaterialSelect();
+  });
+
+  materialCustomOptions.addEventListener('keydown', e => {
+    const options = Array.from(materialCustomOptions.querySelectorAll('.custom-select-option'));
+    const currentIndex = options.indexOf(document.activeElement);
+
+    if (e.key === 'Escape') {
+      closeMaterialSelect();
+      btnMaterial.focus();
+    }
+
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      const next = options[Math.min(options.length - 1, currentIndex + 1)] || options[0];
+      if (next) next.focus();
+    }
+
+    if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      const prev = options[Math.max(0, currentIndex - 1)] || options[options.length - 1];
+      if (prev) prev.focus();
+    }
+
+    if ((e.key === 'Enter' || e.key === ' ') && document.activeElement && document.activeElement.dataset.value !== undefined) {
+      e.preventDefault();
+      chooseMaterialValue(document.activeElement.dataset.value);
+    }
+  });
+
+  document.addEventListener('click', e => {
+    if (materialCustomSelect && !materialCustomSelect.contains(e.target)) closeMaterialSelect();
+  });
+
+  syncMaterialSelect();
 }
 
 function setLanguage(lang) {
@@ -2631,6 +3675,9 @@ function setLanguage(lang) {
   } catch (e) {}
 
   applyTranslations();
+  syncCustomDpiSelect();
+  buildMaterialSelect();
+  syncMaterialSelect();
   loadCounter();
 }
 
@@ -2679,9 +3726,9 @@ function updateSeoMeta() {
     },
     pl: {
       title: 'Darmowy konwerter zdjęć do grawerowania laserowego online | PhotoEngraving.online',
-      description: 'Darmowy konwerter zdjęć do grawerowania laserowego online. Twórz czarno-białe pliki PNG gotowe do lasera z DPI, wskazówkami prędkości grawerowania i lokalnym przetwarzaniem w przeglądarce.',
+      description: 'Darmowy konwerter zdjęć do grawerowania laserowego online. Twórz gotowe do lasera czarno-białe pliki PNG z DPI, wskazówkami prędkości grawerowania i prywatnym przetwarzaniem w przeglądarce.',
       ogTitle: 'Darmowy konwerter zdjęć do grawerowania laserowego online',
-      ogDescription: 'Konwertuj obrazy i zdjęcia na pliki PNG do grawerowania laserowego online za darmo. Ustaw DPI, prędkość grawerowania, typ zdjęcia, jasność, kontrast, gamma i ostrość w przeglądarce.'
+      ogDescription: 'Konwertuj obrazy i zdjęcia do grawerowania laserowego online za darmo. Ustaw DPI, prędkość grawerowania, typ zdjęcia, jasność, kontrast, gammę i ostrość w przeglądarce.'
     }
   }[lang] || {};
 
@@ -2753,6 +3800,9 @@ langButtons.forEach(btn => {
 
 btnResult.addEventListener('click', () => setViewMode('result'));
 btnCompare.addEventListener('click', () => setViewMode('compare'));
+if (btnMaterial) btnMaterial.addEventListener('click', () => {
+  toggleMaterialSelect();
+});
 
 const sliderPairs = [
   ['brightness', 'brightnessVal'],
@@ -2795,8 +3845,535 @@ function scrollToControls() {
 }
 
 function showDemoNotice(isDemo) {
+  const demoNotice = document.getElementById('demoNotice');
   if (!demoNotice) return;
   demoNotice.style.display = isDemo ? 'block' : 'none';
+}
+
+function getFullImageRect() {
+  if (!originalImage) return null;
+  return {
+    x: 0,
+    y: 0,
+    width: originalImage.width,
+    height: originalImage.height
+  };
+}
+
+function cloneRect(rect) {
+  return rect ? {
+    x: rect.x,
+    y: rect.y,
+    width: rect.width,
+    height: rect.height
+  } : null;
+}
+
+function normalizeCropRect(rect) {
+  if (!originalImage || !rect) return null;
+
+  const minSize = Math.max(4, Math.min(originalImage.width, originalImage.height) * 0.01);
+  let x = Number(rect.x);
+  let y = Number(rect.y);
+  let width = Number(rect.width);
+  let height = Number(rect.height);
+
+  if (!Number.isFinite(x) || !Number.isFinite(y) || !Number.isFinite(width) || !Number.isFinite(height)) {
+    return getFullImageRect();
+  }
+
+  if (width < 0) {
+    x += width;
+    width = Math.abs(width);
+  }
+
+  if (height < 0) {
+    y += height;
+    height = Math.abs(height);
+  }
+
+  width = Math.max(minSize, width);
+  height = Math.max(minSize, height);
+
+  x = clamp(x, 0, Math.max(0, originalImage.width - width));
+  y = clamp(y, 0, Math.max(0, originalImage.height - height));
+
+  width = clamp(width, minSize, originalImage.width - x);
+  height = clamp(height, minSize, originalImage.height - y);
+
+  return { x, y, width, height };
+}
+
+function getCropAspectRatio() {
+  if (!originalImage) return null;
+
+  if (cropAspectMode === 'square') return 1;
+
+  if (cropAspectMode === 'original') {
+    return originalImage.width / Math.max(1, originalImage.height);
+  }
+
+  return null;
+}
+
+function fitRectToAspect(rect, aspectRatio, anchor = 'center') {
+  if (!originalImage || !rect || !aspectRatio) return normalizeCropRect(rect);
+
+  let normalized = normalizeCropRect(rect);
+  if (!normalized) return null;
+
+  let { x, y, width, height } = normalized;
+  const centerX = x + width / 2;
+  const centerY = y + height / 2;
+  const currentRatio = width / Math.max(1, height);
+
+  if (currentRatio > aspectRatio) {
+    width = height * aspectRatio;
+  } else {
+    height = width / aspectRatio;
+  }
+
+  if (anchor === 'topleft') {
+    x = normalized.x;
+    y = normalized.y;
+  } else {
+    x = centerX - width / 2;
+    y = centerY - height / 2;
+  }
+
+  if (x < 0) x = 0;
+  if (y < 0) y = 0;
+
+  if (x + width > originalImage.width) x = originalImage.width - width;
+  if (y + height > originalImage.height) y = originalImage.height - height;
+
+  return normalizeCropRect({ x, y, width, height });
+}
+
+function setCropAspectMode(mode) {
+  cropAspectMode = ['free', 'original', 'square'].includes(mode) ? mode : 'free';
+
+  cropAspectButtons.forEach(btn => {
+    const active = btn.dataset.cropAspect === cropAspectMode;
+    btn.classList.toggle('active', active);
+    btn.setAttribute('aria-pressed', active ? 'true' : 'false');
+  });
+
+  const ratio = getCropAspectRatio();
+  if (ratio && originalImage) {
+    cropEditorRect = fitRectToAspect(cropEditorRect || cropRect || getFullImageRect(), ratio);
+    drawCropEditor();
+  }
+}
+
+function makeAspectRectFromPoints(startPoint, point, aspectRatio) {
+  if (!originalImage || !aspectRatio) {
+    return normalizeCropRect({
+      x: Math.min(startPoint.x, point.x),
+      y: Math.min(startPoint.y, point.y),
+      width: Math.abs(point.x - startPoint.x),
+      height: Math.abs(point.y - startPoint.y)
+    });
+  }
+
+  const dx = point.x - startPoint.x;
+  const dy = point.y - startPoint.y;
+  const signX = dx < 0 ? -1 : 1;
+  const signY = dy < 0 ? -1 : 1;
+
+  let width = Math.abs(dx);
+  let height = Math.abs(dy);
+
+  if (width / Math.max(1, height) > aspectRatio) {
+    height = width / aspectRatio;
+  } else {
+    width = height * aspectRatio;
+  }
+
+  let x = signX < 0 ? startPoint.x - width : startPoint.x;
+  let y = signY < 0 ? startPoint.y - height : startPoint.y;
+
+  if (x < 0) {
+    width += x;
+    x = 0;
+    height = width / aspectRatio;
+    if (signY < 0) y = startPoint.y - height;
+  }
+
+  if (y < 0) {
+    height += y;
+    y = 0;
+    width = height * aspectRatio;
+    if (signX < 0) x = startPoint.x - width;
+  }
+
+  if (x + width > originalImage.width) {
+    width = originalImage.width - x;
+    height = width / aspectRatio;
+    if (signY < 0) y = startPoint.y - height;
+  }
+
+  if (y + height > originalImage.height) {
+    height = originalImage.height - y;
+    width = height * aspectRatio;
+    if (signX < 0) x = startPoint.x - width;
+  }
+
+  return normalizeCropRect({ x, y, width, height });
+}
+
+function resizeAspectRect(start, action, point, aspectRatio) {
+  if (!originalImage || !aspectRatio) return null;
+
+  let fixedX = start.x;
+  let fixedY = start.y;
+
+  if (action.includes('l')) fixedX = start.x + start.width;
+  if (action.includes('t')) fixedY = start.y + start.height;
+
+  return makeAspectRectFromPoints(
+    { x: fixedX, y: fixedY },
+    point,
+    aspectRatio
+  );
+}
+
+function isFullCropRect(rect) {
+  if (!originalImage || !rect) return true;
+
+  return rect.x <= 1 &&
+    rect.y <= 1 &&
+    Math.abs(rect.width - originalImage.width) <= 1 &&
+    Math.abs(rect.height - originalImage.height) <= 1;
+}
+
+function getActiveSourceRect() {
+  const full = getFullImageRect();
+  if (!full) return null;
+
+  const normalized = normalizeCropRect(cropRect);
+  return normalized && !isFullCropRect(normalized) ? normalized : full;
+}
+
+function getCropSignature() {
+  if (!originalImage || !cropRect) return 'full';
+
+  const r = normalizeCropRect(cropRect);
+  if (!r || isFullCropRect(r)) return 'full';
+
+  return [
+    Math.round(r.x),
+    Math.round(r.y),
+    Math.round(r.width),
+    Math.round(r.height)
+  ].join(',');
+}
+
+function fitOutputWidthToActiveSource(options = {}) {
+  const sourceRect = getActiveSourceRect();
+  if (!sourceRect || !outputWidthMm) return;
+
+  const sourceWidthPx = Math.max(1, Math.round(sourceRect.width));
+  const currentWidthPx = getOutputWidthPx();
+
+  if (currentWidthPx <= sourceWidthPx) return;
+
+  const newWidthMm = pxToMm(sourceWidthPx, getDpiValue());
+  outputWidthMm.value = formatNumberInput(newWidthMm);
+  lastValidOutputWidthMm = newWidthMm;
+
+  syncSliderFromMm();
+  updateSizeInfo();
+
+  if (!options.skipSave) saveSettings();
+}
+
+function setOutputWidthToActiveSource(options = {}) {
+  const sourceRect = getActiveSourceRect();
+  if (!sourceRect || !outputWidthMm) return;
+
+  const sourceWidthPx = Math.max(1, Math.round(sourceRect.width));
+  const targetWidthPx = Math.min(sourceWidthPx, DEFAULTS.outputWidthPx);
+  const newWidthMm = pxToMm(targetWidthPx, getDpiValue());
+
+  outputWidthMm.value = formatNumberInput(newWidthMm);
+  lastValidOutputWidthMm = newWidthMm;
+
+  ensureOutputWidthSliderMax(sourceWidthPx);
+  syncSliderFromMm();
+  updateSizeInfo();
+
+  if (!options.skipSave) saveSettings();
+}
+
+function updateCropInfo() {
+  // The visible crop status line was intentionally removed from the UI.
+}
+
+function getCropCanvasImagePoint(e) {
+  if (!cropCanvas || !originalImage) return { x: 0, y: 0 };
+
+  const rect = cropCanvas.getBoundingClientRect();
+  const scaleX = cropCanvas.width / Math.max(1, rect.width);
+  const scaleY = cropCanvas.height / Math.max(1, rect.height);
+  const canvasX = (e.clientX - rect.left) * scaleX;
+  const canvasY = (e.clientY - rect.top) * scaleY;
+
+  return {
+    x: clamp(canvasX / cropEditorScale, 0, originalImage.width),
+    y: clamp(canvasY / cropEditorScale, 0, originalImage.height)
+  };
+}
+
+function drawCropEditor() {
+  if (!cropCanvas || !originalImage) return;
+
+  const ctx = cropCanvas.getContext('2d');
+  if (!ctx) return;
+
+  ctx.clearRect(0, 0, cropCanvas.width, cropCanvas.height);
+  ctx.drawImage(originalImage, 0, 0, cropCanvas.width, cropCanvas.height);
+
+  const rect = normalizeCropRect(cropEditorRect || cropRect || getFullImageRect());
+  cropEditorRect = rect;
+
+  const x = rect.x * cropEditorScale;
+  const y = rect.y * cropEditorScale;
+  const w = rect.width * cropEditorScale;
+  const h = rect.height * cropEditorScale;
+
+  ctx.save();
+  ctx.fillStyle = 'rgba(0, 0, 0, 0.58)';
+  ctx.fillRect(0, 0, cropCanvas.width, cropCanvas.height);
+  ctx.clearRect(x, y, w, h);
+  ctx.drawImage(originalImage, rect.x, rect.y, rect.width, rect.height, x, y, w, h);
+
+  ctx.strokeStyle = '#f97316';
+  ctx.lineWidth = 2;
+  ctx.strokeRect(x + 1, y + 1, Math.max(1, w - 2), Math.max(1, h - 2));
+
+  ctx.strokeStyle = 'rgba(255,255,255,0.52)';
+  ctx.lineWidth = 1;
+  for (let i = 1; i <= 2; i++) {
+    const gx = x + (w * i / 3);
+    const gy = y + (h * i / 3);
+    ctx.beginPath();
+    ctx.moveTo(gx, y);
+    ctx.lineTo(gx, y + h);
+    ctx.moveTo(x, gy);
+    ctx.lineTo(x + w, gy);
+    ctx.stroke();
+  }
+
+  const handleSize = 12;
+  ctx.fillStyle = '#f97316';
+  ctx.strokeStyle = '#fff';
+  ctx.lineWidth = 2;
+  [
+    [x, y],
+    [x + w, y],
+    [x, y + h],
+    [x + w, y + h]
+  ].forEach(([hx, hy]) => {
+    ctx.beginPath();
+    ctx.rect(hx - handleSize / 2, hy - handleSize / 2, handleSize, handleSize);
+    ctx.fill();
+    ctx.stroke();
+  });
+
+  ctx.restore();
+}
+
+function renderCropEditor() {
+  if (!cropCanvas || !cropCanvasShell || !originalImage) return;
+
+  const shellWidth = Math.max(260, cropCanvasShell.clientWidth - 24);
+  const maxWidth = Math.min(shellWidth, 920);
+  const maxHeight = Math.min(Math.max(260, window.innerHeight * 0.58), 620);
+
+  cropEditorScale = Math.min(maxWidth / originalImage.width, maxHeight / originalImage.height, 1);
+  cropCanvas.width = Math.max(1, Math.round(originalImage.width * cropEditorScale));
+  cropCanvas.height = Math.max(1, Math.round(originalImage.height * cropEditorScale));
+  cropCanvas.style.width = `${cropCanvas.width}px`;
+  cropCanvas.style.height = `${cropCanvas.height}px`;
+
+  drawCropEditor();
+}
+
+function getCropActionAtPoint(point) {
+  const rect = normalizeCropRect(cropEditorRect || cropRect || getFullImageRect());
+  const handle = 14 / Math.max(cropEditorScale, 0.001);
+  const left = rect.x;
+  const right = rect.x + rect.width;
+  const top = rect.y;
+  const bottom = rect.y + rect.height;
+
+  const nearLeft = Math.abs(point.x - left) <= handle;
+  const nearRight = Math.abs(point.x - right) <= handle;
+  const nearTop = Math.abs(point.y - top) <= handle;
+  const nearBottom = Math.abs(point.y - bottom) <= handle;
+
+  if (nearLeft && nearTop) return 'resize-tl';
+  if (nearRight && nearTop) return 'resize-tr';
+  if (nearLeft && nearBottom) return 'resize-bl';
+  if (nearRight && nearBottom) return 'resize-br';
+
+  if (point.x >= left && point.x <= right && point.y >= top && point.y <= bottom) {
+    return 'move';
+  }
+
+  return 'draw';
+}
+
+function updateCropDrag(point) {
+  if (!cropDragState || !originalImage) return;
+
+  const start = cropDragState.startRect;
+  const minSize = Math.max(8, Math.min(originalImage.width, originalImage.height) * 0.02);
+  const dx = point.x - cropDragState.startPoint.x;
+  const dy = point.y - cropDragState.startPoint.y;
+
+  if (cropDragState.action === 'move') {
+    cropEditorRect = {
+      x: clamp(start.x + dx, 0, Math.max(0, originalImage.width - start.width)),
+      y: clamp(start.y + dy, 0, Math.max(0, originalImage.height - start.height)),
+      width: start.width,
+      height: start.height
+    };
+    drawCropEditor();
+    return;
+  }
+
+  if (cropDragState.action === 'draw') {
+    cropEditorRect = makeAspectRectFromPoints(cropDragState.startPoint, point, getCropAspectRatio());
+    drawCropEditor();
+    return;
+  }
+
+  const aspectRatio = getCropAspectRatio();
+
+  if (aspectRatio) {
+    cropEditorRect = resizeAspectRect(start, cropDragState.action, point, aspectRatio);
+    drawCropEditor();
+    return;
+  }
+
+  let left = start.x;
+  let top = start.y;
+  let right = start.x + start.width;
+  let bottom = start.y + start.height;
+
+  if (cropDragState.action.includes('l')) left = clamp(point.x, 0, right - minSize);
+  if (cropDragState.action.includes('r')) right = clamp(point.x, left + minSize, originalImage.width);
+  if (cropDragState.action.includes('t')) top = clamp(point.y, 0, bottom - minSize);
+  if (cropDragState.action.includes('b')) bottom = clamp(point.y, top + minSize, originalImage.height);
+
+  cropEditorRect = normalizeCropRect({
+    x: left,
+    y: top,
+    width: right - left,
+    height: bottom - top
+  });
+
+  drawCropEditor();
+}
+
+function openCropModal() {
+  if (!originalImage) {
+    showStatus(t('alertUploadFirst'), 'error');
+    return;
+  }
+
+  cropEditorRect = cloneRect(cropRect) || getFullImageRect();
+
+  if (cropModalOverlay) {
+    cropModalOverlay.classList.add('open');
+    cropModalOverlay.setAttribute('aria-hidden', 'false');
+  }
+
+  setCropAspectMode(cropAspectMode);
+  setTimeout(renderCropEditor, 0);
+}
+
+function closeCropModal() {
+  cropDragState = null;
+
+  if (cropModalOverlay) {
+    cropModalOverlay.classList.remove('open');
+    cropModalOverlay.setAttribute('aria-hidden', 'true');
+  }
+}
+
+function applyCropFromModal() {
+  if (!originalImage) return;
+
+  const rect = normalizeCropRect(cropEditorRect || getFullImageRect());
+  cropRect = rect && !isFullCropRect(rect)
+    ? {
+      x: Math.round(rect.x),
+      y: Math.round(rect.y),
+      width: Math.round(rect.width),
+      height: Math.round(rect.height)
+    }
+    : null;
+
+  setOutputWidthToActiveSource();
+  lastRenderedOutputSignature = '';
+  updateCropInfo();
+  updateSizeInfo();
+  closeCropModal();
+
+  if (originalImage) scheduleProcessImage();
+}
+
+function resetCrop(options = {}) {
+  cropRect = null;
+  cropEditorRect = getFullImageRect();
+  setOutputWidthToActiveSource();
+  lastRenderedOutputSignature = '';
+  updateCropInfo();
+  updateSizeInfo();
+
+  if (options.redrawEditor) drawCropEditor();
+
+  if (!options.skipProcess && originalImage) {
+    scheduleProcessImage();
+  }
+}
+
+function handleCropPointerDown(e) {
+  if (!originalImage || !cropCanvas) return;
+
+  e.preventDefault();
+  const point = getCropCanvasImagePoint(e);
+  const action = getCropActionAtPoint(point);
+
+  cropDragState = {
+    action,
+    startPoint: point,
+    startRect: cloneRect(cropEditorRect || cropRect || getFullImageRect())
+  };
+
+  cropCanvas.setPointerCapture(e.pointerId);
+}
+
+function handleCropPointerMove(e) {
+  if (!cropDragState) return;
+  e.preventDefault();
+  updateCropDrag(getCropCanvasImagePoint(e));
+}
+
+function handleCropPointerUp(e) {
+  if (!cropDragState) return;
+  e.preventDefault();
+
+  if (cropCanvas && cropCanvas.hasPointerCapture(e.pointerId)) {
+    cropCanvas.releasePointerCapture(e.pointerId);
+  }
+
+  cropDragState = null;
+  cropEditorRect = normalizeCropRect(cropEditorRect);
+  drawCropEditor();
 }
 
 function getOutputMegapixels(widthPx = getOutputWidthPx()) {
@@ -2812,6 +4389,7 @@ function getOutputSizeLabel(widthPx, heightPx) {
 function getCurrentRenderSignature(widthPx, heightPx) {
   return [
     originalImageToken,
+    getCropSignature(),
     widthPx,
     heightPx,
     brightness.value,
@@ -2871,29 +4449,70 @@ function shouldContinueLargeExport(widthPx = getOutputWidthPx()) {
   return confirm(t('confirmLargeOutput').replace('{mp}', megapixels.toFixed(1)));
 }
 
-makeKeyboardClickable(dropZone, () => fileInput.click());
-makeKeyboardClickable(uploadCtaCard, () => fileInput.click());
+if (dropZone && fileInput) makeKeyboardClickable(dropZone, () => fileInput.click());
+if (topUploadBtn && fileInput) topUploadBtn.addEventListener('click', () => fileInput.click());
+if (uploadCtaCard && fileInput) makeKeyboardClickable(uploadCtaCard, () => fileInput.click());
+if (hintUploadLink && fileInput) hintUploadLink.addEventListener('click', () => fileInput.click());
+if (cropOpenBtn) cropOpenBtn.addEventListener('click', openCropModal);
+if (cropResetBtn) cropResetBtn.addEventListener('click', () => resetCrop());
+if (cropCloseBtn) cropCloseBtn.addEventListener('click', closeCropModal);
+if (cropCancelBtn) cropCancelBtn.addEventListener('click', closeCropModal);
+if (cropApplyBtn) cropApplyBtn.addEventListener('click', applyCropFromModal);
+if (cropResetModalBtn) cropResetModalBtn.addEventListener('click', () => {
+  cropEditorRect = getFullImageRect();
+  drawCropEditor();
+});
+
+if (cropModalOverlay) {
+  cropModalOverlay.addEventListener('click', e => {
+    if (e.target === cropModalOverlay) closeCropModal();
+  });
+}
+
+if (cropCanvas) {
+  cropCanvas.addEventListener('pointerdown', handleCropPointerDown);
+  cropCanvas.addEventListener('pointermove', handleCropPointerMove);
+  cropCanvas.addEventListener('pointerup', handleCropPointerUp);
+  cropCanvas.addEventListener('pointercancel', handleCropPointerUp);
+}
+
+cropAspectButtons.forEach(btn => {
+  btn.addEventListener('click', () => setCropAspectMode(btn.dataset.cropAspect));
+});
+
+window.addEventListener('keydown', e => {
+  if (e.key === 'Escape' && cropModalOverlay && cropModalOverlay.classList.contains('open')) {
+    closeCropModal();
+  }
+});
+
+window.addEventListener('resize', () => {
+  if (cropModalOverlay && cropModalOverlay.classList.contains('open')) {
+    renderCropEditor();
+  }
+});
+
 
 document.addEventListener('click', function(e) {
-  const reuploadBtn = e.target.closest('#reuploadBtnResult, #reuploadBtnCompare');
+  const reuploadBtn = e.target.closest('#reuploadBtnResult, #reuploadBtnCompare, #reuploadBtnMaterial');
   if (reuploadBtn) {
     fileInput.click();
     return;
   }
 
-  const mobileDownloadBtn = e.target.closest('#downloadBtnMobileResult, #downloadBtnMobileCompare');
+  const mobileDownloadBtn = e.target.closest('#downloadBtnMobileResult, #downloadBtnMobileCompare, #downloadBtnMobileMaterial');
   if (mobileDownloadBtn) {
     downloadResult();
     return;
   }
 
-  const mobileDownloadBmpBtn = e.target.closest('#downloadBmpBtnMobileResult, #downloadBmpBtnMobileCompare');
+  const mobileDownloadBmpBtn = e.target.closest('#downloadBmpBtnMobileResult, #downloadBmpBtnMobileCompare, #downloadBmpBtnMobileMaterial');
   if (mobileDownloadBmpBtn) {
     downloadBmpResult();
     return;
   }
 
-  const adjustSettingsBtn = e.target.closest('#adjustSettingsBtnResult, #adjustSettingsBtnCompare');
+  const adjustSettingsBtn = e.target.closest('#adjustSettingsBtnResult, #adjustSettingsBtnCompare, #adjustSettingsBtnMaterial');
   if (adjustSettingsBtn) {
     scrollToControls();
     return;
@@ -2907,20 +4526,22 @@ fileInput.addEventListener('change', e => {
   }
 });
 
-dropZone.addEventListener('dragover', e => {
-  e.preventDefault();
-  dropZone.classList.add('drag-over');
-});
+if (dropZone) {
+  dropZone.addEventListener('dragover', e => {
+    e.preventDefault();
+    dropZone.classList.add('drag-over');
+  });
 
-dropZone.addEventListener('dragleave', () => {
-  dropZone.classList.remove('drag-over');
-});
+  dropZone.addEventListener('dragleave', () => {
+    dropZone.classList.remove('drag-over');
+  });
 
-dropZone.addEventListener('drop', e => {
-  e.preventDefault();
-  dropZone.classList.remove('drag-over');
-  if (e.dataTransfer.files && e.dataTransfer.files[0]) loadFile(e.dataTransfer.files[0]);
-});
+  dropZone.addEventListener('drop', e => {
+    e.preventDefault();
+    dropZone.classList.remove('drag-over');
+    if (e.dataTransfer.files && e.dataTransfer.files[0]) loadFile(e.dataTransfer.files[0]);
+  });
+}
 
 presetCards.forEach(card => {
   makeKeyboardClickable(card, () => applyPreset(card.dataset.preset));
@@ -2928,6 +4549,10 @@ presetCards.forEach(card => {
 
 ditherCards.forEach(card => {
   makeKeyboardClickable(card, () => setDitherMode(card.dataset.dither, { markCustom: true }));
+});
+
+materialCards.forEach(card => {
+  makeKeyboardClickable(card, () => toggleMaterialPreviewFromCard(card.dataset.material));
 });
 
 if (ditherMode) {
@@ -3032,13 +4657,23 @@ resetBtn.addEventListener('click', resetSettings);
 });
 
 function setViewMode(mode) {
+  if (!['result', 'compare', 'material'].includes(mode)) mode = 'compare';
+
   viewMode = mode;
   btnResult.classList.toggle('active', mode === 'result');
   btnCompare.classList.toggle('active', mode === 'compare');
+  if (btnMaterial) btnMaterial.classList.toggle('active', mode === 'material');
+
   btnResult.setAttribute('aria-pressed', mode === 'result' ? 'true' : 'false');
   btnCompare.setAttribute('aria-pressed', mode === 'compare' ? 'true' : 'false');
+  if (btnMaterial) btnMaterial.setAttribute('aria-pressed', mode === 'material' ? 'true' : 'false');
+
   document.getElementById('resultView').style.display = mode === 'result' ? 'block' : 'none';
   document.getElementById('compareView').style.display = mode === 'compare' ? 'block' : 'none';
+  const materialView = document.getElementById('materialView');
+  if (materialView) materialView.style.display = mode === 'material' ? 'block' : 'none';
+
+  if (mode === 'material') updateMaterialPreviewFromCurrentCanvas();
 }
 
 function setActivePresetCard(key) {
@@ -3057,6 +4692,96 @@ function setActiveDitherCard(mode) {
     card.setAttribute('aria-pressed', isActive ? 'true' : 'false');
   });
 }
+
+function setActiveMaterialCard(key) {
+  const selectedMaterial = MATERIALS[key] ? key : null;
+
+  materialCards.forEach(card => {
+    const isActive = Boolean(selectedMaterial) && card.dataset.material === selectedMaterial;
+    card.classList.toggle('active', isActive);
+    card.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+  });
+}
+
+function syncMaterialControls() {
+  setActiveMaterialCard(currentMaterial);
+  syncMaterialSelect();
+}
+
+function updateMaterialPreviewLabel() {
+  const label = document.getElementById('materialPreviewLabel');
+  const tip = document.getElementById('materialPreviewTip');
+
+  if (!currentMaterial || !MATERIALS[currentMaterial]) {
+    if (label) label.textContent = t('labelMaterialPreview');
+    if (tip) tip.innerHTML = t('materialTipNone');
+    return;
+  }
+
+  const material = MATERIALS[currentMaterial];
+
+  if (label) {
+    label.textContent = `${t('labelMaterialPreview')} · ${t(material.nameKey)}`;
+  }
+
+  if (tip) {
+    const negativeHint = ['slate', 'blackAnodized'].includes(currentMaterial)
+      ? ' <strong>Tip:</strong> Negative mode is often useful here because laser marks become lighter.'
+      : '';
+    tip.innerHTML = `${t(material.tipKey)}${negativeHint}`;
+  }
+}
+
+function clearMaterialPreview(options = {}) {
+  currentMaterial = null;
+  syncMaterialControls();
+  updateMaterialPreviewLabel();
+
+  if (!options.skipSave) saveSettings();
+  if (!options.keepView) setViewMode('result');
+}
+
+function setMaterialPreview(key, options = {}) {
+  const normalizedKey = MATERIALS[key] ? key : null;
+
+  if (!normalizedKey) {
+    clearMaterialPreview(options);
+    return;
+  }
+
+  if (!options.force && currentMaterial === normalizedKey) {
+    syncMaterialControls();
+    updateMaterialPreviewLabel();
+    updateMaterialPreviewFromCurrentCanvas();
+    if (!options.keepView) setViewMode('material');
+    return;
+  }
+
+  currentMaterial = normalizedKey;
+  syncMaterialControls();
+  updateMaterialPreviewLabel();
+
+  if (!options.skipSave) saveSettings();
+  updateMaterialPreviewFromCurrentCanvas();
+  if (!options.keepView) setViewMode('material');
+}
+
+function toggleMaterialPreviewFromCard(key) {
+  const normalizedKey = MATERIALS[key] ? key : null;
+
+  if (!normalizedKey) {
+    clearMaterialPreview();
+    return;
+  }
+
+  if (currentMaterial === normalizedKey) {
+    clearMaterialPreview();
+    return;
+  }
+
+  setMaterialPreview(normalizedKey);
+}
+
 
 function setDitherMode(mode, options = {}) {
   const selectedMode = DITHER_MODES.includes(mode) ? mode : DEFAULTS.ditherMode;
@@ -3106,7 +4831,7 @@ function applyCurrentPresetValues() {
 }
 
 function resetCanvasInspectionState() {
-  [canvasSingle, canvasCompareOrig, canvasCompareResult].forEach(canvas => {
+  [canvasSingle, canvasCompareOrig, canvasCompareResult, canvasMaterialPreview].forEach(canvas => {
     if (!canvas) return;
 
     canvas.style.transform = '';
@@ -3129,7 +4854,7 @@ function initializeCanvasMagnifier() {
   if (existingLens) existingLens.remove();
 
   const MAGNIFIER_ZOOM = 4;
-  const canvases = [canvasSingle, canvasCompareOrig, canvasCompareResult].filter(Boolean);
+  const canvases = [canvasSingle, canvasCompareOrig, canvasCompareResult, canvasMaterialPreview].filter(Boolean);
   if (!canvases.length) return;
 
   const lens = document.createElement('div');
@@ -3275,6 +5000,7 @@ function loadStoredSettings() {
     const s = JSON.parse(raw);
 
     if (s.preset && PRESETS[s.preset]) currentPreset = s.preset;
+    currentMaterial = null;
     if (s.brightness !== undefined) brightness.value = s.brightness;
     if (s.contrast !== undefined) contrast.value = s.contrast;
     if (s.gamma !== undefined) gamma.value = s.gamma;
@@ -3307,6 +5033,7 @@ function loadStoredSettings() {
 function saveSettings() {
   const data = {
     preset: currentPreset,
+    materialPreview: currentMaterial || '',
     brightness: Number(brightness.value),
     contrast: Number(contrast.value),
     gamma: Number(gamma.value),
@@ -3328,6 +5055,11 @@ function saveSettings() {
 
 function resetSettings() {
   currentPreset = DEFAULTS.preset;
+  cropRect = null;
+  cropEditorRect = null;
+  currentMaterial = null;
+  syncMaterialControls();
+  updateMaterialPreviewLabel();
   brightness.value = DEFAULTS.brightness;
   contrast.value = DEFAULTS.contrast;
   gamma.value = DEFAULTS.gamma;
@@ -3346,6 +5078,7 @@ function resetSettings() {
   sliderPairs.forEach(([id]) => updateSlider(document.getElementById(id)));
   updateSizeInfo();
   setActivePresetCard(currentPreset);
+  updateCropInfo();
   saveSettings();
 
   if (originalImage) scheduleProcessImage();
@@ -3372,10 +5105,13 @@ function scrollToPreviewOnMobile() {
 
 function loadImageIntoEditor(img, switchToResult = false, targetDpi = null, isDemo = false) {
   originalImage = img;
+  cropRect = null;
+  cropEditorRect = null;
   originalImageToken += 1;
   lastRenderedOutputSignature = '';
   showEditor();
   showDemoNotice(isDemo);
+  updateCropInfo();
 
   applyCurrentPresetValues();
   setActivePresetCard(currentPreset);
@@ -3384,7 +5120,7 @@ function loadImageIntoEditor(img, switchToResult = false, targetDpi = null, isDe
     setDpiValue(targetDpi);
   }
 
-  syncSliderFromMm();
+  setOutputWidthToActiveSource({ skipSave: true });
   updateSizeInfo();
   saveSettings();
 
@@ -3550,8 +5286,9 @@ function syncMmFromSlider() {
 }
 
 function getOutputHeightPx(widthPx) {
-  if (!originalImage || !originalImage.width) return null;
-  return Math.max(1, Math.round(originalImage.height * widthPx / originalImage.width));
+  const sourceRect = getActiveSourceRect();
+  if (!sourceRect || !sourceRect.width) return null;
+  return Math.max(1, Math.round(sourceRect.height * widthPx / sourceRect.width));
 }
 
 function updateSizeInfo() {
@@ -3575,8 +5312,11 @@ function updateSizeInfo() {
 function processImage(options = {}) {
   if (!originalImage) return false;
 
+  const sourceRect = getActiveSourceRect();
+  if (!sourceRect) return false;
+
   const w = getOutputWidthPx();
-  const h = Math.max(1, Math.round(originalImage.height * w / originalImage.width));
+  const h = Math.max(1, Math.round(sourceRect.height * w / sourceRect.width));
   const renderSignature = getCurrentRenderSignature(w, h);
 
   if (!canProcessOutputSize(w, h, options)) {
@@ -3590,7 +5330,7 @@ function processImage(options = {}) {
     const srcCtx = srcCanvas.getContext('2d', { willReadFrequently: true });
     if (!srcCtx) throw new Error('2D canvas context is not available.');
 
-    srcCtx.drawImage(originalImage, 0, 0, w, h);
+    srcCtx.drawImage(originalImage, sourceRect.x, sourceRect.y, sourceRect.width, sourceRect.height, 0, 0, w, h);
 
     let imageData = srcCtx.getImageData(0, 0, w, h);
     toGrayscale(imageData);
@@ -3603,9 +5343,10 @@ function processImage(options = {}) {
     applyDithering(imageData, w, h, ditherMode.value || DEFAULTS.ditherMode, FIXED_THRESHOLD);
     if (invertColors.checked) invertImageData(imageData);
 
-    drawOriginalIntoCanvas(canvasCompareOrig, w, h);
+    drawOriginalIntoCanvas(canvasCompareOrig, w, h, sourceRect);
     putImageDataToCanvas(canvasCompareResult, imageData, w, h);
     putImageDataToCanvas(canvasSingle, imageData, w, h);
+    updateMaterialPreviewFromCurrentCanvas();
 
     const imageDimsEl = document.getElementById('imageDims');
     if (imageDimsEl) imageDimsEl.textContent = getOutputSizeLabel(w, h);
@@ -3621,8 +5362,8 @@ function processImage(options = {}) {
   }
 }
 
-function drawOriginalIntoCanvas(canvas, w, h) {
-  if (!canvas) return;
+function drawOriginalIntoCanvas(canvas, w, h, sourceRect = getActiveSourceRect()) {
+  if (!canvas || !sourceRect) return;
 
   canvas.width = w;
   canvas.height = h;
@@ -3631,7 +5372,7 @@ function drawOriginalIntoCanvas(canvas, w, h) {
 
   const ctx = canvas.getContext('2d');
   ctx.clearRect(0, 0, w, h);
-  ctx.drawImage(originalImage, 0, 0, w, h);
+  ctx.drawImage(originalImage, sourceRect.x, sourceRect.y, sourceRect.width, sourceRect.height, 0, 0, w, h);
 }
 
 function putImageDataToCanvas(canvas, imageData, w, h) {
@@ -3642,6 +5383,108 @@ function putImageDataToCanvas(canvas, imageData, w, h) {
 
   const ctx = canvas.getContext('2d');
   ctx.putImageData(imageData, 0, 0);
+}
+
+function updateMaterialPreviewFromCurrentCanvas() {
+  if (!currentMaterial || !MATERIALS[currentMaterial]) return;
+  if (!canvasMaterialPreview || !canvasSingle || !canvasSingle.width || !canvasSingle.height) return;
+
+  const previewScale = Math.min(1, MATERIAL_PREVIEW_MAX_PX / Math.max(canvasSingle.width, canvasSingle.height));
+  const previewW = Math.max(1, Math.round(canvasSingle.width * previewScale));
+  const previewH = Math.max(1, Math.round(canvasSingle.height * previewScale));
+  const tmp = document.createElement('canvas');
+  tmp.width = previewW;
+  tmp.height = previewH;
+
+  const tmpCtx = tmp.getContext('2d', { willReadFrequently: true });
+  if (!tmpCtx) return;
+
+  tmpCtx.imageSmoothingEnabled = false;
+  tmpCtx.drawImage(canvasSingle, 0, 0, previewW, previewH);
+
+  try {
+    const imageData = tmpCtx.getImageData(0, 0, previewW, previewH);
+    renderMaterialPreview(imageData, previewW, previewH);
+  } catch (err) {
+    console.warn('Material preview could not be rendered.', err);
+  }
+}
+
+function renderMaterialPreview(sourceImageData, w, h) {
+  if (!canvasMaterialPreview) return;
+
+  const material = MATERIALS[currentMaterial];
+  canvasMaterialPreview.width = w;
+  canvasMaterialPreview.height = h;
+  canvasMaterialPreview.style.width = '100%';
+  canvasMaterialPreview.style.height = 'auto';
+
+  const ctx = canvasMaterialPreview.getContext('2d');
+  if (!ctx) return;
+
+  const src = sourceImageData.data;
+  const out = ctx.createImageData(w, h);
+  const dst = out.data;
+
+  for (let y = 0; y < h; y++) {
+    for (let x = 0; x < w; x++) {
+      const i = (y * w + x) * 4;
+      let laserAmount = 1 - src[i] / 255;
+
+      if (material.dotGain > 0 && laserAmount < 1) {
+        const left = x > 0 ? 1 - src[i - 4] / 255 : 0;
+        const right = x + 1 < w ? 1 - src[i + 4] / 255 : 0;
+        const up = y > 0 ? 1 - src[i - w * 4] / 255 : 0;
+        const down = y + 1 < h ? 1 - src[i + w * 4] / 255 : 0;
+        laserAmount = Math.max(laserAmount, left * material.dotGain, right * material.dotGain, up * material.dotGain, down * material.dotGain);
+      }
+
+      laserAmount = clamp(laserAmount, 0, 1);
+
+      const texture = getMaterialTexture(material, x, y, w, h);
+      const baseR = material.base[0] + texture;
+      const baseG = material.base[1] + texture;
+      const baseB = material.base[2] + texture;
+      const markR = material.mark[0] + texture * 0.35;
+      const markG = material.mark[1] + texture * 0.35;
+      const markB = material.mark[2] + texture * 0.35;
+
+      dst[i] = clamp(Math.round(baseR * (1 - laserAmount) + markR * laserAmount), 0, 255);
+      dst[i + 1] = clamp(Math.round(baseG * (1 - laserAmount) + markG * laserAmount), 0, 255);
+      dst[i + 2] = clamp(Math.round(baseB * (1 - laserAmount) + markB * laserAmount), 0, 255);
+      dst[i + 3] = 255;
+    }
+  }
+
+  ctx.putImageData(out, 0, 0);
+}
+
+function pseudoNoise(x, y, seed) {
+  const n = Math.sin(x * 12.9898 + y * 78.233 + seed * 37.719) * 43758.5453;
+  return n - Math.floor(n);
+}
+
+function getMaterialTexture(material, x, y, w, h) {
+  const n = (pseudoNoise(x, y, material.seed) - 0.5) * material.noise;
+  let grain = 0;
+
+  if (material.grain === 'wood') {
+    grain = Math.sin(y * 0.055 + Math.sin(x * 0.018) * 2.4) * material.grainStrength;
+    grain += Math.sin(y * 0.19 + material.seed) * material.grainStrength * 0.18;
+  } else if (material.grain === 'stone') {
+    grain = (pseudoNoise(Math.floor(x / 12), Math.floor(y / 7), material.seed + 3) - 0.5) * material.grainStrength;
+  } else if (material.grain === 'metal') {
+    grain = Math.sin((x + y) * 0.08) * material.grainStrength * 0.3;
+  } else if (material.grain === 'glass') {
+    const shine = Math.max(0, 1 - Math.abs((x / Math.max(1, w)) - 0.28) * 7) * material.grainStrength;
+    grain = shine + Math.sin((x + y) * 0.02) * material.grainStrength * 0.18;
+  } else if (material.grain === 'leather') {
+    grain = (pseudoNoise(Math.floor(x / 5), Math.floor(y / 5), material.seed + 5) - 0.5) * material.grainStrength;
+  } else if (material.grain === 'ceramic') {
+    grain = Math.sin((x + y) * 0.035) * material.grainStrength * 0.35;
+  }
+
+  return n + grain;
 }
 
 function toGrayscale(imageData) {
@@ -4209,17 +6052,17 @@ async function downloadResult() {
     }
 
     if (openedForMs < 3500) {
-      showFeedbackMessage('Poczekaj chwilę przed wysłaniem formularza.', 'error');
+      showFeedbackMessage('Poczekaj chwilę przed ponownym wysłaniem formularza.', 'error');
       return;
     }
 
     if (feedback.length < 8) {
-      showFeedbackMessage('Napisz przynajmniej kilka słów.', 'error');
+      showFeedbackMessage('Napisz proszę przynajmniej kilka słów.', 'error');
       return;
     }
 
     if (email && !emailEl.checkValidity()) {
-      showFeedbackMessage('Wpisz prawidłowy adres e-mail albo zostaw pole puste.', 'error');
+      showFeedbackMessage('Wpisz poprawny adres e-mail albo zostaw pole puste.', 'error');
       return;
     }
 
@@ -4229,8 +6072,8 @@ async function downloadResult() {
       'Opinia:',
       feedback,
       '',
-      email ? 'E-mail nadawcy: ' + email : 'E-mail nadawcy: not provided',
-      'Strona: ' + window.location.href,
+      email ? 'Sender email: ' + email : 'Sender email: not provided',
+      'Page: ' + window.location.href,
       'User agent: ' + navigator.userAgent
     ];
 
@@ -4238,7 +6081,7 @@ async function downloadResult() {
       '?subject=' + encodeURIComponent(subject) +
       '&body=' + encodeURIComponent(bodyLines.join('\n'));
 
-    showFeedbackMessage('Powinna otworzyć się aplikacja pocztowa. Wyślij z niej przygotowaną wiadomość.', 'success');
+    showFeedbackMessage('Aplikacja pocztowa powinna się teraz otworzyć. Wyślij z niej przygotowaną wiadomość.', 'success');
     window.location.href = mailtoUrl;
   });
 })();
@@ -4247,6 +6090,7 @@ async function downloadResult() {
 
 loadStoredLanguage();
 buildCustomDpiSelect();
+buildMaterialSelect();
 loadStoredSettings();
 sliderPairs.forEach(([id]) => updateSlider(document.getElementById(id)));
 syncSliderFromMm();
@@ -4254,6 +6098,10 @@ updateSizeInfo();
 setViewMode('compare');
 setActivePresetCard(currentPreset);
 setActiveDitherCard(ditherMode.value || DEFAULTS.ditherMode);
+syncMaterialControls();
+updateMaterialPreviewLabel();
+updateCropInfo();
+setCropAspectMode(cropAspectMode);
 setLanguage(currentLang);
 initializeCanvasMagnifier();
 loadDemoImage();
