@@ -747,6 +747,12 @@ input[type=number]:focus {
   font-weight: 700;
 }
 
+.footer-counter {
+  display: flex;
+  justify-content: center;
+  margin-top: 22px;
+}
+
 .lang-switcher {
   position: relative;
   display: inline-flex;
@@ -1067,10 +1073,6 @@ input[type=number]:focus {
 }
 
 @media (max-width: 520px) {
-  .feedback-btn span:last-child {
-    display: none;
-  }
-
   .feedback-actions {
     flex-direction: column-reverse;
   }
@@ -2337,14 +2339,6 @@ z-index: 2200;
        QR-генератор
       </span>
 </a>
-<div class="counter-badge">
-<span data-i18n="counterLabel">
-       📸 Processed:
-      </span>
-<span id="photoCounter">
-       …
-      </span>
-</div>
 </div>
 </header>
 <div aria-hidden="true" class="feedback-modal-overlay" id="feedbackModalOverlay">
@@ -3140,6 +3134,17 @@ z-index: 2200;
 </div>
 </div>
 </div>
+<div class="footer-counter">
+<div class="counter-badge">
+<span data-i18n="counterLabel">
+       Обработано:
+      </span>
+<span id="photoCounter">
+       …
+      </span>
+</div>
+</div>
+</div>
 <script>
    let originalImage = null; let cropRect = null; let cropEditorRect = null; let cropEditorScale = 1; let cropDragState = null; let cropAspectMode = 'free'; let renderQueued = false; let viewMode = 'compare'; let currentPreset = 'normal'; let currentMaterial = null; let currentLang = 'en'; let originalImageToken = 0; let lastRenderedOutputSignature = '';
 
@@ -3179,7 +3184,7 @@ const translations = {
     faq5Answer: 'Negative creates an inverted output by swapping black and white in the final laser-ready image.',
     faq6Question: 'Are my photos uploaded to a server?',
     faq6Answer: 'No. Photos are processed locally in your browser and are not uploaded to our server.',
-    counterLabel: '📸 Processed:',
+    counterLabel: 'Processed:',
     guideBtn: 'User Guide',
     guideAriaLabel: 'Open laser photo engraving user guide',
     qrGeneratorBtn: 'QR Generator',
@@ -3345,7 +3350,7 @@ const translations = {
     faq5Answer: 'Негатив создает инвертированный результат, меняя черное и белое в итоговом изображении для лазера.',
     faq6Question: 'Загружаются ли мои фотографии на сервер?',
     faq6Answer: 'Нет. Фотографии обрабатываются локально в вашем браузере и не загружаются на наш сервер.',
-    counterLabel: '📸 Обработано:',
+    counterLabel: 'Обработано:',
     guideBtn: 'Руководство',
     guideAriaLabel: 'Открыть руководство по лазерной фотогравировке',
     qrGeneratorBtn: 'QR-генератор',
