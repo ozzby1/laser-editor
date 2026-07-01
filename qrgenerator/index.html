@@ -288,8 +288,8 @@ header.app-header {
 
 h1 {
  color: var(--heading);
- font-size: clamp(2.1rem, 5vw, 4.7rem);
- line-height: 0.96;
+ font-size: clamp(1.85rem, 4.2vw, 3.85rem);
+ line-height: 1.02;
  letter-spacing: -0.065em;
  margin: 18px 0 16px;
  max-width: 960px;
@@ -2215,13 +2215,12 @@ module.exports = QRCode;
 <body>
 <div class="content">
  <header class="app-header">
- <a href="https://photoengraving.online/qrgenerator/" aria-label="QR Code Generator home">
- <img class="brand-logo" src="https://photoengraving.online/qrgenerator/qrlogo.png" alt="QR Code Generator Logo">
+ <a href="https://photoengraving.online/" aria-label="PhotoEngraving.online home">
+ <img class="brand-logo" src="/logo.png" alt="PhotoEngraving.online Logo">
  </a>
  <div class="header-actions" aria-label="Main navigation">
  <a class="header-link" href="https://photoengraving.online/">Laser Photo Editor</a>
  <a class="header-link active" href="https://photoengraving.online/qrgenerator" aria-current="page">QR Generator</a>
- <a class="header-link" href="#qr-best-practices">Best practices</a>
  <a class="header-link" href="#faq">FAQ</a>
  </div>
  </header>
@@ -2237,7 +2236,6 @@ module.exports = QRCode;
  </p>
  <div class="hero-actions">
  <a class="btn btn-primary" href="#generator">Start generating</a>
- <a class="btn btn-secondary" href="#how-static-qr-works">How static QR works</a>
  </div>
  <div class="badge-grid" aria-label="Key features">
  <div class="badge"><strong>No signup</strong> Generate and download without creating an account.</div>
@@ -2278,9 +2276,6 @@ module.exports = QRCode;
  </div>
 
  <div id="typeFields" class="form-grid" style="margin-top:12px"></div>
-              <div class="beginner-note">
-                <strong>Beginner tip:</strong> For a website QR code, paste only the final web address. No campaign tags or extra fields are needed.
-              </div>
               <div class="button-row" style="margin-top:12px">
                 <button class="btn btn-secondary" id="resetExampleBtn" type="button">Use example</button>
               </div>
@@ -3014,7 +3009,11 @@ module.exports = QRCode;
  drawQr(qr);
  var warnings = buildWarnings(qr, payload);
  if (warnings.length) showStatus(warnings.join(' '), 'warning');
- else showStatus('Static QR code generated. Scan-test it before printing.', 'success');
+ else {
+ var status = el('status');
+ status.textContent = '';
+ status.classList.remove('visible');
+ }
  updateInfo(qr, payload);
  } catch (err) {
  showStatus('This content is too long for the selected QR settings. Shorten the text or reduce vCard/event details. ' + err.message, 'error');
