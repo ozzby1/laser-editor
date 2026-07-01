@@ -19,7 +19,7 @@
 <meta property="og:site_name" content="PhotoEngraving.online">
 <meta property="og:url" content="https://photoengraving.online/qrgenerator">
 <meta property="og:title" content="Free Static QR Code Generator Online">
-<meta property="og:description" content="Generate static QR codes in your browser with custom colors, multiple QR design styles, logo, SVG and high-resolution PNG export. No signup, no database, no tracking redirect.">
+<meta property="og:description" content="Generate static QR codes in your browser with custom colors, multiple QR design styles, logo, SVG and high-resolution PNG export. No signup and no database.">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://photoengraving.online/fb.png">
 <meta property="og:image:width" content="1200">
@@ -68,12 +68,12 @@
  "operatingSystem": "Web",
  "browserRequirements": "Requires JavaScript, HTML5 Canvas and modern browser APIs for downloads.",
  "isAccessibleForFree": true,
- "description": "Free browser-based static QR code generator for URL, plain text, WiFi, vCard, email, phone, SMS, calendar, map, WhatsApp, Bitcoin and SEPA payment QR codes. Includes classic and creative QR design styles, color, logo, quiet zone, error correction, PNG and SVG export.",
+ "description": "Free browser-based static QR code generator for website links, plain text, WiFi, contact cards, email, phone, SMS, calendar events, maps, WhatsApp, Bitcoin and SEPA payment QR codes. Includes classic and creative QR design styles, color, logo, quiet zone, error correction, PNG and SVG export.",
  "image": "https://photoengraving.online/fb.png",
  "screenshot": "https://photoengraving.online/fb.png",
  "featureList": [
  "Static QR codes with no database",
- "URL QR code generator with UTM builder",
+ "Website URL QR code generator",
  "Plain text QR codes",
  "WiFi QR codes",
  "vCard contact QR codes",
@@ -88,7 +88,7 @@
  "Logo upload with error correction guidance",
  "Quiet zone and pixel size controls",
  "PNG and SVG export",
- "Print size calculator"
+ "Print QR size calculator"
  ],
  "potentialAction": {"@type": "UseAction", "target": "https://photoengraving.online/qrgenerator"},
  "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"},
@@ -104,7 +104,7 @@
  "name": "Are these QR codes static?",
  "acceptedAnswer": {
  "@type": "Answer",
- "text": "Yes. The generated QR code stores your content directly in the QR pattern. It does not use a redirect database, so it cannot be edited or tracked after printing."
+ "text": "Yes. The generated QR code stores your content directly in the QR pattern. It does not use a database, so it cannot be edited or tracked after printing."
  }
  },
  {
@@ -811,6 +811,84 @@ input[type="range"] {
 #qrCanvas {
  image-rendering: pixelated;
  image-rendering: crisp-edges;
+}
+
+
+/* Beginner UX improvements */
+.quick-steps {
+ display: grid;
+ grid-template-columns: repeat(3, minmax(0, 1fr));
+ gap: 10px;
+ margin-top: 16px;
+}
+.quick-step {
+ background: rgba(255,255,255,0.035);
+ border: 1px solid rgba(255,255,255,0.07);
+ border-radius: 14px;
+ padding: 12px 13px;
+ color: #cbd5e1;
+ font-size: 0.82rem;
+ line-height: 1.45;
+}
+.quick-step strong {
+ display: block;
+ color: #fdba74;
+ margin-bottom: 3px;
+}
+.beginner-note,
+.simple-tip {
+ margin-top: 12px;
+ padding: 12px 14px;
+ border-radius: 14px;
+ background: rgba(249,115,22,0.08);
+ border: 1px solid rgba(249,115,22,0.22);
+ color: #dbe7f3;
+ font-size: 0.84rem;
+ line-height: 1.55;
+}
+.simple-tip strong,
+.beginner-note strong {
+ color: #fdba74;
+}
+.technical-details,
+.advanced-settings {
+ margin-top: 12px;
+ border-radius: 14px;
+ border: 1px solid rgba(255,255,255,0.07);
+ background: rgba(255,255,255,0.025);
+ overflow: hidden;
+}
+.technical-details > summary,
+.advanced-settings > summary {
+ cursor: pointer;
+ padding: 12px 14px;
+ color: #fdba74;
+ font-weight: 800;
+ font-size: 0.86rem;
+ list-style: none;
+}
+.technical-details > summary::-webkit-details-marker,
+.advanced-settings > summary::-webkit-details-marker {
+ display: none;
+}
+.technical-details > summary::after,
+.advanced-settings > summary::after {
+ content: "⌄";
+ float: right;
+ color: #ff9a57;
+}
+.technical-details[open] > summary::after,
+.advanced-settings[open] > summary::after {
+ content: "⌃";
+}
+.technical-details-inner,
+.advanced-settings-inner {
+ padding: 0 14px 14px;
+}
+@media (max-width: 760px) {
+ .quick-steps {
+ grid-template-columns: 1fr;
+ }
 }
 
 </style>
@@ -2131,6 +2209,7 @@ module.exports = QRCode;
 </script>
 <meta name="qr-render-fix" content="QR_RENDER_FIX_VERSION_2026-07-01_CRISP_NO_GAPS"/>
 <meta name="qr-content-policy" content="QR_STATIC_ONLY_CONTENT_ONLY"/>
+<meta name="qr-ux-version" content="QR_UX_SIMPLE_WEBSITE_ONLY"/>
 </head>
 
 <body>
@@ -2163,8 +2242,8 @@ module.exports = QRCode;
  <div class="badge-grid" aria-label="Key features">
  <div class="badge"><strong>No signup</strong> Generate and download without creating an account.</div>
  <div class="badge"><strong>Private by design</strong> QR data is processed in the browser, not saved in a database.</div>
- <div class="badge"><strong>Print-ready</strong> Export high-resolution PNG or clean SVG vector files.</div>
- <div class="badge"><strong>Useful tools</strong> UTM builder, print size calculator, logo checks and scan warnings.</div>
+ <div class="badge"><strong>Print QR-ready</strong> Export high-resolution PNG or clean SVG vector files.</div>
+ <div class="badge"><strong>Useful tools</strong> Print QR size calculator, logo checks and scan warnings.</div>
  </div>
  </section>
 
@@ -2174,51 +2253,58 @@ module.exports = QRCode;
  <div class="panel-inner">
  <div class="section-title">1. QR content</div>
  <h2 class="section-heading">Choose what your QR code should open</h2>
- <p class="small-note">Static QR codes cannot be edited after printing. Check every field carefully before downloading.</p>
+ <p class="small-note">Enter the content, check the live preview, then download your QR code.</p>
 
  <div id="status" class="status-message" role="status"></div>
 
  <div class="form-grid one" style="margin-top:14px">
  <div class="field">
- <label for="qrType">QR code type</label>
+ <label for="qrType">What should the QR code open?</label>
  <select id="qrType">
- <option value="url">Website URL + optional UTM tags</option>
- <option value="text">Plain text</option>
- <option value="wifi">WiFi network</option>
- <option value="vcard">vCard contact</option>
- <option value="email">Email</option>
- <option value="phone">Phone number</option>
+ <option value="url">Website link (URL)</option>
+ <option value="text">Plain text message</option>
+ <option value="wifi">WiFi login</option>
+ <option value="vcard">Contact card</option>
+ <option value="email">Email message</option>
+ <option value="phone">Phone call</option>
  <option value="sms">SMS message</option>
  <option value="event">Calendar event</option>
  <option value="map">Map location</option>
  <option value="whatsapp">WhatsApp message</option>
  <option value="bitcoin">Bitcoin payment</option>
- <option value="sepa">SEPA EPC payment</option>
+ <option value="sepa">SEPA bank payment</option>
  </select>
  </div>
  </div>
 
  <div id="typeFields" class="form-grid" style="margin-top:12px"></div>
-
- <div class="form-grid one" style="margin-top:12px">
+              <div class="beginner-note">
+                <strong>Beginner tip:</strong> For a website QR code, paste only the final web address. No campaign tags or extra fields are needed.
+              </div>
+              <div class="button-row" style="margin-top:12px">
+                <button class="btn btn-secondary" id="resetExampleBtn" type="button">Use example</button>
+              </div>
+ <details class="technical-details">
+ <summary>Show technical encoded content</summary>
+ <div class="technical-details-inner">
  <div class="field">
- <label for="payloadPreview">Encoded static QR content</label>
+ <label for="payloadPreview">Technical encoded content</label>
  <textarea class="encoded-preview" id="payloadPreview" spellcheck="false" readonly></textarea>
- <div class="small-note">This is the exact text stored inside the static QR code. Nothing here is sent to a QR redirect database.</div>
+ <div class="small-note">This is the exact text stored inside the QR code. Nothing is uploaded or saved.</div>
  </div>
- <div class="button-row">
- <button class="btn btn-secondary" id="copyPayloadBtn" type="button">Copy encoded content</button>
- <button class="btn btn-secondary" id="resetExampleBtn" type="button">Load example</button>
+ <div class="button-row" style="margin-top:10px">
+ <button class="btn btn-secondary" id="copyPayloadBtn" type="button">Copy technical content</button>
  </div>
  </div>
+ </details>
  </div>
  </section>
 
  <section class="panel">
  <div class="panel-inner">
- <div class="section-title">2. Design & quality</div>
+ <div class="section-title">2. Design</div>
  <div class="tool-tabs" role="tablist" aria-label="QR customization tabs">
- <button class="tab-btn active" type="button" data-tab="quality">Quality</button>
+ <button class="tab-btn active" type="button" data-tab="quality">Style</button>
  <button class="tab-btn" type="button" data-tab="colors">Colors</button>
  <button class="tab-btn" type="button" data-tab="logo">Logo</button>
  <button class="tab-btn" type="button" data-tab="frame">Frame</button>
@@ -2227,7 +2313,7 @@ module.exports = QRCode;
  <div class="tab-panel active" id="tab-quality">
  <div class="form-grid">
  <div class="field full">
- <label for="designPreset">QR design preset</label>
+ <label for="designPreset">Choose a QR style</label>
  <select id="designPreset">
  <option value="basic" selected>Basic classic QR – no white gaps (crisp)</option>
  <option value="softRounded">Soft rounded modules</option>
@@ -2240,8 +2326,15 @@ module.exports = QRCode;
  </select>
  <div class="small-note">The default preset is the most compatible: full square modules with no white contour lines between them.</div>
  </div>
- <div class="field">
- <label for="errorCorrection">Error correction</label>
+ <div class="simple-tip full">
+ <strong>Best beginner choice:</strong> Keep the default Basic classic style for maximum scan reliability. Open advanced settings only when you need print-size or custom module controls.
+ </div>
+ <details class="advanced-settings" id="advancedQualitySettings">
+ <summary>Advanced scan and print settings</summary>
+ <div class="advanced-settings-inner">
+ <div class="form-grid">
+<div class="field">
+ <label for="errorCorrection">Error correction level</label>
  <select id="errorCorrection">
  <option value="L">L – smallest code, about 7% recovery</option>
  <option value="M" selected>M – balanced, about 15% recovery</option>
@@ -2250,7 +2343,7 @@ module.exports = QRCode;
  </select>
  </div>
  <div class="field">
- <label for="dotStyle">Module style</label>
+ <label for="dotStyle">Module shape</label>
  <select id="dotStyle">
  <option value="square" selected>Classic square modules</option>
  <option value="rounded">Rounded modules</option>
@@ -2263,7 +2356,7 @@ module.exports = QRCode;
  </select>
  </div>
  <div class="field">
- <label for="finderStyle">Corner marker style</label>
+ <label for="finderStyle">Corner style</label>
  <select id="finderStyle">
  <option value="classic" selected>Classic square corners</option>
  <option value="rounded">Rounded corners</option>
@@ -2280,20 +2373,23 @@ module.exports = QRCode;
  <div class="small-note">0% keeps modules connected like a standard QR code. Higher spacing creates decorative white gaps.</div>
  </div>
  <div class="field full">
- <label for="qrSize">Output size</label>
+ <label for="qrSize">Image size</label>
  <div class="slider-row">
  <input id="qrSize" type="range" min="256" max="2048" step="32" value="1024">
  <span class="slider-val" id="qrSizeVal">1024 px</span>
  </div>
  </div>
  <div class="field full">
- <label for="quietZone">Quiet zone / margin</label>
+ <label for="quietZone">White margin around QR</label>
  <div class="slider-row">
  <input id="quietZone" type="range" min="0" max="10" step="1" value="4">
  <span class="slider-val" id="quietZoneVal">4 modules</span>
  </div>
  <div class="small-note">A quiet zone of 4 modules is the safest default for most scanners and printed materials.</div>
  </div>
+ </div>
+ </div>
+ </details>
  </div>
  </div>
 
@@ -2393,8 +2489,8 @@ module.exports = QRCode;
 
  <aside class="panel preview-sticky">
  <div class="panel-inner">
- <div class="section-title">3. Preview & export</div>
- <h2 class="section-heading">Live QR preview</h2>
+ <div class="section-title">3. Preview & download</div>
+ <h2 class="section-heading">Your QR code</h2>
  <div class="qr-preview-shell">
  <canvas id="qrCanvas" width="1024" height="1024" aria-label="Generated QR code preview"></canvas>
  <div id="placeholder" class="placeholder" hidden>
@@ -2405,6 +2501,10 @@ module.exports = QRCode;
  </div>
  </div>
  </div>
+ <details class="technical-details">
+ <summary>Show QR details and print size</summary>
+ <div class="technical-details-inner">
+
 
  <div class="info-card" style="margin-top:12px">
  <div class="info-list">
@@ -2412,20 +2512,24 @@ module.exports = QRCode;
  <span>Encoded length</span><span id="infoLength">0 chars</span>
  <span>Matrix size</span><span id="infoModules">—</span>
  <span>Output image</span><span id="infoOutput">1024 × 1024</span>
- <span>Recommended print</span><span id="infoPrint">5.0 cm+</span>
+ <span>Recommended print</span><span id="infoPrint QR">5.0 cm+</span>
  </div>
  </div>
 
+ 
+ </div>
+ </details>
+
  <div class="button-row" style="margin-top:12px">
  <button class="btn btn-primary" id="downloadPngBtn" type="button">Download PNG</button>
- <button class="btn btn-secondary" id="downloadSvgBtn" type="button">Download SVG</button>
- <button class="btn btn-secondary" id="copyPngBtn" type="button">Copy PNG</button>
- <button class="btn btn-secondary" id="printBtn" type="button">Print</button>
+ <button class="btn btn-secondary" id="downloadSvgBtn" type="button">Download SVG (vector)</button>
+ <button class="btn btn-secondary" id="copyPngBtn" type="button">Copy image</button>
+ <button class="btn btn-secondary" id="printBtn" type="button">Print QR</button>
  </div>
  <div class="button-row" style="margin-top:10px">
- <button class="btn btn-secondary" id="openTargetBtn" type="button" disabled>Open encoded URL</button>
+ <button class="btn btn-secondary" id="openTargetBtn" type="button" disabled>Test link</button>
  </div>
- <p class="small-note" style="margin-bottom:0">Always scan-test the downloaded QR code at the final print size, material and viewing distance.</p>
+ <p class="small-note" style="margin-bottom:0">Before printing many copies, scan-test the final QR code on a phone.</p>
  </div>
  </aside>
  </section>
@@ -2495,10 +2599,10 @@ module.exports = QRCode;
 
  <section class="panel seo-section">
  <div class="panel-inner">
- <div class="section-title">Supported QR code types</div>
+ <div class="section-title">Supported What should the QR code open?s</div>
  <h2>Useful static QR code formats included</h2>
  <p>
- This online QR code maker supports the most practical static formats: website URL QR codes, UTM campaign links,
+ This online QR code maker supports the most practical static formats: website URL QR codes,
  plain text QR codes, WiFi login QR codes, vCard contact QR codes, mailto email QR codes, phone and SMS QR codes,
  calendar event QR codes, Google Maps location QR codes, WhatsApp message QR codes, Bitcoin URI QR codes and SEPA EPC payment QR codes.
  </p>
@@ -2569,15 +2673,7 @@ module.exports = QRCode;
  };
 
  var examples = {
- url: {
- url: 'https://photoengraving.online/',
- normalizeUrl: true,
- utm_source: '',
- utm_medium: '',
- utm_campaign: '',
- utm_term: '',
- utm_content: ''
- },
+ url: { url: 'https://photoengraving.online/', normalizeUrl: true },
  text: { text: 'This static QR code was generated in the browser.' },
  wifi: { ssid: 'Guest WiFi', password: 'guest-password', encryption: 'WPA', hidden: false },
  vcard: {
@@ -2614,12 +2710,7 @@ module.exports = QRCode;
  var fieldTemplates = {
  url: [
  field('url', 'Website URL', 'url', 'https://photoengraving.online/', 'full'),
- checkbox('normalizeUrl', 'Add https:// automatically when missing', true, 'full'),
- field('utm_source', 'UTM source', 'text', 'newsletter'),
- field('utm_medium', 'UTM medium', 'text', 'email'),
- field('utm_campaign', 'UTM campaign', 'text', 'summer-sale'),
- field('utm_term', 'UTM term', 'text', ''),
- field('utm_content', 'UTM content', 'text', '')
+ checkbox('normalizeUrl', 'Add https:// automatically if missing', true, 'full')
  ],
  text: [textareaField('text', 'Text to encode', 'Type any plain text here.', 'full')],
  wifi: [
@@ -2773,19 +2864,8 @@ module.exports = QRCode;
  var raw = getField('url');
  if (!raw) return '';
  if (getField('normalizeUrl') && !/^[a-z][a-z0-9+.-]*:/i.test(raw)) raw = 'https://' + raw;
- var utm = {
- utm_source: getField('utm_source'),
- utm_medium: getField('utm_medium'),
- utm_campaign: getField('utm_campaign'),
- utm_term: getField('utm_term'),
- utm_content: getField('utm_content')
- };
  try {
- var url = new URL(raw, window.location.href);
- Object.keys(utm).forEach(function (key) {
- if (utm[key]) url.searchParams.set(key, utm[key]);
- });
- return url.href;
+ return new URL(raw, window.location.href).href;
  } catch (e) {
  return raw;
  }
@@ -2971,7 +3051,7 @@ module.exports = QRCode;
  var distance = Number(el('printDistance').value);
  var recommended = Math.max(2, distance / 10);
  el('printSizeHint').textContent = 'Recommended print size: at least ' + recommended.toFixed(1) + ' cm wide.';
- el('infoPrint').textContent = recommended.toFixed(1) + ' cm+';
+ el('infoPrint QR').textContent = recommended.toFixed(1) + ' cm+';
  }
 
  function updateOpenButton(payload) {
@@ -3513,7 +3593,7 @@ canvas.width = 1024;
  showStatus('Popup blocked. Use Download PNG instead.', 'warning');
  return;
  }
- win.document.write('<!doctype html><html><head><title>Print QR Code</title><style>body{margin:0;display:grid;place-items:center;min-height:100vh}img{max-width:92vmin;max-height:92vmin}</style></head><body><img src="' + dataUrl + '" alt="QR code" onload="window.print()"></body></html>');
+ win.document.write('<!doctype html><html><head><title>Print QR QR Code</title><style>body{margin:0;display:grid;place-items:center;min-height:100vh}img{max-width:92vmin;max-height:92vmin}</style></head><body><img src="' + dataUrl + '" alt="QR code" onload="window.print()"></body></html>');
  win.document.close();
  }
 
@@ -3631,9 +3711,13 @@ canvas.width = 1024;
  el('printBtn').addEventListener('click', printQr);
  el('copyPayloadBtn').addEventListener('click', copyPayload);
  el('openTargetBtn').addEventListener('click', openTarget);
+ if (el('resetExampleBtn')) {
+ if (el('resetExampleBtn')) {
  el('resetExampleBtn').addEventListener('click', function () {
  applyExample(el('qrType').value, true);
  });
+ }
+ }
  }
 
  bindEvents();
