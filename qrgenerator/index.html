@@ -349,6 +349,50 @@ h1 {
 .panel + .panel { margin-top: 0.75rem; }
 .generator-column .panel + .panel { margin-top: 0; }
 
+.content-panel .panel-inner {
+ padding: 1rem 1rem 0.9rem;
+}
+
+.content-panel .form-grid {
+ gap: 8px;
+}
+
+.content-panel .field {
+ gap: 5px;
+}
+
+.content-panel input[type="text"],
+.content-panel input[type="url"],
+.content-panel input[type="email"],
+.content-panel input[type="tel"],
+.content-panel input[type="password"],
+.content-panel select,
+.content-panel textarea {
+ border-radius: 10px;
+ padding: 8px 10px;
+ min-height: 38px;
+ font-size: 0.86rem;
+}
+
+.content-panel .check-row {
+ background: transparent;
+ border: none;
+ border-radius: 8px;
+ padding: 4px 0 0;
+ min-height: auto;
+}
+
+.content-panel .check-row input {
+ width: 16px;
+ height: 16px;
+}
+
+.content-panel .check-row span {
+ color: #a8b7c8;
+ font-size: 0.82rem;
+ font-weight: 700;
+}
+
 .section-title {
  font-size: 0.72rem;
  font-weight: 850;
@@ -2272,7 +2316,7 @@ module.exports = QRCode;
 
  <section id="generator" class="grid-main" aria-label="QR code generator">
  <div class="generator-column">
- <section class="panel">
+ <section class="panel content-panel">
  <div class="panel-inner">
  <div class="section-title">1. QR content</div>
  <div id="status" class="status-message" role="status"></div>
