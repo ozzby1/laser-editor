@@ -219,7 +219,7 @@ header.app-header {
  -webkit-backdrop-filter: blur(14px);
  border: 1px solid rgba(255,255,255,0.06);
  box-shadow: 0 10px 30px rgba(0,0,0,0.25);
- margin-bottom: 1.5rem;
+ margin-bottom: 0;
  border-radius: 0;
  display: flex;
  align-items: center;
@@ -268,7 +268,7 @@ header.app-header {
 }
 
 .hero {
- padding: 30px 0 24px;
+ padding: 0 0 24px;
 }
 
 .kicker {
@@ -291,7 +291,7 @@ h1 {
  font-size: clamp(1.85rem, 4.2vw, 3.85rem);
  line-height: 1.02;
  letter-spacing: -0.065em;
- margin: 18px 0 16px;
+ margin: 0 0 16px;
  width: 100%;
  max-width: none;
 }
@@ -375,6 +375,7 @@ h1 {
 }
 
 .field.full { grid-column: 1 / -1; }
+.form-grid > .full { grid-column: 1 / -1; }
 
 label {
  font-size: 0.78rem;
@@ -799,7 +800,7 @@ input[type="range"] {
  margin-left: 0;
  justify-content: flex-start;
  }
- .hero { padding-top: 14px; }
+ .hero { padding-top: 0; }
  .panel-inner { padding: 14px; }
  .form-grid,
  .seo-columns { grid-template-columns: 1fr; }
@@ -2235,7 +2236,6 @@ module.exports = QRCode;
 
  <main>
  <section class="hero">
- <span class="kicker">Free static QR code generator</span>
  <h1>Create printable QR codes with classic or creative designs and no database.</h1>
  <p class="hero-text">
  Generate static QR codes directly in your browser for websites, WiFi access, vCards, email, SMS, phone numbers,
@@ -2284,19 +2284,6 @@ module.exports = QRCode;
               <div class="button-row" style="margin-top:12px">
                 <button class="btn btn-secondary" id="resetExampleBtn" type="button">Use example</button>
               </div>
- <details class="technical-details">
- <summary>Show technical encoded content</summary>
- <div class="technical-details-inner">
- <div class="field">
- <label for="payloadPreview">Technical encoded content</label>
- <textarea class="encoded-preview" id="payloadPreview" spellcheck="false" readonly></textarea>
- <div class="small-note">This is the exact text stored inside the QR code. Nothing is uploaded or saved.</div>
- </div>
- <div class="button-row" style="margin-top:10px">
- <button class="btn btn-secondary" id="copyPayloadBtn" type="button">Copy technical content</button>
- </div>
- </div>
- </details>
  </div>
  </section>
 
@@ -2326,10 +2313,7 @@ module.exports = QRCode;
  </select>
  <div class="small-note">The default preset is the most compatible: full square modules with no white contour lines between them.</div>
  </div>
- <div class="simple-tip full">
- <strong>Best beginner choice:</strong> Keep the default Basic classic style for maximum scan reliability. Open advanced settings only when you need print-size or custom module controls.
- </div>
- <details class="advanced-settings" id="advancedQualitySettings">
+ <details class="advanced-settings full" id="advancedQualitySettings">
  <summary>Advanced scan and print settings</summary>
  <div class="advanced-settings-inner">
  <div class="form-grid">
@@ -2979,7 +2963,8 @@ module.exports = QRCode;
  state.lastPayloadType = type;
  var payload = buildPayload(type);
  state.payload = payload;
- el('payloadPreview').value = payload;
+ var payloadPreview = el('payloadPreview');
+ if (payloadPreview) payloadPreview.value = payload;
 
  updateSliderLabels();
  updatePrintHint();
@@ -3624,12 +3609,18 @@ canvas.width = 1024;
  }
 
  function copyPayload() {
- navigator.clipboard.writeText(state.payload || el('payloadPreview').value).then(function () {
+ var payloadPreview = el('payloadPreview');
+ var payloadText = state.payload || (payloadPreview ? payloadPreview.value : '');
+ if (!payloadText) return;
+ navigator.clipboard.writeText(payloadText).then(function () {
  showStatus('Encoded QR content copied.', 'success');
  }).catch(function () {
- el('payloadPreview').select();
+ if (payloadPreview) {
+ payloadPreview.value = payloadText;
+ payloadPreview.select();
  document.execCommand('copy');
  showStatus('Encoded QR content copied.', 'success');
+ }
  });
  }
 
@@ -3707,7 +3698,9 @@ canvas.width = 1024;
  }
  el('copyPngBtn').addEventListener('click', copyPng);
  el('printBtn').addEventListener('click', printQr);
+ if (el('copyPayloadBtn')) {
  el('copyPayloadBtn').addEventListener('click', copyPayload);
+ }
  el('openTargetBtn').addEventListener('click', openTarget);
  if (el('resetExampleBtn')) {
  if (el('resetExampleBtn')) {
