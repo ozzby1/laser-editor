@@ -747,6 +747,12 @@ input[type=number]:focus {
   font-weight: 700;
 }
 
+.footer-counter {
+  display: flex;
+  justify-content: center;
+  margin-top: 22px;
+}
+
 .lang-switcher {
   position: relative;
   display: inline-flex;
@@ -1067,10 +1073,6 @@ input[type=number]:focus {
 }
 
 @media (max-width: 520px) {
-  .feedback-btn span:last-child {
-    display: none;
-  }
-
   .feedback-actions {
     flex-direction: column-reverse;
   }
@@ -2327,24 +2329,16 @@ z-index: 2200;
 </a>
 </div>
 </nav>
-<a aria-label="Open laser photo engraving user guide" class="guide-btn" href="https://photoengraving.online/guide/">
-<span>
+<a aria-label="Open laser photo engraving user guide" class="guide-btn" data-i18n-aria-label="guideAriaLabel" href="https://photoengraving.online/guide/">
+<span data-i18n="guideBtn">
        User Guide
       </span>
 </a>
-<a aria-label="Open QR Generator" class="feedback-btn" href="https://photoengraving.online/qrgenerator/">
-<span>
+<a aria-label="Open QR Generator" class="feedback-btn" data-i18n-aria-label="qrGeneratorAriaLabel" href="https://photoengraving.online/qrgenerator/">
+<span data-i18n="qrGeneratorBtn">
        QR Generator
       </span>
 </a>
-<div class="counter-badge">
-<span data-i18n="counterLabel">
-       📸 Processed:
-      </span>
-<span id="photoCounter">
-       …
-      </span>
-</div>
 </div>
 </header>
 <div aria-hidden="true" class="feedback-modal-overlay" id="feedbackModalOverlay">
@@ -3140,6 +3134,17 @@ z-index: 2200;
 </div>
 </div>
 </div>
+<div class="footer-counter">
+<div class="counter-badge">
+<span data-i18n="counterLabel">
+       Processed:
+      </span>
+<span id="photoCounter">
+       …
+      </span>
+</div>
+</div>
+</div>
 <script>
    let originalImage = null; let cropRect = null; let cropEditorRect = null; let cropEditorScale = 1; let cropDragState = null; let cropAspectMode = 'free'; let renderQueued = false; let viewMode = 'compare'; let currentPreset = 'normal'; let currentMaterial = null; let currentLang = 'en'; let originalImageToken = 0; let lastRenderedOutputSignature = '';
 
@@ -3179,7 +3184,11 @@ const translations = {
     faq5Answer: 'Negative creates an inverted output by swapping black and white in the final laser-ready image.',
     faq6Question: 'Are my photos uploaded to a server?',
     faq6Answer: 'No. Photos are processed locally in your browser and are not uploaded to our server.',
-    counterLabel: '📸 Processed:',
+    counterLabel: 'Processed:',
+    guideBtn: 'User Guide',
+    guideAriaLabel: 'Open laser photo engraving user guide',
+    qrGeneratorBtn: 'QR Generator',
+    qrGeneratorAriaLabel: 'Open QR Generator',
     btnOutput: 'Output',
     btnCompare: 'Original + Output',
     emptyOriginal: 'ORIGINAL',
@@ -3316,11 +3325,178 @@ const translations = {
     helpTip3Text: 'Always test the result first on an offcut of the same material before running the final engraving.',
     helpTip4Title: '⚙️ LightBurn settings',
     helpTip4Text: 'Import the PNG as <strong class="text-gray-200">Passthrough</strong> or <strong class="text-gray-200">Threshold</strong>. The dithering is already included in the file, so additional image processing may make it worse.'
+  },
+  ru: {
+    heroTitle: 'Бесплатный онлайн-конвертер фото для лазерной гравировки',
+    heroText: 'Преобразуйте любое изображение или фотографию в PNG, готовый для лазерной гравировки, прямо в браузере. Выберите тип фото, настройте DPI, яркость, контраст, гамму, резкость и итоговый размер, затем экспортируйте PNG для LightBurn, XCS, LaserGRBL, EZCAD и других программ для лазеров. <strong style="color: var(--accent);">Инструмент бесплатный. Ваши фотографии обрабатываются локально в браузере и не загружаются на наш сервер.</strong>',
+    seoIntroTitle: 'Бесплатный онлайн-конвертер фото для лазерной гравировки',
+    seoIntroText: 'Используйте <strong class="text-white">PhotoEngraving.online</strong> как бесплатный конвертер изображений для лазерной гравировки прямо в браузере. Загрузите фото, преобразуйте его в черно-белый PNG, готовый для лазера, выберите тип фото и DPI, проверьте рекомендуемую скорость гравировки по материалу, настройте яркость, контраст, гамму и резкость, затем скачайте результат для LightBurn, XCS, LaserGRBL, EZCAD и других программ.',
+    seoCard1Title: 'Бесплатный онлайн-инструмент',
+    seoCard1Text: 'Ничего не нужно устанавливать. Конвертируйте фото для лазерной гравировки онлайн и бесплатно скачивайте PNG.',
+    seoCard2Title: 'PNG, готовый для лазера',
+    seoCard2Text: 'Экспортируйте черно-белые PNG-файлы с метаданными DPI и подсказками по скорости гравировки для правильного физического размера в лазерной программе.',
+    seoCard3Title: 'Приватная обработка в браузере',
+    seoCard3Text: 'Ваше фото обрабатывается локально в браузере и не загружается на наш сервер.',
+    faqTitle: 'FAQ по фотогравировке',
+    faq1Question: 'Этот конвертер фото для лазерной гравировки бесплатный?',
+    faq1Answer: 'Да. Инструмент можно бесплатно использовать в браузере. Вы можете преобразовать фото в PNG для лазерной гравировки и скачать результат без установки программ.',
+    faq2Question: 'В каких лазерных программах можно использовать экспортированный PNG?',
+    faq2Answer: 'PNG подходит для LightBurn, XCS, LaserGRBL, EZCAD и других программ для лазерной гравировки, которые импортируют растровые изображения.',
+    faq3Question: 'Содержит ли PNG информацию о DPI?',
+    faq3Answer: 'Да. Экспортированный PNG содержит метаданные DPI, что помогает лазерной программе сохранить правильный физический размер гравировки.',
+    faq4Question: 'Можно ли задать собственное значение DPI?',
+    faq4Answer: 'Да. Можно выбрать готовый DPI или ввести свое значение под ваш лазер, материал и желаемый шаг линий.',
+    faq5Question: 'Что делает режим Негатив?',
+    faq5Answer: 'Негатив создает инвертированный результат, меняя черное и белое в итоговом изображении для лазера.',
+    faq6Question: 'Загружаются ли мои фотографии на сервер?',
+    faq6Answer: 'Нет. Фотографии обрабатываются локально в вашем браузере и не загружаются на наш сервер.',
+    counterLabel: 'Обработано:',
+    guideBtn: 'Руководство',
+    guideAriaLabel: 'Открыть руководство по лазерной фотогравировке',
+    qrGeneratorBtn: 'QR-генератор',
+    qrGeneratorAriaLabel: 'Открыть QR-генератор',
+    btnOutput: 'Результат',
+    btnCompare: 'Оригинал + результат',
+    emptyOriginal: 'ОРИГИНАЛ',
+    emptyOutput: 'РЕЗУЛЬТАТ',
+    stepUploadTitle: 'Загрузите фото ↑',
+    stepUploadText: 'Нажмите здесь или перетащите файл',
+    stepTryTitle: 'Или попробуйте сразу',
+    stepTryText: 'Демо-фото загрузится автоматически',
+    stepDownloadTitle: 'Скачайте PNG',
+    stepDownloadText: 'Готово для гравировки',
+    hintLine: 'Начните с демо-фото или загрузите свое изображение',
+    zoomHelp: 'Наведите мышь на изображение, чтобы рассмотреть детали в лупе. На сенсорных устройствах удерживайте палец и перемещайте его по изображению. Для лучшего опыта и более удобного редактирования рекомендуем использовать этот инструмент на компьютере.',
+    reuploadBtn: 'Загрузить фото',
+    sectionUpload: 'Загрузка фото',
+    dropZoneMain: 'Перетащите файл или нажмите для выбора',
+    dropZoneSub: 'JPG, PNG, BMP, WebP',
+    sectionCrop: 'Кадрирование фото',
+    cropOpenBtn: 'Обрезать фото',
+    cropResetBtn: 'Сбросить кадрирование',
+    cropModalTitle: 'Кадрирование фото',
+    cropModalText: 'Потяните, чтобы выделить область кадрирования. Перетаскивайте область для перемещения или тяните за угол, чтобы изменить размер.',
+    cropModalHelp: 'Кадрирование применяется перед дизерингом, предпросмотром материала и экспортом PNG/BMP.',
+    cropCancelBtn: 'Отмена',
+    cropApplyBtn: 'Применить кадрирование',
+    cropAspectFree: 'Свободное соотношение',
+    cropAspectOriginal: 'Сохранить исходное соотношение',
+    cropAspectSquare: 'Квадрат',
+    sectionPhotoType: 'Тип фото',
+    presetCustom: 'Свои настройки',
+    presetNormal: 'Обычное фото',
+    presetNegative: 'Негатив',
+    presetPortrait: 'Люди',
+    presetDark: 'Темное фото',
+    presetLight: 'Светлое фото',
+    presetDetail: '🔍 Больше деталей',
+    presetHelp: 'По умолчанию используется Обычное фото. Выберите Негатив для инвертированного результата или точно настройте все ползунками ниже.',
+    sectionDithering: 'Дизеринг',
+    ditherFloyd: 'Флойд-Стейнберг',
+    ditherAtkinson: 'Аткинсон',
+    ditherJarvis: 'Джарвис',
+    ditherOrdered: 'Упорядоченный / Байер',
+    ditherHelp: 'Флойд-Стейнберг - сбалансированный вариант. Аткинсон мягче, Джарвис дает более плавные полутона, а Упорядоченный/Байер создает регулярный узор, подходящий для логотипов и графики.',
+    sectionAdjustments: 'Настройки фото',
+    labelBrightness: 'Яркость',
+    labelContrast: 'Контраст',
+    labelGamma: 'Гамма',
+    labelSharpness: 'Резкость',
+    resetBtn: '↺ Настройки по умолчанию',
+    sectionOutput: 'Вывод',
+    labelOutputWidthMm: 'Ширина изображения',
+    outputWidthMmHelp: 'Введите реальную ширину гравировки в миллиметрах.',
+    labelDpi: 'Разрешение (DPI)',
+    dpiHelp: 'Изменение DPI сохраняет тот же физический размер и пересчитывает количество пикселей.',
+    labelCustomDpi: 'Свой DPI',
+    customDpiHelp: 'Введите собственное значение DPI от 1 до 2400.',
+    advancedPixelSummary: 'Дополнительно: настройка ширины в пикселях',
+    labelFineTuneWidth: 'Ширина в пикселях',
+    outputSliderHelp: 'Расширенная настройка. При изменении пикселей ширина в мм пересчитывается для выбранного DPI.',
+    sizeInfoLabel: 'Размер в мм',
+    pixelInfoLabel: 'Размер в пикселях',
+    downloadBtn: 'Скачать PNG',
+    downloadBmpBtn: 'Скачать BMP',
+    exportHelp: 'PNG рекомендуется для LightBurn, XCS, LaserGRBL и других лазерных программ. PNG и 1-битный BMP содержат метаданные DPI для правильного физического размера в лазерной программе.',
+    alertLoadFail: 'Не удалось загрузить изображение.',
+    alertReadFail: 'Ошибка чтения файла.',
+    alertUploadFirst: 'Сначала загрузите изображение.',
+    alertPngFail: 'Не удалось создать PNG-файл с выбранным DPI.',
+    alertBmpFail: 'Не удалось создать 1-битный BMP-файл с выбранным DPI.',
+    iosTitle: 'Сохранение на iOS',
+    iosText: 'Нажмите и удерживайте изображение, затем выберите <strong style="color:#e2e8f0">Добавить в Фото</strong> или <strong style="color:#e2e8f0">Сохранить изображение</strong>.',
+    iosClose: 'Закрыть',
+    demoLoadFail: 'Не удалось загрузить демо-изображение.',
+    alertInvalidFile: 'Загрузите файл изображения: JPG, PNG, BMP или WebP.',
+    statusImageLoaded: 'Изображение загружено. Теперь можно настроить параметры или скачать PNG.',
+    adjustSettingsBtn: 'Настроить параметры ↓',
+    labelOriginalPreview: 'Оригинал',
+    labelOutputPreview: 'Результат для лазера',
+    confirmLargeOutput: 'Результат очень большой ({mp} МП) и может обрабатываться медленно или зависнуть на слабых устройствах. Продолжить?',
+    statusLargePreviewSkipped: 'Живой предпросмотр приостановлен, потому что выбранный результат слишком большой ({mp} МП). Уменьшите ширину/DPI для предпросмотра или используйте Скачать, чтобы после подтверждения создать файл полного размера.',
+    alertOutputTooLarge: 'Выбранный результат слишком большой ({size}, {mp} МП). Уменьшите ширину изображения или DPI перед предпросмотром/экспортом.',
+    alertRenderFail: 'Не удалось обработать изображение с выбранными настройками.',
+    emptyOriginalAlt: 'Предпросмотр исходного изображения',
+    emptyResultAlt: 'Предпросмотр результата',
+    btnMaterialPreview: 'Предпросмотр материала',
+    labelMaterialPreview: 'Предпросмотр материала',
+    sectionMaterialPreview: 'Предпросмотр материала',
+    materialWood: 'Дерево',
+    materialSlate: 'Сланец',
+    materialBlackAnodized: 'Темные поверхности',
+    materialStainless: 'Нержавеющая сталь',
+    materialGlass: 'Стекло',
+    materialLeather: 'Кожа',
+    materialCeramic: 'Керамическая плитка',
+    materialPreviewDisclaimer: 'Это только приблизительная визуальная симуляция. Реальный результат зависит от типа лазера, линзы, фокуса, скорости, мощности и конкретной поверхности материала. Скачиваемый PNG/BMP остается чистым черно-белым файлом, готовым для лазера.',
+    materialTipNone: 'Выберите материал, чтобы увидеть примерный вид гравировки на поверхности.',
+    materialTipWood: 'Березовая фанера и светлая древесина обычно гравируются темнее поверхности. Ожидайте небольшое растекание точек, особенно на фанере и мягкой древесине.',
+    materialTipSlate: 'Сланец и темный камень обычно гравируются светлее поверхности. Режим Негатив часто является хорошей отправной точкой.',
+    materialTipBlackAnodized: 'Черный анодированный алюминий обычно гравируется светлее или серебристым оттенком. Для фотогравировки на этом материале часто полезен режим Негатив.',
+    materialTipStainless: 'Предпросмотр нержавеющей стали является только приблизительным. Реальный результат сильно зависит от типа волоконного/диодного лазера, маркировочного спрея, фокуса, скорости и мощности.',
+    materialTipGlass: 'На стекле обычно получается матовая молочная отметка. Реальный результат сильно зависит от фокуса, покрытия и типа лазера.',
+    materialTipLeather: 'Кожа обычно гравируется темнее, а след может немного расплываться. Рекомендуется меньше детализации и пробные образцы.',
+    materialTipCeramic: 'Керамическая плитка может вести себя по-разному в зависимости от глазури, покрытия и спрея. Считайте этот предпросмотр грубым визуальным ориентиром.',
+    helpIntroTitle: 'Что делает этот инструмент?',
+    helpIntroText: '<strong class="text-white">Photo Engraving Online</strong> преобразует обычное фото в растровое черно-белое изображение, оптимизированное для гравировки CO2- или диодным лазером. Затем вы можете импортировать полученный PNG прямо в свою лазерную программу (LightBurn, LaserGRBL, XCS и т. д.) и выполнить гравировку.',
+    helpStepsTitle: 'Пошаговое руководство',
+    helpStep1Title: 'Загрузите фото',
+    helpStep1Text: 'Перетащите файл в область загрузки или нажмите, чтобы выбрать его на устройстве. Поддерживаются форматы JPG, PNG, BMP и WebP. Для лучшего результата используйте резкое фото с хорошим контрастом.',
+    helpStep2Title: 'Настройте фото',
+    helpStep2Text: 'Отрегулируйте яркость, контраст, гамму и резкость, чтобы подготовить фото к гравировке.',
+    helpStep3Title: 'Задайте итоговый размер в мм',
+    helpStep3Text: 'Введите финальную ширину гравировки в миллиметрах. Инструмент автоматически рассчитает высоту, сохранит пропорции и покажет итоговое количество пикселей.',
+    helpStep4Title: 'Проверьте результат и скачайте PNG или BMP',
+    helpStep4Text: 'Оцените финальное растеризованное изображение. Если результат выглядит хорошо, скачайте PNG или BMP и импортируйте его в лазерную программу.',
+    helpDpiTitle: 'Рекомендуемый DPI по материалам',
+    helpTableHeadDpi: 'DPI',
+    helpTableHeadMaterial: 'Лучше всего для',
+    helpTableHeadNote: 'Скорость гравировки',
+    helpDpi254Material: 'Мягкая древесина, мягкая фанера, МДФ, сланец, камень, стекло',
+    helpDpi254Note: 'быстро',
+    helpDpi300Material: 'Дерево, фанера, стекло, сланец, ХДФ, пластик',
+    helpDpi300Note: 'средне',
+    helpDpi508Material: 'Акрил, ламинаты, металлы с покрытием, анодированный алюминий, нержавеющая сталь, керамика',
+    helpDpi508Note: 'медленно',
+    helpOutputSizeTitle: 'Как выбрать правильный итоговый размер?',
+    helpOutputSizeText1: 'Итоговый размер в <strong class="text-white">мм</strong> должен точно соответствовать реальному физическому размеру области гравировки на вашем материале.',
+    helpOutputSizeText2: 'Пример: если вы хотите выгравировать портрет на деревянной табличке шириной <strong class="text-white">80 мм</strong>, задайте ширину <strong class="text-white">80 мм</strong> и выберите <strong class="text-white">254 DPI</strong>. Инструмент создаст изображение шириной около <strong class="text-orange-300">800 px</strong>, что соответствует нужному физическому размеру.',
+    helpOutputSizeFormula: 'ℹ️ Формула: ширина в px = (ширина в мм ÷ 25.4) × DPI',
+    helpTipsTitle: 'Советы для лучшего результата',
+    helpTip1Title: '📷 Качество исходного фото',
+    helpTip1Text: 'Используйте резкие фотографии с хорошим контрастом. Темные или размытые изображения дадут худший результат гравировки даже при высоком DPI.',
+    helpTip2Title: '🔲 Контраст и яркость',
+    helpTip2Text: 'Перед загрузкой попробуйте настроить фото в любом редакторе. Более высокий контраст часто заметно улучшает итоговый растровый результат.',
+    helpTip3Title: '🧪 Пробная гравировка',
+    helpTip3Text: 'Всегда сначала тестируйте результат на обрезке того же материала перед финальной гравировкой.',
+    helpTip4Title: '⚙️ Настройки LightBurn',
+    helpTip4Text: 'Импортируйте PNG в режиме <strong class="text-gray-200">Passthrough</strong> или <strong class="text-gray-200">Threshold</strong>. Дизеринг уже встроен в файл, поэтому дополнительная обработка изображения может ухудшить результат.'
   }
 };
 
 const localeMap = {
-  en: 'en_US'
+  en: 'en_US',
+  ru: 'ru_RU'
 };
 
 const PRESETS = {
@@ -3698,6 +3874,11 @@ function applyTranslations() {
     el.innerHTML = t(key);
   });
 
+  document.querySelectorAll('[data-i18n-aria-label]').forEach(el => {
+    const key = el.dataset.i18nAriaLabel;
+    el.setAttribute('aria-label', t(key));
+  });
+
   const originalImg = document.getElementById('emptyOriginalImg');
   const resultImg = document.getElementById('emptyResultImg');
   if (originalImg) originalImg.alt = t('emptyOriginalAlt');
@@ -3918,6 +4099,12 @@ function updateSeoMeta() {
       description: 'Free photo to laser engraving converter online. Create laser-ready black and white PNGs with DPI, engraving speed guidance and local browser processing.',
       ogTitle: 'Free Photo to Laser Engraving Converter Online',
       ogDescription: 'Convert images and photos to laser engraving PNGs online for free. Adjust DPI, engraving speed, photo type, brightness, contrast, gamma and sharpness in your browser.'
+    },
+    ru: {
+      title: 'Бесплатный конвертер фото для лазерной гравировки онлайн | PhotoEngraving.online',
+      description: 'Бесплатный онлайн-конвертер фото для лазерной гравировки. Создавайте черно-белые PNG, готовые для лазера, с DPI, подсказками по скорости гравировки и локальной обработкой в браузере.',
+      ogTitle: 'Бесплатный онлайн-конвертер фото для лазерной гравировки',
+      ogDescription: 'Преобразуйте изображения и фотографии в PNG для лазерной гравировки бесплатно онлайн. Настраивайте DPI, скорость гравировки, тип фото, яркость, контраст, гамму и резкость прямо в браузере.'
     }
   }[lang] || {};
 
