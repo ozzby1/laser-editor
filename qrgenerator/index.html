@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Free Static QR Code Generator Online | No Signup | PhotoEngraving.online</title>
-<meta name="description" content="Create free static QR codes online for URL, text, WiFi, vCard, email, SMS, phone, calendar events, maps, WhatsApp, Bitcoin and SEPA payments. Customize colors, logo, size, margin and error correction. No signup and no database.">
+<meta name="description" content="Create free static QR codes online for URL, text, WiFi, vCard, email, SMS, phone, calendar events, maps, WhatsApp, Bitcoin and SEPA payments. Customize classic or creative QR designs, colors, logo, size, margin and error correction. No signup and no database.">
 <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
 <meta name="author" content="PhotoEngraving.online">
 <meta name="application-name" content="PhotoEngraving.online QR Generator">
@@ -19,7 +19,7 @@
 <meta property="og:site_name" content="PhotoEngraving.online">
 <meta property="og:url" content="https://photoengraving.online/qrgenerator">
 <meta property="og:title" content="Free Static QR Code Generator Online">
-<meta property="og:description" content="Generate static QR codes in your browser with custom colors, logo, SVG and high-resolution PNG export. No signup, no database, no tracking redirect.">
+<meta property="og:description" content="Generate static QR codes in your browser with custom colors, multiple QR design styles, logo, SVG and high-resolution PNG export. No signup, no database, no tracking redirect.">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://photoengraving.online/fb.png">
 <meta property="og:image:width" content="1200">
@@ -68,7 +68,7 @@
       "operatingSystem": "Web",
       "browserRequirements": "Requires JavaScript, HTML5 Canvas and modern browser APIs for downloads.",
       "isAccessibleForFree": true,
-      "description": "Free browser-based static QR code generator for URL, plain text, WiFi, vCard, email, phone, SMS, calendar, map, WhatsApp, Bitcoin and SEPA payment QR codes. Includes color, logo, quiet zone, error correction, PNG and SVG export.",
+      "description": "Free browser-based static QR code generator for URL, plain text, WiFi, vCard, email, phone, SMS, calendar, map, WhatsApp, Bitcoin and SEPA payment QR codes. Includes classic and creative QR design styles, color, logo, quiet zone, error correction, PNG and SVG export.",
       "image": "https://photoengraving.online/fb.png",
       "screenshot": "https://photoengraving.online/fb.png",
       "featureList": [
@@ -83,6 +83,8 @@
         "WhatsApp QR codes",
         "Bitcoin and SEPA payment QR codes",
         "Custom QR colors and gradients",
+        "Classic, rounded, dotted, gapped, pill and diamond QR module designs",
+        "Custom finder pattern styles",
         "Logo upload with error correction guidance",
         "Quiet zone and pixel size controls",
         "PNG and SVG export",
@@ -804,6 +806,13 @@ input[type="range"] {
   .tool-tabs { grid-template-columns: 1fr; }
   .button-row .btn { flex-basis: 100%; }
 }
+
+/* QR render fix: keep the default classic QR crisp and gapless. */
+#qrCanvas {
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+}
+
 </style>
 
 <!-- 100% privacy-first analytics, same as the main PhotoEngraving.online page. It does not receive the QR form content. -->
@@ -2120,6 +2129,7 @@ module.exports = QRCode;
   };
 })(window);
 </script>
+<meta name="qr-render-fix" content="QR_RENDER_FIX_VERSION_2026-07-01_CRISP_NO_GAPS"/>
 </head>
 
 <body>
@@ -2139,11 +2149,11 @@ module.exports = QRCode;
   <main>
     <section class="hero">
       <span class="kicker">Free static QR code generator</span>
-      <h1>Create printable QR codes with logo, colors and no database.</h1>
+      <h1>Create printable QR codes with classic or creative designs and no database.</h1>
       <p class="hero-text">
         Generate static QR codes directly in your browser for websites, WiFi access, vCards, email, SMS, phone numbers,
-        calendar events, map locations, WhatsApp links, Bitcoin and SEPA payments. The QR content is encoded into the image itself:
-        no redirect service, no stored QR database, no editable tracking link.
+        calendar events, map locations, WhatsApp links, Bitcoin and SEPA payments. Start with a clean classic QR code, or customize
+        the modules, corners, colors, logo and frame. The QR content is encoded into the image itself: no redirect service, no stored QR database, no editable tracking link.
       </p>
       <div class="hero-actions">
         <a class="btn btn-primary" href="#generator">Start generating</a>
@@ -2215,22 +2225,58 @@ module.exports = QRCode;
 
             <div class="tab-panel active" id="tab-quality">
               <div class="form-grid">
+                <div class="field full">
+                  <label for="designPreset">QR design preset</label>
+                  <select id="designPreset">
+                    <option value="basic" selected>Basic classic QR – no white gaps (crisp)</option>
+                    <option value="softRounded">Soft rounded modules</option>
+                    <option value="dots">Dotted QR code</option>
+                    <option value="gapped">Separated square modules</option>
+                    <option value="pill">Horizontal pill modules</option>
+                    <option value="diamond">Diamond modules</option>
+                    <option value="gradientBrand">Branded orange gradient</option>
+                    <option value="custom">Custom manual settings</option>
+                  </select>
+                  <div class="small-note">The default preset is the most compatible: full square modules with no white contour lines between them.</div>
+                </div>
                 <div class="field">
                   <label for="errorCorrection">Error correction</label>
                   <select id="errorCorrection">
                     <option value="L">L – smallest code, about 7% recovery</option>
                     <option value="M" selected>M – balanced, about 15% recovery</option>
                     <option value="Q">Q – stronger, about 25% recovery</option>
-                    <option value="H">H – best for logos, about 30% recovery</option>
+                    <option value="H">H – best for logos/designs, about 30% recovery</option>
                   </select>
                 </div>
                 <div class="field">
                   <label for="dotStyle">Module style</label>
                   <select id="dotStyle">
-                    <option value="square" selected>Square modules</option>
+                    <option value="square" selected>Classic square modules</option>
                     <option value="rounded">Rounded modules</option>
-                    <option value="circle">Circle modules</option>
+                    <option value="extraRounded">Extra rounded modules</option>
+                    <option value="circle">Dot / circle modules</option>
+                    <option value="gappedSquare">Separated square modules</option>
+                    <option value="horizontal">Horizontal pill modules</option>
+                    <option value="vertical">Vertical pill modules</option>
+                    <option value="diamond">Diamond modules</option>
                   </select>
+                </div>
+                <div class="field">
+                  <label for="finderStyle">Corner marker style</label>
+                  <select id="finderStyle">
+                    <option value="classic" selected>Classic square corners</option>
+                    <option value="rounded">Rounded corners</option>
+                    <option value="circle">Circle target corners</option>
+                    <option value="dotCenter">Square corners with round center</option>
+                  </select>
+                </div>
+                <div class="field">
+                  <label for="moduleSpacing">Module spacing</label>
+                  <div class="slider-row">
+                    <input id="moduleSpacing" type="range" min="0" max="18" step="1" value="0">
+                    <span class="slider-val" id="moduleSpacingVal">0%</span>
+                  </div>
+                  <div class="small-note">0% keeps modules connected like a standard QR code. Higher spacing creates decorative white gaps.</div>
                 </div>
                 <div class="field full">
                   <label for="qrSize">Output size</label>
@@ -2459,6 +2505,11 @@ module.exports = QRCode;
         <p>
           For files, menus, videos or PDFs, use a direct public URL and generate a normal website QR code. Because this tool has no database,
           it does not upload files, host landing pages or create editable short links.
+        </p>
+        <p>
+          The design tools include a clean basic QR style, rounded modules, dotted QR codes, separated square modules,
+          pill-shaped modules, diamond modules, custom corner markers, gradients, foreground/background colors, logo upload and CTA frames.
+          For the best scan reliability, the default classic square design keeps modules connected without decorative white contours.
         </p>
       </div>
     </section>
@@ -2899,6 +2950,8 @@ module.exports = QRCode;
     if (Number(el('quietZone').value) < 4) warnings.push('A quiet zone under 4 modules may reduce scan reliability.');
     if (state.logoImage && el('errorCorrection').value !== 'H') warnings.push('A logo is loaded. Use H error correction for better damage recovery.');
     if (state.logoImage && Number(el('logoSize').value) > 22) warnings.push('The logo is large. Test carefully or reduce it below 22%.');
+    if ((el('dotStyle').value !== 'square' || Number(el('moduleSpacing').value) > 10 || el('finderStyle').value !== 'classic') && el('errorCorrection').value !== 'H') warnings.push('Decorative QR designs are less forgiving. H error correction is recommended for styled QR codes.');
+    if (Number(el('moduleSpacing').value) > 14) warnings.push('Large module spacing creates a decorative look but may reduce scan reliability. Test before printing.');
     if (!el('transparentBg').checked && contrastRatio(el('foregroundColor').value, el('backgroundColor').value) < 4.5) warnings.push('Color contrast looks low. Dark foreground on a light background scans best.');
     var modules = qr.getModuleCount();
     var cell = Math.floor(Number(el('qrSize').value) / (modules + Number(el('quietZone').value) * 2));
@@ -2910,6 +2963,7 @@ module.exports = QRCode;
   function updateSliderLabels() {
     el('qrSizeVal').textContent = el('qrSize').value + ' px';
     el('quietZoneVal').textContent = el('quietZone').value + ' modules';
+    el('moduleSpacingVal').textContent = el('moduleSpacing').value + '%';
     el('logoSizeVal').textContent = el('logoSize').value + '%';
     el('printDistanceVal').textContent = el('printDistance').value + ' cm';
   }
@@ -2930,7 +2984,9 @@ module.exports = QRCode;
   function drawPlaceholder() {
     var canvas = el('qrCanvas');
     var ctx = canvas.getContext('2d');
-    canvas.width = 1024;
+    
+    ctx.imageSmoothingEnabled = false;
+canvas.width = 1024;
     canvas.height = 1024;
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.fillStyle = '#ffffff';
@@ -3020,8 +3076,12 @@ module.exports = QRCode;
     var total = count + quiet * 2;
     var cell = boxSize / total;
     var style = el('dotStyle').value;
+    var finderStyle = el('finderStyle').value;
+    var spacing = Number(el('moduleSpacing').value) / 100;
     var gradient = el('gradientMode').value;
     var fill = fg;
+
+    ctx.imageSmoothingEnabled = false;
 
     if (gradient !== 'none') {
       if (gradient === 'linear') {
@@ -3044,12 +3104,12 @@ module.exports = QRCode;
       for (var col = 0; col < count; col++) {
         if (!qr.isDark(row, col)) continue;
         if (isFinder(row, col, count)) continue;
-        drawModule(ctx, x + (col + quiet) * cell, y + (row + quiet) * cell, cell, style);
+        drawModule(ctx, x + (col + quiet) * cell, y + (row + quiet) * cell, cell, style, spacing);
       }
     }
-    drawFinderPattern(ctx, x + quiet * cell, y + quiet * cell, cell, fg, bg, transparent);
-    drawFinderPattern(ctx, x + (quiet + count - 7) * cell, y + quiet * cell, cell, fg, bg, transparent);
-    drawFinderPattern(ctx, x + quiet * cell, y + (quiet + count - 7) * cell, cell, fg, bg, transparent);
+    drawFinderPattern(ctx, x + quiet * cell, y + quiet * cell, cell, fill, bg, transparent, finderStyle);
+    drawFinderPattern(ctx, x + (quiet + count - 7) * cell, y + quiet * cell, cell, fill, bg, transparent, finderStyle);
+    drawFinderPattern(ctx, x + quiet * cell, y + (quiet + count - 7) * cell, cell, fill, bg, transparent, finderStyle);
     ctx.restore();
   }
 
@@ -3057,39 +3117,134 @@ module.exports = QRCode;
     return (row < 7 && col < 7) || (row < 7 && col >= count - 7) || (row >= count - 7 && col < 7);
   }
 
-  function drawModule(ctx, x, y, size, style) {
-    var gap = size * 0.07;
+
+  function crispRectBounds(x, y, width, height) {
+    var left = Math.floor(x + 0.00001);
+    var top = Math.floor(y + 0.00001);
+    var right = Math.ceil(x + width - 0.00001);
+    var bottom = Math.ceil(y + height - 0.00001);
+    if (right <= left) right = left + 1;
+    if (bottom <= top) bottom = top + 1;
+    return {x: left, y: top, w: right - left, h: bottom - top};
+  }
+
+  function fillCrispRect(ctx, x, y, width, height) {
+    var r = crispRectBounds(x, y, width, height);
+    ctx.fillRect(r.x, r.y, r.w, r.h);
+  }
+
+  function clearCrispRect(ctx, x, y, width, height) {
+    var r = crispRectBounds(x, y, width, height);
+    ctx.clearRect(r.x, r.y, r.w, r.h);
+  }
+
+  function drawModule(ctx, x, y, size, style, spacing) {
+    var styleGap = style === 'gappedSquare' ? Math.max(spacing, 0.14) : spacing;
+    if (style === 'square' && spacing <= 0) {
+      fillCrispRect(ctx, x, y, size, size);
+      return;
+    }
+    if (style === 'circle') styleGap = Math.max(styleGap, 0.10);
+    if (style === 'diamond') styleGap = Math.max(styleGap, 0.08);
+    if (style === 'horizontal' || style === 'vertical') styleGap = Math.max(styleGap, 0.06);
+    var gap = size * Math.min(styleGap, 0.38);
     var s = Math.max(0.5, size - gap);
     var px = x + gap / 2;
     var py = y + gap / 2;
-    if (style === 'circle') {
+    if (style === 'square' || style === 'gappedSquare') {
+      fillCrispRect(ctx, px, py, s, s);
+    } else if (style === 'circle') {
       ctx.beginPath();
       ctx.arc(x + size / 2, y + size / 2, s / 2, 0, Math.PI * 2);
       ctx.fill();
     } else if (style === 'rounded') {
-      roundRect(ctx, px, py, s, s, s * 0.32);
+      roundRect(ctx, px, py, s, s, s * 0.30);
       ctx.fill();
+    } else if (style === 'extraRounded') {
+      roundRect(ctx, px, py, s, s, s * 0.48);
+      ctx.fill();
+    } else if (style === 'horizontal') {
+      var h = Math.max(0.5, s * 0.62);
+      roundRect(ctx, px, y + (size - h) / 2, s, h, h / 2);
+      ctx.fill();
+    } else if (style === 'vertical') {
+      var w = Math.max(0.5, s * 0.62);
+      roundRect(ctx, x + (size - w) / 2, py, w, s, w / 2);
+      ctx.fill();
+    } else if (style === 'diamond') {
+      ctx.save();
+      ctx.translate(x + size / 2, y + size / 2);
+      ctx.rotate(Math.PI / 4);
+      ctx.fillRect(-s / 2, -s / 2, s, s);
+      ctx.restore();
     } else {
       ctx.fillRect(px, py, s, s);
     }
   }
 
-  function drawFinderPattern(ctx, x, y, cell, fg, bg, transparent) {
+  function cutFinderHole(ctx, draw) {
     ctx.save();
-    ctx.fillStyle = fg;
-    roundRect(ctx, x, y, cell * 7, cell * 7, cell * 1.05);
-    ctx.fill();
+    ctx.globalCompositeOperation = 'destination-out';
+    draw();
+    ctx.restore();
+  }
 
-    if (transparent) ctx.clearRect(x + cell, y + cell, cell * 5, cell * 5);
-    else {
-      ctx.fillStyle = bg;
-      roundRect(ctx, x + cell, y + cell, cell * 5, cell * 5, cell * 0.65);
+  function drawFinderPattern(ctx, x, y, cell, fgFill, bg, transparent, style) {
+    ctx.save();
+    ctx.fillStyle = fgFill;
+    if (style === 'circle') {
+      ctx.beginPath();
+      ctx.arc(x + cell * 3.5, y + cell * 3.5, cell * 3.5, 0, Math.PI * 2);
       ctx.fill();
+      if (transparent) {
+        cutFinderHole(ctx, function () {
+          ctx.beginPath();
+          ctx.arc(x + cell * 3.5, y + cell * 3.5, cell * 2.45, 0, Math.PI * 2);
+          ctx.fill();
+        });
+      } else {
+        ctx.fillStyle = bg;
+        ctx.beginPath();
+        ctx.arc(x + cell * 3.5, y + cell * 3.5, cell * 2.45, 0, Math.PI * 2);
+        ctx.fill();
+      }
+      ctx.fillStyle = fgFill;
+      ctx.beginPath();
+      ctx.arc(x + cell * 3.5, y + cell * 3.5, cell * 1.45, 0, Math.PI * 2);
+      ctx.fill();
+    } else if (style === 'rounded') {
+      roundRect(ctx, x, y, cell * 7, cell * 7, cell * 1.05);
+      ctx.fill();
+      if (transparent) ctx.clearRect(x + cell, y + cell, cell * 5, cell * 5);
+      else {
+        ctx.fillStyle = bg;
+        roundRect(ctx, x + cell, y + cell, cell * 5, cell * 5, cell * 0.65);
+        ctx.fill();
+      }
+      ctx.fillStyle = fgFill;
+      roundRect(ctx, x + cell * 2, y + cell * 2, cell * 3, cell * 3, cell * 0.45);
+      ctx.fill();
+    } else if (style === 'dotCenter') {
+      fillCrispRect(ctx, x, y, cell * 7, cell * 7);
+      if (transparent) clearCrispRect(ctx, x + cell, y + cell, cell * 5, cell * 5);
+      else {
+        ctx.fillStyle = bg;
+        fillCrispRect(ctx, x + cell, y + cell, cell * 5, cell * 5);
+      }
+      ctx.fillStyle = fgFill;
+      ctx.beginPath();
+      ctx.arc(x + cell * 3.5, y + cell * 3.5, cell * 1.55, 0, Math.PI * 2);
+      ctx.fill();
+    } else {
+      fillCrispRect(ctx, x, y, cell * 7, cell * 7);
+      if (transparent) clearCrispRect(ctx, x + cell, y + cell, cell * 5, cell * 5);
+      else {
+        ctx.fillStyle = bg;
+        fillCrispRect(ctx, x + cell, y + cell, cell * 5, cell * 5);
+      }
+      ctx.fillStyle = fgFill;
+      fillCrispRect(ctx, x + cell * 2, y + cell * 2, cell * 3, cell * 3);
     }
-
-    ctx.fillStyle = fg;
-    roundRect(ctx, x + cell * 2, y + cell * 2, cell * 3, cell * 3, cell * 0.45);
-    ctx.fill();
     ctx.restore();
   }
 
@@ -3210,8 +3365,10 @@ module.exports = QRCode;
     var bg = el('backgroundColor').value;
     var transparent = el('transparentBg').checked;
     var style = el('dotStyle').value;
+    var finderStyle = el('finderStyle').value;
+    var spacing = Number(el('moduleSpacing').value) / 100;
     var fill = escAttr(fg);
-    var parts = ['<svg xmlns="http://www.w3.org/2000/svg" width="' + width + '" height="' + height + '" viewBox="0 0 ' + width + ' ' + height + '" role="img" aria-label="Static QR code">'];
+    var parts = ['<svg xmlns="http://www.w3.org/2000/svg" width="' + width + '" height="' + height + '" viewBox="0 0 ' + width + ' ' + height + '" role="img" aria-label="Static QR code" shape-rendering="crispEdges">'];
 
     if (el('gradientMode').value !== 'none') {
       var gradId = 'qrGradient';
@@ -3236,16 +3393,14 @@ module.exports = QRCode;
     for (var row = 0; row < count; row++) {
       for (var col = 0; col < count; col++) {
         if (!qr.isDark(row, col)) continue;
-        var x = qrX + (col + quiet) * cell;
-        var y = qrY + (row + quiet) * cell;
-        if (style === 'circle') {
-          parts.push('<circle cx="' + (x + cell / 2).toFixed(3) + '" cy="' + (y + cell / 2).toFixed(3) + '" r="' + (cell * 0.43).toFixed(3) + '" fill="' + fill + '"/>');
-        } else {
-          var rx = style === 'rounded' ? (cell * 0.28).toFixed(3) : 0;
-          parts.push('<rect x="' + x.toFixed(3) + '" y="' + y.toFixed(3) + '" width="' + cell.toFixed(3) + '" height="' + cell.toFixed(3) + '" rx="' + rx + '" fill="' + fill + '"/>');
-        }
+        if (isFinder(row, col, count)) continue;
+        parts.push(svgModule(qrX + (col + quiet) * cell, qrY + (row + quiet) * cell, cell, style, spacing, fill));
       }
     }
+
+    parts.push(svgFinder(qrX + quiet * cell, qrY + quiet * cell, cell, finderStyle, fill, bg, transparent));
+    parts.push(svgFinder(qrX + (quiet + count - 7) * cell, qrY + quiet * cell, cell, finderStyle, fill, bg, transparent));
+    parts.push(svgFinder(qrX + quiet * cell, qrY + (quiet + count - 7) * cell, cell, finderStyle, fill, bg, transparent));
 
     if (state.logoDataUrl) {
       var pct = Number(el('logoSize').value) / 100;
@@ -3261,6 +3416,72 @@ module.exports = QRCode;
 
     parts.push('</svg>');
     return parts.join('');
+  }
+
+  function svgModule(x, y, cell, style, spacing, fill) {
+    var styleGap = style === 'gappedSquare' ? Math.max(spacing, 0.14) : spacing;
+    if (style === 'square' && spacing <= 0) {
+      var c = crispRectBounds(x, y, cell, cell);
+      return '<rect x="' + c.x + '" y="' + c.y + '" width="' + c.w + '" height="' + c.h + '" fill="' + fill + '"/>';
+    }
+    if (style === 'circle') styleGap = Math.max(styleGap, 0.10);
+    if (style === 'diamond') styleGap = Math.max(styleGap, 0.08);
+    if (style === 'horizontal' || style === 'vertical') styleGap = Math.max(styleGap, 0.06);
+    var gap = cell * Math.min(styleGap, 0.38);
+    var s = Math.max(0.5, cell - gap);
+    var px = x + gap / 2;
+    var py = y + gap / 2;
+    if (style === 'square' || style === 'gappedSquare') {
+      var crisp = crispRectBounds(px, py, s, s);
+      return '<rect x="' + crisp.x + '" y="' + crisp.y + '" width="' + crisp.w + '" height="' + crisp.h + '" fill="' + fill + '"/>';
+    }
+    if (style === 'circle') return '<circle cx="' + (x + cell / 2).toFixed(3) + '" cy="' + (y + cell / 2).toFixed(3) + '" r="' + (s / 2).toFixed(3) + '" fill="' + fill + '"/>';
+    if (style === 'rounded' || style === 'extraRounded') {
+      var rx = style === 'extraRounded' ? s * 0.48 : s * 0.30;
+      return '<rect x="' + px.toFixed(3) + '" y="' + py.toFixed(3) + '" width="' + s.toFixed(3) + '" height="' + s.toFixed(3) + '" rx="' + rx.toFixed(3) + '" fill="' + fill + '"/>';
+    }
+    if (style === 'horizontal') {
+      var h = Math.max(0.5, s * 0.62);
+      return '<rect x="' + px.toFixed(3) + '" y="' + (y + (cell - h) / 2).toFixed(3) + '" width="' + s.toFixed(3) + '" height="' + h.toFixed(3) + '" rx="' + (h / 2).toFixed(3) + '" fill="' + fill + '"/>';
+    }
+    if (style === 'vertical') {
+      var w = Math.max(0.5, s * 0.62);
+      return '<rect x="' + (x + (cell - w) / 2).toFixed(3) + '" y="' + py.toFixed(3) + '" width="' + w.toFixed(3) + '" height="' + s.toFixed(3) + '" rx="' + (w / 2).toFixed(3) + '" fill="' + fill + '"/>';
+    }
+    if (style === 'diamond') {
+      var cx = x + cell / 2;
+      var cy = y + cell / 2;
+      var r = s / Math.sqrt(2);
+      return '<polygon points="' + cx.toFixed(3) + ',' + (cy - r).toFixed(3) + ' ' + (cx + r).toFixed(3) + ',' + cy.toFixed(3) + ' ' + cx.toFixed(3) + ',' + (cy + r).toFixed(3) + ' ' + (cx - r).toFixed(3) + ',' + cy.toFixed(3) + '" fill="' + fill + '"/>';
+    }
+    return '<rect x="' + px.toFixed(3) + '" y="' + py.toFixed(3) + '" width="' + s.toFixed(3) + '" height="' + s.toFixed(3) + '" fill="' + fill + '"/>';
+  }
+
+  function svgFinder(x, y, cell, style, fill, bg, transparent) {
+    var p = [];
+    var bgFill = escAttr(bg);
+    if (style === 'circle') {
+      p.push('<circle cx="' + (x + cell * 3.5).toFixed(3) + '" cy="' + (y + cell * 3.5).toFixed(3) + '" r="' + (cell * 3.5).toFixed(3) + '" fill="' + fill + '"/>');
+      p.push('<circle cx="' + (x + cell * 3.5).toFixed(3) + '" cy="' + (y + cell * 3.5).toFixed(3) + '" r="' + (cell * 2.45).toFixed(3) + '" fill="' + bgFill + '"/>');
+      p.push('<circle cx="' + (x + cell * 3.5).toFixed(3) + '" cy="' + (y + cell * 3.5).toFixed(3) + '" r="' + (cell * 1.45).toFixed(3) + '" fill="' + fill + '"/>');
+      return p.join('');
+    }
+    if (style === 'rounded') {
+      p.push('<rect x="' + x.toFixed(3) + '" y="' + y.toFixed(3) + '" width="' + (cell * 7).toFixed(3) + '" height="' + (cell * 7).toFixed(3) + '" rx="' + (cell * 1.05).toFixed(3) + '" fill="' + fill + '"/>');
+      p.push('<rect x="' + (x + cell).toFixed(3) + '" y="' + (y + cell).toFixed(3) + '" width="' + (cell * 5).toFixed(3) + '" height="' + (cell * 5).toFixed(3) + '" rx="' + (cell * 0.65).toFixed(3) + '" fill="' + bgFill + '"/>');
+      p.push('<rect x="' + (x + cell * 2).toFixed(3) + '" y="' + (y + cell * 2).toFixed(3) + '" width="' + (cell * 3).toFixed(3) + '" height="' + (cell * 3).toFixed(3) + '" rx="' + (cell * 0.45).toFixed(3) + '" fill="' + fill + '"/>');
+      return p.join('');
+    }
+    var outerClassic = crispRectBounds(x, y, cell * 7, cell * 7);
+    var innerClassic = crispRectBounds(x + cell, y + cell, cell * 5, cell * 5);
+    p.push('<rect x="' + outerClassic.x + '" y="' + outerClassic.y + '" width="' + outerClassic.w + '" height="' + outerClassic.h + '" fill="' + fill + '"/>');
+    p.push('<rect x="' + innerClassic.x + '" y="' + innerClassic.y + '" width="' + innerClassic.w + '" height="' + innerClassic.h + '" fill="' + bgFill + '"/>');
+    if (style === 'dotCenter') p.push('<circle cx="' + (x + cell * 3.5).toFixed(3) + '" cy="' + (y + cell * 3.5).toFixed(3) + '" r="' + (cell * 1.55).toFixed(3) + '" fill="' + fill + '"/>');
+    else {
+      var centerClassic = crispRectBounds(x + cell * 2, y + cell * 2, cell * 3, cell * 3);
+      p.push('<rect x="' + centerClassic.x + '" y="' + centerClassic.y + '" width="' + centerClassic.w + '" height="' + centerClassic.h + '" fill="' + fill + '"/>');
+    }
+    return p.join('');
   }
 
   function escAttr(value) {
@@ -3344,12 +3565,50 @@ module.exports = QRCode;
     }
   }
 
+  var applyingDesignPreset = false;
+
+  function applyDesignPreset(preset) {
+    if (!preset || preset === 'custom') return;
+    applyingDesignPreset = true;
+    var settings = {
+      basic: {dotStyle: 'square', finderStyle: 'classic', moduleSpacing: '0', errorCorrection: 'M', gradientMode: 'none', foregroundColor: '#111827', backgroundColor: '#ffffff'},
+      softRounded: {dotStyle: 'rounded', finderStyle: 'rounded', moduleSpacing: '5', errorCorrection: 'H'},
+      dots: {dotStyle: 'circle', finderStyle: 'circle', moduleSpacing: '10', errorCorrection: 'H'},
+      gapped: {dotStyle: 'gappedSquare', finderStyle: 'classic', moduleSpacing: '14', errorCorrection: 'H'},
+      pill: {dotStyle: 'horizontal', finderStyle: 'rounded', moduleSpacing: '8', errorCorrection: 'H'},
+      diamond: {dotStyle: 'diamond', finderStyle: 'classic', moduleSpacing: '10', errorCorrection: 'H'},
+      gradientBrand: {dotStyle: 'extraRounded', finderStyle: 'rounded', moduleSpacing: '5', errorCorrection: 'H', gradientMode: 'linear', foregroundColor: '#111827', gradientColor: '#f97316', backgroundColor: '#ffffff'}
+    }[preset];
+    if (!settings) {
+      applyingDesignPreset = false;
+      return;
+    }
+    Object.keys(settings).forEach(function (id) {
+      if (el(id)) el(id).value = settings[id];
+    });
+    applyingDesignPreset = false;
+  }
+
+  function markCustomDesign() {
+    if (!applyingDesignPreset && el('designPreset')) el('designPreset').value = 'custom';
+  }
+
   function bindEvents() {
     el('qrType').addEventListener('change', function () {
       renderFields(el('qrType').value);
     });
 
-    ['errorCorrection','dotStyle','qrSize','quietZone','foregroundColor','backgroundColor','gradientMode','gradientColor','transparentBg','logoSize','logoShape','frameStyle','ctaText','fileName','printDistance'].forEach(function (id) {
+    el('designPreset').addEventListener('change', function () {
+      applyDesignPreset(el('designPreset').value);
+      update();
+    });
+
+    ['dotStyle','finderStyle','moduleSpacing'].forEach(function (id) {
+      el(id).addEventListener('input', markCustomDesign);
+      el(id).addEventListener('change', markCustomDesign);
+    });
+
+    ['errorCorrection','dotStyle','finderStyle','moduleSpacing','qrSize','quietZone','foregroundColor','backgroundColor','gradientMode','gradientColor','transparentBg','logoSize','logoShape','frameStyle','ctaText','fileName','printDistance'].forEach(function (id) {
       el(id).addEventListener('input', update);
       el(id).addEventListener('change', update);
     });
