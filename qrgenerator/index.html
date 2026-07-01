@@ -578,8 +578,8 @@ input[type="range"] {
  min-height: 340px;
  border-radius: 18px;
  padding: 14px;
- background: #ffffff;
- border: 1px solid rgba(15,23,42,0.10);
+ background: rgba(10, 12, 18, 0.48);
+ border: 1px solid rgba(255,255,255,0.07);
  overflow: auto;
 }
 
@@ -588,7 +588,7 @@ input[type="range"] {
  height: auto;
  background: transparent;
  border-radius: 12px;
- box-shadow: 0 12px 30px rgba(15,23,42,0.14);
+ box-shadow: 0 14px 34px rgba(0,0,0,0.28);
 }
 
 .placeholder {
@@ -2495,28 +2495,6 @@ module.exports = QRCode;
  <div class="qr-preview-shell">
  <canvas id="qrCanvas" width="1024" height="1024" aria-label="Generated QR code preview"></canvas>
  </div>
- <details class="technical-details">
- <summary>Show QR details and encoded content</summary>
- <div class="technical-details-inner">
-
-
- <div class="info-card" style="margin-top:12px">
- <div class="info-list">
- <span>QR type</span><span id="infoType">URL</span>
- <span>Encoded length</span><span id="infoLength">0 chars</span>
- <span>Matrix size</span><span id="infoModules">—</span>
- <span>Output image</span><span id="infoOutput">1024 × 1024</span>
- <span>Recommended print</span><span id="infoPrint QR">5.0 cm+</span>
- </div>
- </div>
-
- <div class="field full" style="margin-top:12px">
- <label for="payloadPreview">Encoded QR content</label>
- <textarea id="payloadPreview" class="encoded-preview" readonly spellcheck="false"></textarea>
- </div>
- <button class="btn btn-secondary" id="copyPayloadBtn" type="button" style="width:100%; margin-top:10px">Copy encoded content</button>
- </div>
- </details>
 
  <div class="button-row" style="margin-top:12px">
  <button class="btn btn-primary" id="downloadPngBtn" type="button">Download PNG</button>
@@ -3065,7 +3043,7 @@ module.exports = QRCode;
  var distance = Number(el('printDistance').value);
  var recommended = Math.max(2, distance / 10);
  el('printSizeHint').textContent = 'Recommended print size: at least ' + recommended.toFixed(1) + ' cm wide.';
- el('infoPrint QR').textContent = recommended.toFixed(1) + ' cm+';
+ if (el('infoPrint QR')) el('infoPrint QR').textContent = recommended.toFixed(1) + ' cm+';
  }
 
  function updateOpenButton(payload) {
@@ -3384,10 +3362,10 @@ canvas.width = 1024;
 
  function updateInfo(qr, payload) {
  var typeLabel = el('qrType').selectedOptions[0].textContent.replace(/\s*\+.*/, '');
- el('infoType').textContent = typeLabel;
- el('infoLength').textContent = payload.length + ' chars';
- el('infoModules').textContent = qr ? qr.getModuleCount() + ' × ' + qr.getModuleCount() : '—';
- el('infoOutput').textContent = el('qrCanvas').width + ' × ' + el('qrCanvas').height;
+ if (el('infoType')) el('infoType').textContent = typeLabel;
+ if (el('infoLength')) el('infoLength').textContent = payload.length + ' chars';
+ if (el('infoModules')) el('infoModules').textContent = qr ? qr.getModuleCount() + ' × ' + qr.getModuleCount() : '—';
+ if (el('infoOutput')) el('infoOutput').textContent = el('qrCanvas').width + ' × ' + el('qrCanvas').height;
  }
 
  function showStatus(message, type) {
