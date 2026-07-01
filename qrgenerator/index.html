@@ -2360,7 +2360,7 @@ module.exports = QRCode;
  <div class="field full">
  <label for="designPreset">Choose a QR style</label>
  <select id="designPreset">
- <option value="basic" selected>Basic classic QR – no white gaps (crisp)</option>
+ <option value="basic" selected>Basic classic QR</option>
  <option value="softRounded">Soft rounded modules</option>
  <option value="dots">Dotted QR code</option>
  <option value="gapped">Separated square modules</option>
@@ -3114,7 +3114,7 @@ canvas.width = 1024;
  var size = Number(el('qrSize').value);
  var quiet = Number(el('quietZone').value);
  var frame = el('frameStyle').value;
- var labelHeight = frame === 'none' ? 0 : Math.round(size * 0.14);
+ var labelHeight = frame === 'none' ? 0 : Math.round(size * 0.09);
  var padFrame = frame === 'none' ? 0 : Math.round(size * 0.055);
  var qrBox = size;
  canvas.width = qrBox + padFrame * 2;
@@ -3165,19 +3165,19 @@ canvas.width = 1024;
  roundRect(ctx, Math.round(width * 0.08), height - labelHeight + Math.round(labelHeight * 0.18), width * 0.84, labelHeight * 0.62, labelHeight * 0.25);
  ctx.fill();
  ctx.fillStyle = bg;
- ctx.font = '900 ' + Math.round(labelHeight * 0.31) + 'px Inter, Arial, sans-serif';
+ ctx.font = '900 ' + Math.round(labelHeight * 0.46) + 'px Inter, Arial, sans-serif';
  ctx.textAlign = 'center';
  ctx.textBaseline = 'middle';
- ctx.fillText(cta, width / 2, height - labelHeight * 0.5);
+ ctx.fillText(cta, width / 2, height - labelHeight * 0.68);
  ctx.restore();
  return;
  }
  if (labelHeight > 0 && frame !== 'ticket') {
  ctx.fillStyle = fg;
- ctx.font = '900 ' + Math.round(labelHeight * 0.28) + 'px Inter, Arial, sans-serif';
+ ctx.font = '900 ' + Math.round(labelHeight * 0.42) + 'px Inter, Arial, sans-serif';
  ctx.textAlign = 'center';
  ctx.textBaseline = 'middle';
- ctx.fillText(cta, width / 2, height - labelHeight * 0.48);
+ ctx.fillText(cta, width / 2, height - labelHeight * 0.70);
  }
  ctx.restore();
  }
@@ -3466,7 +3466,7 @@ canvas.width = 1024;
  var size = Number(el('qrSize').value);
  var quiet = Number(el('quietZone').value);
  var frame = el('frameStyle').value;
- var labelHeight = frame === 'none' ? 0 : Math.round(size * 0.14);
+ var labelHeight = frame === 'none' ? 0 : Math.round(size * 0.09);
  var padFrame = frame === 'none' ? 0 : Math.round(size * 0.055);
  var width = size + padFrame * 2;
  var height = size + padFrame * 2 + labelHeight;
@@ -3496,7 +3496,7 @@ canvas.width = 1024;
 
  if (frame !== 'none') {
  parts.push('<rect x="2" y="2" width="' + (width - 4) + '" height="' + (height - 4) + '" rx="' + Math.round(width * 0.055) + '" fill="none" stroke="' + escAttr(fg) + '" stroke-width="' + Math.max(2, Math.round(width * 0.008)) + '"/>');
- parts.push('<text x="' + (width / 2) + '" y="' + (height - labelHeight * 0.45) + '" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-size="' + Math.round(labelHeight * 0.28) + '" font-weight="900" fill="' + escAttr(fg) + '">' + esc(el('ctaText').value || 'SCAN ME') + '</text>');
+ parts.push('<text x="' + (width / 2) + '" y="' + (height - labelHeight * 0.68) + '" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-size="' + Math.round(labelHeight * 0.42) + '" font-weight="900" fill="' + escAttr(fg) + '">' + esc(el('ctaText').value || 'SCAN ME') + '</text>');
  }
 
  var qrX = padFrame;
