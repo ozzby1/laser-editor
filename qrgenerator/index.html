@@ -3035,8 +3035,7 @@ module.exports = QRCode;
  if ((el('dotStyle').value !== 'square' || Number(el('moduleSpacing').value) > 10 || el('finderStyle').value !== 'classic') && el('errorCorrection').value !== 'H') warnings.push('Decorative QR designs are less forgiving. H error correction is recommended for styled QR codes.');
  if (Number(el('moduleSpacing').value) > 14) warnings.push('Large module spacing creates a decorative look but may reduce scan reliability. Test before printing.');
  if (!el('transparentBg').checked && contrastRatio(el('foregroundColor').value, el('backgroundColor').value) < 4.5) warnings.push('Color contrast looks low. Dark foreground on a light background scans best.');
- var modules = qr.getModuleCount();
- var cell = Math.floor(Number(el('qrSize').value) / (modules + Number(el('quietZone').value) * 2));
+ var cell = computeRenderMetrics(qr, getRequestedQrSize()).cell;
  if (cell < 3) warnings.push('The selected pixel size gives very small modules. Increase output size for print.');
  if (el('transparentBg').checked) warnings.push('Transparent background is enabled. Place the QR on a clean light background.');
  return warnings;
@@ -3079,24 +3078,49 @@ canvas.width = 1024;
  ctx.fillText('QR preview', 512, 512);
  }
 
- function drawQr(qr) {
- var canvas = el('qrCanvas');
- var ctx = canvas.getContext('2d');
- var size = Number(el('qrSize').value);
+ function getRequestedQrSize() {
+ return Number(el('qrSize').value);
+ }
+
+ function computeRenderMetrics(qr, requestedSize) {
  var quiet = Number(el('quietZone').value);
  var frame = el('frameStyle').value;
- var labelHeight = frame === 'none' ? 0 : Math.round(size * 0.14);
- var padFrame = frame === 'none' ? 0 : Math.round(size * 0.055);
- var qrBox = size;
- canvas.width = qrBox + padFrame * 2;
- canvas.height = qrBox + padFrame * 2 + labelHeight;
+ var total = qr.getModuleCount() + quiet * 2;
+ var safeRequested = Math.max(total, Math.round(requestedSize || 0) || 1024);
+ var cell = Math.max(1, Math.floor(safeRequested / total));
+ var qrBox = cell * total;
+ var labelHeight = frame === 'none' ? 0 : Math.round(qrBox * 0.14);
+ var padFrame = frame === 'none' ? 0 : Math.round(qrBox * 0.055);
+ return {
+ quiet: quiet,
+ frame: frame,
+ total: total,
+ cell: cell,
+ qrBox: qrBox,
+ labelHeight: labelHeight,
+ padFrame: padFrame,
+ width: qrBox + padFrame * 2,
+ height: qrBox + padFrame * 2 + labelHeight
+ };
+ }
+
+ function renderQrToCanvas(canvas, qr, requestedSize) {
+ var ctx = canvas.getContext('2d');
+ var metrics = computeRenderMetrics(qr, requestedSize);
+ canvas.width = metrics.width;
+ canvas.height = metrics.height;
+ if (canvas.id === 'qrCanvas') {
  state.lastCanvas = canvas;
+ state.lastRenderMetrics = metrics;
+ }
 
  var fg = el('foregroundColor').value;
  var bg = el('backgroundColor').value;
  var transparent = el('transparentBg').checked;
  var cta = (el('ctaText').value || 'SCAN ME').toUpperCase().slice(0, 32);
 
+ ctx.imageSmoothingEnabled = false;
+ if ('imageSmoothingQuality' in ctx) ctx.imageSmoothingQuality = 'low';
  ctx.clearRect(0, 0, canvas.width, canvas.height);
 
  if (!transparent) {
@@ -3104,14 +3128,19 @@ canvas.width = 1024;
  ctx.fillRect(0, 0, canvas.width, canvas.height);
  }
 
- if (frame !== 'none') {
- drawFrame(ctx, frame, canvas.width, canvas.height, fg, bg, transparent, cta, labelHeight);
+ if (metrics.frame !== 'none') {
+ drawFrame(ctx, metrics.frame, canvas.width, canvas.height, fg, bg, transparent, cta, metrics.labelHeight);
  }
 
- var qrX = padFrame;
- var qrY = padFrame;
- drawMatrix(ctx, qr, qrX, qrY, qrBox, quiet, fg, bg, transparent);
- drawLogo(ctx, qrX, qrY, qrBox);
+ var qrX = metrics.padFrame;
+ var qrY = metrics.padFrame;
+ drawMatrix(ctx, qr, qrX, qrY, metrics.qrBox, metrics.quiet, fg, bg, transparent);
+ drawLogo(ctx, qrX, qrY, metrics.qrBox);
+ return metrics;
+ }
+
+ function drawQr(qr) {
+ renderQrToCanvas(el('qrCanvas'), qr, getRequestedQrSize());
  }
 
  function drawFrame(ctx, frame, width, height, fg, bg, transparent, cta, labelHeight) {
@@ -3356,6 +3385,8 @@ canvas.width = 1024;
  ctx.clip();
  }
  }
+ ctx.imageSmoothingEnabled = true;
+ if ('imageSmoothingQuality' in ctx) ctx.imageSmoothingQuality = 'high';
  ctx.drawImage(state.logoImage, x, y, logoSize, logoSize);
  ctx.restore();
  }
@@ -3407,9 +3438,18 @@ canvas.width = 1024;
  return safe + ext;
  }
 
+ function createExportCanvas(scaleMultiplier) {
+ if (!state.qr || !state.payload) return null;
+ var exportCanvas = document.createElement('canvas');
+ var requestedSize = Math.min(getRequestedQrSize() * (scaleMultiplier || 2), 4096);
+ renderQrToCanvas(exportCanvas, state.qr, requestedSize);
+ return exportCanvas;
+ }
+
  function downloadPng() {
  update();
- var canvas = el('qrCanvas');
+ var canvas = createExportCanvas(2);
+ if (!canvas) return;
  canvas.toBlob(function (blob) {
  if (!blob) return;
  var link = document.createElement('a');
@@ -3574,7 +3614,8 @@ canvas.width = 1024;
 
  function copyPng() {
  update();
- var canvas = el('qrCanvas');
+ var canvas = createExportCanvas(2);
+ if (!canvas) return;
  if (!navigator.clipboard || !window.ClipboardItem) {
  showStatus('PNG clipboard copy is not supported in this browser. Use Download PNG instead.', 'warning');
  return;
@@ -3590,7 +3631,9 @@ canvas.width = 1024;
 
  function printQr() {
  update();
- var dataUrl = el('qrCanvas').toDataURL('image/png');
+ var exportCanvas = createExportCanvas(2);
+ if (!exportCanvas) return;
+ var dataUrl = exportCanvas.toDataURL('image/png');
  var win = window.open('', '_blank');
  if (!win) {
  showStatus('Popup blocked. Use Download PNG instead.', 'warning');
