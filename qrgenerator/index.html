@@ -314,24 +314,19 @@ h1 {
 
 .grid-main {
  display: grid;
- grid-template-columns: minmax(0, 1.05fr) minmax(360px, 0.95fr);
- gap: 1rem;
+ grid-template-columns: minmax(0, 1fr) minmax(300px, 0.56fr);
+ gap: 0.85rem;
  align-items: start;
 }
 
 .generator-column {
  display: grid;
- gap: 1rem;
-}
-
-.design-panel {
- grid-column: 1;
- grid-row: 2;
+ gap: 0.75rem;
 }
 
 .preview-sticky {
  grid-column: 2;
- grid-row: 1 / span 2;
+ grid-row: 1;
 }
 
 .panel {
@@ -349,9 +344,10 @@ h1 {
  box-shadow: var(--shadow-lg);
 }
 
-.panel-inner { padding: 1.25rem; }
+.panel-inner { padding: 1rem; }
 
-.panel + .panel { margin-top: 1rem; }
+.panel + .panel { margin-top: 0.75rem; }
+.generator-column .panel + .panel { margin-top: 0; }
 
 .section-title {
  font-size: 0.72rem;
@@ -359,14 +355,14 @@ h1 {
  letter-spacing: 0.14em;
  text-transform: uppercase;
  color: #8ea1b5;
- margin-bottom: 14px;
+ margin-bottom: 10px;
 }
 
 .section-heading {
  color: #f8fafc;
  font-size: 1.22rem;
  line-height: 1.25;
- margin: 0 0 8px;
+ margin: 0 0 6px;
  letter-spacing: -0.02em;
 }
 
@@ -379,7 +375,7 @@ h1 {
 .form-grid {
  display: grid;
  grid-template-columns: repeat(2, minmax(0, 1fr));
- gap: 12px;
+ gap: 10px;
 }
 
 .form-grid.one { grid-template-columns: 1fr; }
@@ -573,15 +569,15 @@ input[type="range"] {
 
 .preview-sticky {
  position: sticky;
- top: 116px;
+ top: 104px;
 }
 
 .qr-preview-shell {
  display: grid;
  place-items: center;
- min-height: 430px;
+ min-height: 340px;
  border-radius: 18px;
- padding: 18px;
+ padding: 14px;
  background:
  linear-gradient(45deg, rgba(255,255,255,0.035) 25%, transparent 25%),
  linear-gradient(-45deg, rgba(255,255,255,0.035) 25%, transparent 25%),
@@ -595,7 +591,7 @@ input[type="range"] {
 }
 
 #qrCanvas {
- max-width: 100%;
+ max-width: min(100%, 340px);
  height: auto;
  background: transparent;
  border-radius: 12px;
@@ -800,11 +796,14 @@ input[type="range"] {
 
 @media (max-width: 1080px) {
  .grid-main { grid-template-columns: 1fr; }
- .preview-sticky,
- .design-panel {
+ .preview-sticky {
  grid-column: auto;
  grid-row: auto;
  }
+ .generator-column { display: contents; }
+ .generator-column > .panel { order: 1; }
+ .preview-sticky { order: 2; }
+ .generator-column > .design-panel { order: 3; }
  .preview-sticky { position: static; }
 }
 
@@ -830,7 +829,8 @@ input[type="range"] {
  .tool-tabs { grid-template-columns: repeat(2, 1fr); }
  .help-grid { grid-template-columns: 1fr; }
  .badge-grid { display: none; }
- .qr-preview-shell { min-height: 320px; padding: 12px; }
+ .qr-preview-shell { min-height: 300px; padding: 12px; }
+ #qrCanvas { max-width: min(100%, 300px); }
 }
 
 @media (max-width: 420px) {
@@ -2307,56 +2307,9 @@ module.exports = QRCode;
  </div>
  </div>
 
- <div id="typeFields" class="form-grid" style="margin-top:12px"></div>
-              <div class="button-row" style="margin-top:12px">
-                <button class="btn btn-secondary" id="resetExampleBtn" type="button">Use example</button>
-              </div>
+ <div id="typeFields" class="form-grid" style="margin-top:10px"></div>
  </div>
  </section>
-
- </div>
-
- <aside class="panel preview-sticky">
- <div class="panel-inner">
- <div class="section-title">2. Preview & download</div>
- <div class="qr-preview-shell">
- <canvas id="qrCanvas" width="1024" height="1024" aria-label="Generated QR code preview"></canvas>
- </div>
- <details class="technical-details">
- <summary>Show QR details and encoded content</summary>
- <div class="technical-details-inner">
-
-
- <div class="info-card" style="margin-top:12px">
- <div class="info-list">
- <span>QR type</span><span id="infoType">URL</span>
- <span>Encoded length</span><span id="infoLength">0 chars</span>
- <span>Matrix size</span><span id="infoModules">—</span>
- <span>Output image</span><span id="infoOutput">1024 × 1024</span>
- <span>Recommended print</span><span id="infoPrint QR">5.0 cm+</span>
- </div>
- </div>
-
- <div class="field full" style="margin-top:12px">
- <label for="payloadPreview">Encoded QR content</label>
- <textarea id="payloadPreview" class="encoded-preview" readonly spellcheck="false"></textarea>
- </div>
- <button class="btn btn-secondary" id="copyPayloadBtn" type="button" style="width:100%; margin-top:10px">Copy encoded content</button>
- </div>
- </details>
-
- <div class="button-row" style="margin-top:12px">
- <button class="btn btn-primary" id="downloadPngBtn" type="button">Download PNG</button>
- <button class="btn btn-secondary" id="downloadSvgBtn" type="button">Download SVG</button>
- <button class="btn btn-secondary" id="copyPngBtn" type="button">Copy image</button>
- </div>
- <div class="button-row two-buttons" style="margin-top:10px">
- <button class="btn btn-secondary" id="printBtn" type="button">Print QR</button>
- <button class="btn btn-secondary" id="openTargetBtn" type="button" disabled>Test link</button>
- </div>
- <p class="small-note" style="margin-bottom:0">Before printing many copies, scan-test the final QR code on a phone.</p>
- </div>
- </aside>
 
  <section class="panel design-panel">
  <div class="panel-inner">
@@ -2540,6 +2493,49 @@ module.exports = QRCode;
  </div>
  </div>
  </section>
+ </div>
+
+ <aside class="panel preview-sticky">
+ <div class="panel-inner">
+ <div class="section-title">2. Preview & download</div>
+ <div class="qr-preview-shell">
+ <canvas id="qrCanvas" width="1024" height="1024" aria-label="Generated QR code preview"></canvas>
+ </div>
+ <details class="technical-details">
+ <summary>Show QR details and encoded content</summary>
+ <div class="technical-details-inner">
+
+
+ <div class="info-card" style="margin-top:12px">
+ <div class="info-list">
+ <span>QR type</span><span id="infoType">URL</span>
+ <span>Encoded length</span><span id="infoLength">0 chars</span>
+ <span>Matrix size</span><span id="infoModules">—</span>
+ <span>Output image</span><span id="infoOutput">1024 × 1024</span>
+ <span>Recommended print</span><span id="infoPrint QR">5.0 cm+</span>
+ </div>
+ </div>
+
+ <div class="field full" style="margin-top:12px">
+ <label for="payloadPreview">Encoded QR content</label>
+ <textarea id="payloadPreview" class="encoded-preview" readonly spellcheck="false"></textarea>
+ </div>
+ <button class="btn btn-secondary" id="copyPayloadBtn" type="button" style="width:100%; margin-top:10px">Copy encoded content</button>
+ </div>
+ </details>
+
+ <div class="button-row" style="margin-top:12px">
+ <button class="btn btn-primary" id="downloadPngBtn" type="button">Download PNG</button>
+ <button class="btn btn-secondary" id="downloadSvgBtn" type="button">Download SVG</button>
+ <button class="btn btn-secondary" id="copyPngBtn" type="button">Copy image</button>
+ </div>
+ <div class="button-row two-buttons" style="margin-top:10px">
+ <button class="btn btn-secondary" id="printBtn" type="button">Print QR</button>
+ <button class="btn btn-secondary" id="openTargetBtn" type="button" disabled>Test link</button>
+ </div>
+ <p class="small-note" style="margin-bottom:0">Before printing many copies, scan-test the final QR code on a phone.</p>
+ </div>
+ </aside>
  </section>
 
  <section class="panel seo-section" id="qr-best-practices">
@@ -3771,11 +3767,6 @@ canvas.width = 1024;
  el('copyPayloadBtn').addEventListener('click', copyPayload);
  }
  el('openTargetBtn').addEventListener('click', openTarget);
- if (el('resetExampleBtn')) {
- el('resetExampleBtn').addEventListener('click', function () {
- applyExample(el('qrType').value, true);
- });
- }
  }
 
  bindEvents();
