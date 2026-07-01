@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Free  QR Code Generator Online | PhotoEngraving.online</title>
+<title>Free Static QR Code Generator Online | No Signup | PhotoEngraving.online</title>
 <meta name="description" content="Create free static QR codes online for URL, text, WiFi, vCard, email, SMS, phone, calendar events, maps, WhatsApp, Bitcoin and SEPA payments. Customize classic or creative QR designs, colors, logo, size, margin and error correction. No signup and no database.">
 <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
 <meta name="author" content="PhotoEngraving.online">
@@ -290,7 +290,7 @@ h1 {
  color: var(--heading);
  font-size: clamp(1.85rem, 4.2vw, 3.85rem);
  line-height: 1.02;
- letter-spacing: -0.065em;
+ letter-spacing: -0.035em;
  margin: 0 0 16px;
  width: 100%;
  max-width: none;
@@ -299,9 +299,9 @@ h1 {
 .hero-text {
  color: #b7c5d6;
  font-size: clamp(1rem, 2vw, 1.22rem);
- line-height: 1.75;
+ line-height: 1.62;
  width: 100%;
- max-width: none;
+ max-width: 66rem;
  margin: 0;
 }
 
@@ -317,6 +317,21 @@ h1 {
  grid-template-columns: minmax(0, 1.05fr) minmax(360px, 0.95fr);
  gap: 1rem;
  align-items: start;
+}
+
+.generator-column {
+ display: grid;
+ gap: 1rem;
+}
+
+.design-panel {
+ grid-column: 1;
+ grid-row: 2;
+}
+
+.preview-sticky {
+ grid-column: 2;
+ grid-row: 1 / span 2;
 }
 
 .panel {
@@ -650,6 +665,7 @@ input[type="range"] {
 
 .tab-panel { display: none; }
 .tab-panel.active { display: block; }
+.tab-panel[hidden] { display: none !important; }
 
 .encoded-preview {
  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
@@ -784,6 +800,11 @@ input[type="range"] {
 
 @media (max-width: 1080px) {
  .grid-main { grid-template-columns: 1fr; }
+ .preview-sticky,
+ .design-panel {
+ grid-column: auto;
+ grid-row: auto;
+ }
  .preview-sticky { position: static; }
 }
 
@@ -801,12 +822,14 @@ input[type="range"] {
  justify-content: flex-start;
  }
  .hero { padding-top: 0; }
+ h1 { font-size: clamp(1.72rem, 8vw, 2.35rem); line-height: 1.08; }
+ .hero-text { font-size: 0.96rem; line-height: 1.55; }
  .panel-inner { padding: 14px; }
  .form-grid,
  .seo-columns { grid-template-columns: 1fr; }
  .tool-tabs { grid-template-columns: repeat(2, 1fr); }
- .badge-grid,
  .help-grid { grid-template-columns: 1fr; }
+ .badge-grid { display: none; }
  .qr-preview-shell { min-height: 320px; padding: 12px; }
 }
 
@@ -2236,12 +2259,16 @@ module.exports = QRCode;
 
  <main>
  <section class="hero">
- <h1>Create printable QR codes with classic or creative designs and no database.</h1>
+ <h1>Create a printable QR code in seconds.</h1>
  <p class="hero-text">
- Generate static QR codes directly in your browser for websites, WiFi access, vCards, email, SMS, phone numbers,
- calendar events, map locations, WhatsApp links, Bitcoin and SEPA payments. Start with a clean classic QR code, or customize
- the modules, corners, colors, logo and frame. The QR content is encoded directly into the image itself, with no stored QR database.
+ Generate static QR codes directly in your browser for links, WiFi, contacts, messages, events, maps and payments.
+ Start with the reliable classic style, then customize colors, logo and frame when you need a branded result.
  </p>
+ <div class="quick-steps" aria-label="Quick steps">
+ <div class="quick-step"><strong>1. Enter content</strong> Choose what the QR code should open and fill in the fields.</div>
+ <div class="quick-step"><strong>2. Check preview</strong> Watch the QR update live and keep the scan warnings clear.</div>
+ <div class="quick-step"><strong>3. Download</strong> Save PNG for everyday use or SVG for editable print artwork.</div>
+ </div>
  <div class="badge-grid" aria-label="Key features">
  <div class="badge"><strong>No signup</strong> Generate and download without creating an account.</div>
  <div class="badge"><strong>Private by design</strong> QR data is processed in the browser, not saved in a database.</div>
@@ -2251,7 +2278,7 @@ module.exports = QRCode;
  </section>
 
  <section id="generator" class="grid-main" aria-label="QR code generator">
- <div>
+ <div class="generator-column">
  <section class="panel">
  <div class="panel-inner">
  <div class="section-title">1. QR content</div>
@@ -2287,17 +2314,61 @@ module.exports = QRCode;
  </div>
  </section>
 
- <section class="panel">
- <div class="panel-inner">
- <div class="section-title">2. Design</div>
- <div class="tool-tabs" role="tablist" aria-label="QR customization tabs">
- <button class="tab-btn active" type="button" data-tab="quality">Style</button>
- <button class="tab-btn" type="button" data-tab="colors">Colors</button>
- <button class="tab-btn" type="button" data-tab="logo">Logo</button>
- <button class="tab-btn" type="button" data-tab="frame">Frame</button>
  </div>
 
- <div class="tab-panel active" id="tab-quality">
+ <aside class="panel preview-sticky">
+ <div class="panel-inner">
+ <div class="section-title">2. Preview & download</div>
+ <div class="qr-preview-shell">
+ <canvas id="qrCanvas" width="1024" height="1024" aria-label="Generated QR code preview"></canvas>
+ </div>
+ <details class="technical-details">
+ <summary>Show QR details and encoded content</summary>
+ <div class="technical-details-inner">
+
+
+ <div class="info-card" style="margin-top:12px">
+ <div class="info-list">
+ <span>QR type</span><span id="infoType">URL</span>
+ <span>Encoded length</span><span id="infoLength">0 chars</span>
+ <span>Matrix size</span><span id="infoModules">—</span>
+ <span>Output image</span><span id="infoOutput">1024 × 1024</span>
+ <span>Recommended print</span><span id="infoPrint QR">5.0 cm+</span>
+ </div>
+ </div>
+
+ <div class="field full" style="margin-top:12px">
+ <label for="payloadPreview">Encoded QR content</label>
+ <textarea id="payloadPreview" class="encoded-preview" readonly spellcheck="false"></textarea>
+ </div>
+ <button class="btn btn-secondary" id="copyPayloadBtn" type="button" style="width:100%; margin-top:10px">Copy encoded content</button>
+ </div>
+ </details>
+
+ <div class="button-row" style="margin-top:12px">
+ <button class="btn btn-primary" id="downloadPngBtn" type="button">Download PNG</button>
+ <button class="btn btn-secondary" id="downloadSvgBtn" type="button">Download SVG</button>
+ <button class="btn btn-secondary" id="copyPngBtn" type="button">Copy image</button>
+ </div>
+ <div class="button-row two-buttons" style="margin-top:10px">
+ <button class="btn btn-secondary" id="printBtn" type="button">Print QR</button>
+ <button class="btn btn-secondary" id="openTargetBtn" type="button" disabled>Test link</button>
+ </div>
+ <p class="small-note" style="margin-bottom:0">Before printing many copies, scan-test the final QR code on a phone.</p>
+ </div>
+ </aside>
+
+ <section class="panel design-panel">
+ <div class="panel-inner">
+ <div class="section-title">3. Design</div>
+ <div class="tool-tabs" role="tablist" aria-label="QR customization tabs">
+ <button class="tab-btn active" id="tabBtn-quality" role="tab" type="button" data-tab="quality" aria-selected="true" aria-controls="tab-quality">Style</button>
+ <button class="tab-btn" id="tabBtn-colors" role="tab" type="button" data-tab="colors" aria-selected="false" aria-controls="tab-colors" tabindex="-1">Colors</button>
+ <button class="tab-btn" id="tabBtn-logo" role="tab" type="button" data-tab="logo" aria-selected="false" aria-controls="tab-logo" tabindex="-1">Logo</button>
+ <button class="tab-btn" id="tabBtn-frame" role="tab" type="button" data-tab="frame" aria-selected="false" aria-controls="tab-frame" tabindex="-1">Frame</button>
+ </div>
+
+ <div class="tab-panel active" id="tab-quality" role="tabpanel" aria-labelledby="tabBtn-quality">
  <div class="form-grid">
  <div class="field full">
  <label for="designPreset">Choose a QR style</label>
@@ -2377,7 +2448,7 @@ module.exports = QRCode;
  </div>
  </div>
 
- <div class="tab-panel" id="tab-colors">
+ <div class="tab-panel" id="tab-colors" role="tabpanel" aria-labelledby="tabBtn-colors" hidden>
  <div class="form-grid">
  <div class="field">
  <label for="foregroundColor">Foreground color</label>
@@ -2409,7 +2480,7 @@ module.exports = QRCode;
  </div>
  </div>
 
- <div class="tab-panel" id="tab-logo">
+ <div class="tab-panel" id="tab-logo" role="tabpanel" aria-labelledby="tabBtn-logo" hidden>
  <div class="form-grid">
  <div class="field full">
  <label for="logoInput">Upload center logo</label>
@@ -2438,7 +2509,7 @@ module.exports = QRCode;
  </div>
  </div>
 
- <div class="tab-panel" id="tab-frame">
+ <div class="tab-panel" id="tab-frame" role="tabpanel" aria-labelledby="tabBtn-frame" hidden>
  <div class="form-grid">
  <div class="field">
  <label for="frameStyle">Frame style</label>
@@ -2469,45 +2540,6 @@ module.exports = QRCode;
  </div>
  </div>
  </section>
- </div>
-
- <aside class="panel preview-sticky">
- <div class="panel-inner">
- <div class="section-title">3. Preview & download</div>
- <div class="qr-preview-shell">
- <canvas id="qrCanvas" width="1024" height="1024" aria-label="Generated QR code preview"></canvas>
- </div>
- <details class="technical-details">
- <summary>Show QR details and print size</summary>
- <div class="technical-details-inner">
-
-
- <div class="info-card" style="margin-top:12px">
- <div class="info-list">
- <span>QR type</span><span id="infoType">URL</span>
- <span>Encoded length</span><span id="infoLength">0 chars</span>
- <span>Matrix size</span><span id="infoModules">—</span>
- <span>Output image</span><span id="infoOutput">1024 × 1024</span>
- <span>Recommended print</span><span id="infoPrint QR">5.0 cm+</span>
- </div>
- </div>
-
- 
- </div>
- </details>
-
- <div class="button-row" style="margin-top:12px">
- <button class="btn btn-primary" id="downloadPngBtn" type="button">Download PNG</button>
- <button class="btn btn-secondary" id="downloadSvgBtn" type="button">Download SVG</button>
- <button class="btn btn-secondary" id="copyPngBtn" type="button">Copy image</button>
- </div>
- <div class="button-row two-buttons" style="margin-top:10px">
- <button class="btn btn-secondary" id="printBtn" type="button">Print QR</button>
- <button class="btn btn-secondary" id="openTargetBtn" type="button" disabled>Test link</button>
- </div>
- <p class="small-note" style="margin-bottom:0">Before printing many copies, scan-test the final QR code on a phone.</p>
- </div>
- </aside>
  </section>
 
  <section class="panel seo-section" id="qr-best-practices">
@@ -2575,7 +2607,7 @@ module.exports = QRCode;
 
  <section class="panel seo-section">
  <div class="panel-inner">
- <div class="section-title">Supported What should the QR code open?s</div>
+ <div class="section-title">Supported QR code formats</div>
  <h2>Useful static QR code formats included</h2>
  <p>
  This online QR code maker supports the most practical static formats: website URL QR codes,
@@ -2974,12 +3006,14 @@ module.exports = QRCode;
  showStatus('Enter the required content to generate your static QR code.', 'warning');
  drawPlaceholder();
  updateInfo(null, payload);
+ setExportActionsEnabled(false);
  return;
  }
 
  if (typeof qrcode !== 'function') {
  showStatus('The QR generator library could not be loaded. Check your internet connection or host qrcode.min.js locally.', 'error');
  drawPlaceholder();
+ setExportActionsEnabled(false);
  return;
  }
 
@@ -2997,11 +3031,20 @@ module.exports = QRCode;
  status.classList.remove('visible');
  }
  updateInfo(qr, payload);
+ setExportActionsEnabled(true);
  } catch (err) {
  showStatus('This content is too long for the selected QR settings. Shorten the text or reduce vCard/event details. ' + err.message, 'error');
  drawPlaceholder();
  updateInfo(null, payload);
+ setExportActionsEnabled(false);
  }
+ }
+
+ function setExportActionsEnabled(enabled) {
+ ['downloadPngBtn','downloadSvgBtn','copyPngBtn','printBtn','copyPayloadBtn'].forEach(function (id) {
+ var btn = el(id);
+ if (btn) btn.disabled = !enabled;
+ });
  }
 
  function buildWarnings(qr, payload) {
@@ -3387,6 +3430,7 @@ canvas.width = 1024;
 
  function downloadPng() {
  update();
+ if (!state.qr || !state.payload) return;
  var canvas = el('qrCanvas');
  canvas.toBlob(function (blob) {
  if (!blob) return;
@@ -3552,6 +3596,7 @@ canvas.width = 1024;
 
  function copyPng() {
  update();
+ if (!state.qr || !state.payload) return;
  var canvas = el('qrCanvas');
  if (!navigator.clipboard || !window.ClipboardItem) {
  showStatus('PNG clipboard copy is not supported in this browser. Use Download PNG instead.', 'warning');
@@ -3568,13 +3613,14 @@ canvas.width = 1024;
 
  function printQr() {
  update();
+ if (!state.qr || !state.payload) return;
  var dataUrl = el('qrCanvas').toDataURL('image/png');
  var win = window.open('', '_blank');
  if (!win) {
  showStatus('Popup blocked. Use Download PNG instead.', 'warning');
  return;
  }
- win.document.write('<!doctype html><html><head><title>Print QR QR Code</title><style>body{margin:0;display:grid;place-items:center;min-height:100vh}img{max-width:92vmin;max-height:92vmin}</style></head><body><img src="' + dataUrl + '" alt="QR code" onload="window.print()"></body></html>');
+ win.document.write('<!doctype html><html><head><title>Print QR Code</title><style>body{margin:0;display:grid;place-items:center;min-height:100vh}img{max-width:92vmin;max-height:92vmin}</style></head><body><img src="' + dataUrl + '" alt="QR code" onload="window.print()"></body></html>');
  win.document.close();
  }
 
@@ -3631,6 +3677,20 @@ canvas.width = 1024;
  }
  }
 
+ function activateTab(btn) {
+ document.querySelectorAll('.tab-btn').forEach(function (b) {
+ var isActive = b === btn;
+ b.classList.toggle('active', isActive);
+ b.setAttribute('aria-selected', isActive ? 'true' : 'false');
+ b.tabIndex = isActive ? 0 : -1;
+ });
+ document.querySelectorAll('.tab-panel').forEach(function (panel) {
+ var isActive = panel.id === 'tab-' + btn.dataset.tab;
+ panel.classList.toggle('active', isActive);
+ panel.hidden = !isActive;
+ });
+ }
+
  var applyingDesignPreset = false;
 
  function applyDesignPreset(preset) {
@@ -3679,12 +3739,21 @@ canvas.width = 1024;
  el(id).addEventListener('change', update);
  });
 
- document.querySelectorAll('.tab-btn').forEach(function (btn) {
+ var tabButtons = Array.prototype.slice.call(document.querySelectorAll('.tab-btn'));
+ tabButtons.forEach(function (btn, index) {
  btn.addEventListener('click', function () {
- document.querySelectorAll('.tab-btn').forEach(function (b) { b.classList.remove('active'); });
- document.querySelectorAll('.tab-panel').forEach(function (p) { p.classList.remove('active'); });
- btn.classList.add('active');
- el('tab-' + btn.dataset.tab).classList.add('active');
+ activateTab(btn);
+ });
+ btn.addEventListener('keydown', function (event) {
+ if (event.key !== 'ArrowRight' && event.key !== 'ArrowLeft' && event.key !== 'Home' && event.key !== 'End') return;
+ event.preventDefault();
+ var nextIndex = index;
+ if (event.key === 'ArrowRight') nextIndex = (index + 1) % tabButtons.length;
+ if (event.key === 'ArrowLeft') nextIndex = (index - 1 + tabButtons.length) % tabButtons.length;
+ if (event.key === 'Home') nextIndex = 0;
+ if (event.key === 'End') nextIndex = tabButtons.length - 1;
+ activateTab(tabButtons[nextIndex]);
+ tabButtons[nextIndex].focus();
  });
  });
 
@@ -3703,11 +3772,9 @@ canvas.width = 1024;
  }
  el('openTargetBtn').addEventListener('click', openTarget);
  if (el('resetExampleBtn')) {
- if (el('resetExampleBtn')) {
  el('resetExampleBtn').addEventListener('click', function () {
  applyExample(el('qrType').value, true);
  });
- }
  }
  }
 
