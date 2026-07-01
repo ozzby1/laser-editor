@@ -19,7 +19,7 @@
 <meta property="og:site_name" content="PhotoEngraving.online">
 <meta property="og:url" content="https://photoengraving.online/qrgenerator">
 <meta property="og:title" content="Free Static QR Code Generator Online">
-<meta property="og:description" content="Generate static QR codes in your browser with custom colors, multiple QR design styles, logo, SVG and high-resolution PNG export. No signup and no database.">
+<meta property="og:description" content="Generate static QR codes in your browser with custom colors, multiple QR design styles, logo and high-resolution PNG export. No signup and no database.">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://photoengraving.online/fb.png">
 <meta property="og:image:width" content="1200">
@@ -28,7 +28,7 @@
 
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Free Static QR Code Generator Online">
-<meta name="twitter:description" content="Create private, static QR codes for links, WiFi, vCard, email, SMS, events, maps and more. Customize and export PNG or SVG.">
+<meta name="twitter:description" content="Create private, static QR codes for links, WiFi, vCard, email, SMS, events, maps and more. Customize and export high-resolution PNG.">
 <meta name="twitter:image" content="https://photoengraving.online/fb.png">
 <meta name="twitter:image:alt" content="PhotoEngraving.online QR generator preview">
 
@@ -68,7 +68,7 @@
  "operatingSystem": "Web",
  "browserRequirements": "Requires JavaScript, HTML5 Canvas and modern browser APIs for downloads.",
  "isAccessibleForFree": true,
- "description": "Free browser-based static QR code generator for website links, plain text, WiFi, contact cards, email, phone, SMS, calendar events, maps, WhatsApp, Bitcoin and SEPA payment QR codes. Includes classic and creative QR design styles, color, logo, quiet zone, error correction, PNG and SVG export.",
+ "description": "Free browser-based static QR code generator for website links, plain text, WiFi, contact cards, email, phone, SMS, calendar events, maps, WhatsApp, Bitcoin and SEPA payment QR codes. Includes classic and creative QR design styles, color, logo, quiet zone, error correction and high-resolution PNG export.",
  "image": "https://photoengraving.online/fb.png",
  "screenshot": "https://photoengraving.online/fb.png",
  "featureList": [
@@ -87,7 +87,7 @@
  "Custom finder pattern styles",
  "Logo upload with error correction guidance",
  "Quiet zone and pixel size controls",
- "PNG and SVG export",
+ "High-resolution PNG export",
  "Print QR size calculator"
  ],
  "potentialAction": {"@type": "UseAction", "target": "https://photoengraving.online/qrgenerator"},
@@ -292,14 +292,16 @@ h1 {
  line-height: 1.02;
  letter-spacing: -0.065em;
  margin: 18px 0 16px;
- max-width: 960px;
+ width: 100%;
+ max-width: none;
 }
 
 .hero-text {
  color: #b7c5d6;
  font-size: clamp(1rem, 2vw, 1.22rem);
  line-height: 1.75;
- max-width: 900px;
+ width: 100%;
+ max-width: none;
  margin: 0;
 }
 
@@ -518,6 +520,11 @@ input[type="range"] {
  flex: 1 1 145px;
 }
 
+.button-row.two-buttons .btn {
+ flex: 1 1 0;
+ min-width: 0;
+}
+
 .status-message {
  display: none;
  padding: 12px 14px;
@@ -577,6 +584,20 @@ input[type="range"] {
  background: transparent;
  border-radius: 12px;
  box-shadow: 0 16px 50px rgba(0,0,0,0.32);
+}
+
+.placeholder {
+ display: grid;
+ place-items: center;
+ text-align: center;
+ padding: 32px;
+ color: #94a3b8;
+ min-height: 300px;
+}
+
+.placeholder-icon {
+ font-size: 3.2rem;
+ margin-bottom: 12px;
 }
 
 .info-card {
@@ -791,6 +812,7 @@ input[type="range"] {
 @media (max-width: 420px) {
  .tool-tabs { grid-template-columns: 1fr; }
  .button-row .btn { flex-basis: 100%; }
+ .button-row.two-buttons .btn { flex: 1 1 calc(50% - 5px); }
 }
 
 /* QR render fix: keep the default classic QR crisp and gapless. */
@@ -2201,8 +2223,8 @@ module.exports = QRCode;
 <body>
 <div class="content">
  <header class="app-header">
- <a href="https://photoengraving.online/" aria-label="PhotoEngraving.online home">
- <img class="brand-logo" src="/logo.png" alt="PhotoEngraving.online Logo">
+ <a href="https://photoengraving.online/qrgenerator" aria-label="QR Code Generator home">
+ <img class="brand-logo" src="https://photoengraving.online/qrgenerator/qrlogo.png" alt="QR Code Generator Logo">
  </a>
  <div class="header-actions" aria-label="Main navigation">
  <a class="header-link" href="https://photoengraving.online/">Laser Photo Editor</a>
@@ -2220,13 +2242,10 @@ module.exports = QRCode;
  calendar events, map locations, WhatsApp links, Bitcoin and SEPA payments. Start with a clean classic QR code, or customize
  the modules, corners, colors, logo and frame. The QR content is encoded directly into the image itself, with no stored QR database.
  </p>
- <div class="hero-actions">
- <a class="btn btn-primary" href="#generator">Start generating</a>
- </div>
  <div class="badge-grid" aria-label="Key features">
  <div class="badge"><strong>No signup</strong> Generate and download without creating an account.</div>
  <div class="badge"><strong>Private by design</strong> QR data is processed in the browser, not saved in a database.</div>
- <div class="badge"><strong>Print QR-ready</strong> Export high-resolution PNG or clean SVG vector files.</div>
+ <div class="badge"><strong>Print QR-ready</strong> Export high-resolution PNG files for printing.</div>
  <div class="badge"><strong>Useful tools</strong> Print QR size calculator, logo checks and scan warnings.</div>
  </div>
  </section>
@@ -2474,6 +2493,13 @@ module.exports = QRCode;
  <h2 class="section-heading">Your QR code</h2>
  <div class="qr-preview-shell">
  <canvas id="qrCanvas" width="1024" height="1024" aria-label="Generated QR code preview"></canvas>
+ <div id="placeholder" class="placeholder" hidden>
+ <div>
+ <div class="placeholder-icon">▦</div>
+ <strong>Enter content to generate a QR code</strong>
+ <p class="small-note">Your QR code will appear here instantly.</p>
+ </div>
+ </div>
  </div>
  <details class="technical-details">
  <summary>Show QR details and print size</summary>
@@ -2496,11 +2522,10 @@ module.exports = QRCode;
 
  <div class="button-row" style="margin-top:12px">
  <button class="btn btn-primary" id="downloadPngBtn" type="button">Download PNG</button>
- <button class="btn btn-secondary" id="downloadSvgBtn" type="button">Download SVG (vector)</button>
  <button class="btn btn-secondary" id="copyPngBtn" type="button">Copy image</button>
- <button class="btn btn-secondary" id="printBtn" type="button">Print QR</button>
  </div>
- <div class="button-row" style="margin-top:10px">
+ <div class="button-row two-buttons" style="margin-top:10px">
+ <button class="btn btn-secondary" id="printBtn" type="button">Print QR</button>
  <button class="btn btn-secondary" id="openTargetBtn" type="button" disabled>Test link</button>
  </div>
  <p class="small-note" style="margin-bottom:0">Before printing many copies, scan-test the final QR code on a phone.</p>
@@ -2535,7 +2560,7 @@ module.exports = QRCode;
  </article>
  <article class="help-card">
  <h3>Test before printing</h3>
- <p>Scan the final PNG or SVG on multiple phones, from the real viewing distance, and after placing it into the final design or print artwork.</p>
+ <p>Scan the final PNG on multiple phones, from the real viewing distance, and after placing it into the final design or print artwork.</p>
  </article>
  </div>
  </div>
@@ -2560,7 +2585,7 @@ module.exports = QRCode;
  <h3>Best for print and simple sharing</h3>
  <p>Static QR codes are ideal for labels, product packaging, business cards, menus, flyers, posters, WiFi signs and payment instructions. Check the destination carefully before printing, because the QR image contains the final data.</p>
  <ul>
- <li>Download as PNG or SVG</li>
+ <li>Download as high-resolution PNG</li>
  <li>Use strong contrast for scanning</li>
  <li>Keep enough quiet zone around the code</li>
  <li>Test on multiple phones before printing</li>
@@ -2599,7 +2624,7 @@ module.exports = QRCode;
 
  <div class="faq-item">
  <h3>Is this QR code generator free?</h3>
- <p>Yes. You can generate static QR codes, customize them and download PNG or SVG files without signup.</p>
+ <p>Yes. You can generate static QR codes, customize them and download high-resolution PNG files without signup.</p>
  </div>
  <div class="faq-item">
  <h3>Are the QR codes saved somewhere?</h3>
@@ -2619,7 +2644,7 @@ module.exports = QRCode;
  </div>
  <div class="faq-item">
  <h3>What is the best QR code export format?</h3>
- <p>Use SVG for vector artwork, labels and professional print layouts. Use PNG when you need a simple raster image for websites, documents, social posts or quick printing.</p>
+ <p>Use high-resolution PNG for websites, documents, social posts, labels and quick printing. For best results, download the QR code at a large size and test it before printing.</p>
  </div>
  </div>
  </section>
@@ -3043,11 +3068,15 @@ module.exports = QRCode;
  var ctx = canvas.getContext('2d');
  
  ctx.imageSmoothingEnabled = false;
- canvas.width = 1024;
+canvas.width = 1024;
  canvas.height = 1024;
  ctx.clearRect(0, 0, canvas.width, canvas.height);
  ctx.fillStyle = '#ffffff';
  ctx.fillRect(0, 0, 1024, 1024);
+ ctx.fillStyle = '#111827';
+ ctx.font = '700 48px Inter, sans-serif';
+ ctx.textAlign = 'center';
+ ctx.fillText('QR preview', 512, 512);
  }
 
  function drawQr(qr) {
@@ -3680,7 +3709,9 @@ module.exports = QRCode;
  });
  el('removeLogoBtn').addEventListener('click', removeLogo);
  el('downloadPngBtn').addEventListener('click', downloadPng);
- el('downloadSvgBtn').addEventListener('click', downloadSvg);
+ if (el('downloadSvgBtn')) {
+  el('downloadSvgBtn').addEventListener('click', downloadSvg);
+ }
  el('copyPngBtn').addEventListener('click', copyPng);
  el('printBtn').addEventListener('click', printQr);
  el('copyPayloadBtn').addEventListener('click', copyPayload);
