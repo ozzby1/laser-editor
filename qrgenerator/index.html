@@ -2443,9 +2443,10 @@ module.exports = QRCode;
  <div class="field">
  <label for="logoSize">Logo size</label>
  <div class="slider-row">
- <input id="logoSize" type="range" min="8" max="28" step="1" value="18">
- <span class="slider-val" id="logoSizeVal">18%</span>
+ <input id="logoSize" type="range" min="6" max="18" step="1" value="14">
+ <span class="slider-val" id="logoSizeVal">14%</span>
  </div>
+ <div class="small-note">Keep logos small. 10-14% is safest; 18% is the upper limit and must be tested before printing.</div>
  </div>
  <div class="field">
  <label for="logoShape">Logo background</label>
@@ -2457,7 +2458,7 @@ module.exports = QRCode;
  </div>
  <div class="field full">
  <button class="btn btn-secondary" id="removeLogoBtn" type="button">Remove logo</button>
- <div class="small-note" style="margin-top:8px">For logos, keep error correction at H and test the QR code on multiple phones before printing.</div>
+ <div class="small-note" style="margin-top:8px">Logos cover part of the QR pattern. Keep error correction at H and test the final code on multiple phones before printing.</div>
  </div>
  </div>
  </div>
@@ -3048,7 +3049,7 @@ module.exports = QRCode;
  if (payload.length > 900) warnings.push('The encoded content is long, so the QR pattern is dense. Shorter content scans faster.');
  if (Number(el('quietZone').value) < 4) warnings.push('A quiet zone under 4 modules may reduce scan reliability.');
  if (state.logoImage && el('errorCorrection').value !== 'H') warnings.push('A logo is loaded. Use H error correction for better damage recovery.');
- if (state.logoImage && Number(el('logoSize').value) > 22) warnings.push('The logo is large. Test carefully or reduce it below 22%.');
+ if (state.logoImage && Number(el('logoSize').value) > 14) warnings.push('The logo is near the safe limit. Test carefully or reduce it to 14% or less.');
  if ((el('dotStyle').value !== 'square' || Number(el('moduleSpacing').value) > 10 || el('finderStyle').value !== 'classic') && el('errorCorrection').value !== 'H') warnings.push('Decorative QR designs are less forgiving. H error correction is recommended for styled QR codes.');
  if (Number(el('moduleSpacing').value) > 14) warnings.push('Large module spacing creates a decorative look but may reduce scan reliability. Test before printing.');
  if (!el('transparentBg').checked && contrastRatio(el('foregroundColor').value, el('backgroundColor').value) < 4.5) warnings.push('Color contrast looks low. Dark foreground on a light background scans best.');
