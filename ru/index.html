@@ -2327,14 +2327,14 @@ z-index: 2200;
 </a>
 </div>
 </nav>
-<a aria-label="Open laser photo engraving user guide" class="guide-btn" href="https://photoengraving.online/guide/">
-<span>
-       User Guide
+<a aria-label="Открыть руководство по лазерной фотогравировке" class="guide-btn" data-i18n-aria-label="guideAriaLabel" href="https://photoengraving.online/guide/">
+<span data-i18n="guideBtn">
+       Руководство
       </span>
 </a>
-<a aria-label="Open QR Generator" class="feedback-btn" href="https://photoengraving.online/qrgenerator/">
-<span>
-       QR Generator
+<a aria-label="Открыть QR-генератор" class="feedback-btn" data-i18n-aria-label="qrGeneratorAriaLabel" href="https://photoengraving.online/qrgenerator/">
+<span data-i18n="qrGeneratorBtn">
+       QR-генератор
       </span>
 </a>
 <div class="counter-badge">
@@ -3180,6 +3180,10 @@ const translations = {
     faq6Question: 'Are my photos uploaded to a server?',
     faq6Answer: 'No. Photos are processed locally in your browser and are not uploaded to our server.',
     counterLabel: '📸 Processed:',
+    guideBtn: 'User Guide',
+    guideAriaLabel: 'Open laser photo engraving user guide',
+    qrGeneratorBtn: 'QR Generator',
+    qrGeneratorAriaLabel: 'Open QR Generator',
     btnOutput: 'Output',
     btnCompare: 'Original + Output',
     emptyOriginal: 'ORIGINAL',
@@ -3342,6 +3346,10 @@ const translations = {
     faq6Question: 'Загружаются ли мои фотографии на сервер?',
     faq6Answer: 'Нет. Фотографии обрабатываются локально в вашем браузере и не загружаются на наш сервер.',
     counterLabel: '📸 Обработано:',
+    guideBtn: 'Руководство',
+    guideAriaLabel: 'Открыть руководство по лазерной фотогравировке',
+    qrGeneratorBtn: 'QR-генератор',
+    qrGeneratorAriaLabel: 'Открыть QR-генератор',
     btnOutput: 'Результат',
     btnCompare: 'Оригинал + результат',
     emptyOriginal: 'ОРИГИНАЛ',
@@ -3859,6 +3867,11 @@ function applyTranslations() {
   document.querySelectorAll('[data-i18n-html]').forEach(el => {
     const key = el.dataset.i18nHtml;
     el.innerHTML = t(key);
+  });
+
+  document.querySelectorAll('[data-i18n-aria-label]').forEach(el => {
+    const key = el.dataset.i18nAriaLabel;
+    el.setAttribute('aria-label', t(key));
   });
 
   const originalImg = document.getElementById('emptyOriginalImg');
