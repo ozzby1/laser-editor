@@ -579,20 +579,6 @@ input[type="range"] {
  box-shadow: 0 16px 50px rgba(0,0,0,0.32);
 }
 
-.placeholder {
- display: grid;
- place-items: center;
- text-align: center;
- padding: 32px;
- color: #94a3b8;
- min-height: 300px;
-}
-
-.placeholder-icon {
- font-size: 3.2rem;
- margin-bottom: 12px;
-}
-
 .info-card {
  background: rgba(255,255,255,0.025);
  border: 1px solid rgba(255,255,255,0.06);
@@ -2488,13 +2474,6 @@ module.exports = QRCode;
  <h2 class="section-heading">Your QR code</h2>
  <div class="qr-preview-shell">
  <canvas id="qrCanvas" width="1024" height="1024" aria-label="Generated QR code preview"></canvas>
- <div id="placeholder" class="placeholder" hidden>
- <div>
- <div class="placeholder-icon">▦</div>
- <strong>Enter content to generate a QR code</strong>
- <p class="small-note">Your QR code will appear here instantly.</p>
- </div>
- </div>
  </div>
  <details class="technical-details">
  <summary>Show QR details and print size</summary>
@@ -3064,15 +3043,11 @@ module.exports = QRCode;
  var ctx = canvas.getContext('2d');
  
  ctx.imageSmoothingEnabled = false;
-canvas.width = 1024;
+ canvas.width = 1024;
  canvas.height = 1024;
  ctx.clearRect(0, 0, canvas.width, canvas.height);
  ctx.fillStyle = '#ffffff';
  ctx.fillRect(0, 0, 1024, 1024);
- ctx.fillStyle = '#111827';
- ctx.font = '700 48px Inter, sans-serif';
- ctx.textAlign = 'center';
- ctx.fillText('QR preview', 512, 512);
  }
 
  function drawQr(qr) {
