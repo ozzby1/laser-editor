@@ -268,7 +268,7 @@ header.app-header {
 }
 
 .hero {
- padding: 0 0 24px;
+ padding: 18px 0 24px;
 }
 
 .kicker {
@@ -795,8 +795,8 @@ input[type="range"] {
  }
  .generator-column { display: contents; }
  .generator-column > .panel { order: 1; }
- .preview-sticky { order: 2; }
- .generator-column > .design-panel { order: 3; }
+ .generator-column > .design-panel { order: 2; }
+ .preview-sticky { order: 3; }
  .preview-sticky { position: static; }
 }
 
@@ -813,7 +813,7 @@ input[type="range"] {
  margin-left: 0;
  justify-content: flex-start;
  }
- .hero { padding-top: 0; }
+ .hero { padding-top: 14px; }
  h1 { font-size: clamp(1.72rem, 8vw, 2.35rem); line-height: 1.08; }
  .hero-text { font-size: 0.96rem; line-height: 1.55; }
  .panel-inner { padding: 14px; }
@@ -2259,8 +2259,8 @@ module.exports = QRCode;
  </p>
  <div class="quick-steps" aria-label="Quick steps">
  <div class="quick-step"><strong>1. Enter content</strong> Choose what the QR code should open and fill in the fields.</div>
- <div class="quick-step"><strong>2. Check preview</strong> Watch the QR update live and keep the scan warnings clear.</div>
- <div class="quick-step"><strong>3. Download</strong> Save PNG for everyday use or SVG for editable print artwork.</div>
+ <div class="quick-step"><strong>2. Customize</strong> Choose a reliable style, colors, logo or frame when needed.</div>
+ <div class="quick-step"><strong>3. Preview & download</strong> Check the QR code and save PNG or SVG.</div>
  </div>
  <div class="badge-grid" aria-label="Key features">
  <div class="badge"><strong>No signup</strong> Generate and download without creating an account.</div>
@@ -2303,7 +2303,7 @@ module.exports = QRCode;
 
  <section class="panel design-panel">
  <div class="panel-inner">
- <div class="section-title">3. Design</div>
+ <div class="section-title">2. Design</div>
  <div class="tool-tabs" role="tablist" aria-label="QR customization tabs">
  <button class="tab-btn active" id="tabBtn-quality" role="tab" type="button" data-tab="quality" aria-selected="true" aria-controls="tab-quality">Style</button>
  <button class="tab-btn" id="tabBtn-colors" role="tab" type="button" data-tab="colors" aria-selected="false" aria-controls="tab-colors" tabindex="-1">Colors</button>
@@ -2488,7 +2488,7 @@ module.exports = QRCode;
 
  <aside class="panel preview-sticky">
  <div class="panel-inner">
- <div class="section-title">2. Preview & download</div>
+ <div class="section-title">3. Preview & download</div>
  <div class="qr-preview-shell">
  <canvas id="qrCanvas" width="1024" height="1024" aria-label="Generated QR code preview"></canvas>
  </div>
