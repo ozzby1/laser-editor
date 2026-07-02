@@ -845,6 +845,17 @@ input[type="range"] {
  text-align: center;
 }
 
+.qr-history-counter {
+ margin: 10px 0 0;
+ color: #64748b;
+ font-size: 0.72rem;
+}
+
+.qr-history-counter strong {
+ color: #94a3b8;
+ font-weight: 700;
+}
+
 .visually-hidden {
  position: absolute !important;
  width: 1px !important;
@@ -2698,6 +2709,9 @@ module.exports = QRCode;
  <p>
  PhotoEngraving.online QR Generator creates static QR images in the browser. It does not store QR payloads and cannot recover or edit a code after you download it.
  </p>
+ <p class="qr-history-counter" aria-live="polite">
+ Generated QR codes: <strong id="qrHistoryCount">0</strong>
+ </p>
  </footer>
 </div>
 
@@ -2714,6 +2728,32 @@ module.exports = QRCode;
  lastCanvas: null,
  lastPayloadType: 'url'
  };
+
+ var historyCounterKey = 'photoengravingQrGeneratedCount';
+
+ function getHistoryCount() {
+ try {
+ var count = Number(localStorage.getItem(historyCounterKey));
+ return Number.isFinite(count) && count > 0 ? Math.floor(count) : 0;
+ } catch (err) {
+ return 0;
+ }
+ }
+
+ function updateHistoryCounter() {
+ var countEl = el('qrHistoryCount');
+ if (countEl) countEl.textContent = String(getHistoryCount());
+ }
+
+ function countGeneratedQr() {
+ var next = getHistoryCount() + 1;
+ try {
+ localStorage.setItem(historyCounterKey, String(next));
+ } catch (err) {
+ return;
+ }
+ updateHistoryCounter();
+ }
 
  var examples = {
  url: { url: 'https://photoengraving.online/', normalizeUrl: true },
@@ -3473,6 +3513,7 @@ canvas.width = 1024;
  link.href = URL.createObjectURL(blob);
  link.download = sanitizeFileName(el('fileName').value, '.png');
  link.click();
+ countGeneratedQr();
  setTimeout(function () { URL.revokeObjectURL(link.href); }, 1500);
  }, 'image/png');
  }
@@ -3486,6 +3527,7 @@ canvas.width = 1024;
  link.href = URL.createObjectURL(blob);
  link.download = sanitizeFileName(el('fileName').value, '.svg');
  link.click();
+ countGeneratedQr();
  setTimeout(function () { URL.revokeObjectURL(link.href); }, 1500);
  }
 
@@ -3640,6 +3682,7 @@ canvas.width = 1024;
  canvas.toBlob(function (blob) {
  navigator.clipboard.write([new ClipboardItem({'image/png': blob})]).then(function () {
  showStatus('PNG copied to clipboard.', 'success');
+ countGeneratedQr();
  }).catch(function () {
  showStatus('Clipboard permission was blocked. Use Download PNG instead.', 'warning');
  });
@@ -3816,6 +3859,7 @@ canvas.width = 1024;
  }
 
  bindEvents();
+ updateHistoryCounter();
  renderFields('url');
 })();
 </script>
