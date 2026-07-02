@@ -1,0 +1,1380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Free Image to SVG Silhouette Converter | PhotoEngraving.online</title>
+<meta name="description" content="Convert a photo, logo or drawing into a clean black and white SVG silhouette for laser engraving, cutting, stencils and print. Runs in your browser with manual brush cleanup.">
+<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
+<meta name="author" content="PhotoEngraving.online">
+<meta name="application-name" content="PhotoEngraving.online Silhouette Converter">
+<meta name="theme-color" content="#09090d">
+<link rel="canonical" href="https://photoengraving.online/silhouette-converter">
+<link rel="icon" type="image/png" href="https://photoengraving.online/favi.png">
+<link rel="apple-touch-icon" href="https://photoengraving.online/favi.png">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="PhotoEngraving.online">
+<meta property="og:url" content="https://photoengraving.online/silhouette-converter">
+<meta property="og:title" content="Free Image to SVG Silhouette Converter">
+<meta property="og:description" content="Turn photos, logos and drawings into black and white SVG silhouettes for laser engraving, cutting and stencil work.">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://photoengraving.online/fb.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@graph": [
+ {
+ "@type": "Organization",
+ "@id": "https://photoengraving.online/#organization",
+ "name": "PhotoEngraving.online",
+ "url": "https://photoengraving.online/",
+ "logo": "https://photoengraving.online/logo.png"
+ },
+ {
+ "@type": "WebApplication",
+ "@id": "https://photoengraving.online/silhouette-converter#webapp",
+ "name": "Free Image to SVG Silhouette Converter",
+ "url": "https://photoengraving.online/silhouette-converter",
+ "applicationCategory": "DesignApplication",
+ "operatingSystem": "Web",
+ "browserRequirements": "Requires JavaScript, HTML5 Canvas and modern browser download APIs.",
+ "isAccessibleForFree": true,
+ "description": "Browser-based image to SVG silhouette converter for photos, logos, signatures and drawings. Includes threshold controls, largest-object cleanup, manual brush editing, PNG export and SVG export.",
+ "featureList": [
+ "Photo to black silhouette",
+ "Logo to SVG silhouette",
+ "Manual brush and eraser cleanup",
+ "Largest object selection",
+ "Noise removal and edge smoothing",
+ "PNG export",
+ "SVG export"
+ ],
+ "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"},
+ "creator": {"@id": "https://photoengraving.online/#organization"},
+ "inLanguage": "en"
+ }
+ ]
+}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+<style>
+:root {
+ --bg: #09090d;
+ --bg2: #11131a;
+ --panel: rgba(17, 19, 28, 0.82);
+ --panel-strong: rgba(20, 23, 34, 0.96);
+ --border: rgba(255,255,255,0.07);
+ --border-strong: rgba(255,255,255,0.12);
+ --muted: #94a3b8;
+ --soft: #64748b;
+ --text: #e5edf6;
+ --heading: #f8fafc;
+ --accent: #f97316;
+ --accent2: #ea580c;
+ --accent-soft: rgba(249,115,22,0.14);
+ --green: #22c55e;
+ --red: #f87171;
+ --shadow-lg: 0 18px 50px rgba(0,0,0,0.30);
+ --shadow-md: 0 10px 30px rgba(0,0,0,0.20);
+ --radius-xl: 20px;
+ --radius-lg: 16px;
+ --radius-md: 12px;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+ margin: 0;
+ padding: 0;
+ min-height: 100%;
+ background: var(--bg);
+ color: var(--text);
+ font-family: 'Inter', 'Segoe UI', sans-serif;
+ scroll-behavior: smooth;
+}
+
+body::before {
+ content: '';
+ position: fixed;
+ inset: 0;
+ background:
+ radial-gradient(ellipse 75% 45% at 15% -10%, rgba(249,115,22,0.10) 0%, transparent 60%),
+ radial-gradient(ellipse 55% 35% at 85% 110%, rgba(99,102,241,0.08) 0%, transparent 60%),
+ linear-gradient(180deg, rgba(255,255,255,0.015) 0%, transparent 100%);
+ pointer-events: none;
+ z-index: 0;
+}
+
+a { color: #fdba74; text-decoration: none; }
+a:hover { color: #fff; }
+
+.content {
+ position: relative;
+ z-index: 1;
+ max-width: 80rem;
+ margin-left: auto;
+ margin-right: auto;
+ padding: 1.5rem 1rem;
+}
+
+header.app-header {
+ position: sticky;
+ top: 0;
+ z-index: 50;
+ padding: 14px 16px;
+ background: rgba(10, 12, 18, 0.85);
+ backdrop-filter: blur(14px);
+ -webkit-backdrop-filter: blur(14px);
+ border: 1px solid rgba(255,255,255,0.06);
+ border-radius: var(--radius-xl);
+ box-shadow: var(--shadow-md);
+ display: flex;
+ align-items: center;
+ justify-content: space-between;
+ gap: 1rem;
+}
+
+.brand-logo {
+ display: block;
+ height: 48px;
+ width: auto;
+}
+
+.header-actions {
+ display: flex;
+ gap: 0.5rem;
+ align-items: center;
+ flex-wrap: wrap;
+ justify-content: flex-end;
+}
+
+.header-link {
+ display: inline-flex;
+ align-items: center;
+ min-height: 38px;
+ padding: 0 14px;
+ border: 1px solid rgba(255,255,255,0.08);
+ border-radius: 999px;
+ color: #cbd5e1;
+ background: rgba(255,255,255,0.03);
+ font-size: 0.86rem;
+ font-weight: 700;
+ transition: 0.2s ease;
+}
+
+.header-link.active,
+.header-link:hover,
+.header-link:focus-visible {
+ color: #fff;
+ border-color: rgba(249,115,22,0.50);
+ background: rgba(249,115,22,0.13);
+ outline: none;
+}
+
+.hero {
+ padding: 4rem 0 2rem;
+ display: grid;
+ grid-template-columns: minmax(0, 1.05fr) minmax(320px, 0.95fr);
+ gap: 1.5rem;
+ align-items: stretch;
+}
+
+.hero-copy {
+ align-self: center;
+}
+
+.eyebrow {
+ margin: 0 0 0.85rem;
+ color: #fdba74;
+ text-transform: uppercase;
+ letter-spacing: 0;
+ font-size: 0.78rem;
+ font-weight: 900;
+}
+
+h1 {
+ margin: 0;
+ max-width: 760px;
+ color: var(--heading);
+ font-size: clamp(2.1rem, 6vw, 4.8rem);
+ line-height: 0.94;
+ letter-spacing: 0;
+}
+
+.hero p {
+ max-width: 690px;
+ margin: 1.2rem 0 0;
+ color: #b7c5d6;
+ font-size: 1.04rem;
+ line-height: 1.75;
+}
+
+.hero-visual {
+ min-height: 300px;
+ border: 1px solid rgba(255,255,255,0.08);
+ border-radius: var(--radius-xl);
+ background:
+ linear-gradient(135deg, rgba(249,115,22,0.18), transparent 32%),
+ linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.01)),
+ #11131a;
+ box-shadow: var(--shadow-lg);
+ overflow: hidden;
+ position: relative;
+ display: grid;
+ place-items: center;
+}
+
+.hero-visual svg {
+ width: min(82%, 430px);
+ height: auto;
+ filter: drop-shadow(0 20px 38px rgba(0,0,0,0.34));
+}
+
+.hero-visual::after {
+ content: '';
+ position: absolute;
+ inset: auto 0 0;
+ height: 38%;
+ background: linear-gradient(180deg, transparent, rgba(9,9,13,0.46));
+}
+
+.quick-row {
+ display: grid;
+ grid-template-columns: repeat(3, minmax(0, 1fr));
+ gap: 0.75rem;
+ margin: 1.35rem 0 0;
+}
+
+.quick-step {
+ border: 1px solid var(--border);
+ background: rgba(255,255,255,0.035);
+ border-radius: var(--radius-md);
+ padding: 0.8rem;
+ color: #cbd5e1;
+ font-size: 0.85rem;
+ line-height: 1.45;
+}
+
+.quick-step strong {
+ display: block;
+ color: #fff;
+ margin-bottom: 0.25rem;
+}
+
+.grid-main {
+ display: grid;
+ grid-template-columns: minmax(300px, 0.85fr) minmax(0, 1.15fr);
+ gap: 1rem;
+ align-items: start;
+}
+
+.panel {
+ background: var(--panel);
+ border: 1px solid var(--border);
+ border-radius: var(--radius-lg);
+ box-shadow: var(--shadow-md);
+ overflow: hidden;
+}
+
+.panel-inner { padding: 1rem; }
+.panel + .panel { margin-top: 0.75rem; }
+
+.section-title {
+ display: inline-flex;
+ align-items: center;
+ min-height: 28px;
+ padding: 0 10px;
+ border-radius: 999px;
+ background: var(--accent-soft);
+ color: #fed7aa;
+ font-size: 0.76rem;
+ font-weight: 900;
+ text-transform: uppercase;
+ letter-spacing: 0;
+ margin-bottom: 1rem;
+}
+
+.form-grid {
+ display: grid;
+ grid-template-columns: repeat(2, minmax(0, 1fr));
+ gap: 0.85rem;
+}
+
+.form-row { display: flex; flex-direction: column; gap: 0.45rem; }
+.form-row.full { grid-column: 1 / -1; }
+
+label {
+ color: #dbe5f0;
+ font-size: 0.86rem;
+ font-weight: 800;
+}
+
+input[type="range"] { width: 100%; accent-color: var(--accent); }
+input[type="file"] { display: none; }
+
+select,
+input[type="number"],
+input[type="text"] {
+ width: 100%;
+ min-height: 42px;
+ border: 1px solid rgba(255,255,255,0.10);
+ border-radius: var(--radius-md);
+ background: rgba(255,255,255,0.045);
+ color: #f8fafc;
+ padding: 0 12px;
+ font: inherit;
+ outline: none;
+}
+
+select:focus,
+input:focus {
+ border-color: rgba(249,115,22,0.62);
+ box-shadow: 0 0 0 3px rgba(249,115,22,0.13);
+}
+
+.slider-line {
+ display: grid;
+ grid-template-columns: minmax(0, 1fr) auto;
+ gap: 0.7rem;
+ align-items: center;
+}
+
+.slider-val {
+ min-width: 62px;
+ text-align: right;
+ color: #f8fafc;
+ font-size: 0.84rem;
+ font-weight: 800;
+}
+
+.small-note {
+ color: var(--soft);
+ font-size: 0.78rem;
+ line-height: 1.55;
+}
+
+.btn {
+ display: inline-flex;
+ align-items: center;
+ justify-content: center;
+ gap: 0.45rem;
+ min-height: 44px;
+ padding: 0 16px;
+ border: none;
+ border-radius: var(--radius-md);
+ color: #fff;
+ font: inherit;
+ font-size: 0.9rem;
+ font-weight: 900;
+ cursor: pointer;
+ transition: transform 0.16s ease, filter 0.16s ease, border-color 0.16s ease, background 0.16s ease;
+}
+
+.btn:hover { filter: brightness(1.06); }
+.btn:active { transform: scale(0.985); }
+.btn:disabled { opacity: 0.52; cursor: not-allowed; transform: none; }
+
+.btn-primary {
+ background: linear-gradient(135deg, var(--accent), var(--accent2));
+ box-shadow: 0 14px 30px rgba(249,115,22,0.20);
+}
+
+.btn-secondary {
+ background: rgba(255,255,255,0.055);
+ border: 1px solid rgba(255,255,255,0.10);
+ color: #e5edf6;
+}
+
+.btn-secondary.active {
+ border-color: rgba(249,115,22,0.68);
+ background: rgba(249,115,22,0.15);
+ color: #fff;
+}
+
+.button-row {
+ display: flex;
+ flex-wrap: wrap;
+ gap: 0.65rem;
+}
+
+.button-row .btn { flex: 1 1 auto; }
+
+.upload-zone {
+ min-height: 148px;
+ border: 1px dashed rgba(255,255,255,0.22);
+ border-radius: var(--radius-lg);
+ background:
+ linear-gradient(135deg, rgba(249,115,22,0.10), transparent),
+ rgba(255,255,255,0.035);
+ display: grid;
+ place-items: center;
+ text-align: center;
+ padding: 1rem;
+ cursor: pointer;
+ transition: 0.2s ease;
+}
+
+.upload-zone:hover,
+.upload-zone.dragover {
+ border-color: rgba(249,115,22,0.70);
+ background:
+ linear-gradient(135deg, rgba(249,115,22,0.16), transparent),
+ rgba(255,255,255,0.045);
+}
+
+.upload-zone strong {
+ display: block;
+ color: #fff;
+ font-size: 1rem;
+ margin-bottom: 0.3rem;
+}
+
+.preview-grid {
+ display: grid;
+ grid-template-columns: repeat(2, minmax(0, 1fr));
+ gap: 0.75rem;
+}
+
+.canvas-card {
+ min-width: 0;
+ border: 1px solid rgba(255,255,255,0.08);
+ border-radius: var(--radius-lg);
+ background: rgba(255,255,255,0.035);
+ overflow: hidden;
+}
+
+.canvas-title {
+ min-height: 42px;
+ padding: 0 0.85rem;
+ display: flex;
+ align-items: center;
+ justify-content: space-between;
+ gap: 0.6rem;
+ border-bottom: 1px solid rgba(255,255,255,0.07);
+ color: #dbe5f0;
+ font-size: 0.82rem;
+ font-weight: 900;
+}
+
+.canvas-title span:last-child {
+ color: var(--soft);
+ font-weight: 800;
+ font-size: 0.75rem;
+}
+
+.canvas-shell {
+ min-height: 360px;
+ display: grid;
+ place-items: center;
+ padding: 0.75rem;
+ background:
+ linear-gradient(45deg, rgba(255,255,255,0.035) 25%, transparent 25%),
+ linear-gradient(-45deg, rgba(255,255,255,0.035) 25%, transparent 25%),
+ linear-gradient(45deg, transparent 75%, rgba(255,255,255,0.035) 75%),
+ linear-gradient(-45deg, transparent 75%, rgba(255,255,255,0.035) 75%);
+ background-size: 22px 22px;
+ background-position: 0 0, 0 11px, 11px -11px, -11px 0;
+}
+
+canvas {
+ display: block;
+ max-width: 100%;
+ max-height: 58vh;
+ border-radius: 8px;
+ background: #fff;
+ box-shadow: 0 12px 30px rgba(0,0,0,0.24);
+}
+
+#silhouetteCanvas {
+ cursor: crosshair;
+ touch-action: none;
+}
+
+.status {
+ margin-top: 0.85rem;
+ min-height: 42px;
+ border: 1px solid rgba(255,255,255,0.08);
+ border-radius: var(--radius-md);
+ background: rgba(255,255,255,0.035);
+ color: #cbd5e1;
+ padding: 0.7rem 0.85rem;
+ font-size: 0.84rem;
+ line-height: 1.45;
+}
+
+.status[data-type="success"] { border-color: rgba(34,197,94,0.28); color: #bbf7d0; }
+.status[data-type="warning"] { border-color: rgba(249,115,22,0.34); color: #fed7aa; }
+
+.info-grid {
+ display: grid;
+ grid-template-columns: repeat(4, minmax(0, 1fr));
+ gap: 0.65rem;
+ margin-top: 0.85rem;
+}
+
+.info-card {
+ border: 1px solid rgba(255,255,255,0.08);
+ border-radius: var(--radius-md);
+ background: rgba(255,255,255,0.035);
+ padding: 0.7rem;
+ min-height: 68px;
+}
+
+.info-card strong {
+ display: block;
+ color: #fff;
+ font-size: 1rem;
+ line-height: 1.2;
+}
+
+.info-card span {
+ display: block;
+ color: var(--soft);
+ margin-top: 0.25rem;
+ font-size: 0.75rem;
+ font-weight: 800;
+}
+
+.seo-section {
+ margin-top: 1rem;
+ padding: 1rem;
+}
+
+.seo-section h2 {
+ margin: 0 0 0.8rem;
+ color: var(--heading);
+ font-size: clamp(1.45rem, 3vw, 2rem);
+ letter-spacing: 0;
+}
+
+.seo-section p,
+.seo-section li {
+ color: #b7c5d6;
+ line-height: 1.75;
+}
+
+.seo-section ul {
+ margin: 0.7rem 0 0;
+ padding-left: 1.2rem;
+}
+
+.footer {
+ margin: 1.5rem 0 0;
+ padding: 24px 4px 8px;
+ color: #7b8b9c;
+ font-size: 0.78rem;
+ line-height: 1.7;
+ text-align: center;
+}
+
+.visually-hidden {
+ position: absolute !important;
+ width: 1px !important;
+ height: 1px !important;
+ overflow: hidden !important;
+ clip: rect(1px,1px,1px,1px) !important;
+ white-space: nowrap !important;
+}
+
+@media (max-width: 1080px) {
+ .hero,
+ .grid-main { grid-template-columns: 1fr; }
+ .hero { padding-top: 2.3rem; }
+ .hero-visual { min-height: 260px; }
+}
+
+@media (max-width: 760px) {
+ .content { padding: 0.75rem; }
+ header.app-header {
+  position: relative;
+  align-items: flex-start;
+  flex-direction: column;
+ }
+ .brand-logo { height: 48px; }
+ .header-actions { width: 100%; justify-content: flex-start; }
+ .header-link { min-height: 36px; padding: 0 11px; font-size: 0.8rem; }
+ .quick-row,
+ .form-grid,
+ .preview-grid,
+ .info-grid { grid-template-columns: 1fr; }
+ .panel-inner { padding: 0.85rem; }
+ .canvas-shell { min-height: 260px; }
+ .button-row .btn { flex-basis: 100%; }
+}
+</style>
+</head>
+<body>
+<div class="content">
+ <header class="app-header">
+ <a href="https://photoengraving.online/" aria-label="PhotoEngraving.online home">
+ <img class="brand-logo" src="https://photoengraving.online/logo.png" alt="PhotoEngraving.online">
+ </a>
+ <nav class="header-actions" aria-label="Main navigation">
+ <a class="header-link" href="https://photoengraving.online/">Laser Photo Editor</a>
+ <a class="header-link" href="https://photoengraving.online/qrgenerator">QR Generator</a>
+ <a class="header-link active" href="#converter" aria-current="page">Silhouette Converter</a>
+ <a class="header-link" href="#faq">FAQ</a>
+ </nav>
+ </header>
+
+ <main>
+ <section class="hero" aria-label="Image to SVG silhouette converter">
+ <div class="hero-copy">
+ <p class="eyebrow">Image to SVG silhouette converter</p>
+ <h1>Create clean silhouettes for engraving and cutting.</h1>
+ <p>Upload a photo, logo, drawing or signature, turn it into a black and white silhouette, clean the mask by hand and export PNG or SVG directly from your browser.</p>
+ <div class="quick-row">
+ <div class="quick-step"><strong>1. Upload image</strong> Start with a clear photo, logo, sketch or scanned drawing.</div>
+ <div class="quick-step"><strong>2. Isolate shape</strong> Adjust threshold, keep the main object and erase unwanted background.</div>
+ <div class="quick-step"><strong>3. Export</strong> Download a black PNG or SVG silhouette for laser, stencil or print work.</div>
+ </div>
+ </div>
+ <div class="hero-visual" aria-hidden="true">
+ <svg viewBox="0 0 640 430" role="img">
+ <rect x="40" y="40" width="560" height="350" rx="24" fill="#0f172a" stroke="rgba(255,255,255,0.10)" stroke-width="4"/>
+ <path d="M110 280C158 197 216 158 283 163C337 167 370 197 398 238C422 272 465 292 526 296L526 336L110 336Z" fill="#ffffff" opacity="0.13"/>
+ <path d="M178 301C185 250 218 210 269 196C306 186 349 194 376 224C396 246 402 277 392 306C380 340 344 360 302 358C250 356 207 337 178 301Z" fill="#f8fafc"/>
+ <path d="M250 197C229 164 229 134 252 109C270 142 282 167 288 193Z" fill="#f8fafc"/>
+ <path d="M348 202C359 170 379 149 408 137C409 177 397 204 373 220Z" fill="#f8fafc"/>
+ <path d="M188 310C151 314 124 330 105 358C148 365 184 353 212 324Z" fill="#f8fafc"/>
+ <path d="M385 303C419 305 449 323 476 358C431 366 397 353 374 319Z" fill="#f8fafc"/>
+ <circle cx="321" cy="249" r="10" fill="#09090d"/>
+ <path d="M296 276C311 290 329 291 347 277" fill="none" stroke="#09090d" stroke-width="10" stroke-linecap="round"/>
+ <path d="M65 81H242" stroke="#f97316" stroke-width="10" stroke-linecap="round"/>
+ <path d="M65 108H188" stroke="#64748b" stroke-width="8" stroke-linecap="round"/>
+ <path d="M470 86H552" stroke="#22c55e" stroke-width="10" stroke-linecap="round"/>
+ </svg>
+ </div>
+ </section>
+
+ <section id="converter" class="grid-main" aria-label="Silhouette converter tool">
+ <div class="controls-column">
+ <section class="panel">
+ <div class="panel-inner">
+ <div class="section-title">1. Upload</div>
+ <label class="upload-zone" id="uploadZone" for="imageInput">
+ <span>
+ <strong>Choose or drop an image</strong>
+ <span class="small-note">JPG, PNG, WebP or GIF. Processing stays in the browser.</span>
+ </span>
+ </label>
+ <input id="imageInput" type="file" accept="image/*">
+ <div class="status" id="status" data-type="warning">Upload a photo or logo to begin. For pets and people, a simple background gives the best automatic result.</div>
+ </div>
+ </section>
+
+ <section class="panel">
+ <div class="panel-inner">
+ <div class="section-title">2. Shape controls</div>
+ <div class="form-grid">
+ <div class="form-row full">
+ <label for="mode">Silhouette mode</label>
+ <select id="mode">
+ <option value="largest" selected>Keep largest object</option>
+ <option value="all">Keep all dark areas</option>
+ </select>
+ <span class="small-note">Largest object is useful for a dog, person or product on a busy background.</span>
+ </div>
+ <div class="form-row full">
+ <label for="threshold">Threshold</label>
+ <div class="slider-line">
+ <input id="threshold" type="range" min="0" max="255" value="132">
+ <span class="slider-val" id="thresholdVal">132</span>
+ </div>
+ </div>
+ <div class="form-row">
+ <label for="contrast">Contrast</label>
+ <div class="slider-line">
+ <input id="contrast" type="range" min="-60" max="80" value="18">
+ <span class="slider-val" id="contrastVal">18</span>
+ </div>
+ </div>
+ <div class="form-row">
+ <label for="blur">Soften before trace</label>
+ <div class="slider-line">
+ <input id="blur" type="range" min="0" max="4" value="1">
+ <span class="slider-val" id="blurVal">1</span>
+ </div>
+ </div>
+ <div class="form-row">
+ <label for="noise">Remove specks</label>
+ <div class="slider-line">
+ <input id="noise" type="range" min="0" max="1200" step="20" value="160">
+ <span class="slider-val" id="noiseVal">160</span>
+ </div>
+ </div>
+ <div class="form-row">
+ <label for="smooth">Edge cleanup</label>
+ <div class="slider-line">
+ <input id="smooth" type="range" min="0" max="3" value="1">
+ <span class="slider-val" id="smoothVal">1</span>
+ </div>
+ </div>
+ <div class="form-row">
+ <label for="maxSize">Working detail</label>
+ <select id="maxSize">
+ <option value="520">Balanced</option>
+ <option value="720" selected>Detailed</option>
+ <option value="960">Very detailed</option>
+ </select>
+ </div>
+ <div class="form-row">
+ <label for="invert">Color selection</label>
+ <select id="invert">
+ <option value="dark" selected>Dark object</option>
+ <option value="light">Light object</option>
+ </select>
+ </div>
+ </div>
+ <div class="button-row" style="margin-top:0.9rem">
+ <button class="btn btn-primary" id="applyBtn" type="button">Apply silhouette</button>
+ <button class="btn btn-secondary" id="resetBtn" type="button">Reset edits</button>
+ </div>
+ </div>
+ </section>
+
+ <section class="panel">
+ <div class="panel-inner">
+ <div class="section-title">3. Manual cleanup</div>
+ <div class="form-grid">
+ <div class="form-row full">
+ <label>Brush tool</label>
+ <div class="button-row">
+ <button class="btn btn-secondary active" id="paintBtn" type="button">Add black</button>
+ <button class="btn btn-secondary" id="eraseBtn" type="button">Erase</button>
+ </div>
+ </div>
+ <div class="form-row full">
+ <label for="brushSize">Brush size</label>
+ <div class="slider-line">
+ <input id="brushSize" type="range" min="4" max="90" value="26">
+ <span class="slider-val" id="brushSizeVal">26</span>
+ </div>
+ <span class="small-note">Paint directly on the silhouette preview to fix background leftovers or missing parts.</span>
+ </div>
+ </div>
+ </div>
+ </section>
+
+ <section class="panel">
+ <div class="panel-inner">
+ <div class="section-title">4. Export</div>
+ <div class="form-grid">
+ <div class="form-row full">
+ <label for="fileName">File name</label>
+ <input id="fileName" type="text" value="photoengraving-silhouette">
+ </div>
+ <div class="form-row">
+ <label for="svgScale">SVG detail</label>
+ <select id="svgScale">
+ <option value="1">Full detail</option>
+ <option value="2" selected>Smaller file</option>
+ <option value="3">Compact preview</option>
+ </select>
+ </div>
+ <div class="form-row">
+ <label for="exportCrop">Export area</label>
+ <select id="exportCrop">
+ <option value="crop" selected>Crop to object</option>
+ <option value="full">Full canvas</option>
+ </select>
+ </div>
+ </div>
+ <div class="button-row" style="margin-top:0.9rem">
+ <button class="btn btn-primary" id="downloadSvgBtn" type="button" disabled>Download SVG</button>
+ <button class="btn btn-secondary" id="downloadPngBtn" type="button" disabled>Download PNG</button>
+ </div>
+ </div>
+ </section>
+ </div>
+
+ <div class="preview-column">
+ <section class="panel">
+ <div class="panel-inner">
+ <div class="section-title">Preview</div>
+ <div class="preview-grid">
+ <div class="canvas-card">
+ <div class="canvas-title"><span>Original</span><span id="originalInfo">No image</span></div>
+ <div class="canvas-shell">
+ <canvas id="originalCanvas" width="720" height="520" aria-label="Original image preview"></canvas>
+ </div>
+ </div>
+ <div class="canvas-card">
+ <div class="canvas-title"><span>Silhouette</span><span id="maskInfo">No mask</span></div>
+ <div class="canvas-shell">
+ <canvas id="silhouetteCanvas" width="720" height="520" aria-label="Editable silhouette preview"></canvas>
+ </div>
+ </div>
+ </div>
+ <div class="info-grid" aria-label="Silhouette statistics">
+ <div class="info-card"><strong id="infoSize">0 x 0</strong><span>working pixels</span></div>
+ <div class="info-card"><strong id="infoFill">0%</strong><span>black area</span></div>
+ <div class="info-card"><strong id="infoObjects">0</strong><span>objects found</span></div>
+ <div class="info-card"><strong id="infoSvg">0 KB</strong><span>estimated SVG</span></div>
+ </div>
+ </div>
+ </section>
+ </div>
+ </section>
+
+ <section class="panel seo-section" id="best-practices">
+ <div class="section-title">Silhouette tips</div>
+ <h2>How to get a clean SVG silhouette from a photo</h2>
+ <p>Start with a photo where the subject is separated from the background. A dog in front of a plain wall, a dark logo on white paper or a high-contrast signature will convert much more cleanly than a busy outdoor scene.</p>
+ <ul>
+ <li>Use <strong>Keep largest object</strong> for people, pets and products with extra background details.</li>
+ <li>Move the threshold until the important outline becomes solid, then clean the small mistakes with the brush.</li>
+ <li>Export PNG for quick preview and SVG for laser, cutting, stencil and design software workflows.</li>
+ </ul>
+ </section>
+
+ <section class="panel seo-section" id="faq">
+ <div class="section-title">FAQ</div>
+ <h2>Image to SVG silhouette FAQ</h2>
+ <p><strong>Can it make a dog silhouette from a normal photo?</strong><br>Yes, when the dog has enough contrast against the background. The largest-object mode helps, and the brush/eraser tools let you fix difficult areas manually.</p>
+ <p><strong>Is the SVG a real editable file?</strong><br>Yes. The export creates SVG vector shapes from the black silhouette mask. Very detailed photos may create larger SVG files, so the smaller-file setting is useful for sharing.</p>
+ <p><strong>Are uploaded images stored?</strong><br>No. The conversion runs in the browser using canvas. The image is not uploaded to a server by this page.</p>
+ </section>
+ </main>
+
+ <footer class="footer">
+ <p>PhotoEngraving.online Silhouette Converter runs in your browser and helps prepare black and white artwork for engraving, cutting, stencils and print.</p>
+ </footer>
+</div>
+
+<script>
+(function () {
+ 'use strict';
+
+ var el = function (id) { return document.getElementById(id); };
+ var state = {
+ image: null,
+ originalName: '',
+ width: 720,
+ height: 520,
+ baseMask: null,
+ mask: null,
+ objectCount: 0,
+ tool: 'paint',
+ drawing: false,
+ lastPoint: null
+ };
+
+ var originalCanvas = el('originalCanvas');
+ var originalCtx = originalCanvas.getContext('2d', {willReadFrequently: true});
+ var silhouetteCanvas = el('silhouetteCanvas');
+ var silhouetteCtx = silhouetteCanvas.getContext('2d', {willReadFrequently: true});
+
+ function setStatus(message, type) {
+ el('status').textContent = message;
+ el('status').dataset.type = type || 'success';
+ }
+
+ function updateSliderLabels() {
+ ['threshold','contrast','blur','noise','smooth','brushSize'].forEach(function (id) {
+ var out = el(id + 'Val');
+ if (out) out.textContent = el(id).value;
+ });
+ }
+
+ function drawEmpty() {
+ originalCtx.fillStyle = '#ffffff';
+ originalCtx.fillRect(0, 0, originalCanvas.width, originalCanvas.height);
+ originalCtx.fillStyle = '#111827';
+ originalCtx.font = '800 28px Inter, Arial, sans-serif';
+ originalCtx.textAlign = 'center';
+ originalCtx.fillText('Upload image', originalCanvas.width / 2, originalCanvas.height / 2);
+ silhouetteCtx.fillStyle = '#ffffff';
+ silhouetteCtx.fillRect(0, 0, silhouetteCanvas.width, silhouetteCanvas.height);
+ silhouetteCtx.fillStyle = '#111827';
+ silhouetteCtx.font = '800 28px Inter, Arial, sans-serif';
+ silhouetteCtx.textAlign = 'center';
+ silhouetteCtx.fillText('Silhouette preview', silhouetteCanvas.width / 2, silhouetteCanvas.height / 2);
+ }
+
+ function loadImage(file) {
+ if (!file) return;
+ if (!file.type || file.type.indexOf('image/') !== 0) {
+ setStatus('Please choose an image file.', 'warning');
+ return;
+ }
+ var reader = new FileReader();
+ reader.onload = function () {
+ var img = new Image();
+ img.onload = function () {
+ state.image = img;
+ state.originalName = file.name.replace(/\.[^.]+$/, '');
+ el('fileName').value = sanitizeFileName(state.originalName || 'photoengraving-silhouette', '');
+ prepareCanvases();
+ applySilhouette();
+ setStatus('Image loaded. Adjust threshold or paint on the silhouette to clean the shape.', 'success');
+ };
+ img.onerror = function () {
+ setStatus('The image could not be loaded. Try a JPG or PNG file.', 'warning');
+ };
+ img.src = reader.result;
+ };
+ reader.readAsDataURL(file);
+ }
+
+ function prepareCanvases() {
+ var maxSize = Number(el('maxSize').value);
+ var scale = Math.min(maxSize / state.image.width, maxSize / state.image.height, 1);
+ state.width = Math.max(1, Math.round(state.image.width * scale));
+ state.height = Math.max(1, Math.round(state.image.height * scale));
+ [originalCanvas, silhouetteCanvas].forEach(function (canvas) {
+ canvas.width = state.width;
+ canvas.height = state.height;
+ });
+ originalCtx.clearRect(0, 0, state.width, state.height);
+ originalCtx.drawImage(state.image, 0, 0, state.width, state.height);
+ el('originalInfo').textContent = state.image.width + ' x ' + state.image.height;
+ el('infoSize').textContent = state.width + ' x ' + state.height;
+ }
+
+ function applySilhouette() {
+ if (!state.image) {
+ setStatus('Upload an image first.', 'warning');
+ return;
+ }
+ prepareCanvases();
+ var img = originalCtx.getImageData(0, 0, state.width, state.height);
+ var gray = grayscale(img.data, state.width, state.height);
+ var blurAmount = Number(el('blur').value);
+ for (var b = 0; b < blurAmount; b++) gray = blurGray(gray, state.width, state.height);
+ var mask = thresholdMask(gray, state.width, state.height);
+ var smooth = Number(el('smooth').value);
+ for (var i = 0; i < smooth; i++) mask = closeMask(openMask(mask, state.width, state.height), state.width, state.height);
+ var analysis = analyzeComponents(mask, state.width, state.height);
+ state.objectCount = analysis.count;
+ if (el('mode').value === 'largest' && analysis.largestLabel > 0) mask = keepLabel(analysis.labels, analysis.largestLabel);
+ mask = removeSmallComponents(mask, state.width, state.height, Number(el('noise').value));
+ state.baseMask = new Uint8Array(mask);
+ state.mask = new Uint8Array(mask);
+ renderMask();
+ updateInfo();
+ enableExport(true);
+ }
+
+ function grayscale(data, width, height) {
+ var contrast = Number(el('contrast').value);
+ var factor = (259 * (contrast + 255)) / (255 * (259 - contrast));
+ var out = new Uint8ClampedArray(width * height);
+ for (var i = 0, p = 0; i < data.length; i += 4, p++) {
+ var gray = 0.2126 * data[i] + 0.7152 * data[i + 1] + 0.0722 * data[i + 2];
+ gray = factor * (gray - 128) + 128;
+ out[p] = Math.max(0, Math.min(255, gray));
+ }
+ return out;
+ }
+
+ function blurGray(gray, width, height) {
+ var out = new Uint8ClampedArray(gray.length);
+ for (var y = 0; y < height; y++) {
+ for (var x = 0; x < width; x++) {
+ var total = 0;
+ var count = 0;
+ for (var yy = -1; yy <= 1; yy++) {
+ for (var xx = -1; xx <= 1; xx++) {
+ var nx = x + xx;
+ var ny = y + yy;
+ if (nx < 0 || ny < 0 || nx >= width || ny >= height) continue;
+ total += gray[ny * width + nx];
+ count++;
+ }
+ }
+ out[y * width + x] = total / count;
+ }
+ }
+ return out;
+ }
+
+ function thresholdMask(gray, width, height) {
+ var threshold = Number(el('threshold').value);
+ var wantDark = el('invert').value === 'dark';
+ var mask = new Uint8Array(width * height);
+ for (var i = 0; i < gray.length; i++) {
+ mask[i] = wantDark ? (gray[i] <= threshold ? 1 : 0) : (gray[i] >= threshold ? 1 : 0);
+ }
+ return mask;
+ }
+
+ function erode(mask, width, height) {
+ var out = new Uint8Array(mask.length);
+ for (var y = 0; y < height; y++) {
+ for (var x = 0; x < width; x++) {
+ var keep = 1;
+ for (var yy = -1; yy <= 1 && keep; yy++) {
+ for (var xx = -1; xx <= 1; xx++) {
+ var nx = x + xx;
+ var ny = y + yy;
+ if (nx < 0 || ny < 0 || nx >= width || ny >= height || !mask[ny * width + nx]) {
+ keep = 0;
+ break;
+ }
+ }
+ }
+ out[y * width + x] = keep;
+ }
+ }
+ return out;
+ }
+
+ function dilate(mask, width, height) {
+ var out = new Uint8Array(mask.length);
+ for (var y = 0; y < height; y++) {
+ for (var x = 0; x < width; x++) {
+ var fill = 0;
+ for (var yy = -1; yy <= 1 && !fill; yy++) {
+ for (var xx = -1; xx <= 1; xx++) {
+ var nx = x + xx;
+ var ny = y + yy;
+ if (nx >= 0 && ny >= 0 && nx < width && ny < height && mask[ny * width + nx]) {
+ fill = 1;
+ break;
+ }
+ }
+ }
+ out[y * width + x] = fill;
+ }
+ }
+ return out;
+ }
+
+ function openMask(mask, width, height) {
+ return dilate(erode(mask, width, height), width, height);
+ }
+
+ function closeMask(mask, width, height) {
+ return erode(dilate(mask, width, height), width, height);
+ }
+
+ function analyzeComponents(mask, width, height) {
+ var labels = new Uint32Array(mask.length);
+ var queue = new Uint32Array(mask.length);
+ var label = 0;
+ var largestLabel = 0;
+ var largestSize = 0;
+ for (var i = 0; i < mask.length; i++) {
+ if (!mask[i] || labels[i]) continue;
+ label++;
+ var head = 0;
+ var tail = 0;
+ var size = 0;
+ queue[tail++] = i;
+ labels[i] = label;
+ while (head < tail) {
+ var idx = queue[head++];
+ size++;
+ var x = idx % width;
+ var y = Math.floor(idx / width);
+ var neighbors = [idx - 1, idx + 1, idx - width, idx + width];
+ if (x === 0) neighbors[0] = -1;
+ if (x === width - 1) neighbors[1] = -1;
+ if (y === 0) neighbors[2] = -1;
+ if (y === height - 1) neighbors[3] = -1;
+ for (var n = 0; n < neighbors.length; n++) {
+ var ni = neighbors[n];
+ if (ni >= 0 && mask[ni] && !labels[ni]) {
+ labels[ni] = label;
+ queue[tail++] = ni;
+ }
+ }
+ }
+ if (size > largestSize) {
+ largestSize = size;
+ largestLabel = label;
+ }
+ }
+ return {labels: labels, count: label, largestLabel: largestLabel, largestSize: largestSize};
+ }
+
+ function keepLabel(labels, wanted) {
+ var out = new Uint8Array(labels.length);
+ for (var i = 0; i < labels.length; i++) out[i] = labels[i] === wanted ? 1 : 0;
+ return out;
+ }
+
+ function removeSmallComponents(mask, width, height, minSize) {
+ if (!minSize) return mask;
+ var analysis = analyzeComponents(mask, width, height);
+ var sizes = new Uint32Array(analysis.count + 1);
+ for (var i = 0; i < analysis.labels.length; i++) if (analysis.labels[i]) sizes[analysis.labels[i]]++;
+ var out = new Uint8Array(mask.length);
+ for (var p = 0; p < analysis.labels.length; p++) {
+ var label = analysis.labels[p];
+ out[p] = label && sizes[label] >= minSize ? 1 : 0;
+ }
+ state.objectCount = analysis.count;
+ return out;
+ }
+
+ function renderMask() {
+ var image = silhouetteCtx.createImageData(state.width, state.height);
+ for (var i = 0, p = 0; i < state.mask.length; i++, p += 4) {
+ var black = state.mask[i] ? 0 : 255;
+ image.data[p] = black;
+ image.data[p + 1] = black;
+ image.data[p + 2] = black;
+ image.data[p + 3] = 255;
+ }
+ silhouetteCtx.putImageData(image, 0, 0);
+ }
+
+ function updateInfo() {
+ if (!state.mask) return;
+ var filled = 0;
+ for (var i = 0; i < state.mask.length; i++) filled += state.mask[i];
+ var pct = state.mask.length ? Math.round((filled / state.mask.length) * 1000) / 10 : 0;
+ el('infoFill').textContent = pct + '%';
+ el('infoObjects').textContent = String(state.objectCount);
+ el('maskInfo').textContent = filled ? 'Editable mask' : 'Empty mask';
+ el('infoSvg').textContent = Math.max(1, Math.round(buildSvg(false).length / 1024)) + ' KB';
+ }
+
+ function enableExport(enabled) {
+ el('downloadSvgBtn').disabled = !enabled;
+ el('downloadPngBtn').disabled = !enabled;
+ }
+
+ function getCanvasPoint(event) {
+ var rect = silhouetteCanvas.getBoundingClientRect();
+ return {
+ x: (event.clientX - rect.left) * (state.width / rect.width),
+ y: (event.clientY - rect.top) * (state.height / rect.height)
+ };
+ }
+
+ function paintAt(point, fromPoint) {
+ if (!state.mask) return;
+ var radius = Number(el('brushSize').value) / 2;
+ var steps = fromPoint ? Math.max(1, Math.ceil(distance(point, fromPoint) / Math.max(1, radius / 2))) : 1;
+ for (var s = 0; s <= steps; s++) {
+ var t = steps ? s / steps : 1;
+ var x = fromPoint ? fromPoint.x + (point.x - fromPoint.x) * t : point.x;
+ var y = fromPoint ? fromPoint.y + (point.y - fromPoint.y) * t : point.y;
+ stampCircle(x, y, radius, state.tool === 'paint' ? 1 : 0);
+ }
+ renderMask();
+ updateInfo();
+ }
+
+ function distance(a, b) {
+ var dx = a.x - b.x;
+ var dy = a.y - b.y;
+ return Math.sqrt(dx * dx + dy * dy);
+ }
+
+ function stampCircle(cx, cy, radius, value) {
+ var minX = Math.max(0, Math.floor(cx - radius));
+ var maxX = Math.min(state.width - 1, Math.ceil(cx + radius));
+ var minY = Math.max(0, Math.floor(cy - radius));
+ var maxY = Math.min(state.height - 1, Math.ceil(cy + radius));
+ var r2 = radius * radius;
+ for (var y = minY; y <= maxY; y++) {
+ for (var x = minX; x <= maxX; x++) {
+ var dx = x - cx;
+ var dy = y - cy;
+ if (dx * dx + dy * dy <= r2) state.mask[y * state.width + x] = value;
+ }
+ }
+ }
+
+ function findBounds(mask, width, height) {
+ if (el('exportCrop').value === 'full') return {x: 0, y: 0, w: width, h: height};
+ var minX = width, minY = height, maxX = -1, maxY = -1;
+ for (var y = 0; y < height; y++) {
+ for (var x = 0; x < width; x++) {
+ if (!mask[y * width + x]) continue;
+ if (x < minX) minX = x;
+ if (y < minY) minY = y;
+ if (x > maxX) maxX = x;
+ if (y > maxY) maxY = y;
+ }
+ }
+ if (maxX < minX || maxY < minY) return {x: 0, y: 0, w: width, h: height};
+ var pad = 6;
+ minX = Math.max(0, minX - pad);
+ minY = Math.max(0, minY - pad);
+ maxX = Math.min(width - 1, maxX + pad);
+ maxY = Math.min(height - 1, maxY + pad);
+ return {x: minX, y: minY, w: maxX - minX + 1, h: maxY - minY + 1};
+ }
+
+ function buildSvg(includeHeader) {
+ if (!state.mask) return '';
+ var step = Number(el('svgScale').value);
+ var bounds = findBounds(state.mask, state.width, state.height);
+ var path = [];
+ for (var y = bounds.y; y < bounds.y + bounds.h; y += step) {
+ var x = bounds.x;
+ while (x < bounds.x + bounds.w) {
+ while (x < bounds.x + bounds.w && !blockFilled(x, y, step, bounds)) x += step;
+ var start = x;
+ while (x < bounds.x + bounds.w && blockFilled(x, y, step, bounds)) x += step;
+ if (x > start) {
+ var px = start - bounds.x;
+ var py = y - bounds.y;
+ var ww = Math.min(x - start, bounds.w - px);
+ var hh = Math.min(step, bounds.h - py);
+ path.push('M' + px + ' ' + py + 'h' + ww + 'v' + hh + 'h-' + ww + 'z');
+ }
+ }
+ }
+ var svg = '<svg xmlns="http://www.w3.org/2000/svg" width="' + bounds.w + '" height="' + bounds.h + '" viewBox="0 0 ' + bounds.w + ' ' + bounds.h + '" role="img" aria-label="Black silhouette" shape-rendering="geometricPrecision"><path fill="#000000" d="' + path.join('') + '"/></svg>';
+ return includeHeader ? '<?xml version="1.0" encoding="UTF-8"?>\n' + svg : svg;
+ }
+
+ function blockFilled(x, y, step, bounds) {
+ var hits = 0;
+ var total = 0;
+ for (var yy = y; yy < Math.min(y + step, bounds.y + bounds.h); yy++) {
+ for (var xx = x; xx < Math.min(x + step, bounds.x + bounds.w); xx++) {
+ total++;
+ if (state.mask[yy * state.width + xx]) hits++;
+ }
+ }
+ return hits >= Math.max(1, total / 2);
+ }
+
+ function downloadSvg() {
+ if (!state.mask) return;
+ var svg = buildSvg(true);
+ var blob = new Blob([svg], {type: 'image/svg+xml;charset=utf-8'});
+ downloadBlob(blob, sanitizeFileName(el('fileName').value, '.svg'));
+ setStatus('SVG silhouette downloaded.', 'success');
+ }
+
+ function downloadPng() {
+ if (!state.mask) return;
+ var bounds = findBounds(state.mask, state.width, state.height);
+ var canvas = document.createElement('canvas');
+ canvas.width = bounds.w;
+ canvas.height = bounds.h;
+ var ctx = canvas.getContext('2d');
+ var image = ctx.createImageData(bounds.w, bounds.h);
+ for (var y = 0; y < bounds.h; y++) {
+ for (var x = 0; x < bounds.w; x++) {
+ var src = (bounds.y + y) * state.width + bounds.x + x;
+ var dst = (y * bounds.w + x) * 4;
+ var alpha = state.mask[src] ? 255 : 0;
+ image.data[dst] = 0;
+ image.data[dst + 1] = 0;
+ image.data[dst + 2] = 0;
+ image.data[dst + 3] = alpha;
+ }
+ }
+ ctx.putImageData(image, 0, 0);
+ canvas.toBlob(function (blob) {
+ if (!blob) return;
+ downloadBlob(blob, sanitizeFileName(el('fileName').value, '.png'));
+ setStatus('Transparent PNG silhouette downloaded.', 'success');
+ }, 'image/png');
+ }
+
+ function downloadBlob(blob, fileName) {
+ var link = document.createElement('a');
+ link.href = URL.createObjectURL(blob);
+ link.download = fileName;
+ link.click();
+ setTimeout(function () { URL.revokeObjectURL(link.href); }, 1500);
+ }
+
+ function sanitizeFileName(name, ext) {
+ var safe = (name || 'photoengraving-silhouette').toLowerCase().replace(/[^a-z0-9-_]+/g, '-').replace(/^-+|-+$/g, '') || 'photoengraving-silhouette';
+ return safe + ext;
+ }
+
+ function resetEdits() {
+ if (!state.baseMask) return;
+ state.mask = new Uint8Array(state.baseMask);
+ renderMask();
+ updateInfo();
+ setStatus('Manual edits reset to the latest generated silhouette.', 'success');
+ }
+
+ function setTool(tool) {
+ state.tool = tool;
+ el('paintBtn').classList.toggle('active', tool === 'paint');
+ el('eraseBtn').classList.toggle('active', tool === 'erase');
+ }
+
+ function bindEvents() {
+ el('imageInput').addEventListener('change', function (event) {
+ loadImage(event.target.files[0]);
+ });
+ ['threshold','contrast','blur','noise','smooth'].forEach(function (id) {
+ el(id).addEventListener('input', function () {
+ updateSliderLabels();
+ if (state.image) applySilhouette();
+ });
+ });
+ ['mode','invert','maxSize'].forEach(function (id) {
+ el(id).addEventListener('change', function () {
+ if (state.image) applySilhouette();
+ });
+ });
+ ['svgScale','exportCrop'].forEach(function (id) {
+ el(id).addEventListener('change', updateInfo);
+ });
+ el('brushSize').addEventListener('input', updateSliderLabels);
+ el('applyBtn').addEventListener('click', applySilhouette);
+ el('resetBtn').addEventListener('click', resetEdits);
+ el('paintBtn').addEventListener('click', function () { setTool('paint'); });
+ el('eraseBtn').addEventListener('click', function () { setTool('erase'); });
+ el('downloadSvgBtn').addEventListener('click', downloadSvg);
+ el('downloadPngBtn').addEventListener('click', downloadPng);
+
+ silhouetteCanvas.addEventListener('pointerdown', function (event) {
+ if (!state.mask) return;
+ event.preventDefault();
+ silhouetteCanvas.setPointerCapture(event.pointerId);
+ state.drawing = true;
+ state.lastPoint = getCanvasPoint(event);
+ paintAt(state.lastPoint, null);
+ });
+ silhouetteCanvas.addEventListener('pointermove', function (event) {
+ if (!state.drawing) return;
+ event.preventDefault();
+ var point = getCanvasPoint(event);
+ paintAt(point, state.lastPoint);
+ state.lastPoint = point;
+ });
+ ['pointerup','pointercancel','pointerleave'].forEach(function (name) {
+ silhouetteCanvas.addEventListener(name, function () {
+ state.drawing = false;
+ state.lastPoint = null;
+ });
+ });
+
+ var uploadZone = el('uploadZone');
+ uploadZone.addEventListener('dragover', function (event) {
+ event.preventDefault();
+ uploadZone.classList.add('dragover');
+ });
+ uploadZone.addEventListener('dragleave', function () {
+ uploadZone.classList.remove('dragover');
+ });
+ uploadZone.addEventListener('drop', function (event) {
+ event.preventDefault();
+ uploadZone.classList.remove('dragover');
+ loadImage(event.dataTransfer.files[0]);
+ });
+ }
+
+ bindEvents();
+ updateSliderLabels();
+ drawEmpty();
+ enableExport(false);
+})();
+</script>
+</body>
+</html>
