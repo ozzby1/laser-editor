@@ -1722,6 +1722,18 @@ z-index: 300;
   border-color: rgba(249,115,22,0.88);
   color: #fff;
 }
+
+.guide-nav-link-active {
+  color: #fff;
+  background: rgba(249,115,22,0.08);
+  border-color: rgba(249,115,22,0.78);
+  box-shadow: 0 0 0 1px rgba(249,115,22,0.20), inset 0 0 18px rgba(249,115,22,0.08);
+}
+.guide-nav-link-active:hover,
+.guide-nav-link-active:focus-visible {
+  background: rgba(249,115,22,0.12);
+  border-color: rgba(249,115,22,0.90);
+}
 .guide-eyebrow {
   display: inline-flex;
   align-items: center;
@@ -2462,7 +2474,9 @@ video {
 <img alt="PhotoEngraving.online logo" class="brand-logo" src="/logo.png"/>
 </a>
 <div class="ml-auto flex flex-wrap gap-2 items-center">
-<a aria-label="Open the free laser photo engraving editor" class="guide-nav-link guide-nav-link-primary" href="https://photoengraving.online/">Open editor</a>
+<a aria-current="page" class="guide-nav-link guide-nav-link-active" href="https://photoengraving.online/guide/">User Guide</a>
+<a class="guide-nav-link" href="https://photoengraving.online/">Photo Editor</a>
+<a class="guide-nav-link" href="https://photoengraving.online/qrgenerator/">QR Generator</a>
 </div>
 </header>
 <section class="panel p-6 mb-4">
