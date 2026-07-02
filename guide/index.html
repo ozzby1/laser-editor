@@ -158,7 +158,7 @@
         "How laser photo engraving works",
         "Laser types and material behavior",
         "Choosing a photo for the editor",
-        "PhotoEngraving.online workflow",
+        "Step-by-step editor workflow",
         "Crop and material preview workflow",
         "Output size, DPI and line interval",
         "Test and calibration workflow",
@@ -2469,11 +2469,6 @@ video {
 <div class="guide-eyebrow">Updated PhotoEngraving.online workflow guide</div>
 <h1 class="guide-hero-title">Prepare laser-ready photos with the current editor</h1>
 <p class="guide-hero-subtitle">Use this guide to prepare, preview, export and test laser-ready photos with the current PhotoEngraving.online editor.</p>
-<div class="guide-hero-actions">
-<a class="guide-nav-link guide-nav-link-primary" href="https://photoengraving.online/">Open the free editor</a>
-<a class="guide-nav-link" href="#quick-start">Start the workflow</a>
-<a class="guide-nav-link" href="#export">Export settings</a>
-</div>
 
 </section>
 <div class="guide-layout">
@@ -2481,11 +2476,10 @@ video {
 <div class="section-title">Guide contents</div>
 <a href="#quick-answer">Quick answer</a>
 <a href="#current-editor">What changed</a>
-<a href="#quick-start">Quick start with the editor</a>
+<a href="#workflow">Step-by-step editor workflow</a>
 <a href="#principles">How photo engraving works</a>
 <a href="#laser-types">Laser types</a>
 <a href="#photo-selection">Choosing a good photo</a>
-<a href="#workflow">Editor workflow</a>
 <a href="#crop-material-preview">Crop and material preview</a>
 <a href="#dpi">DPI, line interval and size</a>
 <a href="#calibration">Test and calibration workflow</a>
@@ -2538,20 +2532,27 @@ video {
 <div class="guide-warning"><strong>Material Preview reminder:</strong> the colored material simulation is never the downloaded file. The export remains a clean black-and-white PNG or 1-bit BMP.</div>
 </div>
 </section>
-<section class="panel p-6 guide-section" id="quick-start">
-<h2>Quick start: use the editor before you waste material</h2>
+<section class="panel p-6 guide-section" id="workflow">
+<h2>Step-by-step editor workflow</h2>
 <div class="guide-copy">
 <p>Photo engraving becomes easier when the image preparation and the laser test are treated as one workflow. The purpose of PhotoEngraving.online is to make the image side predictable: you prepare a black-and-white raster image with the correct physical size, DPI and dot pattern before you import it into LightBurn, LaserGRBL, XCS, EZCAD or another laser program.</p>
 <p>The editor does not replace material testing. It gives you a controlled starting file, so your test is about laser power, speed, focus and material behavior instead of accidental scaling, repeated compression or double dithering.</p>
 <div class="guide-step-list">
 <div class="guide-step-item"><div><strong>1. Upload a suitable photo</strong><span>Use the top Upload Photo button, upload area or drag-and-drop target and start with a sharp JPG, PNG, BMP or WebP. A demo image is useful for learning the interface, but your real test should use the actual photo you plan to engrave. The photo is processed locally in your browser.</span></div></div>
-<div class="guide-step-item"><div><strong>2. Crop before judging detail</strong><span>Use <strong>Crop Photo</strong> to remove empty background or keep only the important subject. The crop is applied before dithering, material preview and PNG/BMP export, so it also changes the calculated output height.</span></div></div>
-<div class="guide-step-item"><div><strong>3. Choose the Photo Type</strong><span>Start with <strong>Normal Photo</strong>. Use <strong>Negative</strong> for dark materials such as slate or black anodized aluminum, and wherever the engraved mark becomes lighter than the surrounding surface. Use <strong>Dark Photo</strong> or <strong>Light Photo</strong> only when the original image needs a quick tonal correction before fine tuning.</span></div></div>
-<div class="guide-step-item"><div><strong>4. Adjust brightness, contrast, gamma and sharpness</strong><span>Make the important parts readable. For portraits, that usually means eyes, mouth, hairline and the border between the subject and the background. Avoid pushing contrast so far that skin becomes hard black and white blocks.</span></div></div>
-<div class="guide-step-item"><div><strong>5. Set real size, DPI and dithering</strong><span>Enter the final physical width in millimeters. The tool keeps the aspect ratio, calculates height and shows pixel size. Choose 254, 300 or 508 DPI, or use Custom DPI, then compare Floyd-Steinberg, Atkinson, Jarvis and Ordered/Bayer.</span></div></div>
-<div class="guide-step-item"><div><strong>6. Compare, preview material and inspect dots</strong><span>Use <strong>Original + Output</strong> to compare the source with the laser-ready output, <strong>Output</strong> for a larger result view and <strong>Material Preview</strong> for an approximate look on wood, slate, dark surfaces, stainless steel, glass, leather or ceramic tile. Use the detail magnifier to check face detail and dot structure.</span></div></div>
-<div class="guide-step-item"><div><strong>7. Export and test</strong><span>Download PNG or 1-bit BMP with DPI metadata. Import it into laser software at the same physical size and engrave a small test crop on the real material before committing to the full job.</span></div></div>
+<div class="guide-step-item"><div><strong>2. Crop before judging detail</strong><span>Use <strong>Crop Photo</strong> to remove empty background or keep only the important subject. Choose Free, Original or Square aspect ratio, drag the crop area, then apply it before judging the final dithered output. The crop is applied before dithering, material preview and PNG/BMP export.</span></div></div>
+<div class="guide-step-item"><div><strong>3. Start in Original + Output view</strong><span>The original side reminds you what detail exists in the source, while the output side shows the laser-ready interpretation. Switch to <strong>Output</strong> when you need a larger final preview.</span></div></div>
+<div class="guide-step-item"><div><strong>4. Choose the Photo Type</strong><span>Start with <strong>Normal Photo</strong>. Use <strong>Negative</strong> for dark materials such as slate or black anodized aluminum, and wherever the engraved mark becomes lighter than the surrounding surface. <strong>Dark Photo</strong> and <strong>Light Photo</strong> are quick starting points, but the sliders give more control.</span></div></div>
+<div class="guide-step-item"><div><strong>5. Adjust brightness, contrast, gamma and sharpness</strong><span>Make the important parts readable. For portraits, that usually means eyes, mouth, hairline and the border between the subject and the background. Avoid pushing contrast so far that skin becomes hard black-and-white blocks.</span></div></div>
+<div class="guide-step-item"><div><strong>6. Set the real engraving size</strong><span>Enter the final physical width in millimeters. The tool keeps the aspect ratio, calculates height and shows pixel size. If you change pixel width directly, the millimeter width is recalculated for the selected DPI.</span></div></div>
+<div class="guide-step-item"><div><strong>7. Choose DPI and dithering</strong><span>Use 254 DPI for many softer or rougher materials, 300 DPI as a general photo starting point and 508 DPI for materials that hold finer dots. Use Custom DPI when you know the exact line interval you want. Compare Floyd-Steinberg, Atkinson, Jarvis and Ordered/Bayer.</span></div></div>
+<div class="guide-step-item"><div><strong>8. Inspect the output</strong><span>Move over the preview to inspect detail in the magnifier. On touch devices, hold and drag. Check the eyes, hair, background texture and shadow areas before export.</span></div></div>
+<div class="guide-step-item"><div><strong>9. Use Material Preview carefully</strong><span>Select a material preview when you want a rough visual simulation for wood, slate, dark surfaces, stainless steel, glass, leather or ceramic tile. It helps with inversion and contrast, but it is not the file that will be downloaded.</span></div></div>
+<div class="guide-step-item"><div><strong>10. Export and test</strong><span>Download PNG or 1-bit BMP with DPI metadata. Import it into laser software at the same physical size and engrave a small test crop on the real material before committing to the full job.</span></div></div>
 </div>
+<h3>Brightness, contrast and gamma</h3>
+<p>Brightness moves the whole image lighter or darker. Contrast separates light and dark areas. Gamma is especially useful because it changes midtones without moving pure black and white points as aggressively. For portraits, gamma often helps open the face while keeping hair and eyes strong.</p>
+<h3>Sharpness</h3>
+<p>Sharpening can make eyes, hair and edges more readable, but too much sharpening creates halos and harsh dots. Use the magnifier after sharpening. If the output looks crispy on screen, it may engrave as noise on wood or rough stone.</p>
 <div class="guide-callout"><strong>Workshop rule:</strong> prepare one clean file, test one meaningful crop and change one variable at a time. If you change photo type, DPI, dithering and laser power all at once, you will not know which change actually improved the result.</div>
 </div>
 </section>
@@ -2604,28 +2605,6 @@ video {
 <li>Use a larger source image than the final output whenever possible. Scaling down is safer than enlarging a tiny file.</li>
 </ul>
 <div class="guide-callout"><strong>Portrait tip:</strong> make the eyes and mouth readable first. People forgive a softer background, but they notice a face that has turned into a dark patch.</div>
-</div>
-</section>
-<section class="panel p-6 guide-section" id="workflow">
-<h2>PhotoEngraving.online workflow</h2>
-<div class="guide-copy">
-<p>The editor is designed to be simple, but the order matters. If you set the output size, DPI and photo type before final tonal judgment, the preview becomes much closer to the actual file you will export.</p>
-<div class="guide-step-list">
-<div class="guide-step-item"><div><strong>Upload Photo</strong><span>Drag and drop or click to choose a JPG, PNG, BMP or WebP. The image is processed locally in the browser, so you can test private photos without sending them to the server.</span></div></div>
-<div class="guide-step-item"><div><strong>Crop Photo</strong><span>Open the crop editor when the subject needs tighter framing. Choose Free, Original or Square aspect ratio, drag the crop area, then apply it before judging the final dithered output.</span></div></div>
-<div class="guide-step-item"><div><strong>Use Original + Output view</strong><span>Start in the comparison view. The original side reminds you what detail exists in the source, while the output side shows the laser-ready interpretation. Switch to <strong>Output</strong> when you need a larger final preview.</span></div></div>
-<div class="guide-step-item"><div><strong>Choose Photo Type</strong><span><strong>Normal Photo</strong> is the default. <strong>Negative</strong> inverts the output for dark materials and other surfaces where the engraved mark becomes lighter than the surrounding surface. <strong>Dark Photo</strong> and <strong>Light Photo</strong> are fast starting points, but the sliders give more control.</span></div></div>
-<div class="guide-step-item"><div><strong>Fine tune the photo</strong><span>Use brightness for overall lightness, contrast for separation, gamma for midtones and sharpness for edge detail. Small changes are usually better than extreme slider positions.</span></div></div>
-<div class="guide-step-item"><div><strong>Set Output size</strong><span>Enter the real engraving width in millimeters. The tool calculates the height and pixel size. If you change pixel width directly, the millimeter width is recalculated for the selected DPI.</span></div></div>
-<div class="guide-step-item"><div><strong>Choose DPI and dithering</strong><span>Use 254 DPI for many softer or rougher materials, 300 DPI as a general photo starting point, and 508 DPI for materials that hold finer dots. Use Custom DPI when you know the exact line interval you want.</span></div></div>
-<div class="guide-step-item"><div><strong>Inspect the output</strong><span>Move over the preview to inspect detail in the magnifier. On touch devices, hold and drag. Check the eyes, hair, background texture and shadow areas before export.</span></div></div>
-<div class="guide-step-item"><div><strong>Use Material Preview</strong><span>Select a material preview from the top preview toolbar when you want a rough visual simulation. It helps you think about inversion and contrast, but it is not the file that will be downloaded.</span></div></div>
-<div class="guide-step-item"><div><strong>Download PNG or BMP</strong><span>PNG is a safe default for most workflows. BMP is useful for programs or workflows that prefer simple 1-bit black-and-white bitmap files. Both export paths include DPI metadata for compatible software.</span></div></div>
-</div>
-<h3>Brightness, contrast and gamma</h3>
-<p>Brightness moves the whole image lighter or darker. Contrast separates light and dark areas. Gamma is especially useful because it changes midtones without moving black and white points as aggressively. For portraits, gamma often helps open the face while keeping hair and eyes strong.</p>
-<h3>Sharpness</h3>
-<p>Sharpening can make eyes, hair and edges more readable, but too much sharpening creates halos and harsh dots. Use the magnifier after sharpening. If the output looks crispy on screen, it may engrave as noise on wood or rough stone.</p>
 </div>
 </section>
 <section class="panel p-6 guide-section" id="crop-material-preview">
@@ -2980,7 +2959,7 @@ video {
 <p>Use PhotoEngraving.online to upload your photo, crop it, choose Photo Type, tune contrast, set the real physical width, choose DPI, preview dithering and material behavior, then export a laser-ready PNG or 1-bit BMP. Confirm the result on your real material with a small test crop before engraving the full piece.</p>
 <div class="guide-hero-actions">
 <a class="btn btn-primary" href="https://photoengraving.online/">Open the free photo engraving editor</a>
-<a class="btn btn-secondary" href="#quick-start">Back to top</a>
+<a class="btn btn-secondary" href="#quick-answer">Back to top</a>
 </div>
 </div>
 </section>
