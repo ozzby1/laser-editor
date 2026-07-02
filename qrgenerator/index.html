@@ -490,6 +490,29 @@ input[type="range"] {
  width: 100%;
 }
 
+.file-picker {
+ display: flex;
+ align-items: center;
+ gap: 10px;
+ flex-wrap: wrap;
+}
+
+.file-picker input[type="file"] {
+ position: absolute;
+ width: 1px;
+ height: 1px;
+ opacity: 0;
+ pointer-events: none;
+}
+
+.file-name {
+ color: #94a3b8;
+ font-size: 0.8rem;
+ line-height: 1.4;
+ min-width: 0;
+ overflow-wrap: anywhere;
+}
+
 .slider-row {
  display: grid;
  grid-template-columns: 1fr auto;
@@ -2471,7 +2494,11 @@ module.exports = QRCode;
  <div class="form-grid">
  <div class="field full">
  <label for="logoInput">Upload center logo</label>
+ <div class="file-picker">
  <input id="logoInput" type="file" accept="image/png,image/jpeg,image/webp,image/svg+xml">
+ <button class="btn btn-secondary" id="chooseLogoBtn" type="button">Choose file</button>
+ <span class="file-name" id="logoFileName">No file chosen</span>
+ </div>
  <div class="logo-preview" id="logoPreview"><img id="logoPreviewImg" alt=""><span id="logoPreviewText">Logo loaded</span></div>
  </div>
  <div class="field">
@@ -3642,6 +3669,7 @@ canvas.width = 1024;
  state.logoDataUrl = reader.result;
  el('logoPreviewImg').src = reader.result;
  el('logoPreviewText').textContent = file.name;
+ if (el('logoFileName')) el('logoFileName').textContent = file.name;
  el('logoPreview').classList.add('visible');
  el('errorCorrection').value = 'H';
  update();
@@ -3658,6 +3686,7 @@ canvas.width = 1024;
  state.logoImage = null;
  state.logoDataUrl = '';
  el('logoInput').value = '';
+ if (el('logoFileName')) el('logoFileName').textContent = 'No file chosen';
  el('logoPreview').classList.remove('visible');
  update();
  }
@@ -3768,6 +3797,11 @@ canvas.width = 1024;
  el('logoInput').addEventListener('change', function (event) {
  loadLogo(event.target.files[0]);
  });
+ if (el('chooseLogoBtn')) {
+ el('chooseLogoBtn').addEventListener('click', function () {
+ el('logoInput').click();
+ });
+ }
  el('removeLogoBtn').addEventListener('click', removeLogo);
  el('downloadPngBtn').addEventListener('click', downloadPng);
  if (el('downloadSvgBtn')) {
