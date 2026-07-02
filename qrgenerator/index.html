@@ -2710,7 +2710,7 @@ module.exports = QRCode;
  PhotoEngraving.online QR Generator creates static QR images in the browser. It does not store QR payloads and cannot recover or edit a code after you download it.
  </p>
  <p class="qr-history-counter" aria-live="polite">
- Generated QR codes: <strong id="qrHistoryCount">0</strong>
+ Total generated QR codes: <strong id="qrHistoryCount">...</strong>
  </p>
  </footer>
 </div>
@@ -2729,30 +2729,42 @@ module.exports = QRCode;
  lastPayloadType: 'url'
  };
 
- var historyCounterKey = 'photoengravingQrGeneratedCount';
+ var abacusGet = 'https://abacus.jasoncameron.dev/get/stunning-twilight-266e8a/qr-codes';
+ var abacusHit = 'https://abacus.jasoncameron.dev/hit/stunning-twilight-266e8a/qr-codes';
 
- function getHistoryCount() {
- try {
- var count = Number(localStorage.getItem(historyCounterKey));
- return Number.isFinite(count) && count > 0 ? Math.floor(count) : 0;
- } catch (err) {
- return 0;
- }
+ function formatCount(count) {
+ return Number(count || 0).toLocaleString('en-US');
  }
 
- function updateHistoryCounter() {
+ function updateHistoryCounter(count) {
  var countEl = el('qrHistoryCount');
- if (countEl) countEl.textContent = String(getHistoryCount());
+ if (countEl) countEl.textContent = Number.isFinite(Number(count)) ? formatCount(count) : 'Unavailable';
+ }
+
+ function loadHistoryCounter() {
+ fetch(abacusGet)
+ .then(function (response) {
+ if (!response.ok) throw new Error('Counter unavailable');
+ return response.json();
+ })
+ .then(function (data) {
+ updateHistoryCounter(data.value);
+ })
+ .catch(function () {
+ updateHistoryCounter(null);
+ });
  }
 
  function countGeneratedQr() {
- var next = getHistoryCount() + 1;
- try {
- localStorage.setItem(historyCounterKey, String(next));
- } catch (err) {
- return;
- }
- updateHistoryCounter();
+ fetch(abacusHit)
+ .then(function (response) {
+ if (!response.ok) throw new Error('Counter unavailable');
+ return response.json();
+ })
+ .then(function (data) {
+ updateHistoryCounter(data.value);
+ })
+ .catch(function () {});
  }
 
  var examples = {
@@ -3859,7 +3871,7 @@ canvas.width = 1024;
  }
 
  bindEvents();
- updateHistoryCounter();
+ loadHistoryCounter();
  renderFields('url');
 })();
 </script>
