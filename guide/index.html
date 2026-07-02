@@ -7,7 +7,7 @@
 <title>PhotoEngraving.online User Guide 2026: Updated Photo Engraving Editor Workflow</title>
 <meta content="Updated PhotoEngraving.online user guide for the current laser photo editor: upload and crop photos, use material preview, choose photo type, adjust tones, set size and DPI, compare dithering, export PNG or 1-bit BMP, and test on real materials." name="description"/>
 <meta content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" name="robots"/>
-<meta content="PhotoEngraving.online guide, photo to laser engraving converter, laser engraving photo editor, laser-ready PNG, BMP laser engraving, DPI metadata, dithering for laser engraving, Floyd-Steinberg, Atkinson, Jarvis, Bayer, LightBurn PNG, LaserGRBL photo engraving, XCS bitmap engraving, EZCAD photo engraving" name="keywords"/>
+<meta content="PhotoEngraving.online guide, photo to laser engraving converter, how to prepare a photo for laser engraving, best DPI for laser engraving photos, laser engraving photo editor, laser-ready PNG, 1-bit BMP laser engraving, PNG vs BMP for laser engraving, DPI metadata, dithering for laser engraving, Floyd-Steinberg, Atkinson, Jarvis, Bayer, negative mode slate engraving, LightBurn PNG, LaserGRBL photo engraving, XCS bitmap engraving, EZCAD photo engraving" name="keywords"/>
 <meta content="PhotoEngraving.online, laser photo editor, DPI, dithering, PNG, BMP" name="news_keywords"/>
 <meta content="en_US" property="og:locale"/>
 <meta content="2026-06-27" property="article:published_time"/>
@@ -134,7 +134,7 @@
       "@id": "https://photoengraving.online/guide#article",
       "headline": "PhotoEngraving.online User Guide: Current Workflow for Laser-Ready Photos",
       "alternativeHeadline": "Updated Photo to Laser Engraving Editor Guide 2026",
-      "description": "A hands-on guide for using the current PhotoEngraving.online editor to prepare photos for laser engraving, with practical advice on image choice, cropping, Photo Type presets, brightness, contrast, gamma, sharpness, material preview, DPI, line interval, dithering, PNG/1-bit BMP export, laser software import, material testing and troubleshooting.",
+      "description": "A hands-on guide for using the current PhotoEngraving.online editor to prepare photos for laser engraving, with practical advice on image choice, cropping, Photo Type presets, brightness, contrast, gamma, sharpness, material preview, DPI, line interval, dithering, PNG/1-bit BMP export, laser software import, material workflows, glossary, testing and troubleshooting.",
       "image": {
         "@type": "ImageObject",
         "url": "https://photoengraving.online/fb.png",
@@ -154,6 +154,7 @@
       },
       "articleSection": [
         "Quick start with PhotoEngraving.online",
+        "What changed in the current editor",
         "How laser photo engraving works",
         "Laser types and material behavior",
         "Choosing a photo for the editor",
@@ -163,10 +164,12 @@
         "Test and calibration workflow",
         "Dithering inside the tool",
         "Material-specific advice",
+        "Mini workflows by material",
         "Starting settings and test ideas",
         "Software workflow after export",
         "Export and file handling",
         "Troubleshooting",
+        "Glossary",
         "Safety",
         "Advanced techniques",
         "Final quality checklist",
@@ -175,6 +178,10 @@
       "keywords": [
         "PhotoEngraving.online guide",
         "photo to laser engraving converter",
+        "how to prepare a photo for laser engraving",
+        "best DPI for laser engraving photos",
+        "PNG vs BMP for laser engraving",
+        "negative mode for slate engraving",
         "laser-ready PNG",
         "BMP laser engraving",
         "DPI metadata",
@@ -315,6 +322,30 @@
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "No. Material Preview is an approximate visual simulation only. The downloaded PNG or BMP remains the clean black-and-white laser-ready output."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is the best image format for laser engraving photos?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Use PNG as the default final export because it is clean, widely supported and includes DPI metadata. Use 1-bit BMP when your laser software or workflow handles strict black-and-white bitmap files more predictably."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Should I use grayscale or dithering for laser engraving?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Use dithering when you want PhotoEngraving.online to create the final black-and-white dot pattern before import. Avoid dithering again in laser software. Grayscale workflows can work too, but they depend more on software and machine power modulation."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why does my laser engraving photo look too dark?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Common causes are too much laser energy, crushed shadows, excessive contrast, too high DPI for the material or dot growth. Try a lighter gamma, lower contrast, Atkinson dithering, lower DPI, faster speed or less power."
           }
         },
         {
@@ -2437,7 +2468,7 @@ video {
 <section class="panel p-6 mb-4">
 <div class="guide-eyebrow">Updated PhotoEngraving.online workflow guide</div>
 <h1 class="guide-hero-title">Prepare laser-ready photos with the current editor</h1>
-<p class="guide-hero-subtitle">This guide follows the current PhotoEngraving.online tool: upload a photo, crop it if needed, choose the photo type, tune brightness, contrast, gamma and sharpness, set the real engraving width in millimeters, choose preset or custom DPI, compare dithering methods, inspect the output, preview the image on common materials and export a PNG or 1-bit BMP for your laser software.</p>
+<p class="guide-hero-subtitle">Use this guide to prepare, preview, export and test laser-ready photos with the current PhotoEngraving.online editor.</p>
 <div class="guide-hero-actions">
 <a class="guide-nav-link guide-nav-link-primary" href="https://photoengraving.online/">Open the free editor</a>
 <a class="guide-nav-link" href="#quick-start">Start the workflow</a>
@@ -2448,6 +2479,8 @@ video {
 <div class="guide-layout">
 <aside class="panel p-4 guide-toc">
 <div class="section-title">Guide contents</div>
+<a href="#quick-answer">Quick answer</a>
+<a href="#current-editor">What changed</a>
 <a href="#quick-start">Quick start with the editor</a>
 <a href="#principles">How photo engraving works</a>
 <a href="#laser-types">Laser types</a>
@@ -2458,10 +2491,12 @@ video {
 <a href="#calibration">Test and calibration workflow</a>
 <a href="#dithering">Dithering in the tool</a>
 <a href="#materials">Material-specific advice</a>
+<a href="#material-workflows">Material workflows</a>
 <a href="#settings">Starting settings and tests</a>
 <a href="#software">Laser software workflow</a>
 <a href="#export">Export and file handling</a>
 <a href="#troubleshooting">Troubleshooting</a>
+<a href="#glossary">Glossary</a>
 <a href="#safety">Safety</a>
 <a href="#advanced">Advanced techniques</a>
 <a href="#quality-control">Final quality checklist</a>
@@ -2469,6 +2504,40 @@ video {
 <a href="#sources">Sources</a>
 </aside>
 <main class="guide-main">
+<section class="panel p-6 guide-section" id="quick-answer">
+<h2>Quick answer: good first settings</h2>
+<div class="guide-copy">
+<p>If you need a practical starting point before reading the full guide, use the table below. It is not a final recipe, but it gives you a controlled first export for a real material test.</p>
+<div class="guide-table-wrap">
+<table class="guide-table">
+<thead><tr><th>Job</th><th>Start with</th><th>Export</th><th>First check</th></tr></thead>
+<tbody>
+<tr><td>Wood portrait</td><td>Normal Photo, 254 DPI, Floyd-Steinberg, moderate contrast, gentle gamma lift.</td><td>PNG</td><td>Eyes readable, shadows not burned into one dark patch.</td></tr>
+<tr><td>Slate portrait</td><td>Negative, 254 or 300 DPI, Floyd-Steinberg or Jarvis, stronger midtone contrast.</td><td>PNG</td><td>Face not washed out after inversion; highlights still separated.</td></tr>
+<tr><td>Black anodized aluminum</td><td>Negative, 508 DPI or tested Custom DPI, Floyd-Steinberg or Jarvis.</td><td>PNG or 1-bit BMP</td><td>Fine facial dots survive the marking settings.</td></tr>
+<tr><td>Glass photo</td><td>Usually Negative, 254 or 300 DPI, lower contrast, Floyd-Steinberg or Ordered/Bayer.</td><td>PNG</td><td>No harsh white crust, chipping or lost skin softness.</td></tr>
+<tr><td>Leather photo</td><td>Normal Photo, 254 DPI, Atkinson or Floyd-Steinberg, lighter shadows.</td><td>PNG or 1-bit BMP</td><td>Heat spread does not turn details smoky or dirty.</td></tr>
+</tbody>
+</table>
+</div>
+<div class="guide-callout"><strong>Fast rule:</strong> for light materials that engrave darker, start with Normal Photo. For dark materials that engrave lighter, start with Negative. Then test a small crop before the full job.</div>
+</div>
+</section>
+<section class="panel p-6 guide-section" id="current-editor">
+<h2>What changed in the current editor</h2>
+<div class="guide-copy">
+<p>The current PhotoEngraving.online editor is more than a simple photo filter. These features are now part of the normal workflow and are reflected throughout this guide.</p>
+<div class="guide-grid-3">
+<div class="guide-card"><div class="guide-card-title">Crop before export</div><p class="guide-card-text">The Crop Photo tool lets you remove empty background and choose Free, Original or Square framing before dithering, material preview and export.</p></div>
+<div class="guide-card"><div class="guide-card-title">Preview modes</div><p class="guide-card-text">Use Original + Output for editing decisions, Output for final black-and-white inspection and Material Preview for rough visual context.</p></div>
+<div class="guide-card"><div class="guide-card-title">Material Preview</div><p class="guide-card-text">Wood, slate, dark surfaces, stainless steel, glass, leather and ceramic tile previews help with inversion and contrast choices.</p></div>
+<div class="guide-card"><div class="guide-card-title">Dithering choices</div><p class="guide-card-text">Floyd-Steinberg, Atkinson, Jarvis and Ordered/Bayer are available directly in the editor, so the exported file already contains the dot pattern.</p></div>
+<div class="guide-card"><div class="guide-card-title">DPI and real size</div><p class="guide-card-text">Set output width in millimeters, choose 254, 300, 508 or Custom DPI and check the calculated pixel size before export.</p></div>
+<div class="guide-card"><div class="guide-card-title">PNG and 1-bit BMP</div><p class="guide-card-text">Both export paths are intended for laser software and include DPI metadata. PNG is the default; BMP helps strict black-and-white workflows.</p></div>
+</div>
+<div class="guide-warning"><strong>Material Preview reminder:</strong> the colored material simulation is never the downloaded file. The export remains a clean black-and-white PNG or 1-bit BMP.</div>
+</div>
+</section>
 <section class="panel p-6 guide-section" id="quick-start">
 <h2>Quick start: use the editor before you waste material</h2>
 <div class="guide-copy">
@@ -2688,6 +2757,21 @@ video {
 <div class="guide-callout"><strong>One photo, several versions:</strong> create a wood version, a slate version and a metal version separately. The editor makes this fast, and each material usually needs different inversion, gamma and dot density.</div>
 </div>
 </section>
+<section class="panel p-6 guide-section" id="material-workflows">
+<h2>Mini workflows by material</h2>
+<div class="guide-copy">
+<p>Use these as short, repeatable recipes for the first test crop. After the first engraving, change only one thing: image settings, DPI, dithering or laser parameters.</p>
+<div class="guide-grid-2">
+<div class="guide-card"><div class="guide-card-title">Wood portrait workflow</div><p class="guide-card-text">Crop close enough that the face fills the engraving. Start with Normal Photo, 254 DPI, Floyd-Steinberg, brightness near default, moderate contrast and gentle gamma lift. Export PNG, import at the same millimeter width and test a crop with an eye, hair and shadow.</p></div>
+<div class="guide-card"><div class="guide-card-title">Slate portrait workflow</div><p class="guide-card-text">Start with Negative because slate usually engraves lighter. Try 254 or 300 DPI, Floyd-Steinberg or Jarvis and stronger midtone contrast. Use Material Preview for a rough inversion check, then trust the real slate test.</p></div>
+<div class="guide-card"><div class="guide-card-title">Black anodized aluminum workflow</div><p class="guide-card-text">Start with Negative, 508 DPI or a tested Custom DPI, Floyd-Steinberg or Jarvis and a clean high-resolution source. Export PNG or 1-bit BMP and tune marking settings so tiny dots appear without merging or disappearing.</p></div>
+<div class="guide-card"><div class="guide-card-title">Glass workflow</div><p class="guide-card-text">Start with Negative for many glass jobs, 254 or 300 DPI and lower contrast than you would use on wood. Compare Floyd-Steinberg and Ordered/Bayer. Test a small crop because glass roughness and chipping are not visible in the browser preview.</p></div>
+<div class="guide-card"><div class="guide-card-title">Leather workflow</div><p class="guide-card-text">Start with Normal Photo, 254 DPI, Atkinson or Floyd-Steinberg and lighter shadows. Leather spreads heat, so avoid dense black areas. Keep sharpness conservative and test lower energy before trying a darker file.</p></div>
+<div class="guide-card"><div class="guide-card-title">Ceramic tile workflow</div><p class="guide-card-text">Start with Normal Photo for dark marks on pale tile, or Negative if your coating produces a light mark. Try 300 or 508 DPI only if the glaze or coating holds dots cleanly. Treat each tile, spray and coating as a separate recipe.</p></div>
+</div>
+<div class="guide-success"><strong>Best first crop:</strong> include one eye, hair texture, a dark shadow, a bright highlight and a small piece of background. That single crop tells you more than a full engraving that fails everywhere at once.</div>
+</div>
+</section>
 <section class="panel p-6 guide-section" id="settings">
 <h2>Starting settings and test ideas</h2>
 <div class="guide-copy">
@@ -2716,6 +2800,18 @@ video {
 </div>
 <h3>Pass-through and pre-dithered files</h3>
 <p>When a file already contains a final black-and-white dot pattern, it should not be interpreted as a normal grayscale photograph again. Use pass-through where your software supports it, or choose settings that preserve black pixels as mark pixels and white pixels as no-mark pixels.</p>
+<h3>Common import checks</h3>
+<div class="guide-table-wrap">
+<table class="guide-table">
+<thead><tr><th>Software</th><th>Check first</th><th>Avoid</th></tr></thead>
+<tbody>
+<tr><td>LightBurn</td><td>Confirm imported size in millimeters, use pass-through or a true black-and-white workflow for pre-dithered files, and check line interval/overscan.</td><td>Applying another image mode or dithering algorithm to an already dithered export.</td></tr>
+<tr><td>LaserGRBL</td><td>Confirm image size and line-to-line settings. Preserve the black-and-white pattern if the file came from PhotoEngraving.online.</td><td>Re-running import dithering unless you intentionally start from a grayscale workflow.</td></tr>
+<tr><td>xTool XCS</td><td>Check bitmap mode, physical dimensions, quality setting and whether the app changes contrast or dithering.</td><td>Letting the software resize the image without noticing.</td></tr>
+<tr><td>EZCAD / fiber workflows</td><td>Confirm bitmap scale, lens/field size and marking parameters. Tune speed, power, frequency and pulse width if available on your machine.</td><td>Assuming a screen preview predicts coating reaction on metal.</td></tr>
+</tbody>
+</table>
+</div>
 <h3>Overscan and borders</h3>
 <p>Raster engraving often needs overscan so the head reaches stable speed before marking. If edges are darker or lighter, check acceleration, overscan and scan direction in the laser software rather than changing the photo first.</p>
 </div>
@@ -2767,6 +2863,23 @@ video {
 </table>
 </div>
 <div class="guide-callout"><strong>Diagnose from the material, not only from the preview.</strong> If the physical result is wrong, look at the mark: too much heat, wrong inversion, scaling error, dot growth and double dithering each leave different clues.</div>
+</div>
+</section>
+<section class="panel p-6 guide-section" id="glossary">
+<h2>Laser photo engraving glossary</h2>
+<div class="guide-copy">
+<p>These terms appear often in photo engraving guides and laser software. Knowing them makes it easier to compare editor settings with real machine settings.</p>
+<div class="guide-grid-3">
+<div class="guide-card"><div class="guide-card-title">DPI</div><p class="guide-card-text">Dots per inch. In the editor, DPI links pixel count to the real physical size in millimeters.</p></div>
+<div class="guide-card"><div class="guide-card-title">Line interval</div><p class="guide-card-text">Distance between raster lines. It is the inverse of DPI: line interval in mm = 25.4 ÷ DPI.</p></div>
+<div class="guide-card"><div class="guide-card-title">Dithering</div><p class="guide-card-text">A method that turns gray tones into black-and-white dot patterns so tone is created by dot density.</p></div>
+<div class="guide-card"><div class="guide-card-title">Dot gain</div><p class="guide-card-text">The real laser mark becomes larger than the image pixel because of heat, smoke, coating or material texture.</p></div>
+<div class="guide-card"><div class="guide-card-title">Gamma</div><p class="guide-card-text">A midtone control. It can open or deepen faces without moving pure black and white as aggressively as contrast.</p></div>
+<div class="guide-card"><div class="guide-card-title">Negative image</div><p class="guide-card-text">Black and white are swapped. It is useful when the laser mark becomes lighter than the material surface.</p></div>
+<div class="guide-card"><div class="guide-card-title">1-bit BMP</div><p class="guide-card-text">A strict black-and-white bitmap format. PhotoEngraving.online exports it with a black/white palette and DPI metadata.</p></div>
+<div class="guide-card"><div class="guide-card-title">Pass-through</div><p class="guide-card-text">A laser software mode or workflow that preserves a prepared bitmap instead of changing contrast or dithering again.</p></div>
+<div class="guide-card"><div class="guide-card-title">Material Preview</div><p class="guide-card-text">A browser-only simulation of surface color and mark color. It is not the downloaded laser file.</p></div>
+</div>
 </div>
 </section>
 <section class="panel p-6 guide-section" id="safety">
@@ -2829,6 +2942,9 @@ video {
 <details><summary>What does Negative Photo Type do?</summary><p>Negative swaps black and white in the final output. Use it for dark materials such as slate, dark acrylic or black anodized aluminum, and for any surface where the engraved mark becomes lighter than the surrounding material. Use Normal Photo for light wood where burned areas become darker.</p></details>
 <details><summary>Which dithering method should I start with?</summary><p>Start with Floyd-Steinberg. Try Atkinson when the result is too dark or you want a softer lighter look. Try Jarvis when the material can hold fine detail and you want smoother tones. Try Ordered/Bayer for logos, graphic-style work or a regular visible pattern.</p></details>
 <details><summary>Should I dither again in LightBurn, LaserGRBL, XCS or EZCAD?</summary><p>Normally no. If the exported file from PhotoEngraving.online is already dithered, avoid applying another dithering algorithm in your laser software. Use pass-through or a true black-and-white workflow where possible.</p></details>
+<details><summary>What is the best image format for laser engraving photos?</summary><p>Use PNG as the default final export because it is clean, widely supported and includes DPI metadata. Use 1-bit BMP when your software or workflow prefers a strict black-and-white bitmap file.</p></details>
+<details><summary>Should I use grayscale or dithering for laser engraving?</summary><p>Use dithering when you want PhotoEngraving.online to create the final black-and-white dot pattern before import. Grayscale workflows can work too, but they depend more on laser software, power modulation and material behavior. Do not use both workflows at once.</p></details>
+<details><summary>Why does my laser engraving photo look too dark?</summary><p>The common causes are too much laser energy, crushed shadows, too much contrast, high DPI on a soft material or dot gain. Try lighter gamma, lower contrast, Atkinson dithering, lower DPI, faster speed or less power.</p></details>
 <details><summary>Is Material Preview the file I download?</summary><p>No. Material Preview is an approximate visual simulation only. It helps with inversion and rough contrast decisions, but the downloaded PNG or BMP remains the clean black-and-white laser-ready output.</p></details>
 <details><summary>Does the PNG or BMP include DPI information?</summary><p>Yes. PNG and 1-bit BMP exports include DPI metadata so compatible software can preserve the intended physical size more easily. Still, always confirm the millimeter size after import because some programs ignore or reinterpret metadata.</p></details>
 <details><summary>Can I use my own DPI value?</summary><p>Yes. Use Custom DPI when you know the exact line interval you want or when your machine/material test shows that a value between the presets works better.</p></details>
