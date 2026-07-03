@@ -2684,7 +2684,7 @@ z-index: 2200;
 <input id="materialPower" max="160" min="40" step="5" type="range" value="100"/>
 </div>
 <div class="helper-text" data-i18n="materialPowerHelp">
-         Adjusts only the Material Preview to simulate weaker or stronger laser marks. Higher power can darken the mark; burnable materials may also show more edge spread. The exported PNG/BMP stays unchanged.
+         Adjusts only the Material Preview. Lower values show a lighter mark; higher values show a stronger mark. On wood and other burnable materials, very high power can reduce fine detail. The exported PNG/BMP stays unchanged.
         </div>
 </div>
 <input hidden="" id="invertColors" type="checkbox"/>
@@ -3253,7 +3253,7 @@ const translations = {
     labelGamma: 'Gamma',
     labelSharpness: 'Sharpness',
     labelMaterialPower: 'Material Preview laser power',
-    materialPowerHelp: 'Adjusts only the Material Preview to simulate weaker or stronger laser marks. Higher power can darken the mark; burnable materials may also show more edge spread. The exported PNG/BMP stays unchanged.',
+    materialPowerHelp: 'Adjusts only the Material Preview. Lower values show a lighter mark; higher values show a stronger mark. On wood and other burnable materials, very high power can reduce fine detail. The exported PNG/BMP stays unchanged.',
     resetBtn: '↺ Default Settings',
     sectionOutput: 'Output',
     labelOutputWidthMm: 'Image width',
@@ -3305,7 +3305,7 @@ const translations = {
     materialTipWood: 'Birch plywood and light wood usually engrave darker than the surface. Expect some dot gain, especially on plywood and softer wood.',
     materialTipSlate: 'Slate and dark stone usually engrave lighter than the surface. Negative mode is often the right starting point.',
     materialTipBlackAnodized: 'Black anodized aluminum usually engraves lighter or silvery. Negative mode is often useful for photo engraving on this material.',
-    materialTipStainless: 'Stainless steel preview is only approximate. Higher preview power increases mark darkness, but it does not simulate the burnt edge spread used for wood. Real results depend strongly on fiber/diode laser type, marking spray, focus, speed and power.',
+    materialTipStainless: 'Stainless steel preview is only approximate. Higher preview power increases mark darkness, but it does not add the burnt-edge damage effect used for wood. Real results depend strongly on fiber/diode laser type, marking spray, focus, speed and power.',
     materialTipGlass: 'Glass usually produces a frosted, milky mark. Real results depend strongly on focus, coating and laser type.',
     materialTipLeather: 'Leather usually engraves darker and can spread slightly. Lower detail and test pieces are recommended.',
     materialTipCeramic: 'Ceramic tile can behave differently depending on glaze, coating and spray. Treat this preview as a rough visual guide.',
@@ -3421,7 +3421,7 @@ const translations = {
     labelGamma: 'Гамма',
     labelSharpness: 'Резкость',
     labelMaterialPower: 'Мощность лазера в предпросмотре материала',
-    materialPowerHelp: 'Меняет только предпросмотр материала, чтобы имитировать более слабый или сильный след лазера. Более высокая мощность может затемнять отметку; горючие материалы могут также показывать большее расширение края. Экспорт PNG/BMP не меняется.',
+    materialPowerHelp: 'Меняет только предпросмотр материала. Низкие значения показывают более светлую отметку, высокие - более сильную. На дереве и других горючих материалах очень высокая мощность может уменьшить мелкие детали. Экспорт PNG/BMP не меняется.',
     resetBtn: '↺ Настройки по умолчанию',
     sectionOutput: 'Вывод',
     labelOutputWidthMm: 'Ширина изображения',
