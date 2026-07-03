@@ -105,7 +105,7 @@
         "Custom DPI setting",
         "Recommended DPI by material and engraving speed guidance",
         "Approximate material preview simulation",
-        "Adjustable material preview laser power",
+        "Adjustable Material Preview laser power",
         "Original and output comparison preview",
         "Brightness and contrast adjustment",
         "Gamma correction",
@@ -2583,7 +2583,7 @@ z-index: 2200;
 </div>
 <div id="materialView" style="display:none">
 <div class="canvas-label accent" id="materialPreviewLabel">
-         Material preview
+         Material Preview
         </div>
 <div class="zoom-hover canvas-wrap">
 <canvas class="w-full" id="canvasMaterialPreview">
@@ -2678,13 +2678,13 @@ z-index: 2200;
 </div>
 <div>
 <label data-i18n="labelMaterialPower" for="materialPower">
-         Material preview laser power
+         Material Preview laser power
         </label>
 <div class="slider-row mt-1">
 <input id="materialPower" max="160" min="40" step="5" type="range" value="100"/>
 </div>
 <div class="helper-text" data-i18n="materialPowerHelp">
-         Adjusts only the material preview to simulate weaker or stronger laser marks. Higher power darkens and spreads the engraving preview; the exported PNG/BMP stays unchanged.
+         Adjusts only the Material Preview to simulate weaker or stronger laser marks. Higher power darkens and spreads the engraving preview; the exported PNG/BMP stays unchanged.
         </div>
 </div>
 <input hidden="" id="invertColors" type="checkbox"/>
@@ -2986,10 +2986,10 @@ z-index: 2200;
          </div>
 <div>
 <p class="font-semibold text-white" data-i18n="helpStep3Title">
-           Tune the image and material preview
+           Tune the image and Material Preview
           </p>
 <p class="text-sm mt-1 text-slate-400" data-i18n="helpStep3Text">
-           Adjust brightness, contrast, gamma and sharpness while checking Original + Output. Use Material Preview for wood, slate, dark anodized surfaces, stainless steel, glass, leather or ceramic tile, then move Material preview laser power to roughly simulate weaker or stronger laser marks before testing on real material.
+           Adjust brightness, contrast, gamma and sharpness while checking Original + Output. Use Material Preview for wood, slate, dark anodized surfaces, stainless steel, glass, leather or ceramic tile, then move Material Preview laser power to roughly simulate weaker or stronger laser marks before testing on real material.
           </p>
 </div>
 </div>
@@ -3252,8 +3252,8 @@ const translations = {
     labelContrast: 'Contrast',
     labelGamma: 'Gamma',
     labelSharpness: 'Sharpness',
-    labelMaterialPower: 'Material preview laser power',
-    materialPowerHelp: 'Adjusts only the material preview to simulate weaker or stronger laser marks. Higher power darkens and spreads the engraving preview; the exported PNG/BMP stays unchanged.',
+    labelMaterialPower: 'Material Preview laser power',
+    materialPowerHelp: 'Adjusts only the Material Preview to simulate weaker or stronger laser marks. Higher power darkens and spreads the engraving preview; the exported PNG/BMP stays unchanged.',
     resetBtn: '↺ Default Settings',
     sectionOutput: 'Output',
     labelOutputWidthMm: 'Image width',
@@ -3291,7 +3291,7 @@ const translations = {
     emptyOriginalAlt: 'Preview original image',
     emptyResultAlt: 'Preview output image',
     btnMaterialPreview: 'Material Preview',
-    labelMaterialPreview: 'Material preview',
+    labelMaterialPreview: 'Material Preview',
     sectionMaterialPreview: 'Material Preview',
     materialWood: 'Wood',
     materialSlate: 'Slate',
@@ -3316,8 +3316,8 @@ const translations = {
     helpStep1Text: 'Drag a JPG, PNG, BMP or WebP into the editor, or click Upload photo. Use Crop photo when you need to remove background, frame a portrait, keep the original ratio or make a square engraving area.',
     helpStep2Title: 'Choose photo type and dithering',
     helpStep2Text: 'Start with Normal Photo, Negative, People, Dark Photo or Light Photo. Then choose the dithering pattern: Floyd-Steinberg is a balanced default, Atkinson is softer, Jarvis keeps smoother tones, and Ordered/Bayer is useful for graphic, regular-dot looks.',
-    helpStep3Title: 'Tune the image and material preview',
-    helpStep3Text: 'Adjust brightness, contrast, gamma and sharpness while checking Original + Output. Use Material Preview for wood, slate, dark anodized surfaces, stainless steel, glass, leather or ceramic tile, then move Material preview laser power to roughly simulate weaker or stronger laser marks before testing on real material.',
+    helpStep3Title: 'Tune the image and Material Preview',
+    helpStep3Text: 'Adjust brightness, contrast, gamma and sharpness while checking Original + Output. Use Material Preview for wood, slate, dark anodized surfaces, stainless steel, glass, leather or ceramic tile, then move Material Preview laser power to roughly simulate weaker or stronger laser marks before testing on real material.',
     helpStep4Title: 'Set size, DPI and export',
     helpStep4Text: 'Enter the real engraving width in millimeters, choose 254, 300, 508 or Custom DPI, and watch the pixel count update. If the preview looks right, download PNG or 1-bit BMP with DPI metadata and import it into your laser software.',
     helpDpiTitle: 'Recommended DPI by material',
