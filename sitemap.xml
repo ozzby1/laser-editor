@@ -296,4 +296,16 @@
     <xhtml:link rel="alternate" hreflang="zh-CN" href="https://photoengraving.online/zh/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://photoengraving.online/"/>
   </url>
+  <url>
+    <loc>https://photoengraving.online/qrgenerator/</loc>
+    <lastmod>2026-07-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://photoengraving.online/guide/</loc>
+    <lastmod>2026-07-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
 </urlset>
