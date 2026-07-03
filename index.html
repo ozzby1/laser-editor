@@ -3305,7 +3305,7 @@ const translations = {
     materialTipWood: 'Birch plywood and light wood usually engrave darker than the surface. Expect some dot gain, especially on plywood and softer wood.',
     materialTipSlate: 'Slate and dark stone usually engrave lighter than the surface. Negative mode is often the right starting point.',
     materialTipBlackAnodized: 'Black anodized aluminum usually engraves lighter or silvery. Negative mode is often useful for photo engraving on this material.',
-    materialTipStainless: 'Stainless steel preview is only approximate. Real results depend strongly on fiber/diode laser type, marking spray, focus, speed and power.',
+    materialTipStainless: 'Stainless steel preview is only approximate. Higher preview power increases mark darkness, but it does not simulate the burnt edge spread used for wood. Real results depend strongly on fiber/diode laser type, marking spray, focus, speed and power.',
     materialTipGlass: 'Glass usually produces a frosted, milky mark. Real results depend strongly on focus, coating and laser type.',
     materialTipLeather: 'Leather usually engraves darker and can spread slightly. Lower detail and test pieces are recommended.',
     materialTipCeramic: 'Ceramic tile can behave differently depending on glaze, coating and spray. Treat this preview as a rough visual guide.',
@@ -3473,7 +3473,7 @@ const translations = {
     materialTipWood: 'Березовая фанера и светлая древесина обычно гравируются темнее поверхности. Ожидайте небольшое растекание точек, особенно на фанере и мягкой древесине.',
     materialTipSlate: 'Сланец и темный камень обычно гравируются светлее поверхности. Режим Негатив часто является хорошей отправной точкой.',
     materialTipBlackAnodized: 'Черный анодированный алюминий обычно гравируется светлее или серебристым оттенком. Для фотогравировки на этом материале часто полезен режим Негатив.',
-    materialTipStainless: 'Предпросмотр нержавеющей стали является только приблизительным. Реальный результат сильно зависит от типа волоконного/диодного лазера, маркировочного спрея, фокуса, скорости и мощности.',
+    materialTipStainless: 'Предпросмотр нержавеющей стали является только приблизительным. Более высокая мощность предпросмотра затемняет отметку, но не имитирует обгоревшее расширение края, как на дереве. Реальный результат сильно зависит от типа волоконного/диодного лазера, маркировочного спрея, фокуса, скорости и мощности.',
     materialTipGlass: 'На стекле обычно получается матовая молочная отметка. Реальный результат сильно зависит от фокуса, покрытия и типа лазера.',
     materialTipLeather: 'Кожа обычно гравируется темнее, а след может немного расплываться. Рекомендуется меньше детализации и пробные образцы.',
     materialTipCeramic: 'Керамическая плитка может вести себя по-разному в зависимости от глазури, покрытия и спрея. Считайте этот предпросмотр грубым визуальным ориентиром.',
@@ -3568,12 +3568,13 @@ const MATERIALS = {
   stainless: {
     nameKey: 'materialStainless',
     tipKey: 'materialTipStainless',
-    base: [188, 194, 198],
-    mark: [55, 58, 60],
-    noise: 8,
+    base: [196, 202, 206],
+    mark: [28, 30, 32],
+    noise: 6,
     grain: 'metal',
-    grainStrength: 10,
-    dotGain: 0.06,
+    grainStrength: 8,
+    dotGain: 0.02,
+    laserPowerBehavior: 'marking',
     seed: 37
   },
   glass: {
@@ -5832,10 +5833,14 @@ function renderMaterialPreview(sourceImageData, w, h) {
   const previewPower = materialPower ? clamp(Number(materialPower.value) || DEFAULTS.materialPower, 40, 160) / 100 : 1;
   const powerOver = clamp((previewPower - 1) / 0.6, 0, 1);
   const powerUnder = clamp((1 - previewPower) / 0.6, 0, 1);
-  const previewDotGain = material.dotGain + powerOver * 0.42;
+  const isMarkingMaterial = material.laserPowerBehavior === 'marking';
+  const previewDotGain = material.dotGain + (isMarkingMaterial ? powerOver * 0.03 : powerOver * 0.42);
   const charR = 48;
   const charG = 31;
   const charB = 18;
+  const metalDarkR = 6;
+  const metalDarkG = 7;
+  const metalDarkB = 8;
   canvasMaterialPreview.width = w;
   canvasMaterialPreview.height = h;
   canvasMaterialPreview.style.width = '100%';
@@ -5861,15 +5866,19 @@ function renderMaterialPreview(sourceImageData, w, h) {
         laserAmount = Math.max(laserAmount, left * previewDotGain, right * previewDotGain, up * previewDotGain, down * previewDotGain);
       }
 
-      laserAmount = clamp(laserAmount * (previewPower < 1 ? previewPower : 1 + powerOver * 0.18), 0, 1);
+      const powerAmountBoost = isMarkingMaterial ? 1 + powerOver * 0.08 : 1 + powerOver * 0.18;
+      laserAmount = clamp(laserAmount * (previewPower < 1 ? previewPower : powerAmountBoost), 0, 1);
 
       const texture = getMaterialTexture(material, x, y, w, h);
       const baseR = material.base[0] + texture;
       const baseG = material.base[1] + texture;
       const baseB = material.base[2] + texture;
-      const markMixR = material.mark[0] * (1 - powerOver) + charR * powerOver;
-      const markMixG = material.mark[1] * (1 - powerOver) + charG * powerOver;
-      const markMixB = material.mark[2] * (1 - powerOver) + charB * powerOver;
+      const highPowerR = isMarkingMaterial ? metalDarkR : charR;
+      const highPowerG = isMarkingMaterial ? metalDarkG : charG;
+      const highPowerB = isMarkingMaterial ? metalDarkB : charB;
+      const markMixR = material.mark[0] * (1 - powerOver) + highPowerR * powerOver;
+      const markMixG = material.mark[1] * (1 - powerOver) + highPowerG * powerOver;
+      const markMixB = material.mark[2] * (1 - powerOver) + highPowerB * powerOver;
       const markR = (markMixR * (1 - powerUnder) + baseR * powerUnder * 0.72) + texture * 0.35;
       const markG = (markMixG * (1 - powerUnder) + baseG * powerUnder * 0.72) + texture * 0.35;
       const markB = (markMixB * (1 - powerUnder) + baseB * powerUnder * 0.72) + texture * 0.35;
