@@ -2684,7 +2684,7 @@ z-index: 2200;
 <input id="materialPower" max="160" min="40" step="5" type="range" value="100"/>
 </div>
 <div class="helper-text" data-i18n="materialPowerHelp">
-         Adjusts only the Material Preview to simulate weaker or stronger laser marks. Higher power darkens and spreads the engraving preview; the exported PNG/BMP stays unchanged.
+         Adjusts only the Material Preview to simulate weaker or stronger laser marks. Higher power can darken the mark; burnable materials may also show more edge spread. The exported PNG/BMP stays unchanged.
         </div>
 </div>
 <input hidden="" id="invertColors" type="checkbox"/>
@@ -3253,7 +3253,7 @@ const translations = {
     labelGamma: 'Gamma',
     labelSharpness: 'Sharpness',
     labelMaterialPower: 'Material Preview laser power',
-    materialPowerHelp: 'Adjusts only the Material Preview to simulate weaker or stronger laser marks. Higher power darkens and spreads the engraving preview; the exported PNG/BMP stays unchanged.',
+    materialPowerHelp: 'Adjusts only the Material Preview to simulate weaker or stronger laser marks. Higher power can darken the mark; burnable materials may also show more edge spread. The exported PNG/BMP stays unchanged.',
     resetBtn: '↺ Default Settings',
     sectionOutput: 'Output',
     labelOutputWidthMm: 'Image width',
@@ -3421,7 +3421,7 @@ const translations = {
     labelGamma: 'Гамма',
     labelSharpness: 'Резкость',
     labelMaterialPower: 'Мощность лазера в предпросмотре материала',
-    materialPowerHelp: 'Меняет только предпросмотр материала, чтобы имитировать более слабый или сильный след лазера. Более высокая мощность затемняет и расширяет след в предпросмотре; экспорт PNG/BMP не меняется.',
+    materialPowerHelp: 'Меняет только предпросмотр материала, чтобы имитировать более слабый или сильный след лазера. Более высокая мощность может затемнять отметку; горючие материалы могут также показывать большее расширение края. Экспорт PNG/BMP не меняется.',
     resetBtn: '↺ Настройки по умолчанию',
     sectionOutput: 'Вывод',
     labelOutputWidthMm: 'Ширина изображения',
@@ -3569,11 +3569,11 @@ const MATERIALS = {
     nameKey: 'materialStainless',
     tipKey: 'materialTipStainless',
     base: [196, 202, 206],
-    mark: [28, 30, 32],
+    mark: [58, 62, 64],
     noise: 6,
     grain: 'metal',
     grainStrength: 8,
-    dotGain: 0.02,
+    dotGain: 0.01,
     laserPowerBehavior: 'marking',
     seed: 37
   },
@@ -5056,11 +5056,13 @@ resetBtn.addEventListener('click', resetSettings);
 });
 
 if (materialPower) {
-  materialPower.addEventListener('input', () => {
+  const handleMaterialPowerChange = () => {
     updateSlider(materialPower);
     saveSettings();
     updateMaterialPreviewFromCurrentCanvas();
-  });
+  };
+  materialPower.addEventListener('input', handleMaterialPowerChange);
+  materialPower.addEventListener('change', handleMaterialPowerChange);
 }
 
 function setViewMode(mode) {
