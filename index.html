@@ -2678,16 +2678,13 @@ z-index: 2200;
 </div>
 <div>
 <label data-i18n="labelMaterialPower" for="materialPower">
-         Material preview power
+         Material preview laser power
         </label>
 <div class="slider-row mt-1">
 <input id="materialPower" max="160" min="40" step="5" type="range" value="100"/>
-<span class="slider-val" id="materialPowerVal">
-          100%
-         </span>
 </div>
 <div class="helper-text" data-i18n="materialPowerHelp">
-         Adjusts only the material preview contrast to roughly match lower or higher laser power. The exported PNG/BMP stays unchanged.
+         Adjusts only the material preview to simulate weaker or stronger laser marks. Higher power darkens and spreads the engraving preview; the exported PNG/BMP stays unchanged.
         </div>
 </div>
 <input hidden="" id="invertColors" type="checkbox"/>
@@ -2992,7 +2989,7 @@ z-index: 2200;
            Tune the image and material preview
           </p>
 <p class="text-sm mt-1 text-slate-400" data-i18n="helpStep3Text">
-           Adjust brightness, contrast, gamma and sharpness while checking Original + Output. Use Material Preview for wood, slate, dark anodized surfaces, stainless steel, glass, leather or ceramic tile, then move Material preview power to roughly simulate weaker or stronger laser marks before testing on real material.
+           Adjust brightness, contrast, gamma and sharpness while checking Original + Output. Use Material Preview for wood, slate, dark anodized surfaces, stainless steel, glass, leather or ceramic tile, then move Material preview laser power to roughly simulate weaker or stronger laser marks before testing on real material.
           </p>
 </div>
 </div>
@@ -3255,8 +3252,8 @@ const translations = {
     labelContrast: 'Contrast',
     labelGamma: 'Gamma',
     labelSharpness: 'Sharpness',
-    labelMaterialPower: 'Material preview power',
-    materialPowerHelp: 'Adjusts only the material preview contrast to roughly match lower or higher laser power. The exported PNG/BMP stays unchanged.',
+    labelMaterialPower: 'Material preview laser power',
+    materialPowerHelp: 'Adjusts only the material preview to simulate weaker or stronger laser marks. Higher power darkens and spreads the engraving preview; the exported PNG/BMP stays unchanged.',
     resetBtn: '↺ Default Settings',
     sectionOutput: 'Output',
     labelOutputWidthMm: 'Image width',
@@ -3320,7 +3317,7 @@ const translations = {
     helpStep2Title: 'Choose photo type and dithering',
     helpStep2Text: 'Start with Normal Photo, Negative, People, Dark Photo or Light Photo. Then choose the dithering pattern: Floyd-Steinberg is a balanced default, Atkinson is softer, Jarvis keeps smoother tones, and Ordered/Bayer is useful for graphic, regular-dot looks.',
     helpStep3Title: 'Tune the image and material preview',
-    helpStep3Text: 'Adjust brightness, contrast, gamma and sharpness while checking Original + Output. Use Material Preview for wood, slate, dark anodized surfaces, stainless steel, glass, leather or ceramic tile, then move Material preview power to roughly simulate weaker or stronger laser marks before testing on real material.',
+    helpStep3Text: 'Adjust brightness, contrast, gamma and sharpness while checking Original + Output. Use Material Preview for wood, slate, dark anodized surfaces, stainless steel, glass, leather or ceramic tile, then move Material preview laser power to roughly simulate weaker or stronger laser marks before testing on real material.',
     helpStep4Title: 'Set size, DPI and export',
     helpStep4Text: 'Enter the real engraving width in millimeters, choose 254, 300, 508 or Custom DPI, and watch the pixel count update. If the preview looks right, download PNG or 1-bit BMP with DPI metadata and import it into your laser software.',
     helpDpiTitle: 'Recommended DPI by material',
@@ -3423,8 +3420,8 @@ const translations = {
     labelContrast: 'Контраст',
     labelGamma: 'Гамма',
     labelSharpness: 'Резкость',
-    labelMaterialPower: 'Мощность в предпросмотре материала',
-    materialPowerHelp: 'Меняет только контраст предпросмотра материала, чтобы примерно имитировать меньшую или большую мощность лазера. Экспорт PNG/BMP не меняется.',
+    labelMaterialPower: 'Мощность лазера в предпросмотре материала',
+    materialPowerHelp: 'Меняет только предпросмотр материала, чтобы имитировать более слабый или сильный след лазера. Более высокая мощность затемняет и расширяет след в предпросмотре; экспорт PNG/BMP не меняется.',
     resetBtn: '↺ Настройки по умолчанию',
     sectionOutput: 'Вывод',
     labelOutputWidthMm: 'Ширина изображения',
@@ -3488,7 +3485,7 @@ const translations = {
     helpStep2Title: 'Настройте фото',
     helpStep2Text: 'Отрегулируйте яркость, контраст, гамму и резкость, чтобы подготовить фото к гравировке.',
     helpStep3Title: 'Задайте итоговый размер в мм',
-    helpStep3Text: 'Настраивайте яркость, контраст, гамму и резкость, проверяя Оригинал + результат. Используйте предпросмотр материала для дерева, сланца, темных анодированных поверхностей, нержавеющей стали, стекла, кожи или керамической плитки, затем двигайте Мощность в предпросмотре материала, чтобы примерно имитировать более слабый или сильный след лазера перед тестом на реальном материале.',
+    helpStep3Text: 'Настраивайте яркость, контраст, гамму и резкость, проверяя Оригинал + результат. Используйте предпросмотр материала для дерева, сланца, темных анодированных поверхностей, нержавеющей стали, стекла, кожи или керамической плитки, затем двигайте Мощность лазера в предпросмотре материала, чтобы примерно имитировать более слабый или сильный след лазера перед тестом на реальном материале.',
     helpStep4Title: 'Проверьте результат и скачайте PNG или BMP',
     helpStep4Text: 'Оцените финальное растеризованное изображение. Если результат выглядит хорошо, скачайте PNG или BMP и импортируйте его в лазерную программу.',
     helpDpiTitle: 'Рекомендуемый DPI по материалам',
@@ -4210,7 +4207,6 @@ const sliderPairs = [
   ['contrast', 'contrastVal'],
   ['gamma', 'gammaVal'],
   ['sharpness', 'sharpnessVal'],
-  ['materialPower', 'materialPowerVal'],
   ['outputWidthSlider', 'outputWidthSliderVal']
 ];
 
@@ -5834,6 +5830,12 @@ function renderMaterialPreview(sourceImageData, w, h) {
 
   const material = MATERIALS[currentMaterial];
   const previewPower = materialPower ? clamp(Number(materialPower.value) || DEFAULTS.materialPower, 40, 160) / 100 : 1;
+  const powerOver = clamp((previewPower - 1) / 0.6, 0, 1);
+  const powerUnder = clamp((1 - previewPower) / 0.6, 0, 1);
+  const previewDotGain = material.dotGain + powerOver * 0.42;
+  const charR = 48;
+  const charG = 31;
+  const charB = 18;
   canvasMaterialPreview.width = w;
   canvasMaterialPreview.height = h;
   canvasMaterialPreview.style.width = '100%';
@@ -5851,23 +5853,26 @@ function renderMaterialPreview(sourceImageData, w, h) {
       const i = (y * w + x) * 4;
       let laserAmount = 1 - src[i] / 255;
 
-      if (material.dotGain > 0 && laserAmount < 1) {
+      if (previewDotGain > 0 && laserAmount < 1) {
         const left = x > 0 ? 1 - src[i - 4] / 255 : 0;
         const right = x + 1 < w ? 1 - src[i + 4] / 255 : 0;
         const up = y > 0 ? 1 - src[i - w * 4] / 255 : 0;
         const down = y + 1 < h ? 1 - src[i + w * 4] / 255 : 0;
-        laserAmount = Math.max(laserAmount, left * material.dotGain, right * material.dotGain, up * material.dotGain, down * material.dotGain);
+        laserAmount = Math.max(laserAmount, left * previewDotGain, right * previewDotGain, up * previewDotGain, down * previewDotGain);
       }
 
-      laserAmount = clamp(laserAmount * previewPower, 0, 1);
+      laserAmount = clamp(laserAmount * (previewPower < 1 ? previewPower : 1 + powerOver * 0.18), 0, 1);
 
       const texture = getMaterialTexture(material, x, y, w, h);
       const baseR = material.base[0] + texture;
       const baseG = material.base[1] + texture;
       const baseB = material.base[2] + texture;
-      const markR = material.mark[0] + texture * 0.35;
-      const markG = material.mark[1] + texture * 0.35;
-      const markB = material.mark[2] + texture * 0.35;
+      const markMixR = material.mark[0] * (1 - powerOver) + charR * powerOver;
+      const markMixG = material.mark[1] * (1 - powerOver) + charG * powerOver;
+      const markMixB = material.mark[2] * (1 - powerOver) + charB * powerOver;
+      const markR = (markMixR * (1 - powerUnder) + baseR * powerUnder * 0.72) + texture * 0.35;
+      const markG = (markMixG * (1 - powerUnder) + baseG * powerUnder * 0.72) + texture * 0.35;
+      const markB = (markMixB * (1 - powerUnder) + baseB * powerUnder * 0.72) + texture * 0.35;
 
       dst[i] = clamp(Math.round(baseR * (1 - laserAmount) + markR * laserAmount), 0, 255);
       dst[i + 1] = clamp(Math.round(baseG * (1 - laserAmount) + markG * laserAmount), 0, 255);
