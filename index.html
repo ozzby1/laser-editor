@@ -105,6 +105,7 @@
         "Custom DPI setting",
         "Recommended DPI by material and engraving speed guidance",
         "Approximate material preview simulation",
+        "Adjustable material preview laser power",
         "Original and output comparison preview",
         "Brightness and contrast adjustment",
         "Gamma correction",
@@ -2675,6 +2676,20 @@ z-index: 2200;
          </span>
 </div>
 </div>
+<div>
+<label data-i18n="labelMaterialPower" for="materialPower">
+         Material preview power
+        </label>
+<div class="slider-row mt-1">
+<input id="materialPower" max="160" min="40" step="5" type="range" value="100"/>
+<span class="slider-val" id="materialPowerVal">
+          100%
+         </span>
+</div>
+<div class="helper-text" data-i18n="materialPowerHelp">
+         Adjusts only the material preview contrast to roughly match lower or higher laser power. The exported PNG/BMP stays unchanged.
+        </div>
+</div>
 <input hidden="" id="invertColors" type="checkbox"/>
 <div class="grid grid-cols-1 sm:grid-cols-1 gap-2 pt-1">
 <button class="btn btn-secondary" data-i18n="resetBtn" id="resetBtn" type="button">
@@ -2977,7 +2992,7 @@ z-index: 2200;
            Tune the image and material preview
           </p>
 <p class="text-sm mt-1 text-slate-400" data-i18n="helpStep3Text">
-           Adjust brightness, contrast, gamma and sharpness while checking Original + Output. Use Material Preview for wood, slate, dark anodized surfaces, stainless steel, glass, leather or ceramic tile as a rough visual guide before testing on real material.
+           Adjust brightness, contrast, gamma and sharpness while checking Original + Output. Use Material Preview for wood, slate, dark anodized surfaces, stainless steel, glass, leather or ceramic tile, then move Material preview power to roughly simulate weaker or stronger laser marks before testing on real material.
           </p>
 </div>
 </div>
@@ -3050,7 +3065,7 @@ z-index: 2200;
           Preview before engraving
          </div>
 <div class="help-card-text" data-i18n="helpTip2Text">
-          Switch between Original + Output, Output and Material Preview. The material simulation is approximate, but it helps catch inverted images, weak contrast and overly dense shadows before you export.
+          Switch between Original + Output, Output and Material Preview. The material simulation is approximate, but the preview power slider helps you check how the same file might look with lighter or darker laser settings before you export.
          </div>
 </div>
 <div class="help-card">
@@ -3240,6 +3255,8 @@ const translations = {
     labelContrast: 'Contrast',
     labelGamma: 'Gamma',
     labelSharpness: 'Sharpness',
+    labelMaterialPower: 'Material preview power',
+    materialPowerHelp: 'Adjusts only the material preview contrast to roughly match lower or higher laser power. The exported PNG/BMP stays unchanged.',
     resetBtn: '↺ Default Settings',
     sectionOutput: 'Output',
     labelOutputWidthMm: 'Image width',
@@ -3303,7 +3320,7 @@ const translations = {
     helpStep2Title: 'Choose photo type and dithering',
     helpStep2Text: 'Start with Normal Photo, Negative, People, Dark Photo or Light Photo. Then choose the dithering pattern: Floyd-Steinberg is a balanced default, Atkinson is softer, Jarvis keeps smoother tones, and Ordered/Bayer is useful for graphic, regular-dot looks.',
     helpStep3Title: 'Tune the image and material preview',
-    helpStep3Text: 'Adjust brightness, contrast, gamma and sharpness while checking Original + Output. Use Material Preview for wood, slate, dark anodized surfaces, stainless steel, glass, leather or ceramic tile as a rough visual guide before testing on real material.',
+    helpStep3Text: 'Adjust brightness, contrast, gamma and sharpness while checking Original + Output. Use Material Preview for wood, slate, dark anodized surfaces, stainless steel, glass, leather or ceramic tile, then move Material preview power to roughly simulate weaker or stronger laser marks before testing on real material.',
     helpStep4Title: 'Set size, DPI and export',
     helpStep4Text: 'Enter the real engraving width in millimeters, choose 254, 300, 508 or Custom DPI, and watch the pixel count update. If the preview looks right, download PNG or 1-bit BMP with DPI metadata and import it into your laser software.',
     helpDpiTitle: 'Recommended DPI by material',
@@ -3324,7 +3341,7 @@ const translations = {
     helpTip1Title: 'Input photo quality',
     helpTip1Text: 'Use sharp, evenly lit photos with visible detail in the face, object or texture. Crop away empty background before dithering so the laser-ready pixels focus on the important area.',
     helpTip2Title: 'Preview before engraving',
-    helpTip2Text: 'Switch between Original + Output, Output and Material Preview. The material simulation is approximate, but it helps catch inverted images, weak contrast and overly dense shadows before you export.',
+    helpTip2Text: 'Switch between Original + Output, Output and Material Preview. The material simulation is approximate, but the preview power slider helps you check how the same file might look with lighter or darker laser settings before you export.',
     helpTip3Title: 'Test engraving',
     helpTip3Text: 'Always test on an offcut of the same material. Real results still depend on laser type, focus, lens, speed, power, coating and the exact surface.',
     helpTip4Title: 'Laser software settings',
@@ -3406,6 +3423,8 @@ const translations = {
     labelContrast: 'Контраст',
     labelGamma: 'Гамма',
     labelSharpness: 'Резкость',
+    labelMaterialPower: 'Мощность в предпросмотре материала',
+    materialPowerHelp: 'Меняет только контраст предпросмотра материала, чтобы примерно имитировать меньшую или большую мощность лазера. Экспорт PNG/BMP не меняется.',
     resetBtn: '↺ Настройки по умолчанию',
     sectionOutput: 'Вывод',
     labelOutputWidthMm: 'Ширина изображения',
@@ -3469,7 +3488,7 @@ const translations = {
     helpStep2Title: 'Настройте фото',
     helpStep2Text: 'Отрегулируйте яркость, контраст, гамму и резкость, чтобы подготовить фото к гравировке.',
     helpStep3Title: 'Задайте итоговый размер в мм',
-    helpStep3Text: 'Введите финальную ширину гравировки в миллиметрах. Инструмент автоматически рассчитает высоту, сохранит пропорции и покажет итоговое количество пикселей.',
+    helpStep3Text: 'Настраивайте яркость, контраст, гамму и резкость, проверяя Оригинал + результат. Используйте предпросмотр материала для дерева, сланца, темных анодированных поверхностей, нержавеющей стали, стекла, кожи или керамической плитки, затем двигайте Мощность в предпросмотре материала, чтобы примерно имитировать более слабый или сильный след лазера перед тестом на реальном материале.',
     helpStep4Title: 'Проверьте результат и скачайте PNG или BMP',
     helpStep4Text: 'Оцените финальное растеризованное изображение. Если результат выглядит хорошо, скачайте PNG или BMP и импортируйте его в лазерную программу.',
     helpDpiTitle: 'Рекомендуемый DPI по материалам',
@@ -3490,7 +3509,7 @@ const translations = {
     helpTip1Title: '📷 Качество исходного фото',
     helpTip1Text: 'Используйте резкие фотографии с хорошим контрастом. Темные или размытые изображения дадут худший результат гравировки даже при высоком DPI.',
     helpTip2Title: '🔲 Контраст и яркость',
-    helpTip2Text: 'Перед загрузкой попробуйте настроить фото в любом редакторе. Более высокий контраст часто заметно улучшает итоговый растровый результат.',
+    helpTip2Text: 'Переключайтесь между Оригинал + результат, Результат и Предпросмотр материала. Симуляция материала приблизительная, но ползунок мощности предпросмотра помогает проверить, как тот же файл может выглядеть при более светлых или темных настройках лазера перед экспортом.',
     helpTip3Title: '🧪 Пробная гравировка',
     helpTip3Text: 'Всегда сначала тестируйте результат на обрезке того же материала перед финальной гравировкой.',
     helpTip4Title: '⚙️ Настройки LightBurn',
@@ -3601,6 +3620,7 @@ const DEFAULTS = {
   contrast: PRESETS.normal.contrast,
   gamma: PRESETS.normal.gamma,
   sharpness: PRESETS.normal.sharpness,
+  materialPower: 100,
   ditherMode: PRESETS.normal.ditherMode,
   invertColors: PRESETS.normal.invertColors,
   dpi: 254,
@@ -3636,6 +3656,7 @@ const brightness = document.getElementById('brightness');
 const contrast = document.getElementById('contrast');
 const gamma = document.getElementById('gamma');
 const sharpness = document.getElementById('sharpness');
+const materialPower = document.getElementById('materialPower');
 const ditherMode = document.getElementById('ditherMode');
 const invertColors = document.getElementById('invertColors');
 const dpi = document.getElementById('dpi');
@@ -4189,6 +4210,7 @@ const sliderPairs = [
   ['contrast', 'contrastVal'],
   ['gamma', 'gammaVal'],
   ['sharpness', 'sharpnessVal'],
+  ['materialPower', 'materialPowerVal'],
   ['outputWidthSlider', 'outputWidthSliderVal']
 ];
 
@@ -5036,6 +5058,14 @@ resetBtn.addEventListener('click', resetSettings);
   });
 });
 
+if (materialPower) {
+  materialPower.addEventListener('input', () => {
+    updateSlider(materialPower);
+    saveSettings();
+    updateMaterialPreviewFromCurrentCanvas();
+  });
+}
+
 function setViewMode(mode) {
   if (!['result', 'compare', 'material'].includes(mode)) mode = 'compare';
 
@@ -5369,7 +5399,13 @@ function updateSlider(el) {
   const decimals = step.includes('.') ? step.split('.')[1].length : 0;
   const value = Number(el.value).toFixed(decimals);
 
-  target.textContent = el.id === 'outputWidthSlider' ? `${value} px` : value;
+  if (el.id === 'outputWidthSlider') {
+    target.textContent = `${value} px`;
+  } else if (el.id === 'materialPower') {
+    target.textContent = `${value}%`;
+  } else {
+    target.textContent = value;
+  }
 }
 
 function loadStoredSettings() {
@@ -5385,6 +5421,7 @@ function loadStoredSettings() {
     if (s.contrast !== undefined) contrast.value = s.contrast;
     if (s.gamma !== undefined) gamma.value = s.gamma;
     if (s.sharpness !== undefined) sharpness.value = s.sharpness;
+    if (s.materialPower !== undefined && materialPower) materialPower.value = String(clamp(Number(s.materialPower), 40, 160));
     ditherMode.value = DITHER_MODES.includes(s.ditherMode) ? s.ditherMode : DEFAULTS.ditherMode;
     setActiveDitherCard(ditherMode.value);
     if (s.invertColors !== undefined) invertColors.checked = Boolean(s.invertColors);
@@ -5418,6 +5455,7 @@ function saveSettings() {
     contrast: Number(contrast.value),
     gamma: Number(gamma.value),
     sharpness: Number(sharpness.value),
+    materialPower: materialPower ? Number(materialPower.value) : DEFAULTS.materialPower,
     ditherMode: ditherMode.value || DEFAULTS.ditherMode,
     invertColors: invertColors.checked,
     dpiMode: isCustomDpiMode() ? 'custom' : 'preset',
@@ -5444,6 +5482,7 @@ function resetSettings() {
   contrast.value = DEFAULTS.contrast;
   gamma.value = DEFAULTS.gamma;
   sharpness.value = DEFAULTS.sharpness;
+  if (materialPower) materialPower.value = DEFAULTS.materialPower;
   ditherMode.value = DEFAULTS.ditherMode;
   setActiveDitherCard(ditherMode.value);
   invertColors.checked = DEFAULTS.invertColors;
@@ -5794,6 +5833,7 @@ function renderMaterialPreview(sourceImageData, w, h) {
   if (!canvasMaterialPreview) return;
 
   const material = MATERIALS[currentMaterial];
+  const previewPower = materialPower ? clamp(Number(materialPower.value) || DEFAULTS.materialPower, 40, 160) / 100 : 1;
   canvasMaterialPreview.width = w;
   canvasMaterialPreview.height = h;
   canvasMaterialPreview.style.width = '100%';
@@ -5819,7 +5859,7 @@ function renderMaterialPreview(sourceImageData, w, h) {
         laserAmount = Math.max(laserAmount, left * material.dotGain, right * material.dotGain, up * material.dotGain, down * material.dotGain);
       }
 
-      laserAmount = clamp(laserAmount, 0, 1);
+      laserAmount = clamp(laserAmount * previewPower, 0, 1);
 
       const texture = getMaterialTexture(material, x, y, w, h);
       const baseR = material.base[0] + texture;
