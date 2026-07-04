@@ -1152,17 +1152,11 @@ input[type=number]:focus {
   background: linear-gradient(135deg, #c9ced3, #7d858d 48%, #eef1f3);
 }
 
-.material-card[data-material="glass"]::before {
-  background: linear-gradient(135deg, rgba(142,166,176,0.95), rgba(232,246,248,0.90) 48%, rgba(108,132,145,0.95));
-}
 
 .material-card[data-material="leather"]::before {
   background: linear-gradient(135deg, #8a552d, #3d2414 64%, #6a3c1f);
 }
 
-.material-card[data-material="ceramic"]::before {
-  background: linear-gradient(135deg, #e8e0d0, #a99d8c 52%, #f6f0e8);
-}
 
 .material-preview-note {
   margin-top: 10px;
@@ -2258,14 +2252,8 @@ z-index: 2200;
 <option data-i18n="materialStainless" value="stainless">
          Stainless steel
         </option>
-<option data-i18n="materialGlass" value="glass">
-         Glass
-        </option>
 <option data-i18n="materialLeather" value="leather">
          Leather
-        </option>
-<option data-i18n="materialCeramic" value="ceramic">
-         Ceramic tile
         </option>
 </select>
 </div>
@@ -2473,7 +2461,6 @@ z-index: 2200;
         </label>
 <div class="slider-row mt-1">
 <input id="materialPower" max="160" min="40" step="5" type="range" value="100"/>
-<span class="slider-val" id="materialPowerVal">100%</span>
 </div>
 <div class="helper-text" data-i18n="materialPowerHelp">
          Adjusts only the Material Preview to simulate weaker or stronger laser marks. Higher power can darken the mark; burnable materials may also show more edge spread. The exported PNG/BMP stays unchanged.
@@ -2709,7 +2696,7 @@ z-index: 2200;
             254 DPI ✓
            </td>
 <td data-i18n="helpDpi254Material">
-            Soft wood and plywood, MDF, slate, stone, glass
+            Soft wood and plywood, MDF, slate, stone
            </td>
 <td data-i18n="helpDpi254Note">
             fast
@@ -2720,7 +2707,7 @@ z-index: 2200;
             300 DPI
            </td>
 <td data-i18n="helpDpi300Material">
-            Wood, plywood, glass, slate, HDF, plastic
+            Wood, plywood, slate, HDF, plastic
            </td>
 <td data-i18n="helpDpi300Note">
             medium
@@ -2731,7 +2718,7 @@ z-index: 2200;
             508 DPI
            </td>
 <td data-i18n="helpDpi508Material">
-            Acrylic, laminates, coated metals, anodized aluminum, stainless steel, ceramics
+            Acrylic, laminates, coated metals, anodized aluminum, stainless steel
            </td>
 <td data-i18n="helpDpi508Note">
             slow
@@ -2781,7 +2768,7 @@ z-index: 2200;
            Tune the image and Material Preview
           </p>
 <p class="text-sm mt-1 text-slate-400" data-i18n="helpStep3Text">
-           Adjust brightness, contrast, gamma and sharpness while checking Original + Output. Use Material Preview for wood, slate, dark anodized surfaces, stainless steel, glass, leather or ceramic tile, then move Material Preview laser power to roughly simulate weaker or stronger laser marks before testing on real material.
+           Adjust brightness, contrast, gamma and sharpness while checking Original + Output. Use Material Preview for wood, slate, dark anodized surfaces, stainless steel or leather, then move Material Preview laser power to roughly simulate weaker or stronger laser marks before testing on real material.
           </p>
 </div>
 </div>
@@ -3089,18 +3076,14 @@ const translations = {
     materialSlate: 'Slate',
     materialBlackAnodized: 'Dark surfaces',
     materialStainless: 'Stainless steel',
-    materialGlass: 'Glass',
     materialLeather: 'Leather',
-    materialCeramic: 'Ceramic tile',
     materialPreviewDisclaimer: 'This is an approximate visual simulation only. Real results depend on laser type, lens, focus, speed, power and the exact material surface. The downloaded PNG/BMP remains the clean black-and-white laser-ready output.',
     materialTipNone: 'Select a material to see an approximate preview of how the engraved image may look on the surface.',
     materialTipWood: 'Birch plywood and light wood usually engrave darker than the surface. Expect some dot gain, especially on plywood and softer wood.',
     materialTipSlate: 'Slate and dark stone usually engrave lighter than the surface. Negative mode is often the right starting point.',
     materialTipBlackAnodized: 'Dark anodized, coated or painted surfaces often engrave lighter at first. Too much power can make the mark darker gray and lower the contrast, so test a small crop before engraving the final piece.',
     materialTipStainless: 'Stainless steel preview is only approximate. Higher preview power increases mark darkness, but it does not simulate the burnt edge spread used for wood. Real results depend strongly on fiber/diode laser type, marking spray, focus, speed and power.',
-    materialTipGlass: 'Glass usually produces a frosted, milky mark. Real results depend strongly on focus, coating and laser type.',
     materialTipLeather: 'Leather usually engraves darker and can spread slightly. Lower detail and test pieces are recommended.',
-    materialTipCeramic: 'Ceramic tile can behave differently depending on glaze, coating and spray. Treat this preview as a rough visual guide.',
     helpIntroTitle: 'What does this tool do?',
     helpIntroText: '<strong class="text-white">Photo Engraving Online</strong> prepares a normal photo for laser engraving by controlling crop, tones, dithering, output size and DPI. The result is a black-and-white PNG or BMP you can import into LightBurn, XCS, LaserGRBL, EZCAD and similar laser software.',
     helpStepsTitle: 'Step-by-step guide',
@@ -3109,18 +3092,18 @@ const translations = {
     helpStep2Title: 'Choose photo type and dithering',
     helpStep2Text: 'Start with Normal Photo, Negative, People, Dark Photo or Light Photo. Then choose the dithering pattern: Floyd-Steinberg is a balanced default, Atkinson is softer, Jarvis keeps smoother tones, and Ordered/Bayer is useful for graphic, regular-dot looks.',
     helpStep3Title: 'Tune the image and Material Preview',
-    helpStep3Text: 'Adjust brightness, contrast, gamma and sharpness while comparing the original with the output. Then use Material Preview to get a rough idea of how the file may behave on wood, slate, dark surfaces, stainless steel, glass, leather or ceramic tile.',
+    helpStep3Text: 'Adjust brightness, contrast, gamma and sharpness while comparing the original with the output. Then use Material Preview to get a rough idea of how the file may behave on wood, slate, dark surfaces, stainless steel or leather.',
     helpStep4Title: 'Set size, DPI and export',
     helpStep4Text: 'Enter the real engraving width in millimeters, choose 254, 300, 508 or Custom DPI, and watch the pixel count update. If the preview looks right, download PNG or 1-bit BMP with DPI metadata and import it into your laser software.',
     helpDpiTitle: 'Recommended DPI by material',
     helpTableHeadDpi: 'DPI',
     helpTableHeadMaterial: 'Best for',
     helpTableHeadNote: 'Engraving speed',
-    helpDpi254Material: 'Soft wood, soft plywood, MDF, slate, stone, glass',
+    helpDpi254Material: 'Soft wood, soft plywood, MDF, slate, stone',
     helpDpi254Note: 'fast',
-    helpDpi300Material: 'Wood, plywood, glass, slate, HDF, plastic',
+    helpDpi300Material: 'Wood, plywood, slate, HDF, plastic',
     helpDpi300Note: 'medium',
-    helpDpi508Material: 'Acrylic, laminates, coated metals, anodized aluminum, stainless steel, ceramics',
+    helpDpi508Material: 'Acrylic, laminates, coated metals, anodized aluminum, stainless steel',
     helpDpi508Note: 'slow',
     helpOutputSizeTitle: 'How to choose the correct output size?',
     helpOutputSizeText1: 'The output size in <strong class="text-white">mm</strong> should exactly match the real physical size of the engraving area on your material.',
@@ -3201,17 +3184,6 @@ const MATERIALS = {
     laserPowerBehavior: 'marking',
     seed: 37
   },
-  glass: {
-    nameKey: 'materialGlass',
-    tipKey: 'materialTipGlass',
-    base: [150, 172, 180],
-    mark: [236, 246, 246],
-    noise: 10,
-    grain: 'glass',
-    grainStrength: 10,
-    dotGain: 0.12,
-    seed: 47
-  },
   leather: {
     nameKey: 'materialLeather',
     tipKey: 'materialTipLeather',
@@ -3222,17 +3194,6 @@ const MATERIALS = {
     grainStrength: 18,
     dotGain: 0.32,
     seed: 59
-  },
-  ceramic: {
-    nameKey: 'materialCeramic',
-    tipKey: 'materialTipCeramic',
-    base: [220, 211, 194],
-    mark: [78, 78, 76],
-    noise: 9,
-    grain: 'ceramic',
-    grainStrength: 10,
-    dotGain: 0.10,
-    seed: 71
   }
 };
 
@@ -3825,7 +3786,6 @@ const sliderPairs = [
   ['contrast', 'contrastVal'],
   ['gamma', 'gammaVal'],
   ['sharpness', 'sharpnessVal'],
-  ['materialPower', 'materialPowerVal'],
   ['outputWidthSlider', 'outputWidthSliderVal']
 ];
 
@@ -5038,7 +4998,7 @@ function loadStoredSettings() {
     if (s.contrast !== undefined) contrast.value = s.contrast;
     if (s.gamma !== undefined) gamma.value = s.gamma;
     if (s.sharpness !== undefined) sharpness.value = s.sharpness;
-    if (s.materialPower !== undefined && materialPower) materialPower.value = String(clamp(Number(s.materialPower), 40, 160));
+    if (materialPower) materialPower.value = String(DEFAULTS.materialPower);
     ditherMode.value = DITHER_MODES.includes(s.ditherMode) ? s.ditherMode : DEFAULTS.ditherMode;
     setActiveDitherCard(ditherMode.value);
     if (s.invertColors !== undefined) invertColors.checked = Boolean(s.invertColors);
@@ -5072,7 +5032,6 @@ function saveSettings() {
     contrast: Number(contrast.value),
     gamma: Number(gamma.value),
     sharpness: Number(sharpness.value),
-    materialPower: materialPower ? Number(materialPower.value) : DEFAULTS.materialPower,
     ditherMode: ditherMode.value || DEFAULTS.ditherMode,
     invertColors: invertColors.checked,
     dpiMode: isCustomDpiMode() ? 'custom' : 'preset',
@@ -5535,13 +5494,8 @@ function getMaterialTexture(material, x, y, w, h) {
     grain = (pseudoNoise(Math.floor(x / 12), Math.floor(y / 7), material.seed + 3) - 0.5) * material.grainStrength;
   } else if (material.grain === 'metal') {
     grain = Math.sin((x + y) * 0.08) * material.grainStrength * 0.3;
-  } else if (material.grain === 'glass') {
-    const shine = Math.max(0, 1 - Math.abs((x / Math.max(1, w)) - 0.28) * 7) * material.grainStrength;
-    grain = shine + Math.sin((x + y) * 0.02) * material.grainStrength * 0.18;
   } else if (material.grain === 'leather') {
     grain = (pseudoNoise(Math.floor(x / 5), Math.floor(y / 5), material.seed + 5) - 0.5) * material.grainStrength;
-  } else if (material.grain === 'ceramic') {
-    grain = Math.sin((x + y) * 0.035) * material.grainStrength * 0.35;
   }
 
   return n + grain;
