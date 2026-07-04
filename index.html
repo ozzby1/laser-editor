@@ -3,17 +3,27 @@
 <html lang="en">
 <head>
 <meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Prepare Photos for Laser Engraving Online | PhotoEngraving.online</title>
-<meta content="Prepare photos for laser engraving online. Set engraving size and DPI, tune contrast and dithering, then download a private browser-made PNG or BMP." name="description"/>
+<meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/>
+<title>Free Photo to Laser Engraving Converter Online | PhotoEngraving.online</title>
+<meta content="Prepare photos for laser engraving online. Crop, adjust tones, set real size and DPI, preview common materials, then export PNG or 1-bit BMP in your browser." name="description"/>
 <meta content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" name="robots"/>
 <meta content="PhotoEngraving.online" name="author"/>
 <meta content="PhotoEngraving.online" name="application-name"/>
 <meta content="#09090d" name="theme-color"/>
 <link href="https://photoengraving.online/" rel="canonical"/>
 <link href="https://photoengraving.online/" hreflang="en" rel="alternate"/>
+<link href="https://photoengraving.online/es/" hreflang="es" rel="alternate"/>
+<link href="https://photoengraving.online/de/" hreflang="de" rel="alternate"/>
 <link href="https://photoengraving.online/fr/" hreflang="fr" rel="alternate"/>
+<link href="https://photoengraving.online/hi/" hreflang="hi" rel="alternate"/>
+<link href="https://photoengraving.online/it/" hreflang="it" rel="alternate"/>
+<link href="https://photoengraving.online/ja/" hreflang="ja" rel="alternate"/>
+<link href="https://photoengraving.online/ko/" hreflang="ko" rel="alternate"/>
+<link href="https://photoengraving.online/pl/" hreflang="pl" rel="alternate"/>
+<link href="https://photoengraving.online/pt-br/" hreflang="pt-BR" rel="alternate"/>
 <link href="https://photoengraving.online/ru/" hreflang="ru" rel="alternate"/>
+<link href="https://photoengraving.online/tr/" hreflang="tr" rel="alternate"/>
+<link href="https://photoengraving.online/zh/" hreflang="zh" rel="alternate"/>
 <link href="https://photoengraving.online/cs/" hreflang="cs" rel="alternate"/>
 <link href="https://photoengraving.online/" hreflang="x-default" rel="alternate"/>
 <link href="https://photoengraving.online/favi.png" rel="icon" type="image/png"/>
@@ -21,16 +31,16 @@
 <meta content="website" property="og:type"/>
 <meta content="PhotoEngraving.online" property="og:site_name"/>
 <meta content="https://photoengraving.online/" property="og:url"/>
-<meta content="Prepare Photos for Laser Engraving Online" property="og:title"/>
-<meta content="Upload a photo, choose engraving size and DPI, tune the tones and export a laser-ready PNG or BMP directly in your browser." property="og:description"/>
+<meta content="Free Photo to Laser Engraving Converter Online" property="og:title"/>
+<meta content="Prepare photos for laser engraving in your browser. Crop, tune tones, set real size and DPI, preview materials and export PNG or 1-bit BMP." property="og:description"/>
 <meta content="en_US" property="og:locale"/>
 <meta content="https://photoengraving.online/fb1.png" property="og:image"/>
 <meta content="1200" property="og:image:width"/>
 <meta content="630" property="og:image:height"/>
 <meta content="PhotoEngraving.online laser engraving photo editor preview" property="og:image:alt"/>
 <meta content="summary_large_image" name="twitter:card"/>
-<meta content="Prepare Photos for Laser Engraving Online" name="twitter:title"/>
-<meta content="A private browser tool for preparing photos for laser engraving with DPI, dithering, tone controls and PNG/BMP export." name="twitter:description"/>
+<meta content="Free Photo to Laser Engraving Converter Online" name="twitter:title"/>
+<meta content="Prepare photos for laser engraving in your browser. Crop, tune tones, set DPI and export PNG or 1-bit BMP for laser software." name="twitter:description"/>
 <meta content="https://photoengraving.online/fb1.png" name="twitter:image"/>
 <meta content="PhotoEngraving.online laser engraving photo editor preview" name="twitter:image:alt"/>
 <script type="application/ld+json">
@@ -584,24 +594,6 @@ input[type=number]:focus {
   color: #fdba74;
 }
 
-.empty-preview-media {
-  position: relative;
-  min-height: 120px;
-}
-
-.empty-preview-media--missing {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.empty-preview-media--missing::after {
-  content: 'Preview image unavailable';
-  color: #94a3b8;
-  font-size: 0.82rem;
-  font-weight: 700;
-}
-
 .drop-zone:focus-visible,
 .preset-card:focus-visible,
 .empty-step.primary:focus-visible,
@@ -869,7 +861,6 @@ input[type=number]:focus {
 }
 
 
-.feedback-btn,
 .guide-btn {
   display: inline-flex;
   align-items: center;
@@ -897,8 +888,6 @@ input[type=number]:focus {
   box-shadow: 0 0 0 1px rgba(249,115,22,0.10);
 }
 
-.feedback-btn:hover,
-.feedback-btn:focus-visible,
 .guide-btn:hover,
 .guide-btn:focus-visible {
   background: rgba(249,115,22,0.14);
@@ -907,57 +896,7 @@ input[type=number]:focus {
   box-shadow: 0 10px 24px rgba(249,115,22,0.12), 0 0 0 1px rgba(249,115,22,0.14);
 }
 
-.feedback-modal-overlay {
-  display: none;
-  position: fixed;
-  inset: 0;
-  z-index: 220;
-  padding: 18px;
-  background: rgba(0,0,0,0.62);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  align-items: center;
-  justify-content: center;
-}
-
-.feedback-modal-overlay.open {
-  display: flex;
-}
-
-.feedback-modal {
-  width: min(100%, 520px);
-  background: linear-gradient(180deg, rgba(255,255,255,0.035), rgba(255,255,255,0.015)), var(--panel-strong);
-  border: 1px solid rgba(249,115,22,0.28);
-  border-radius: 20px;
-  box-shadow: 0 24px 70px rgba(0,0,0,0.54), 0 0 0 1px rgba(249,115,22,0.08);
-  padding: 20px;
-  color: #dbe7f3;
-}
-
-.feedback-modal-header {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 14px;
-  margin-bottom: 14px;
-}
-
-.feedback-modal-title {
-  margin: 0 0 5px;
-  color: #f8fafc;
-  font-size: 1.12rem;
-  line-height: 1.25;
-  font-weight: 850;
-}
-
-.feedback-modal-text {
-  margin: 0;
-  color: #94a3b8;
-  font-size: 0.84rem;
-  line-height: 1.55;
-}
-
-.feedback-close-btn {
+.modal-close-btn {
   width: 36px;
   height: 36px;
   flex: 0 0 auto;
@@ -970,114 +909,13 @@ input[type=number]:focus {
   cursor: pointer;
 }
 
-.feedback-close-btn:hover,
-.feedback-close-btn:focus-visible {
+.modal-close-btn:hover,
+.modal-close-btn:focus-visible {
   background: rgba(255,255,255,0.08);
   color: #ffffff;
   outline: 3px solid rgba(249,115,22,0.25);
   outline-offset: 2px;
 }
-
-.feedback-form {
-  display: grid;
-  gap: 12px;
-}
-
-.feedback-field {
-  display: grid;
-  gap: 6px;
-}
-
-.feedback-field textarea,
-.feedback-field input[type="email"] {
-  width: 100%;
-  background: rgba(255,255,255,0.03);
-  border: 1px solid rgba(255,255,255,0.09);
-  color: #dbe7f3;
-  border-radius: 12px;
-  padding: 11px 12px;
-  font-size: 0.88rem;
-  font-family: inherit;
-  outline: none;
-  transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
-}
-
-.feedback-field textarea {
-  min-height: 136px;
-  resize: vertical;
-}
-
-.feedback-field textarea:hover,
-.feedback-field textarea:focus,
-.feedback-field input[type="email"]:hover,
-.feedback-field input[type="email"]:focus {
-  border-color: rgba(249,115,22,0.45);
-  background: rgba(255,255,255,0.05);
-  box-shadow: 0 0 0 4px rgba(249,115,22,0.08);
-}
-
-.feedback-hp {
-  position: absolute !important;
-  left: -10000px !important;
-  width: 1px !important;
-  height: 1px !important;
-  overflow: hidden !important;
-  opacity: 0 !important;
-  pointer-events: none !important;
-}
-
-.feedback-actions {
-  display: flex;
-  gap: 10px;
-  justify-content: flex-end;
-  flex-wrap: wrap;
-  margin-top: 2px;
-}
-
-.feedback-note {
-  color: #7b8b9c;
-  font-size: 0.74rem;
-  line-height: 1.55;
-}
-
-.feedback-message {
-  display: none;
-  padding: 10px 12px;
-  border-radius: 12px;
-  border: 1px solid rgba(255,255,255,0.08);
-  background: rgba(255,255,255,0.04);
-  color: #dbe7f3;
-  font-size: 0.82rem;
-  font-weight: 650;
-  line-height: 1.45;
-}
-
-.feedback-message.visible {
-  display: block;
-}
-
-.feedback-message[data-type="error"] {
-  border-color: rgba(248,113,113,0.45);
-  background: rgba(248,113,113,0.10);
-  color: #fecaca;
-}
-
-.feedback-message[data-type="success"] {
-  border-color: rgba(34,197,94,0.35);
-  background: rgba(34,197,94,0.08);
-  color: #bbf7d0;
-}
-
-@media (max-width: 520px) {
-  .feedback-actions {
-    flex-direction: column-reverse;
-  }
-
-  .feedback-actions .btn {
-    width: 100%;
-  }
-}
-
 
 .crop-modal-overlay {
   display: none;
@@ -1586,26 +1424,6 @@ backdrop-filter: blur(14px);
 border: 1px solid rgba(255,255,255,0.06);
 box-shadow: 0 10px 30px rgba(0,0,0,0.25);
 margin-bottom: 1.5rem;
-}
-
-.brand-link {
-  display: inline-flex;
-  align-items: center;
-  color: #f8fafc;
-  font-weight: 900;
-  letter-spacing: 0.01em;
-  text-decoration: none;
-}
-
-.brand-link::after {
-  content: 'PhotoEngraving.online';
-  display: none;
-  font-size: 1rem;
-  line-height: 1.1;
-}
-
-.brand-link--fallback::after {
-  display: inline-block;
 }
 
 .brand-logo {
@@ -2215,8 +2033,8 @@ z-index: 2200;
 <body>
 <div class="content max-w-7xl mx-auto px-4 py-6">
 <header class="app-header flex items-center gap-3 flex-wrap">
-<a class="brand-link" href="https://photoengraving.online/">
-<img alt="PhotoEngraving.online" class="brand-logo" onerror="this.remove();this.parentElement.classList.add('brand-link--fallback');" src="/logo.png"/>
+<a href="https://photoengraving.online/">
+<img alt="Photoengraving Logo" class="brand-logo" src="/logo.png"/>
 </a>
 <div class="ml-auto flex flex-wrap gap-2 items-center">
 <nav aria-label="Language selector" class="lang-switcher lang-dropdown" id="langSwitcher">
@@ -2239,23 +2057,103 @@ z-index: 2200;
          English
         </span>
 </a>
-	<a aria-label="French" class="lang-option" data-lang="fr" href="https://photoengraving.online/fr/" hreflang="fr" lang="fr" role="menuitem" title="French">
-	<span aria-hidden="true" class="lang-option-flag">
-	         🇫🇷
-	        </span>
+<a aria-label="Spanish" class="lang-option" data-lang="es" href="https://photoengraving.online/es/" hreflang="es" lang="es" role="menuitem" title="Spanish">
+<span aria-hidden="true" class="lang-option-flag">
+         🇪🇸
+        </span>
+<span class="lang-option-text">
+         Spanish
+        </span>
+</a>
+<a aria-label="German" class="lang-option" data-lang="de" href="https://photoengraving.online/de/" hreflang="de" lang="de" role="menuitem" title="German">
+<span aria-hidden="true" class="lang-option-flag">
+         🇩🇪
+        </span>
+<span class="lang-option-text">
+         German
+        </span>
+</a>
+<a aria-label="French" class="lang-option" data-lang="fr" href="https://photoengraving.online/fr/" hreflang="fr" lang="fr" role="menuitem" title="French">
+<span aria-hidden="true" class="lang-option-flag">
+         🇫🇷
+        </span>
 <span class="lang-option-text">
          French
         </span>
 </a>
-	<a aria-label="Russian" class="lang-option" data-lang="ru" href="https://photoengraving.online/ru/" hreflang="ru" lang="ru" role="menuitem" title="Russian">
-	<span aria-hidden="true" class="lang-option-flag">
-	         🇷🇺
+<a aria-label="Hindi" class="lang-option" data-lang="hi" href="https://photoengraving.online/hi/" hreflang="hi" lang="hi" role="menuitem" title="Hindi">
+<span aria-hidden="true" class="lang-option-flag">
+         🇮🇳
+        </span>
+<span class="lang-option-text">
+         Hindi
+        </span>
+</a>
+<a aria-label="Italian" class="lang-option" data-lang="it" href="https://photoengraving.online/it/" hreflang="it" lang="it" role="menuitem" title="Italian">
+<span aria-hidden="true" class="lang-option-flag">
+         🇮🇹
+        </span>
+<span class="lang-option-text">
+         Italian
+        </span>
+</a>
+<a aria-label="Japanese" class="lang-option" data-lang="ja" href="https://photoengraving.online/ja/" hreflang="ja" lang="ja" role="menuitem" title="Japanese">
+<span aria-hidden="true" class="lang-option-flag">
+         🇯🇵
+        </span>
+<span class="lang-option-text">
+         Japanese
+        </span>
+</a>
+<a aria-label="Korean" class="lang-option" data-lang="ko" href="https://photoengraving.online/ko/" hreflang="ko" lang="ko" role="menuitem" title="Korean">
+<span aria-hidden="true" class="lang-option-flag">
+         🇰🇷
+        </span>
+<span class="lang-option-text">
+         Korean
+        </span>
+</a>
+<a aria-label="Polish" class="lang-option" data-lang="pl" href="https://photoengraving.online/pl/" hreflang="pl" lang="pl" role="menuitem" title="Polish">
+<span aria-hidden="true" class="lang-option-flag">
+         🇵🇱
+        </span>
+<span class="lang-option-text">
+         Polish
+        </span>
+</a>
+<a aria-label="Brazilian Portuguese" class="lang-option" data-lang="pt-br" href="https://photoengraving.online/pt-br/" hreflang="pt-BR" lang="pt-BR" role="menuitem" title="Brazilian Portuguese">
+<span aria-hidden="true" class="lang-option-flag">
+         🇧🇷
+        </span>
+<span class="lang-option-text">
+         Brazilian Portuguese
+        </span>
+</a>
+<a aria-label="Russian" class="lang-option" data-lang="ru" href="https://photoengraving.online/ru/" hreflang="ru" lang="ru" role="menuitem" title="Russian">
+<span aria-hidden="true" class="lang-option-flag">
+         🇷🇺
         </span>
 <span class="lang-option-text">
          Russian
         </span>
 </a>
-	<a aria-label="Czech" class="lang-option" data-lang="cs" href="https://photoengraving.online/cs/" hreflang="cs" lang="cs" role="menuitem" title="Czech">
+<a aria-label="Turkish" class="lang-option" data-lang="tr" href="https://photoengraving.online/tr/" hreflang="tr" lang="tr" role="menuitem" title="Turkish">
+<span aria-hidden="true" class="lang-option-flag">
+         🇹🇷
+        </span>
+<span class="lang-option-text">
+         Turkish
+        </span>
+</a>
+<a aria-label="Chinese" class="lang-option" data-lang="zh" href="https://photoengraving.online/zh/" hreflang="zh" lang="zh" role="menuitem" title="Chinese">
+<span aria-hidden="true" class="lang-option-flag">
+         🇨🇳
+        </span>
+<span class="lang-option-text">
+         Chinese
+        </span>
+</a>
+<a aria-label="Czech" class="lang-option" data-lang="cs" href="https://photoengraving.online/cs/" hreflang="cs" lang="cs" role="menuitem" title="Czech">
 <span aria-hidden="true" class="lang-option-flag">
          🇨🇿
         </span>
@@ -2265,68 +2163,18 @@ z-index: 2200;
 </a>
 </div>
 </nav>
-<a aria-label="Open laser photo engraving user guide" class="guide-btn" data-i18n-aria-label="guideAriaLabel" href="https://photoengraving.online/cs/pruvodce/">
+<a aria-label="Open laser photo engraving user guide" class="guide-btn" data-i18n-aria-label="guideAriaLabel" href="https://photoengraving.online/guide/">
 <span data-i18n="guideBtn">
        User Guide
       </span>
 </a>
-<a aria-label="Open QR Generator" class="feedback-btn" data-i18n-aria-label="qrGeneratorAriaLabel" href="https://photoengraving.online/qrgenerator/">
+<a aria-label="Open QR Generator" class="guide-btn" data-i18n-aria-label="qrGeneratorAriaLabel" href="https://photoengraving.online/qrgenerator/">
 <span data-i18n="qrGeneratorBtn">
        QR Generator
       </span>
 </a>
 </div>
 </header>
-<div aria-hidden="true" class="feedback-modal-overlay" id="feedbackModalOverlay">
-<div aria-labelledby="feedbackModalTitle" aria-modal="true" class="feedback-modal" id="feedbackModal" role="dialog">
-<div class="feedback-modal-header">
-<div>
-<h2 class="feedback-modal-title" id="feedbackModalTitle">
-        Send feedback
-       </h2>
-<p class="feedback-modal-text">
-        Tell us what could be improved, what is missing, or what did not work as expected.
-       </p>
-</div>
-<button aria-label="Close feedback form" class="feedback-close-btn" id="feedbackCloseBtn" type="button">
-       ×
-      </button>
-</div>
-<form class="feedback-form" id="feedbackForm" novalidate="">
-<div class="feedback-field">
-<label for="feedbackText">
-        Your feedback
-       </label>
-<textarea id="feedbackText" maxlength="3000" minlength="8" name="message" placeholder="What should we improve?" required=""></textarea>
-</div>
-<div class="feedback-field">
-<label for="feedbackEmail">
-        Your email (optional)
-       </label>
-<input autocomplete="email" id="feedbackEmail" name="email" placeholder="name@example.com" type="email"/>
-</div>
-<div aria-hidden="true" class="feedback-hp">
-<label for="feedbackWebsite">
-        Website
-       </label>
-<input autocomplete="off" id="feedbackWebsite" name="website" tabindex="-1" type="text"/>
-</div>
-<div aria-live="polite" class="feedback-message" id="feedbackMessage" role="status">
-</div>
-<p class="feedback-note">
-       Basic spam protection is active.
-      </p>
-<div class="feedback-actions">
-<button class="btn btn-secondary" id="feedbackCancelBtn" type="button">
-        Cancel
-       </button>
-<button class="btn btn-primary" type="submit">
-        Send feedback
-       </button>
-</div>
-</form>
-</div>
-</div>
 <div aria-hidden="true" class="crop-modal-overlay" id="cropModalOverlay">
 <div aria-labelledby="cropModalTitle" aria-modal="true" class="crop-modal" id="cropModal" role="dialog">
 <div class="crop-modal-header">
@@ -2338,7 +2186,7 @@ z-index: 2200;
         Drag to draw a crop area. Drag inside the area to move it, or drag a corner to resize it.
        </p>
 </div>
-<button aria-label="Close crop editor" class="feedback-close-btn" id="cropCloseBtn" type="button">
+<button aria-label="Close crop editor" class="modal-close-btn" id="cropCloseBtn" type="button">
        ×
       </button>
 </div>
@@ -2371,12 +2219,12 @@ z-index: 2200;
 </div>
 <section class="panel p-6 mb-4">
 <h1 data-i18n="heroTitle" style="font-size:clamp(1.8rem,3vw,2.6rem);font-weight:800;line-height:1.1;color:#f8fafc;margin:0 0 12px;">
-     Prepare a Photo for Laser Engraving
+     Prepare photos for laser engraving online
     </h1>
 <p data-i18n-html="heroText" style="font-size:1rem;line-height:1.8;color:#cbd5e1;margin:0;max-width:900px;">
-     Upload a photo, set the engraving width and DPI, tune the tones, and download a clean PNG or BMP for LightBurn, XCS or LaserGRBL.
+     Upload a photo, crop it, tune the tones and export a clean black-and-white PNG or BMP for laser engraving.
      <strong style="color: var(--accent);">
-      Everything runs in your browser, so your photo stays on your device.
+      Your photos are processed locally in your browser and are not uploaded to our server.
      </strong>
 </p>
 </section>
@@ -2397,42 +2245,42 @@ z-index: 2200;
        </button>
 <ul aria-labelledby="btnMaterial" class="custom-select-dropdown material-preview-menu" id="materialCustomOptions" role="listbox">
 </ul>
-	<select class="custom-native-hidden" id="materialSelectNative" tabindex="-1">
-	<option data-i18n="materialWood" value="wood">
-	         Wood
-	        </option>
-	<option data-i18n="materialSlate" value="slate">
-	         Slate
-	        </option>
-	<option data-i18n="materialBlackAnodized" value="blackAnodized">
-	         Dark surfaces
-	        </option>
-	<option data-i18n="materialStainless" value="stainless">
-	         Stainless steel
-	        </option>
-	<option data-i18n="materialGlass" value="glass">
-	         Glass
-	        </option>
-	<option data-i18n="materialLeather" value="leather">
-	         Leather
-	        </option>
-	<option data-i18n="materialCeramic" value="ceramic">
-	         Ceramic tile
-	        </option>
-	</select>
+<select class="custom-native-hidden" id="materialSelectNative" tabindex="-1">
+<option data-i18n="materialWood" value="wood">
+         Wood
+        </option>
+<option data-i18n="materialSlate" value="slate">
+         Slate
+        </option>
+<option data-i18n="materialBlackAnodized" value="blackAnodized">
+         Dark surfaces
+        </option>
+<option data-i18n="materialStainless" value="stainless">
+         Stainless steel
+        </option>
+<option data-i18n="materialGlass" value="glass">
+         Glass
+        </option>
+<option data-i18n="materialLeather" value="leather">
+         Leather
+        </option>
+<option data-i18n="materialCeramic" value="ceramic">
+         Ceramic tile
+        </option>
+</select>
 </div>
 <div class="ml-auto" id="imageDims" style="font-size:0.76rem;color:#7b8b9c;font-weight:600">
 </div>
 </div>
 <div class="panel p-5">
-	<div class="drop-zone" id="emptyState" style="min-height:320px">
+<div id="emptyState" style="min-height:320px">
 <div style="display:flex;gap:12px;margin-bottom:24px;align-items:flex-end">
 <div style="flex:1">
 <div data-i18n="emptyOriginal" style="font-size:0.66rem;font-weight:700;letter-spacing:0.08em;color:#94a3b8;margin-bottom:6px;text-align:center">
           ORIGINAL
          </div>
-	<div class="empty-preview-media" style="border-radius:12px;overflow:hidden;border:1px solid rgba(255,255,255,0.07);background:#000">
-	<img alt="Preview original image" decoding="async" fetchpriority="low" id="emptyOriginalImg" onerror="if(!this.dataset.fallback){this.dataset.fallback='1';this.src='/preview-v3.png';}else{this.hidden=true;this.parentElement.classList.add('empty-preview-media--missing');}" src="/preview-v3-small.webp" style="width:100%;display:block;object-fit:contain;"/>
+<div style="border-radius:12px;overflow:hidden;border:1px solid rgba(255,255,255,0.07);background:#000">
+<img alt="Preview original image" decoding="async" fetchpriority="low" id="emptyOriginalImg" onerror="this.onerror=null;this.src='/preview-v3.png';" src="/preview-v3-small.webp" style="width:100%;display:block;object-fit:contain;"/>
 </div>
 </div>
 <div style="display:flex;align-items:center;color:#f97316;font-size:1.4rem;padding-bottom:4px">
@@ -2442,8 +2290,8 @@ z-index: 2200;
 <div data-i18n="emptyOutput" style="font-size:0.66rem;font-weight:700;letter-spacing:0.08em;color:#f97316;margin-bottom:6px;text-align:center">
           OUTPUT
          </div>
-	<div class="empty-preview-media" style="border-radius:12px;overflow:hidden;border:1px solid rgba(249,115,22,0.2);background:#000">
-	<img alt="Preview output image" decoding="async" fetchpriority="low" id="emptyResultImg" onerror="if(!this.dataset.fallback){this.dataset.fallback='1';this.src='/preview-v3.png';}else{this.hidden=true;this.parentElement.classList.add('empty-preview-media--missing');}" src="/preview-v3-small.webp" style="width:100%;display:block;object-fit:contain;"/>
+<div style="border-radius:12px;overflow:hidden;border:1px solid rgba(249,115,22,0.2);background:#000">
+<img alt="Preview output image" decoding="async" fetchpriority="low" id="emptyResultImg" onerror="this.onerror=null;this.src='/preview-v3.png';" src="/preview-v3-small.webp" style="width:100%;display:block;object-fit:contain;"/>
 </div>
 </div>
 </div>
@@ -2529,13 +2377,13 @@ z-index: 2200;
 <canvas class="w-full" id="canvasMaterialPreview">
 </canvas>
 </div>
-	<div class="material-preview-disclaimer" data-i18n="materialPreviewDisclaimer">
-	         This is an approximate visual simulation only. The downloaded PNG/BMP remains the clean black-and-white laser-ready output.
-	        </div>
-	<div class="material-preview-note" id="materialPreviewTip">
-	         Select a material to see an approximate preview of how the engraved image may look on the surface.
-	        </div>
-	<div class="helper-text" data-i18n="zoomHelp" style="text-align:center;margin-top:10px;">
+<div class="material-preview-note" data-i18n-html="materialTipNone" id="materialPreviewTip">
+         Select a material to see an approximate preview of how the engraved image may look on the surface.
+        </div>
+<div class="material-preview-disclaimer" data-i18n="materialPreviewDisclaimer">
+         This is an approximate visual simulation only. The downloaded PNG/BMP remains the clean black-and-white laser-ready output.
+        </div>
+<div class="helper-text" data-i18n="zoomHelp" style="text-align:center;margin-top:10px;">
          Move the mouse over the image to inspect details in the magnifier. On touch devices, hold and drag over the image. For the best experience and more comfortable editing, we recommend using this tool on a desktop computer.
         </div>
 <div class="mobile-action-stack">
@@ -2625,9 +2473,10 @@ z-index: 2200;
         </label>
 <div class="slider-row mt-1">
 <input id="materialPower" max="160" min="40" step="5" type="range" value="100"/>
+<span class="slider-val" id="materialPowerVal">100%</span>
 </div>
-	<div class="helper-text" data-i18n="materialPowerHelp">
-	         Adjusts only the Material Preview. It is a rough visual check, not a laser setting; the exported PNG/BMP stays unchanged.
+<div class="helper-text" data-i18n="materialPowerHelp">
+         Adjusts only the Material Preview to simulate weaker or stronger laser marks. Higher power can darken the mark; burnable materials may also show more edge spread. The exported PNG/BMP stays unchanged.
         </div>
 </div>
 <input hidden="" id="invertColors" type="checkbox"/>
@@ -2689,12 +2538,12 @@ z-index: 2200;
       </div>
 <div class="flex flex-col gap-3">
 <div>
-	<label data-i18n="labelOutputWidthMm" for="outputWidthMm">
-	         Engraving width
+<label data-i18n="labelOutputWidthMm" for="outputWidthMm">
+         Image width
         </label>
 <input class="mt-1" id="outputWidthMm" min="1" step="0.1" type="number" value="80"/>
-	<div class="helper-text" data-i18n="outputWidthMmHelp">
-	         Set the real width you want on the material, in millimeters.
+<div class="helper-text" data-i18n="outputWidthMmHelp">
+         Enter the real engraving width in millimeters.
         </div>
 </div>
 <div>
@@ -2794,7 +2643,7 @@ z-index: 2200;
        <strong class="text-white">
         PhotoEngraving.online
        </strong>
-       when you need a quick photo to laser engraving converter without installing anything. Upload a photo, set the real engraving width, choose DPI and dithering, tune the tones, then download a laser-ready PNG or 1-bit BMP for LightBurn, XCS, LaserGRBL, EZCAD and other laser software.
+       as a free image to laser engraving converter directly in your browser. Upload a photo, convert it to a laser-ready black-and-white PNG, choose a photo type and DPI, check recommended engraving speed by material, adjust brightness, contrast, gamma and sharpness, then download the result for LightBurn, XCS, LaserGRBL, EZCAD and other laser software.
       </p>
 <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
 <div class="help-card">
@@ -2906,7 +2755,7 @@ z-index: 2200;
            Upload a photo
           </p>
 <p class="text-sm mt-1 text-slate-400" data-i18n="helpStep1Text">
-           Use Upload photo or drop a file into the preview area. Supported formats are JPG, PNG, BMP and WebP. For best results, use a sharp photo with good contrast.
+           Drag the file into the upload area or click to choose it from your device. Supported formats are JPG, PNG, BMP and WebP. For best results, use a sharp photo with good contrast.
           </p>
 </div>
 </div>
@@ -2919,7 +2768,7 @@ z-index: 2200;
            Choose photo type and dithering
           </p>
 <p class="text-sm mt-1 text-slate-400" data-i18n="helpStep2Text">
-           Start with Normal Photo, Negative, Dark Photo or Light Photo. Then choose the dithering pattern: Floyd-Steinberg is a balanced default, Atkinson is softer, Jarvis keeps smoother tones, and Ordered/Bayer is useful for graphic, regular-dot looks.
+           Start with Normal Photo, Negative, People, Dark Photo or Light Photo. Then choose the dithering pattern: Floyd-Steinberg is a balanced default, Atkinson is softer, Jarvis keeps smoother tones, and Ordered/Bayer is useful for graphic, regular-dot looks.
           </p>
 </div>
 </div>
@@ -2932,7 +2781,7 @@ z-index: 2200;
            Tune the image and Material Preview
           </p>
 <p class="text-sm mt-1 text-slate-400" data-i18n="helpStep3Text">
-           Adjust brightness, contrast, gamma and sharpness while checking Original + Output. Use Material Preview for wood, slate, dark surfaces, stainless steel, glass, leather or ceramic tile, then move the preview power slider to check how easily contrast can change before testing on real material.
+           Adjust brightness, contrast, gamma and sharpness while checking Original + Output. Use Material Preview for wood, slate, dark anodized surfaces, stainless steel, glass, leather or ceramic tile, then move Material Preview laser power to roughly simulate weaker or stronger laser marks before testing on real material.
           </p>
 </div>
 </div>
@@ -2945,7 +2794,7 @@ z-index: 2200;
            Set size, DPI and export
           </p>
 <p class="text-sm mt-1 text-slate-400" data-i18n="helpStep4Text">
-           Set the real engraving width in millimeters, choose 254, 300, 508 or Custom DPI, and watch the pixel count update. If the preview looks right, download PNG or 1-bit BMP with DPI metadata and import it into your laser software.
+           Enter the real engraving width in millimeters, choose 254, 300, 508 or Custom DPI, and watch the pixel count update. If the preview looks right, download PNG or 1-bit BMP with DPI metadata and import it into your laser software.
           </p>
 </div>
 </div>
@@ -3121,16 +2970,16 @@ const PREVIEW_IMAGE_FALLBACK = '/preview-v3.png';
 
 const translations = {
   en: {
-    heroTitle: 'Prepare a Photo for Laser Engraving',
-    heroText: 'Upload a photo, set the engraving width and DPI, tune the tones, and download a clean PNG or BMP for LightBurn, XCS or LaserGRBL. <strong style="color: var(--accent);">Everything runs in your browser, so your photo stays on your device.</strong>',
-    seoIntroTitle: 'Free photo to laser engraving converter online',
-    seoIntroText: 'Use <strong class="text-white">PhotoEngraving.online</strong> when you need a quick photo to laser engraving converter without installing anything. Upload a photo, set the real engraving width, choose DPI and dithering, tune the tones, then download a laser-ready PNG or 1-bit BMP for LightBurn, XCS, LaserGRBL, EZCAD and other laser software.',
+    heroTitle: 'Prepare photos for laser engraving online',
+    heroText: 'Upload a photo, crop it, tune the tones and export a clean black-and-white PNG or BMP for laser engraving. The editor runs in your browser, so your photo stays on your device. <strong style="color: var(--accent);">Free to use. Prepared for LightBurn, XCS, LaserGRBL, EZCAD and similar laser software.</strong>',
+    seoIntroTitle: 'Photo preparation for laser engraving, without installing anything',
+    seoIntroText: '<strong class="text-white">PhotoEngraving.online</strong> helps you turn a normal photo into a laser-ready black-and-white image. Set the real engraving size in millimeters, choose DPI, compare dithering styles, preview the result on common materials and download a PNG or 1-bit BMP for your laser software.',
     seoCard1Title: 'Free online tool',
-    seoCard1Text: 'No installation needed. Convert photos for laser engraving online and download the PNG for free.',
-    seoCard2Title: 'Laser-ready PNG output',
-    seoCard2Text: 'Export black-and-white PNG files with DPI metadata and engraving speed guidance for the correct physical size in laser software.',
+    seoCard1Text: 'No installation and no account. Open the page, upload a photo and prepare the engraving file in your browser.',
+    seoCard2Title: 'Laser-ready PNG and BMP',
+    seoCard2Text: 'Download black-and-white PNG or 1-bit BMP files with DPI metadata, so the physical size is easier to keep in LightBurn, XCS, LaserGRBL and EZCAD.',
     seoCard3Title: 'Private browser processing',
-    seoCard3Text: 'Your photo is processed locally in your browser and is not uploaded to our server.',
+    seoCard3Text: 'The conversion happens locally in your browser. Your uploaded photo is not sent to our server.',
     faqTitle: 'Photo engraving FAQ',
     faq1Question: 'Is this photo to laser engraving converter free?',
     faq1Answer: 'Yes. The tool is free to use in your browser. You can convert a photo to a laser engraving PNG and download the result without installing software.',
@@ -3179,6 +3028,7 @@ const translations = {
     presetCustom: 'Custom',
     presetNormal: 'Normal Photo',
     presetNegative: 'Negative',
+    presetPortrait: 'People',
     presetDark: 'Dark Photo',
     presetLight: 'Light Photo',
     presetDetail: '🔍 More Detail',
@@ -3195,11 +3045,11 @@ const translations = {
     labelGamma: 'Gamma',
     labelSharpness: 'Sharpness',
     labelMaterialPower: 'Material Preview laser power',
-    materialPowerHelp: 'Adjusts only the Material Preview. It is a rough visual check, not a laser setting; the exported PNG/BMP stays unchanged.',
+    materialPowerHelp: 'Adjusts only the Material Preview. On wood and leather, more power can look darker and spread more. On dark coated surfaces, too much power can make the light mark turn dull gray and reduce contrast. The exported PNG/BMP stays unchanged.',
     resetBtn: '↺ Default Settings',
     sectionOutput: 'Output',
-    labelOutputWidthMm: 'Engraving width',
-    outputWidthMmHelp: 'Set the real width you want on the material, in millimeters.',
+    labelOutputWidthMm: 'Image width',
+    outputWidthMmHelp: 'Enter the real engraving width in millimeters.',
     labelDpi: 'Resolution (DPI)',
     dpiHelp: 'Changing DPI keeps the same physical size and recalculates the pixel count.',
     labelCustomDpi: 'Custom DPI',
@@ -3246,22 +3096,22 @@ const translations = {
     materialTipNone: 'Select a material to see an approximate preview of how the engraved image may look on the surface.',
     materialTipWood: 'Birch plywood and light wood usually engrave darker than the surface. Expect some dot gain, especially on plywood and softer wood.',
     materialTipSlate: 'Slate and dark stone usually engrave lighter than the surface. Negative mode is often the right starting point.',
-    materialTipBlackAnodized: 'Dark coated or anodized surfaces usually engrave lighter at first. Too much power can make the bright mark turn darker gray, so contrast may get worse instead of better.',
+    materialTipBlackAnodized: 'Dark anodized, coated or painted surfaces often engrave lighter at first. Too much power can make the mark darker gray and lower the contrast, so test a small crop before engraving the final piece.',
     materialTipStainless: 'Stainless steel preview is only approximate. Higher preview power increases mark darkness, but it does not simulate the burnt edge spread used for wood. Real results depend strongly on fiber/diode laser type, marking spray, focus, speed and power.',
     materialTipGlass: 'Glass usually produces a frosted, milky mark. Real results depend strongly on focus, coating and laser type.',
     materialTipLeather: 'Leather usually engraves darker and can spread slightly. Lower detail and test pieces are recommended.',
     materialTipCeramic: 'Ceramic tile can behave differently depending on glaze, coating and spray. Treat this preview as a rough visual guide.',
     helpIntroTitle: 'What does this tool do?',
-    helpIntroText: '<strong class="text-white">Photo Engraving Online</strong> converts a regular photo into a rasterized black-and-white image optimized for CO2 or diode laser engraving. You can then import the resulting PNG directly into your laser software (LightBurn, LaserGRBL, XCS, etc.) and engrave it.',
+    helpIntroText: '<strong class="text-white">Photo Engraving Online</strong> prepares a normal photo for laser engraving by controlling crop, tones, dithering, output size and DPI. The result is a black-and-white PNG or BMP you can import into LightBurn, XCS, LaserGRBL, EZCAD and similar laser software.',
     helpStepsTitle: 'Step-by-step guide',
     helpStep1Title: 'Upload a photo',
-    helpStep1Text: 'Use Upload photo or drop a file into the preview area. Supported formats are JPG, PNG, BMP and WebP. For best results, use a sharp photo with good contrast.',
+    helpStep1Text: 'Click Upload photo and choose a JPG, PNG, BMP or WebP file. For best results, start with a sharp photo, clear lighting and visible detail in the subject.',
     helpStep2Title: 'Choose photo type and dithering',
-    helpStep2Text: 'Start with Normal Photo, Negative, Dark Photo or Light Photo. Then choose the dithering pattern: Floyd-Steinberg is a balanced default, Atkinson is softer, Jarvis keeps smoother tones, and Ordered/Bayer is useful for graphic, regular-dot looks.',
+    helpStep2Text: 'Start with Normal Photo, Negative, People, Dark Photo or Light Photo. Then choose the dithering pattern: Floyd-Steinberg is a balanced default, Atkinson is softer, Jarvis keeps smoother tones, and Ordered/Bayer is useful for graphic, regular-dot looks.',
     helpStep3Title: 'Tune the image and Material Preview',
-    helpStep3Text: 'Adjust brightness, contrast, gamma and sharpness while checking Original + Output. Use Material Preview for wood, slate, dark surfaces, stainless steel, glass, leather or ceramic tile, then move the preview power slider to check how easily contrast can change before testing on real material.',
+    helpStep3Text: 'Adjust brightness, contrast, gamma and sharpness while comparing the original with the output. Then use Material Preview to get a rough idea of how the file may behave on wood, slate, dark surfaces, stainless steel, glass, leather or ceramic tile.',
     helpStep4Title: 'Set size, DPI and export',
-    helpStep4Text: 'Set the real engraving width in millimeters, choose 254, 300, 508 or Custom DPI, and watch the pixel count update. If the preview looks right, download PNG or 1-bit BMP with DPI metadata and import it into your laser software.',
+    helpStep4Text: 'Enter the real engraving width in millimeters, choose 254, 300, 508 or Custom DPI, and watch the pixel count update. If the preview looks right, download PNG or 1-bit BMP with DPI metadata and import it into your laser software.',
     helpDpiTitle: 'Recommended DPI by material',
     helpTableHeadDpi: 'DPI',
     helpTableHeadMaterial: 'Best for',
@@ -3280,7 +3130,7 @@ const translations = {
     helpTip1Title: 'Input photo quality',
     helpTip1Text: 'Use sharp, evenly lit photos with visible detail in the face, object or texture. Crop away empty background before dithering so the laser-ready pixels focus on the important area.',
     helpTip2Title: 'Preview before engraving',
-    helpTip2Text: 'Switch between Original + Output, Output and Material Preview. The material simulation is approximate, but the preview power slider helps you check how the same file might look with lighter or darker laser settings before you export.',
+    helpTip2Text: 'Switch between Original + Output, Output and Material Preview. The simulation is only a guide, but the power slider can warn you when stronger settings may darken, spread or flatten the real mark.',
     helpTip3Title: 'Test engraving',
     helpTip3Text: 'Always test on an offcut of the same material. Real results still depend on laser type, focus, lens, speed, power, coating and the exact surface.',
     helpTip4Title: 'Laser software settings',
@@ -3397,13 +3247,14 @@ const DEFAULTS = {
   invertColors: PRESETS.normal.invertColors,
   dpi: 254,
   customDpi: 254,
-  outputWidthMm: 80,
-  outputWidthPx: 800
+  outputWidthMm: 100,
+  outputWidthPx: 1000
 };
 
 const fileInput = document.getElementById('fileInput');
 const topUploadBtn = document.getElementById('topUploadBtn');
-const dropZone = document.querySelector('#dropZone, #emptyState');
+const dropZone = document.getElementById('dropZone');
+const uploadCtaCard = document.getElementById('uploadCtaCard');
 const hintUploadLink = document.getElementById('hintUploadLink');
 const cropOpenBtn = document.getElementById('cropOpenBtn');
 const cropResetBtn = document.getElementById('cropResetBtn');
@@ -3417,6 +3268,7 @@ const cropResetModalBtn = document.getElementById('cropResetModalBtn');
 const cropApplyBtn = document.getElementById('cropApplyBtn');
 const cropAspectButtons = document.querySelectorAll('[data-crop-aspect]');
 const statusMessage = document.getElementById('statusMessage');
+const demoNotice = document.getElementById('demoNotice');
 const editorControlsColumn = document.getElementById('editorControlsColumn');
 const btnResult = document.getElementById('btnResult');
 const btnCompare = document.getElementById('btnCompare');
@@ -3889,10 +3741,10 @@ function updateSeoMeta() {
 
   const seo = {
     en: {
-      title: 'Prepare Photos for Laser Engraving Online | PhotoEngraving.online',
-      description: 'Prepare photos for laser engraving online. Set engraving size and DPI, tune contrast and dithering, then download a private browser-made PNG or BMP.',
-      ogTitle: 'Prepare Photos for Laser Engraving Online',
-      ogDescription: 'Upload a photo, choose engraving size and DPI, tune the tones and export a laser-ready PNG or BMP directly in your browser.'
+      title: 'Free Photo to Laser Engraving Converter Online | PhotoEngraving.online',
+      description: 'Free photo to laser engraving converter online. Create laser-ready black and white PNGs with DPI, engraving speed guidance and local browser processing.',
+      ogTitle: 'Free Photo to Laser Engraving Converter Online',
+      ogDescription: 'Convert images and photos to laser engraving PNGs online for free. Adjust DPI, engraving speed, photo type, brightness, contrast, gamma and sharpness in your browser.'
     }
   }[lang] || {};
 
@@ -3973,6 +3825,7 @@ const sliderPairs = [
   ['contrast', 'contrastVal'],
   ['gamma', 'gammaVal'],
   ['sharpness', 'sharpnessVal'],
+  ['materialPower', 'materialPowerVal'],
   ['outputWidthSlider', 'outputWidthSliderVal']
 ];
 
@@ -4615,10 +4468,8 @@ function shouldContinueLargeExport(widthPx = getOutputWidthPx()) {
 
 if (dropZone && fileInput) makeKeyboardClickable(dropZone, () => fileInput.click());
 if (topUploadBtn && fileInput) topUploadBtn.addEventListener('click', () => fileInput.click());
-if (hintUploadLink && fileInput) hintUploadLink.addEventListener('click', e => {
-  e.stopPropagation();
-  fileInput.click();
-});
+if (uploadCtaCard && fileInput) makeKeyboardClickable(uploadCtaCard, () => fileInput.click());
+if (hintUploadLink && fileInput) hintUploadLink.addEventListener('click', () => fileInput.click());
 if (cropOpenBtn) cropOpenBtn.addEventListener('click', openCropModal);
 if (cropResetBtn) cropResetBtn.addEventListener('click', () => resetCrop());
 if (cropCloseBtn) cropCloseBtn.addEventListener('click', closeCropModal);
@@ -5604,16 +5455,16 @@ function renderMaterialPreview(sourceImageData, w, h) {
   const powerUnder = clamp((1 - previewPower) / 0.6, 0, 1);
   const isMarkingMaterial = material.laserPowerBehavior === 'marking';
   const isDarkSurfaceMaterial = material.laserPowerBehavior === 'darkSurface';
-  const previewDotGain = material.dotGain + (isMarkingMaterial ? powerOver * 0.03 : isDarkSurfaceMaterial ? powerOver * 0.08 : powerOver * 0.42);
+  const previewDotGain = material.dotGain + ((isMarkingMaterial || isDarkSurfaceMaterial) ? powerOver * 0.03 : powerOver * 0.42);
   const charR = 48;
   const charG = 31;
   const charB = 18;
   const metalDarkR = 6;
   const metalDarkG = 7;
   const metalDarkB = 8;
-  const darkSurfaceOverR = 54;
-  const darkSurfaceOverG = 56;
-  const darkSurfaceOverB = 58;
+  const darkSurfaceR = 58;
+  const darkSurfaceG = 60;
+  const darkSurfaceB = 64;
   canvasMaterialPreview.width = w;
   canvasMaterialPreview.height = h;
   canvasMaterialPreview.style.width = '100%';
@@ -5639,16 +5490,18 @@ function renderMaterialPreview(sourceImageData, w, h) {
         laserAmount = Math.max(laserAmount, left * previewDotGain, right * previewDotGain, up * previewDotGain, down * previewDotGain);
       }
 
-      const powerAmountBoost = isMarkingMaterial ? 1 + powerOver * 0.08 : isDarkSurfaceMaterial ? 1 + powerOver * 0.05 : 1 + powerOver * 0.18;
+      let powerAmountBoost = 1 + powerOver * 0.18;
+      if (isMarkingMaterial) powerAmountBoost = 1 + powerOver * 0.08;
+      if (isDarkSurfaceMaterial) powerAmountBoost = 1 + powerOver * 0.04;
       laserAmount = clamp(laserAmount * (previewPower < 1 ? previewPower : powerAmountBoost), 0, 1);
 
       const texture = getMaterialTexture(material, x, y, w, h);
       const baseR = material.base[0] + texture;
       const baseG = material.base[1] + texture;
       const baseB = material.base[2] + texture;
-      const highPowerR = isMarkingMaterial ? metalDarkR : isDarkSurfaceMaterial ? darkSurfaceOverR : charR;
-      const highPowerG = isMarkingMaterial ? metalDarkG : isDarkSurfaceMaterial ? darkSurfaceOverG : charG;
-      const highPowerB = isMarkingMaterial ? metalDarkB : isDarkSurfaceMaterial ? darkSurfaceOverB : charB;
+      const highPowerR = isDarkSurfaceMaterial ? darkSurfaceR : (isMarkingMaterial ? metalDarkR : charR);
+      const highPowerG = isDarkSurfaceMaterial ? darkSurfaceG : (isMarkingMaterial ? metalDarkG : charG);
+      const highPowerB = isDarkSurfaceMaterial ? darkSurfaceB : (isMarkingMaterial ? metalDarkB : charB);
       const markMixR = material.mark[0] * (1 - powerOver) + highPowerR * powerOver;
       const markMixG = material.mark[1] * (1 - powerOver) + highPowerG * powerOver;
       const markMixB = material.mark[2] * (1 - powerOver) + highPowerB * powerOver;
@@ -6195,112 +6048,6 @@ async function downloadResult() {
     showStatus(t('alertPngFail'), 'error');
   }
 }
-
-(function initFeedbackForm() {
-  const openBtn = document.getElementById('feedbackOpenBtn');
-  const overlay = document.getElementById('feedbackModalOverlay');
-  const modal = document.getElementById('feedbackModal');
-  const closeBtn = document.getElementById('feedbackCloseBtn');
-  const cancelBtn = document.getElementById('feedbackCancelBtn');
-  const form = document.getElementById('feedbackForm');
-  const messageEl = document.getElementById('feedbackMessage');
-  const textEl = document.getElementById('feedbackText');
-  const emailEl = document.getElementById('feedbackEmail');
-  const hpEl = document.getElementById('feedbackWebsite');
-  let openedAt = 0;
-  let lastFocusedElement = null;
-
-  if (!openBtn || !overlay || !modal || !form) return;
-
-  function showFeedbackMessage(message, type) {
-    messageEl.textContent = message;
-    messageEl.dataset.type = type || '';
-    messageEl.classList.add('visible');
-  }
-
-  function openFeedbackModal() {
-    openedAt = Date.now();
-    lastFocusedElement = document.activeElement;
-    messageEl.classList.remove('visible');
-    messageEl.textContent = '';
-    overlay.classList.add('open');
-    overlay.setAttribute('aria-hidden', 'false');
-    openBtn.setAttribute('aria-expanded', 'true');
-    document.body.style.overflow = 'hidden';
-    setTimeout(() => textEl.focus(), 40);
-  }
-
-  function closeFeedbackModal() {
-    overlay.classList.remove('open');
-    overlay.setAttribute('aria-hidden', 'true');
-    openBtn.setAttribute('aria-expanded', 'false');
-    document.body.style.overflow = '';
-    if (lastFocusedElement && typeof lastFocusedElement.focus === 'function') {
-      lastFocusedElement.focus();
-    }
-  }
-
-  openBtn.addEventListener('click', openFeedbackModal);
-  closeBtn.addEventListener('click', closeFeedbackModal);
-  cancelBtn.addEventListener('click', closeFeedbackModal);
-
-  overlay.addEventListener('click', (event) => {
-    if (event.target === overlay) closeFeedbackModal();
-  });
-
-  document.addEventListener('keydown', (event) => {
-    if (event.key === 'Escape' && overlay.classList.contains('open')) closeFeedbackModal();
-  });
-
-  form.addEventListener('submit', (event) => {
-    event.preventDefault();
-
-    const feedback = textEl.value.trim();
-    const email = emailEl.value.trim();
-    const openedForMs = Date.now() - openedAt;
-
-    if (hpEl.value.trim() !== '') {
-      form.reset();
-      showFeedbackMessage('Thank you for your feedback.', 'success');
-      return;
-    }
-
-    if (openedForMs < 3500) {
-      showFeedbackMessage('Please wait a moment before sending the form.', 'error');
-      return;
-    }
-
-    if (feedback.length < 8) {
-      showFeedbackMessage('Please write at least a few words.', 'error');
-      return;
-    }
-
-    if (email && !emailEl.checkValidity()) {
-      showFeedbackMessage('Please enter a valid email address or leave the field empty.', 'error');
-      return;
-    }
-
-    const recipient = ['jan.osoba', 'gmail.com'].join('@');
-    const subject = 'Feedback for PhotoEngraving.online';
-    const bodyLines = [
-      'Feedback:',
-      feedback,
-      '',
-      email ? 'Sender email: ' + email : 'Sender email: not provided',
-      'Page: ' + window.location.href,
-      'User agent: ' + navigator.userAgent
-    ];
-
-    const mailtoUrl = 'mailto:' + recipient +
-      '?subject=' + encodeURIComponent(subject) +
-      '&body=' + encodeURIComponent(bodyLines.join('\n'));
-
-    showFeedbackMessage('Your email app should open now. Please send the prepared email from there.', 'success');
-    window.location.href = mailtoUrl;
-  });
-})();
-
-
 
 loadStoredLanguage();
 buildCustomDpiSelect();
