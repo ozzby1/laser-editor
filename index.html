@@ -79,7 +79,7 @@
       "operatingSystem": "Web",
       "browserRequirements": "Requires JavaScript and HTML5 Canvas",
       "isAccessibleForFree": true,
-      "description": "Free online photo to laser engraving converter for creating laser-ready black-and-white PNG files with custom DPI, recommended engraving speed by material, negative photo type, brightness, contrast, gamma and sharpness controls.",
+      "description": "Free online photo to laser engraving converter for creating laser-ready black-and-white PNG files with custom DPI, material preview, adjustable preview laser power, negative photo type, brightness, contrast, gamma and sharpness controls.",
       "image": "https://photoengraving.online/fb1.png",
       "screenshot": "https://photoengraving.online/fb1.png",
       "featureList": [
@@ -90,6 +90,7 @@
         "Custom DPI setting",
         "Recommended DPI by material and engraving speed guidance",
         "Approximate material preview simulation",
+        "Adjustable laser power in Material Preview",
         "Brightness and contrast adjustment",
         "Gamma correction",
         "Sharpness adjustment",
@@ -2655,6 +2656,17 @@ z-index: 2200;
          </span>
 </div>
 </div>
+<div>
+<label data-i18n="labelMaterialPower" for="materialPower">
+         Material Preview laser power
+        </label>
+<div class="slider-row mt-1">
+<input id="materialPower" max="160" min="40" step="5" type="range" value="100"/>
+</div>
+<div class="helper-text" data-i18n="materialPowerHelp">
+         Adjusts only the Material Preview to simulate weaker or stronger laser marks. Higher power can darken the mark; burnable materials may also show more edge spread. The exported PNG/BMP stays unchanged.
+        </div>
+</div>
 <input hidden="" id="invertColors" type="checkbox"/>
 <div class="grid grid-cols-1 sm:grid-cols-1 gap-2 pt-1">
 <button class="btn btn-secondary" data-i18n="resetBtn" id="resetBtn" type="button">
@@ -2941,10 +2953,10 @@ z-index: 2200;
          </div>
 <div>
 <p class="font-semibold text-white" data-i18n="helpStep2Title">
-           Photo adjustments
+           Choose photo type and dithering
           </p>
 <p class="text-sm mt-1 text-slate-400" data-i18n="helpStep2Text">
-           Adjust brightness, contrast, gamma and sharpness to prepare the photo for engraving.
+           Start with Normal Photo, Negative, People, Dark Photo or Light Photo. Then choose the dithering pattern: Floyd-Steinberg is a balanced default, Atkinson is softer, Jarvis keeps smoother tones, and Ordered/Bayer is useful for graphic, regular-dot looks.
           </p>
 </div>
 </div>
@@ -2954,10 +2966,10 @@ z-index: 2200;
          </div>
 <div>
 <p class="font-semibold text-white" data-i18n="helpStep3Title">
-           Set the output size in mm
+           Tune the image and Material Preview
           </p>
 <p class="text-sm mt-1 text-slate-400" data-i18n="helpStep3Text">
-           Enter the final engraving width in millimeters. The tool automatically calculates the height, keeps the aspect ratio and shows the resulting pixel count.
+           Adjust brightness, contrast, gamma and sharpness while checking Original + Output. Use Material Preview for wood, slate, dark anodized surfaces, stainless steel, glass, leather or ceramic tile, then move Material Preview laser power to roughly simulate weaker or stronger laser marks before testing on real material.
           </p>
 </div>
 </div>
@@ -2967,10 +2979,10 @@ z-index: 2200;
          </div>
 <div>
 <p class="font-semibold text-white" data-i18n="helpStep4Title">
-           Check the output and download the PNG or BMP
+           Set size, DPI and export
           </p>
 <p class="text-sm mt-1 text-slate-400" data-i18n="helpStep4Text">
-           Review the final rasterized image. If it looks good, download the PNG or BMP and import it into your laser software.
+           Enter the real engraving width in millimeters, choose 254, 300, 508 or Custom DPI, and watch the pixel count update. If the preview looks right, download PNG or 1-bit BMP with DPI metadata and import it into your laser software.
           </p>
 </div>
 </div>
@@ -3005,7 +3017,7 @@ z-index: 2200;
          <strong class="text-orange-300">
           800 px
          </strong>
-         wide, which matches the required physical size.
+         wide. Changing DPI keeps the same physical size but recalculates the pixel count, and the advanced pixel-width control can fine-tune the final raster when your laser software needs an exact pixel size.
         </p>
 <p class="formula" data-i18n="helpOutputSizeFormula">
          ℹ️ Formula: width in px = (width in mm ÷ 25.4) × DPI
@@ -3019,43 +3031,44 @@ z-index: 2200;
 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
 <div class="help-card">
 <div class="help-card-title" data-i18n="helpTip1Title">
-          📷 Input photo quality
+          Input photo quality
          </div>
 <div class="help-card-text" data-i18n="helpTip1Text">
-          Use sharp photos with good contrast. Dark or blurry images will produce worse engraving results even at high DPI.
+          Use sharp, evenly lit photos with visible detail in the face, object or texture. Crop away empty background before dithering so the laser-ready pixels focus on the important area.
          </div>
 </div>
 <div class="help-card">
 <div class="help-card-title" data-i18n="helpTip2Title">
-          🔲 Contrast and brightness
+          Preview before engraving
          </div>
 <div class="help-card-text" data-i18n="helpTip2Text">
-          Before uploading, try adjusting the photo in any editor. Higher contrast often improves the final rasterized result a lot.
+          Switch between Original + Output, Output and Material Preview. The material simulation is approximate, but the preview power slider helps you check how the same file might look with lighter or darker laser settings before you export.
          </div>
 </div>
 <div class="help-card">
 <div class="help-card-title" data-i18n="helpTip3Title">
-          🧪 Test engraving
+          Test engraving
          </div>
 <div class="help-card-text" data-i18n="helpTip3Text">
-          Always test the result first on an offcut of the same material before running the final engraving.
+          Always test on an offcut of the same material. Real results still depend on laser type, focus, lens, speed, power, coating and the exact surface.
          </div>
 </div>
 <div class="help-card">
 <div class="help-card-title" data-i18n="helpTip4Title">
-          ⚙️ LightBurn settings
+          Laser software settings
          </div>
 <div class="help-card-text" data-i18n-html="helpTip4Text">
-          Import the PNG as
-          <strong class="text-gray-200">
-           Passthrough
-          </strong>
-          or
+          Import the PNG or BMP as
+         <strong class="text-gray-200">
+          Passthrough
+         </strong>
+         or
           <strong class="text-gray-200">
            Threshold
-          </strong>
-          . The dithering is already included in the file, so additional image processing may make it worse.
-         </div>
+         </strong>
+         . The dithering is already included in the file, so additional image processing may make it worse.
+         Use the embedded DPI metadata or manually set the same physical width if your software ignores metadata.
+        </div>
 </div>
 </div>
 </div>
@@ -3219,6 +3232,8 @@ const translations = {
     labelContrast: 'Contrast',
     labelGamma: 'Gamma',
     labelSharpness: 'Sharpness',
+    labelMaterialPower: 'Material Preview laser power',
+    materialPowerHelp: 'Adjusts only the Material Preview to simulate weaker or stronger laser marks. Higher power can darken the mark; burnable materials may also show more edge spread. The exported PNG/BMP stays unchanged.',
     resetBtn: '↺ Default Settings',
     sectionOutput: 'Output',
     labelOutputWidthMm: 'Image width',
@@ -3270,7 +3285,7 @@ const translations = {
     materialTipWood: 'Birch plywood and light wood usually engrave darker than the surface. Expect some dot gain, especially on plywood and softer wood.',
     materialTipSlate: 'Slate and dark stone usually engrave lighter than the surface. Negative mode is often the right starting point.',
     materialTipBlackAnodized: 'Black anodized aluminum usually engraves lighter or silvery. Negative mode is often useful for photo engraving on this material.',
-    materialTipStainless: 'Stainless steel preview is only approximate. Real results depend strongly on fiber/diode laser type, marking spray, focus, speed and power.',
+    materialTipStainless: 'Stainless steel preview is only approximate. Higher preview power increases mark darkness, but it does not simulate the burnt edge spread used for wood. Real results depend strongly on fiber/diode laser type, marking spray, focus, speed and power.',
     materialTipGlass: 'Glass usually produces a frosted, milky mark. Real results depend strongly on focus, coating and laser type.',
     materialTipLeather: 'Leather usually engraves darker and can spread slightly. Lower detail and test pieces are recommended.',
     materialTipCeramic: 'Ceramic tile can behave differently depending on glaze, coating and spray. Treat this preview as a rough visual guide.',
@@ -3279,12 +3294,12 @@ const translations = {
     helpStepsTitle: 'Step-by-step guide',
     helpStep1Title: 'Upload a photo',
     helpStep1Text: 'Drag the file into the upload area or click to choose it from your device. Supported formats are JPG, PNG, BMP and WebP. For best results, use a sharp photo with good contrast.',
-    helpStep2Title: 'Photo adjustments',
-    helpStep2Text: 'Adjust brightness, contrast, gamma and sharpness to prepare the photo for engraving.',
-    helpStep3Title: 'Set the output size in mm',
-    helpStep3Text: 'Enter the final engraving width in millimeters. The tool automatically calculates the height, keeps the aspect ratio and shows the resulting pixel count.',
-    helpStep4Title: 'Check the output and download the PNG or BMP',
-    helpStep4Text: 'Review the final rasterized image. If it looks good, download the PNG or BMP and import it into your laser software.',
+    helpStep2Title: 'Choose photo type and dithering',
+    helpStep2Text: 'Start with Normal Photo, Negative, People, Dark Photo or Light Photo. Then choose the dithering pattern: Floyd-Steinberg is a balanced default, Atkinson is softer, Jarvis keeps smoother tones, and Ordered/Bayer is useful for graphic, regular-dot looks.',
+    helpStep3Title: 'Tune the image and Material Preview',
+    helpStep3Text: 'Adjust brightness, contrast, gamma and sharpness while checking Original + Output. Use Material Preview for wood, slate, dark anodized surfaces, stainless steel, glass, leather or ceramic tile, then move Material Preview laser power to roughly simulate weaker or stronger laser marks before testing on real material.',
+    helpStep4Title: 'Set size, DPI and export',
+    helpStep4Text: 'Enter the real engraving width in millimeters, choose 254, 300, 508 or Custom DPI, and watch the pixel count update. If the preview looks right, download PNG or 1-bit BMP with DPI metadata and import it into your laser software.',
     helpDpiTitle: 'Recommended DPI by material',
     helpTableHeadDpi: 'DPI',
     helpTableHeadMaterial: 'Best for',
@@ -3297,17 +3312,17 @@ const translations = {
     helpDpi508Note: 'slow',
     helpOutputSizeTitle: 'How to choose the correct output size?',
     helpOutputSizeText1: 'The output size in <strong class="text-white">mm</strong> should exactly match the real physical size of the engraving area on your material.',
-    helpOutputSizeText2: 'Example: If you want to engrave a portrait on a wooden plate with a width of <strong class="text-white">80 mm</strong>, set the width to <strong class="text-white">80 mm</strong> and choose <strong class="text-white">254 DPI</strong>. The tool will create an image about <strong class="text-orange-300">800 px</strong> wide, which matches the required physical size.',
+    helpOutputSizeText2: 'Example: If you want to engrave a portrait on a wooden plate with a width of <strong class="text-white">80 mm</strong>, set the width to <strong class="text-white">80 mm</strong> and choose <strong class="text-white">254 DPI</strong>. The tool will create an image about <strong class="text-orange-300">800 px</strong> wide. Changing DPI keeps the same physical size but recalculates the pixel count, and the advanced pixel-width control can fine-tune the final raster when your laser software needs an exact pixel size.',
     helpOutputSizeFormula: 'ℹ️ Formula: width in px = (width in mm ÷ 25.4) × DPI',
     helpTipsTitle: 'Tips for better results',
-    helpTip1Title: '📷 Input photo quality',
-    helpTip1Text: 'Use sharp photos with good contrast. Dark or blurry images will produce worse engraving results even at high DPI.',
-    helpTip2Title: '🔲 Contrast and brightness',
-    helpTip2Text: 'Before uploading, try adjusting the photo in any editor. Higher contrast often improves the final rasterized result a lot.',
-    helpTip3Title: '🧪 Test engraving',
-    helpTip3Text: 'Always test the result first on an offcut of the same material before running the final engraving.',
-    helpTip4Title: '⚙️ LightBurn settings',
-    helpTip4Text: 'Import the PNG as <strong class="text-gray-200">Passthrough</strong> or <strong class="text-gray-200">Threshold</strong>. The dithering is already included in the file, so additional image processing may make it worse.'
+    helpTip1Title: 'Input photo quality',
+    helpTip1Text: 'Use sharp, evenly lit photos with visible detail in the face, object or texture. Crop away empty background before dithering so the laser-ready pixels focus on the important area.',
+    helpTip2Title: 'Preview before engraving',
+    helpTip2Text: 'Switch between Original + Output, Output and Material Preview. The material simulation is approximate, but the preview power slider helps you check how the same file might look with lighter or darker laser settings before you export.',
+    helpTip3Title: 'Test engraving',
+    helpTip3Text: 'Always test on an offcut of the same material. Real results still depend on laser type, focus, lens, speed, power, coating and the exact surface.',
+    helpTip4Title: 'Laser software settings',
+    helpTip4Text: 'Import the PNG or BMP as <strong class="text-gray-200">Passthrough</strong> or <strong class="text-gray-200">Threshold</strong>. The dithering is already included in the file, so additional image processing may make it worse. Use the embedded DPI metadata or manually set the same physical width if your software ignores metadata.'
   }
 };
 
@@ -3364,12 +3379,13 @@ const MATERIALS = {
   stainless: {
     nameKey: 'materialStainless',
     tipKey: 'materialTipStainless',
-    base: [188, 194, 198],
-    mark: [55, 58, 60],
-    noise: 8,
+    base: [196, 202, 206],
+    mark: [58, 62, 64],
+    noise: 6,
     grain: 'metal',
-    grainStrength: 10,
-    dotGain: 0.06,
+    grainStrength: 8,
+    dotGain: 0.01,
+    laserPowerBehavior: 'marking',
     seed: 37
   },
   glass: {
@@ -3413,6 +3429,7 @@ const DEFAULTS = {
   contrast: PRESETS.normal.contrast,
   gamma: PRESETS.normal.gamma,
   sharpness: PRESETS.normal.sharpness,
+  materialPower: 100,
   ditherMode: PRESETS.normal.ditherMode,
   invertColors: PRESETS.normal.invertColors,
   dpi: 254,
@@ -3448,6 +3465,7 @@ const brightness = document.getElementById('brightness');
 const contrast = document.getElementById('contrast');
 const gamma = document.getElementById('gamma');
 const sharpness = document.getElementById('sharpness');
+const materialPower = document.getElementById('materialPower');
 const ditherMode = document.getElementById('ditherMode');
 const invertColors = document.getElementById('invertColors');
 const dpi = document.getElementById('dpi');
@@ -3489,7 +3507,6 @@ const LANG_DATA = {
   ko: { flag: '🇰🇷', name: 'Korean' },
   pl: { flag: '🇵🇱', name: 'Polish' },
   'pt-br': { flag: '🇧🇷', name: 'Brazilian Portuguese' },
-  ru: { flag: '🇷🇺', name: 'Russian' },
   tr: { flag: '🇹🇷', name: 'Turkish' },
   zh: { flag: '🇨🇳', name: 'Chinese' },
   cs: { flag: '🇨🇿', name: 'Czech' }
@@ -4842,6 +4859,16 @@ resetBtn.addEventListener('click', resetSettings);
   });
 });
 
+if (materialPower) {
+  const handleMaterialPowerChange = () => {
+    updateSlider(materialPower);
+    saveSettings();
+    updateMaterialPreviewFromCurrentCanvas();
+  };
+  materialPower.addEventListener('input', handleMaterialPowerChange);
+  materialPower.addEventListener('change', handleMaterialPowerChange);
+}
+
 function setViewMode(mode) {
   if (!['result', 'compare', 'material'].includes(mode)) mode = 'compare';
 
@@ -5175,7 +5202,13 @@ function updateSlider(el) {
   const decimals = step.includes('.') ? step.split('.')[1].length : 0;
   const value = Number(el.value).toFixed(decimals);
 
-  target.textContent = el.id === 'outputWidthSlider' ? `${value} px` : value;
+  if (el.id === 'outputWidthSlider') {
+    target.textContent = `${value} px`;
+  } else if (el.id === 'materialPower') {
+    target.textContent = `${value}%`;
+  } else {
+    target.textContent = value;
+  }
 }
 
 function loadStoredSettings() {
@@ -5191,6 +5224,7 @@ function loadStoredSettings() {
     if (s.contrast !== undefined) contrast.value = s.contrast;
     if (s.gamma !== undefined) gamma.value = s.gamma;
     if (s.sharpness !== undefined) sharpness.value = s.sharpness;
+    if (s.materialPower !== undefined && materialPower) materialPower.value = String(clamp(Number(s.materialPower), 40, 160));
     ditherMode.value = DITHER_MODES.includes(s.ditherMode) ? s.ditherMode : DEFAULTS.ditherMode;
     setActiveDitherCard(ditherMode.value);
     if (s.invertColors !== undefined) invertColors.checked = Boolean(s.invertColors);
@@ -5224,6 +5258,7 @@ function saveSettings() {
     contrast: Number(contrast.value),
     gamma: Number(gamma.value),
     sharpness: Number(sharpness.value),
+    materialPower: materialPower ? Number(materialPower.value) : DEFAULTS.materialPower,
     ditherMode: ditherMode.value || DEFAULTS.ditherMode,
     invertColors: invertColors.checked,
     dpiMode: isCustomDpiMode() ? 'custom' : 'preset',
@@ -5250,6 +5285,7 @@ function resetSettings() {
   contrast.value = DEFAULTS.contrast;
   gamma.value = DEFAULTS.gamma;
   sharpness.value = DEFAULTS.sharpness;
+  if (materialPower) materialPower.value = DEFAULTS.materialPower;
   ditherMode.value = DEFAULTS.ditherMode;
   setActiveDitherCard(ditherMode.value);
   invertColors.checked = DEFAULTS.invertColors;
@@ -5600,6 +5636,17 @@ function renderMaterialPreview(sourceImageData, w, h) {
   if (!canvasMaterialPreview) return;
 
   const material = MATERIALS[currentMaterial];
+  const previewPower = materialPower ? clamp(Number(materialPower.value) || DEFAULTS.materialPower, 40, 160) / 100 : 1;
+  const powerOver = clamp((previewPower - 1) / 0.6, 0, 1);
+  const powerUnder = clamp((1 - previewPower) / 0.6, 0, 1);
+  const isMarkingMaterial = material.laserPowerBehavior === 'marking';
+  const previewDotGain = material.dotGain + (isMarkingMaterial ? powerOver * 0.03 : powerOver * 0.42);
+  const charR = 48;
+  const charG = 31;
+  const charB = 18;
+  const metalDarkR = 6;
+  const metalDarkG = 7;
+  const metalDarkB = 8;
   canvasMaterialPreview.width = w;
   canvasMaterialPreview.height = h;
   canvasMaterialPreview.style.width = '100%';
@@ -5617,23 +5664,30 @@ function renderMaterialPreview(sourceImageData, w, h) {
       const i = (y * w + x) * 4;
       let laserAmount = 1 - src[i] / 255;
 
-      if (material.dotGain > 0 && laserAmount < 1) {
+      if (previewDotGain > 0 && laserAmount < 1) {
         const left = x > 0 ? 1 - src[i - 4] / 255 : 0;
         const right = x + 1 < w ? 1 - src[i + 4] / 255 : 0;
         const up = y > 0 ? 1 - src[i - w * 4] / 255 : 0;
         const down = y + 1 < h ? 1 - src[i + w * 4] / 255 : 0;
-        laserAmount = Math.max(laserAmount, left * material.dotGain, right * material.dotGain, up * material.dotGain, down * material.dotGain);
+        laserAmount = Math.max(laserAmount, left * previewDotGain, right * previewDotGain, up * previewDotGain, down * previewDotGain);
       }
 
-      laserAmount = clamp(laserAmount, 0, 1);
+      const powerAmountBoost = isMarkingMaterial ? 1 + powerOver * 0.08 : 1 + powerOver * 0.18;
+      laserAmount = clamp(laserAmount * (previewPower < 1 ? previewPower : powerAmountBoost), 0, 1);
 
       const texture = getMaterialTexture(material, x, y, w, h);
       const baseR = material.base[0] + texture;
       const baseG = material.base[1] + texture;
       const baseB = material.base[2] + texture;
-      const markR = material.mark[0] + texture * 0.35;
-      const markG = material.mark[1] + texture * 0.35;
-      const markB = material.mark[2] + texture * 0.35;
+      const highPowerR = isMarkingMaterial ? metalDarkR : charR;
+      const highPowerG = isMarkingMaterial ? metalDarkG : charG;
+      const highPowerB = isMarkingMaterial ? metalDarkB : charB;
+      const markMixR = material.mark[0] * (1 - powerOver) + highPowerR * powerOver;
+      const markMixG = material.mark[1] * (1 - powerOver) + highPowerG * powerOver;
+      const markMixB = material.mark[2] * (1 - powerOver) + highPowerB * powerOver;
+      const markR = (markMixR * (1 - powerUnder) + baseR * powerUnder * 0.72) + texture * 0.35;
+      const markG = (markMixG * (1 - powerUnder) + baseG * powerUnder * 0.72) + texture * 0.35;
+      const markB = (markMixB * (1 - powerUnder) + baseB * powerUnder * 0.72) + texture * 0.35;
 
       dst[i] = clamp(Math.round(baseR * (1 - laserAmount) + markR * laserAmount), 0, 255);
       dst[i + 1] = clamp(Math.round(baseG * (1 - laserAmount) + markG * laserAmount), 0, 255);
