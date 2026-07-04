@@ -732,7 +732,7 @@ input[type=number]:focus {
   box-shadow: 0 0 0 1px rgba(249,115,22,0.18), 0 10px 24px rgba(249,115,22,0.16);
 }
 
-.counter-badge {
+.processed-total-badge {
   background: rgba(255,255,255,0.04);
   border: 1px solid rgba(255,255,255,0.08);
   border-radius: 999px;
@@ -742,12 +742,12 @@ input[type=number]:focus {
   white-space: nowrap;
 }
 
-.counter-badge span {
+.processed-total-badge span {
   color: #ff9a57;
   font-weight: 700;
 }
 
-.footer-counter {
+.processed-total-wrap {
   display: flex;
   justify-content: center;
   margin-top: 22px;
@@ -1771,7 +1771,7 @@ z-index: 2200;
     height: 46px;
   }
 
-  .counter-badge {
+  .processed-total-badge {
     max-width: 100%;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -3131,12 +3131,12 @@ z-index: 2200;
 </div>
 </div>
 </div>
-<div class="footer-counter">
-<div class="counter-badge">
+<div class="processed-total-wrap">
+<div class="processed-total-badge">
 <span data-i18n="counterLabel">
        Processed:
       </span>
-<span id="photoCounter">
+<span id="processedPhotoTotal">
        …
       </span>
 </div>
@@ -6045,15 +6045,21 @@ function buildExportFilename(extension = 'png') {
 const ABACUS_GET = 'https://abacus.jasoncameron.dev/get/stunning-twilight-266e8a/downloads';
 const ABACUS_HIT = 'https://abacus.jasoncameron.dev/hit/stunning-twilight-266e8a/downloads';
 
+function getProcessedPhotoTotalEl() {
+  return document.getElementById('processedPhotoTotal') || document.getElementById('photoCounter');
+}
+
 function loadCounter() {
   fetch(ABACUS_GET)
     .then(r => r.ok ? r.json() : null)
     .then(data => {
       const n = data && data.value ? data.value : 0;
-      document.getElementById('photoCounter').textContent = n > 0 ? n.toLocaleString(currentLang === 'cs' ? 'cs-CZ' : currentLang) : '—';
+      const totalEl = getProcessedPhotoTotalEl();
+      if (totalEl) totalEl.textContent = n > 0 ? n.toLocaleString(currentLang === 'cs' ? 'cs-CZ' : currentLang) : '—';
     })
     .catch(() => {
-      document.getElementById('photoCounter').textContent = '—';
+      const totalEl = getProcessedPhotoTotalEl();
+      if (totalEl) totalEl.textContent = '—';
     });
 }
 
@@ -6062,7 +6068,8 @@ function incrementCounter() {
     .then(r => r.ok ? r.json() : null)
     .then(data => {
       const n = data && data.value ? data.value : 0;
-      if (n > 0) document.getElementById('photoCounter').textContent = n.toLocaleString(currentLang === 'cs' ? 'cs-CZ' : currentLang);
+      const totalEl = getProcessedPhotoTotalEl();
+      if (totalEl && n > 0) totalEl.textContent = n.toLocaleString(currentLang === 'cs' ? 'cs-CZ' : currentLang);
     })
     .catch(() => {});
 }
