@@ -5,7 +5,7 @@
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Free Photo to Laser Engraving Converter Online | PhotoEngraving.online</title>
-<meta content="Free photo to laser engraving converter online. Crop photos, choose dithering and DPI, preview materials, then export laser-ready PNG or 1-bit BMP files for LightBurn, xTool Creative Space and other laser software." name="description"/>
+<meta content="Free photo to laser engraving converter online. Create laser-ready black and white PNGs with DPI, engraving speed guidance and private browser processing." name="description"/>
 <meta content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" name="robots"/>
 <meta content="PhotoEngraving.online" name="author"/>
 <meta content="PhotoEngraving.online" name="application-name"/>
@@ -32,7 +32,7 @@
 <meta content="PhotoEngraving.online" property="og:site_name"/>
 <meta content="https://photoengraving.online/" property="og:url"/>
 <meta content="Free Photo to Laser Engraving Converter Online" property="og:title"/>
-<meta content="Convert photos to laser engraving PNG or 1-bit BMP files online. Crop, choose dithering, adjust DPI, compare output and export for LightBurn, xTool Creative Space and other laser software." property="og:description"/>
+<meta content="Convert images and photos to laser engraving PNGs online for free. Adjust DPI, engraving speed, photo type, brightness, contrast, gamma and sharpness in your browser." property="og:description"/>
 <meta content="en_US" property="og:locale"/>
 <meta content="es_ES" property="og:locale:alternate"/>
 <meta content="de_DE" property="og:locale:alternate"/>
@@ -47,14 +47,14 @@
 <meta content="tr_TR" property="og:locale:alternate"/>
 <meta content="zh_CN" property="og:locale:alternate"/>
 <meta content="cs_CZ" property="og:locale:alternate"/>
-<meta content="https://photoengraving.online/fb.png" property="og:image"/>
+<meta content="https://photoengraving.online/fb1.png" property="og:image"/>
 <meta content="1200" property="og:image:width"/>
 <meta content="630" property="og:image:height"/>
 <meta content="PhotoEngraving.online laser engraving photo editor preview" property="og:image:alt"/>
 <meta content="summary_large_image" name="twitter:card"/>
 <meta content="Free Photo to Laser Engraving Converter Online" name="twitter:title"/>
-<meta content="Free online photo engraving tool for creating laser-ready PNG or 1-bit BMP files with crop, dithering, DPI metadata and export support for LightBurn, xTool Creative Space and other laser software." name="twitter:description"/>
-<meta content="https://photoengraving.online/fb.png" name="twitter:image"/>
+<meta content="Free online photo engraving tool for converting images into laser-ready black and white PNGs with DPI metadata, engraving speed guidance and browser-based privacy." name="twitter:description"/>
+<meta content="https://photoengraving.online/fb1.png" name="twitter:image"/>
 <meta content="PhotoEngraving.online laser engraving photo editor preview" name="twitter:image:alt"/>
 <script type="application/ld+json">
    {
@@ -92,28 +92,23 @@
       "operatingSystem": "Web",
       "browserRequirements": "Requires JavaScript and HTML5 Canvas",
       "isAccessibleForFree": true,
-      "description": "Free online photo to laser engraving converter for creating laser-ready black-and-white PNG or 1-bit BMP files with crop, dithering, custom DPI, material preview, negative photo type, brightness, contrast, gamma and sharpness controls.",
-      "image": "https://photoengraving.online/fb.png",
-      "screenshot": "https://photoengraving.online/fb.png",
+      "description": "Free online photo to laser engraving converter for creating laser-ready black-and-white PNG files with custom DPI, recommended engraving speed by material, negative photo type, brightness, contrast, gamma and sharpness controls.",
+      "image": "https://photoengraving.online/fb1.png",
+      "screenshot": "https://photoengraving.online/fb1.png",
       "featureList": [
-        "Free photo to laser engraving PNG and BMP conversion",
+        "Free photo to laser engraving PNG conversion",
         "Image to laser engraving converter",
-        "Crop before export",
         "Black and white dithering",
-        "Floyd-Steinberg, Atkinson, Jarvis and Ordered/Bayer dithering",
         "DPI scaling",
         "Custom DPI setting",
         "Recommended DPI by material and engraving speed guidance",
         "Approximate material preview simulation",
-        "Adjustable Material Preview laser power",
-        "Original and output comparison preview",
         "Brightness and contrast adjustment",
         "Gamma correction",
         "Sharpness adjustment",
         "Negative photo type",
         "Browser-based private image processing",
-        "PNG and 1-bit BMP export with DPI metadata",
-        "Export for LightBurn, xTool Creative Space (XCS), LaserGRBL and EZCAD"
+        "Export for LightBurn, XCS and LaserGRBL"
       ],
       "potentialAction": {
         "@type": "UseAction",
@@ -2204,7 +2199,7 @@ z-index: 2200;
 <body>
 <div class="content max-w-7xl mx-auto px-4 py-6">
 <header class="app-header flex items-center gap-3 flex-wrap">
-<a href="https://photoengraving.online/">
+<a href="https://photoengraving.online/cs/">
 <img alt="Photoengraving Logo" class="brand-logo" src="/logo.png"/>
 </a>
 <div class="ml-auto flex flex-wrap gap-2 items-center">
@@ -2425,9 +2420,6 @@ z-index: 2200;
 <div class="crop-canvas-shell" id="cropCanvasShell">
 <canvas aria-label="Photo crop editor" class="crop-canvas" id="cropCanvas"></canvas>
 </div>
-<div class="crop-status mt-3" data-i18n="cropModalHelp">
-      The crop is applied before dithering, material preview and PNG/BMP export.
-     </div>
 <div class="crop-actions">
 <button class="btn btn-secondary" data-i18n="cropCancelBtn" id="cropCancelBtn" type="button">
        Cancel
@@ -2446,7 +2438,7 @@ z-index: 2200;
      Free Laser Engraving Photo Editor
     </h1>
 <p data-i18n-html="heroText" style="font-size:1rem;line-height:1.8;color:#cbd5e1;margin:0;max-width:900px;">
-     Convert any photo into a laser engraving ready image directly in your browser. Choose the photo type, adjust brightness, contrast, gamma, sharpness, output size and DPI, then export a PNG prepared for LightBurn, xTool Creative Space (XCS), LaserGRBL and other laser software.
+     Convert any photo into a laser engraving ready image directly in your browser. Choose the photo type, adjust brightness, contrast, gamma, sharpness, output size and DPI, then export a PNG prepared for LightBurn, LaserGRBL, XCS and other laser software.
      <strong style="color: var(--accent);">
       Your photos are processed locally in your browser and are not uploaded to our server.
      </strong>
@@ -2583,7 +2575,7 @@ z-index: 2200;
 </div>
 <div id="materialView" style="display:none">
 <div class="canvas-label accent" id="materialPreviewLabel">
-         Material Preview
+         Material preview
         </div>
 <div class="zoom-hover canvas-wrap">
 <canvas class="w-full" id="canvasMaterialPreview">
@@ -2675,17 +2667,6 @@ z-index: 2200;
           0.0
          </span>
 </div>
-</div>
-<div>
-<label data-i18n="labelMaterialPower" for="materialPower">
-         Material Preview laser power
-        </label>
-<div class="slider-row mt-1">
-<input id="materialPower" max="160" min="40" step="5" type="range" value="100"/>
-</div>
-<div class="helper-text" data-i18n="materialPowerHelp">
-         Adjusts only the Material Preview. Lower values show a lighter mark; higher values show a stronger mark. On wood and other burnable materials, very high power can reduce fine detail. The exported PNG/BMP stays unchanged.
-        </div>
 </div>
 <input hidden="" id="invertColors" type="checkbox"/>
 <div class="grid grid-cols-1 sm:grid-cols-1 gap-2 pt-1">
@@ -2836,7 +2817,7 @@ z-index: 2200;
         Download BMP
        </button>
 <div class="helper-text" data-i18n-html="exportHelp">
-        PNG is recommended for LightBurn, xTool Creative Space (XCS), LaserGRBL and other laser software. PNG and 1-bit BMP include DPI metadata for the correct physical size in laser software.
+        PNG is recommended for LightBurn, XCS, LaserGRBL and other laser software. PNG and 1-bit BMP include DPI metadata for the correct physical size in laser software.
        </div>
 </div>
 </div>
@@ -2851,7 +2832,7 @@ z-index: 2200;
        <strong class="text-white">
         PhotoEngraving.online
        </strong>
-       as a free image to laser engraving converter directly in your browser. Upload a photo, crop it if needed, choose a photo type, dithering method, output size and DPI, compare the original with the laser-ready result, preview it on common materials, then download a PNG or 1-bit BMP for LightBurn, xTool Creative Space (XCS), LaserGRBL, EZCAD and other laser software.
+       as a free image to laser engraving converter directly in your browser. Upload a photo, convert it to a laser-ready black-and-white PNG, choose a photo type and DPI, check recommended engraving speed by material, adjust brightness, contrast, gamma and sharpness, then download the result for LightBurn, XCS, LaserGRBL, EZCAD and other laser software.
       </p>
 <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
 <div class="help-card">
@@ -2859,7 +2840,7 @@ z-index: 2200;
          Free online tool
         </div>
 <div class="help-card-text" data-i18n="seoCard1Text">
-         No installation needed. Convert photos for laser engraving online and download PNG or BMP files for free.
+         No installation needed. Convert photos for laser engraving online and download the PNG for free.
         </div>
 </div>
 <div class="help-card">
@@ -2867,7 +2848,7 @@ z-index: 2200;
          Laser-ready output
         </div>
 <div class="help-card-text" data-i18n="seoCard2Text">
-         Export black-and-white PNG or 1-bit BMP files with DPI metadata so laser software can keep the intended physical size.
+         Export black-and-white PNG or BMP files with DPI metadata and engraving speed guidance for the correct physical size in laser software.
         </div>
 </div>
 <div class="help-card">
@@ -2889,7 +2870,7 @@ z-index: 2200;
 <strong class="text-white">
          Photo Engraving Online
         </strong>
-        converts a regular photo into a cropped, dithered black-and-white image optimized for CO2, diode or fiber laser workflows. You can tune the photo, inspect the original and output side by side, preview an approximate material look, then import the resulting PNG or 1-bit BMP into your laser software (LightBurn, xTool Creative Space/XCS, LaserGRBL, EZCAD, etc.) and engrave it.
+        converts a regular photo into a rasterized black-and-white image optimized for CO2 or diode laser engraving. You can then import the resulting PNG directly into your laser software (LightBurn, LaserGRBL, XCS, etc.) and engrave it.
        </p>
 </div>
 <div class="panel p-5">
@@ -2951,7 +2932,7 @@ z-index: 2200;
 </div>
 <div class="panel p-5">
 <div class="help-section-title" data-i18n="helpStepsTitle">
-        Step-by-step editor workflow
+        Step-by-step guide
        </div>
 <div class="space-y-4">
 <div class="help-step">
@@ -2960,10 +2941,10 @@ z-index: 2200;
          </div>
 <div>
 <p class="font-semibold text-white" data-i18n="helpStep1Title">
-           Upload and crop the photo
+           Upload a photo
           </p>
 <p class="text-sm mt-1 text-slate-400" data-i18n="helpStep1Text">
-           Drag a JPG, PNG, BMP or WebP into the editor, or click Upload photo. Use Crop photo when you need to remove background, frame a portrait, keep the original ratio or make a square engraving area.
+           Drag the file into the upload area or click to choose it from your device. Supported formats are JPG, PNG, BMP and WebP. For best results, use a sharp photo with good contrast.
           </p>
 </div>
 </div>
@@ -2973,10 +2954,10 @@ z-index: 2200;
          </div>
 <div>
 <p class="font-semibold text-white" data-i18n="helpStep2Title">
-           Choose photo type and dithering
+           Photo adjustments
           </p>
 <p class="text-sm mt-1 text-slate-400" data-i18n="helpStep2Text">
-           Start with Normal Photo, Negative, People, Dark Photo or Light Photo. Then choose the dithering pattern: Floyd-Steinberg is a balanced default, Atkinson is softer, Jarvis keeps smoother tones, and Ordered/Bayer is useful for graphic, regular-dot looks.
+           Adjust brightness, contrast, gamma and sharpness to prepare the photo for engraving.
           </p>
 </div>
 </div>
@@ -2986,10 +2967,10 @@ z-index: 2200;
          </div>
 <div>
 <p class="font-semibold text-white" data-i18n="helpStep3Title">
-           Tune the image and Material Preview
+           Set the output size in mm
           </p>
 <p class="text-sm mt-1 text-slate-400" data-i18n="helpStep3Text">
-           Adjust brightness, contrast, gamma and sharpness while checking Original + Output. Use Material Preview for wood, slate, dark anodized surfaces, stainless steel, glass, leather or ceramic tile, then move Material Preview laser power to roughly simulate weaker or stronger laser marks before testing on real material.
+           Enter the final engraving width in millimeters. The tool automatically calculates the height, keeps the aspect ratio and shows the resulting pixel count.
           </p>
 </div>
 </div>
@@ -2999,10 +2980,10 @@ z-index: 2200;
          </div>
 <div>
 <p class="font-semibold text-white" data-i18n="helpStep4Title">
-           Set size, DPI and export
+           Check the output and download the PNG or BMP
           </p>
 <p class="text-sm mt-1 text-slate-400" data-i18n="helpStep4Text">
-           Enter the real engraving width in millimeters, choose 254, 300, 508 or Custom DPI, and watch the pixel count update. If the preview looks right, download PNG or 1-bit BMP with DPI metadata and import it into your laser software.
+           Review the final rasterized image. If it looks good, download the PNG or BMP and import it into your laser software.
           </p>
 </div>
 </div>
@@ -3037,7 +3018,7 @@ z-index: 2200;
          <strong class="text-orange-300">
           800 px
          </strong>
-         wide. Changing DPI keeps the same physical size but recalculates the pixel count, and the advanced pixel-width control can fine-tune the final raster when your laser software needs an exact pixel size.
+         wide, which matches the required physical size.
         </p>
 <p class="formula" data-i18n="helpOutputSizeFormula">
          ℹ️ Formula: width in px = (width in mm ÷ 25.4) × DPI
@@ -3051,34 +3032,34 @@ z-index: 2200;
 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
 <div class="help-card">
 <div class="help-card-title" data-i18n="helpTip1Title">
-          Input photo quality
+          📷 Input photo quality
          </div>
 <div class="help-card-text" data-i18n="helpTip1Text">
-          Use sharp, evenly lit photos with visible detail in the face, object or texture. Crop away empty background before dithering so the laser-ready pixels focus on the important area.
+          Use sharp photos with good contrast. Dark or blurry images will produce worse engraving results even at high DPI.
          </div>
 </div>
 <div class="help-card">
 <div class="help-card-title" data-i18n="helpTip2Title">
-          Preview before engraving
+          🔲 Contrast and brightness
          </div>
 <div class="help-card-text" data-i18n="helpTip2Text">
-          Switch between Original + Output, Output and Material Preview. The material simulation is approximate, but the preview power slider helps you check how the same file might look with lighter or darker laser settings before you export.
+          Before uploading, try adjusting the photo in any editor. Higher contrast often improves the final rasterized result a lot.
          </div>
 </div>
 <div class="help-card">
 <div class="help-card-title" data-i18n="helpTip3Title">
-          Test engraving
+          🧪 Test engraving
          </div>
 <div class="help-card-text" data-i18n="helpTip3Text">
-          Always test on an offcut of the same material. Real results still depend on laser type, focus, lens, speed, power, coating and the exact surface.
+          Always test the result first on an offcut of the same material before running the final engraving.
          </div>
 </div>
 <div class="help-card">
 <div class="help-card-title" data-i18n="helpTip4Title">
-          Laser software settings
+          ⚙️ LightBurn settings
          </div>
 <div class="help-card-text" data-i18n-html="helpTip4Text">
-          Import the PNG or BMP as
+          Import the PNG as
           <strong class="text-gray-200">
            Passthrough
           </strong>
@@ -3086,7 +3067,7 @@ z-index: 2200;
           <strong class="text-gray-200">
            Threshold
           </strong>
-          . The dithering is already included in the file, so additional image processing may make it worse. Use the embedded DPI metadata or manually set the same physical width if your software ignores metadata.
+          . The dithering is already included in the file, so additional image processing may make it worse.
          </div>
 </div>
 </div>
@@ -3110,15 +3091,15 @@ z-index: 2200;
          Which laser software can use the exported PNG?
         </div>
 <div class="help-card-text" data-i18n="faq2Answer">
-         The PNG and 1-bit BMP outputs are suitable for LightBurn, xTool Creative Space (XCS), LaserGRBL, EZCAD and other laser engraving software that imports raster images.
+         The PNG output is suitable for LightBurn, XCS, LaserGRBL, EZCAD and other laser engraving software that imports raster images.
         </div>
 </div>
 <div class="help-card">
 <div class="help-card-title" data-i18n="faq3Question">
-         Do the exports include DPI information?
+         Does the PNG include DPI information?
         </div>
 <div class="help-card-text" data-i18n="faq3Answer">
-         Yes. The exported PNG and 1-bit BMP include DPI metadata, which helps laser software keep the correct physical engraving size.
+         Yes. The exported PNG includes DPI metadata, which helps laser software keep the correct physical engraving size.
         </div>
 </div>
 <div class="help-card">
@@ -3178,22 +3159,22 @@ const PREVIEW_IMAGE_FALLBACK = '/preview-v3.png';
 const translations = {
   en: {
     heroTitle: 'Free Photo to Laser Engraving Converter Online',
-    heroText: 'Convert any image or photo into a laser engraving ready PNG directly in your browser. Choose photo type, adjust DPI, brightness, contrast, gamma, sharpness and output size, then export a PNG prepared for LightBurn, xTool Creative Space (XCS), LaserGRBL, EZCAD and other laser software. <strong style="color: var(--accent);">Free to use. Your photos are processed locally in your browser and are not uploaded to our server.</strong>',
+    heroText: 'Convert any image or photo into a laser engraving ready PNG directly in your browser. Choose photo type, adjust DPI, brightness, contrast, gamma, sharpness and output size, then export a PNG prepared for LightBurn, XCS, LaserGRBL, EZCAD and other laser software. <strong style="color: var(--accent);">Free to use. Your photos are processed locally in your browser and are not uploaded to our server.</strong>',
     seoIntroTitle: 'Free photo to laser engraving converter online',
-    seoIntroText: 'Use <strong class="text-white">PhotoEngraving.online</strong> as a free image to laser engraving converter directly in your browser. Upload a photo, crop it if needed, choose a photo type, dithering method, output size and DPI, compare the original with the laser-ready result, preview it on common materials, then download a PNG or 1-bit BMP for LightBurn, xTool Creative Space (XCS), LaserGRBL, EZCAD and other laser software.',
+    seoIntroText: 'Use <strong class="text-white">PhotoEngraving.online</strong> as a free image to laser engraving converter directly in your browser. Upload a photo, convert it to a laser-ready black-and-white PNG, choose a photo type and DPI, check recommended engraving speed by material, adjust brightness, contrast, gamma and sharpness, then download the result for LightBurn, XCS, LaserGRBL, EZCAD and other laser software.',
     seoCard1Title: 'Free online tool',
-    seoCard1Text: 'No installation needed. Convert photos for laser engraving online and download PNG or BMP files for free.',
-    seoCard2Title: 'Laser-ready output',
-    seoCard2Text: 'Export black-and-white PNG or 1-bit BMP files with DPI metadata so laser software can keep the intended physical size.',
+    seoCard1Text: 'No installation needed. Convert photos for laser engraving online and download the PNG for free.',
+    seoCard2Title: 'Laser-ready PNG output',
+    seoCard2Text: 'Export black-and-white PNG files with DPI metadata and engraving speed guidance for the correct physical size in laser software.',
     seoCard3Title: 'Private browser processing',
     seoCard3Text: 'Your photo is processed locally in your browser and is not uploaded to our server.',
     faqTitle: 'Photo engraving FAQ',
     faq1Question: 'Is this photo to laser engraving converter free?',
     faq1Answer: 'Yes. The tool is free to use in your browser. You can convert a photo to a laser engraving PNG and download the result without installing software.',
     faq2Question: 'Which laser software can use the exported PNG?',
-    faq2Answer: 'The PNG and 1-bit BMP outputs are suitable for LightBurn, xTool Creative Space (XCS), LaserGRBL, EZCAD and other laser engraving software that imports raster images.',
-    faq3Question: 'Do the exports include DPI information?',
-    faq3Answer: 'Yes. The exported PNG and 1-bit BMP include DPI metadata, which helps laser software keep the correct physical engraving size.',
+    faq2Answer: 'The PNG output is suitable for LightBurn, XCS, LaserGRBL, EZCAD and other laser engraving software that imports raster images.',
+    faq3Question: 'Does the PNG include DPI information?',
+    faq3Answer: 'Yes. The exported PNG includes DPI metadata, which helps laser software keep the correct physical engraving size.',
     faq4Question: 'Can I use my own DPI value?',
     faq4Answer: 'Yes. You can choose a preset DPI or enter a custom DPI value for your laser, material and preferred line spacing.',
     faq5Question: 'What does Negative do?',
@@ -3226,8 +3207,7 @@ const translations = {
     cropResetBtn: 'Reset crop',
     cropModalTitle: 'Crop photo',
     cropModalText: 'Drag to draw a crop area. Drag inside the area to move it, or drag a corner to resize it.',
-    cropModalHelp: 'The crop is applied before dithering, material preview and PNG/BMP export.',
-    cropCancelBtn: 'Cancel',
+        cropCancelBtn: 'Cancel',
     cropApplyBtn: 'Apply crop',
     cropAspectFree: 'Free ratio',
     cropAspectOriginal: 'Keep original ratio',
@@ -3252,8 +3232,6 @@ const translations = {
     labelContrast: 'Contrast',
     labelGamma: 'Gamma',
     labelSharpness: 'Sharpness',
-    labelMaterialPower: 'Material Preview laser power',
-    materialPowerHelp: 'Adjusts only the Material Preview. Lower values show a lighter mark; higher values show a stronger mark. On wood and other burnable materials, very high power can reduce fine detail. The exported PNG/BMP stays unchanged.',
     resetBtn: '↺ Default Settings',
     sectionOutput: 'Output',
     labelOutputWidthMm: 'Image width',
@@ -3269,7 +3247,7 @@ const translations = {
     pixelInfoLabel: 'Pixel size',
     downloadBtn: 'Download PNG',
     downloadBmpBtn: 'Download BMP',
-    exportHelp: 'PNG is recommended for LightBurn, xTool Creative Space (XCS), LaserGRBL and other laser software. PNG and 1-bit BMP include DPI metadata for the correct physical size in laser software.',
+    exportHelp: 'PNG is recommended for LightBurn, XCS, LaserGRBL and other laser software. PNG and 1-bit BMP include DPI metadata for the correct physical size in laser software.',
     alertLoadFail: 'The image could not be loaded.',
     alertReadFail: 'Error reading the file.',
     alertUploadFirst: 'Please upload an image first.',
@@ -3291,7 +3269,7 @@ const translations = {
     emptyOriginalAlt: 'Preview original image',
     emptyResultAlt: 'Preview output image',
     btnMaterialPreview: 'Material Preview',
-    labelMaterialPreview: 'Material Preview',
+    labelMaterialPreview: 'Material preview',
     sectionMaterialPreview: 'Material Preview',
     materialWood: 'Wood',
     materialSlate: 'Slate',
@@ -3305,21 +3283,21 @@ const translations = {
     materialTipWood: 'Birch plywood and light wood usually engrave darker than the surface. Expect some dot gain, especially on plywood and softer wood.',
     materialTipSlate: 'Slate and dark stone usually engrave lighter than the surface. Negative mode is often the right starting point.',
     materialTipBlackAnodized: 'Black anodized aluminum usually engraves lighter or silvery. Negative mode is often useful for photo engraving on this material.',
-    materialTipStainless: 'Stainless steel preview is only approximate. Higher preview power increases mark darkness, but it does not add the burnt-edge damage effect used for wood. Real results depend strongly on fiber/diode laser type, marking spray, focus, speed and power.',
+    materialTipStainless: 'Stainless steel preview is only approximate. Real results depend strongly on fiber/diode laser type, marking spray, focus, speed and power.',
     materialTipGlass: 'Glass usually produces a frosted, milky mark. Real results depend strongly on focus, coating and laser type.',
     materialTipLeather: 'Leather usually engraves darker and can spread slightly. Lower detail and test pieces are recommended.',
     materialTipCeramic: 'Ceramic tile can behave differently depending on glaze, coating and spray. Treat this preview as a rough visual guide.',
     helpIntroTitle: 'What does this tool do?',
-    helpIntroText: '<strong class="text-white">Photo Engraving Online</strong> converts a regular photo into a cropped, dithered black-and-white image optimized for CO2, diode or fiber laser workflows. You can tune the photo, inspect the original and output side by side, preview an approximate material look, then import the resulting PNG or 1-bit BMP into your laser software (LightBurn, xTool Creative Space/XCS, LaserGRBL, EZCAD, etc.) and engrave it.',
-    helpStepsTitle: 'Step-by-step editor workflow',
-    helpStep1Title: 'Upload and crop the photo',
-    helpStep1Text: 'Drag a JPG, PNG, BMP or WebP into the editor, or click Upload photo. Use Crop photo when you need to remove background, frame a portrait, keep the original ratio or make a square engraving area.',
-    helpStep2Title: 'Choose photo type and dithering',
-    helpStep2Text: 'Start with Normal Photo, Negative, People, Dark Photo or Light Photo. Then choose the dithering pattern: Floyd-Steinberg is a balanced default, Atkinson is softer, Jarvis keeps smoother tones, and Ordered/Bayer is useful for graphic, regular-dot looks.',
-    helpStep3Title: 'Tune the image and Material Preview',
-    helpStep3Text: 'Adjust brightness, contrast, gamma and sharpness while checking Original + Output. Use Material Preview for wood, slate, dark anodized surfaces, stainless steel, glass, leather or ceramic tile, then move Material Preview laser power to roughly simulate weaker or stronger laser marks before testing on real material.',
-    helpStep4Title: 'Set size, DPI and export',
-    helpStep4Text: 'Enter the real engraving width in millimeters, choose 254, 300, 508 or Custom DPI, and watch the pixel count update. If the preview looks right, download PNG or 1-bit BMP with DPI metadata and import it into your laser software.',
+    helpIntroText: '<strong class="text-white">Photo Engraving Online</strong> converts a regular photo into a rasterized black-and-white image optimized for CO2 or diode laser engraving. You can then import the resulting PNG directly into your laser software (LightBurn, LaserGRBL, XCS, etc.) and engrave it.',
+    helpStepsTitle: 'Step-by-step guide',
+    helpStep1Title: 'Upload a photo',
+    helpStep1Text: 'Drag the file into the upload area or click to choose it from your device. Supported formats are JPG, PNG, BMP and WebP. For best results, use a sharp photo with good contrast.',
+    helpStep2Title: 'Photo adjustments',
+    helpStep2Text: 'Adjust brightness, contrast, gamma and sharpness to prepare the photo for engraving.',
+    helpStep3Title: 'Set the output size in mm',
+    helpStep3Text: 'Enter the final engraving width in millimeters. The tool automatically calculates the height, keeps the aspect ratio and shows the resulting pixel count.',
+    helpStep4Title: 'Check the output and download the PNG or BMP',
+    helpStep4Text: 'Review the final rasterized image. If it looks good, download the PNG or BMP and import it into your laser software.',
     helpDpiTitle: 'Recommended DPI by material',
     helpTableHeadDpi: 'DPI',
     helpTableHeadMaterial: 'Best for',
@@ -3332,23 +3310,23 @@ const translations = {
     helpDpi508Note: 'slow',
     helpOutputSizeTitle: 'How to choose the correct output size?',
     helpOutputSizeText1: 'The output size in <strong class="text-white">mm</strong> should exactly match the real physical size of the engraving area on your material.',
-    helpOutputSizeText2: 'Example: If you want to engrave a portrait on a wooden plate with a width of <strong class="text-white">80 mm</strong>, set the width to <strong class="text-white">80 mm</strong> and choose <strong class="text-white">254 DPI</strong>. The tool will create an image about <strong class="text-orange-300">800 px</strong> wide. Changing DPI keeps the same physical size but recalculates the pixel count, and the advanced pixel-width control can fine-tune the final raster when your laser software needs an exact pixel size.',
+    helpOutputSizeText2: 'Example: If you want to engrave a portrait on a wooden plate with a width of <strong class="text-white">80 mm</strong>, set the width to <strong class="text-white">80 mm</strong> and choose <strong class="text-white">254 DPI</strong>. The tool will create an image about <strong class="text-orange-300">800 px</strong> wide, which matches the required physical size.',
     helpOutputSizeFormula: 'ℹ️ Formula: width in px = (width in mm ÷ 25.4) × DPI',
     helpTipsTitle: 'Tips for better results',
-    helpTip1Title: 'Input photo quality',
-    helpTip1Text: 'Use sharp, evenly lit photos with visible detail in the face, object or texture. Crop away empty background before dithering so the laser-ready pixels focus on the important area.',
-    helpTip2Title: 'Preview before engraving',
-    helpTip2Text: 'Switch between Original + Output, Output and Material Preview. The material simulation is approximate, but the preview power slider helps you check how the same file might look with lighter or darker laser settings before you export.',
-    helpTip3Title: 'Test engraving',
-    helpTip3Text: 'Always test on an offcut of the same material. Real results still depend on laser type, focus, lens, speed, power, coating and the exact surface.',
-    helpTip4Title: 'Laser software settings',
-    helpTip4Text: 'Import the PNG or BMP as <strong class="text-gray-200">Passthrough</strong> or <strong class="text-gray-200">Threshold</strong>. The dithering is already included in the file, so additional image processing may make it worse. Use the embedded DPI metadata or manually set the same physical width if your software ignores metadata.'
+    helpTip1Title: '📷 Input photo quality',
+    helpTip1Text: 'Use sharp photos with good contrast. Dark or blurry images will produce worse engraving results even at high DPI.',
+    helpTip2Title: '🔲 Contrast and brightness',
+    helpTip2Text: 'Before uploading, try adjusting the photo in any editor. Higher contrast often improves the final rasterized result a lot.',
+    helpTip3Title: '🧪 Test engraving',
+    helpTip3Text: 'Always test the result first on an offcut of the same material before running the final engraving.',
+    helpTip4Title: '⚙️ LightBurn settings',
+    helpTip4Text: 'Import the PNG as <strong class="text-gray-200">Passthrough</strong> or <strong class="text-gray-200">Threshold</strong>. The dithering is already included in the file, so additional image processing may make it worse.'
   },
   ru: {
     heroTitle: 'Бесплатный онлайн-конвертер фото для лазерной гравировки',
-    heroText: 'Преобразуйте любое изображение или фотографию в PNG, готовый для лазерной гравировки, прямо в браузере. Выберите тип фото, настройте DPI, яркость, контраст, гамму, резкость и итоговый размер, затем экспортируйте PNG для LightBurn, xTool Creative Space (XCS), LaserGRBL, EZCAD и других программ для лазеров. <strong style="color: var(--accent);">Инструмент бесплатный. Ваши фотографии обрабатываются локально в браузере и не загружаются на наш сервер.</strong>',
+    heroText: 'Преобразуйте любое изображение или фотографию в PNG, готовый для лазерной гравировки, прямо в браузере. Выберите тип фото, настройте DPI, яркость, контраст, гамму, резкость и итоговый размер, затем экспортируйте PNG для LightBurn, XCS, LaserGRBL, EZCAD и других программ для лазеров. <strong style="color: var(--accent);">Инструмент бесплатный. Ваши фотографии обрабатываются локально в браузере и не загружаются на наш сервер.</strong>',
     seoIntroTitle: 'Бесплатный онлайн-конвертер фото для лазерной гравировки',
-    seoIntroText: 'Используйте <strong class="text-white">PhotoEngraving.online</strong> как бесплатный конвертер изображений для лазерной гравировки прямо в браузере. Загрузите фото, преобразуйте его в черно-белый PNG, готовый для лазера, выберите тип фото и DPI, проверьте рекомендуемую скорость гравировки по материалу, настройте яркость, контраст, гамму и резкость, затем скачайте результат для LightBurn, xTool Creative Space (XCS), LaserGRBL, EZCAD и других программ.',
+    seoIntroText: 'Используйте <strong class="text-white">PhotoEngraving.online</strong> как бесплатный конвертер изображений для лазерной гравировки прямо в браузере. Загрузите фото, преобразуйте его в черно-белый PNG, готовый для лазера, выберите тип фото и DPI, проверьте рекомендуемую скорость гравировки по материалу, настройте яркость, контраст, гамму и резкость, затем скачайте результат для LightBurn, XCS, LaserGRBL, EZCAD и других программ.',
     seoCard1Title: 'Бесплатный онлайн-инструмент',
     seoCard1Text: 'Ничего не нужно устанавливать. Конвертируйте фото для лазерной гравировки онлайн и бесплатно скачивайте PNG.',
     seoCard2Title: 'PNG, готовый для лазера',
@@ -3359,7 +3337,7 @@ const translations = {
     faq1Question: 'Этот конвертер фото для лазерной гравировки бесплатный?',
     faq1Answer: 'Да. Инструмент можно бесплатно использовать в браузере. Вы можете преобразовать фото в PNG для лазерной гравировки и скачать результат без установки программ.',
     faq2Question: 'В каких лазерных программах можно использовать экспортированный PNG?',
-    faq2Answer: 'PNG подходит для LightBurn, xTool Creative Space (XCS), LaserGRBL, EZCAD и других программ для лазерной гравировки, которые импортируют растровые изображения.',
+    faq2Answer: 'PNG подходит для LightBurn, XCS, LaserGRBL, EZCAD и других программ для лазерной гравировки, которые импортируют растровые изображения.',
     faq3Question: 'Содержит ли PNG информацию о DPI?',
     faq3Answer: 'Да. Экспортированный PNG содержит метаданные DPI, что помогает лазерной программе сохранить правильный физический размер гравировки.',
     faq4Question: 'Можно ли задать собственное значение DPI?',
@@ -3394,7 +3372,6 @@ const translations = {
     cropResetBtn: 'Сбросить кадрирование',
     cropModalTitle: 'Кадрирование фото',
     cropModalText: 'Потяните, чтобы выделить область кадрирования. Перетаскивайте область для перемещения или тяните за угол, чтобы изменить размер.',
-    cropModalHelp: 'Кадрирование применяется перед дизерингом, предпросмотром материала и экспортом PNG/BMP.',
     cropCancelBtn: 'Отмена',
     cropApplyBtn: 'Применить кадрирование',
     cropAspectFree: 'Свободное соотношение',
@@ -3420,8 +3397,6 @@ const translations = {
     labelContrast: 'Контраст',
     labelGamma: 'Гамма',
     labelSharpness: 'Резкость',
-    labelMaterialPower: 'Мощность лазера в предпросмотре материала',
-    materialPowerHelp: 'Меняет только предпросмотр материала. Низкие значения показывают более светлую отметку, высокие - более сильную. На дереве и других горючих материалах очень высокая мощность может уменьшить мелкие детали. Экспорт PNG/BMP не меняется.',
     resetBtn: '↺ Настройки по умолчанию',
     sectionOutput: 'Вывод',
     labelOutputWidthMm: 'Ширина изображения',
@@ -3437,7 +3412,7 @@ const translations = {
     pixelInfoLabel: 'Размер в пикселях',
     downloadBtn: 'Скачать PNG',
     downloadBmpBtn: 'Скачать BMP',
-    exportHelp: 'PNG рекомендуется для LightBurn, xTool Creative Space (XCS), LaserGRBL и других лазерных программ. PNG и 1-битный BMP содержат метаданные DPI для правильного физического размера в лазерной программе.',
+    exportHelp: 'PNG рекомендуется для LightBurn, XCS, LaserGRBL и других лазерных программ. PNG и 1-битный BMP содержат метаданные DPI для правильного физического размера в лазерной программе.',
     alertLoadFail: 'Не удалось загрузить изображение.',
     alertReadFail: 'Ошибка чтения файла.',
     alertUploadFirst: 'Сначала загрузите изображение.',
@@ -3473,7 +3448,7 @@ const translations = {
     materialTipWood: 'Березовая фанера и светлая древесина обычно гравируются темнее поверхности. Ожидайте небольшое растекание точек, особенно на фанере и мягкой древесине.',
     materialTipSlate: 'Сланец и темный камень обычно гравируются светлее поверхности. Режим Негатив часто является хорошей отправной точкой.',
     materialTipBlackAnodized: 'Черный анодированный алюминий обычно гравируется светлее или серебристым оттенком. Для фотогравировки на этом материале часто полезен режим Негатив.',
-    materialTipStainless: 'Предпросмотр нержавеющей стали является только приблизительным. Более высокая мощность предпросмотра затемняет отметку, но не имитирует обгоревшее расширение края, как на дереве. Реальный результат сильно зависит от типа волоконного/диодного лазера, маркировочного спрея, фокуса, скорости и мощности.',
+    materialTipStainless: 'Предпросмотр нержавеющей стали является только приблизительным. Реальный результат сильно зависит от типа волоконного/диодного лазера, маркировочного спрея, фокуса, скорости и мощности.',
     materialTipGlass: 'На стекле обычно получается матовая молочная отметка. Реальный результат сильно зависит от фокуса, покрытия и типа лазера.',
     materialTipLeather: 'Кожа обычно гравируется темнее, а след может немного расплываться. Рекомендуется меньше детализации и пробные образцы.',
     materialTipCeramic: 'Керамическая плитка может вести себя по-разному в зависимости от глазури, покрытия и спрея. Считайте этот предпросмотр грубым визуальным ориентиром.',
@@ -3485,7 +3460,7 @@ const translations = {
     helpStep2Title: 'Настройте фото',
     helpStep2Text: 'Отрегулируйте яркость, контраст, гамму и резкость, чтобы подготовить фото к гравировке.',
     helpStep3Title: 'Задайте итоговый размер в мм',
-    helpStep3Text: 'Настраивайте яркость, контраст, гамму и резкость, проверяя Оригинал + результат. Используйте предпросмотр материала для дерева, сланца, темных анодированных поверхностей, нержавеющей стали, стекла, кожи или керамической плитки, затем двигайте Мощность лазера в предпросмотре материала, чтобы примерно имитировать более слабый или сильный след лазера перед тестом на реальном материале.',
+    helpStep3Text: 'Введите финальную ширину гравировки в миллиметрах. Инструмент автоматически рассчитает высоту, сохранит пропорции и покажет итоговое количество пикселей.',
     helpStep4Title: 'Проверьте результат и скачайте PNG или BMP',
     helpStep4Text: 'Оцените финальное растеризованное изображение. Если результат выглядит хорошо, скачайте PNG или BMP и импортируйте его в лазерную программу.',
     helpDpiTitle: 'Рекомендуемый DPI по материалам',
@@ -3506,7 +3481,7 @@ const translations = {
     helpTip1Title: '📷 Качество исходного фото',
     helpTip1Text: 'Используйте резкие фотографии с хорошим контрастом. Темные или размытые изображения дадут худший результат гравировки даже при высоком DPI.',
     helpTip2Title: '🔲 Контраст и яркость',
-    helpTip2Text: 'Переключайтесь между Оригинал + результат, Результат и Предпросмотр материала. Симуляция материала приблизительная, но ползунок мощности предпросмотра помогает проверить, как тот же файл может выглядеть при более светлых или темных настройках лазера перед экспортом.',
+    helpTip2Text: 'Перед загрузкой попробуйте настроить фото в любом редакторе. Более высокий контраст часто заметно улучшает итоговый растровый результат.',
     helpTip3Title: '🧪 Пробная гравировка',
     helpTip3Text: 'Всегда сначала тестируйте результат на обрезке того же материала перед финальной гравировкой.',
     helpTip4Title: '⚙️ Настройки LightBurn',
@@ -3535,12 +3510,12 @@ const MATERIALS = {
   wood: {
     nameKey: 'materialWood',
     tipKey: 'materialTipWood',
-    base: [238, 229, 207],
-    mark: [98, 66, 38],
-    noise: 4,
+    base: [225, 213, 192],
+    mark: [82, 48, 24],
+    noise: 13,
     grain: 'wood',
-    grainStrength: 6,
-    dotGain: 0.10,
+    grainStrength: 17,
+    dotGain: 0.28,
     seed: 11
   },
   slate: {
@@ -3568,13 +3543,12 @@ const MATERIALS = {
   stainless: {
     nameKey: 'materialStainless',
     tipKey: 'materialTipStainless',
-    base: [196, 202, 206],
-    mark: [58, 62, 64],
-    noise: 6,
+    base: [188, 194, 198],
+    mark: [55, 58, 60],
+    noise: 8,
     grain: 'metal',
-    grainStrength: 8,
-    dotGain: 0.01,
-    laserPowerBehavior: 'marking',
+    grainStrength: 10,
+    dotGain: 0.06,
     seed: 37
   },
   glass: {
@@ -3618,7 +3592,6 @@ const DEFAULTS = {
   contrast: PRESETS.normal.contrast,
   gamma: PRESETS.normal.gamma,
   sharpness: PRESETS.normal.sharpness,
-  materialPower: 100,
   ditherMode: PRESETS.normal.ditherMode,
   invertColors: PRESETS.normal.invertColors,
   dpi: 254,
@@ -3654,7 +3627,6 @@ const brightness = document.getElementById('brightness');
 const contrast = document.getElementById('contrast');
 const gamma = document.getElementById('gamma');
 const sharpness = document.getElementById('sharpness');
-const materialPower = document.getElementById('materialPower');
 const ditherMode = document.getElementById('ditherMode');
 const invertColors = document.getElementById('invertColors');
 const dpi = document.getElementById('dpi');
@@ -5055,16 +5027,6 @@ resetBtn.addEventListener('click', resetSettings);
   });
 });
 
-if (materialPower) {
-  const handleMaterialPowerChange = () => {
-    updateSlider(materialPower);
-    saveSettings();
-    updateMaterialPreviewFromCurrentCanvas();
-  };
-  materialPower.addEventListener('input', handleMaterialPowerChange);
-  materialPower.addEventListener('change', handleMaterialPowerChange);
-}
-
 function setViewMode(mode) {
   if (!['result', 'compare', 'material'].includes(mode)) mode = 'compare';
 
@@ -5398,13 +5360,7 @@ function updateSlider(el) {
   const decimals = step.includes('.') ? step.split('.')[1].length : 0;
   const value = Number(el.value).toFixed(decimals);
 
-  if (el.id === 'outputWidthSlider') {
-    target.textContent = `${value} px`;
-  } else if (el.id === 'materialPower') {
-    target.textContent = `${value}%`;
-  } else {
-    target.textContent = value;
-  }
+  target.textContent = el.id === 'outputWidthSlider' ? `${value} px` : value;
 }
 
 function loadStoredSettings() {
@@ -5420,7 +5376,6 @@ function loadStoredSettings() {
     if (s.contrast !== undefined) contrast.value = s.contrast;
     if (s.gamma !== undefined) gamma.value = s.gamma;
     if (s.sharpness !== undefined) sharpness.value = s.sharpness;
-    if (s.materialPower !== undefined && materialPower) materialPower.value = String(clamp(Number(s.materialPower), 40, 160));
     ditherMode.value = DITHER_MODES.includes(s.ditherMode) ? s.ditherMode : DEFAULTS.ditherMode;
     setActiveDitherCard(ditherMode.value);
     if (s.invertColors !== undefined) invertColors.checked = Boolean(s.invertColors);
@@ -5454,7 +5409,6 @@ function saveSettings() {
     contrast: Number(contrast.value),
     gamma: Number(gamma.value),
     sharpness: Number(sharpness.value),
-    materialPower: materialPower ? Number(materialPower.value) : DEFAULTS.materialPower,
     ditherMode: ditherMode.value || DEFAULTS.ditherMode,
     invertColors: invertColors.checked,
     dpiMode: isCustomDpiMode() ? 'custom' : 'preset',
@@ -5481,7 +5435,6 @@ function resetSettings() {
   contrast.value = DEFAULTS.contrast;
   gamma.value = DEFAULTS.gamma;
   sharpness.value = DEFAULTS.sharpness;
-  if (materialPower) materialPower.value = DEFAULTS.materialPower;
   ditherMode.value = DEFAULTS.ditherMode;
   setActiveDitherCard(ditherMode.value);
   invertColors.checked = DEFAULTS.invertColors;
@@ -5832,17 +5785,6 @@ function renderMaterialPreview(sourceImageData, w, h) {
   if (!canvasMaterialPreview) return;
 
   const material = MATERIALS[currentMaterial];
-  const previewPower = materialPower ? clamp(Number(materialPower.value) || DEFAULTS.materialPower, 40, 160) / 100 : 1;
-  const powerOver = clamp((previewPower - 1) / 0.6, 0, 1);
-  const powerUnder = clamp((1 - previewPower) / 0.6, 0, 1);
-  const isMarkingMaterial = material.laserPowerBehavior === 'marking';
-  const previewDotGain = material.dotGain + (isMarkingMaterial ? powerOver * 0.03 : powerOver * 0.42);
-  const charR = 48;
-  const charG = 31;
-  const charB = 18;
-  const metalDarkR = 6;
-  const metalDarkG = 7;
-  const metalDarkB = 8;
   canvasMaterialPreview.width = w;
   canvasMaterialPreview.height = h;
   canvasMaterialPreview.style.width = '100%';
@@ -5860,30 +5802,23 @@ function renderMaterialPreview(sourceImageData, w, h) {
       const i = (y * w + x) * 4;
       let laserAmount = 1 - src[i] / 255;
 
-      if (previewDotGain > 0 && laserAmount < 1) {
+      if (material.dotGain > 0 && laserAmount < 1) {
         const left = x > 0 ? 1 - src[i - 4] / 255 : 0;
         const right = x + 1 < w ? 1 - src[i + 4] / 255 : 0;
         const up = y > 0 ? 1 - src[i - w * 4] / 255 : 0;
         const down = y + 1 < h ? 1 - src[i + w * 4] / 255 : 0;
-        laserAmount = Math.max(laserAmount, left * previewDotGain, right * previewDotGain, up * previewDotGain, down * previewDotGain);
+        laserAmount = Math.max(laserAmount, left * material.dotGain, right * material.dotGain, up * material.dotGain, down * material.dotGain);
       }
 
-      const powerAmountBoost = isMarkingMaterial ? 1 + powerOver * 0.08 : 1 + powerOver * 0.18;
-      laserAmount = clamp(laserAmount * (previewPower < 1 ? previewPower : powerAmountBoost), 0, 1);
+      laserAmount = clamp(laserAmount, 0, 1);
 
       const texture = getMaterialTexture(material, x, y, w, h);
       const baseR = material.base[0] + texture;
       const baseG = material.base[1] + texture;
       const baseB = material.base[2] + texture;
-      const highPowerR = isMarkingMaterial ? metalDarkR : charR;
-      const highPowerG = isMarkingMaterial ? metalDarkG : charG;
-      const highPowerB = isMarkingMaterial ? metalDarkB : charB;
-      const markMixR = material.mark[0] * (1 - powerOver) + highPowerR * powerOver;
-      const markMixG = material.mark[1] * (1 - powerOver) + highPowerG * powerOver;
-      const markMixB = material.mark[2] * (1 - powerOver) + highPowerB * powerOver;
-      const markR = (markMixR * (1 - powerUnder) + baseR * powerUnder * 0.72) + texture * 0.35;
-      const markG = (markMixG * (1 - powerUnder) + baseG * powerUnder * 0.72) + texture * 0.35;
-      const markB = (markMixB * (1 - powerUnder) + baseB * powerUnder * 0.72) + texture * 0.35;
+      const markR = material.mark[0] + texture * 0.35;
+      const markG = material.mark[1] + texture * 0.35;
+      const markB = material.mark[2] + texture * 0.35;
 
       dst[i] = clamp(Math.round(baseR * (1 - laserAmount) + markR * laserAmount), 0, 255);
       dst[i + 1] = clamp(Math.round(baseG * (1 - laserAmount) + markG * laserAmount), 0, 255);
