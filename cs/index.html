@@ -2605,12 +2605,6 @@ module.exports = QRCode;
  <button class="btn btn-secondary" id="printBtn" type="button">Tisk QR kódu</button>
  <button class="btn btn-secondary" id="openTargetBtn" type="button" disabled>Vyzkoušet odkaz</button>
  </div>
- <div class="qr-counter" aria-live="polite">
- <div class="qr-counter-badge">
- <span>Staženo nebo zkopírováno:</span>
- <span id="qrActionCounter">…</span>
- </div>
- </div>
  </div>
  </aside>
  </section>
@@ -2731,6 +2725,13 @@ module.exports = QRCode;
  </div>
  </section>
  </main>
+
+ <div class="qr-counter" aria-live="polite">
+ <div class="qr-counter-badge">
+ <span>Celkem staženo nebo zkopírováno:</span>
+ <span id="qrActionCounter">…</span>
+ </div>
+ </div>
 
  <footer class="footer">
  <p>
