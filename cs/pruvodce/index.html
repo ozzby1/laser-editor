@@ -1,0 +1,2864 @@
+<!DOCTYPE html>
+
+<html lang="cs">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/>
+<title>Uživatelský průvodce PhotoEngraving.online 2026: ořez, náhled materiálu, DPI, dithering a export pro laser</title>
+<meta content="Aktuální český průvodce PhotoEngraving.online: nahrání a ořez fotografie, režimy náhledu, simulace materiálu a výkonu laseru, typ fotografie, jas, kontrast, gamma, ostrost, DPI, pokročilá šířka v pixelech, dithering a export PNG/BMP." name="description"/>
+<meta content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" name="robots"/>
+<meta content="PhotoEngraving.online průvodce, převod fotky pro laserové gravírování, editor fotek pro laser, laserově připravený PNG, BMP pro laserové gravírování, DPI metadata, dithering pro laserové gravírování, Floyd-Steinberg, Atkinson, Jarvis, Bayer, LightBurn PNG, LaserGRBL gravírování fotek, XCS bitmapové gravírování, EZCAD gravírování fotek" name="keywords"/>
+<meta content="PhotoEngraving.online, editor fotek pro laser, DPI, dithering, PNG, BMP" name="news_keywords"/>
+<meta content="cs_CZ" property="og:locale"/>
+<meta content="2026-06-27" property="article:published_time"/>
+<meta content="2026-07-04" property="article:modified_time"/>
+<meta content="Laserové gravírování" property="article:section"/>
+<meta content="laserové gravírování fotografií" property="article:tag"/>
+<meta content="DPI" property="article:tag"/>
+<meta content="dithering" property="article:tag"/>
+<meta content="LightBurn" property="article:tag"/>
+<meta content="Průvodce editorem PhotoEngraving.online pro laserové gravírování fotografií" name="twitter:image:alt"/>
+<meta content="PhotoEngraving.online" name="author"/>
+<meta content="PhotoEngraving.online" name="application-name"/>
+<meta content="#09090d" name="theme-color"/>
+<link href="https://photoengraving.online/cs/pruvodce" rel="canonical"/>
+<link href="https://photoengraving.online/sitemap.xml" rel="sitemap" type="application/xml"/><link href="https://photoengraving.online/guide" hreflang="en" rel="alternate"/><link href="https://photoengraving.online/cs/pruvodce" hreflang="cs" rel="alternate"/><link href="https://photoengraving.online/guide" hreflang="x-default" rel="alternate"/>
+
+
+<link href="https://photoengraving.online/favi.png" rel="icon" type="image/png"/>
+<link href="https://photoengraving.online/favi.png" rel="apple-touch-icon"/>
+<meta content="article" property="og:type"/>
+<meta content="PhotoEngraving.online" property="og:site_name"/>
+<meta content="https://photoengraving.online/cs/pruvodce" property="og:url"/>
+<meta content="Uživatelský průvodce PhotoEngraving.online 2026: příprava fotek pro laserové gravírování" property="og:title"/>
+<meta content="Naučte se používat aktuální editor PhotoEngraving.online: ořez fotografie, porovnání originálu s výstupem, náhled materiálu, simulace výkonu, velikost v milimetrech, DPI, dithering a export PNG/BMP." property="og:description"/>
+<meta content="https://photoengraving.online/fb.png" property="og:image"/>
+<meta content="1200" property="og:image:width"/>
+<meta content="630" property="og:image:height"/>
+<meta content="Uživatelský průvodce PhotoEngraving.online pro přípravu fotografií k laserovému gravírování" property="og:image:alt"/>
+<meta content="summary_large_image" name="twitter:card"/>
+<meta content="Uživatelský průvodce PhotoEngraving.online 2026" name="twitter:title"/>
+<meta content="Praktický český průvodce aktuálním editorem PhotoEngraving.online: ořez, typ fotografie, náhled materiálu, výkon v náhledu, DPI, dithering, PNG/BMP export a řešení problémů." name="twitter:description"/>
+<meta content="https://photoengraving.online/fb.png" name="twitter:image"/>
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://photoengraving.online/#organization",
+      "name": "PhotoEngraving.online",
+      "url": "https://photoengraving.online/",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://photoengraving.online/logo.png"
+      },
+      "sameAs": [
+        "https://photoengraving.online/"
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://photoengraving.online/#website",
+      "name": "PhotoEngraving.online",
+      "url": "https://photoengraving.online/",
+      "publisher": {
+        "@id": "https://photoengraving.online/#organization"
+      },
+      "inLanguage": "cs"
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://photoengraving.online/cs/pruvodce#webpage",
+      "url": "https://photoengraving.online/cs/pruvodce",
+      "name": "Uživatelský průvodce PhotoEngraving.online 2026: pracovní postup přípravy fotografií pro laserové gravírování",
+      "description": "Kompletní český uživatelský průvodce přípravou fotografií pro laserové gravírování v PhotoEngraving.online: výběr fotografie, ořez, režimy náhledu, náhled materiálu, simulace výkonu, předvolby typu fotografie, úprava tónů, výstupní velikost, DPI, šířka v pixelech, dithering, export PNG/BMP, postup v laserovém softwaru, testy materiálu a řešení problémů.",
+      "isPartOf": {
+        "@id": "https://photoengraving.online/#website"
+      },
+      "about": [
+        {
+          "@type": "Thing",
+          "name": "PhotoEngraving.online"
+        },
+        {
+          "@type": "Thing",
+          "name": "Převod fotografie pro laserové gravírování"
+        },
+        {
+          "@type": "Thing",
+          "name": "DPI a interval řádků"
+        },
+        {
+          "@type": "Thing",
+          "name": "Dithering pro laserové gravírování"
+        },
+        {
+          "@type": "Thing",
+          "name": "Gravírování fotografií v LightBurnu"
+        }
+      ],
+      "primaryImageOfPage": {
+        "@type": "ImageObject",
+        "url": "https://photoengraving.online/fb.png",
+        "width": 1200,
+        "height": 630
+      },
+      "breadcrumb": {
+        "@id": "https://photoengraving.online/cs/pruvodce#breadcrumb"
+      },
+      "mainEntity": {
+        "@id": "https://photoengraving.online/cs/pruvodce#article"
+      },
+      "inLanguage": "cs"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://photoengraving.online/cs/pruvodce#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Domů",
+          "item": "https://photoengraving.online/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Uživatelský průvodce PhotoEngraving.online",
+          "item": "https://photoengraving.online/cs/pruvodce"
+        }
+      ]
+    },
+    {
+      "@type": "Article",
+      "@id": "https://photoengraving.online/cs/pruvodce#article",
+      "headline": "Uživatelský průvodce PhotoEngraving.online: připravte fotografie pro laser s DPI, ditheringem a testy materiálu",
+      "alternativeHeadline": "Průvodce převodem fotografie pro laserové gravírování 2026",
+      "description": "Praktický český průvodce používáním PhotoEngraving.online pro přípravu fotografií k laserovému gravírování, včetně doporučení pro výběr fotografie, ořez, režimy náhledu, náhled materiálu, simulaci výkonu, předvolby typu fotografie, jas, kontrast, gammu, ostrost, DPI, interval řádků, dithering, export PNG/BMP, import do laserového softwaru, testování materiálu a řešení problémů.",
+      "image": {
+        "@type": "ImageObject",
+        "url": "https://photoengraving.online/fb.png",
+        "width": 1200,
+        "height": 630
+      },
+      "datePublished": "2026-06-27",
+      "dateModified": "2026-07-04",
+      "author": {
+        "@id": "https://photoengraving.online/#organization"
+      },
+      "publisher": {
+        "@id": "https://photoengraving.online/#organization"
+      },
+      "mainEntityOfPage": {
+        "@id": "https://photoengraving.online/cs/pruvodce#webpage"
+      },
+      "articleSection": [
+        "Rychlý start s PhotoEngraving.online",
+        "Jak funguje laserové gravírování fotografií",
+        "Typy laserů a chování materiálů",
+        "Výběr fotografie pro editor",
+        "Pracovní postup v PhotoEngraving.online",
+        "Výstupní velikost, DPI a interval řádků",
+        "Testování a kalibrace",
+        "Dithering v nástroji",
+        "Doporučení podle materiálu",
+        "Výchozí nastavení a nápady na testy",
+        "Postup v softwaru po exportu",
+        "Export a práce se soubory",
+        "Řešení problémů",
+        "Bezpečnost",
+        "Pokročilé techniky",
+        "Závěrečný kontrolní seznam kvality",
+        "Časté dotazy"
+      ],
+      "keywords": [
+        "PhotoEngraving.online guide",
+        "photo to laser engraving converter",
+        "laser-ready PNG",
+        "BMP laser engraving",
+        "DPI metadata",
+        "line interval",
+        "Floyd-Steinberg dithering",
+        "Atkinson dithering",
+        "Jarvis dithering",
+        "Ordered Bayer dithering",
+        "Gravírování fotografií v LightBurnu",
+        "LaserGRBL photo engraving",
+        "XCS photo engraving",
+        "EZCAD photo engraving",
+        "wood photo engraving",
+        "slate photo engraving",
+        "glass photo engraving",
+        "acrylic photo engraving",
+        "metal photo engraving"
+      ],
+      "wordCount": 5574,
+      "inLanguage": "cs"
+    },
+    {
+      "@type": "HowTo",
+      "@id": "https://photoengraving.online/cs/pruvodce#howto",
+      "name": "Jak připravit fotografii pro laserové gravírování pomocí PhotoEngraving.online",
+      "description": "Spolehlivý pracovní postup pro převod běžné fotografie na laserově připravený PNG nebo BMP pomocí PhotoEngraving.online.",
+      "totalTime": "PT20M",
+      "tool": [
+        {
+          "@type": "HowToTool",
+          "name": "PhotoEngraving.online"
+        },
+        {
+          "@type": "HowToTool",
+          "name": "Laserový software jako LightBurn, LaserGRBL, XCS nebo EZCAD"
+        },
+        {
+          "@type": "HowToTool",
+          "name": "Laserová gravírka"
+        }
+      ],
+      "step": [
+        {
+          "@type": "HowToStep",
+          "position": 1,
+          "name": "Nahrajte vhodnou fotografii",
+          "text": "Použijte ostrý JPG, PNG, BMP nebo WebP s čitelnými detaily motivu a nahrajte jej do PhotoEngraving.online."
+        },
+        {
+          "@type": "HowToStep",
+          "position": 2,
+          "name": "Vyberte typ fotografie",
+          "text": "Začněte Běžnou fotografií, Negativ použijte, když má gravura být světlejší než povrch, a Tmavou fotografii nebo Světlou fotografii zkuste, když zdrojový obrázek potřebuje rychlý tónový posun."
+        },
+        {
+          "@type": "HowToStep",
+          "position": 3,
+          "name": "Upravte tóny a detail",
+          "text": "Pomocí jasu, kontrastu, gammy a ostrosti zviditelněte důležité části ještě před ditheringem."
+        },
+        {
+          "@type": "HowToStep",
+          "position": 4,
+          "name": "Nastavte skutečnou velikost a DPI",
+          "text": "Zadejte finální šířku gravírování v milimetrech, vyberte předvolbu DPI nebo vlastní DPI a zkontrolujte vypočítanou velikost v pixelech."
+        },
+        {
+          "@type": "HowToStep",
+          "position": 5,
+          "name": "Porovnejte metody ditheringu",
+          "text": "Zobrazte náhled Floyd-Steinberg, Atkinson, Jarvis nebo Ordered/Bayer a zkontrolujte výsledek detailní lupou."
+        },
+        {
+          "@type": "HowToStep",
+          "position": 6,
+          "name": "Exportujte a testujte",
+          "text": "Stáhněte PNG nebo BMP, importujte jej do laserového softwaru bez dvojitého zpracování a před celou úlohou vygravírujte malý testovací výřez."
+        }
+      ],
+      "mainEntityOfPage": {
+        "@id": "https://photoengraving.online/cs/pruvodce#webpage"
+      },
+      "inLanguage": "cs"
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://photoengraving.online/cs/pruvodce#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Co PhotoEngraving.online dělá?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "PhotoEngraving.online převádí běžnou fotografii na černobílý rastrový obrázek připravený pro laser přímo v prohlížeči. Můžete fotografii oříznout, porovnat originál s výsledkem, zkontrolovat orientační náhled materiálu, upravit typ fotografie, jas, kontrast, gammu, ostrost, výstupní velikost, DPI a dithering a potom exportovat PNG nebo BMP."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Obsahuje exportovaný soubor DPI metadata?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Ano. Exporty PNG a 1bit BMP obsahují DPI metadata, aby kompatibilní laserový software snáze zachoval zamýšlenou fyzickou velikost. Po importu vždy potvrďte finální velikost v milimetrech."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Kterou možnost ditheringu mám zkusit jako první?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Pro vyvážený výsledek začněte Floyd-Steinbergem. Atkinson zkuste pro světlejší vzhled, Jarvis pro hladší tóny na materiálech, které udrží detail, a Ordered/Bayer pro pravidelnější vzor, loga nebo graficky stylizované obrázky."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Kdy mám použít typ fotografie Negativ?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Negativ použijte, když gravírovaná stopa zesvětlá oproti materiálu, například u břidlice, skla, tmavého akrylu nebo tmavého eloxovaného hliníku. Běžnou fotografii použijte u světlého dřeva, kde je vypálení laserem tmavší než povrch."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Mám dithering znovu použít v LightBurnu, LaserGRBL, XCS nebo EZCADu?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Obvykle ne. Pokud PhotoEngraving.online už exportoval ditherovaný černobílý soubor, nepoužívejte v laserovém softwaru další ditheringový algoritmus. Kde je to možné, použijte pass-through nebo nejbližší skutečný černobílý postup."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Nahrávají se fotografie na server?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Ne. Nástroj zpracovává fotografie lokálně v prohlížeči. Pracovní postup tak zůstává soukromý a zároveň umožňuje snadno testovat nastavení bez nahrávání obrázků na server."
+          }
+        }
+      ],
+      "inLanguage": "cs"
+    }
+  ]
+}</script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<style>
+  
+   /* Minimal Tailwind-like utilities used by this single-file build. */ .max-w-7xl { max-width: 80rem; } .mx-auto { margin-left: auto; margin-right: auto; } .ml-auto { margin-left: auto; } .w-full { width: 100%; } .flex { display: flex; } .grid { display: grid; } .flex-col { flex-direction: column; } .flex-wrap { flex-wrap: wrap; } .items-center { align-items: center; } .gap-2 { gap: 0.5rem; } .gap-3 { gap: 0.75rem; } .gap-4 { gap: 1rem; } .grid-cols-1 { grid-template-columns: repeat(1, minmax(0, 1fr)); } .grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); } .p-4 { padding: 1rem; } .p-5 { padding: 1.25rem; } .p-6 { padding: 1.5rem; } .px-4 { padding-left: 1rem; padding-right: 1rem; } .py-3 { padding-top: 0.75rem; padding-bottom: 0.75rem; } .py-6 { padding-top: 1.5rem; padding-bottom: 1.5rem; } .pt-1 { padding-top: 0.25rem; } .mt-1 { margin-top: 0.25rem; } .mt-2 { margin-top: 0.5rem; } .mt-3 { margin-top: 0.75rem; } .mt-4 { margin-top: 1rem; } .mb-4 { margin-bottom: 1rem; } .space-y-4 > :not([hidden]) ~ :not([hidden]) { margin-top: 1rem; } .text-center { text-align: center; } .text-sm { font-size: 0.875rem; line-height: 1.25rem; } .font-semibold { font-weight: 600; } .cursor-pointer { cursor: pointer; } .text-white { color: #fff; } .text-slate-400 { color: #94a3b8; } .text-gray-200 { color: #e5e7eb; } .text-orange-300 { color: #fdba74; } @media (min-width: 640px) { .sm\:grid-cols-1 { grid-template-columns: repeat(1, minmax(0, 1fr)); } .sm\:grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); } } @media (min-width: 768px) { .md\:grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); } .md\:grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+
+* { box-sizing: border-box; }
+
+:root {
+  --bg: #09090d;
+  --bg2: #11131a;
+  --panel: rgba(17, 19, 28, 0.82);
+  --panel-strong: rgba(20, 23, 34, 0.96);
+  --border: rgba(255,255,255,0.07);
+  --border-strong: rgba(255,255,255,0.12);
+  --muted: #94a3b8;
+  --soft: #64748b;
+  --text: #e5edf6;
+  --heading: #f8fafc;
+  --accent: #f97316;
+  --accent2: #ea580c;
+  --accent-soft: rgba(249,115,22,0.14);
+  --shadow-lg: 0 18px 50px rgba(0,0,0,0.30);
+  --shadow-md: 0 10px 30px rgba(0,0,0,0.20);
+  --radius-xl: 20px;
+  --radius-lg: 16px;
+  --radius-md: 12px;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+  min-height: 100%;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 75% 45% at 15% -10%, rgba(249,115,22,0.10) 0%, transparent 60%),
+    radial-gradient(ellipse 55% 35% at 85% 110%, rgba(99,102,241,0.08) 0%, transparent 60%),
+    linear-gradient(180deg, rgba(255,255,255,0.015) 0%, transparent 100%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.content {
+  position: relative;
+  z-index: 1;
+}
+
+canvas {
+  display: block;
+  max-width: 100%;
+  background: #000;
+}
+
+#canvasSingle,
+#canvasCompareResult {
+  image-rendering: pixelated;
+}
+
+input[type=range] {
+  accent-color: var(--accent);
+}
+
+.panel {
+  background: linear-gradient(180deg, rgba(255,255,255,0.025), rgba(255,255,255,0.01)), var(--panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: var(--shadow-md);
+  transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.panel:hover {
+  border-color: rgba(255,255,255,0.10);
+  box-shadow: var(--shadow-lg);
+}
+
+.section-title {
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #8ea1b5;
+  margin-bottom: 14px;
+}
+
+label {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #a8b7c8;
+}
+
+select,
+input[type=number] {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.09);
+  color: #dbe7f3;
+  border-radius: 12px;
+  padding: 10px 12px;
+  font-size: 0.85rem;
+  font-family: inherit;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+  width: 100%;
+}
+
+select:hover,
+select:focus,
+input[type=number]:hover,
+input[type=number]:focus {
+  border-color: rgba(249,115,22,0.45);
+  background: rgba(255,255,255,0.05);
+  box-shadow: 0 0 0 4px rgba(249,115,22,0.08);
+}
+
+.custom-native-hidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+.custom-select {
+  position: relative;
+  width: 100%;
+}
+
+.custom-select-button {
+  width: 100%;
+  min-height: 44px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.09);
+  color: #dbe7f3;
+  border-radius: 12px;
+  padding: 10px 42px 10px 12px;
+  font-size: 0.85rem;
+  font-family: inherit;
+  font-weight: 600;
+  line-height: 1.35;
+  text-align: left;
+  cursor: pointer;
+  outline: none;
+  position: relative;
+  transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+}
+
+.custom-select-button:hover,
+.custom-select-button:focus {
+  border-color: rgba(249,115,22,0.45);
+  background: rgba(255,255,255,0.05);
+  box-shadow: 0 0 0 4px rgba(249,115,22,0.08);
+}
+
+.custom-select-button::after {
+  content: '';
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  width: 9px;
+  height: 9px;
+  border-right: 2px solid #ff9a57;
+  border-bottom: 2px solid #ff9a57;
+  transform: translateY(-65%) rotate(45deg);
+  transition: transform 0.18s ease;
+  pointer-events: none;
+}
+
+.custom-select.open .custom-select-button::after {
+  transform: translateY(-35%) rotate(225deg);
+}
+
+.custom-select-dropdown {
+  display: none;
+  position: absolute;
+  z-index: 120;
+  top: calc(100% + 8px);
+  left: 0;
+  right: 0;
+  margin: 0;
+  padding: 8px;
+  list-style: none;
+  background: linear-gradient(180deg, rgba(255,255,255,0.035), rgba(255,255,255,0.015)), var(--panel-strong);
+  border: 1px solid rgba(249,115,22,0.24);
+  border-radius: 16px;
+  box-shadow: 0 18px 48px rgba(0,0,0,0.42), 0 0 0 1px rgba(249,115,22,0.08);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  max-height: 285px;
+  overflow-y: auto;
+}
+
+.custom-select.open .custom-select-dropdown {
+  display: block;
+}
+
+.custom-select-option {
+  width: 100%;
+  display: block;
+  border: 1px solid transparent;
+  border-radius: 12px;
+  padding: 11px 12px;
+  background: transparent;
+  color: #dbe7f3;
+  font-family: inherit;
+  font-size: 0.86rem;
+  font-weight: 600;
+  line-height: 1.35;
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.16s ease, border-color 0.16s ease, color 0.16s ease;
+}
+
+.custom-select-option:hover,
+.custom-select-option:focus {
+  background: rgba(255,255,255,0.07);
+  border-color: rgba(249,115,22,0.24);
+  color: #ffffff;
+  outline: none;
+}
+
+.custom-select-option.selected {
+  background: linear-gradient(135deg, rgba(249,115,22,0.18), rgba(234,88,12,0.14));
+  border-color: rgba(249,115,22,0.50);
+  color: #ffb27c;
+  box-shadow: inset 0 0 0 1px rgba(249,115,22,0.10);
+}
+
+/* DPI options are shown as a full visible menu instead of a closed dropdown. */
+#dpiCustomSelect {
+  display: grid;
+  gap: 8px;
+}
+
+#dpiCustomSelect .custom-select-button {
+  display: none;
+}
+
+#dpiCustomSelect .custom-select-dropdown {
+  display: grid;
+  position: static;
+  z-index: auto;
+  top: auto;
+  left: auto;
+  right: auto;
+  max-height: none;
+  overflow: visible;
+  grid-template-columns: 1fr;
+  gap: 8px;
+}
+
+#dpiCustomSelect .custom-select-dropdown li {
+  margin: 0;
+}
+
+#dpiCustomSelect.open .custom-select-dropdown {
+  display: grid;
+}
+
+.custom-dpi-input-wrap {
+  background: rgba(255,255,255,0.025);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 14px;
+  padding: 12px;
+}
+
+.toggle-control {
+  background: rgba(255,255,255,0.025);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 14px;
+  padding: 12px;
+}
+
+.toggle-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.toggle-label input {
+  position: absolute;
+  opacity: 0;
+  width: 1px;
+  height: 1px;
+  pointer-events: none;
+}
+
+.toggle-ui {
+  width: 44px;
+  height: 24px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.12);
+  position: relative;
+  flex-shrink: 0;
+  transition: background 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
+}
+
+.toggle-ui::after {
+  content: '';
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 16px;
+  height: 16px;
+  border-radius: 999px;
+  background: #cbd5e1;
+  transition: transform 0.18s ease, background 0.18s ease;
+}
+
+.toggle-label input:checked + .toggle-ui {
+  background: rgba(249,115,22,0.20);
+  border-color: rgba(249,115,22,0.55);
+  box-shadow: 0 0 0 3px rgba(249,115,22,0.08);
+}
+
+.toggle-label input:checked + .toggle-ui::after {
+  transform: translateX(20px);
+  background: #ff9a57;
+}
+
+.toggle-label input:focus + .toggle-ui {
+  box-shadow: 0 0 0 4px rgba(249,115,22,0.10);
+  border-color: rgba(249,115,22,0.55);
+}
+
+.toggle-text {
+  color: #dbe7f3;
+  font-size: 0.84rem;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.helper-text {
+  font-size: 0.72rem;
+  color: #8ea1b5;
+  margin-top: 6px;
+  line-height: 1.5;
+}
+
+.status-message {
+  display: none;
+  margin: 0 0 1rem;
+  padding: 12px 14px;
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,0.08);
+  background: rgba(255,255,255,0.04);
+  color: #dbe7f3;
+  font-size: 0.84rem;
+  font-weight: 650;
+  line-height: 1.45;
+}
+
+.status-message.visible {
+  display: block;
+}
+
+.status-message[data-type="error"] {
+  border-color: rgba(248,113,113,0.45);
+  background: rgba(248,113,113,0.10);
+  color: #fecaca;
+}
+
+.status-message[data-type="success"] {
+  border-color: rgba(34,197,94,0.35);
+  background: rgba(34,197,94,0.08);
+  color: #bbf7d0;
+}
+
+.demo-notice {
+  display: none;
+  margin-bottom: 12px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #94a3b8;
+  font-size: 0.8rem;
+  line-height: 1.45;
+  font-weight: 650;
+}
+
+.canvas-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 8px;
+  padding: 0;
+  border-radius: 0;
+  background: transparent;
+  border: 0;
+  color: #cbd5e1;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.canvas-label.accent {
+  background: transparent;
+  border-color: transparent;
+  color: #fdba74;
+}
+
+.drop-zone:focus-visible,
+.preset-card:focus-visible,
+.empty-step.primary:focus-visible,
+.btn:focus-visible,
+.lang-current:focus-visible,
+.lang-option:focus-visible {
+  outline: 3px solid rgba(249,115,22,0.45);
+  outline-offset: 3px;
+}
+
+.drop-zone {
+  border: 2px dashed rgba(249,115,22,0.78);
+  border-radius: 16px;
+  transition: all 0.2s ease;
+  background: rgba(249,115,22,0.06);
+  box-shadow:
+    0 0 0 1px rgba(249,115,22,0.10),
+    inset 0 0 0 1px rgba(249,115,22,0.06);
+  min-height: 150px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.drop-zone:hover {
+  border-color: rgba(249,115,22,1);
+  background: rgba(249,115,22,0.10);
+  box-shadow:
+    0 0 0 1px rgba(249,115,22,0.18),
+    0 10px 28px rgba(249,115,22,0.10),
+    inset 0 0 0 1px rgba(249,115,22,0.10);
+}
+
+.drop-zone.drag-over {
+  border-color: rgba(249,115,22,1);
+  background: rgba(249,115,22,0.14);
+  box-shadow:
+    0 0 0 2px rgba(249,115,22,0.22),
+    0 14px 34px rgba(249,115,22,0.14),
+    inset 0 0 0 1px rgba(249,115,22,0.12);
+}
+
+.slider-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 12px;
+}
+
+.slider-row input[type=range] {
+  width: 100%;
+}
+
+.slider-val {
+  min-width: 72px;
+  text-align: right;
+  font-size: 0.79rem;
+  font-weight: 700;
+  color: #ff9a57;
+  font-variant-numeric: tabular-nums;
+}
+
+.btn {
+  cursor: pointer;
+  transition: all 0.16s ease;
+  font-family: inherit;
+  font-weight: 600;
+  border: none;
+  outline: none;
+}
+
+.btn:hover {
+  filter: brightness(1.06);
+}
+
+.btn:active {
+  transform: scale(0.985);
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 100%);
+  color: #fff;
+  border-radius: 12px;
+  padding: 11px 16px;
+  font-size: 0.88rem;
+  box-shadow: 0 8px 22px rgba(249,115,22,0.24);
+}
+
+.btn-secondary {
+  background: rgba(255,255,255,0.045);
+  color: #d8e1ea;
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 12px;
+  padding: 10px 14px;
+  font-size: 0.84rem;
+}
+
+.btn-secondary:hover {
+  background: rgba(255,255,255,0.07);
+}
+
+.view-btn {
+  background: rgba(255,255,255,0.04);
+  color: #dbe3ee;
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 12px;
+  padding: 10px 16px;
+  font-size: 0.84rem;
+  font-weight: 700;
+  transition: all 0.18s ease;
+  min-width: 146px;
+}
+
+.view-btn:hover {
+  background: rgba(255,255,255,0.08);
+  border-color: rgba(249,115,22,0.28);
+  color: #ffffff;
+}
+
+.view-btn.active {
+  background: linear-gradient(135deg, rgba(249,115,22,0.18) 0%, rgba(234,88,12,0.18) 100%);
+  color: #fff;
+  border-color: rgba(249,115,22,0.50);
+  box-shadow: 0 0 0 1px rgba(249,115,22,0.18), 0 10px 24px rgba(249,115,22,0.16);
+}
+
+.counter-badge {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 999px;
+  padding: 6px 12px;
+  font-size: 0.74rem;
+  color: #aab8c8;
+  white-space: nowrap;
+}
+
+.counter-badge span {
+  color: #ff9a57;
+  font-weight: 700;
+}
+
+.lang-switcher {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.lang-current {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  min-width: 46px;
+  min-height: 34px;
+  background: rgba(249,115,22,0.12);
+  color: #e2e8f0;
+  border: 1px solid rgba(249,115,22,0.55);
+  border-radius: 10px;
+  padding: 6px 9px;
+  font-size: 1rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: all 0.18s ease;
+  box-shadow: 0 0 0 1px rgba(249,115,22,0.14);
+}
+
+.lang-current:hover,
+.lang-current[aria-expanded="true"] {
+  background: rgba(249,115,22,0.18);
+  border-color: rgba(249,115,22,0.70);
+  box-shadow: 0 10px 24px rgba(249,115,22,0.12), 0 0 0 1px rgba(249,115,22,0.18);
+}
+
+.lang-current-flag,
+.lang-option-flag {
+  font-size: 1rem;
+  line-height: 1;
+}
+
+.lang-current-name {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+.lang-chevron {
+  width: 7px;
+  height: 7px;
+  border-right: 2px solid #ff9a57;
+  border-bottom: 2px solid #ff9a57;
+  transform: translateY(-2px) rotate(45deg);
+  transition: transform 0.18s ease;
+  flex-shrink: 0;
+}
+
+.lang-switcher.open .lang-chevron {
+  transform: translateY(2px) rotate(225deg);
+}
+
+.lang-menu {
+  display: none;
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  z-index: 140;
+  min-width: 176px;
+  padding: 8px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.035), rgba(255,255,255,0.015)), var(--panel-strong);
+  border: 1px solid rgba(249,115,22,0.24);
+  border-radius: 16px;
+  box-shadow: 0 18px 48px rgba(0,0,0,0.42), 0 0 0 1px rgba(249,115,22,0.08);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+.lang-switcher.open .lang-menu {
+  display: grid;
+  gap: 4px;
+}
+
+.lang-option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  text-decoration: none;
+  color: #dbe7f3;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 12px;
+  padding: 10px 11px;
+  font-size: 0.84rem;
+  font-weight: 700;
+  line-height: 1.25;
+  transition: background 0.16s ease, border-color 0.16s ease, color 0.16s ease;
+}
+
+.lang-option:hover,
+.lang-option:focus {
+  background: rgba(255,255,255,0.07);
+  border-color: rgba(249,115,22,0.24);
+  color: #ffffff;
+  outline: none;
+}
+
+.lang-option.active {
+  display: none;
+}
+
+/* Defensive language dropdown guard: old side-by-side flag buttons must not display inline. */
+.lang-dropdown .lang-btn {
+  display: none !important;
+}
+
+
+.feedback-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  min-height: 34px;
+  background: rgba(255,255,255,0.045);
+  color: #e2e8f0;
+  border: 1px solid rgba(255,255,255,0.10);
+  border-radius: 10px;
+  padding: 7px 11px;
+  font-family: inherit;
+  font-size: 0.82rem;
+  font-weight: 800;
+  line-height: 1;
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+
+.feedback-btn:hover,
+.feedback-btn:focus-visible {
+  background: rgba(249,115,22,0.14);
+  border-color: rgba(249,115,22,0.55);
+  color: #ffffff;
+  box-shadow: 0 10px 24px rgba(249,115,22,0.12), 0 0 0 1px rgba(249,115,22,0.14);
+}
+
+.feedback-modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 220;
+  padding: 18px;
+  background: rgba(0,0,0,0.62);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  align-items: center;
+  justify-content: center;
+}
+
+.feedback-modal-overlay.open {
+  display: flex;
+}
+
+.feedback-modal {
+  width: min(100%, 520px);
+  background: linear-gradient(180deg, rgba(255,255,255,0.035), rgba(255,255,255,0.015)), var(--panel-strong);
+  border: 1px solid rgba(249,115,22,0.28);
+  border-radius: 20px;
+  box-shadow: 0 24px 70px rgba(0,0,0,0.54), 0 0 0 1px rgba(249,115,22,0.08);
+  padding: 20px;
+  color: #dbe7f3;
+}
+
+.feedback-modal-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+
+.feedback-modal-title {
+  margin: 0 0 5px;
+  color: #f8fafc;
+  font-size: 1.12rem;
+  line-height: 1.25;
+  font-weight: 850;
+}
+
+.feedback-modal-text {
+  margin: 0;
+  color: #94a3b8;
+  font-size: 0.84rem;
+  line-height: 1.55;
+}
+
+.feedback-close-btn {
+  width: 36px;
+  height: 36px;
+  flex: 0 0 auto;
+  border: 1px solid rgba(255,255,255,0.10);
+  border-radius: 999px;
+  background: rgba(255,255,255,0.045);
+  color: #cbd5e1;
+  font-size: 1.2rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.feedback-close-btn:hover,
+.feedback-close-btn:focus-visible {
+  background: rgba(255,255,255,0.08);
+  color: #ffffff;
+  outline: 3px solid rgba(249,115,22,0.25);
+  outline-offset: 2px;
+}
+
+.feedback-form {
+  display: grid;
+  gap: 12px;
+}
+
+.feedback-field {
+  display: grid;
+  gap: 6px;
+}
+
+.feedback-field textarea,
+.feedback-field input[type="email"] {
+  width: 100%;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.09);
+  color: #dbe7f3;
+  border-radius: 12px;
+  padding: 11px 12px;
+  font-size: 0.88rem;
+  font-family: inherit;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+}
+
+.feedback-field textarea {
+  min-height: 136px;
+  resize: vertical;
+}
+
+.feedback-field textarea:hover,
+.feedback-field textarea:focus,
+.feedback-field input[type="email"]:hover,
+.feedback-field input[type="email"]:focus {
+  border-color: rgba(249,115,22,0.45);
+  background: rgba(255,255,255,0.05);
+  box-shadow: 0 0 0 4px rgba(249,115,22,0.08);
+}
+
+.feedback-hp {
+  position: absolute !important;
+  left: -10000px !important;
+  width: 1px !important;
+  height: 1px !important;
+  overflow: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+.feedback-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  margin-top: 2px;
+}
+
+.feedback-note {
+  color: #7b8b9c;
+  font-size: 0.74rem;
+  line-height: 1.55;
+}
+
+.feedback-message {
+  display: none;
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.08);
+  background: rgba(255,255,255,0.04);
+  color: #dbe7f3;
+  font-size: 0.82rem;
+  font-weight: 650;
+  line-height: 1.45;
+}
+
+.feedback-message.visible {
+  display: block;
+}
+
+.feedback-message[data-type="error"] {
+  border-color: rgba(248,113,113,0.45);
+  background: rgba(248,113,113,0.10);
+  color: #fecaca;
+}
+
+.feedback-message[data-type="success"] {
+  border-color: rgba(34,197,94,0.35);
+  background: rgba(34,197,94,0.08);
+  color: #bbf7d0;
+}
+
+@media (max-width: 520px) {
+  .feedback-btn span:last-child {
+    display: none;
+  }
+
+  .feedback-actions {
+    flex-direction: column-reverse;
+  }
+
+  .feedback-actions .btn {
+    width: 100%;
+  }
+}
+
+
+.info-card {
+  background: rgba(255,255,255,0.025);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 14px;
+  padding: 12px 14px;
+}
+
+.mini-grid {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 8px 10px;
+  align-items: center;
+}
+
+.canvas-wrap {
+  border-radius: 14px;
+  overflow: hidden;
+  border: 0;
+  background: #000;
+  box-shadow: none;
+}
+
+.zoom-hover {
+  overflow: hidden;
+  border-radius: 14px;
+  cursor: crosshair;
+  user-select: none;
+  -webkit-user-select: none;
+  position: relative;
+  touch-action: none;
+}
+
+.zoom-hover canvas {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.preset-card {
+  background: rgba(255,255,255,0.035);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 12px;
+  padding: 13px 12px;
+  text-align: center;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  color: #dbe3ee;
+}
+
+.preset-card:hover {
+  transform: translateY(-1px);
+  border-color: rgba(249,115,22,0.35);
+  background: rgba(255,255,255,0.06);
+}
+
+.preset-card.active {
+  background: linear-gradient(180deg, rgba(249,115,22,0.14), rgba(249,115,22,0.07));
+  border-color: rgba(249,115,22,0.52);
+  color: #ff9a57;
+  box-shadow: 0 0 0 1px rgba(249,115,22,0.12);
+}
+
+.empty-steps {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.empty-step {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 12px;
+  padding: 13px 14px;
+  flex: 1;
+  min-width: 130px;
+  max-width: 210px;
+}
+
+.empty-step.primary {
+  background: rgba(249,115,22,0.07);
+  border-color: rgba(249,115,22,0.35);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.empty-step.primary:hover {
+  background: rgba(249,115,22,0.12);
+  transform: translateY(-1px);
+}
+
+.empty-step-num {
+  width: 28px;
+  height: 28px;
+  border-radius: 999px;
+  background: rgba(249,115,22,0.18);
+  border: 1px solid rgba(249,115,22,0.36);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--accent);
+  flex-shrink: 0;
+}
+
+.hint-line {
+  text-align: center;
+  margin-top: 18px;
+  font-size: 0.79rem;
+  color: #64748b;
+}
+
+.footer-note {
+  font-size: 0.76rem;
+  color: #7b8b9c;
+  line-height: 1.6;
+}
+
+.help-section-title {
+  font-size: 1.08rem;
+  font-weight: 800;
+  color: #ff9a57;
+  margin-bottom: 12px;
+}
+
+.help-text {
+  color: #d7e0ea;
+  font-size: 0.94rem;
+  line-height: 1.8;
+}
+
+.help-step,
+.help-card,
+.help-note-box {
+  background: rgba(255,255,255,0.025);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 16px;
+}
+
+.help-step {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  padding: 18px;
+}
+
+.help-step-num {
+  min-width: 2rem;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  background: var(--accent);
+  color: white;
+  flex-shrink: 0;
+  box-shadow: 0 4px 16px rgba(249,115,22,0.2);
+}
+
+.help-card {
+  padding: 18px;
+}
+
+.help-card-title {
+  color: #fdba74;
+  font-weight: 700;
+  margin-bottom: 6px;
+  font-size: 0.92rem;
+}
+
+.help-card-text {
+  color: #94a3b8;
+  font-size: 0.84rem;
+  line-height: 1.65;
+}
+
+.help-table-wrap {
+  overflow-x: auto;
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,0.06);
+}
+
+.help-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.84rem;
+}
+
+.help-table thead tr {
+  background: rgba(255,255,255,0.05);
+  color: #cbd5e1;
+  text-align: left;
+}
+
+.help-table th,
+.help-table td {
+  padding: 12px 14px;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  vertical-align: top;
+}
+
+.help-table tbody tr {
+  background: rgba(255,255,255,0.02);
+}
+
+.help-table tbody tr:hover {
+  background: rgba(255,255,255,0.04);
+}
+
+.help-table td:first-child {
+  color: #fdba74;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.help-note-box {
+  padding: 18px;
+  color: #cbd5e1;
+  font-size: 0.88rem;
+  line-height: 1.7;
+}
+
+.help-note-box .formula {
+  color: #94a3b8;
+  font-size: 0.82rem;
+  margin-top: 8px;
+}
+
+.mobile-action-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+  margin-top: 14px;
+}
+
+.mobile-reupload-btn,
+.mobile-download-btn {
+  width: 100%;
+  max-width: 320px;
+  cursor: pointer;
+  font-size: 0.92rem;
+  font-weight: 700;
+  padding: 12px 16px;
+  box-shadow: 0 8px 24px rgba(249,115,22,0.28);
+}
+
+
+.mobile-adjust-btn {
+  width: 100%;
+  max-width: 320px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 700;
+  padding: 11px 16px;
+}
+
+header.app-header {
+position: sticky;
+top: 0;
+z-index: 50;
+padding: 14px 16px;
+border-radius: 0;
+background: rgba(10, 12, 18, 0.85);
+backdrop-filter: blur(14px);
+-webkit-backdrop-filter: blur(14px);
+border: 1px solid rgba(255,255,255,0.06);
+box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+margin-bottom: 1.5rem;
+}
+
+.brand-logo {
+  height: 64px;
+  width: auto;
+  filter: drop-shadow(0 8px 22px rgba(0,0,0,0.22));
+}
+.main-editor-layout {
+display: grid !important;
+grid-template-columns: minmax(0, 2fr) minmax(300px, 1fr) !important;
+gap: 1rem !important;
+align-items: start !important;
+width: 100% !important;
+}
+
+.editor-preview-top,
+.editor-controls-column,
+.editor-left-extra {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 0.75rem !important;
+  min-width: 0 !important;
+}
+
+.editor-preview-top {
+  grid-column: 1 !important;
+  grid-row: 1 !important;
+}
+
+.editor-controls-column {
+  grid-column: 2 !important;
+  grid-row: 1 / span 2 !important;
+  align-self: start !important;
+}
+
+.editor-left-extra {
+  grid-column: 1 !important;
+  grid-row: 2 !important;
+}
+
+.editor-left-extra #helpArea,
+.editor-left-extra > section,
+.editor-left-extra > .panel,
+.editor-left-extra > div {
+  min-width: 0 !important;
+  width: 100%;
+}
+@media (min-width: 1024px) {
+.mobile-action-stack {
+display: none;
+}
+}
+
+@media (max-width: 1023px) {
+
+  .main-editor-layout {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+  }
+
+  .editor-preview-top,
+  .editor-controls-column,
+  .editor-left-extra {
+    grid-column: 1 !important;
+  }
+
+  .editor-preview-top {
+    order: 1 !important;
+    grid-row: auto !important;
+  }
+
+  .editor-controls-column {
+    order: 2 !important;
+    grid-row: auto !important;
+  }
+
+  .editor-left-extra {
+    order: 3 !important;
+    grid-row: auto !important;
+  }
+.content {
+padding-top: 14px;
+}
+
+ header.app-header {
+position: relative;
+top: auto;
+z-index: 200;
+overflow: visible;
+border-radius: 0;
+padding: 12px 14px;
+margin-bottom: 16px;
+}
+
+  header.app-header .lang-menu {
+z-index: 300;
+}
+
+  .panel {
+    border-radius: 16px;
+  }
+
+  .view-btn {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .brand-logo {
+    height: 52px;
+  }
+}
+
+/* Detail preview magnifier for engraving/dither inspection. */
+.detail-magnifier {
+  display: none;
+  position: fixed;
+  width: 270px;
+  height: 270px;
+  border-radius: 999px;
+  overflow: hidden;
+  z-index: 260;
+  pointer-events: none;
+  border: 3px solid #0ea5e9;
+  background: #fff;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.45), 0 0 0 1px rgba(255,255,255,0.30);
+}
+
+.detail-magnifier.visible {
+  display: block;
+}
+
+.detail-magnifier canvas {
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  background: #fff;
+  image-rendering: pixelated;
+}
+
+.detail-magnifier::after {
+  content: '4×';
+  position: absolute;
+  right: 13px;
+  bottom: 12px;
+  padding: 3px 8px;
+  border-radius: 999px;
+  background: rgba(9,9,13,0.74);
+  color: #fff;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.03em;
+}
+
+@media (max-width: 640px) {
+  .detail-magnifier {
+    width: 190px;
+    height: 190px;
+  }
+}
+  
+  
+
+/* Guide page additions */
+/* Heading scale is intentionally aligned with the main editor page. */
+.guide-nav-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 34px;
+  text-decoration: none;
+  color: #e2e8f0;
+  background: rgba(255,255,255,0.045);
+  border: 1px solid rgba(255,255,255,0.10);
+  border-radius: 10px;
+  padding: 8px 12px;
+  font-size: 0.82rem;
+  font-weight: 800;
+  transition: all 0.18s ease;
+}
+.guide-nav-link:hover,
+.guide-nav-link:focus-visible {
+  background: rgba(249,115,22,0.14);
+  border-color: rgba(249,115,22,0.55);
+  color: #fff;
+  outline: none;
+}
+
+.guide-nav-link-primary {
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 100%);
+  border-color: rgba(249,115,22,0.72);
+  color: #fff;
+  box-shadow: 0 8px 22px rgba(249,115,22,0.24), 0 0 0 1px rgba(249,115,22,0.16);
+}
+.guide-nav-link-primary:hover,
+.guide-nav-link-primary:focus-visible {
+  background: linear-gradient(135deg, #fb923c 0%, #f97316 100%);
+  border-color: rgba(249,115,22,0.88);
+  color: #fff;
+}
+.guide-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #fdba74;
+  background: rgba(249,115,22,0.10);
+  border: 1px solid rgba(249,115,22,0.26);
+  border-radius: 999px;
+  padding: 7px 12px;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+.guide-hero-title {
+  margin: 0 0 12px;
+  color: #f8fafc;
+  font-size: clamp(1.8rem,3vw,2.6rem);
+  line-height: 1.1;
+  letter-spacing: normal;
+  font-weight: 800;
+  max-width: 900px;
+}
+.guide-hero-subtitle {
+  margin: 0;
+  max-width: 940px;
+  color: #cbd5e1;
+  font-size: clamp(1rem, 1.4vw, 1.22rem);
+  line-height: 1.85;
+}
+.guide-hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 22px;
+}
+.guide-pill-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 18px;
+}
+.guide-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border-radius: 999px;
+  padding: 8px 11px;
+  color: #dbe7f3;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+.guide-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 270px) minmax(0, 1fr);
+  gap: 1rem;
+  align-items: start;
+}
+.guide-toc {
+  position: sticky;
+  top: 104px;
+}
+.guide-toc a {
+  display: block;
+  text-decoration: none;
+  color: #b9c7d6;
+  padding: 8px 0;
+  font-size: 0.84rem;
+  font-weight: 650;
+  line-height: 1.35;
+  border-bottom: 1px solid rgba(255,255,255,0.045);
+}
+.guide-toc a:hover { color: #fdba74; }
+.guide-main {
+  display: grid;
+  gap: 1rem;
+}
+.guide-section {
+  scroll-margin-top: 110px;
+}
+.guide-section h2 {
+  margin: 0 0 12px;
+  color: #ff9a57;
+  font-size: 1.08rem;
+  line-height: 1.35;
+  letter-spacing: normal;
+  font-weight: 800;
+}
+.guide-section h3 {
+  margin: 24px 0 8px;
+  color: #fdba74;
+  font-size: 0.92rem;
+  line-height: 1.35;
+  font-weight: 700;
+}
+.guide-section h4 {
+  margin: 18px 0 8px;
+  color: #d7e0ea;
+  font-size: 0.84rem;
+  line-height: 1.45;
+  font-weight: 700;
+}
+.guide-copy {
+  color: #cbd5e1;
+  font-size: .95rem;
+  line-height: 1.82;
+}
+.guide-copy p { margin: 0 0 14px; }
+.guide-copy ul,
+.guide-copy ol { margin: 10px 0 16px; padding-left: 1.25rem; }
+.guide-copy li { margin: 7px 0; }
+.guide-copy strong { color: #fff; }
+.guide-copy a { color: #fdba74; text-decoration: none; }
+.guide-copy a:hover { text-decoration: underline; }
+.guide-grid-2,
+.guide-grid-3,
+.guide-grid-4 {
+  display: grid;
+  gap: 12px;
+  margin: 16px 0;
+}
+.guide-grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.guide-grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.guide-grid-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.guide-card {
+  background: rgba(255,255,255,0.025);
+  border: 1px solid rgba(255,255,255,0.065);
+  border-radius: 16px;
+  padding: 16px;
+}
+.guide-card-title {
+  color: #fdba74;
+  font-weight: 700;
+  margin: 0 0 6px;
+  font-size: 0.92rem;
+  line-height: 1.35;
+}
+.guide-card-text {
+  color: #9fb0c2;
+  font-size: .84rem;
+  line-height: 1.65;
+  margin: 0;
+}
+.guide-kpi {
+  display: grid;
+  gap: 4px;
+}
+.guide-kpi strong {
+  display: block;
+  color: #fff;
+  font-size: 1.25rem;
+  letter-spacing: -0.03em;
+}
+.guide-kpi span {
+  color: #94a3b8;
+  font-size: .78rem;
+  line-height: 1.45;
+}
+.guide-callout,
+.guide-warning,
+.guide-success {
+  border-radius: 16px;
+  padding: 16px 17px;
+  margin: 16px 0;
+  line-height: 1.7;
+  font-size: .9rem;
+}
+.guide-callout {
+  background: rgba(249,115,22,0.09);
+  border: 1px solid rgba(249,115,22,0.26);
+  color: #fed7aa;
+}
+.guide-warning {
+  background: rgba(248,113,113,0.09);
+  border: 1px solid rgba(248,113,113,0.26);
+  color: #fecaca;
+}
+.guide-success {
+  background: rgba(34,197,94,0.075);
+  border: 1px solid rgba(34,197,94,0.20);
+  color: #bbf7d0;
+}
+.guide-table-wrap {
+  overflow-x: auto;
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,0.07);
+  margin: 16px 0 22px;
+}
+.guide-table {
+  width: 100%;
+  min-width: 760px;
+  border-collapse: collapse;
+  font-size: .84rem;
+}
+.guide-table th,
+.guide-table td {
+  padding: 13px 14px;
+  border-bottom: 1px solid rgba(255,255,255,0.065);
+  text-align: left;
+  vertical-align: top;
+}
+.guide-table th {
+  background: rgba(255,255,255,0.05);
+  color: #dbe7f3;
+  font-weight: 850;
+  white-space: nowrap;
+}
+.guide-table td { color: #b8c7d7; }
+.guide-table td:first-child { color: #fdba74; font-weight: 850; }
+.guide-table tr:last-child td { border-bottom: 0; }
+.guide-formula {
+  display: grid;
+  gap: 8px;
+  margin: 14px 0;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  color: #e2e8f0;
+}
+.guide-formula code {
+  display: block;
+  white-space: normal;
+  background: rgba(0,0,0,0.24);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 12px;
+  padding: 12px 13px;
+  color: #fed7aa;
+  font-size: .84rem;
+  line-height: 1.6;
+}
+.guide-step-list {
+  counter-reset: guideStep;
+  display: grid;
+  gap: 10px;
+  margin: 16px 0;
+}
+.guide-step-item {
+  counter-increment: guideStep;
+  display: grid;
+  grid-template-columns: 42px minmax(0, 1fr);
+  gap: 12px;
+  background: rgba(255,255,255,0.025);
+  border: 1px solid rgba(255,255,255,0.065);
+  border-radius: 16px;
+  padding: 15px;
+}
+.guide-step-item::before {
+  content: counter(guideStep);
+  width: 34px;
+  height: 34px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  background: rgba(249,115,22,0.18);
+  border: 1px solid rgba(249,115,22,0.36);
+  color: #fdba74;
+  font-weight: 900;
+}
+.guide-step-item strong {
+  color: #fff;
+  display: block;
+  margin-bottom: 4px;
+}
+.guide-step-item span {
+  color: #9fb0c2;
+  font-size: .88rem;
+  line-height: 1.65;
+}
+.guide-badge {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  padding: 4px 8px;
+  margin: 0 4px 4px 0;
+  background: rgba(255,255,255,0.055);
+  border: 1px solid rgba(255,255,255,0.08);
+  color: #cbd5e1;
+  font-size: .72rem;
+  font-weight: 800;
+}
+.guide-faq details {
+  background: rgba(255,255,255,0.025);
+  border: 1px solid rgba(255,255,255,0.065);
+  border-radius: 16px;
+  padding: 0;
+  margin: 10px 0;
+  overflow: hidden;
+}
+.guide-faq summary {
+  cursor: pointer;
+  color: #f8fafc;
+  font-weight: 850;
+  padding: 15px 17px;
+  list-style: none;
+}
+.guide-faq summary::-webkit-details-marker { display: none; }
+.guide-faq details p {
+  margin: 0;
+  padding: 0 17px 17px;
+  color: #9fb0c2;
+  font-size: .9rem;
+  line-height: 1.7;
+}
+.guide-source-list {
+  display: grid;
+  gap: 9px;
+  margin: 12px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.guide-source-list li {
+  margin: 0;
+  padding: 12px 13px;
+  border-radius: 12px;
+  background: rgba(255,255,255,0.025);
+  border: 1px solid rgba(255,255,255,0.06);
+  color: #94a3b8;
+  font-size: .82rem;
+  line-height: 1.55;
+}
+.guide-source-list a { color: #fdba74; text-decoration: none; }
+.guide-source-list a:hover { text-decoration: underline; }
+@media (max-width: 1023px) {
+  .guide-layout { grid-template-columns: 1fr; }
+  .guide-toc { position: static; }
+  .guide-grid-3, .guide-grid-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 700px) {
+  .guide-grid-2, .guide-grid-3, .guide-grid-4 { grid-template-columns: 1fr; }
+  .guide-step-item { grid-template-columns: 1fr; }
+  .guide-hero-title { letter-spacing: normal; }
+}
+
+/* Mobile guide refinements: better readability and touch layout for phones/tablets. */
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+  scroll-padding-top: 16px;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+img,
+svg,
+video {
+  max-width: 100%;
+  height: auto;
+}
+
+.guide-copy,
+.guide-card-text,
+.guide-step-item span,
+.guide-source-list li,
+.guide-table td,
+.guide-table th {
+  overflow-wrap: anywhere;
+}
+
+@supports (text-wrap: balance) {
+  .guide-hero-title,
+  .guide-section h2,
+  .guide-section h3 {
+    text-wrap: balance;
+  }
+}
+
+@media (max-width: 1023px) {
+  .content.max-w-7xl {
+    width: 100%;
+    max-width: 100%;
+    padding-left: clamp(12px, 3.4vw, 18px);
+    padding-right: clamp(12px, 3.4vw, 18px);
+    padding-top: 10px;
+    padding-bottom: 18px;
+  }
+
+  header.app-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    margin-bottom: 12px;
+    border-radius: 16px;
+  }
+
+  header.app-header .ml-auto {
+    margin-left: auto;
+    flex: 0 0 auto;
+  }
+
+  .brand-logo {
+    height: 46px;
+    max-width: min(62vw, 270px);
+    object-fit: contain;
+  }
+
+  .guide-nav-link,
+  .guide-hero-actions .btn {
+    min-height: 44px;
+  }
+
+  .guide-nav-link {
+    padding: 8px 12px;
+    font-size: 0.8rem;
+    white-space: nowrap;
+  }
+
+  .panel.p-6 {
+    padding: 20px 16px;
+  }
+
+  .panel.p-4 {
+    padding: 14px;
+  }
+
+  .guide-layout {
+    gap: 12px;
+  }
+
+  .guide-hero-title {
+    font-size: clamp(1.8rem,3vw,2.6rem);
+    line-height: 1.1;
+    letter-spacing: normal;
+    margin-bottom: 12px;
+  }
+
+  .guide-hero-subtitle {
+    font-size: 0.98rem;
+    line-height: 1.68;
+  }
+
+  .guide-hero-actions {
+    gap: 9px;
+    margin-top: 18px;
+  }
+
+  .guide-toc {
+    position: static;
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+  }
+
+  .guide-toc .section-title {
+    margin-bottom: 10px;
+    white-space: normal;
+  }
+
+  .guide-toc a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 38px;
+    margin: 0 6px 8px 0;
+    padding: 8px 11px;
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 999px;
+    background: rgba(255,255,255,0.035);
+    color: #dbe7f3;
+    font-size: 0.78rem;
+    line-height: 1.15;
+  }
+
+  .guide-toc a:hover,
+  .guide-toc a:focus-visible {
+    background: rgba(249,115,22,0.12);
+    border-color: rgba(249,115,22,0.40);
+    color: #fdba74;
+  }
+
+  .guide-main {
+    gap: 12px;
+  }
+
+  .guide-section {
+    scroll-margin-top: 18px;
+  }
+
+  .guide-section h2 {
+    font-size: 1.08rem;
+    line-height: 1.35;
+    margin-bottom: 12px;
+  }
+
+  .guide-section h3 {
+    margin-top: 20px;
+    font-size: 0.92rem;
+    line-height: 1.35;
+  }
+
+  .guide-copy {
+    font-size: 0.93rem;
+    line-height: 1.72;
+  }
+
+  .guide-copy p {
+    margin-bottom: 12px;
+  }
+
+  .guide-copy ul,
+  .guide-copy ol {
+    padding-left: 1.1rem;
+  }
+
+  .guide-card {
+    padding: 15px;
+  }
+
+  .guide-callout,
+  .guide-warning,
+  .guide-success,
+  .help-note-box {
+    padding: 15px;
+  }
+
+  .guide-source-list li {
+    padding: 11px 12px;
+  }
+}
+
+@media (max-width: 700px) {
+  .guide-hero-title {
+    font-size: clamp(1.65rem, 7vw, 2.2rem);
+    line-height: 1.1;
+    letter-spacing: normal;
+  }
+
+  .guide-hero-subtitle {
+    font-size: 0.93rem;
+    line-height: 1.62;
+  }
+
+  .guide-hero-actions {
+    flex-direction: column;
+  }
+
+  .guide-hero-actions .btn {
+    width: 100%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .guide-grid-2,
+  .guide-grid-3,
+  .guide-grid-4 {
+    gap: 10px;
+  }
+
+  .guide-step-item {
+    grid-template-columns: 34px minmax(0, 1fr);
+    gap: 10px;
+    padding: 13px;
+  }
+
+  .guide-step-item::before {
+    width: 30px;
+    height: 30px;
+    font-size: 0.82rem;
+  }
+
+  .guide-step-item span {
+    font-size: 0.84rem;
+    line-height: 1.58;
+  }
+
+  .guide-table-wrap {
+    overflow: visible;
+    border: 0;
+    border-radius: 0;
+    margin: 14px 0 18px;
+  }
+
+  .guide-table {
+    display: block;
+    width: 100%;
+    min-width: 0;
+    border-collapse: separate;
+    border-spacing: 0;
+    font-size: 0.84rem;
+  }
+
+  .guide-table thead {
+    display: none;
+  }
+
+  .guide-table tbody {
+    display: grid;
+    gap: 10px;
+  }
+
+  .guide-table tr {
+    display: block;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 14px;
+    background: rgba(255,255,255,0.024);
+  }
+
+  .guide-table th,
+  .guide-table td {
+    display: block;
+    width: 100%;
+    padding: 10px 12px;
+    border-bottom: 1px solid rgba(255,255,255,0.055);
+  }
+
+  .guide-table td:first-child {
+    background: rgba(249,115,22,0.075);
+    color: #fdba74;
+    font-weight: 850;
+  }
+
+  .guide-table td:last-child {
+    border-bottom: 0;
+  }
+
+  .guide-formula code {
+    padding: 11px 12px;
+    font-size: 0.78rem;
+    line-height: 1.55;
+  }
+}
+
+@media (max-width: 520px) {
+  .content.max-w-7xl {
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 8px;
+  }
+
+  header.app-header {
+    flex-wrap: nowrap;
+    padding: 9px 10px;
+    gap: 8px;
+    border-radius: 14px;
+  }
+
+  .brand-logo {
+    height: 38px;
+    max-width: calc(100vw - 150px);
+  }
+
+  .guide-nav-link {
+    min-height: 38px;
+    padding: 7px 10px;
+    font-size: 0.76rem;
+    border-radius: 9px;
+  }
+
+  .panel {
+    border-radius: 14px;
+  }
+
+  .panel.p-6 {
+    padding: 16px 13px;
+  }
+
+  .panel.p-4 {
+    padding: 12px;
+  }
+
+  .guide-hero-title {
+    font-size: clamp(1.65rem, 7vw, 2.2rem);
+    line-height: 1.1;
+    margin-bottom: 10px;
+  }
+
+  .guide-section h2 {
+    font-size: 1.08rem;
+    line-height: 1.35;
+  }
+
+  .guide-section h3 {
+    font-size: 0.92rem;
+    line-height: 1.35;
+  }
+
+  .guide-copy {
+    font-size: 0.9rem;
+    line-height: 1.68;
+  }
+
+  .guide-card,
+  .guide-callout,
+  .guide-warning,
+  .guide-success {
+    border-radius: 13px;
+    padding: 13px;
+  }
+
+  .guide-step-item {
+    grid-template-columns: 30px minmax(0, 1fr);
+    padding: 12px;
+  }
+
+  .guide-step-item::before {
+    width: 28px;
+    height: 28px;
+  }
+
+  .guide-toc a {
+    min-height: 36px;
+    padding: 7px 10px;
+    font-size: 0.76rem;
+  }
+
+  .guide-faq summary {
+    padding: 13px 14px;
+    font-size: 0.9rem;
+    line-height: 1.35;
+  }
+
+  .guide-faq details p {
+    padding: 0 14px 14px;
+    font-size: 0.86rem;
+  }
+
+  .footer-note {
+    font-size: 0.72rem;
+  }
+}
+
+
+  </style>
+<script async="" src="https://scripts.simpleanalyticscdn.com/latest.js"></script>
+</head>
+<body>
+<div class="content max-w-7xl mx-auto px-4 py-6">
+<header class="app-header flex items-center gap-3 flex-wrap">
+<a aria-label="Domů PhotoEngraving.online" href="https://photoengraving.online/cs/">
+<img alt="Logo PhotoEngraving.online" class="brand-logo" src="/logo.png"/>
+</a>
+<div class="ml-auto flex flex-wrap gap-2 items-center">
+<a aria-label="Otevřít bezplatný editor fotografií pro laserové gravírování" class="guide-nav-link guide-nav-link-primary" href="https://photoengraving.online/cs/">Otevřít editor</a>
+</div>
+</header>
+<section class="panel p-6 mb-4">
+<div class="guide-eyebrow">Průvodce pracovním postupem PhotoEngraving.online</div>
+<h1 class="guide-hero-title">Připravte fotografie pro laserové gravírování v editoru PhotoEngraving.online</h1>
+<p class="guide-hero-subtitle">Tento průvodce je napsaný podle aktuálního rozhraní PhotoEngraving.online. Provede vás celým postupem: nahrajete fotografii nebo spustíte demo, oříznete motiv, přepnete mezi originálem, výsledkem a náhledem materiálu, zvolíte typ fotografie, doladíte jas, kontrast, gammu, ostrost a simulovaný výkon materiálu, nastavíte fyzickou velikost, DPI nebo šířku v pixelech, vyberete dithering a exportujete PNG nebo 1bitový BMP pro laserový software.</p>
+<div class="guide-hero-actions">
+<a class="guide-nav-link guide-nav-link-primary" href="https://photoengraving.online/cs/">Otevřít bezplatný editor</a>
+<a class="guide-nav-link" href="#quick-start">Začít postup</a>
+<a class="guide-nav-link" href="#export">Nastavení exportu</a>
+</div>
+<div class="guide-pill-row">
+<span class="guide-pill">Soukromé zpracování v prohlížeči</span>
+<span class="guide-pill">Vstup JPG, PNG, BMP a WebP</span>
+<span class="guide-pill">Ořez s volným, původním a čtvercovým poměrem</span>
+<span class="guide-pill">Předvolby typu fotografie</span>
+<span class="guide-pill">Náhled materiálu se simulací výkonu</span>
+<span class="guide-pill">Nastavení DPI, milimetrů i pixelů</span>
+<span class="guide-pill">Dithering Floyd, Atkinson, Jarvis a Bayer</span>
+<span class="guide-pill">Export PNG/1bit BMP s DPI metadaty</span>
+</div>
+</section>
+<div class="guide-layout">
+<aside class="panel p-4 guide-toc">
+<div class="section-title">Obsah průvodce</div>
+<a href="#quick-start">Rychlý start v editoru</a>
+<a href="#principles">Jak funguje gravírování fotografií</a>
+<a href="#laser-types">Typy laserů</a>
+<a href="#photo-selection">Výběr vhodné fotografie</a>
+<a href="#workflow">Postup v editoru</a>
+<a href="#controls">Ovládací prvky editoru</a>
+<a href="#material-preview">Náhled materiálu a výkon</a>
+<a href="#dpi">DPI, interval řádků a velikost</a>
+<a href="#calibration">Testování a kalibrace</a>
+<a href="#dithering">Dithering v nástroji</a>
+<a href="#materials">Doporučení podle materiálu</a>
+<a href="#settings">Výchozí nastavení a testy</a>
+<a href="#software">Postup v laserovém softwaru</a>
+<a href="#export">Export a práce se soubory</a>
+<a href="#troubleshooting">Řešení problémů</a>
+<a href="#safety">Bezpečnost</a>
+<a href="#advanced">Pokročilé techniky</a>
+<a href="#quality-control">Závěrečný kontrolní seznam kvality</a>
+<a href="#faq">Časté dotazy</a>
+<a href="#sources">Zdroje</a>
+</aside>
+<main class="guide-main">
+<section class="panel p-6 guide-section" id="quick-start">
+<h2>Rychlý start: použijte editor dříve, než začnete plýtvat materiálem</h2>
+<div class="guide-copy">
+<p>Gravírování fotografií je jednodušší, když přípravu obrázku a laserový test berete jako jeden pracovní postup. Smyslem PhotoEngraving.online je zpřesnit obrazovou část: ještě před importem do LightBurnu, LaserGRBL, XCS, EZCADu nebo jiného laserového programu si připravíte černobílý rastrový obrázek se správnou fyzickou velikostí, DPI a strukturou bodů.</p>
+<p>Editor nenahrazuje testování materiálu. Dá vám kontrolovaný výchozí soubor, takže samotný test řeší výkon laseru, rychlost, zaostření a chování materiálu, ne náhodné změny měřítka, opakovanou kompresi nebo dvojitý dithering.</p>
+<div class="guide-step-list">
+<div class="guide-step-item"><div><strong>1. Nahrajte fotografii nebo použijte demo</strong><span>Začněte ostrým souborem JPG, PNG, BMP nebo WebP. Demo obrázek se hodí pro seznámení s rozhraním, ale skutečný test dělejte s fotografií, kterou opravdu plánujete gravírovat. Fotografie se zpracovává lokálně v prohlížeči.</span></div></div>
+<div class="guide-step-item"><div><strong>2. Ořízněte motiv</strong><span>V části <strong>Oříznutí fotografie</strong> použijte volný poměr, původní poměr stran nebo čtverec. Ořez pomáhá odstranit prázdné pozadí a soustředit pixely na důležitou část motivu. Tlačítko <strong>Zrušit ořez</strong> vrátí fotografii na celý původní rozsah.</span></div></div>
+<div class="guide-step-item"><div><strong>3. Přepínejte náhledy</strong><span>Začněte režimem <strong>Originál a výsledek</strong>, potom zkontrolujte samotný <strong>Výsledek</strong> a podle potřeby otevřete <strong>Náhled materiálu</strong>. Lupa v náhledu pomáhá kontrolovat strukturu bodů; na dotykovém zařízení podržte prst a táhněte.</span></div></div>
+<div class="guide-step-item"><div><strong>4. Vyberte typ fotografie</strong><span>Začněte volbou <strong>Běžná fotografie</strong>. Použijte <strong>Negativ</strong>, když materiál v místě zásahu laseru zesvětlá. Volby <strong>Tmavá fotografie</strong> a <strong>Světlá fotografie</strong> jsou rychlé výchozí korekce před jemným doladěním.</span></div></div>
+<div class="guide-step-item"><div><strong>5. Upravte jas, kontrast, gammu, ostrost a náhled výkonu</strong><span>Zviditelněte důležité části motivu, hlavně oči, ústa, vlasy a obrys. Posuvník výkonu laseru ovlivňuje jen náhled materiálu, ne exportovaný PNG/BMP. Tlačítko <strong>Resetovat úpravy</strong> vrátí obrazové úpravy na výchozí hodnoty.</span></div></div>
+<div class="guide-step-item"><div><strong>6. Nastavte skutečnou velikost, DPI nebo pixely</strong><span>Zadejte finální šířku gravírování v milimetrech, vyberte 254, 300, 508 nebo vlastní DPI a zkontrolujte vypočtené rozměry. Pokročilá šířka v pixelech se hodí, když potřebujete přesný rastr pro konkrétní pracovní postup.</span></div></div>
+<div class="guide-step-item"><div><strong>7. Vyberte dithering</strong><span>Floyd-Steinberg je univerzální základ, Atkinson bývá měkčí, Jarvis zachovává plynulejší tóny a Ordered/Bayer vytváří pravidelnější vzor vhodný pro grafiku nebo stylizované motivy.</span></div></div>
+<div class="guide-step-item"><div><strong>8. Exportujte a otestujte</strong><span>Stáhněte PNG nebo 1bitový BMP s DPI metadaty. Importujte soubor do laserového softwaru ve stejné fyzické velikosti a před celým gravírováním vyzkoušejte malý testovací výřez na reálném materiálu.</span></div></div>
+</div>
+<div class="guide-callout"><strong>Dílenské pravidlo:</strong> připravte jeden čistý soubor, otestujte jeden smysluplný výřez a měňte vždy jen jednu proměnnou. Když najednou změníte typ fotografie, DPI, dithering i výkon laseru, nepoznáte, která změna výsledek skutečně zlepšila.</div>
+</div>
+</section>
+<section class="panel p-6 guide-section" id="principles">
+<h2>Jak laserové gravírování fotografií skutečně funguje</h2>
+<div class="guide-copy">
+<p>Fotografie na obrazovce je tvořená světlem. Laserová gravura je tvořená fyzickými stopami na povrchu. Může jít o spálené dřevo, zesvětlený eloxovaný povrch, matované sklo, odpařenou barvu, natavený akryl nebo odkrytou kovovou vrstvu. Proto může stejný obrázek vypadat na jednom materiálu výborně a na jiném mdle.</p>
+<p>PhotoEngraving.online se soustředí na část, kterou můžete ovlivnit ještě před spuštěním laseru: tóny, bodový vzor, výstupní velikost a hustotu pixelů. O tom, jak se tyto pixely změní ve skutečné stopy, ale pořád rozhoduje laser a materiál.</p>
+<div class="guide-grid-3">
+<div class="guide-card"><div class="guide-card-title">Tónová odezva</div><p class="guide-card-text">Některé materiály se chovají téměř jako vypínač: buď se označí, nebo ne. Ditherovaný černobílý výstup je zde užitečný, protože tón vzniká hustotou bodů, ne dokonalou modulací výkonu.</p></div>
+<div class="guide-card"><div class="guide-card-title">Růst bodu</div><p class="guide-card-text">Laserový bod má jen zřídka stejnou velikost jako jeden obrazový pixel. Teplo, kouř, kresba materiálu a tloušťka povrchové vrstvy mohou body rozšiřovat. Pokud se body zvětšují, nižší DPI nebo světlejší obrázek může vypadat čistěji než velmi jemný soubor.</p></div>
+<div class="guide-card"><div class="guide-card-title">Pozorovací vzdálenost</div><p class="guide-card-text">Malý přívěsek musí být čitelný zblízka. Velká plaketa může použít hrubší body, protože pozorovatel stojí dál. Pro posouzení detailu ve skutečné finální velikosti používejte v nástroji velikost v milimetrech a náhled pixelů.</p></div>
+</div>
+<h3>Co editor umí a co neumí</h3>
+<p>Editor dokáže fotografii lépe připravit pro gravírování, ale neumí vymyslet detail, který ve zdroji není. Umí zesvětlit obličej, zvýšit oddělení středních tónů, doostřit po změně velikosti, vytvořit kontrolovaný černobílý ditherovaný vzor a exportovat soubor s DPI metadaty. Nezná ale skutečnou velikost bodu vašeho laseru, stav čočky, chování ofuku, rovinnost pracovní plochy, posun ohniska ani přesnou povrchovou úpravu materiálu.</p>
+<div class="guide-warning"><strong>Nehodnoťte výsledek jen podle náhledu na obrazovce.</strong> Náhled ukazuje strukturu pixelů. Neumí zobrazit zakouření, kresbu dřeva, odprýskávání skla, tavení, reakci povlaku u fiber laseru ani kontrast po vyčištění a finální úpravě.</div>
+</div>
+</section>
+<section class="panel p-6 guide-section" id="laser-types">
+<h2>Typy laserů a co ovlivňují</h2>
+<div class="guide-copy">
+<p>Výstup z PhotoEngraving.online je rastrový obrázek. Stejný PNG nebo BMP lze importovat do mnoha laserových programů, ale typ laserového zdroje rozhoduje o vhodných materiálech i o tom, zda stopa ztmavne, zesvětlá, zmatní nebo odstraní povrchovou vrstvu.</p>
+<div class="guide-table-wrap">
+<table class="guide-table">
+<thead><tr><th>Typ laseru</th><th>Kde obvykle funguje dobře</th><th>Na co si dát pozor v editoru</th><th>Praktická poznámka k fotografiím</th></tr></thead>
+<tbody>
+<tr><td>Diodový laser</td><td>Dřevo, překližka, kůže, lakované povrchy, některé povlakované kovy a některé tmavé akryly.</td><td>Použijte čitelný kontrast a u měkkých materiálů se vyhněte extrémně vysokému DPI. Růst bodu může rychle slít stíny.</td><td>254 nebo 300 DPI je často praktický výchozí rozsah pro fotografické práce na dřevě.</td></tr>
+<tr><td>CO₂ laser</td><td>Dřevo, akryl, sklo, kůže, papír, guma a mnoho povlakovaných materiálů.</td><td>Sklo a akryl často vyžadují inverzi a opatrný kontrast. Dřevo stále potřebuje střídmou práci se stíny.</td><td>Používejte testovací výřezy, protože sklo může v náhledu vypadat dobře, ale po gravírování může být hrubé nebo ploché.</td></tr>
+<tr><td>Fiber laser</td><td>Eloxovaný hliník, povlakované kovy, značení nerezu, plasty a některé průmyslové materiály.</td><td>Jemné body mohou fungovat dobře, ale odezva materiálu se velmi liší. Pomocí nástroje nastavte velikost obrázku a DPI, potom dolaďte parametry značení ve svém fiber softwaru.</td><td>Vysoký detail může být možný, ale testujte různé výkony, frekvence, rychlosti a nastavení hatch/bitmap.</td></tr>
+<tr><td>UV laser</td><td>Sklo, plasty, povlakované materiály a povrchy citlivé na teplo.</td><td>Používejte čisté tóny a vyhněte se přeostřeným vzorům, pokud je materiál opravdu nedokáže udržet.</td><td>UV laser dokáže zachovat detail, ale finální kontrast silně závisí na reakci povrchu.</td></tr>
+</tbody>
+</table>
+</div>
+<div class="guide-success"><strong>Dobrý návyk:</strong> ke každé kombinaci stroje a materiálu přistupujte jako k novému receptu. Obrázkový soubor z PhotoEngraving.online je kontrolovaný vstup; testovací výřez vám ukáže, jak jej váš laser promění ve skutečnou stopu.</div>
+</div>
+</section>
+<section class="panel p-6 guide-section" id="photo-selection">
+<h2>Výběr fotografie, která půjde dobře gravírovat</h2>
+<div class="guide-copy">
+<p>Vstupní fotografie určuje strop kvality finální gravury. PhotoEngraving.online dokáže převést běžnou fotku na rastrový soubor připravený pro laser, ale nejlépe funguje tehdy, když má originál skutečné detaily, jasně oddělený hlavní motiv a použitelné střední tóny.</p>
+<div class="guide-grid-2">
+<div class="guide-card"><div class="guide-card-title">Co obvykle funguje</div><p class="guide-card-text">Ostrý obličej, čitelné oči, jednoduché světlo, viditelná textura vlasů, dostatečné rozlišení, motiv oddělený od pozadí a žádný výrazný filtr ze sociálních sítí.</p></div>
+<div class="guide-card"><div class="guide-card-title">Co obvykle dělá problémy</div><p class="guide-card-text">Malé webové fotky, pohybová neostrost, tváře v hlubokém stínu, přepálená světlá místa bez textury, velmi rušná pozadí, silné kompresní artefakty a fotky, kde je hlavní motiv příliš malý.</p></div>
+</div>
+<h3>Rychlá kontrola fotografie před nahráním</h3>
+<ul>
+<li>Otevřete fotku ve 100% zvětšení. Pokud jsou oči rozmazané už v originálu, gravura zázračně neostrá místa nezaostří.</li>
+<li>Zeptejte se, zda je motiv čitelný i černobíle. Samotný barevný kontrast nestačí.</li>
+<li>Zkontrolujte, zda pozadí nesoupeří s obličejem. Rušné pozadí se po ditheringu může změnit v šum.</li>
+<li>Kdykoli je to možné, použijte větší zdrojový obrázek než finální výstup. Zmenšování je bezpečnější než zvětšování malého souboru.</li>
+</ul>
+<div class="guide-callout"><strong>Tip pro portréty:</strong> nejdříve zajistěte čitelnost očí a úst. Lidé odpustí měkčí pozadí, ale všimnou si obličeje, který se změnil v tmavou skvrnu.</div>
+</div>
+</section>
+<section class="panel p-6 guide-section" id="workflow">
+<h2>Pracovní postup v PhotoEngraving.online</h2>
+<div class="guide-copy">
+<p>Editor je navržený jednoduše, ale pořadí kroků je důležité. Když nastavíte výstupní velikost, DPI a typ fotografie ještě před finálním posouzením tónů, náhled se bude mnohem více blížit skutečnému souboru, který exportujete.</p>
+<div class="guide-step-list">
+<div class="guide-step-item"><div><strong>Nahrát fotografii</strong><span>Přetáhněte soubor nebo klikněte a vyberte JPG, PNG, BMP či WebP. Obrázek se zpracovává lokálně v prohlížeči, takže můžete testovat soukromé fotografie bez odesílání na server.</span></div></div>
+<div class="guide-step-item"><div><strong>Oříznout fotografii</strong><span>Ořez použijte hned po nahrání, pokud chcete odstranit rušivé pozadí, zlepšit kompozici portrétu nebo připravit čtvercový motiv. V modalu lze kreslit oblast tažením, posouvat ji uvnitř výběru a měnit velikost za rohy. Poměry jsou <strong>Volný poměr</strong>, <strong>Původní poměr stran</strong> a <strong>Čtverec</strong>.</span></div></div>
+<div class="guide-step-item"><div><strong>Použijte zobrazení Originál a výsledek</strong><span>Začněte v porovnávacím zobrazení. Strana s originálem připomíná, jaké detaily ve zdroji skutečně jsou, zatímco strana s výstupem ukazuje interpretaci připravenou pro laser. Přepněte na <strong>Výsledek</strong>, když potřebujete větší finální náhled.</span></div></div>
+<div class="guide-step-item"><div><strong>Zkontrolujte náhled materiálu</strong><span>Režim <strong>Náhled materiálu</strong> ukáže orientační vzhled na dřevě, břidlici, tmavém eloxovaném povrchu, nerezu, skle, kůži nebo keramické dlaždici. Je to vizuální pomůcka pro rozhodování, ne záruka fyzického výsledku.</span></div></div>
+<div class="guide-step-item"><div><strong>Vyberte typ fotografie</strong><span><strong>Běžná fotografie</strong> je výchozí volba. <strong>Negativ</strong> invertuje výstup. <strong>Tmavá fotografie</strong> a <strong>Světlá fotografie</strong> jsou rychlé výchozí možnosti, ale posuvníky dávají větší kontrolu.</span></div></div>
+<div class="guide-step-item"><div><strong>Jemně dolaďte fotografii</strong><span>Jas použijte pro celkovou světlost, kontrast pro oddělení oblastí, gammu pro střední tóny a ostrost pro detaily hran. Malé změny bývají lepší než extrémní polohy posuvníků. Když se ztratíte, použijte <strong>Resetovat úpravy</strong>.</span></div></div>
+<div class="guide-step-item"><div><strong>Nastavte velikost výstupu</strong><span>Zadejte skutečnou šířku gravírování v milimetrech. Nástroj dopočítá výšku a velikost v pixelech. Pokud v pokročilém nastavení přímo změníte šířku v pixelech, šířka v milimetrech se přepočítá podle zvoleného DPI.</span></div></div>
+<div class="guide-step-item"><div><strong>Vyberte DPI a dithering</strong><span>Pro mnoho měkčích nebo hrubších materiálů použijte 254 DPI, jako obecný výchozí bod pro fotografie 300 DPI a pro materiály, které udrží jemnější body, 508 DPI. Vlastní DPI použijte, když znáte přesný požadovaný interval řádků.</span></div></div>
+<div class="guide-step-item"><div><strong>Zkontrolujte výstup lupou</strong><span>Pohybem nad náhledem zkontrolujte detaily v lupě. Na dotykových zařízeních podržte a táhněte. Před exportem zkontrolujte oči, vlasy, texturu pozadí a oblasti stínů.</span></div></div>
+<div class="guide-step-item"><div><strong>Stáhněte PNG nebo 1bitový BMP</strong><span>PNG je bezpečná výchozí volba pro většinu postupů. BMP se hodí pro programy nebo pracovní postupy, které preferují jednoduché černobílé bitmapové soubory. Oba formáty jsou určené pro rastrové laserové gravírování a obsahují DPI metadata.</span></div></div>
+</div>
+<h3>Jas, kontrast a gamma</h3>
+<p>Jas posouvá celý obrázek světleji nebo tmavěji. Kontrast odděluje světlé a tmavé oblasti. Gamma je obzvlášť užitečná, protože mění střední tóny, aniž by tak agresivně posouvala černý a bílý bod. U portrétů gamma často pomáhá otevřít obličej a zároveň udržet vlasy a oči výrazné.</p>
+<h3>Ostrost</h3>
+<p>Doostření může zlepšit čitelnost očí, vlasů a hran, ale přílišné doostření vytváří haló efekty a tvrdé body. Po doostření použijte lupu. Pokud výstup na obrazovce působí příliš křupavě, na dřevě nebo hrubém kameni se může vygravírovat jako šum.</p>
+</div>
+</section>
+<section class="panel p-6 guide-section" id="controls">
+<h2>Ovládací prvky editoru podle aktuální stránky</h2>
+<div class="guide-copy">
+<p>Aktuální editor má několik skupin ovládání. Když víte, co která část mění, snáze poznáte, zda ladíte samotný export, nebo jen způsob náhledu.</p>
+<div class="guide-table-wrap">
+<table class="guide-table">
+<thead><tr><th>Ovládání</th><th>Kde je</th><th>Co dělá</th><th>Dopad na export</th></tr></thead>
+<tbody>
+<tr><td>Nahrát fotografii</td><td>Horní lišta a mobilní tlačítka pod náhledem.</td><td>Vybere nový zdrojový obrázek. Podporované vstupy jsou JPG, PNG, BMP a WebP.</td><td>Ano, mění zdroj pro celý výstup.</td></tr>
+<tr><td>Originál a výsledek</td><td>Horní lišta náhledu.</td><td>Zobrazí originál vedle připraveného černobílého výsledku.</td><td>Ne, jde o režim zobrazení.</td></tr>
+<tr><td>Výsledek</td><td>Horní lišta náhledu.</td><td>Zobrazí samotný laserově připravený výstup ve větším náhledu.</td><td>Ne, jde o režim zobrazení.</td></tr>
+<tr><td>Náhled materiálu</td><td>Horní lišta jako rozbalovací volba materiálu.</td><td>Simuluje orientační vzhled na konkrétním povrchu.</td><td>Ne, export zůstává čistý černobílý PNG/BMP.</td></tr>
+<tr><td>Oříznout fotografii</td><td>Panel Oříznutí fotografie.</td><td>Otevře editor ořezu s volným, původním nebo čtvercovým poměrem stran.</td><td>Ano, exportuje se jen zvolený výřez.</td></tr>
+<tr><td>Zrušit ořez</td><td>Panel ořezu i modal ořezu.</td><td>Vrátí výběr na celý obrázek nebo zruší aktuální ořez.</td><td>Ano, export se vrátí na celý zdrojový obrázek.</td></tr>
+<tr><td>Resetovat úpravy</td><td>Panel Úpravy fotografie.</td><td>Vrátí obrazové úpravy, typ fotografie, dithering, velikost, DPI, materiálový náhled a ořez na výchozí nastavení.</td><td>Ano, mění nastavení, ze kterého se exportuje.</td></tr>
+<tr><td>Upravit nastavení</td><td>Mobilní zobrazení pod náhledem.</td><td>Na menší obrazovce přesune pozornost k panelům nastavení.</td><td>Ne, je to navigační pomůcka.</td></tr>
+<tr><td>Stáhnout PNG / Stáhnout BMP</td><td>Panel Výstup a mobilní tlačítka pod náhledem.</td><td>Stáhne finální soubor s vybranou šířkou, DPI a ditheringem.</td><td>Ano, vytvoří finální soubor pro laserový software.</td></tr>
+</tbody>
+</table>
+</div>
+<div class="guide-callout"><strong>Praktické rozlišení:</strong> ořez, typ fotografie, posuvníky, DPI, pixely a dithering mění export. Režim zobrazení a náhled materiálu vám pomáhají rozhodovat, ale samy o sobě nemění černobílý PNG/BMP.</div>
+</div>
+</section>
+<section class="panel p-6 guide-section" id="material-preview">
+<h2>Náhled materiálu a simulace výkonu laseru</h2>
+<div class="guide-copy">
+<p>Náhled materiálu je orientační vizuální vrstva nad připraveným černobílým výstupem. Pomáhá rychle odhadnout, zda se motiv bude lépe číst jako tmavá stopa na světlém povrchu, nebo jako světlá stopa na tmavém povrchu. Nenahrazuje test na skutečném materiálu.</p>
+<div class="guide-grid-3">
+<div class="guide-card"><div class="guide-card-title">Světlé dřevo</div><p class="guide-card-text">Dřevo a překližka většinou tmavnou. Sledujte hlavně slévání stínů a růst bodu. Pokud náhled působí těžce, zkuste světlejší gammu, nižší kontrast nebo Atkinson.</p></div>
+<div class="guide-card"><div class="guide-card-title">Tmavé povrchy a břidlice</div><p class="guide-card-text">Břidlice, tmavý kámen a černý elox často vytvářejí světlejší stopu. Režim Negativ bývá dobrý výchozí bod, protože převrátí vztah černé a bílé.</p></div>
+<div class="guide-card"><div class="guide-card-title">Nerez, sklo, kůže a keramika</div><p class="guide-card-text">Tyto povrchy reagují velmi rozdílně podle laseru, povlaku, spreje, glazury a zaostření. Náhled berte jako kompoziční kontrolu, ne jako přesnou simulaci fyziky.</p></div>
+</div>
+<h3>Posuvník výkonu laseru v náhledu materiálu</h3>
+<p>Posuvník výkonu ovlivňuje pouze materiálový náhled. Hodnota pod 100 % naznačuje slabší stopu, hodnota nad 100 % naznačuje výraznější značku nebo větší rozšíření bodu u hořlavých materiálů. Export PNG/BMP se tím nemění, takže soubor zůstává čistý a předvídatelný pro laserový software.</p>
+<h3>Kdy materiálový náhled používat</h3>
+<ul>
+<li>Při rozhodování, zda zvolit Běžnou fotografii nebo Negativ.</li>
+<li>Při rychlé kontrole, zda je motiv čitelný na světlém, tmavém, kovovém nebo skleněném povrchu.</li>
+<li>Při porovnání, zda je lepší měkčí Atkinson, univerzální Floyd-Steinberg, hladší Jarvis nebo pravidelný Ordered/Bayer.</li>
+<li>Při přípravě testovacího výřezu, abyste věděli, které oblasti sledovat po skutečném gravírování.</li>
+</ul>
+<div class="guide-warning"><strong>Náhled materiálu není nastavení laseru.</strong> Skutečný výkon, rychlost, frekvenci, interval řádků, zaostření a další parametry nastavujte až ve svém laserovém softwaru podle testu na materiálu.</div>
+</div>
+</section>
+<section class="panel p-6 guide-section" id="dpi">
+<h2>DPI, interval řádků a fyzická velikost</h2>
+<div class="guide-copy">
+<p>V editoru je nejdůležitější velikostní pole skutečná šířka gravírování v milimetrech. DPI potom určuje, kolik obrazových pixelů se do této fyzické šířky vejde. Nástroj ukazuje vypočítanou velikost v pixelech, abyste se vyhnuli souborům příliš malým na zachování detailu nebo zbytečně velkým pro praktickou rastrovou práci.</p>
+<div class="guide-formula">
+<code>šířka v pixelech = (šířka v mm ÷ 25,4) × DPI</code>
+<code>interval řádků v mm = 25,4 ÷ DPI</code>
+<code>DPI = 25,4 ÷ interval řádků v mm</code>
+</div>
+<div class="guide-table-wrap">
+<table class="guide-table">
+<thead><tr><th>DPI v editoru</th><th>Přibližný interval řádků</th><th>Vhodné výchozí použití</th><th>Na co pozor</th></tr></thead>
+<tbody>
+<tr><td>254 DPI</td><td>0,100 mm</td><td>Měkké dřevo, překližka, MDF, břidlice, kámen, sklo a rychlejší testovací kusy.</td><td>Malé portréty mohou ztratit jemné detaily obličeje, pokud je i fyzická velikost malá.</td></tr>
+<tr><td>300 DPI</td><td>0,085 mm</td><td>Obecná fotografická práce na dřevě, překližce, skle, břidlici, HDF a plastu, pokud materiál udrží dostatečné oddělení bodů.</td><td>Stále testujte růst bodu; některá dřeva rychle slévají stíny.</td></tr>
+<tr><td>508 DPI</td><td>0,050 mm</td><td>Akryl, lamináty, povlakované kovy, eloxovaný hliník, keramika a povrchy, které udrží jemné body.</td><td>Více pixelů nepomůže, pokud je laserový bod a materiál nedokážou reprodukovat. Úlohy jsou navíc pomalejší a datově těžší.</td></tr>
+<tr><td>Vlastní DPI</td><td>Vaše hodnota</td><td>Použijte, když už znáte preferovaný interval řádků pro svou čočku, laser a materiál.</td><td>Zůstaňte realisté. Velmi vysoké DPI může místo většího detailu vytvořit nahromadění tepla a měkké stíny.</td></tr>
+</tbody>
+</table>
+</div>
+<h3>Záleží také na velikosti v pixelech</h3>
+<p>Fotografie nebude lepší jen proto, že má vysoká DPI metadata. Důležitá je kombinace fyzické velikosti, počtu pixelů, laserového bodu a odezvy materiálu. Pokud gravírujete portrét široký 80 mm při 254 DPI, výstup má šířku zhruba 800 pixelů. Při 508 DPI má přibližně 1600 pixelů. Druhý soubor má více detailu jen tehdy, pokud jej váš laser a materiál dokážou čistě vykreslit.</p>
+<div class="guide-callout"><strong>Dobrý výchozí bod:</strong> nejdříve zvolte fyzickou šířku, potom realistické DPI a teprve poté upravujte obrázek při sledování skutečné výstupní struktury pixelů.</div>
+</div>
+</section>
+<section class="panel p-6 guide-section" id="calibration">
+<h2>Testování a kalibrace</h2>
+<div class="guide-copy">
+<p>Kalibrace není oddělené téma od přípravy obrázku. Je to krok, který vám řekne, zda je soubor z PhotoEngraving.online vhodný pro váš konkrétní materiál a nastavení laseru.</p>
+<h3>Vytvořte užitečný testovací výřez</h3>
+<p>Netestujte jen prázdný čtverec nebo náhodný roh. U portrétů zvolte výřez, který obsahuje oko, vlasy, pokožku, tmavý stín a světlé místo. Užitečný výřez bývá široký 25–40 mm. Šetří materiál a dá dost informací pro odhad celé gravury.</p>
+<div class="guide-grid-3">
+<div class="guide-card"><div class="guide-card-title">Výkon</div><p class="guide-card-text">Příliš malý výkon dá slabý obraz. Příliš velký výkon slije stíny, pálí dřevo, taví plast nebo zdrsní sklo. Testujte výkon v malých krocích.</p></div>
+<div class="guide-card"><div class="guide-card-title">Rychlost</div><p class="guide-card-text">Nižší rychlost obvykle dodá více energie. Vyšší rychlost může udržet detail čistší, ale stopa může být bledá. Poznámky k rychlosti a výkonu si zapisujte společně.</p></div>
+<div class="guide-card"><div class="guide-card-title">DPI / interval</div><p class="guide-card-text">Menší rozestup vytvoří více řádků, ale také více tepla a překryvu. Pokud je obrázek zablácený, nižší DPI může být lepší než „více detailu“ jen na papíře.</p></div>
+</div>
+<h3>Testujte v kontrolované mřížce</h3>
+<p>Exportujte jeden soubor z editoru a vygravírujte jej v malé mřížce s různými výkony a rychlostmi laseru. Pokud je i nejlepší výsledek pořád příliš tmavý nebo světlý, vraťte se do editoru a upravte gammu, kontrast, typ fotografie nebo dithering. Toto oddělení udrží proces srozumitelný.</p>
+<div class="guide-success"><strong>Zapisujte si nastavení.</strong> Vzorková tabulka s materiálem, čočkou, zaostřením, DPI, metodou ditheringu, názvem souboru, výkonem a rychlostí pro vás bude užitečnější než obecná tabulka nastavení z internetu.</div>
+</div>
+</section>
+<section class="panel p-6 guide-section" id="dithering">
+<h2>Algoritmy ditheringu jednoduše</h2>
+<div class="guide-copy">
+<p>Dithering převádí šedé tóny na vzory černých a bílých pixelů. Z běžné pozorovací vzdálenosti oko tyto pixely spojí do světlejších a tmavších oblastí. Proto může PhotoEngraving.online exportovat jednoduchý černobílý soubor připravený pro laser, místo aby spoléhal na to, že každý laserový program interpretuje stupně šedi stejně.</p>
+<div class="guide-table-wrap">
+<table class="guide-table">
+<thead><tr><th>Metoda ditheringu</th><th>Jak obvykle vypadá</th><th>Vhodné použití v editoru</th><th>Na co si dát pozor</th></tr></thead>
+<tbody>
+<tr><td>Floyd-Steinberg</td><td>Vyvážená, známá fotografická textura s dobrým detailem.</td><td>Začněte zde u většiny portrétů a obecných fotografických testů.</td><td>Může působit šumově, pokud má zdrojová fotografie výrazné zrno nebo kompresi.</td></tr>
+<tr><td>Atkinson</td><td>Měkčí, světlejší, někdy více vintage vzhled.</td><td>Zkuste, když je výstup příliš tmavý, dřevo se silně pálí nebo chcete jemnější portrét.</td><td>Může ztrácet hluboké stíny a část jemného kontrastu.</td></tr>
+<tr><td>Jarvis</td><td>Hladší tónové přechody a rovnoměrněji rozložené body.</td><td>Zkuste pro tóny pokožky a materiály, které udrží jemný detail.</td><td>Na materiálech s růstem bodu může být příliš hustý.</td></tr>
+<tr><td>Ordered / Bayer</td><td>Pravidelný viditelný vzor místo organické chybové difuze.</td><td>Užitečné pro loga, grafiku, stylizované obrázky nebo situace, kdy chcete předvídatelnou texturu.</td><td>Na tvářích může vzor působit uměle, pokud je finální velikost malá.</td></tr>
+</tbody>
+</table>
+</div>
+<h3>Máte dithering dělat v editoru, nebo v laserovém softwaru?</h3>
+<p>Použijte pouze jednu fázi ditheringu. Pokud v PhotoEngraving.online vytvoříte ditherovaný černobílý PNG nebo BMP, laserový software by měl tento soubor co nejvíce zachovat. Pokud chcete dithering dělat přímo v LightBurnu, LaserGRBL nebo jiném programu, exportujte vhodný obrázek ve stupních šedi jiným postupem a předem jej neditherujte.</p>
+<div class="guide-warning"><strong>Vyhněte se dvojitému ditheringu.</strong> Ditherovaný obrázek už obsahuje svůj bodový vzor. Spuštění dalšího algoritmu přes něj může udělat gravuru zašuměnou, nerovnoměrnou a méně detailní.</div>
+</div>
+</section>
+<section class="panel p-6 guide-section" id="materials">
+<h2>Doporučení podle materiálu</h2>
+<div class="guide-copy">
+<p>Stejný obrazový soubor se nebude chovat stejně na každém materiálu. V editoru to ovlivňuje hlavně typ fotografie, jas, gammu, kontrast, DPI a volbu ditheringu. Na laseru to ovlivňuje výkon, rychlost, zaostření, ofuk a finální úpravu.</p>
+<div class="guide-table-wrap">
+<table class="guide-table">
+<thead><tr><th>Materiál</th><th>Jak se obraz obvykle tvoří</th><th>Tip pro přípravu v PhotoEngraving.online</th><th>Častý problém</th></tr></thead>
+<tbody>
+<tr><td>Světlé dřevo</td><td>Stopa po laseru je tmavší než povrch.</td><td>Použijte Běžnou fotografii, otevřete stíny pomocí gammy, vyhněte se přehnanému kontrastu a začněte kolem 254–300 DPI.</td><td>Obličej je příliš tmavý, kresba dřeva dominuje nebo kouř špiní světlé oblasti.</td></tr>
+<tr><td>Bambus a překližka</td><td>Podobné dřevu, ale vrstvy lepidla a kresba mohou reagovat nerovnoměrně.</td><td>Použijte o něco měkčí kontrast a otestujte Atkinson nebo Floyd-Steinberg.</td><td>Pruhování, nerovnoměrná tmavost a ztráta detailu pokožky.</td></tr>
+<tr><td>Břidlice a kámen</td><td>Gravírované oblasti často zesvětlají.</td><td>Už na začátku použijte typ fotografie Negativ. Zvyšte kontrast středních tónů a zkontrolujte, zda světlá místa zůstávají čitelná.</td><td>Obrázek působí ploše, protože je špatně inverze nebo kontrast.</td></tr>
+<tr><td>Sklo</td><td>Laser vytvoří matnou nebo hrubou stopu, která působí světle.</td><td>U mnoha postupů použijte Negativ, vyhněte se extrémně hustým stínům a otestujte nižší kontrast, než byste čekali.</td><td>Odprýskávání, tvrdá bílá místa a ztráta měkkosti obličeje.</td></tr>
+<tr><td>Čirý akryl</td><td>Gravírované oblasti matní nebo rozptylují světlo.</td><td>Připravte čistý vysoce kontrastní soubor, často s inverzí podle způsobu zobrazení a pozadí.</td><td>Fotografie je čitelná až s tmavým podkladem nebo bočním osvětlením.</td></tr>
+<tr><td>Tmavý akryl</td><td>Stopa může zesvětlit nebo odstranit povrch/barvu.</td><td>Otestujte Negativ a 300–508 DPI podle toho, jak jemné body povrch udrží.</td><td>Příliš mnoho tepla taví detaily a pokožka působí plastově.</td></tr>
+<tr><td>Eloxovaný hliník</td><td>Laser odstraňuje nebo mění povlak a často vytváří světlou stopu.</td><td>Použijte Negativ, zvažte jemnější DPI a porovnejte Floyd-Steinberg s Jarvisem na testovacím výřezu.</td><td>Jemné body mohou zmizet, pokud nejsou parametry značení doladěné.</td></tr>
+<tr><td>Lakovaný/povlakovaný kov</td><td>Laser odstraní barvu nebo povlak a odkryje jinou barvu pod ním.</td><td>Pomocí editoru vytvořte čistý černobílý soubor a otestujte, kolik detailu povlak zachová.</td><td>Přepálení odstraní příliš mnoho povlaku a zničí oddělení tónů.</td></tr>
+<tr><td>Kůže</td><td>Laser povrch ztmaví, spálí nebo zabarví.</td><td>Použijte testy s nižší energií, střední DPI a v editoru se vyhněte hustým černým oblastem.</td><td>Tepelné stopy se rozšiřují a obrázek působí špinavě nebo zakouřeně.</td></tr>
+</tbody>
+</table>
+</div>
+<div class="guide-callout"><strong>Jedna fotografie, několik verzí:</strong> vytvořte zvlášť verzi pro dřevo, břidlici a kov. Editor to umožní rychle a každý materiál obvykle potřebuje jinou inverzi, gammu a hustotu bodů.</div>
+</div>
+</section>
+<section class="panel p-6 guide-section" id="settings">
+<h2>Výchozí nastavení a nápady na testy</h2>
+<div class="guide-copy">
+<p>Neexistuje univerzální tabulka nastavení laseru, která funguje pro každý stroj. Diodový laser 10 W, CO₂ laser 60 W a fiber laser 30 W nemají stejnou škálu výkonu. Nejbezpečnější použití PhotoEngraving.online je vytvořit konzistentní obrazový soubor a potom najít nastavení laseru na vlastním materiálu.</p>
+<div class="guide-grid-3">
+<div class="guide-card"><div class="guide-card-title">Dřevo a bambus</div><p class="guide-card-text">Začněte Běžnou fotografií, 254 nebo 300 DPI, metodou Floyd-Steinberg, kontrolovanou gammou a mírnou ostrostí. Otestujte mřížku, kde výkon pomalu roste. Pokud se stíny slévají, snižte výkon nebo obrázek zesvětlete.</p></div>
+<div class="guide-card"><div class="guide-card-title">Břidlice a tmavé materiály</div><p class="guide-card-text">Začněte Negativem, 300 DPI, Floyd-Steinbergem nebo Jarvisem. Ujistěte se, že obličej není vybledlý. Před spuštěním celého portrétu otestujte, zda materiál dává dostatečný světlý kontrast.</p></div>
+<div class="guide-card"><div class="guide-card-title">Akryl, sklo a povlakované kovy</div><p class="guide-card-text">Používejte malé testy a hlídejte teplo. 300 nebo 508 DPI zkoušejte jen tehdy, pokud body zůstávají oddělené. Porovnejte Floyd-Steinberg a Jarvis, potom dolaďte rychlost a výkon v laserovém softwaru.</p></div>
+</div>
+<h3>Užitečná první testovací matice</h3>
+<p>Použijte jeden exportovaný soubor a vygravírujte malou mřížku se třemi výkony a třemi rychlostmi. Nejdříve vyberte nejlepší nastavení laseru. Teprve potom, pokud obrázek stále potřebuje zlepšení, se vraťte do editoru a porovnejte jednu obrazovou proměnnou: typ fotografie, gammu, kontrast, DPI nebo dithering.</p>
+<div class="guide-warning"><strong>Nekopírujte nastavení naslepo.</strong> Internetová nastavení mohou být výchozí bod, ale čočka, zaostření, kalibrace stroje, šarže materiálu a ofuk mohou výsledek dramaticky změnit.</div>
+</div>
+</section>
+<section class="panel p-6 guide-section" id="software">
+<h2>Postup v softwaru po exportu</h2>
+<div class="guide-copy">
+<p>Laserový software je výkonný, ale po exportu může obrázek také změnit. Smyslem přípravy finálního souboru v PhotoEngraving.online je udržet rastr předvídatelný. Po importu potvrďte fyzickou velikost, vyhněte se dalším obrazovým úpravám a nastavte parametry laseru záměrně.</p>
+<div class="guide-grid-3">
+<div class="guide-card"><div class="guide-card-title">LightBurn</div><p class="guide-card-text">Importujte PNG nebo BMP, zkontrolujte fyzickou velikost, interval řádků a režim obrázku. Pokud je soubor už ditherovaný, použijte pass-through nebo nejbližší postup, který zabrání opětovnému zpracování. U rastrových úloh potvrďte overscan.</p></div>
+<div class="guide-card"><div class="guide-card-title">LaserGRBL</div><p class="guide-card-text">Věnujte pozornost ditheringu a volbám line-to-line. Pokud editor už vytvořil finální černobílý vzor, při importu nepoužívejte další ditheringovou konverzi.</p></div>
+<div class="guide-card"><div class="guide-card-title">xTool XCS a podobné aplikace</div><p class="guide-card-text">Zkontrolujte bitmapový režim, velikost, kvalitu gravírování a zda aplikace nemění kontrast nebo dithering. Ověřte, že importované rozměry odpovídají velikosti v milimetrech z editoru.</p></div>
+<div class="guide-card"><div class="guide-card-title">EZCAD a fiber postupy</div><p class="guide-card-text">Importujte rastr v zamýšlené fyzické velikosti a ověřte rozlišení/škálování. Bitmapové značení fiber laserem závisí také na frekvenci, šířce pulzu, nastavení hatch/bitmap a povlaku materiálu.</p></div>
+<div class="guide-card"><div class="guide-card-title">GRBL sendery</div><p class="guide-card-text">Zkontrolujte, že sender neočekávaně nemění velikost ani nepřevzorkovává soubor. Dobrý obrázek může selhat, pokud je G-code vygenerovaný ve špatné fyzické velikosti.</p></div>
+<div class="guide-card"><div class="guide-card-title">Žádné dvojité úpravy</div><p class="guide-card-text">Po exportu už znovu neměňte jas, kontrast, inverzi ani dithering, pokud záměrně nezačínáte novou testovací verzi.</p></div>
+</div>
+<h3>Pass-through a předem ditherované soubory</h3>
+<p>Když soubor už obsahuje finální černobílý bodový vzor, neměl by být znovu interpretován jako běžná fotografie ve stupních šedi. Použijte pass-through tam, kde jej software podporuje, nebo zvolte nastavení, které zachová černé pixely jako gravírované a bílé jako negravírované.</p>
+<h3>Overscan a okraje</h3>
+<p>Rastrové gravírování často potřebuje overscan, aby hlava před značením dosáhla stabilní rychlosti. Pokud jsou okraje tmavší nebo světlejší, nejdříve zkontrolujte zrychlení, overscan a směr skenování v laserovém softwaru, místo abyste hned měnili fotografii.</p>
+</div>
+</section>
+<section class="panel p-6 guide-section" id="export">
+<h2>Export a práce se soubory</h2>
+<div class="guide-copy">
+<p>U gravírování fotografií udržujte finální soubor jednoduchý a předvídatelný. PhotoEngraving.online exportuje rastrové soubory určené pro laserový software. Použijte formát, který nejlépe sedí vašemu postupu, a potom si udržujte pořádek v originální fotce i exportovaných testech.</p>
+<div class="guide-table-wrap">
+<table class="guide-table">
+<thead><tr><th>Formát</th><th>Použijte, když</th><th>Vyhněte se, když</th><th>Poznámka průvodce</th></tr></thead>
+<tbody>
+<tr><td>PNG</td><td>Chcete čistý rastrový soubor pro LightBurn, XCS, LaserGRBL, EZCAD a většinu obecných postupů.</td><td>Váš konkrétní software špatně importuje PNG nebo ignoruje metadata.</td><td>Doporučená výchozí volba. Exportované PNG obsahuje DPI metadata, která pomáhají zachovat fyzickou velikost.</td></tr>
+<tr><td>BMP</td><td>Chcete jednoduchý černobílý bitmapový postup nebo váš laserový software pracuje s BMP předvídatelněji.</td><td>Potřebujete menší komprimovaný soubor nebo váš software lépe pracuje s PNG.</td><td>Užitečné pro striktní 1bitové postupy a starší softwarové zvyklosti.</td></tr>
+<tr><td>JPG</td><td>Jako vstupní zdroj, pokud je originál kvalitní.</td><td>Jako finální opakovaně exportovaný formát.</td><td>JPEG komprese může vytvořit artefakty, které se po ditheringu zviditelní.</td></tr>
+<tr><td>SVG</td><td>Vektorová loga, obrysy a tvary.</td><td>Finální ditherované pixely fotografie.</td><td>Ditherovaná fotografie jsou rastrová data. PNG nebo BMP je obvykle správný finální formát.</td></tr>
+</tbody>
+</table>
+</div>
+<h3>Zkontrolujte měřítko po importu</h3>
+<p>I když soubor obsahuje DPI metadata, po importu vždy potvrďte fyzickou velikost. Pokud jste v editoru připravili obrázek široký 80 mm, laserový software by měl také ukazovat 80 mm. Pokud ne, před gravírováním změňte velikost importovaného obrázku na zamýšlený rozměr.</p>
+<h3>Uchovejte zdrojový soubor</h3>
+<p>Uložte originální fotografii a exportované verze označujte materiálem a nastavením, například: <strong>portret_bridlice_negativ_300dpi_floyd.png</strong>. Pozdější testy se díky tomu budou snáze porovnávat.</p>
+</div>
+</section>
+<section class="panel p-6 guide-section" id="troubleshooting">
+<h2>Řešení běžných problémů při gravírování fotografií</h2>
+<div class="guide-copy">
+<div class="guide-table-wrap">
+<table class="guide-table">
+<thead><tr><th>Problém</th><th>Pravděpodobná příčina</th><th>Co zkusit v PhotoEngraving.online</th><th>Co zkontrolovat na laseru</th></tr></thead>
+<tbody>
+<tr><td>Obličej je příliš tmavý a slitý</td><td>Příliš mnoho energie, slité stíny, příliš hustý dithering nebo růst bodu v materiálu.</td><td>Zvyšte gammu, snižte kontrast, zkuste Atkinson, snižte ostrost nebo otestujte nižší DPI.</td><td>Snižte výkon, zvyšte rychlost, zkontrolujte zaostření a odsávání kouře.</td></tr>
+<tr><td>Obrázek je příliš bledý</td><td>Příliš málo energie nebo příliš světlý soubor.</td><td>Zvyšte kontrast, mírně snižte gammu, použijte Běžnou fotografii místo příliš světlé předvolby nebo zkuste Floyd-Steinberg.</td><td>Zvyšte výkon, snižte rychlost nebo zkontrolujte, zda se materiál dokáže dostatečně značit.</td></tr>
+<tr><td>Výstup vypadá invertovaně</td><td>Špatný typ fotografie pro daný materiál.</td><td>Přepněte mezi Běžnou fotografií a Negativem a porovnejte náhled.</td><td>Ověřte, zda stopa laseru oproti povrchu tmavne, nebo světlá.</td></tr>
+<tr><td>Body vypadají příliš hrubě</td><td>Nízké DPI, malá fyzická velikost nebo nesoulad s pozorovací vzdáleností.</td><td>Zvyšte DPI nebo fyzickou velikost, pokud materiál udrží detail.</td><td>Zkontrolujte interval řádků, velikost bodu a zda vyšší DPI jen nepřidává teplo.</td></tr>
+<tr><td>Body se slévají</td><td>Příliš vysoké DPI, příliš mnoho energie, měkký materiál nebo špatné zaostření.</td><td>Použijte nižší DPI, světlejší gammu, Atkinson nebo menší kontrast.</td><td>Znovu zaostřete, snižte výkon, zvyšte rychlost, zlepšete ofuk nebo zvolte tvrdší materiál.</td></tr>
+<tr><td>Pozadí je zašuměné</td><td>Rušné původní pozadí nebo kompresní artefakty.</td><td>Před nahráním připravte čistší zdroj, snižte ostrost nebo nejdříve v jiném editoru ořízněte/odstraňte pozadí.</td><td>Pomocí testovacího výřezu zjistěte, zda šum pozadí vadí při finální pozorovací vzdálenosti.</td></tr>
+<tr><td>Software mění obrázek</td><td>Dvojitý dithering, převzorkování, úprava kontrastu nebo špatný režim importu.</td><td>Exportujte nové PNG/BMP a použijte pouze jednu metodu ditheringu.</td><td>Použijte pass-through nebo skutečný černobílý importní postup, pokud je dostupný.</td></tr>
+<tr><td>Fyzická velikost je špatně</td><td>DPI metadata byla ignorována nebo byl obrázek po importu změněn.</td><td>Před exportem zkontrolujte v editoru šířku v milimetrech a velikost v pixelech.</td><td>V laserovém softwaru ručně nastavte importovaný obrázek na zamýšlenou šířku.</td></tr>
+</tbody>
+</table>
+</div>
+<div class="guide-callout"><strong>Diagnostikujte podle materiálu, ne jen podle náhledu.</strong> Pokud je fyzický výsledek špatně, dívejte se na samotnou stopu: příliš mnoho tepla, špatná inverze, chyba měřítka, růst bodu i dvojitý dithering zanechávají odlišné stopy.</div>
+</div>
+</section>
+<section class="panel p-6 guide-section" id="safety">
+<h2>Bezpečnost: tuto část nepřeskakujte</h2>
+<div class="guide-copy">
+<p>Gravírování fotografií často znamená dlouhé rastrové úlohy, opakované testy a hodně kouře nebo výparů. Editor připraví obrázek, ale bezpečný provoz laseru je pořád vaše odpovědnost. Dodržujte manuál ke konkrétnímu stroji, krytu, ventilaci i materiálu.</p>
+<ul>
+<li>Nikdy negravírujte neznámý plast. PVC a některé další materiály mohou uvolňovat nebezpečné plyny.</li>
+<li>Používejte vhodné odvětrání a filtraci pro materiál, který gravírujete.</li>
+<li>Nenechávejte laser běžet bez dozoru, zejména na dřevě, papíru, kůži nebo povlakovaném materiálu.</li>
+<li>Používejte správnou ochranu očí a vhodný kryt pro vlnovou délku svého laseru.</li>
+<li>Mějte po ruce hasicí přístroj a pracovní plochu udržujte čistou od zbytků.</li>
+<li>Při testování nových materiálů začínejte malým vzorkem a reakci pečlivě sledujte.</li>
+</ul>
+<div class="guide-warning"><strong>Důležité:</strong> pokud nevíte, co je materiál zač, negravírujte ho. Dobrý fotografický soubor nestojí za nebezpečné výpary, riziko požáru ani poškození stroje.</div>
+</div>
+</section>
+<section class="panel p-6 guide-section" id="advanced">
+<h2>Pokročilé techniky, až zvládnete základy</h2>
+<div class="guide-copy">
+<p>Jakmile dokážete vytvořit spolehlivý testovací výřez, můžete začít zlepšovat finální vzhled. Editor nabízí rychlé globální ovládání; u náročných portrétů jej kombinujte s pečlivou úpravou zdroje před nahráním.</p>
+<h3>Vytvořte samostatné verze pro různé materiály</h3>
+<p>Verze pro dřevo může potřebovat otevřenější stíny a jemné doostření. Verze pro břidlici může potřebovat inverzi a silnější kontrast středních tónů. Verze pro tmavý eloxovaný hliník může potřebovat jemnější detail a jinou hustotu bodů.</p>
+<h3>Upravujte lokálně ještě před nahráním</h3>
+<p>Posuvníky v PhotoEngraving.online ovlivňují celou fotografii. Skutečné portréty někdy potřebují lokální úpravy: zesvětlit jen oči, změkčit jen pozadí, odstranit tmavý objekt za hlavou nebo potlačit silné odlesky na pokožce. Tyto lokální úpravy udělejte nejdříve ve fotoeditoru a PhotoEngraving.online použijte až pro převod do laserově připraveného souboru.</p>
+<h3>Pro rozhodování o bodech používejte lupu</h3>
+<p>Běžný náhled pomáhá s kompozicí. Lupa pomáhá se strukturou gravírování. Sledujte, zda bodový vzor zachovává oči, zda se vlasy nemění v šumovou masu a zda pozadí nevytváří rušivou texturu.</p>
+<h3>Porovnávejte dithering na stejném výřezu</h3>
+<p>Neporovnávejte Floyd-Steinberg na jedné fotce a Jarvis na jiné. Použijte stejnou fyzickou velikost, DPI, výřez i nastavení laseru. Teprve potom má rozdíl mezi metodami ditheringu skutečný význam.</p>
+<h3>Záměrné rozostření zkoušejte opatrně</h3>
+<p>Malé odostření může na některých materiálech, zejména skle nebo akrylu, změkčit tvrdé body. Může ale také zničit jemný detail, proto jej testujte a zapisujte si posun.</p>
+<h3>Sledujte směr skenování</h3>
+<p>Kresba dřeva, kartáčovaný kov a textura tkaniny mohou reagovat se směrem skenování. Pokud struktura materiálu dominuje portrétu, otestujte otočení obrázku nebo změnu úhlu skenování, pokud to váš stroj bezpečně umožňuje.</p>
+<h3>Materiál správně dokončete</h3>
+<p>Čištění a finální úprava mohou změnit kontrast. Dřevo může potřebovat kartáčování a lakování/olejování. Břidlice může po omytí vypadat jinak. Akryl může pro dobrou čitelnost fotografie potřebovat výplň barvou, podklad nebo osvětlení.</p>
+</div>
+</section>
+<section class="panel p-6 guide-section" id="quality-control">
+<h2>Závěrečný kontrolní seznam před celým gravírováním</h2>
+<div class="guide-copy">
+<p>Tento seznam použijte ve chvíli, kdy testovací výřez vypadá dobře a chystáte se spustit celou úlohu.</p>
+<div class="guide-grid-2">
+<div class="guide-card"><div class="guide-card-title">Zdrojová fotografie</div><p class="guide-card-text">Oči jsou čitelné, motiv je oddělený od pozadí, stíny nejsou slité, světlá místa nejsou prázdná, není vidět výrazné rozmazání ani silné poškození JPEG kompresí.</p></div>
+<div class="guide-card"><div class="guide-card-title">Nastavení editoru</div><p class="guide-card-text">Správný typ fotografie, rozumný jas/kontrast/gamma/ostrost, vybraná jedna metoda ditheringu a výstup zkontrolovaný lupou.</p></div>
+<div class="guide-card"><div class="guide-card-title">Velikost a DPI</div><p class="guide-card-text">Finální šířka v milimetrech je potvrzená, výška přijatelná, počet pixelů realistický a DPI zvolené podle materiálu, ne jen podle „ostřeji vypadajícího“ čísla.</p></div>
+<div class="guide-card"><div class="guide-card-title">Export</div><p class="guide-card-text">PNG nebo BMP je stažené, název souboru obsahuje materiál/DPI/dithering a originální fotka je uložená pro budoucí verze.</p></div>
+<div class="guide-card"><div class="guide-card-title">Laserový software</div><p class="guide-card-text">Importovaná fyzická velikost je potvrzená, nedochází k náhodnému dvojitému ditheringu, nejsou zapnuté nežádoucí změny kontrastu a je zvolen správný rastrový/bitmapový režim.</p></div>
+<div class="guide-card"><div class="guide-card-title">Nastavení stroje</div><p class="guide-card-text">Zaostření, čočka, ofuk, overscan, směr skenování, poloha na stole a uchycení materiálu odpovídají úspěšnému testovacímu výřezu.</p></div>
+</div>
+<div class="guide-success"><strong>Nejlepší dlouhodobý návyk:</strong> veďte si knihovnu vzorků. Několik označených testovacích kusů z vašeho vlastního laseru a materiálů bude užitečnější než jakákoli obecná tabulka nastavení z internetu.</div>
+</div>
+</section>
+<section class="panel p-6 guide-section guide-faq" id="faq">
+<h2>Časté dotazy</h2>
+<div class="guide-copy guide-faq">
+<details open=""><summary>Co PhotoEngraving.online dělá?</summary><p>Převádí běžnou fotografii na černobílý rastrový obrázek připravený pro laser přímo ve vašem prohlížeči. Můžete fotografii oříznout, zvolit typ fotografie, upravit jas, kontrast, gammu a ostrost, nastavit skutečnou šířku gravírování, vybrat DPI, porovnat metody ditheringu, zkontrolovat náhled materiálu a exportovat PNG nebo BMP pro laserový software.</p></details>
+<details><summary>Nahrávají se moje fotografie na server?</summary><p>Ne. Zpracování fotografie probíhá lokálně ve vašem prohlížeči. To je užitečné pro soukromé portréty a zároveň to usnadňuje testování různých nastavení bez odesílání obrázku na server.</p></details>
+<details><summary>Jaké DPI mám v editoru zvolit?</summary><p>Začněte 254 DPI pro měkčí materiály nebo rychlejší testy, 300 DPI pro mnoho běžných fotografických prací a 508 DPI pro materiály, které udrží jemné body, například některé akryly, lamináty, eloxovaný hliník a povlakované kovy. Správná hodnota závisí na laserovém bodu, materiálu a finální fyzické velikosti.</p></details>
+<details><summary>Co dělá typ fotografie Negativ?</summary><p>Negativ ve finálním výstupu prohodí černou a bílou. Použijte jej, když stopa laseru zesvětlá oproti materiálu, například u břidlice, skla, tmavého akrylu nebo tmavého eloxovaného hliníku. Běžnou fotografii použijte u světlého dřeva, kde vypálené oblasti tmavnou.</p></details>
+<details><summary>Co znamená Zrušit ořez?</summary><p>Tlačítko Zrušit ořez vrátí obrázek na celý původní rozsah. Je užitečné, když jste výběr udělali moc těsný nebo chcete znovu posoudit kompozici bez omezení výřezu.</p></details>
+<details><summary>Mění náhled materiálu stažený soubor?</summary><p>Ne. Náhled materiálu a posuvník výkonu laseru v náhledu slouží jen pro orientační vizuální kontrolu. Stažený PNG nebo BMP zůstává čistý černobílý výstup podle nastaveného ořezu, velikosti, DPI a ditheringu.</p></details>
+<details><summary>Kdy použít Resetovat úpravy?</summary><p>Použijte ho, když se po několika pokusech ztratíte v nastavení nebo chcete začít znovu od výchozího stavu. Vrátí obrazové úpravy a související volby editoru na bezpečný základ.</p></details>
+<details><summary>Kterou metodu ditheringu mám zkusit jako první?</summary><p>Začněte metodou Floyd-Steinberg. Atkinson zkuste, když je výsledek příliš tmavý nebo chcete měkčí a světlejší vzhled. Jarvis zkuste, když materiál udrží jemný detail a chcete hladší tóny. Ordered/Bayer zkuste pro loga, grafický styl nebo pravidelný viditelný vzor.</p></details>
+<details><summary>Mám dithering znovu použít v LightBurnu, LaserGRBL, XCS nebo EZCADu?</summary><p>Obvykle ne. Pokud je exportovaný soubor z PhotoEngraving.online už ditherovaný, nepoužívejte v laserovém softwaru další ditheringový algoritmus. Kde je to možné, použijte pass-through nebo skutečný černobílý pracovní postup.</p></details>
+<details><summary>Obsahuje PNG nebo BMP informace o DPI?</summary><p>Ano. Export je navržený tak, aby obsahoval DPI metadata a kompatibilní software mohl snáze zachovat zamýšlenou fyzickou velikost. Přesto po importu vždy potvrďte velikost v milimetrech, protože některé programy metadata ignorují nebo interpretují jinak.</p></details>
+<details><summary>Mohu použít vlastní hodnotu DPI?</summary><p>Ano. Vlastní DPI použijte, když znáte přesný požadovaný interval řádků nebo když test stroje/materiálu ukáže, že hodnota mezi předvolbami funguje lépe.</p></details>
+<details><summary>Proč náhled vypadá lépe než gravura?</summary><p>Obrazovka je jasná a hladká. Skutečná gravura závisí na teple, kouři, kresbě materiálu, povlaku, zaostření a odezvě materiálu. Náhled použijte pro přípravu souboru, ale před celou úlohou věřte hlavně malému testovacímu výřezu na reálném materiálu.</p></details>
+<details><summary>PNG, BMP, JPG nebo SVG?</summary><p>PNG používejte jako výchozí finální export. BMP použijte, když váš software nebo postup preferuje jednoduchý bitmapový soubor. JPG je přijatelné jako zdrojová fotka, pokud je kvalitní, ale vyhněte se opakovanému exportu do JPG. SVG je hlavně pro vektory, ne pro finální ditherované pixely fotografie.</p></details>
+</div>
+</section>
+<section class="panel p-6 guide-section" id="sources">
+<h2>Zdroje a další čtení</h2>
+<div class="guide-copy">
+<p>Tento průvodce je napsaný pro editor PhotoEngraving.online, ale vychází také z praktické dokumentace laserového softwaru a výrobců strojů. Berte jej jako pracovní návod a vždy jej porovnejte s manuálem pro svůj konkrétní stroj a materiál.</p>
+<ul class="guide-source-list">
+<li><a href="https://docs.lightburnsoftware.com/2.1/Reference/CutSettingsEditor/ImageMode/" rel="noopener" target="_blank">Uživatelská příručka LightBurn: Image Mode</a> — režimy obrázku, negativ, pass-through, interval řádků, DPI, stupně šedi a ditheringové režimy.</li>
+<li><a href="https://docs.lightburnsoftware.com/2.1/Reference/IntervalTest/" rel="noopener" target="_blank">Uživatelská příručka LightBurn: Interval Test</a> — hledání vhodného intervalu řádků pro konkrétní stroj, materiál a čočku.</li>
+<li><a href="https://www.troteclaser.com/en/helpcenter/software/graphics-software/resolution-laser-engraving" rel="noopener" target="_blank">Trotec: výběr správného rozlišení gravírování</a> — DPI podle materiálu a rozpíjení bodu.</li>
+<li><a href="https://www.troteclaser.com/en-us/helpcenter/software/jobcontrol/raster-algorithms" rel="noopener" target="_blank">Trotec: rastrové algoritmy</a> — ordered dithering a principy chybové difuze.</li>
+<li><a href="https://www.troteclaser.com/en/helpcenter/software/jobcontrol/photo-laser-engraving" rel="noopener" target="_blank">Trotec: tipy pro laserové gravírování fotografií</a> — kvalita fotografie, kontrolovaný výkon a testování maticí ve stupních šedi.</li>
+<li><a href="https://www.troteclaser.com/en/helpcenter/materials/material-usage-hints/glass-engraving" rel="noopener" target="_blank">Trotec: tipy pro gravírování skla</a> — příprava skla a metody gravírování.</li>
+<li><a href="https://lasergrbl.com/usage/raster-image-import/dithering-tool/" rel="noopener" target="_blank">LaserGRBL: nástroj pro dithering</a> — 1bitový dithering pro materiály, které nereagují lineárně na výkon.</li>
+<li><a href="https://lasergrbl.com/usage/raster-image-import/line-to-line-tool/" rel="noopener" target="_blank">LaserGRBL: nástroj line-to-line</a> — řádkové gravírování ve stupních šedi a poznámky k modulaci výkonu.</li>
+<li><a href="https://support.xtool.com/article/1963" rel="noopener" target="_blank">xTool: průvodce zpracováním materiálů</a> — stupně šedi, ditheringové algoritmy a chování materiálů.</li>
+<li><a href="https://www.xtool.com/blogs/how-to/prepare-a-photo-for-laser-engraving" rel="noopener" target="_blank">xTool: příprava fotografie pro laserové gravírování</a> — příprava fotografie, rozlišení, kontrast a postup ve stupních šedi.</li>
+<li><a href="https://support.xtool.com/article/789" rel="noopener" target="_blank">xTool F1: bitmapové parametry</a> — doba bodu, výkon, DPI a výběr laserového zdroje.</li>
+<li><a href="https://support.xtool.com/article/870" rel="noopener" target="_blank">xTool: bezpečnostní průvodce pro plasty</a> a <a href="https://www.troteclaser.com/en-tt/resources/faqs/unsuitable-materials-laser-processing" rel="noopener" target="_blank">Trotec: nevhodné materiály</a> — bezpečnostní upozornění k materiálům.</li>
+<li><a href="https://omtech.com/blogs/knowledge/diode-laser-vs-co2-laser-vs-fiber-laser" rel="noopener" target="_blank">OMTech: diodové vs. CO₂ vs. fiber lasery</a> — praktické rozdíly mezi laserovými zdroji a materiály.</li>
+</ul>
+</div>
+</section>
+<section class="panel p-6 guide-section" id="cta">
+<h2>Připravte fotografii pro gravírování</h2>
+<div class="guide-copy">
+<p>Pomocí PhotoEngraving.online nahrajte fotografii, ořízněte motiv, vyberte typ fotografie, dolaďte kontrast, nastavte skutečnou fyzickou šířku, zvolte DPI, zkontrolujte dithering i náhled materiálu a exportujte laserově připravený PNG nebo BMP. Před gravírováním celého kusu potom ověřte výsledek na reálném materiálu pomocí malého testovacího výřezu.</p>
+<div class="guide-hero-actions">
+<a class="btn btn-primary" href="https://photoengraving.online/cs/">Otevřít bezplatný editor pro gravírování fotografií</a>
+<a class="btn btn-secondary" href="#quick-start">Zpět nahoru</a>
+</div>
+</div>
+</section>
+</main>
+</div>
+<footer class="panel p-4 mt-4 footer-note"><strong style="color:#fdba74;">PhotoEngraving.online</strong> — uživatelský průvodce přípravou fotografií pro laser v online editoru. Poslední aktualizace 4. července 2026. Nastavení a příklady jsou výchozí body; vždy se řiďte manuálem výrobce laseru a místními bezpečnostními pravidly.</footer>
+</div>
+</body>
+</html>
