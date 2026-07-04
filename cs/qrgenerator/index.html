@@ -3516,35 +3516,30 @@ canvas.width = 1024;
  return safe + ext;
  }
 
- var QR_COUNTER_GET = 'https://abacus.jasoncameron.dev/get/stunning-twilight-266e8a/qr-actions';
- var QR_COUNTER_HIT = 'https://abacus.jasoncameron.dev/hit/stunning-twilight-266e8a/qr-actions';
+ var ABACUS_GET = 'https://abacus.jasoncameron.dev/get/stunning-twilight-266e8a/downloads';
+ var ABACUS_HIT = 'https://abacus.jasoncameron.dev/hit/stunning-twilight-266e8a/downloads';
 
- function formatCounterValue(value) {
- var n = Number(value || 0);
- return n > 0 ? n.toLocaleString('cs-CZ') : '—';
- }
-
- function updateQrActionCounter(value) {
- var counter = el('qrActionCounter');
- if (counter) counter.textContent = formatCounterValue(value);
- }
-
- function loadQrActionCounter() {
- fetch(QR_COUNTER_GET)
+ function loadCounter() {
+ fetch(ABACUS_GET)
  .then(function (response) { return response.ok ? response.json() : null; })
  .then(function (data) {
- updateQrActionCounter(data && data.value);
+ var n = data && data.value ? data.value : 0;
+ var counter = el('qrActionCounter');
+ if (counter) counter.textContent = n > 0 ? n.toLocaleString('cs-CZ') : '—';
  })
  .catch(function () {
- updateQrActionCounter(0);
+ var counter = el('qrActionCounter');
+ if (counter) counter.textContent = '—';
  });
  }
 
- function incrementQrActionCounter() {
- fetch(QR_COUNTER_HIT)
+ function incrementCounter() {
+ fetch(ABACUS_HIT)
  .then(function (response) { return response.ok ? response.json() : null; })
  .then(function (data) {
- if (data && data.value) updateQrActionCounter(data.value);
+ var n = data && data.value ? data.value : 0;
+ var counter = el('qrActionCounter');
+ if (counter && n > 0) counter.textContent = n.toLocaleString('cs-CZ');
  })
  .catch(function () {});
  }
@@ -3559,7 +3554,7 @@ canvas.width = 1024;
  link.href = URL.createObjectURL(blob);
  link.download = sanitizeFileName(el('fileName').value, '.png');
  link.click();
- incrementQrActionCounter();
+ incrementCounter();
  setTimeout(function () { URL.revokeObjectURL(link.href); }, 1500);
  }, 'image/png');
  }
@@ -3573,7 +3568,7 @@ canvas.width = 1024;
  link.href = URL.createObjectURL(blob);
  link.download = sanitizeFileName(el('fileName').value, '.svg');
  link.click();
- incrementQrActionCounter();
+ incrementCounter();
  setTimeout(function () { URL.revokeObjectURL(link.href); }, 1500);
  }
 
@@ -3727,7 +3722,7 @@ canvas.width = 1024;
  }
  canvas.toBlob(function (blob) {
  navigator.clipboard.write([new ClipboardItem({'image/png': blob})]).then(function () {
- incrementQrActionCounter();
+ incrementCounter();
  showStatus('PNG bylo zkopírováno do schránky.', 'success');
  }).catch(function () {
  showStatus('Přístup ke schránce byl zablokován. Použijte tlačítko Stáhnout PNG.', 'warning');
@@ -3906,7 +3901,7 @@ canvas.width = 1024;
 
  bindEvents();
  renderFields('url');
- loadQrActionCounter();
+ loadCounter();
 })();
 </script>
 </body>
