@@ -847,6 +847,36 @@ input[type="range"] {
  text-align: center;
 }
 
+.qr-counter {
+ display: flex;
+ justify-content: center;
+ margin-top: 12px;
+}
+
+.qr-counter-badge {
+ display: inline-flex;
+ align-items: center;
+ justify-content: center;
+ gap: 6px;
+ max-width: 100%;
+ padding: 7px 12px;
+ border: 1px solid rgba(255,255,255,0.08);
+ border-radius: 999px;
+ background: rgba(255,255,255,0.04);
+ color: #aab8c8;
+ font-size: 0.74rem;
+ font-weight: 700;
+ line-height: 1.35;
+ text-align: center;
+ white-space: normal;
+}
+
+.qr-counter-badge span:last-child {
+ color: #ff9a57;
+ font-weight: 800;
+ white-space: nowrap;
+}
+
 .visually-hidden {
  position: absolute !important;
  width: 1px !important;
@@ -2696,6 +2726,13 @@ module.exports = QRCode;
  </section>
  </main>
 
+ <div class="qr-counter" aria-live="polite">
+ <div class="qr-counter-badge">
+ <span>Celkem staženo nebo zkopírováno:</span>
+ <span id="qrActionCounter">…</span>
+ </div>
+ </div>
+
  <footer class="footer">
  <p>
  QR generátor PhotoEngraving.online vytváří statické QR obrázky přímo v prohlížeči. Neukládá obsah QR kódů a po stažení neumí kód obnovit ani upravit.
@@ -3479,6 +3516,39 @@ canvas.width = 1024;
  return safe + ext;
  }
 
+ var QR_COUNTER_GET = 'https://abacus.jasoncameron.dev/get/stunning-twilight-266e8a/qr-actions';
+ var QR_COUNTER_HIT = 'https://abacus.jasoncameron.dev/hit/stunning-twilight-266e8a/qr-actions';
+
+ function formatCounterValue(value) {
+ var n = Number(value || 0);
+ return n > 0 ? n.toLocaleString('cs-CZ') : '—';
+ }
+
+ function updateQrActionCounter(value) {
+ var counter = el('qrActionCounter');
+ if (counter) counter.textContent = formatCounterValue(value);
+ }
+
+ function loadQrActionCounter() {
+ fetch(QR_COUNTER_GET)
+ .then(function (response) { return response.ok ? response.json() : null; })
+ .then(function (data) {
+ updateQrActionCounter(data && data.value);
+ })
+ .catch(function () {
+ updateQrActionCounter(0);
+ });
+ }
+
+ function incrementQrActionCounter() {
+ fetch(QR_COUNTER_HIT)
+ .then(function (response) { return response.ok ? response.json() : null; })
+ .then(function (data) {
+ if (data && data.value) updateQrActionCounter(data.value);
+ })
+ .catch(function () {});
+ }
+
  function downloadPng() {
  update();
  if (!state.qr || !state.payload) return;
@@ -3489,6 +3559,7 @@ canvas.width = 1024;
  link.href = URL.createObjectURL(blob);
  link.download = sanitizeFileName(el('fileName').value, '.png');
  link.click();
+ incrementQrActionCounter();
  setTimeout(function () { URL.revokeObjectURL(link.href); }, 1500);
  }, 'image/png');
  }
@@ -3502,6 +3573,7 @@ canvas.width = 1024;
  link.href = URL.createObjectURL(blob);
  link.download = sanitizeFileName(el('fileName').value, '.svg');
  link.click();
+ incrementQrActionCounter();
  setTimeout(function () { URL.revokeObjectURL(link.href); }, 1500);
  }
 
@@ -3655,6 +3727,7 @@ canvas.width = 1024;
  }
  canvas.toBlob(function (blob) {
  navigator.clipboard.write([new ClipboardItem({'image/png': blob})]).then(function () {
+ incrementQrActionCounter();
  showStatus('PNG bylo zkopírováno do schránky.', 'success');
  }).catch(function () {
  showStatus('Přístup ke schránce byl zablokován. Použijte tlačítko Stáhnout PNG.', 'warning');
@@ -3833,6 +3906,7 @@ canvas.width = 1024;
 
  bindEvents();
  renderFields('url');
+ loadQrActionCounter();
 })();
 </script>
 </body>
