@@ -2202,7 +2202,7 @@ z-index: 2200;
 <body>
 <div class="content max-w-7xl mx-auto px-4 py-6">
 <header class="app-header flex items-center gap-3 flex-wrap">
-<a href="https://photoengraving.online/">
+<a href="https://photoengraving.online/cs/">
 <img alt="Logo PhotoEngraving.online" class="brand-logo" src="/logo.png">
 </a>
 <div class="ml-auto flex flex-wrap gap-2 items-center">
@@ -2361,10 +2361,9 @@ z-index: 2200;
 <div class="crop-canvas-shell" id="cropCanvasShell">
 <canvas aria-label="Editor ořezu fotografie" class="crop-canvas" id="cropCanvas"></canvas>
 </div>
-<div class="crop-status mt-3" data-i18n="cropModalHelp">Ořez se započítá ještě před ditheringem, náhledem materiálu i exportem do PNG/BMP.</div>
 <div class="crop-actions">
 <button class="btn btn-secondary" data-i18n="cropCancelBtn" id="cropCancelBtn" type="button">Zrušit</button>
-<button class="btn btn-secondary" data-i18n="cropResetBtn" id="cropResetModalBtn" type="button">Obnovit ořez</button>
+<button class="btn btn-secondary" data-i18n="cropResetBtn" id="cropResetModalBtn" type="button">Zrušit ořez</button>
 <button class="btn btn-primary" data-i18n="cropApplyBtn" id="cropApplyBtn" type="button">Použít ořez</button>
 </div>
 </div>
@@ -2478,7 +2477,7 @@ z-index: 2200;
 <div class="section-title" data-i18n="sectionCrop">Oříznutí fotografie</div>
 <div class="grid grid-cols-2 gap-2">
 <button class="btn btn-secondary w-full" data-i18n="cropOpenBtn" id="cropOpenBtn" type="button">Oříznout fotografii</button>
-<button class="btn btn-secondary w-full" data-i18n="cropResetBtn" id="cropResetBtn" type="button">Obnovit ořez</button>
+<button class="btn btn-secondary w-full" data-i18n="cropResetBtn" id="cropResetBtn" type="button">Zrušit ořez</button>
 </div>
 </div>
 <div class="panel p-4">
@@ -2529,7 +2528,7 @@ z-index: 2200;
 </div>
 <input hidden="" id="invertColors" type="checkbox">
 <div class="grid grid-cols-1 sm:grid-cols-1 gap-2 pt-1">
-<button class="btn btn-secondary" data-i18n="resetBtn" id="resetBtn" type="button">Obnovit nastavení</button>
+<button class="btn btn-secondary" data-i18n="resetBtn" id="resetBtn" type="button">Resetovat úpravy</button>
 </div>
 </div>
 </div><div class="panel p-4">
@@ -2861,7 +2860,6 @@ const translations = {
     cropResetBtn: 'Reset crop',
     cropModalTitle: 'Crop photo',
     cropModalText: 'Drag to draw a crop area. Drag inside the area to move it, or drag a corner to resize it.',
-    cropModalHelp: 'The crop is applied before dithering, material preview and PNG/BMP export.',
     cropCancelBtn: 'Cancel',
     cropApplyBtn: 'Apply crop',
     cropAspectFree: 'Free ratio',
@@ -3026,10 +3024,9 @@ const translations = {
       "dropZoneSub": "JPG, PNG, BMP, WebP",
       "sectionCrop": "Oříznutí fotografie",
       "cropOpenBtn": "Oříznout fotografii",
-      "cropResetBtn": "Obnovit ořez",
+      "cropResetBtn": "Zrušit ořez",
       "cropModalTitle": "Oříznutí fotografie",
       "cropModalText": "Tažením vyznačte oblast, kterou chcete ponechat. Uvnitř výběru ořez posunete, za rohy upravíte jeho velikost.",
-      "cropModalHelp": "Ořez se započítá ještě před ditheringem, náhledem materiálu i exportem do PNG/BMP.",
       "cropCancelBtn": "Zrušit",
       "cropApplyBtn": "Použít ořez",
       "cropAspectFree": "Volný poměr",
@@ -3057,7 +3054,7 @@ const translations = {
       "labelSharpness": "Ostrost",
       "labelMaterialPower": "Výkon laseru v náhledu materiálu",
       "materialPowerHelp": "Ovlivňuje pouze náhled materiálu a pomáhá napodobit slabší nebo silnější výkon laseru. Vyšší výkon může u hořlavých materiálů rozšířit okraj. Export PNG/BMP se tímto nemění.",
-      "resetBtn": "Obnovit nastavení",
+      "resetBtn": "Resetovat úpravy",
       "sectionOutput": "Výstup",
       "labelOutputWidthMm": "Šířka obrázku",
       "outputWidthMmHelp": "Zadejte skutečnou šířku, kterou má gravírování na materiálu mít.",
