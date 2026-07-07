@@ -845,13 +845,13 @@ input[type="range"] {
  text-align: center;
 }
 
-.qr-history-counter {
+.qr-action-counter {
  margin: 10px 0 0;
  color: #64748b;
  font-size: 0.72rem;
 }
 
-.qr-history-counter strong {
+.qr-action-counter strong {
  color: #94a3b8;
  font-weight: 700;
 }
@@ -2709,8 +2709,8 @@ module.exports = QRCode;
  <p>
  PhotoEngraving.online QR Generator creates static QR images in the browser. It does not store QR payloads and cannot recover or edit a code after you download it.
  </p>
- <p class="qr-history-counter" aria-live="polite">
- Total generated QR codes: <strong id="qrHistoryCount">...</strong>
+ <p class="qr-action-counter" aria-live="polite">
+ QR exports and copies: <strong id="qrActionCount">...</strong>
  </p>
  </footer>
 </div>
@@ -2729,40 +2729,40 @@ module.exports = QRCode;
  lastPayloadType: 'url'
  };
 
- var abacusGet = 'https://abacus.jasoncameron.dev/get/stunning-twilight-266e8a/qr-codes';
- var abacusHit = 'https://abacus.jasoncameron.dev/hit/stunning-twilight-266e8a/qr-codes';
+ var actionCounterGetUrl = 'https://abacus.jasoncameron.dev/get/photoengraving-online/qrgenerator-actions';
+ var actionCounterHitUrl = 'https://abacus.jasoncameron.dev/hit/photoengraving-online/qrgenerator-actions';
 
  function formatCount(count) {
  return Number(count || 0).toLocaleString('en-US');
  }
 
- function updateHistoryCounter(count) {
- var countEl = el('qrHistoryCount');
+ function updateActionCounter(count) {
+ var countEl = el('qrActionCount');
  if (countEl) countEl.textContent = Number.isFinite(Number(count)) ? formatCount(count) : 'Unavailable';
  }
 
- function loadHistoryCounter() {
- fetch(abacusGet)
+ function loadActionCounter() {
+ fetch(actionCounterGetUrl)
  .then(function (response) {
  if (!response.ok) throw new Error('Counter unavailable');
  return response.json();
  })
  .then(function (data) {
- updateHistoryCounter(data.value);
+ updateActionCounter(data.value);
  })
  .catch(function () {
- updateHistoryCounter(null);
+ updateActionCounter(null);
  });
  }
 
- function countGeneratedQr() {
- fetch(abacusHit)
+ function countQrAction() {
+ fetch(actionCounterHitUrl)
  .then(function (response) {
  if (!response.ok) throw new Error('Counter unavailable');
  return response.json();
  })
  .then(function (data) {
- updateHistoryCounter(data.value);
+ updateActionCounter(data.value);
  })
  .catch(function () {});
  }
@@ -3525,7 +3525,7 @@ canvas.width = 1024;
  link.href = URL.createObjectURL(blob);
  link.download = sanitizeFileName(el('fileName').value, '.png');
  link.click();
- countGeneratedQr();
+ countQrAction();
  setTimeout(function () { URL.revokeObjectURL(link.href); }, 1500);
  }, 'image/png');
  }
@@ -3539,7 +3539,7 @@ canvas.width = 1024;
  link.href = URL.createObjectURL(blob);
  link.download = sanitizeFileName(el('fileName').value, '.svg');
  link.click();
- countGeneratedQr();
+ countQrAction();
  setTimeout(function () { URL.revokeObjectURL(link.href); }, 1500);
  }
 
@@ -3694,7 +3694,7 @@ canvas.width = 1024;
  canvas.toBlob(function (blob) {
  navigator.clipboard.write([new ClipboardItem({'image/png': blob})]).then(function () {
  showStatus('PNG copied to clipboard.', 'success');
- countGeneratedQr();
+ countQrAction();
  }).catch(function () {
  showStatus('Clipboard permission was blocked. Use Download PNG instead.', 'warning');
  });
@@ -3871,7 +3871,7 @@ canvas.width = 1024;
  }
 
  bindEvents();
- loadHistoryCounter();
+ loadActionCounter();
  renderFields('url');
 })();
 </script>
