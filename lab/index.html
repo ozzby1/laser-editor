@@ -1417,23 +1417,37 @@ input[type=number]:focus {
 }
 
 header.app-header {
-position: sticky;
-top: 0;
+position: relative;
+top: auto;
 z-index: 50;
 padding: 14px 16px;
-border-radius: 0;
+border-radius: var(--radius-xl);
 background: rgba(10, 12, 18, 0.85);
 backdrop-filter: blur(14px);
 -webkit-backdrop-filter: blur(14px);
 border: 1px solid rgba(255,255,255,0.06);
 box-shadow: 0 10px 30px rgba(0,0,0,0.25);
 margin-bottom: 1.5rem;
+overflow: visible;
 }
 
 .brand-logo {
   height: 64px;
   width: auto;
   filter: drop-shadow(0 8px 22px rgba(0,0,0,0.22));
+}
+
+
+.brand-logo-light {
+  display: none;
+}
+
+html[data-theme="light"] .brand-logo-dark {
+  display: none;
+}
+
+html[data-theme="light"] .brand-logo-light {
+  display: block;
 }
 .main-editor-layout {
 display: grid !important;
@@ -1517,7 +1531,7 @@ position: relative;
 top: auto;
 z-index: 200;
 overflow: visible;
-border-radius: 0;
+border-radius: 16px;
 padding: 12px 14px;
 margin-bottom: 16px;
 }
@@ -2143,9 +2157,6 @@ html[data-theme="light"] body::before {
   outline: none;
 }
 
-.theme-toggle-icon {
-  line-height: 1;
-}
 
 .theme-toggle-text {
   line-height: 1;
@@ -2480,7 +2491,8 @@ html[data-theme="light"] .detail-magnifier {
 <div class="content max-w-7xl mx-auto px-4 py-6">
 <header class="app-header flex items-center gap-3 flex-wrap">
 <a href="https://photoengraving.online/">
-<img alt="Photoengraving Logo" class="brand-logo" src="/logo.png"/>
+<img alt="Photoengraving Logo" class="brand-logo brand-logo-dark" src="/logo.png"/>
+<img alt="Photoengraving Logo" class="brand-logo brand-logo-light" src="/logo-light.png"/>
 </a>
 <div class="ml-auto flex flex-wrap gap-2 items-center">
 <nav aria-label="Language selector" class="lang-switcher lang-dropdown" id="langSwitcher">
@@ -2610,8 +2622,7 @@ html[data-theme="light"] .detail-magnifier {
 </div>
 </nav>
 <button aria-label="Switch to light mode" class="theme-toggle" id="themeToggle" title="Switch to light mode" type="button">
-<span aria-hidden="true" class="theme-toggle-icon" id="themeToggleIcon">☀️</span>
-<span class="theme-toggle-text" id="themeToggleText">Light</span>
+<span class="theme-toggle-text" id="themeToggleText">Light mode</span>
 </button>
 <a aria-label="Open laser photo engraving user guide" class="guide-btn" data-i18n-aria-label="guideAriaLabel" href="https://photoengraving.online/guide/">
 <span data-i18n="guideBtn">
@@ -6480,30 +6491,18 @@ loadDemoImage();
 (function () {
   const THEME_STORAGE_KEY = 'photoengraving-theme';
   const themeToggle = document.getElementById('themeToggle');
-  const themeToggleIcon = document.getElementById('themeToggleIcon');
   const themeToggleText = document.getElementById('themeToggleText');
   const themeColorMeta = document.querySelector('meta[name="theme-color"]');
 
   const themeLabels = {
-    en: { light: 'Light', dark: 'Dark', toLight: 'Switch to light mode', toDark: 'Switch to dark mode' },
-    cs: { light: 'Světlý', dark: 'Tmavý', toLight: 'Přepnout na světlý režim', toDark: 'Přepnout na tmavý režim' },
-    de: { light: 'Hell', dark: 'Dunkel', toLight: 'Zum hellen Modus wechseln', toDark: 'Zum dunklen Modus wechseln' },
-    es: { light: 'Claro', dark: 'Oscuro', toLight: 'Cambiar al modo claro', toDark: 'Cambiar al modo oscuro' },
-    fr: { light: 'Clair', dark: 'Sombre', toLight: 'Passer au mode clair', toDark: 'Passer au mode sombre' },
-    it: { light: 'Chiaro', dark: 'Scuro', toLight: 'Passa alla modalità chiara', toDark: 'Passa alla modalità scura' },
-    pl: { light: 'Jasny', dark: 'Ciemny', toLight: 'Przełącz na tryb jasny', toDark: 'Przełącz na tryb ciemny' },
-    'pt-br': { light: 'Claro', dark: 'Escuro', toLight: 'Mudar para o modo claro', toDark: 'Mudar para o modo escuro' },
-    ru: { light: 'Светлая', dark: 'Тёмная', toLight: 'Переключить на светлый режим', toDark: 'Переключить на тёмный режим' },
-    tr: { light: 'Açık', dark: 'Koyu', toLight: 'Açık moda geç', toDark: 'Koyu moda geç' },
-    zh: { light: '浅色', dark: '深色', toLight: '切换到浅色模式', toDark: '切换到深色模式' },
-    ja: { light: 'ライト', dark: 'ダーク', toLight: 'ライトモードに切り替える', toDark: 'ダークモードに切り替える' },
-    ko: { light: '라이트', dark: '다크', toLight: '라이트 모드로 전환', toDark: '다크 모드로 전환' },
-    hi: { light: 'Light', dark: 'Dark', toLight: 'Switch to light mode', toDark: 'Switch to dark mode' }
+    light: 'Light mode',
+    dark: 'Dark mode',
+    toLight: 'Switch to light mode',
+    toDark: 'Switch to dark mode'
   };
 
   function getThemeLabelSet() {
-    const lang = (typeof currentLang === 'string' && currentLang) || document.documentElement.lang || 'en';
-    return themeLabels[lang.toLowerCase()] || themeLabels.en;
+    return themeLabels;
   }
 
   function applyTheme(theme, persist) {
@@ -6514,7 +6513,6 @@ loadDemoImage();
     document.documentElement.setAttribute('data-theme', safeTheme);
     if (themeColorMeta) themeColorMeta.setAttribute('content', isLight ? '#f6f7fb' : '#09090d');
 
-    if (themeToggleIcon) themeToggleIcon.textContent = isLight ? '🌙' : '☀️';
     if (themeToggleText) themeToggleText.textContent = isLight ? labels.dark : labels.light;
     if (themeToggle) {
       const actionLabel = isLight ? labels.toDark : labels.toLight;
