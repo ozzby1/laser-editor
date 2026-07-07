@@ -2020,7 +2020,54 @@ z-index: 2200;
   }
 }
 
-  </style>
+  
+
+/* Mobile language menu fix: keep the dropdown inside the viewport and above the page content. */
+@media (max-width: 760px) {
+  header.app-header {
+    position: relative !important;
+    z-index: 3000 !important;
+    overflow: visible !important;
+  }
+
+  header.app-header .ml-auto {
+    position: relative !important;
+    overflow: visible !important;
+  }
+
+  #langSwitcher.lang-switcher,
+  #langSwitcher.lang-dropdown {
+    position: relative !important;
+    z-index: 3100 !important;
+    overflow: visible !important;
+  }
+
+  #langMenu.lang-menu {
+    left: 0 !important;
+    right: auto !important;
+    top: calc(100% + 8px) !important;
+    width: 260px !important;
+    min-width: 0 !important;
+    max-width: calc(100vw - 32px) !important;
+    max-height: min(62vh, 420px) !important;
+    overflow-y: auto !important;
+    overscroll-behavior: contain;
+    box-sizing: border-box;
+    z-index: 3200 !important;
+  }
+
+  #langMenu .lang-option {
+    white-space: nowrap;
+  }
+}
+
+@media (max-width: 340px) {
+  #langMenu.lang-menu {
+    width: calc(100vw - 24px) !important;
+  }
+}
+
+</style>
 <!-- 100% privacy-first analytics -->
 <script async="" src="https://scripts.simpleanalyticscdn.com/latest.js"></script>
 </head>
