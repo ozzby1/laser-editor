@@ -3499,7 +3499,7 @@ const translations = {
     labelGamma: 'Gamma',
     labelSharpness: 'Sharpness',
     labelMaterialPower: 'Material Preview laser power',
-    materialPowerHelp: 'Adjusts only the Material Preview. On wood and leather, more power can look darker and spread more. On dark coated surfaces, too much power can make the light mark turn dull gray and reduce contrast. The exported PNG/BMP stays unchanged.',
+    materialPowerHelp: 'Adjusts only the Material Preview. On wood and leather, more power can look darker and spread more. On slate and dark stone, more power makes the laser mark lighter, slightly wider and more chalky. On dark coated surfaces, too much power can make the light mark turn dull gray and reduce contrast. The exported PNG/BMP stays unchanged.',
     resetBtn: '↺ Default Settings',
     sectionOutput: 'Output',
     labelOutputWidthMm: 'Image width',
@@ -3547,7 +3547,7 @@ const translations = {
     materialPreviewDisclaimer: 'This is an approximate visual simulation only. Real results depend on laser type, lens, focus, speed, power and the exact material surface. The downloaded PNG/BMP remains the clean black-and-white laser-ready output.',
     materialTipNone: 'Select a material to see an approximate preview of how the engraved image may look on the surface.',
     materialTipWood: 'Birch plywood and light wood usually engrave darker than the surface. Expect some dot gain, especially on plywood and softer wood.',
-    materialTipSlate: 'Slate and dark stone usually engrave lighter than the surface. Negative mode is often the right starting point.',
+    materialTipSlate: 'Slate and dark stone usually engrave lighter than the surface. Higher preview power now makes the mark lighter and a little chalkier instead of turning it brown. Negative mode is often the right starting point.',
     materialTipBlackAnodized: 'Dark anodized, coated or painted surfaces often engrave lighter at first. Too much power can make the mark darker gray and lower the contrast, so test a small crop before engraving the final piece.',
     materialTipStainless: 'Stainless steel preview is only approximate. Higher preview power increases mark darkness, but it does not simulate the burnt edge spread used for wood. Real results depend strongly on fiber/diode laser type, marking spray, focus, speed and power.',
     materialTipLeather: 'Leather usually engraves darker and can spread slightly. Lower detail and test pieces are recommended.',
@@ -3625,6 +3625,7 @@ const MATERIALS = {
     grain: 'stone',
     grainStrength: 12,
     dotGain: 0.14,
+    laserPowerBehavior: 'lightStone',
     seed: 23
   },
   blackAnodized: {
@@ -5881,7 +5882,12 @@ function renderMaterialPreview(sourceImageData, w, h) {
   const powerUnder = clamp((1 - previewPower) / 0.6, 0, 1);
   const isMarkingMaterial = material.laserPowerBehavior === 'marking';
   const isDarkSurfaceMaterial = material.laserPowerBehavior === 'darkSurface';
-  const previewDotGain = material.dotGain + ((isMarkingMaterial || isDarkSurfaceMaterial) ? powerOver * 0.03 : powerOver * 0.42);
+  const isLightStoneMaterial = material.laserPowerBehavior === 'lightStone';
+  const previewDotGain = material.dotGain + (
+    (isMarkingMaterial || isDarkSurfaceMaterial) ? powerOver * 0.03 :
+    isLightStoneMaterial ? powerOver * 0.10 :
+    powerOver * 0.42
+  );
   const charR = 48;
   const charG = 31;
   const charB = 18;
@@ -5891,6 +5897,9 @@ function renderMaterialPreview(sourceImageData, w, h) {
   const darkSurfaceR = 58;
   const darkSurfaceG = 60;
   const darkSurfaceB = 64;
+  const stoneLightR = 226;
+  const stoneLightG = 226;
+  const stoneLightB = 210;
   canvasMaterialPreview.width = w;
   canvasMaterialPreview.height = h;
   canvasMaterialPreview.style.width = '100%';
@@ -5919,15 +5928,16 @@ function renderMaterialPreview(sourceImageData, w, h) {
       let powerAmountBoost = 1 + powerOver * 0.18;
       if (isMarkingMaterial) powerAmountBoost = 1 + powerOver * 0.08;
       if (isDarkSurfaceMaterial) powerAmountBoost = 1 + powerOver * 0.04;
+      if (isLightStoneMaterial) powerAmountBoost = 1 + powerOver * 0.10;
       laserAmount = clamp(laserAmount * (previewPower < 1 ? previewPower : powerAmountBoost), 0, 1);
 
       const texture = getMaterialTexture(material, x, y, w, h);
       const baseR = material.base[0] + texture;
       const baseG = material.base[1] + texture;
       const baseB = material.base[2] + texture;
-      const highPowerR = isDarkSurfaceMaterial ? darkSurfaceR : (isMarkingMaterial ? metalDarkR : charR);
-      const highPowerG = isDarkSurfaceMaterial ? darkSurfaceG : (isMarkingMaterial ? metalDarkG : charG);
-      const highPowerB = isDarkSurfaceMaterial ? darkSurfaceB : (isMarkingMaterial ? metalDarkB : charB);
+      const highPowerR = isDarkSurfaceMaterial ? darkSurfaceR : (isMarkingMaterial ? metalDarkR : (isLightStoneMaterial ? stoneLightR : charR));
+      const highPowerG = isDarkSurfaceMaterial ? darkSurfaceG : (isMarkingMaterial ? metalDarkG : (isLightStoneMaterial ? stoneLightG : charG));
+      const highPowerB = isDarkSurfaceMaterial ? darkSurfaceB : (isMarkingMaterial ? metalDarkB : (isLightStoneMaterial ? stoneLightB : charB));
       const markMixR = material.mark[0] * (1 - powerOver) + highPowerR * powerOver;
       const markMixG = material.mark[1] * (1 - powerOver) + highPowerG * powerOver;
       const markMixB = material.mark[2] * (1 - powerOver) + highPowerB * powerOver;
