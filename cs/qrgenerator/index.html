@@ -847,34 +847,15 @@ input[type="range"] {
  text-align: center;
 }
 
-.qr-counter {
- display: flex;
- justify-content: center;
- margin-top: 12px;
+.qr-action-counter {
+ margin: 10px 0 0;
+ color: #64748b;
+ font-size: 0.72rem;
 }
 
-.qr-counter-badge {
- display: inline-flex;
- align-items: center;
- justify-content: center;
- gap: 6px;
- max-width: 100%;
- padding: 7px 12px;
- border: 1px solid rgba(255,255,255,0.08);
- border-radius: 999px;
- background: rgba(255,255,255,0.04);
- color: #aab8c8;
- font-size: 0.74rem;
+.qr-action-counter strong {
+ color: #94a3b8;
  font-weight: 700;
- line-height: 1.35;
- text-align: center;
- white-space: normal;
-}
-
-.qr-counter-badge span:last-child {
- color: #ff9a57;
- font-weight: 800;
- white-space: nowrap;
 }
 
 .visually-hidden {
@@ -2725,17 +2706,12 @@ module.exports = QRCode;
  </div>
  </section>
  </main>
-
- <div class="qr-counter" aria-live="polite">
- <div class="qr-counter-badge">
- <span>Celkem staženo nebo zkopírováno:</span>
- <span id="qrActionCounter">…</span>
- </div>
- </div>
-
  <footer class="footer">
  <p>
  QR generátor PhotoEngraving.online vytváří statické QR obrázky přímo v prohlížeči. Neukládá obsah QR kódů a po stažení neumí kód obnovit ani upravit.
+ </p>
+ <p class="qr-action-counter" aria-live="polite">
+ QR exporty a kopie: <strong id="qrActionCount">...</strong>
  </p>
  </footer>
 </div>
@@ -3516,30 +3492,40 @@ canvas.width = 1024;
  return safe + ext;
  }
 
- var ABACUS_GET = 'https://abacus.jasoncameron.dev/get/stunning-twilight-266e8a/downloads';
- var ABACUS_HIT = 'https://abacus.jasoncameron.dev/hit/stunning-twilight-266e8a/downloads';
+ var actionCounterGetUrl = 'https://abacus.jasoncameron.dev/get/photoengraving-online/qrgenerator-actions';
+ var actionCounterHitUrl = 'https://abacus.jasoncameron.dev/hit/photoengraving-online/qrgenerator-actions';
 
- function loadCounter() {
- fetch(ABACUS_GET)
- .then(function (response) { return response.ok ? response.json() : null; })
+ function formatCount(count) {
+ return Number(count || 0).toLocaleString('cs-CZ');
+ }
+
+ function updateActionCounter(count) {
+ var countEl = el('qrActionCount');
+ if (countEl) countEl.textContent = Number.isFinite(Number(count)) ? formatCount(count) : 'Nedostupné';
+ }
+
+ function loadActionCounter() {
+ fetch(actionCounterGetUrl)
+ .then(function (response) {
+ if (!response.ok) throw new Error('Counter unavailable');
+ return response.json();
+ })
  .then(function (data) {
- var n = data && data.value ? data.value : 0;
- var counter = el('qrActionCounter');
- if (counter) counter.textContent = n > 0 ? n.toLocaleString('cs-CZ') : '—';
+ updateActionCounter(data.value);
  })
  .catch(function () {
- var counter = el('qrActionCounter');
- if (counter) counter.textContent = '—';
+ updateActionCounter(null);
  });
  }
 
- function incrementCounter() {
- fetch(ABACUS_HIT)
- .then(function (response) { return response.ok ? response.json() : null; })
+ function countQrAction() {
+ fetch(actionCounterHitUrl)
+ .then(function (response) {
+ if (!response.ok) throw new Error('Counter unavailable');
+ return response.json();
+ })
  .then(function (data) {
- var n = data && data.value ? data.value : 0;
- var counter = el('qrActionCounter');
- if (counter && n > 0) counter.textContent = n.toLocaleString('cs-CZ');
+ updateActionCounter(data.value);
  })
  .catch(function () {});
  }
@@ -3554,7 +3540,7 @@ canvas.width = 1024;
  link.href = URL.createObjectURL(blob);
  link.download = sanitizeFileName(el('fileName').value, '.png');
  link.click();
- incrementCounter();
+ countQrAction();
  setTimeout(function () { URL.revokeObjectURL(link.href); }, 1500);
  }, 'image/png');
  }
@@ -3568,7 +3554,7 @@ canvas.width = 1024;
  link.href = URL.createObjectURL(blob);
  link.download = sanitizeFileName(el('fileName').value, '.svg');
  link.click();
- incrementCounter();
+ countQrAction();
  setTimeout(function () { URL.revokeObjectURL(link.href); }, 1500);
  }
 
@@ -3722,7 +3708,7 @@ canvas.width = 1024;
  }
  canvas.toBlob(function (blob) {
  navigator.clipboard.write([new ClipboardItem({'image/png': blob})]).then(function () {
- incrementCounter();
+ countQrAction();
  showStatus('PNG bylo zkopírováno do schránky.', 'success');
  }).catch(function () {
  showStatus('Přístup ke schránce byl zablokován. Použijte tlačítko Stáhnout PNG.', 'warning');
@@ -3901,7 +3887,7 @@ canvas.width = 1024;
 
  bindEvents();
  renderFields('url');
- loadCounter();
+ loadActionCounter();
 })();
 </script>
 </body>
