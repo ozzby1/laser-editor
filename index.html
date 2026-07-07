@@ -2225,6 +2225,295 @@ z-index: 2200;
   line-height: 1.35;
 }
 
+
+/* Dark / light mode switcher. Default theme remains dark. */
+.theme-toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 34px;
+  background: rgba(255,255,255,0.045);
+  color: #e2e8f0;
+  border: 1px solid rgba(255,255,255,0.10);
+  border-radius: 10px;
+  padding: 7px 11px;
+  font-family: inherit;
+  font-size: 0.82rem;
+  font-weight: 800;
+  line-height: 1;
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+
+.theme-toggle-btn:hover,
+.theme-toggle-btn:focus-visible {
+  background: rgba(249,115,22,0.14);
+  border-color: rgba(249,115,22,0.55);
+  color: #ffffff;
+  box-shadow: 0 10px 24px rgba(249,115,22,0.12), 0 0 0 1px rgba(249,115,22,0.14);
+  outline: none;
+}
+
+body[data-theme="light"] {
+  --bg: #f5f7fa;
+  --bg2: #eef3f7;
+  --panel: rgba(255, 255, 255, 0.90);
+  --panel-strong: rgba(255, 255, 255, 0.98);
+  --border: rgba(15, 23, 42, 0.10);
+  --border-strong: rgba(15, 23, 42, 0.16);
+  --muted: #64748b;
+  --soft: #748398;
+  --text: #243041;
+  --heading: #0f172a;
+  --accent: #0f766e;
+  --accent2: #0d9488;
+  --accent-soft: rgba(15, 118, 110, 0.13);
+  --shadow-lg: 0 18px 50px rgba(15, 23, 42, 0.12);
+  --shadow-md: 0 10px 30px rgba(15, 23, 42, 0.08);
+  background: var(--bg);
+  color: var(--text);
+}
+
+body[data-theme="light"]::before {
+  background:
+    radial-gradient(ellipse 75% 45% at 15% -10%, rgba(15,118,110,0.12) 0%, transparent 60%),
+    radial-gradient(ellipse 55% 35% at 85% 110%, rgba(14,165,233,0.08) 0%, transparent 60%),
+    linear-gradient(180deg, rgba(255,255,255,0.55) 0%, transparent 100%);
+}
+
+body[data-theme="light"] header.app-header {
+  background: rgba(255,255,255,0.88);
+  border-color: rgba(15,23,42,0.10);
+  box-shadow: 0 10px 30px rgba(15,23,42,0.08);
+}
+
+body[data-theme="light"] .panel,
+body[data-theme="light"] .info-card,
+body[data-theme="light"] .help-step,
+body[data-theme="light"] .help-card,
+body[data-theme="light"] .help-note-box,
+body[data-theme="light"] .custom-dpi-input-wrap,
+body[data-theme="light"] .toggle-control,
+body[data-theme="light"] .empty-step,
+body[data-theme="light"] .status-message,
+body[data-theme="light"] .processed-total-badge,
+body[data-theme="light"] .material-preview-disclaimer {
+  background: linear-gradient(180deg, rgba(255,255,255,0.95), rgba(255,255,255,0.82));
+  border-color: rgba(15,23,42,0.10);
+  color: var(--text);
+}
+
+body[data-theme="light"] .panel:hover {
+  border-color: rgba(15,23,42,0.16);
+}
+
+body[data-theme="light"] h1[data-i18n="heroTitle"],
+body[data-theme="light"] .crop-modal-title,
+body[data-theme="light"] .help-section-title,
+body[data-theme="light"] .help-card-title,
+body[data-theme="light"] .text-white {
+  color: var(--heading) !important;
+}
+
+body[data-theme="light"] p[data-i18n-html="heroText"],
+body[data-theme="light"] .help-text,
+body[data-theme="light"] .help-note-box,
+body[data-theme="light"] .crop-modal-text,
+body[data-theme="light"] .help-card-text,
+body[data-theme="light"] .helper-text,
+body[data-theme="light"] .footer-note,
+body[data-theme="light"] .hint-line,
+body[data-theme="light"] .text-slate-400 {
+  color: #475569 !important;
+}
+
+body[data-theme="light"] label,
+body[data-theme="light"] .section-title,
+body[data-theme="light"] .canvas-label {
+  color: #475569;
+}
+
+body[data-theme="light"] .canvas-label.accent,
+body[data-theme="light"] .slider-val,
+body[data-theme="light"] .text-orange-300,
+body[data-theme="light"] .help-table td:first-child,
+body[data-theme="light"] .processed-total-badge span {
+  color: var(--accent) !important;
+}
+
+body[data-theme="light"] .btn-primary,
+body[data-theme="light"] .view-btn.active,
+body[data-theme="light"] .crop-aspect-btn.active {
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 100%);
+  border-color: rgba(15,118,110,0.45);
+  color: #ffffff;
+  box-shadow: 0 8px 22px rgba(15,118,110,0.18);
+}
+
+body[data-theme="light"] .btn-secondary,
+body[data-theme="light"] .view-btn,
+body[data-theme="light"] .crop-aspect-btn,
+body[data-theme="light"] .preset-card,
+body[data-theme="light"] .theme-toggle-btn,
+body[data-theme="light"] .guide-btn {
+  background: rgba(255,255,255,0.80);
+  color: #243041;
+  border-color: rgba(15,23,42,0.12);
+}
+
+body[data-theme="light"] .btn-secondary:hover,
+body[data-theme="light"] .view-btn:hover,
+body[data-theme="light"] .crop-aspect-btn:hover,
+body[data-theme="light"] .preset-card:hover,
+body[data-theme="light"] .theme-toggle-btn:hover,
+body[data-theme="light"] .guide-btn:hover,
+body[data-theme="light"] .guide-btn:focus-visible {
+  background: rgba(15,118,110,0.08);
+  border-color: rgba(15,118,110,0.35);
+  color: #0f172a;
+  box-shadow: 0 10px 24px rgba(15,118,110,0.10), 0 0 0 1px rgba(15,118,110,0.12);
+}
+
+body[data-theme="light"] .preset-card.active,
+body[data-theme="light"] .empty-step.primary {
+  background: linear-gradient(180deg, rgba(15,118,110,0.12), rgba(15,118,110,0.06));
+  border-color: rgba(15,118,110,0.45);
+  color: var(--accent);
+}
+
+body[data-theme="light"] .drop-zone {
+  border-color: rgba(15,118,110,0.70);
+  background: rgba(15,118,110,0.06);
+  box-shadow: 0 0 0 1px rgba(15,118,110,0.10), inset 0 0 0 1px rgba(15,118,110,0.06);
+}
+
+body[data-theme="light"] .drop-zone:hover,
+body[data-theme="light"] .drop-zone.drag-over {
+  border-color: rgba(15,118,110,0.95);
+  background: rgba(15,118,110,0.10);
+}
+
+body[data-theme="light"] select,
+body[data-theme="light"] input[type=number],
+body[data-theme="light"] .custom-select-button,
+body[data-theme="light"] .custom-select-dropdown,
+body[data-theme="light"] .lang-menu,
+body[data-theme="light"] .crop-modal {
+  background: rgba(255,255,255,0.96);
+  color: #243041;
+  border-color: rgba(15,23,42,0.12);
+  box-shadow: 0 18px 48px rgba(15,23,42,0.12);
+}
+
+body[data-theme="light"] select:hover,
+body[data-theme="light"] select:focus,
+body[data-theme="light"] input[type=number]:hover,
+body[data-theme="light"] input[type=number]:focus,
+body[data-theme="light"] .custom-select-button:hover,
+body[data-theme="light"] .custom-select-button:focus {
+  border-color: rgba(15,118,110,0.45);
+  background: #ffffff;
+  box-shadow: 0 0 0 4px rgba(15,118,110,0.09);
+}
+
+body[data-theme="light"] .custom-select-option,
+body[data-theme="light"] .lang-option,
+body[data-theme="light"] .toggle-text {
+  color: #243041;
+}
+
+body[data-theme="light"] .custom-select-option:hover,
+body[data-theme="light"] .custom-select-option:focus,
+body[data-theme="light"] .lang-option:hover,
+body[data-theme="light"] .lang-option:focus,
+body[data-theme="light"] .custom-select-option.selected {
+  background: rgba(15,118,110,0.08);
+  border-color: rgba(15,118,110,0.30);
+  color: #0f172a;
+}
+
+body[data-theme="light"] .lang-current {
+  background: rgba(15,118,110,0.08);
+  color: #243041;
+  border-color: rgba(15,118,110,0.36);
+  box-shadow: 0 0 0 1px rgba(15,118,110,0.10);
+}
+
+body[data-theme="light"] .lang-current:hover,
+body[data-theme="light"] .lang-current[aria-expanded="true"] {
+  background: rgba(15,118,110,0.12);
+  border-color: rgba(15,118,110,0.55);
+  box-shadow: 0 10px 24px rgba(15,118,110,0.10), 0 0 0 1px rgba(15,118,110,0.14);
+}
+
+body[data-theme="light"] .lang-chevron,
+body[data-theme="light"] .custom-select-button::after,
+body[data-theme="light"] .material-preview-button::after {
+  border-color: var(--accent);
+}
+
+body[data-theme="light"] .toggle-label input:checked + .toggle-ui {
+  background: rgba(15,118,110,0.20);
+  border-color: rgba(15,118,110,0.55);
+  box-shadow: 0 0 0 3px rgba(15,118,110,0.08);
+}
+
+body[data-theme="light"] .toggle-label input:checked + .toggle-ui::after {
+  background: var(--accent2);
+}
+
+body[data-theme="light"] .help-table thead tr,
+body[data-theme="light"] .help-table tbody tr {
+  background: rgba(255,255,255,0.72);
+  color: #243041;
+}
+
+body[data-theme="light"] .help-table th,
+body[data-theme="light"] .help-table td {
+  border-bottom-color: rgba(15,23,42,0.10);
+}
+
+body[data-theme="light"] .material-preview-note {
+  background: rgba(15,118,110,0.08);
+  border-color: rgba(15,118,110,0.22);
+  color: #475569;
+}
+
+body[data-theme="light"] .material-preview-note strong,
+body[data-theme="light"] .hint-upload-link,
+body[data-theme="light"] .helpOutputSizeFormula {
+  color: var(--accent) !important;
+}
+
+body[data-theme="light"] input[type=range] {
+  accent-color: var(--accent);
+}
+
+body[data-theme="light"] .crop-canvas-shell,
+body[data-theme="light"] .canvas-wrap,
+body[data-theme="light"] .zoom-hover,
+body[data-theme="light"] canvas {
+  background: #ffffff;
+}
+
+body[data-theme="light"] .status-message[data-type="error"] {
+  border-color: rgba(220,38,38,0.35);
+  background: rgba(220,38,38,0.08);
+  color: #991b1b;
+}
+
+body[data-theme="light"] .status-message[data-type="success"] {
+  border-color: rgba(22,163,74,0.35);
+  background: rgba(22,163,74,0.08);
+  color: #166534;
+}
+
+@media (max-width: 760px) {
+  .theme-toggle-btn {
+    min-height: 34px;
+  }
+}
+
 </style>
 <!-- 100% privacy-first analytics -->
 <script async="" src="https://scripts.simpleanalyticscdn.com/latest.js"></script>
@@ -2362,6 +2651,9 @@ z-index: 2200;
 </a>
 </div>
 </nav>
+<button aria-label="Switch to light mode" class="theme-toggle-btn" id="themeToggleBtn" type="button">
+<span id="themeToggleLabel">Light mode</span>
+</button>
 <a aria-label="Open laser photo engraving user guide" class="guide-btn" data-i18n-aria-label="guideAriaLabel" href="https://photoengraving.online/guide/">
 <span data-i18n="guideBtn">
        User Guide
@@ -3208,6 +3500,7 @@ z-index: 2200;
 const FIXED_THRESHOLD = 128;
 const STORAGE_KEY = 'laserEditorSimpleV8';
 const LANG_STORAGE_KEY = 'laserEditorLanguageV1';
+const THEME_STORAGE_KEY = 'photoEngravingThemeV1';
 const OUTPUT_WIDTH_MIN_PX = 1;
 const OUTPUT_WIDTH_DEFAULT_MAX_PX = 6000;
 const OUTPUT_WIDTH_HARD_MAX_PX = 25000;
@@ -3489,6 +3782,10 @@ const DEFAULTS = {
 
 const fileInput = document.getElementById('fileInput');
 const topUploadBtn = document.getElementById('topUploadBtn');
+const themeToggleBtn = document.getElementById('themeToggleBtn');
+const themeToggleLabel = document.getElementById('themeToggleLabel');
+const brandLogo = document.querySelector('.brand-logo');
+const themeColorMeta = document.querySelector('meta[name="theme-color"]');
 const dropZone = document.getElementById('dropZone');
 const uploadCtaCard = document.getElementById('uploadCtaCard');
 const hintUploadLink = document.getElementById('hintUploadLink');
@@ -3738,6 +4035,52 @@ function buildCustomDpiSelect() {
   });
 
   syncCustomDpiSelect();
+}
+
+
+function getStoredTheme() {
+  try {
+    const storedTheme = localStorage.getItem(THEME_STORAGE_KEY);
+    if (storedTheme === 'light' || storedTheme === 'dark') return storedTheme;
+  } catch (e) {}
+  return 'dark';
+}
+
+function applyTheme(theme, options = {}) {
+  const selectedTheme = theme === 'light' ? 'light' : 'dark';
+  document.body.dataset.theme = selectedTheme;
+  document.documentElement.dataset.theme = selectedTheme;
+
+  if (brandLogo) {
+    brandLogo.src = selectedTheme === 'light' ? '/logo-light.png' : '/logo.png';
+  }
+
+  if (themeColorMeta) {
+    themeColorMeta.setAttribute('content', selectedTheme === 'light' ? '#f5f7fa' : '#09090d');
+  }
+
+  if (themeToggleBtn && themeToggleLabel) {
+    const nextLabel = selectedTheme === 'light' ? 'Dark mode' : 'Light mode';
+    const ariaLabel = selectedTheme === 'light' ? 'Switch to dark mode' : 'Switch to light mode';
+    themeToggleLabel.textContent = nextLabel;
+    themeToggleBtn.setAttribute('aria-label', ariaLabel);
+    themeToggleBtn.setAttribute('aria-pressed', selectedTheme === 'light' ? 'true' : 'false');
+  }
+
+  if (options.save !== false) {
+    try {
+      localStorage.setItem(THEME_STORAGE_KEY, selectedTheme);
+    } catch (e) {}
+  }
+}
+
+function toggleTheme() {
+  const currentTheme = document.body.dataset.theme === 'light' ? 'light' : 'dark';
+  applyTheme(currentTheme === 'light' ? 'dark' : 'light');
+}
+
+if (themeToggleBtn) {
+  themeToggleBtn.addEventListener('click', toggleTheme);
 }
 
 function applyTranslations() {
@@ -6278,6 +6621,7 @@ async function downloadResult() {
   }
 }
 
+applyTheme(getStoredTheme(), { save: false });
 loadStoredLanguage();
 buildCustomDpiSelect();
 buildMaterialSelect();
