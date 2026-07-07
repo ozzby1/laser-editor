@@ -1558,11 +1558,12 @@ input[type=number]:focus {
 }
 
 header.app-header {
-position: sticky;
-top: 0;
+position: relative;
+top: auto;
 z-index: 50;
 padding: 14px 16px;
-border-radius: 0;
+border-radius: var(--radius-xl);
+overflow: visible;
 background: rgba(10, 12, 18, 0.85);
 backdrop-filter: blur(14px);
 -webkit-backdrop-filter: blur(14px);
@@ -1658,7 +1659,7 @@ position: relative;
 top: auto;
 z-index: 200;
 overflow: visible;
-border-radius: 0;
+border-radius: var(--radius-lg);
 padding: 12px 14px;
 margin-bottom: 16px;
 }
@@ -1738,6 +1739,7 @@ z-index: 2200;
 
   header.app-header {
     padding: 10px;
+    border-radius: var(--radius-lg);
   }
 
   header.app-header .ml-auto {
