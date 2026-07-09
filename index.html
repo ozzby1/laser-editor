@@ -2343,13 +2343,19 @@ body[data-theme="light"] .processed-total-badge span {
   color: var(--accent) !important;
 }
 
-body[data-theme="light"] .btn-primary,
-body[data-theme="light"] .view-btn.active,
-body[data-theme="light"] .crop-aspect-btn.active {
+body[data-theme="light"] .btn-primary {
   background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 100%);
   border-color: rgba(15,118,110,0.45);
   color: #ffffff;
   box-shadow: 0 8px 22px rgba(15,118,110,0.18);
+}
+
+body[data-theme="light"] .view-btn.active,
+body[data-theme="light"] .crop-aspect-btn.active {
+  background: linear-gradient(180deg, rgba(15,118,110,0.12), rgba(15,118,110,0.06));
+  border-color: rgba(15,118,110,0.45);
+  color: var(--accent);
+  box-shadow: 0 0 0 1px rgba(15,118,110,0.12);
 }
 
 body[data-theme="light"] .btn-secondary,
@@ -2369,11 +2375,15 @@ body[data-theme="light"] .crop-aspect-btn:hover,
 body[data-theme="light"] .preset-card:hover,
 body[data-theme="light"] .theme-toggle-btn:hover,
 body[data-theme="light"] .guide-btn:hover,
-body[data-theme="light"] .guide-btn:focus-visible {
-  background: rgba(15,118,110,0.08);
+body[data-theme="light"] .guide-btn:focus-visible,
+body[data-theme="light"] .custom-select-button:hover,
+body[data-theme="light"] .custom-select-button:focus,
+body[data-theme="light"] .custom-select.open .custom-select-button,
+body[data-theme="light"] .material-preview-dropdown.open .material-preview-button {
+  background: linear-gradient(180deg, rgba(15,118,110,0.12), rgba(15,118,110,0.06));
   border-color: rgba(15,118,110,0.35);
-  color: #0f172a;
-  box-shadow: 0 10px 24px rgba(15,118,110,0.10), 0 0 0 1px rgba(15,118,110,0.12);
+  color: var(--accent);
+  box-shadow: 0 0 0 1px rgba(15,118,110,0.12);
 }
 
 body[data-theme="light"] .preset-card.active,
@@ -2410,9 +2420,7 @@ body[data-theme="light"] .crop-modal {
 body[data-theme="light"] select:hover,
 body[data-theme="light"] select:focus,
 body[data-theme="light"] input[type=number]:hover,
-body[data-theme="light"] input[type=number]:focus,
-body[data-theme="light"] .custom-select-button:hover,
-body[data-theme="light"] .custom-select-button:focus {
+body[data-theme="light"] input[type=number]:focus {
   border-color: rgba(15,118,110,0.45);
   background: #ffffff;
   box-shadow: 0 0 0 4px rgba(15,118,110,0.09);
