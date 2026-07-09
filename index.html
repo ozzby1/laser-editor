@@ -2383,6 +2383,26 @@ body[data-theme="light"] .empty-step.primary {
   color: var(--accent);
 }
 
+
+/* Light mode: keep preview mode buttons subtle when active; Upload photo stays primary/accent colored. */
+body[data-theme="light"] .editor-preview-top > .panel:first-child .view-btn.active,
+body[data-theme="light"] .editor-preview-top > .panel:first-child .material-preview-button.active {
+  background: linear-gradient(180deg, rgba(15,118,110,0.12), rgba(15,118,110,0.06));
+  border-color: rgba(15,118,110,0.45);
+  color: var(--accent);
+  box-shadow: 0 0 0 1px rgba(15,118,110,0.10);
+}
+
+body[data-theme="light"] .editor-preview-top > .panel:first-child .view-btn.active:hover,
+body[data-theme="light"] .editor-preview-top > .panel:first-child .material-preview-button.active:hover,
+body[data-theme="light"] .editor-preview-top > .panel:first-child .view-btn.active:focus-visible,
+body[data-theme="light"] .editor-preview-top > .panel:first-child .material-preview-button.active:focus-visible {
+  background: linear-gradient(180deg, rgba(15,118,110,0.16), rgba(15,118,110,0.08));
+  border-color: rgba(15,118,110,0.52);
+  color: #0f766e;
+  box-shadow: 0 8px 20px rgba(15,118,110,0.10), 0 0 0 1px rgba(15,118,110,0.12);
+}
+
 body[data-theme="light"] .drop-zone {
   border-color: rgba(15,118,110,0.70);
   background: rgba(15,118,110,0.06);
