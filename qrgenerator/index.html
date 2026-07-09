@@ -210,8 +210,8 @@ a:hover { color: #fff; }
 }
 
 header.app-header {
- position: sticky;
- top: 0;
+ position: relative;
+ top: auto;
  z-index: 50;
  padding: 14px 16px;
  background: rgba(10, 12, 18, 0.85);
@@ -219,16 +219,17 @@ header.app-header {
  -webkit-backdrop-filter: blur(14px);
  border: 1px solid rgba(255,255,255,0.06);
  box-shadow: 0 10px 30px rgba(0,0,0,0.25);
- margin-bottom: 0;
- border-radius: 0;
+ margin-bottom: 1rem;
+ border-radius: var(--radius-xl);
  display: flex;
  align-items: center;
  gap: 14px;
  flex-wrap: wrap;
+ overflow: visible;
 }
 
 .brand-logo {
- height: 78px;
+ height: 64px;
  width: auto;
  filter: drop-shadow(0 8px 22px rgba(0,0,0,0.22));
 }
@@ -268,7 +269,14 @@ header.app-header {
 }
 
 .hero {
- padding: 18px 0 24px;
+ padding: 22px 24px 24px;
+ margin: 0 0 1rem;
+ background: linear-gradient(180deg, rgba(255,255,255,0.025), rgba(255,255,255,0.01)), var(--panel);
+ border: 1px solid var(--border);
+ border-radius: var(--radius-xl);
+ box-shadow: var(--shadow-md);
+ backdrop-filter: blur(14px);
+ -webkit-backdrop-filter: blur(14px);
 }
 
 .kicker {
@@ -887,13 +895,13 @@ input[type="range"] {
  top: auto;
  padding: 10px;
  }
- .brand-logo { height: 46px; }
+ .brand-logo { height: 40px; }
  .header-actions {
  width: 100%;
  margin-left: 0;
  justify-content: flex-start;
  }
- .hero { padding-top: 14px; }
+ .hero { padding: 18px 14px 20px; }
  h1 { font-size: clamp(1.72rem, 8vw, 2.35rem); line-height: 1.08; }
  .hero-text { font-size: 0.96rem; line-height: 1.55; }
  .panel-inner { padding: 14px; }
@@ -1054,6 +1062,12 @@ body[data-theme="light"]::before {
 
 body[data-theme="light"] header.app-header {
  background: rgba(255,255,255,0.88);
+ border-color: rgba(15,23,42,0.10);
+ box-shadow: 0 10px 30px rgba(15,23,42,0.08);
+}
+
+body[data-theme="light"] .hero {
+ background: linear-gradient(180deg, rgba(255,255,255,0.95), rgba(255,255,255,0.82));
  border-color: rgba(15,23,42,0.10);
  box-shadow: 0 10px 30px rgba(15,23,42,0.08);
 }
@@ -2578,10 +2592,6 @@ module.exports = QRCode;
  Generate static QR codes directly in your browser for links, WiFi, contacts, messages, events, maps and payments.
  Start with the reliable classic style, then customize colors, logo and frame when you need a branded result.
  </p>
- <div class="hero-actions">
- <a class="btn btn-primary" href="#generator">Create QR code now</a>
- <a class="btn btn-secondary" href="#qr-best-practices">Print and scan tips</a>
- </div>
  <div class="quick-steps" aria-label="Quick steps">
  <div class="quick-step"><strong>1. Enter content</strong> Choose what the QR code should open and fill in the fields.</div>
  <div class="quick-step"><strong>2. Customize</strong> Choose a reliable style, colors, logo or frame when needed.</div>
@@ -3527,7 +3537,6 @@ module.exports = QRCode;
 
  function buildWarnings(qr, payload) {
  var warnings = [];
- if (Number(el('quietZone').value) < 4) warnings.push('A quiet zone under 4 modules may reduce scan reliability.');
  if (state.logoImage && el('errorCorrection').value !== 'H') warnings.push('A logo is loaded. Use H error correction for better damage recovery.');
  if (state.logoImage && Number(el('logoSize').value) > 14) warnings.push('The logo is near the safe limit. Test carefully or reduce it to 14% or less.');
  if ((el('dotStyle').value !== 'square' || Number(el('moduleSpacing').value) > 10 || el('finderStyle').value !== 'classic') && el('errorCorrection').value !== 'H') warnings.push('Decorative QR designs are less forgiving. H error correction is recommended for styled QR codes.');
