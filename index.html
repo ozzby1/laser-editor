@@ -2383,26 +2383,6 @@ body[data-theme="light"] .empty-step.primary {
   color: var(--accent);
 }
 
-
-/* Light mode: keep preview mode buttons subtle when active; Upload photo stays primary/accent colored. */
-body[data-theme="light"] .editor-preview-top > .panel:first-child .view-btn.active,
-body[data-theme="light"] .editor-preview-top > .panel:first-child .material-preview-button.active {
-  background: linear-gradient(180deg, rgba(15,118,110,0.12), rgba(15,118,110,0.06));
-  border-color: rgba(15,118,110,0.45);
-  color: var(--accent);
-  box-shadow: 0 0 0 1px rgba(15,118,110,0.10);
-}
-
-body[data-theme="light"] .editor-preview-top > .panel:first-child .view-btn.active:hover,
-body[data-theme="light"] .editor-preview-top > .panel:first-child .material-preview-button.active:hover,
-body[data-theme="light"] .editor-preview-top > .panel:first-child .view-btn.active:focus-visible,
-body[data-theme="light"] .editor-preview-top > .panel:first-child .material-preview-button.active:focus-visible {
-  background: linear-gradient(180deg, rgba(15,118,110,0.16), rgba(15,118,110,0.08));
-  border-color: rgba(15,118,110,0.52);
-  color: #0f766e;
-  box-shadow: 0 8px 20px rgba(15,118,110,0.10), 0 0 0 1px rgba(15,118,110,0.12);
-}
-
 body[data-theme="light"] .drop-zone {
   border-color: rgba(15,118,110,0.70);
   background: rgba(15,118,110,0.06);
@@ -2534,6 +2514,48 @@ body[data-theme="light"] .status-message[data-type="success"] {
   .theme-toggle-btn {
     min-height: 34px;
   }
+}
+
+
+
+/* Light mode: make active preview toolbar buttons subtle.
+   Upload photo remains primary because it uses .top-upload-btn / .btn-primary. */
+body[data-theme="light"] .editor-preview-top > .panel:first-child .view-btn.active,
+body[data-theme="light"] .editor-preview-top > .panel:first-child .view-btn[aria-pressed="true"] {
+  background: linear-gradient(180deg, #ffffff 0%, #f3f7f7 100%) !important;
+  border-color: rgba(15, 23, 42, 0.14) !important;
+  color: #243041 !important;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04) !important;
+}
+
+body[data-theme="light"] .editor-preview-top > .panel:first-child .view-btn.active:hover,
+body[data-theme="light"] .editor-preview-top > .panel:first-child .view-btn[aria-pressed="true"]:hover,
+body[data-theme="light"] .editor-preview-top > .panel:first-child .view-btn.active:focus-visible,
+body[data-theme="light"] .editor-preview-top > .panel:first-child .view-btn[aria-pressed="true"]:focus-visible {
+  background: linear-gradient(180deg, #ffffff 0%, #eef5f5 100%) !important;
+  border-color: rgba(15, 118, 110, 0.24) !important;
+  color: #0f172a !important;
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.06) !important;
+}
+
+body[data-theme="light"] .editor-preview-top > .panel:first-child .material-preview-button,
+body[data-theme="light"] .editor-preview-top > .panel:first-child .material-preview-button.active,
+body[data-theme="light"] .editor-preview-top > .panel:first-child .material-preview-dropdown.open .material-preview-button,
+body[data-theme="light"] .editor-preview-top > .panel:first-child #materialCustomButton {
+  background: linear-gradient(180deg, #ffffff 0%, #f3f7f7 100%) !important;
+  border-color: rgba(15, 23, 42, 0.14) !important;
+  color: #243041 !important;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04) !important;
+}
+
+body[data-theme="light"] .editor-preview-top > .panel:first-child .material-preview-button:hover,
+body[data-theme="light"] .editor-preview-top > .panel:first-child .material-preview-button:focus-visible,
+body[data-theme="light"] .editor-preview-top > .panel:first-child #materialCustomButton:hover,
+body[data-theme="light"] .editor-preview-top > .panel:first-child #materialCustomButton:focus-visible {
+  background: linear-gradient(180deg, #ffffff 0%, #eef5f5 100%) !important;
+  border-color: rgba(15, 118, 110, 0.24) !important;
+  color: #0f172a !important;
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.06) !important;
 }
 
 </style>
