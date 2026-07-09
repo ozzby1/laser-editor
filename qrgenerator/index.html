@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Free Static QR Code Generator Online | No Signup | PhotoEngraving.online</title>
-<meta name="description" content="Create free static QR codes online for URL, text, WiFi, vCard, email, SMS, phone, calendar events, maps, WhatsApp, Bitcoin and SEPA payments. Customize classic or creative QR designs, colors, logo, size, margin and error correction. No signup and no database.">
+<title>Free Static QR Code Generator for Print | No Signup</title>
+<meta name="description" content="Create free static QR codes for URL, WiFi, vCard, email, SMS, maps, WhatsApp and payments. Customize colors, logo, size and download PNG or SVG. No signup.">
 <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
 <meta name="author" content="PhotoEngraving.online">
 <meta name="application-name" content="PhotoEngraving.online QR Generator">
@@ -311,6 +311,8 @@ h1 {
  flex-wrap: wrap;
  margin-top: 20px;
 }
+
+#generator { scroll-margin-top: 120px; }
 
 .grid-main {
  display: grid;
@@ -873,8 +875,8 @@ input[type="range"] {
  }
  .generator-column { display: contents; }
  .generator-column > .panel { order: 1; }
- .generator-column > .design-panel { order: 2; }
- .preview-sticky { order: 3; }
+ .preview-sticky { order: 2; }
+ .generator-column > .design-panel { order: 3; }
  .preview-sticky { position: static; }
 }
 
@@ -885,7 +887,7 @@ input[type="range"] {
  top: auto;
  padding: 10px;
  }
- .brand-logo { height: 56px; }
+ .brand-logo { height: 46px; }
  .header-actions {
  width: 100%;
  margin-left: 0;
@@ -2312,7 +2314,7 @@ module.exports = QRCode;
 </script>
 <meta name="qr-render-fix" content="QR_RENDER_FIX_VERSION_2026-07-01_CRISP_NO_GAPS"/>
 <meta name="qr-content-policy" content="QR_STATIC_ONLY_CONTENT_ONLY"/>
-<meta name="qr-ux-version" content="QR_UX_SIMPLE_WEBSITE_ONLY"/>
+<meta name="qr-ux-version" content="QR_UX_SEO_MOBILE_ADVANCED_OPEN_2026-07-09"/>
 </head>
 
 <body>
@@ -2330,11 +2332,15 @@ module.exports = QRCode;
 
  <main>
  <section class="hero">
- <h1>Create a printable QR code in seconds.</h1>
+ <h1>Free Static QR Code Generator for Print</h1>
  <p class="hero-text">
  Generate static QR codes directly in your browser for links, WiFi, contacts, messages, events, maps and payments.
  Start with the reliable classic style, then customize colors, logo and frame when you need a branded result.
  </p>
+ <div class="hero-actions">
+ <a class="btn btn-primary" href="#generator">Create QR code now</a>
+ <a class="btn btn-secondary" href="#qr-best-practices">Print and scan tips</a>
+ </div>
  <div class="quick-steps" aria-label="Quick steps">
  <div class="quick-step"><strong>1. Enter content</strong> Choose what the QR code should open and fill in the fields.</div>
  <div class="quick-step"><strong>2. Customize</strong> Choose a reliable style, colors, logo or frame when needed.</div>
@@ -2405,7 +2411,7 @@ module.exports = QRCode;
  </select>
  <div class="small-note">The default preset is the most compatible: full square modules with no white contour lines between them.</div>
  </div>
- <details class="advanced-settings full" id="advancedQualitySettings">
+ <details class="advanced-settings full" id="advancedQualitySettings" open>
  <summary>Advanced scan and print settings</summary>
  <div class="advanced-settings-inner">
  <div class="form-grid">
@@ -2490,6 +2496,10 @@ module.exports = QRCode;
  <div class="field">
  <label for="gradientColor">Second gradient color</label>
  <input id="gradientColor" type="color" value="#f97316">
+ </div>
+ <div class="field full">
+ <button class="btn btn-secondary" id="resetColorsBtn" type="button">Reset to safest colors</button>
+ <div class="small-note" style="margin-top:8px">Use dark foreground on a white background for maximum QR scan compatibility.</div>
  </div>
  <label class="check-row field full" for="transparentBg">
  <input id="transparentBg" type="checkbox">
@@ -2582,10 +2592,69 @@ module.exports = QRCode;
  </div>
  <div class="button-row two-buttons" style="margin-top:10px">
  <button class="btn btn-secondary" id="printBtn" type="button">Print QR</button>
- <button class="btn btn-secondary" id="openTargetBtn" type="button" disabled>Test link</button>
+ <button class="btn btn-secondary" id="openTargetBtn" type="button" disabled>Test QR target</button>
  </div>
  </div>
  </aside>
+ </section>
+
+ <section class="panel seo-section" id="qr-generator-summary">
+ <div class="panel-inner">
+ <div class="section-title">Quick answer</div>
+ <h2>What this free QR code generator does</h2>
+ <p>PhotoEngraving.online QR Generator is a free browser-based static QR code maker. It creates QR codes for URLs, WiFi access, vCards, email, SMS, phone numbers, calendar events, maps, WhatsApp messages, Bitcoin payments and SEPA bank payments. The QR content is generated locally in the browser and can be downloaded as PNG or SVG without signup.</p>
+ <p>Need to prepare photos for laser engraving? Try the <a href="https://photoengraving.online/">PhotoEngraving.online Laser Photo Editor</a>.</p>
+ </div>
+ </section>
+
+ <section class="panel seo-section" id="qr-code-use-cases">
+ <div class="panel-inner">
+ <div class="section-title">QR code use cases</div>
+ <h2>Popular ways to use a static QR code</h2>
+ <div class="help-grid">
+ <article class="help-card">
+ <h3>QR codes for business cards</h3>
+ <p>Create a vCard QR code with name, company, phone, email, website and address so customers can save your contact details quickly.</p>
+ </article>
+ <article class="help-card">
+ <h3>WiFi QR codes for guests</h3>
+ <p>Generate a WiFi QR code for guest networks in hotels, offices, cafés, rentals and waiting rooms. Print it near the router or reception desk.</p>
+ </article>
+ <article class="help-card">
+ <h3>QR codes for menus and flyers</h3>
+ <p>Use a website URL QR code for restaurant menus, product pages, event pages, PDF menus, instruction pages and landing pages.</p>
+ </article>
+ <article class="help-card">
+ <h3>Payment QR codes</h3>
+ <p>Create static Bitcoin or SEPA payment QR codes for simple payment instructions. Always test the final payment data before printing.</p>
+ </article>
+ <article class="help-card">
+ <h3>QR codes for packaging</h3>
+ <p>Add a static QR code to product labels, thank-you cards, manuals and packaging to link customers to instructions or support pages.</p>
+ </article>
+ <article class="help-card">
+ <h3>QR codes for events</h3>
+ <p>Create calendar event QR codes with title, time, location and description so visitors can save an event directly to their calendar.</p>
+ </article>
+ </div>
+ </div>
+ </section>
+
+ <section class="panel seo-section" id="qr-print-size-guide">
+ <div class="panel-inner">
+ <div class="section-title">Print guide</div>
+ <h2>QR code print size and scanning distance guide</h2>
+ <div class="seo-columns">
+ <div>
+ <h3>How large should a printed QR code be?</h3>
+ <p>For close-range scanning, use at least 2 × 2 cm. For posters, signs and packaging, a practical rule is to make the printed QR code about one tenth of the expected scanning distance.</p>
+ </div>
+ <div>
+ <h3>How to prepare QR codes for printing</h3>
+ <p>Use high contrast, keep a quiet zone around the code, avoid placing text or graphics too close to the modules, and scan-test the exported file after it is placed into the final artwork.</p>
+ </div>
+ </div>
+ </div>
  </section>
 
  <section class="panel seo-section" id="qr-best-practices">
@@ -2768,7 +2837,7 @@ module.exports = QRCode;
  }
 
  var examples = {
- url: { url: 'https://photoengraving.online/', normalizeUrl: true },
+ url: { url: 'https://photoengraving.online/', normalizeUrl: true, utmSource: '', utmMedium: '', utmCampaign: '', utmTerm: '', utmContent: '' },
  text: { text: 'This static QR code was generated in the browser.' },
  wifi: { ssid: 'Guest WiFi', password: 'guest-password', encryption: 'WPA', hidden: false },
  vcard: {
@@ -2805,7 +2874,14 @@ module.exports = QRCode;
  var fieldTemplates = {
  url: [
  field('url', 'Website URL', 'url', 'https://photoengraving.online/', 'full'),
- checkbox('normalizeUrl', 'Add https:// automatically if missing', true, 'full')
+ checkbox('normalizeUrl', 'Add https:// automatically if missing', true, 'full'),
+ '<details class="technical-details full"><summary>Optional campaign tracking (UTM)</summary><div class="technical-details-inner"><div class="form-grid">' +
+ field('utmSource', 'UTM source', 'text', 'newsletter') +
+ field('utmMedium', 'UTM medium', 'text', 'qr') +
+ field('utmCampaign', 'UTM campaign', 'text', 'summer-sale') +
+ field('utmTerm', 'UTM term', 'text', '') +
+ field('utmContent', 'UTM content', 'text', '') +
+ '</div><div class="small-note" style="margin-top:8px">Optional UTM parameters are added only when filled in. The QR code still stays static.</div></div></details>'
  ],
  text: [textareaField('text', 'Text to encode', 'Type any plain text here.', 'full')],
  wifi: [
@@ -2960,10 +3036,26 @@ module.exports = QRCode;
  if (!raw) return '';
  if (getField('normalizeUrl') && !/^[a-z][a-z0-9+.-]*:/i.test(raw)) raw = 'https://' + raw;
  try {
- return new URL(raw, window.location.href).href;
+ var urlObj = new URL(raw, window.location.href);
+ addUtmParams(urlObj);
+ return urlObj.href;
  } catch (e) {
  return raw;
  }
+ }
+
+ function addUtmParams(urlObj) {
+ var map = {
+ utmSource: 'utm_source',
+ utmMedium: 'utm_medium',
+ utmCampaign: 'utm_campaign',
+ utmTerm: 'utm_term',
+ utmContent: 'utm_content'
+ };
+ Object.keys(map).forEach(function (fieldName) {
+ var value = getField(fieldName);
+ if (value) urlObj.searchParams.set(map[fieldName], value);
+ });
  }
 
  function buildMailto() {
@@ -3082,6 +3174,7 @@ module.exports = QRCode;
  state.lastPayloadType = type;
  var payload = buildPayload(type);
  state.payload = payload;
+ saveDesignSettings();
  var payloadPreview = el('payloadPreview');
  if (payloadPreview) payloadPreview.value = payload;
 
@@ -3136,7 +3229,6 @@ module.exports = QRCode;
 
  function buildWarnings(qr, payload) {
  var warnings = [];
- if (payload.length > 900) warnings.push('The encoded content is long, so the QR pattern is dense. Shorter content scans faster.');
  if (Number(el('quietZone').value) < 4) warnings.push('A quiet zone under 4 modules may reduce scan reliability.');
  if (state.logoImage && el('errorCorrection').value !== 'H') warnings.push('A logo is loaded. Use H error correction for better damage recovery.');
  if (state.logoImage && Number(el('logoSize').value) > 14) warnings.push('The logo is near the safe limit. Test carefully or reduce it to 14% or less.');
@@ -3811,6 +3903,45 @@ canvas.width = 1024;
  if (!applyingDesignPreset && el('designPreset')) el('designPreset').value = 'custom';
  }
 
+
+ function resetSafeColors() {
+ if (el('foregroundColor')) el('foregroundColor').value = '#111827';
+ if (el('backgroundColor')) el('backgroundColor').value = '#ffffff';
+ if (el('gradientMode')) el('gradientMode').value = 'none';
+ if (el('gradientColor')) el('gradientColor').value = '#f97316';
+ if (el('transparentBg')) el('transparentBg').checked = false;
+ update();
+ }
+
+ var savedSettingsKey = 'photoengravingQrDesignSettingsV1';
+ var savedSettingIds = ['designPreset','errorCorrection','dotStyle','finderStyle','moduleSpacing','qrSize','quietZone','foregroundColor','backgroundColor','gradientMode','gradientColor','transparentBg','logoSize','logoShape','frameStyle','ctaText','fileName','printDistance'];
+
+ function saveDesignSettings() {
+ try {
+ var data = {};
+ savedSettingIds.forEach(function (id) {
+ var input = el(id);
+ if (!input) return;
+ data[id] = input.type === 'checkbox' ? input.checked : input.value;
+ });
+ window.localStorage.setItem(savedSettingsKey, JSON.stringify(data));
+ } catch (e) {}
+ }
+
+ function loadSavedDesignSettings() {
+ try {
+ var raw = window.localStorage.getItem(savedSettingsKey);
+ if (!raw) return;
+ var data = JSON.parse(raw);
+ Object.keys(data).forEach(function (id) {
+ var input = el(id);
+ if (!input) return;
+ if (input.type === 'checkbox') input.checked = Boolean(data[id]);
+ else input.value = data[id];
+ });
+ } catch (e) {}
+ }
+
  function bindEvents() {
  el('qrType').addEventListener('change', function () {
  renderFields(el('qrType').value);
@@ -3858,6 +3989,9 @@ canvas.width = 1024;
  });
  }
  el('removeLogoBtn').addEventListener('click', removeLogo);
+ if (el('resetColorsBtn')) {
+ el('resetColorsBtn').addEventListener('click', resetSafeColors);
+ }
  el('downloadPngBtn').addEventListener('click', downloadPng);
  if (el('downloadSvgBtn')) {
   el('downloadSvgBtn').addEventListener('click', downloadSvg);
@@ -3872,6 +4006,7 @@ canvas.width = 1024;
 
  bindEvents();
  loadActionCounter();
+ loadSavedDesignSettings();
  renderFields('url');
 })();
 </script>
