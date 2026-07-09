@@ -645,8 +645,8 @@ input[type="range"] {
 }
 
 .preview-sticky {
- position: sticky;
- top: 104px;
+ position: relative;
+ top: auto;
 }
 
 .qr-preview-shell {
@@ -1247,6 +1247,53 @@ body[data-theme="light"] .status-message[data-type="warning"] {
 @media (max-width: 760px) {
  .theme-toggle-btn {
   min-height: 34px;
+ }
+}
+
+
+
+/* Final requested visual fixes: non-sticky rounded header, rounded hero background and removed CTA area. */
+header.app-header {
+ position: relative !important;
+ top: auto !important;
+ border-radius: var(--radius-xl) !important;
+ margin-bottom: 1rem !important;
+ overflow: visible !important;
+}
+
+.hero {
+ padding: 22px 24px 24px !important;
+ margin: 0 0 1rem !important;
+ background: linear-gradient(180deg, rgba(255,255,255,0.025), rgba(255,255,255,0.01)), var(--panel) !important;
+ border: 1px solid var(--border) !important;
+ border-radius: var(--radius-xl) !important;
+ box-shadow: var(--shadow-md) !important;
+ backdrop-filter: blur(14px);
+ -webkit-backdrop-filter: blur(14px);
+}
+
+body[data-theme="light"] .hero {
+ background: linear-gradient(180deg, rgba(255,255,255,0.95), rgba(255,255,255,0.82)) !important;
+ border-color: rgba(15,23,42,0.10) !important;
+ box-shadow: 0 10px 30px rgba(15,23,42,0.08) !important;
+}
+
+.hero-actions {
+ display: none !important;
+}
+
+.preview-sticky {
+ position: relative !important;
+ top: auto !important;
+}
+
+@media (max-width: 760px) {
+ header.app-header {
+  border-radius: var(--radius-lg) !important;
+ }
+ .hero {
+  padding: 18px 16px 18px !important;
+  border-radius: var(--radius-lg) !important;
  }
 }
 
