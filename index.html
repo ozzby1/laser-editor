@@ -1357,6 +1357,20 @@ input[type=number]:focus {
   line-height: 1.65;
 }
 
+/* The comparison is moved into Material Preview by JavaScript. Keep it hidden
+   in its source position so it never appears in the normal page flow. */
+#ditherComparisonSection {
+  display: none;
+}
+
+#materialView #ditherComparisonSection {
+  display: block;
+  width: 100%;
+  margin-top: 16px;
+  background: rgba(255,255,255,0.018);
+  box-shadow: none;
+}
+
 .dither-comparison-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -4138,6 +4152,8 @@ const canvasSingle = document.getElementById('canvasSingle');
 const canvasCompareOrig = document.getElementById('canvasCompareOrig');
 const canvasCompareResult = document.getElementById('canvasCompareResult');
 const canvasMaterialPreview = document.getElementById('canvasMaterialPreview');
+const materialViewElement = document.getElementById('materialView');
+const ditherComparisonSection = document.getElementById('ditherComparisonSection');
 const ditherComparisonCanvases = {
   floyd: document.getElementById('canvasDitherFloyd'),
   atkinson: document.getElementById('canvasDitherAtkinson'),
@@ -4154,6 +4170,11 @@ const materialCustomSelect = document.getElementById('materialCustomSelect');
 const materialCustomOptions = document.getElementById('materialCustomOptions');
 const materialSelectNative = document.getElementById('materialSelectNative');
 const langButtons = document.querySelectorAll('.lang-option');
+
+if (materialViewElement && ditherComparisonSection) {
+  const materialMobileActions = materialViewElement.querySelector('.mobile-action-stack');
+  materialViewElement.insertBefore(ditherComparisonSection, materialMobileActions || null);
+}
 
 const LANG_DATA = {
   en: { flag: '🇬🇧', name: 'English' },
