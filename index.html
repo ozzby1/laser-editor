@@ -77,7 +77,7 @@
         "@id": "https://photoengraving.online/#webapp"
       },
       "primaryImageOfPage": "https://photoengraving.online/fb1.png",
-      "dateModified": "2026-07-07",
+      "dateModified": "2026-07-17",
       "inLanguage": "en",
       "keywords": [
         "convert image to laser engraving online free",
@@ -121,6 +121,8 @@
         "Real engraving size in millimeters",
         "Custom DPI setting",
         "Recommended DPI by material and engraving speed guidance",
+        "Live side-by-side comparison of Floyd-Steinberg, Atkinson, Jarvis and Ordered/Bayer dithering",
+        "Dithering recommendations for portraits, logos, wood, slate and metal",
         "Approximate material preview simulation for wood, slate, dark surfaces, stainless steel and leather",
         "Adjustable laser power in Material Preview",
         "Brightness and contrast adjustment",
@@ -1334,6 +1336,154 @@ input[type=number]:focus {
   line-height: 1.55;
 }
 
+.material-power-control {
+  margin-top: 12px;
+  padding: 13px 14px;
+  border-radius: 14px;
+  background: rgba(249,115,22,0.07);
+  border: 1px solid rgba(249,115,22,0.20);
+}
+
+.material-power-control label {
+  display: block;
+  margin-bottom: 5px;
+  color: #fdba74;
+}
+
+.dither-comparison-intro {
+  margin: -2px 0 16px;
+  color: #94a3b8;
+  font-size: 0.86rem;
+  line-height: 1.65;
+}
+
+.dither-comparison-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.dither-comparison-card {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  padding: 13px;
+  border-radius: 16px;
+  background: rgba(255,255,255,0.025);
+  border: 1px solid rgba(255,255,255,0.07);
+  transition: border-color 0.18s ease, background 0.18s ease, transform 0.18s ease;
+}
+
+.dither-comparison-card.active {
+  border-color: rgba(249,115,22,0.55);
+  background: rgba(249,115,22,0.07);
+  box-shadow: inset 0 0 0 1px rgba(249,115,22,0.10);
+}
+
+.dither-comparison-card-title {
+  margin: 0 0 9px;
+  color: #f8fafc;
+  font-size: 0.9rem;
+  font-weight: 800;
+}
+
+.dither-comparison-canvas-wrap {
+  overflow: hidden;
+  border-radius: 12px;
+  background: #000;
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+.dither-comparison-canvas-wrap canvas {
+  display: block;
+  width: 100%;
+  height: auto;
+  image-rendering: pixelated;
+}
+
+.dither-comparison-card-text {
+  flex: 1;
+  margin: 10px 0;
+  color: #94a3b8;
+  font-size: 0.76rem;
+  line-height: 1.55;
+}
+
+.dither-apply-btn {
+  width: 100%;
+  min-height: 38px;
+  border: 1px solid rgba(249,115,22,0.30);
+  border-radius: 10px;
+  background: rgba(249,115,22,0.09);
+  color: #fdba74;
+  font: inherit;
+  font-size: 0.76rem;
+  font-weight: 800;
+  cursor: pointer;
+  transition: background 0.18s ease, border-color 0.18s ease, color 0.18s ease;
+}
+
+.dither-apply-btn:hover,
+.dither-apply-btn:focus-visible,
+.dither-comparison-card.active .dither-apply-btn {
+  background: rgba(249,115,22,0.16);
+  border-color: rgba(249,115,22,0.55);
+  color: #ffffff;
+  outline: none;
+}
+
+.dither-recommendations-title {
+  margin: 22px 0 11px;
+  color: #f8fafc;
+  font-size: 0.98rem;
+  font-weight: 800;
+}
+
+.dither-recommendations-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.dither-recommendation-card {
+  padding: 13px 14px;
+  border-radius: 14px;
+  background: rgba(255,255,255,0.025);
+  border: 1px solid rgba(255,255,255,0.06);
+}
+
+.dither-recommendation-card:last-child {
+  grid-column: 1 / -1;
+}
+
+.dither-recommendation-card h3 {
+  margin: 0 0 5px;
+  color: #fdba74;
+  font-size: 0.84rem;
+}
+
+.dither-recommendation-card p {
+  margin: 0;
+  color: #94a3b8;
+  font-size: 0.78rem;
+  line-height: 1.6;
+}
+
+.dither-recommendation-card strong {
+  color: #e5edf6;
+}
+
+@media (max-width: 640px) {
+  .dither-comparison-grid,
+  .dither-recommendations-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .dither-recommendation-card:last-child {
+    grid-column: auto;
+  }
+}
+
 .empty-steps {
   display: flex;
   gap: 10px;
@@ -2299,7 +2449,10 @@ body[data-theme="light"] .toggle-control,
 body[data-theme="light"] .empty-step,
 body[data-theme="light"] .status-message,
 body[data-theme="light"] .processed-total-badge,
-body[data-theme="light"] .material-preview-disclaimer {
+body[data-theme="light"] .material-preview-disclaimer,
+body[data-theme="light"] .material-power-control,
+body[data-theme="light"] .dither-comparison-card,
+body[data-theme="light"] .dither-recommendation-card {
   background: linear-gradient(180deg, rgba(255,255,255,0.95), rgba(255,255,255,0.82));
   border-color: rgba(15,23,42,0.10);
   color: var(--text);
@@ -2313,6 +2466,8 @@ body[data-theme="light"] h1[data-i18n="heroTitle"],
 body[data-theme="light"] .crop-modal-title,
 body[data-theme="light"] .help-section-title,
 body[data-theme="light"] .help-card-title,
+body[data-theme="light"] .dither-comparison-card-title,
+body[data-theme="light"] .dither-recommendations-title,
 body[data-theme="light"] .text-white {
   color: var(--heading) !important;
 }
@@ -2325,6 +2480,9 @@ body[data-theme="light"] .help-card-text,
 body[data-theme="light"] .helper-text,
 body[data-theme="light"] .footer-note,
 body[data-theme="light"] .hint-line,
+body[data-theme="light"] .dither-comparison-intro,
+body[data-theme="light"] .dither-comparison-card-text,
+body[data-theme="light"] .dither-recommendation-card p,
 body[data-theme="light"] .text-slate-400 {
   color: #475569 !important;
 }
@@ -2339,6 +2497,7 @@ body[data-theme="light"] .canvas-label.accent,
 body[data-theme="light"] .slider-val,
 body[data-theme="light"] .text-orange-300,
 body[data-theme="light"] .help-table td:first-child,
+body[data-theme="light"] .dither-recommendation-card h3,
 body[data-theme="light"] .processed-total-badge span {
   color: var(--accent) !important;
 }
@@ -2357,7 +2516,8 @@ body[data-theme="light"] .view-btn,
 body[data-theme="light"] .crop-aspect-btn,
 body[data-theme="light"] .preset-card,
 body[data-theme="light"] .theme-toggle-btn,
-body[data-theme="light"] .guide-btn {
+body[data-theme="light"] .guide-btn,
+body[data-theme="light"] .dither-apply-btn {
   background: rgba(255,255,255,0.80);
   color: #243041;
   border-color: rgba(15,23,42,0.12);
@@ -2369,7 +2529,9 @@ body[data-theme="light"] .crop-aspect-btn:hover,
 body[data-theme="light"] .preset-card:hover,
 body[data-theme="light"] .theme-toggle-btn:hover,
 body[data-theme="light"] .guide-btn:hover,
-body[data-theme="light"] .guide-btn:focus-visible {
+body[data-theme="light"] .guide-btn:focus-visible,
+body[data-theme="light"] .dither-apply-btn:hover,
+body[data-theme="light"] .dither-apply-btn:focus-visible {
   background: rgba(15,118,110,0.08);
   border-color: rgba(15,118,110,0.35);
   color: #0f172a;
@@ -2377,7 +2539,8 @@ body[data-theme="light"] .guide-btn:focus-visible {
 }
 
 body[data-theme="light"] .preset-card.active,
-body[data-theme="light"] .empty-step.primary {
+body[data-theme="light"] .empty-step.primary,
+body[data-theme="light"] .dither-comparison-card.active {
   background: linear-gradient(180deg, rgba(15,118,110,0.12), rgba(15,118,110,0.06));
   border-color: rgba(15,118,110,0.45);
   color: var(--accent);
@@ -2482,9 +2645,15 @@ body[data-theme="light"] .material-preview-note {
 }
 
 body[data-theme="light"] .material-preview-note strong,
+body[data-theme="light"] .material-power-control label,
+body[data-theme="light"] .dither-recommendation-card h3,
 body[data-theme="light"] .hint-upload-link,
 body[data-theme="light"] .helpOutputSizeFormula {
   color: var(--accent) !important;
+}
+
+body[data-theme="light"] .dither-recommendation-card strong {
+  color: #0f172a;
 }
 
 body[data-theme="light"] input[type=range] {
@@ -2691,11 +2860,6 @@ body[data-theme="light"] .editor-preview-top > .panel:first-child .material-prev
        User Guide
       </span>
 </a>
-<a aria-label="Open QR Generator" class="guide-btn" data-i18n-aria-label="qrGeneratorAriaLabel" href="https://photoengraving.online/qrgenerator/">
-<span data-i18n="qrGeneratorBtn">
-       QR Generator
-      </span>
-</a>
 </div>
 </header>
 <div aria-hidden="true" class="crop-modal-overlay" id="cropModalOverlay">
@@ -2897,6 +3061,20 @@ body[data-theme="light"] .editor-preview-top > .panel:first-child .material-prev
 <div class="material-preview-note" data-i18n-html="materialTipNone" id="materialPreviewTip">
          Select a material to see an approximate preview of how the engraved image may look on the surface.
         </div>
+<div class="material-power-control">
+<label data-i18n="labelMaterialPower" for="materialPower">
+         Material Preview laser power
+        </label>
+<div class="slider-row mt-1">
+<input id="materialPower" max="160" min="40" step="5" type="range" value="100"/>
+<span class="slider-val" id="materialPowerVal">
+          100%
+         </span>
+</div>
+<div class="helper-text" data-i18n="materialPowerHelp">
+         Adjusts only the Material Preview to simulate weaker or stronger laser marks. Higher power can darken the mark; burnable materials may also show more edge spread. The exported PNG/BMP stays unchanged.
+        </div>
+</div>
 <div class="material-preview-disclaimer" data-i18n="materialPreviewDisclaimer">
          This is an approximate visual simulation only. The downloaded PNG/BMP remains the clean black-and-white laser-ready output.
         </div>
@@ -2983,17 +3161,6 @@ body[data-theme="light"] .editor-preview-top > .panel:first-child .material-prev
           0.0
          </span>
 </div>
-</div>
-<div>
-<label data-i18n="labelMaterialPower" for="materialPower">
-         Material Preview laser power
-        </label>
-<div class="slider-row mt-1">
-<input id="materialPower" max="160" min="40" step="5" type="range" value="100"/>
-</div>
-<div class="helper-text" data-i18n="materialPowerHelp">
-         Adjusts only the Material Preview to simulate weaker or stronger laser marks. Higher power can darken the mark; burnable materials may also show more edge spread. The exported PNG/BMP stays unchanged.
-        </div>
 </div>
 <input hidden="" id="invertColors" type="checkbox"/>
 <div class="grid grid-cols-1 sm:grid-cols-1 gap-2 pt-1">
@@ -3150,6 +3317,97 @@ body[data-theme="light"] .editor-preview-top > .panel:first-child .material-prev
 </div>
 </div>
 <div class="editor-left-extra">
+<section class="panel p-5" id="ditherComparisonSection">
+<h2 class="help-section-title" data-i18n="ditherComparisonTitle">
+       Compare dithering methods on your photo
+      </h2>
+<p class="dither-comparison-intro" data-i18n="ditherComparisonIntro">
+       All four previews use the same crop, tonal adjustments and Photo Type. Use the button below a preview to apply that method to the main laser-ready output.
+      </p>
+<div class="dither-comparison-grid" id="ditherComparisonGrid">
+<article class="dither-comparison-card active" data-comparison-mode="floyd">
+<h3 class="dither-comparison-card-title" data-i18n="ditherFloyd">
+         Floyd-Steinberg
+        </h3>
+<div class="dither-comparison-canvas-wrap">
+<canvas aria-label="Floyd-Steinberg dithering preview" id="canvasDitherFloyd"></canvas>
+</div>
+<p class="dither-comparison-card-text" data-i18n="ditherFloydDescription">
+         Balanced contrast and detail. A reliable first choice for most photographs and materials.
+        </p>
+<button class="dither-apply-btn" data-apply-dither="floyd" data-i18n="ditherUseFloyd" type="button">
+         Use Floyd-Steinberg
+        </button>
+</article>
+<article class="dither-comparison-card" data-comparison-mode="atkinson">
+<h3 class="dither-comparison-card-title" data-i18n="ditherAtkinson">
+         Atkinson
+        </h3>
+<div class="dither-comparison-canvas-wrap">
+<canvas aria-label="Atkinson dithering preview" id="canvasDitherAtkinson"></canvas>
+</div>
+<p class="dither-comparison-card-text" data-i18n="ditherAtkinsonDescription">
+         A lighter, softer pattern that can keep skin tones and heat-sensitive materials cleaner.
+        </p>
+<button class="dither-apply-btn" data-apply-dither="atkinson" data-i18n="ditherUseAtkinson" type="button">
+         Use Atkinson
+        </button>
+</article>
+<article class="dither-comparison-card" data-comparison-mode="jarvis">
+<h3 class="dither-comparison-card-title" data-i18n="ditherJarvis">
+         Jarvis
+        </h3>
+<div class="dither-comparison-canvas-wrap">
+<canvas aria-label="Jarvis dithering preview" id="canvasDitherJarvis"></canvas>
+</div>
+<p class="dither-comparison-card-text" data-i18n="ditherJarvisDescription">
+         Smooth tonal transitions with a denser pattern. Useful when the material can hold fine dots.
+        </p>
+<button class="dither-apply-btn" data-apply-dither="jarvis" data-i18n="ditherUseJarvis" type="button">
+         Use Jarvis
+        </button>
+</article>
+<article class="dither-comparison-card" data-comparison-mode="ordered">
+<h3 class="dither-comparison-card-title" data-i18n="ditherOrdered">
+         Ordered / Bayer
+        </h3>
+<div class="dither-comparison-canvas-wrap">
+<canvas aria-label="Ordered Bayer dithering preview" id="canvasDitherOrdered"></canvas>
+</div>
+<p class="dither-comparison-card-text" data-i18n="ditherOrderedDescription">
+         A regular, visible dot pattern. Best for graphic looks, raster logos and predictable repetition.
+        </p>
+<button class="dither-apply-btn" data-apply-dither="ordered" data-i18n="ditherUseOrdered" type="button">
+         Use Ordered / Bayer
+        </button>
+</article>
+</div>
+<h3 class="dither-recommendations-title" data-i18n="ditherRecommendationsTitle">
+       Recommended starting points
+      </h3>
+<div class="dither-recommendations-grid">
+<article class="dither-recommendation-card">
+<h3 data-i18n="recommendPortraitTitle">Portrait</h3>
+<p data-i18n-html="recommendPortraitText"><strong>Start with Floyd-Steinberg.</strong> Try Atkinson when skin or highlights look too dark. Use Normal Photo on light materials and Negative on dark surfaces.</p>
+</article>
+<article class="dither-recommendation-card">
+<h3 data-i18n="recommendLogoTitle">Logo</h3>
+<p data-i18n-html="recommendLogoText"><strong>Start with Ordered / Bayer</strong> for a regular raster pattern. For clean outlines and solid shapes, a vector logo in your laser software is usually better than dithering.</p>
+</article>
+<article class="dither-recommendation-card">
+<h3 data-i18n="recommendWoodTitle">Wood</h3>
+<p data-i18n-html="recommendWoodText"><strong>Start with 254 DPI and Floyd-Steinberg.</strong> Try Atkinson if dots spread or shadows burn together. Keep dark areas open and test on the same wood.</p>
+</article>
+<article class="dither-recommendation-card">
+<h3 data-i18n="recommendSlateTitle">Slate</h3>
+<p data-i18n-html="recommendSlateText"><strong>Start with Negative, 254–300 DPI and Floyd-Steinberg.</strong> Try Jarvis for smoother tones if the slate keeps fine light marks.</p>
+</article>
+<article class="dither-recommendation-card">
+<h3 data-i18n="recommendMetalTitle">Metal</h3>
+<p data-i18n-html="recommendMetalText"><strong>For dark anodized or coated metal, start with Negative and Floyd-Steinberg or Jarvis.</strong> Use 300–508 DPI only when the laser spot and coating can reproduce it. Bare stainless steel, marking spray and fiber marking require separate tests.</p>
+</article>
+</div>
+</section>
 <section class="panel p-5">
 <h2 class="help-section-title" data-i18n="seoIntroTitle">
        Free image to laser engraving converter online
@@ -3159,7 +3417,7 @@ body[data-theme="light"] .editor-preview-top > .panel:first-child .material-prev
        <strong class="text-white">
         PhotoEngraving.online
        </strong>
-       as a free image to laser engraving converter directly in your browser. Upload a photo or image, convert it to a laser-ready black-and-white PNG or 1-bit BMP, choose photo type and DPI, check recommended engraving speed by material, adjust brightness, contrast, gamma and sharpness, then download the result for LightBurn, XCS, LaserGRBL, EZCAD and similar laser software.
+       is a free image to laser engraving converter that runs directly in your browser. Upload a photo or image, convert it to a laser-ready black-and-white PNG or 1-bit BMP, choose photo type and DPI, preview common materials and download the result for LightBurn, XCS, LaserGRBL, EZCAD and similar laser software.
       </p>
 <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
 <div class="help-card">
@@ -3167,7 +3425,7 @@ body[data-theme="light"] .editor-preview-top > .panel:first-child .material-prev
          Free online tool
         </h3>
 <div class="help-card-text" data-i18n="seoCard1Text">
-         No installation needed. Convert photos for laser engraving online and download the PNG for free.
+         No installation and no account. Open the page, upload a photo and prepare the engraving file in your browser.
         </div>
 </div>
 <div class="help-card">
@@ -3175,7 +3433,7 @@ body[data-theme="light"] .editor-preview-top > .panel:first-child .material-prev
          Laser-ready output
         </h3>
 <div class="help-card-text" data-i18n="seoCard2Text">
-         Export black-and-white PNG or BMP files with DPI metadata and engraving speed guidance for the correct physical size in laser software.
+         Download black-and-white PNG or 1-bit BMP files with DPI metadata, so the physical size is easier to keep in LightBurn, XCS, LaserGRBL and EZCAD.
         </div>
 </div>
 <div class="help-card">
@@ -3229,7 +3487,7 @@ body[data-theme="light"] .editor-preview-top > .panel:first-child .material-prev
 <strong class="text-white">
          Photo Engraving Online
         </strong>
-        converts a regular photo into a rasterized black-and-white image optimized for CO2 or diode laser engraving. You can then import the resulting PNG directly into your laser software (LightBurn, LaserGRBL, XCS, etc.) and engrave it.
+        prepares a normal photo for laser engraving by controlling crop, tones, dithering, output size and DPI. The result is a black-and-white PNG or BMP you can import into LightBurn, XCS, LaserGRBL, EZCAD and similar laser software.
        </p>
 </div>
 <div class="panel p-5">
@@ -3316,7 +3574,7 @@ body[data-theme="light"] .editor-preview-top > .panel:first-child .material-prev
            Choose photo type and dithering
           </h3>
 <p class="text-sm mt-1 text-slate-400" data-i18n="helpStep2Text">
-           Start with Normal Photo, Negative, People, Dark Photo or Light Photo. Then choose the dithering pattern: Floyd-Steinberg is a balanced default, Atkinson is softer, Jarvis keeps smoother tones, and Ordered/Bayer is useful for graphic, regular-dot looks.
+           Start with Normal Photo, Negative, Dark Photo or Light Photo. Then choose the dithering pattern: Floyd-Steinberg is a balanced default, Atkinson is softer, Jarvis keeps smoother tones, and Ordered/Bayer is useful for graphic, regular-dot looks.
           </p>
 </div>
 </div>
@@ -3514,7 +3772,6 @@ body[data-theme="light"] .editor-preview-top > .panel:first-child .material-prev
 </div>
 </div>
 </div>
-</div>
 <div class="processed-total-wrap">
 <div class="processed-total-badge">
 <span data-i18n="counterLabel">
@@ -3583,8 +3840,6 @@ const translations = {
     counterLabel: 'Processed:',
     guideBtn: 'User Guide',
     guideAriaLabel: 'Open laser photo engraving user guide',
-    qrGeneratorBtn: 'QR Generator',
-    qrGeneratorAriaLabel: 'Open QR Generator',
     btnOutput: 'Output',
     btnCompare: 'Original + Output',
     emptyOriginal: 'ORIGINAL',
@@ -3615,7 +3870,6 @@ const translations = {
     presetCustom: 'Custom',
     presetNormal: 'Normal Photo',
     presetNegative: 'Negative',
-    presetPortrait: 'People',
     presetDark: 'Dark Photo',
     presetLight: 'Light Photo',
     presetDetail: '🔍 More Detail',
@@ -3626,6 +3880,27 @@ const translations = {
     ditherJarvis: 'Jarvis',
     ditherOrdered: 'Ordered / Bayer',
     ditherHelp: 'Floyd-Steinberg is the balanced choice. Atkinson is softer, Jarvis is smoother with more tones, and Ordered/Bayer creates a regular pattern (suitable for logos and graphics).',
+    ditherComparisonTitle: 'Compare dithering methods on your photo',
+    ditherComparisonIntro: 'All four previews use the same crop, tonal adjustments and Photo Type. Use the button below a preview to apply that method to the main laser-ready output.',
+    ditherFloydDescription: 'Balanced contrast and detail. A reliable first choice for most photographs and materials.',
+    ditherAtkinsonDescription: 'A lighter, softer pattern that can keep skin tones and heat-sensitive materials cleaner.',
+    ditherJarvisDescription: 'Smooth tonal transitions with a denser pattern. Useful when the material can hold fine dots.',
+    ditherOrderedDescription: 'A regular, visible dot pattern. Best for graphic looks, raster logos and predictable repetition.',
+    ditherUseFloyd: 'Use Floyd-Steinberg',
+    ditherUseAtkinson: 'Use Atkinson',
+    ditherUseJarvis: 'Use Jarvis',
+    ditherUseOrdered: 'Use Ordered / Bayer',
+    ditherRecommendationsTitle: 'Recommended starting points',
+    recommendPortraitTitle: 'Portrait',
+    recommendPortraitText: '<strong>Start with Floyd-Steinberg.</strong> Try Atkinson when skin or highlights look too dark. Use Normal Photo on light materials and Negative on dark surfaces.',
+    recommendLogoTitle: 'Logo',
+    recommendLogoText: '<strong>Start with Ordered / Bayer</strong> for a regular raster pattern. For clean outlines and solid shapes, a vector logo in your laser software is usually better than dithering.',
+    recommendWoodTitle: 'Wood',
+    recommendWoodText: '<strong>Start with 254 DPI and Floyd-Steinberg.</strong> Try Atkinson if dots spread or shadows burn together. Keep dark areas open and test on the same wood.',
+    recommendSlateTitle: 'Slate',
+    recommendSlateText: '<strong>Start with Negative, 254–300 DPI and Floyd-Steinberg.</strong> Try Jarvis for smoother tones if the slate keeps fine light marks.',
+    recommendMetalTitle: 'Metal',
+    recommendMetalText: '<strong>For dark anodized or coated metal, start with Negative and Floyd-Steinberg or Jarvis.</strong> Use 300–508 DPI only when the laser spot and coating can reproduce it. Bare stainless steel, marking spray and fiber marking require separate tests.',
     sectionAdjustments: 'Photo Adjustments',
     labelBrightness: 'Brightness',
     labelContrast: 'Contrast',
@@ -3690,7 +3965,7 @@ const translations = {
     helpStep1Title: 'Upload a photo',
     helpStep1Text: 'Click Upload photo and choose a JPG, PNG, BMP or WebP file. For best results, start with a sharp photo, clear lighting and visible detail in the subject.',
     helpStep2Title: 'Choose photo type and dithering',
-    helpStep2Text: 'Start with Normal Photo, Negative, People, Dark Photo or Light Photo. Then choose the dithering pattern: Floyd-Steinberg is a balanced default, Atkinson is softer, Jarvis keeps smoother tones, and Ordered/Bayer is useful for graphic, regular-dot looks.',
+    helpStep2Text: 'Start with Normal Photo, Negative, Dark Photo or Light Photo. Then choose the dithering pattern: Floyd-Steinberg is a balanced default, Atkinson is softer, Jarvis keeps smoother tones, and Ordered/Bayer is useful for graphic, regular-dot looks.',
     helpStep3Title: 'Tune the image and Material Preview',
     helpStep3Text: 'Adjust brightness, contrast, gamma and sharpness while comparing the original with the output. Then use Material Preview to get a rough idea of how the file may behave on wood, slate, dark surfaces, stainless steel or leather.',
     helpStep4Title: 'Set size, DPI and export',
@@ -3734,6 +4009,7 @@ const PRESETS = {
 };
 
 const DITHER_MODES = ['floyd', 'atkinson', 'jarvis', 'ordered'];
+const DITHER_COMPARISON_MAX_PX = 420;
 
 const MATERIAL_PREVIEW_MAX_PX = 1600;
 
@@ -3865,9 +4141,17 @@ const canvasSingle = document.getElementById('canvasSingle');
 const canvasCompareOrig = document.getElementById('canvasCompareOrig');
 const canvasCompareResult = document.getElementById('canvasCompareResult');
 const canvasMaterialPreview = document.getElementById('canvasMaterialPreview');
+const ditherComparisonCanvases = {
+  floyd: document.getElementById('canvasDitherFloyd'),
+  atkinson: document.getElementById('canvasDitherAtkinson'),
+  jarvis: document.getElementById('canvasDitherJarvis'),
+  ordered: document.getElementById('canvasDitherOrdered')
+};
 
 const presetCards = document.querySelectorAll('#presetCards .preset-card');
 const ditherCards = document.querySelectorAll('#ditherCards .preset-card');
+const ditherComparisonCards = document.querySelectorAll('[data-comparison-mode]');
+const ditherApplyButtons = document.querySelectorAll('[data-apply-dither]');
 const materialCards = document.querySelectorAll('#materialCards .material-card');
 const materialCustomSelect = document.getElementById('materialCustomSelect');
 const materialCustomOptions = document.getElementById('materialCustomOptions');
@@ -5178,6 +5462,12 @@ ditherCards.forEach(card => {
   makeKeyboardClickable(card, () => setDitherMode(card.dataset.dither, { markCustom: true }));
 });
 
+ditherApplyButtons.forEach(button => {
+  button.addEventListener('click', () => {
+    setDitherMode(button.dataset.applyDither, { markCustom: true });
+  });
+});
+
 materialCards.forEach(card => {
   makeKeyboardClickable(card, () => toggleMaterialPreviewFromCard(card.dataset.material));
 });
@@ -5327,6 +5617,16 @@ function setActiveDitherCard(mode) {
     const isActive = card.dataset.dither === selectedMode;
     card.classList.toggle('active', isActive);
     card.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+  });
+
+  ditherComparisonCards.forEach(card => {
+    const isActive = card.dataset.comparisonMode === selectedMode;
+    card.classList.toggle('active', isActive);
+  });
+
+  ditherApplyButtons.forEach(button => {
+    const isActive = button.dataset.applyDither === selectedMode;
+    button.setAttribute('aria-pressed', isActive ? 'true' : 'false');
   });
 }
 
@@ -5491,7 +5791,13 @@ function initializeCanvasMagnifier() {
   if (existingLens) existingLens.remove();
 
   const MAGNIFIER_ZOOM = 4;
-  const canvases = [canvasSingle, canvasCompareOrig, canvasCompareResult, canvasMaterialPreview].filter(Boolean);
+  const canvases = [
+    canvasSingle,
+    canvasCompareOrig,
+    canvasCompareResult,
+    canvasMaterialPreview,
+    ...Object.values(ditherComparisonCanvases)
+  ].filter(Boolean);
   if (!canvases.length) return;
 
   const lens = document.createElement('div');
@@ -5954,6 +6260,58 @@ function updateSizeInfo() {
   }
 }
 
+function renderDitherComparison() {
+  if (!originalImage) return;
+
+  const sourceRect = getActiveSourceRect();
+  if (!sourceRect || !sourceRect.width || !sourceRect.height) return;
+
+  const availableCanvases = Object.entries(ditherComparisonCanvases).filter(([, canvas]) => Boolean(canvas));
+  if (!availableCanvases.length) return;
+
+  try {
+    const scale = Math.min(1, DITHER_COMPARISON_MAX_PX / Math.max(sourceRect.width, sourceRect.height));
+    const w = Math.max(1, Math.round(sourceRect.width * scale));
+    const h = Math.max(1, Math.round(sourceRect.height * scale));
+    const sourceCanvas = document.createElement('canvas');
+    sourceCanvas.width = w;
+    sourceCanvas.height = h;
+
+    const sourceCtx = sourceCanvas.getContext('2d', { willReadFrequently: true });
+    if (!sourceCtx) return;
+
+    sourceCtx.drawImage(
+      originalImage,
+      sourceRect.x,
+      sourceRect.y,
+      sourceRect.width,
+      sourceRect.height,
+      0,
+      0,
+      w,
+      h
+    );
+
+    let baseImageData = sourceCtx.getImageData(0, 0, w, h);
+    toGrayscale(baseImageData);
+    applyBrightnessContrast(baseImageData);
+    applyGamma(baseImageData);
+
+    const sharp = parseFloat(sharpness.value);
+    if (sharp > 0) baseImageData = applySharpen(baseImageData, w, h, sharp);
+
+    availableCanvases.forEach(([mode, canvas]) => {
+      const comparisonData = sourceCtx.createImageData(w, h);
+      comparisonData.data.set(baseImageData.data);
+      applyDithering(comparisonData, w, h, mode, FIXED_THRESHOLD);
+      if (invertColors.checked) invertImageData(comparisonData);
+      putImageDataToCanvas(canvas, comparisonData, w, h);
+    });
+  } catch (err) {
+    console.warn('Dithering comparison could not be rendered.', err);
+  }
+}
+
 function processImage(options = {}) {
   if (!originalImage) return false;
 
@@ -5991,6 +6349,7 @@ function processImage(options = {}) {
     drawOriginalIntoCanvas(canvasCompareOrig, w, h, sourceRect);
     putImageDataToCanvas(canvasCompareResult, imageData, w, h);
     putImageDataToCanvas(canvasSingle, imageData, w, h);
+    renderDitherComparison();
     updateMaterialPreviewFromCurrentCanvas();
 
     const imageDimsEl = document.getElementById('imageDims');
