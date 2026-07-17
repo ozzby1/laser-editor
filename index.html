@@ -1359,15 +1359,15 @@ input[type=number]:focus {
 
 .dither-comparison-grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 12px;
+  grid-template-columns: 1fr;
+  gap: 20px;
 }
 
 .dither-comparison-card {
   display: flex;
   flex-direction: column;
   min-width: 0;
-  padding: 13px;
+  padding: 16px;
   border-radius: 16px;
   background: rgba(255,255,255,0.025);
   border: 1px solid rgba(255,255,255,0.07);
@@ -1381,9 +1381,9 @@ input[type=number]:focus {
 }
 
 .dither-comparison-card-title {
-  margin: 0 0 9px;
+  margin: 0 0 12px;
   color: #f8fafc;
-  font-size: 0.9rem;
+  font-size: 1rem;
   font-weight: 800;
 }
 
@@ -1403,9 +1403,9 @@ input[type=number]:focus {
 
 .dither-comparison-card-text {
   flex: 1;
-  margin: 10px 0;
+  margin: 12px 0;
   color: #94a3b8;
-  font-size: 0.76rem;
+  font-size: 0.82rem;
   line-height: 1.55;
 }
 
@@ -3067,9 +3067,6 @@ body[data-theme="light"] .editor-preview-top > .panel:first-child .material-prev
         </label>
 <div class="slider-row mt-1">
 <input id="materialPower" max="160" min="40" step="5" type="range" value="100"/>
-<span class="slider-val" id="materialPowerVal">
-          100%
-         </span>
 </div>
 <div class="helper-text" data-i18n="materialPowerHelp">
          Adjusts only the Material Preview to simulate weaker or stronger laser marks. Higher power can darken the mark; burnable materials may also show more edge spread. The exported PNG/BMP stays unchanged.
@@ -4009,7 +4006,7 @@ const PRESETS = {
 };
 
 const DITHER_MODES = ['floyd', 'atkinson', 'jarvis', 'ordered'];
-const DITHER_COMPARISON_MAX_PX = 420;
+const DITHER_COMPARISON_MAX_PX = 900;
 
 const MATERIAL_PREVIEW_MAX_PX = 1600;
 
