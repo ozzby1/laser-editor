@@ -3387,6 +3387,7 @@ body[data-theme="light"] .editor-preview-top > .panel:first-child .material-prev
 .donate-actions{display:flex;gap:8px;flex-wrap:wrap}
 .donate-btn{cursor:pointer;border:0;border-radius:10px;padding:7px 12px;font-size:.8rem;font-weight:700;color:#fff;background:linear-gradient(135deg,var(--accent) 0%,var(--accent2) 100%);text-decoration:none;display:inline-block}
 .donate-btn.ghost{background:transparent;color:var(--accent);border:1px solid var(--accent)}
+.donate-box.in-column{max-width:none;margin:0;width:100%;box-sizing:border-box}
 .donate-dl-row{display:flex;gap:8px;width:100%;box-sizing:border-box}
 .donate-dl-row>*{flex:1 1 0;min-width:0;width:auto!important;max-width:none!important;margin:0!important}
 .donate-dl-row.is-mobile{max-width:320px;margin-left:auto;margin-right:auto}
@@ -3468,6 +3469,10 @@ body[data-theme="light"] .editor-preview-top > .panel:first-child .material-prev
     return T[l]?l:(T[l.split("-")[0]]?l.split("-")[0]:"en");
   }
   function strings(){var l=lang();return T[l].concat(T2[l]);}
+
+  /* Place the box in the left column under the FAQ, so it lines up with the page layout */
+  var box=document.getElementById("donate"),col=document.querySelector(".editor-left-extra");
+  if(box&&col){col.appendChild(box);box.classList.add("in-column");}
 
   /* Support button next to every "Download BMP" button (BMP gets half width) */
   document.querySelectorAll('[id^="downloadBmpBtn"]').forEach(function(bmp){
