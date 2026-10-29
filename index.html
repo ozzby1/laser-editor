@@ -3395,7 +3395,8 @@ body[data-theme="light"] .editor-preview-top > .panel:first-child .material-prev
 .donate-dl-row.is-mobile{max-width:320px;margin-left:auto;margin-right:auto}
 @media (max-width:640px){.donate-dl-row.is-mobile{max-width:none}}
 .donate-dl-support{display:inline-flex;align-items:center;justify-content:center;gap:6px;text-decoration:none}
-.donate-dl-support [aria-hidden]{color:var(--accent)}
+.donate-dl-support .donate-heart{color:var(--accent);flex:none}
+.donate-toast .donate-btn{display:inline-flex;align-items:center;gap:6px}
 .donate-toast{position:fixed;left:16px;right:16px;margin:0 auto;width:fit-content;bottom:18px;transform:translateY(140%);opacity:0;transition:transform .35s ease,opacity .35s ease;z-index:9999;display:flex;gap:10px;align-items:center;max-width:calc(100% - 32px);box-sizing:border-box;padding:12px 14px;border-radius:14px;background:var(--panel-strong,rgba(20,23,34,.96));border:1px solid var(--border-strong,rgba(255,255,255,.12));box-shadow:var(--shadow-lg,0 18px 50px rgba(0,0,0,.3));color:var(--text,#e5edf6);font-size:.88rem}
 .donate-toast.show{transform:translateY(0);opacity:1}
 .donate-toast .donate-btn{white-space:nowrap}
@@ -3450,20 +3451,20 @@ body[data-theme="light"] .editor-preview-top > .panel:first-child .material-prev
     zh:["支持 PhotoEngraving.online","本工具免费使用。如果对您有帮助，欢迎用加密货币打赏。谢谢！","几乎零手续费，适合小额打赏","仅限 Solana 网络","复制","已复制","打开钱包"]
   };
   var T2={
-    en:["Support","Did it help you? Support the free tool with a small tip.","Support ❤"],
-    cs:["Podpořit","Pomohlo vám to? Podpořte nástroj zdarma malým příspěvkem.","Podpořit ❤"],
-    de:["Unterstützen","Hat es dir geholfen? Unterstütze das kostenlose Tool mit einem kleinen Trinkgeld.","Unterstützen ❤"],
-    es:["Apoyar","¿Te ha servido? Apoya la herramienta gratuita con una pequeña propina.","Apoyar ❤"],
-    fr:["Soutenir","Cela vous a aidé ? Soutenez l’outil gratuit avec un petit pourboire.","Soutenir ❤"],
-    hi:["समर्थन करें","क्या इससे मदद मिली? छोटी टिप देकर इस मुफ्त टूल का समर्थन करें।","समर्थन करें ❤"],
-    it:["Sostieni","Ti è stato utile? Sostieni lo strumento gratuito con una piccola mancia.","Sostieni ❤"],
-    ja:["応援する","お役に立ちましたか？少額のチップで無料ツールを応援してください。","応援する ❤"],
-    ko:["후원하기","도움이 되셨나요? 작은 팁으로 무료 도구를 후원해 주세요.","후원하기 ❤"],
-    pl:["Wesprzyj","Pomogło? Wesprzyj darmowe narzędzie małym napiwkiem.","Wesprzyj ❤"],
-    "pt-br":["Apoiar","Ajudou você? Apoie a ferramenta gratuita com uma pequena gorjeta.","Apoiar ❤"],
-    ru:["Поддержать","Помогло? Поддержите бесплатный инструмент небольшими чаевыми.","Поддержать ❤"],
-    tr:["Destekle","İşinize yaradı mı? Ücretsiz aracı küçük bir bahşişle destekleyin.","Destekle ❤"],
-    zh:["支持","对您有帮助吗？小额打赏支持这个免费工具。","支持 ❤"]
+    en:["Support","Did it help you? Support the free tool with a small tip.","Support"],
+    cs:["Podpořit","Pomohlo vám to? Podpořte nástroj zdarma malým příspěvkem.","Podpořit"],
+    de:["Unterstützen","Hat es dir geholfen? Unterstütze das kostenlose Tool mit einem kleinen Trinkgeld.","Unterstützen"],
+    es:["Apoyar","¿Te ha servido? Apoya la herramienta gratuita con una pequeña propina.","Apoyar"],
+    fr:["Soutenir","Cela vous a aidé ? Soutenez l’outil gratuit avec un petit pourboire.","Soutenir"],
+    hi:["समर्थन करें","क्या इससे मदद मिली? छोटी टिप देकर इस मुफ्त टूल का समर्थन करें।","समर्थन करें"],
+    it:["Sostieni","Ti è stato utile? Sostieni lo strumento gratuito con una piccola mancia.","Sostieni"],
+    ja:["応援する","お役に立ちましたか？少額のチップで無料ツールを応援してください。","応援する"],
+    ko:["후원하기","도움이 되셨나요? 작은 팁으로 무료 도구를 후원해 주세요.","후원하기"],
+    pl:["Wesprzyj","Pomogło? Wesprzyj darmowe narzędzie małym napiwkiem.","Wesprzyj"],
+    "pt-br":["Apoiar","Ajudou você? Apoie a ferramenta gratuita com uma pequena gorjeta.","Apoiar"],
+    ru:["Поддержать","Помогло? Поддержите бесплатный инструмент небольшими чаевыми.","Поддержать"],
+    tr:["Destekle","İşinize yaradı mı? Ücretsiz aracı küçük bir bahşişle destekleyin.","Destekle"],
+    zh:["支持","对您有帮助吗？小额打赏支持这个免费工具。","支持"]
   };
   var K=["title","text","lnNote","solNote","copy","copied","open","support","toastText","toastBtn"];
   function lang(){
@@ -3486,14 +3487,14 @@ body[data-theme="light"] .editor-preview-top > .panel:first-child .material-prev
     var sup=document.createElement("a");
     sup.className="btn btn-secondary donate-dl-support"+(bmp.classList.contains("mobile-download-btn")?" mobile-download-btn":"");
     sup.href="#donate";
-    sup.innerHTML='<span aria-hidden="true">❤</span><span data-donate="support">Support</span>';
+    sup.innerHTML='<svg class="donate-heart" viewBox="0 0 24 24" width="15" height="15" aria-hidden="true" fill="currentColor"><path d="M12 21s-7.5-4.6-10-9.3C.3 8.4 2.2 4.5 6 4.5c2.3 0 3.7 1.3 4.5 2.6.3.5 1 .5 1.3 0 .8-1.3 2.2-2.6 4.5-2.6 3.8 0 5.7 3.9 4 7.2C19.5 16.4 12 21 12 21z"/></svg><span data-donate="support">Support</span>';
     row.appendChild(sup);
   });
 
   /* Toast after a file download (once per browser session) */
   var toast=document.createElement("div");
   toast.className="donate-toast";toast.setAttribute("role","status");
-  toast.innerHTML='<span data-donate="toastText"></span><a class="donate-btn" href="#donate" data-donate="toastBtn"></a><button type="button" class="donate-toast-close" aria-label="Close">×</button>';
+  toast.innerHTML='<span data-donate="toastText"></span><a class="donate-btn" href="#donate"><span data-donate="toastBtn"></span><svg class="donate-heart" viewBox="0 0 24 24" width="15" height="15" aria-hidden="true" fill="currentColor"><path d="M12 21s-7.5-4.6-10-9.3C.3 8.4 2.2 4.5 6 4.5c2.3 0 3.7 1.3 4.5 2.6.3.5 1 .5 1.3 0 .8-1.3 2.2-2.6 4.5-2.6 3.8 0 5.7 3.9 4 7.2C19.5 16.4 12 21 12 21z"/></svg></a><button type="button" class="donate-toast-close" aria-label="Close">×</button>';
   document.body.appendChild(toast);
   function hideToast(){toast.classList.remove("show");}
   toast.querySelector(".donate-toast-close").addEventListener("click",hideToast);
