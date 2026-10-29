@@ -3391,7 +3391,7 @@ body[data-theme="light"] .editor-preview-top > .panel:first-child .material-prev
 @media (hover:hover) and (pointer:fine){#donate a.donate-btn.ghost{display:none}}
 .donate-box.in-column{max-width:none;margin:0;width:100%;box-sizing:border-box}
 .donate-dl-row{display:flex;gap:8px;width:100%;box-sizing:border-box}
-.donate-dl-row>*{flex:1 1 0;min-width:0;width:auto!important;max-width:none!important;margin:0!important}
+.donate-dl-row>*{box-shadow:none!important;flex:1 1 0;min-width:0;width:auto!important;max-width:none!important;margin:0!important}
 .donate-dl-row.is-mobile{max-width:320px;margin-left:auto;margin-right:auto}
 @media (max-width:640px){.donate-dl-row.is-mobile{max-width:none}}
 .donate-dl-support{display:inline-flex;align-items:center;justify-content:center;gap:6px;text-decoration:none}
@@ -3546,6 +3546,18 @@ body[data-theme="light"] .tools-option:hover,body[data-theme="light"] .tools-opt
   #toolsSwitcher{position:relative!important;z-index:3100!important}
   #toolsMenu.lang-menu{width:240px!important;max-width:calc(100vw - 32px)!important;z-index:3200!important}
 }
+.hdr-short{display:none}
+@media (max-width:760px){
+  header.app-header .ml-auto{flex-wrap:nowrap!important;gap:6px!important;max-width:100%}
+  header.app-header .ml-auto>*{flex:0 0 auto}
+  header.app-header .ml-auto .lang-current,header.app-header .ml-auto .theme-toggle-btn,header.app-header .ml-auto .guide-btn{padding:6px 8px!important;font-size:.76rem!important;min-height:34px}
+  #toolsSwitcher .lang-current{gap:6px}
+  .hdr-long{display:none!important}
+  .hdr-short{display:inline}
+  #themeToggleLabel{position:absolute!important;width:1px!important;height:1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important}
+  .theme-toggle-btn .hdr-theme-icon{display:inline-block;font-size:1rem;line-height:1}
+}
+.hdr-theme-icon{display:none}
 </style>
 <script>
 (function(){
@@ -3582,6 +3594,26 @@ body[data-theme="light"] .tools-option:hover,body[data-theme="light"] .tools-opt
   btn.addEventListener("click",function(e){e.stopPropagation();nav.classList.contains("open")?close():open();});
   document.addEventListener("click",function(e){if(!nav.contains(e.target))close();});
   document.addEventListener("keydown",function(e){if(e.key==="Escape"&&nav.classList.contains("open")){close();btn.focus();}});
+
+  /* Compact header on mobile: short labels + theme icon */
+  var G={en:"Guide",cs:"Návod",de:"Anleitung",es:"Guía",fr:"Guide",hi:"गाइड",it:"Guida",ja:"ガイド",ko:"가이드",pl:"Instrukcja","pt-br":"Guia",ru:"Справка",tr:"Kılavuz",zh:"指南"};
+  var TS={en:"Tools",cs:"Nástroje",de:"Tools",es:"Herramientas",fr:"Outils",hi:"टूल",it:"Strumenti",ja:"ツール",ko:"도구",pl:"Narzędzia","pt-br":"Ferramentas",ru:"Инструменты",tr:"Araçlar",zh:"工具"};
+  function pick(o){var l=(document.documentElement.lang||"en").toLowerCase();return o[l]||o[l.split("-")[0]]||o.en;}
+  var gb=document.querySelector("header.app-header .guide-btn");
+  var gl=gb&&gb.querySelector("[data-i18n]");
+  if(gl){gl.classList.add("hdr-long");var gs=document.createElement("span");gs.className="hdr-short";gb.appendChild(gs);}
+  var tl=nav.querySelector(".tools-label");tl.classList.add("hdr-long");
+  var ts=document.createElement("span");ts.className="hdr-short";tl.parentNode.insertBefore(ts,tl.nextSibling);
+  var tb=document.getElementById("themeToggleBtn");var ti=null;
+  if(tb){ti=document.createElement("span");ti.className="hdr-theme-icon";ti.setAttribute("aria-hidden","true");tb.insertBefore(ti,tb.firstChild);}
+  function shortLabels(){
+    if(gb&&gb.querySelector(".hdr-short"))gb.querySelector(".hdr-short").textContent=pick(G);
+    ts.textContent=pick(TS);
+    if(ti)ti.textContent=document.body.getAttribute("data-theme")==="light"?"☾":"☀";
+  }
+  shortLabels();
+  new MutationObserver(shortLabels).observe(document.documentElement,{attributes:true,attributeFilter:["lang"]});
+  new MutationObserver(shortLabels).observe(document.body,{attributes:true,attributeFilter:["data-theme"]});
   setLabel();
   new MutationObserver(setLabel).observe(document.documentElement,{attributes:true,attributeFilter:["lang"]});
 })();
