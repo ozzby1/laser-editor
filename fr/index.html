@@ -3394,7 +3394,7 @@ body[data-theme="light"] .editor-preview-top > .panel:first-child .material-prev
 .donate-dl-row.is-mobile{max-width:320px;margin-left:auto;margin-right:auto}
 @media (max-width:640px){.donate-dl-row.is-mobile{max-width:none}}
 .donate-dl-support{display:inline-flex;align-items:center;justify-content:center;gap:6px;text-decoration:none}
-.donate-dl-support .donate-heart{color:var(--accent);flex:none}
+.donate-dl-support .donate-heart{flex:none;width:17px;height:auto;display:block}
 .donate-toast .donate-btn{display:inline-flex;align-items:center;gap:6px}
 .donate-toast{position:fixed;left:16px;right:16px;margin:0 auto;width:fit-content;bottom:18px;transform:translateY(140%);opacity:0;transition:transform .35s ease,opacity .35s ease;z-index:9999;display:flex;gap:10px;align-items:center;max-width:calc(100% - 32px);box-sizing:border-box;padding:12px 14px;border-radius:14px;background:var(--panel-strong,rgba(20,23,34,.96));border:1px solid var(--border-strong,rgba(255,255,255,.12));box-shadow:var(--shadow-lg,0 18px 50px rgba(0,0,0,.3));color:var(--text,#e5edf6);font-size:.88rem}
 .donate-toast.show{transform:translateY(0);opacity:1}
@@ -3486,14 +3486,14 @@ body[data-theme="light"] .editor-preview-top > .panel:first-child .material-prev
     var sup=document.createElement("a");
     sup.className="btn btn-secondary donate-dl-support"+(bmp.classList.contains("mobile-download-btn")?" mobile-download-btn":"");
     sup.href="#donate";
-    sup.innerHTML='<svg class="donate-heart" viewBox="0 0 24 24" width="15" height="15" aria-hidden="true" fill="currentColor"><path d="M12 21s-7.5-4.6-10-9.3C.3 8.4 2.2 4.5 6 4.5c2.3 0 3.7 1.3 4.5 2.6.3.5 1 .5 1.3 0 .8-1.3 2.2-2.6 4.5-2.6 3.8 0 5.7 3.9 4 7.2C19.5 16.4 12 21 12 21z"/></svg><span data-donate="support">Support</span>';
+    sup.innerHTML='<img class="donate-heart" src="/heart.png" width="17" height="14" alt="" aria-hidden="true"><span data-donate="support">Support</span>';
     row.appendChild(sup);
   });
 
   /* Toast after a file download (once per browser session) */
   var toast=document.createElement("div");
   toast.className="donate-toast";toast.setAttribute("role","status");
-  toast.innerHTML='<span data-donate="toastText"></span><a class="donate-btn" href="#donate"><span data-donate="toastBtn"></span><svg class="donate-heart" viewBox="0 0 24 24" width="15" height="15" aria-hidden="true" fill="currentColor"><path d="M12 21s-7.5-4.6-10-9.3C.3 8.4 2.2 4.5 6 4.5c2.3 0 3.7 1.3 4.5 2.6.3.5 1 .5 1.3 0 .8-1.3 2.2-2.6 4.5-2.6 3.8 0 5.7 3.9 4 7.2C19.5 16.4 12 21 12 21z"/></svg></a><button type="button" class="donate-toast-close" aria-label="Close">×</button>';
+  toast.innerHTML='<span data-donate="toastText"></span><a class="donate-btn" href="#donate"><span data-donate="toastBtn"></span></a><button type="button" class="donate-toast-close" aria-label="Close">×</button>';
   document.body.appendChild(toast);
   function hideToast(){toast.classList.remove("show");}
   toast.querySelector(".donate-toast-close").addEventListener("click",hideToast);
