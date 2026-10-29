@@ -3371,6 +3371,167 @@ body[data-theme="light"] .editor-preview-top > .panel:first-child .material-prev
 </div>
 </div>
 </div>
+<!-- DONATE (crypto) START -->
+<style>
+.donate-box{margin:28px auto 8px;max-width:900px;padding:20px;border-radius:var(--radius-xl,20px);background:var(--panel,rgba(17,19,28,.82));border:1px solid var(--border,rgba(255,255,255,.07))}
+.donate-title{margin:0 0 6px;font-size:1.08rem;font-weight:800;color:var(--accent)}
+.donate-text{margin:0 0 16px;color:var(--muted,#94a3b8);font-size:.92rem;line-height:1.6}
+.donate-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
+.donate-item{display:flex;gap:14px;align-items:center;padding:14px;border-radius:var(--radius-lg,16px);border:1px solid var(--border,rgba(255,255,255,.07));background:rgba(127,127,127,.04)}
+.donate-qr{width:132px;height:132px;flex:none;border-radius:10px;background:#fff;padding:12px;box-sizing:border-box;display:none}
+@media (hover:hover) and (pointer:fine){.donate-qr{display:block}}
+.donate-info{min-width:0;flex:1}
+.donate-name{font-weight:700;color:var(--heading,#f8fafc);font-size:.95rem}
+.donate-note{font-size:.76rem;color:var(--soft,#64748b);margin-top:2px}
+.donate-addr{display:block;margin:8px 0;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.78rem;color:var(--text,#e5edf6);word-break:break-all}
+.donate-actions{display:flex;gap:8px;flex-wrap:wrap}
+.donate-btn{cursor:pointer;border:0;border-radius:10px;padding:7px 12px;font-size:.8rem;font-weight:700;color:#fff;background:linear-gradient(135deg,var(--accent) 0%,var(--accent2) 100%);text-decoration:none;display:inline-block}
+.donate-btn.ghost{background:transparent;color:var(--accent);border:1px solid var(--accent)}
+@media (hover:hover) and (pointer:fine){#donate a.donate-btn.ghost{display:none}}
+.donate-box.in-column{max-width:none;margin:0;width:100%;box-sizing:border-box}
+.donate-dl-row{display:flex;gap:8px;width:100%;box-sizing:border-box}
+.donate-dl-row>*{flex:1 1 0;min-width:0;width:auto!important;max-width:none!important;margin:0!important}
+.donate-dl-row.is-mobile{max-width:320px;margin-left:auto;margin-right:auto}
+@media (max-width:640px){.donate-dl-row.is-mobile{max-width:none}}
+.donate-dl-support{display:inline-flex;align-items:center;justify-content:center;gap:6px;text-decoration:none}
+.donate-dl-support .donate-heart{color:var(--accent);flex:none}
+.donate-toast .donate-btn{display:inline-flex;align-items:center;gap:6px}
+.donate-toast{position:fixed;left:16px;right:16px;margin:0 auto;width:fit-content;bottom:18px;transform:translateY(140%);opacity:0;transition:transform .35s ease,opacity .35s ease;z-index:9999;display:flex;gap:10px;align-items:center;max-width:calc(100% - 32px);box-sizing:border-box;padding:12px 14px;border-radius:14px;background:var(--panel-strong,rgba(20,23,34,.96));border:1px solid var(--border-strong,rgba(255,255,255,.12));box-shadow:var(--shadow-lg,0 18px 50px rgba(0,0,0,.3));color:var(--text,#e5edf6);font-size:.88rem}
+.donate-toast.show{transform:translateY(0);opacity:1}
+.donate-toast .donate-btn{white-space:nowrap}
+.donate-toast-close{cursor:pointer;background:none;border:0;color:var(--muted,#94a3b8);font-size:1.2rem;line-height:1;padding:0 2px}
+</style>
+<section class="donate-box" id="donate" aria-labelledby="donateTitle">
+  <h2 class="donate-title" id="donateTitle" data-donate="title">Support PhotoEngraving.online</h2>
+  <p class="donate-text" data-donate="text">The tool is free. If it helped you, you can send a small tip in crypto. Thank you!</p>
+  <div class="donate-grid">
+    <div class="donate-item">
+      <img class="donate-qr" src="/donate-lightning.png" alt="QR Lightning" width="132" height="132" loading="lazy" onerror="this.remove()">
+      <div class="donate-info">
+        <div class="donate-name">⚡ Bitcoin Lightning</div>
+        <div class="donate-note" data-donate="lnNote">Almost no fees, ideal for small tips</div>
+        <code class="donate-addr">richbuddy544@walletofsatoshi.com</code>
+        <div class="donate-actions">
+          <button type="button" class="donate-btn" data-copy="richbuddy544@walletofsatoshi.com" data-donate="copy">Copy</button>
+          <a class="donate-btn ghost" href="lightning:richbuddy544@walletofsatoshi.com" data-donate="open">Open wallet</a>
+        </div>
+      </div>
+    </div>
+    <div class="donate-item">
+      <img class="donate-qr" src="/donate-solana.png" alt="QR Solana" width="132" height="132" loading="lazy" onerror="this.remove()">
+      <div class="donate-info">
+        <div class="donate-name">◎ Solana (SOL, USDC, USDT)</div>
+        <div class="donate-note" data-donate="solNote">Solana network only</div>
+        <code class="donate-addr">DeReRSRXbUHxnp7qQ2iAVmrYEwxAG4JuwWkkX62eoyHG</code>
+        <div class="donate-actions">
+          <button type="button" class="donate-btn" data-copy="DeReRSRXbUHxnp7qQ2iAVmrYEwxAG4JuwWkkX62eoyHG" data-donate="copy">Copy</button>
+          <a class="donate-btn ghost" href="solana:DeReRSRXbUHxnp7qQ2iAVmrYEwxAG4JuwWkkX62eoyHG" data-donate="open">Open wallet</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<script>
+(function(){
+  var T={
+    en:["Support PhotoEngraving.online","The tool is free. If it helped you, you can send a small tip in crypto. Thank you!","Almost no fees, ideal for small tips","Solana network only","Copy","Copied","Open wallet"],
+    cs:["Podpořte PhotoEngraving.online","Nástroj je zdarma. Pokud vám pomohl, můžete poslat malý příspěvek v kryptoměnách. Děkujeme!","Téměř bez poplatků, ideální na drobné příspěvky","Pouze síť Solana","Kopírovat","Zkopírováno","Otevřít peněženku"],
+    de:["PhotoEngraving.online unterstützen","Das Tool ist kostenlos. Wenn es dir geholfen hat, kannst du ein kleines Trinkgeld in Krypto senden. Danke!","Fast keine Gebühren, ideal für kleine Beträge","Nur Solana-Netzwerk","Kopieren","Kopiert","Wallet öffnen"],
+    es:["Apoya PhotoEngraving.online","La herramienta es gratuita. Si te ha ayudado, puedes enviar una pequeña propina en cripto. ¡Gracias!","Casi sin comisiones, ideal para propinas pequeñas","Solo red Solana","Copiar","Copiado","Abrir billetera"],
+    fr:["Soutenir PhotoEngraving.online","L’outil est gratuit. S’il vous a aidé, vous pouvez envoyer un petit pourboire en crypto. Merci !","Presque sans frais, idéal pour les petits dons","Réseau Solana uniquement","Copier","Copié","Ouvrir le portefeuille"],
+    hi:["PhotoEngraving.online का समर्थन करें","यह टूल मुफ्त है। अगर इससे आपकी मदद हुई, तो आप क्रिप्टो में छोटी टिप भेज सकते हैं। धन्यवाद!","लगभग कोई शुल्क नहीं, छोटी टिप के लिए आदर्श","केवल Solana नेटवर्क","कॉपी करें","कॉपी हो गया","वॉलेट खोलें"],
+    it:["Sostieni PhotoEngraving.online","Lo strumento è gratuito. Se ti è stato utile, puoi inviare una piccola mancia in cripto. Grazie!","Quasi senza commissioni, ideale per piccole mance","Solo rete Solana","Copia","Copiato","Apri wallet"],
+    ja:["PhotoEngraving.online を応援する","このツールは無料です。役に立ったら、暗号資産で少額のチップを送れます。ありがとうございます！","手数料はほぼゼロ、少額のチップに最適","Solana ネットワークのみ","コピー","コピーしました","ウォレットを開く"],
+    ko:["PhotoEngraving.online 후원하기","이 도구는 무료입니다. 도움이 되셨다면 암호화폐로 작은 팁을 보내주세요. 감사합니다!","수수료가 거의 없어 소액 팁에 적합","Solana 네트워크 전용","복사","복사됨","지갑 열기"],
+    pl:["Wesprzyj PhotoEngraving.online","Narzędzie jest darmowe. Jeśli Ci pomogło, możesz wysłać mały napiwek w kryptowalutach. Dziękujemy!","Prawie bez opłat, idealne na drobne napiwki","Tylko sieć Solana","Kopiuj","Skopiowano","Otwórz portfel"],
+    "pt-br":["Apoie o PhotoEngraving.online","A ferramenta é gratuita. Se ela te ajudou, você pode enviar uma pequena gorjeta em cripto. Obrigado!","Quase sem taxas, ideal para gorjetas pequenas","Somente rede Solana","Copiar","Copiado","Abrir carteira"],
+    ru:["Поддержать PhotoEngraving.online","Инструмент бесплатный. Если он вам помог, вы можете отправить небольшие чаевые в криптовалюте. Спасибо!","Почти без комиссий, идеально для небольших сумм","Только сеть Solana","Копировать","Скопировано","Открыть кошелёк"],
+    tr:["PhotoEngraving.online’ı destekleyin","Bu araç ücretsizdir. İşinize yaradıysa kripto ile küçük bir bahşiş gönderebilirsiniz. Teşekkürler!","Neredeyse ücretsiz, küçük bahşişler için ideal","Yalnızca Solana ağı","Kopyala","Kopyalandı","Cüzdanı aç"],
+    zh:["支持 PhotoEngraving.online","本工具免费使用。如果对您有帮助，欢迎用加密货币打赏。谢谢！","几乎零手续费，适合小额打赏","仅限 Solana 网络","复制","已复制","打开钱包"]
+  };
+  var T2={
+    en:["Support","Did it help you? Support the free tool with a small tip.","Support"],
+    cs:["Podpořit","Pomohlo vám to? Podpořte nástroj zdarma malým příspěvkem.","Podpořit"],
+    de:["Unterstützen","Hat es dir geholfen? Unterstütze das kostenlose Tool mit einem kleinen Trinkgeld.","Unterstützen"],
+    es:["Apoyar","¿Te ha servido? Apoya la herramienta gratuita con una pequeña propina.","Apoyar"],
+    fr:["Soutenir","Cela vous a aidé ? Soutenez l’outil gratuit avec un petit pourboire.","Soutenir"],
+    hi:["समर्थन करें","क्या इससे मदद मिली? छोटी टिप देकर इस मुफ्त टूल का समर्थन करें।","समर्थन करें"],
+    it:["Sostieni","Ti è stato utile? Sostieni lo strumento gratuito con una piccola mancia.","Sostieni"],
+    ja:["応援する","お役に立ちましたか？少額のチップで無料ツールを応援してください。","応援する"],
+    ko:["후원하기","도움이 되셨나요? 작은 팁으로 무료 도구를 후원해 주세요.","후원하기"],
+    pl:["Wesprzyj","Pomogło? Wesprzyj darmowe narzędzie małym napiwkiem.","Wesprzyj"],
+    "pt-br":["Apoiar","Ajudou você? Apoie a ferramenta gratuita com uma pequena gorjeta.","Apoiar"],
+    ru:["Поддержать","Помогло? Поддержите бесплатный инструмент небольшими чаевыми.","Поддержать"],
+    tr:["Destekle","İşinize yaradı mı? Ücretsiz aracı küçük bir bahşişle destekleyin.","Destekle"],
+    zh:["支持","对您有帮助吗？小额打赏支持这个免费工具。","支持"]
+  };
+  var K=["title","text","lnNote","solNote","copy","copied","open","support","toastText","toastBtn"];
+  function lang(){
+    var l=(document.documentElement.lang||"en").toLowerCase();
+    return T[l]?l:(T[l.split("-")[0]]?l.split("-")[0]:"en");
+  }
+  function strings(){var l=lang();return T[l].concat(T2[l]);}
+
+  /* Place the box in the left column under the FAQ, so it lines up with the page layout */
+  var box=document.getElementById("donate"),col=document.querySelector(".editor-left-extra");
+  if(box&&col){col.appendChild(box);box.classList.add("in-column");}
+
+  /* Support button next to every "Download BMP" button (BMP gets half width) */
+  document.querySelectorAll('[id^="downloadBmpBtn"]').forEach(function(bmp){
+    if(bmp.parentNode.classList.contains("donate-dl-row"))return;
+    var row=document.createElement("div");
+    row.className="donate-dl-row"+(bmp.classList.contains("mobile-download-btn")?" is-mobile":"");
+    if(bmp.classList.contains("mt-2"))row.style.marginTop="0.5rem";
+    bmp.parentNode.insertBefore(row,bmp);row.appendChild(bmp);
+    var sup=document.createElement("a");
+    sup.className="btn btn-secondary donate-dl-support"+(bmp.classList.contains("mobile-download-btn")?" mobile-download-btn":"");
+    sup.href="#donate";
+    sup.innerHTML='<svg class="donate-heart" viewBox="0 0 24 24" width="15" height="15" aria-hidden="true" fill="currentColor"><path d="M12 21s-7.5-4.6-10-9.3C.3 8.4 2.2 4.5 6 4.5c2.3 0 3.7 1.3 4.5 2.6.3.5 1 .5 1.3 0 .8-1.3 2.2-2.6 4.5-2.6 3.8 0 5.7 3.9 4 7.2C19.5 16.4 12 21 12 21z"/></svg><span data-donate="support">Support</span>';
+    row.appendChild(sup);
+  });
+
+  /* Toast after a file download (once per browser session) */
+  var toast=document.createElement("div");
+  toast.className="donate-toast";toast.setAttribute("role","status");
+  toast.innerHTML='<span data-donate="toastText"></span><a class="donate-btn" href="#donate"><span data-donate="toastBtn"></span><svg class="donate-heart" viewBox="0 0 24 24" width="15" height="15" aria-hidden="true" fill="currentColor"><path d="M12 21s-7.5-4.6-10-9.3C.3 8.4 2.2 4.5 6 4.5c2.3 0 3.7 1.3 4.5 2.6.3.5 1 .5 1.3 0 .8-1.3 2.2-2.6 4.5-2.6 3.8 0 5.7 3.9 4 7.2C19.5 16.4 12 21 12 21z"/></svg></a><button type="button" class="donate-toast-close" aria-label="Close">×</button>';
+  document.body.appendChild(toast);
+  function hideToast(){toast.classList.remove("show");}
+  toast.querySelector(".donate-toast-close").addEventListener("click",hideToast);
+  toast.querySelector("a").addEventListener("click",hideToast);
+  var shown=false;
+  try{shown=sessionStorage.getItem("donateToastShown")==="1";}catch(e){}
+  document.addEventListener("click",function(e){
+    var a=e.target&&e.target.closest&&e.target.closest("a[download]");
+    if(!a||shown)return;
+    shown=true;try{sessionStorage.setItem("donateToastShown","1");}catch(e){}
+    setTimeout(function(){toast.classList.add("show");setTimeout(hideToast,15000);},1200);
+  },true);
+  function apply(){
+    var s=strings();
+    document.querySelectorAll("[data-donate]").forEach(function(el){
+      var i=K.indexOf(el.getAttribute("data-donate"));
+      if(i>-1&&!el.classList.contains("is-copied"))el.textContent=s[i];
+    });
+  }
+  function copy(text){
+    if(navigator.clipboard&&window.isSecureContext)return navigator.clipboard.writeText(text);
+    var t=document.createElement("textarea");t.value=text;t.style.position="fixed";t.style.opacity="0";
+    document.body.appendChild(t);t.select();try{document.execCommand("copy");}finally{t.remove();}
+    return Promise.resolve();
+  }
+  document.querySelectorAll("#donate [data-copy]").forEach(function(btn){
+    btn.addEventListener("click",function(){
+      copy(btn.getAttribute("data-copy")).then(function(){
+        btn.textContent=strings()[5];btn.classList.add("is-copied");
+        setTimeout(function(){btn.classList.remove("is-copied");apply();},1800);
+      });
+    });
+  });
+  apply();
+  new MutationObserver(apply).observe(document.documentElement,{attributes:true,attributeFilter:["lang"]});
+})();
+</script>
+<!-- DONATE (crypto) END -->
 <div class="processed-total-wrap">
 <div class="processed-total-badge">
 <span data-i18n="counterLabel">Zpracováno:</span>
