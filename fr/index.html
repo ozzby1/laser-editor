@@ -3532,6 +3532,60 @@ body[data-theme="light"] .editor-preview-top > .panel:first-child .material-prev
 })();
 </script>
 <!-- DONATE (crypto) END -->
+<!-- TOOLS MENU START -->
+<style>
+#toolsSwitcher .lang-current{font-size:.82rem;font-weight:800;gap:8px;padding:6px 11px;white-space:nowrap}
+#toolsMenu{min-width:220px}
+.tools-option{display:flex;flex-direction:column;gap:2px;width:100%;box-sizing:border-box;text-decoration:none;color:#dbe7f3;border:1px solid transparent;border-radius:12px;padding:10px 11px;font-size:.84rem;font-weight:700;line-height:1.25;transition:background .16s ease,border-color .16s ease,color .16s ease}
+.tools-option small{font-size:.74rem;font-weight:500;color:var(--muted,#94a3b8)}
+.tools-option:hover,.tools-option:focus{background:rgba(255,255,255,.07);border-color:rgba(249,115,22,.24);color:#fff;outline:none}
+body[data-theme="light"] .tools-option{color:#243041}
+body[data-theme="light"] .tools-option:hover,body[data-theme="light"] .tools-option:focus{background:rgba(15,118,110,.08);border-color:rgba(15,118,110,.30);color:#0f172a}
+@media (max-width:760px){
+  #toolsSwitcher{position:relative!important;z-index:3100!important}
+  #toolsMenu.lang-menu{width:240px!important;max-width:calc(100vw - 32px)!important;z-index:3200!important}
+}
+</style>
+<script>
+(function(){
+  var L={en:"More tools",cs:"Další nástroje",de:"Weitere Tools",es:"Más herramientas",fr:"Plus d’outils",hi:"अन्य टूल",it:"Altri strumenti",ja:"その他のツール",ko:"다른 도구",pl:"Więcej narzędzi","pt-br":"Mais ferramentas",ru:"Другие инструменты",tr:"Diğer araçlar",zh:"更多工具"};
+  var TOOLS=[
+    {name:"QR Generator",url:"https://qr-generator.tech/",host:"qr-generator.tech"},
+    {name:"Photo Upscale",url:"https://photoupscale.online/",host:"photoupscale.online"}
+  ];
+  function label(){
+    var l=(document.documentElement.lang||"en").toLowerCase();
+    return L[l]||L[l.split("-")[0]]||L.en;
+  }
+  var holder=document.querySelector("header.app-header .ml-auto");
+  if(!holder||document.getElementById("toolsSwitcher"))return;
+  var nav=document.createElement("nav");
+  nav.className="lang-switcher lang-dropdown";nav.id="toolsSwitcher";nav.setAttribute("aria-label","More tools");
+  var items=TOOLS.map(function(t){
+    return '<a class="tools-option" role="menuitem" href="'+t.url+'" target="_blank" rel="noopener">'+t.name+'<small>'+t.host+'</small></a>';
+  }).join("");
+  nav.innerHTML='<button type="button" class="lang-current" id="toolsButton" aria-haspopup="true" aria-expanded="false" aria-controls="toolsMenu"><span class="tools-label"></span><span aria-hidden="true" class="lang-chevron"></span></button><div class="lang-menu" id="toolsMenu" role="menu">'+items+'</div>';
+  holder.appendChild(nav);
+  var btn=nav.querySelector("#toolsButton");
+  function setLabel(){nav.querySelector(".tools-label").textContent=label();nav.setAttribute("aria-label",label());}
+  function close(){nav.classList.remove("open");btn.setAttribute("aria-expanded","false");}
+  function open(){
+    var ls=document.getElementById("langSwitcher");
+    if(ls&&ls.classList.contains("open")){var lb=document.getElementById("langCurrentButton");if(lb)lb.click();}
+    nav.classList.add("open");btn.setAttribute("aria-expanded","true");
+    var m=nav.querySelector("#toolsMenu");m.style.left="";m.style.right="";
+    var r=m.getBoundingClientRect();
+    if(r.left<8){m.style.left="0";m.style.right="auto";}
+    else if(r.right>window.innerWidth-8){m.style.right="0";m.style.left="auto";}
+  }
+  btn.addEventListener("click",function(e){e.stopPropagation();nav.classList.contains("open")?close():open();});
+  document.addEventListener("click",function(e){if(!nav.contains(e.target))close();});
+  document.addEventListener("keydown",function(e){if(e.key==="Escape"&&nav.classList.contains("open")){close();btn.focus();}});
+  setLabel();
+  new MutationObserver(setLabel).observe(document.documentElement,{attributes:true,attributeFilter:["lang"]});
+})();
+</script>
+<!-- TOOLS MENU END -->
 <div class="processed-total-wrap">
 <div class="processed-total-badge">
 <span data-i18n="counterLabel">Traité :</span>
