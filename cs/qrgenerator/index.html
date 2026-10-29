@@ -998,8 +998,10 @@ input[type="range"] {
 
 </style>
 
-<!-- 100% privacy-first analytics, same as the main PhotoEngraving.online page. It does not receive the QR form content. -->
-<script async src="https://scripts.simpleanalyticscdn.com/latest.js"></script>
+<!-- Vlastni analytika -->
+<script async fetchpriority="low" src="https://vlastni-analytika-collector.jan-osoba.workers.dev/tracker.js"
+  data-site="80a58ad20557403c9a5f835f16ee131e"
+  referrerpolicy="no-referrer"></script>
 <!-- Client-side QR matrix generator. No database, server-side QR storage or external QR API is used. -->
 <script>
 /*!
