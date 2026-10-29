@@ -634,16 +634,15 @@ input[type=number]:focus {
   gap: 7px;
   min-width: 46px;
   min-height: 34px;
-  background: rgba(249,115,22,0.12);
+  background: rgba(255,255,255,0.045);
   color: #e2e8f0;
-  border: 1px solid rgba(249,115,22,0.55);
+  border: 1px solid rgba(255,255,255,0.10);
   border-radius: 10px;
   padding: 6px 9px;
   font-size: 1rem;
   line-height: 1;
   cursor: pointer;
   transition: all 0.18s ease;
-  box-shadow: 0 0 0 1px rgba(249,115,22,0.14);
 }
 
 .lang-current:hover,
@@ -762,10 +761,9 @@ input[type=number]:focus {
 }
 
 .guide-btn {
-  background: rgba(249,115,22,0.12);
-  border-color: rgba(249,115,22,0.42);
+  background: rgba(255,255,255,0.045);
+  border-color: rgba(255,255,255,0.10);
   color: #e2e8f0;
-  box-shadow: 0 0 0 1px rgba(249,115,22,0.10);
 }
 
 .guide-btn:hover,
@@ -2359,10 +2357,10 @@ body[data-theme="light"] .custom-select-option.selected {
 }
 
 body[data-theme="light"] .lang-current {
-  background: rgba(15,118,110,0.08);
+  background: rgba(255,255,255,0.80);
   color: #243041;
-  border-color: rgba(15,118,110,0.36);
-  box-shadow: 0 0 0 1px rgba(15,118,110,0.10);
+  border-color: rgba(15,23,42,0.12);
+  box-shadow: none;
 }
 
 body[data-theme="light"] .lang-current:hover,

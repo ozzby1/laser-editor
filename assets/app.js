@@ -111,7 +111,6 @@
 (function(){
   var L={en:"More tools",cs:"Další nástroje",de:"Weitere Tools",es:"Más herramientas",fr:"Plus d’outils",hi:"अन्य टूल",it:"Altri strumenti",ja:"その他のツール",ko:"다른 도구",pl:"Więcej narzędzi","pt-br":"Mais ferramentas",ru:"Другие инструменты",tr:"Diğer araçlar",zh:"更多工具"};
   var TOOLS=[
-    {name:"Image to SVG",url:"https://photoengraving.online/image-to-svg/",host:"photoengraving.online"},
     {name:"QR Generator",url:"https://qr-generator.tech/",host:"qr-generator.tech"},
     {name:"Photo Upscale",url:"https://photoupscale.online/",host:"photoupscale.online"}
   ];
