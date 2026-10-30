@@ -113,12 +113,9 @@
   var TOOLS=[
     {name:"QR Generator",url:"https://qr-generator.tech/",host:"qr-generator.tech"},
     {name:"Photo Upscale",url:"https://photoupscale.online/",host:"photoupscale.online"},
-    {name:"Crypto Pairs",url:"https://cryptopairs.online/",host:"cryptopairs.online",main:true},
-    {name:"MusicFeed",url:"https://musicfeed.online/",host:"musicfeed.online",main:true}
+    {name:"Crypto Pairs",url:"https://cryptopairs.online/",host:"cryptopairs.online"},
+    {name:"MusicFeed",url:"https://musicfeed.online/",host:"musicfeed.online"}
   ];
-  /* main:true = zatim jen na hlavnim (anglickem) indexu */
-  var IS_MAIN=/^\/(index\.html)?$/.test(location.pathname);
-  TOOLS=TOOLS.filter(function(t){return !t.main||IS_MAIN;});
   function label(){
     var l=(document.documentElement.lang||"en").toLowerCase();
     return L[l]||L[l.split("-")[0]]||L.en;
