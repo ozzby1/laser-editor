@@ -2550,3 +2550,10 @@ body[data-theme="light"] .tools-option:hover,body[data-theme="light"] .tools-opt
 }
 .site-footer a { color: var(--accent); text-decoration: none; font-weight: 600; }
 .site-footer a:hover, .site-footer a:focus { text-decoration: underline; }
+
+
+/* Copy buttons in donate box: grey like Guide button */
+#donate button.donate-btn[data-copy]{background:rgba(255,255,255,0.045);color:#e2e8f0;border:1px solid rgba(255,255,255,0.10);transition:all .18s ease}
+#donate button.donate-btn[data-copy]:hover,#donate button.donate-btn[data-copy]:focus-visible{background:rgba(249,115,22,0.14);border-color:rgba(249,115,22,0.55);color:#fff;box-shadow:0 10px 24px rgba(249,115,22,0.12),0 0 0 1px rgba(249,115,22,0.14)}
+body[data-theme="light"] #donate button.donate-btn[data-copy]{background:rgba(255,255,255,0.80);color:#243041;border-color:rgba(15,23,42,0.12)}
+body[data-theme="light"] #donate button.donate-btn[data-copy]:hover,body[data-theme="light"] #donate button.donate-btn[data-copy]:focus-visible{background:rgba(15,118,110,0.08);border-color:rgba(15,118,110,0.35);color:#0f172a;box-shadow:0 10px 24px rgba(15,118,110,0.10),0 0 0 1px rgba(15,118,110,0.12)}
