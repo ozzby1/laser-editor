@@ -112,8 +112,13 @@
   var L={en:"More tools",cs:"Další nástroje",de:"Weitere Tools",es:"Más herramientas",fr:"Plus d’outils",hi:"अन्य टूल",it:"Altri strumenti",ja:"その他のツール",ko:"다른 도구",pl:"Więcej narzędzi","pt-br":"Mais ferramentas",ru:"Другие инструменты",tr:"Diğer araçlar",zh:"更多工具"};
   var TOOLS=[
     {name:"QR Generator",url:"https://qr-generator.tech/",host:"qr-generator.tech"},
-    {name:"Photo Upscale",url:"https://photoupscale.online/",host:"photoupscale.online"}
+    {name:"Photo Upscale",url:"https://photoupscale.online/",host:"photoupscale.online"},
+    {name:"Crypto Pairs",url:"https://cryptopairs.online/",host:"cryptopairs.online",main:true},
+    {name:"MusicFeed",url:"https://musicfeed.online/",host:"musicfeed.online",main:true}
   ];
+  /* main:true = zatim jen na hlavnim (anglickem) indexu */
+  var IS_MAIN=/^\/(index\.html)?$/.test(location.pathname);
+  TOOLS=TOOLS.filter(function(t){return !t.main||IS_MAIN;});
   function label(){
     var l=(document.documentElement.lang||"en").toLowerCase();
     return L[l]||L[l.split("-")[0]]||L.en;
