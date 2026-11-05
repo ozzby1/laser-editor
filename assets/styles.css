@@ -2204,6 +2204,7 @@ body[data-theme="light"] .panel:hover {
 
 body[data-theme="light"] h1[data-i18n="heroTitle"],
 body[data-theme="light"] .crop-modal-title,
+body[data-theme="light"] .donate-title,
 body[data-theme="light"] .help-section-title,
 body[data-theme="light"] .help-card-title,
 body[data-theme="light"] .dither-comparison-card-title,
@@ -2476,14 +2477,14 @@ body[data-theme="light"] .editor-preview-top > .panel:first-child .material-prev
 
 /* ---- Donate box ---- */
 .donate-box{margin:28px auto 8px;max-width:900px;padding:20px;border-radius:var(--radius-xl,20px);background:var(--panel,rgba(17,19,28,.82));border:1px solid var(--border,rgba(255,255,255,.07))}
-.donate-title{margin:0 0 6px;font-size:1.08rem;font-weight:800;color:var(--accent)}
+.donate-title{margin:0 0 6px;font-size:1.08rem;font-weight:800;color:#ff9a57}
 .donate-text{margin:0 0 16px;color:var(--muted,#94a3b8);font-size:.92rem;line-height:1.6}
 .donate-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
 .donate-item{display:flex;gap:14px;align-items:center;padding:14px;border-radius:var(--radius-lg,16px);border:1px solid var(--border,rgba(255,255,255,.07));background:rgba(127,127,127,.04)}
 .donate-qr{width:132px;height:132px;flex:none;border-radius:10px;background:#fff;padding:12px;box-sizing:border-box;display:none}
 @media (hover:hover) and (pointer:fine){.donate-qr{display:block}}
 .donate-info{min-width:0;flex:1}
-.donate-name{font-weight:700;color:var(--muted,#94a3b8);font-size:.95rem}
+.donate-name{font-weight:600;color:var(--muted,#94a3b8);font-size:.95rem}
 .donate-note{font-size:.76rem;color:var(--soft,#64748b);margin-top:2px}
 .donate-addr{display:block;margin:8px 0;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.78rem;color:var(--muted,#94a3b8);word-break:break-all}
 .donate-actions{display:flex;gap:8px;flex-wrap:wrap}
